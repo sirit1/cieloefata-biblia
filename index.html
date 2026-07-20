@@ -13,12 +13,12 @@
                 extend: {
                     colors: {
                         cielo: {
-                            950: '#04060b',
-                            900: '#090d16',
-                            800: '#111827',
-                            700: '#1f2937',
-                            gold: '#d4af37',
-                            'gold-light': '#f3e5ab',
+                            950: '#020408',
+                            900: '#070b14',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                            gold: '#dfb740',
+                            'gold-light': '#fdf0cd',
                             pergamino: '#f4ebd0'
                         }
                     },
@@ -46,7 +46,7 @@
             <div class="space-y-2">
                 <span class="px-4 py-1.5 rounded-full bg-cielo-gold/10 text-cielo-gold border border-cielo-gold/30 text-xs font-black tracking-widest uppercase">Ministerio Cielo Efata</span>
                 <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Acceso a la Biblia de Estudio</h2>
-                <p class="text-gray-300 text-sm">Introduce tus datos para desbloquear el motor de estudio asistido por inteligencia artificial.</p>
+                <p class="text-gray-300 text-sm">Introduce tus datos para desbloquear el motor multiversión y el comparador exegético avanzado.</p>
             </div>
             
             <div class="space-y-4 text-left">
@@ -70,19 +70,19 @@
         </div>
     </div>
 
-    <!-- CONTENEDOR PRINCIPAL: DOS COLUMNAS (CENTRO ASISTIDO + BARRA DERECHA FIJA) -->
+    <!-- CONTENEDOR PRINCIPAL: DOS COLUMNAS REESTRUCTURADAS -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- 1. COLUMNA CENTRAL: MOTOR DE BÚSQUEDA IA + LECTOR MULTIVERSIÓN -->
-        <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-10 space-y-8">
+        <!-- 1. COLUMNA CENTRAL: LECTOR Y COMPARADOR MULTIVERSIÓN -->
+        <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-12 space-y-10">
 
             <!-- Top Header con Logos -->
-            <header class="bg-cielo-900/80 backdrop-blur-md p-6 rounded-3xl border border-cielo-gold/20 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+            <header class="bg-cielo-900/90 backdrop-blur-md p-6 rounded-3xl border border-cielo-gold/30 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
                 <div class="flex items-center gap-4">
-                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-14 h-14 rounded-2xl border border-cielo-gold/40 object-cover shadow-lg">
+                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-14 h-14 rounded-2xl border-2 border-cielo-gold object-cover shadow-lg">
                     <div>
                         <h1 class="font-serif font-bold text-white text-lg tracking-wide">CieloEfata Biblia de Estudio</h1>
-                        <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-semibold">Motor Teológico Asistido por LLM</p>
+                        <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-bold">Plataforma Teológica Avanzada</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
@@ -90,35 +90,29 @@
                 </div>
             </header>
 
-            <!-- CONSOLA DE BÚSQUEDA Y ASISTENCIA IA INTEGRADA -->
+            <!-- CONSOLA DE BÚSQUEDA Y CONSULTA RÁPIDA -->
             <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <h2 class="text-lg font-bold text-white uppercase tracking-wider">Efata AI — Motor Exegético Inteligente</h2>
+                        <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
+                        <h2 class="text-sm font-extrabold text-white uppercase tracking-wider">Selector de Pasaje Bíblico</h2>
                     </div>
-                    <span class="text-xs text-cielo-gold font-mono uppercase bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="'Activo: ' + referenciaActual"></span>
+                    <span class="text-xs text-cielo-gold font-mono uppercase bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="'Mostrando: ' + referenciaActual"></span>
                 </div>
 
-                <div class="space-y-3">
+                <div class="space-y-4">
                     <div class="relative">
-                        <input type="text" x-model="inputPrompt" @keyup.enter="procesarConsultaIa()" placeholder="Escribe aquí (ej: Hechos 3:6, ¿Qué significa Logos?, Romanos 8:1)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-5 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-base shadow-inner">
-                        <button @click="procesarConsultaIa()" class="absolute right-3 top-3 bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-6 py-3 rounded-xl uppercase tracking-wider text-xs shadow-lg transition-all cursor-pointer">
-                            Consultar IA
+                        <input type="text" x-model="inputPrompt" @keyup.enter="procesarBusqueda()" placeholder="Escribe tu referencia (ej: Juan 1:1, Hechos 3:6, Romanos 8:1)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-5 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-base shadow-inner">
+                        <button @click="procesarBusqueda()" class="absolute right-3 top-3 bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-6 py-3 rounded-xl uppercase tracking-wider text-xs shadow-lg transition-all cursor-pointer">
+                            Buscar Versículo
                         </button>
                     </div>
-                    <div class="flex flex-wrap gap-2 pt-1">
-                        <span class="text-[11px] text-gray-400 self-center">Prueba sugerencias:</span>
-                        <button @click="inputPrompt='Hechos 3:6'; procesarConsultaIa();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all">Hechos 3:6</button>
-                        <button @click="inputPrompt='Juan 1:1'; procesarConsultaIa();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all">Juan 1:1</button>
-                        <button @click="inputPrompt='Romanos 8:1'; procesarConsultaIa();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all">Romanos 8:1</button>
+                    <div class="flex flex-wrap gap-2 pt-1 items-center">
+                        <span class="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Accesos Rápidos:</span>
+                        <button @click="inputPrompt='Juan 1:1'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Juan 1:1</button>
+                        <button @click="inputPrompt='Hechos 3:6'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Hechos 3:6</button>
+                        <button @click="inputPrompt='Romanos 8:1'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Romanos 8:1</button>
                     </div>
-                </div>
-
-                <!-- Respuesta Dinámica del LLM -->
-                <div class="bg-black/60 p-6 rounded-2xl border border-cielo-gold/30 space-y-2 animate-fade-in">
-                    <span class="text-xs uppercase font-bold text-cielo-gold tracking-widest">Análisis del LLM Teológico:</span>
-                    <p class="text-gray-200 font-serif text-sm leading-relaxed" x-text="respuestaIa"></p>
                 </div>
             </div>
 
@@ -126,41 +120,41 @@
             <div class="space-y-6">
                 <div class="border-b border-white/10 pb-4 flex justify-between items-center">
                     <h2 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comparador Multiversión Paralelo</h2>
-                    <span class="text-xs text-gray-400 uppercase tracking-widest" x-text="'Mostrando: ' + referenciaActual"></span>
+                    <span class="text-xs text-cielo-gold font-mono tracking-widest uppercase bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="referenciaActual"></span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                        <span class="text-xs font-bold text-cielo-gold uppercase">NTV (Nueva Traducción Viviente)</span>
-                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('ntv')"></p>
+                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
+                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">NTV (Nueva Traducción Viviente)</span>
+                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('ntv')"></p>
                     </div>
-                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                        <span class="text-xs font-bold text-cielo-gold uppercase">NBLA (Nueva Biblia de las Américas)</span>
-                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('nbla')"></p>
+                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
+                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">NBLA (Nueva Biblia de las Américas)</span>
+                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('nbla')"></p>
                     </div>
-                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                        <span class="text-xs font-bold text-cielo-gold uppercase">NVI (Nueva Versión Internacional)</span>
-                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('nvi')"></p>
+                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
+                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">NVI (Nueva Versión Internacional)</span>
+                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('nvi')"></p>
                     </div>
-                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                        <span class="text-xs font-bold text-cielo-gold uppercase">Reina Valera 1960</span>
-                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('rvr60')"></p>
+                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
+                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Reina Valera 1960</span>
+                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('rvr60')"></p>
                     </div>
-                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                        <span class="text-xs font-bold text-cielo-gold uppercase">Reina Valera 1995</span>
-                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('rvr95')"></p>
+                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
+                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Reina Valera 1995</span>
+                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('rvr95')"></p>
                     </div>
-                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                        <span class="text-xs font-bold text-cielo-gold uppercase">Biblia Peshitta (Arameo traducido)</span>
-                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('peshitta')"></p>
+                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
+                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Biblia Peshitta (Arameo traducido)</span>
+                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('peshitta')"></p>
                     </div>
-                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-amber-500/30 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-amber-950/20">
-                        <span class="text-xs font-bold text-amber-400 uppercase">Traducción Literal del Hebreo Original</span>
-                        <p class="text-gray-200 font-mono text-sm" x-text="getTexto('hebreo')"></p>
+                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-amber-500/30 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-amber-950/20 hover:border-amber-500/50 transition-all">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Traducción Literal del Hebreo Original</span>
+                        <p class="text-gray-200 font-mono text-sm leading-relaxed" x-text="getTexto('hebreo')"></p>
                     </div>
-                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-cielo-gold/40 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-purple-950/20">
-                        <span class="text-xs font-bold text-cielo-gold uppercase">Texto Original Koiné / Griego</span>
-                        <p class="text-gray-200 font-mono text-sm" x-text="getTexto('griego')"></p>
+                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-cielo-gold/40 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-purple-950/20 hover:border-cielo-gold/60 transition-all">
+                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Texto Original Koiné / Griego</span>
+                        <p class="text-gray-200 font-mono text-sm leading-relaxed" x-text="getTexto('griego')"></p>
                     </div>
                 </div>
             </div>
@@ -174,21 +168,13 @@
                 <p class="text-gray-200 font-serif text-lg leading-relaxed" x-text="getComentario()"></p>
             </div>
 
-            <!-- NOTA DE ARQUITECTURA DE DATOS -->
-            <div class="bg-cielo-900/60 p-6 rounded-2xl border border-white/10 text-center space-y-2">
-                <p class="text-xs uppercase tracking-widest text-cielo-gold font-bold">Arquitectura de Datos</p>
-                <p class="text-gray-300 text-sm">
-                    Tus accesos y consultas se registran de forma segura en tiempo real en tu base de datos central en <b>Supabase</b> (<code class="text-cielo-gold">leads_cieloefata</code>).
-                </p>
-            </div>
-
         </main>
 
-        <!-- 2. BARRA LATERAL DERECHA: TARJETA DE BIO + LIBROS EN VERTICAL -->
-        <aside class="w-80 bg-cielo-900 border-l border-cielo-gold/20 flex flex-col h-screen overflow-y-auto p-6 space-y-8 z-20 hidden lg:flex">
+        <!-- 2. BARRA LATERAL DERECHA: TARJETA DE BIO + LIBROS CENTRADOS DEBAJO -->
+        <aside class="w-88 bg-cielo-900 border-l border-cielo-gold/20 flex flex-col h-screen overflow-y-auto p-6 space-y-8 z-20 hidden lg:flex items-center">
             
-            <!-- Tarjeta de Bio al Inicio (Fija en Scroll) -->
-            <div class="bg-gradient-to-br from-cielo-800 to-black p-6 rounded-3xl border border-cielo-gold/30 shadow-2xl space-y-4 text-center shrink-0">
+            <!-- Tarjeta de Bio del Autor -->
+            <div class="w-full bg-gradient-to-br from-cielo-800 to-black p-6 rounded-3xl border border-cielo-gold/30 shadow-2xl space-y-4 text-center shrink-0">
                 <a href="https://ibb.co/G31Gzhk8" target="_blank" class="inline-block">
                     <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-24 h-24 rounded-2xl border-2 border-cielo-gold shadow-2xl object-cover mx-auto" alt="Dr. Alejandro Sirit">
                 </a>
@@ -201,15 +187,15 @@
                 </p>
             </div>
 
-            <!-- Portadas de Libros en Vertical (Justificadas a la Derecha) -->
-            <div class="space-y-4 flex flex-col items-end text-right shrink-0 pb-10">
-                <h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-cielo-gold">Obras Literarias</h4>
-                <div class="flex flex-col gap-3 w-40">
-                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="w-full h-full object-cover rounded-lg"></div>
-                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="w-full h-full object-cover rounded-lg"></div>
-                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="w-full h-full object-cover rounded-lg"></div>
-                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="w-full h-full object-cover rounded-lg"></div>
-                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/k2JtzT5W/libro-golgota.png" class="w-full h-full object-cover rounded-lg"></div>
+            <!-- Obras Literarias (CENTRADAS EXACTAMENTE DEBAJO DE LA TARJETA) -->
+            <div class="w-full flex flex-col items-center space-y-4 pb-12">
+                <h4 class="text-[11px] font-bold uppercase tracking-[0.3em] text-cielo-gold">Obras Literarias</h4>
+                <div class="flex flex-col items-center gap-4 w-44">
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-1.5 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="w-full h-full object-cover rounded-lg"></div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-1.5 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="w-full h-full object-cover rounded-lg"></div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-1.5 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="w-full h-full object-cover rounded-lg"></div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-1.5 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="w-full h-full object-cover rounded-lg"></div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-1.5 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/k2JtzT5W/libro-golgota.png" class="w-full h-full object-cover rounded-lg"></div>
                 </div>
             </div>
 
@@ -217,7 +203,7 @@
 
     </div>
 
-    <!-- Script del Motor IA y Base de Datos -->
+    <!-- Script del Motor de Búsqueda y Base de Datos -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -240,7 +226,6 @@
                 referenciaActual: 'Juan 1:1',
                 libroClave: 'Juan 1',
                 versoClave: '1',
-                respuestaIa: 'El concepto del "Logos" en Juan 1:1 establece la coeternidad absoluta y deidad del Hijo con el Padre. En el texto original en griego koiné, la estructura anartra resalta su cualidad divina esencial.',
                 
                 registrarUsuario: async function() {
                     const nombre = document.getElementById('reg-nombre').value.trim();
@@ -259,7 +244,7 @@
                                 email: email,
                                 whatsapp: whatsapp,
                                 puntaje_fractura: 0,
-                                estado_diagnostico: 'Acceso Biblia IA Asistida'
+                                estado_diagnostico: 'Acceso Biblia Multiversión'
                             }]);
                         } catch (err) {
                             console.error("Error al registrar lead en Supabase:", err);
@@ -269,7 +254,7 @@
                     this.isRegistered = true;
                 },
 
-                procesarConsultaIa: function() {
+                procesarBusqueda: function() {
                     const q = this.inputPrompt.trim().toLowerCase();
                     if (!q) return;
 
@@ -279,23 +264,18 @@
                         else if (q.includes('19')) this.versoClave = '19';
                         else this.versoClave = '1';
                         this.referenciaActual = `Hechos ${this.versoClave === '1' ? '3:1' : (this.versoClave === '6' ? '3:6' : '3:19')}`;
-                        this.respuestaIa = "Análisis IA (Hechos 3): El milagro en la Puerta la Hermosa y el llamado al arrepentimiento ejecutado por Pedro demuestran que el poder de la iglesia primitiva residía en la autoridad exclusiva del nombre de Jesucristo de Nazaret.";
                     } else if (q.includes('romanos 8')) {
                         this.libroClave = 'Romanos 8';
                         this.versoClave = q.includes('2') ? '2' : (q.includes('3') ? '3' : '1');
                         this.referenciaActual = `Romanos 8:${this.versoClave}`;
-                        this.respuestaIa = `Análisis IA (Romanos 8:${this.versoClave}): La cumbre de la soteriología paulina. La ausencia total de condenación para los creyentes se fundamenta en la obra vicaria de Cristo y la ley del Espíritu de vida.`;
                     } else if (q.includes('genesis') || q.includes('génesis')) {
                         this.libroClave = 'Génesis 1';
                         this.versoClave = q.includes('3') ? '3' : (q.includes('2') ? '2' : '1');
                         this.referenciaActual = `Génesis 1:${this.versoClave}`;
-                        this.respuestaIa = `Análisis IA (Génesis 1:${this.versoClave}): La creación ex nihilo por el poder soberano de la Palabra de YHWH, estableciendo el orden cósmico original frente al caos.`;
                     } else {
-                        // Por defecto Juan 1:1 o análisis general
                         this.libroClave = 'Juan 1';
                         this.versoClave = '1';
                         this.referenciaActual = 'Juan 1:1';
-                        this.respuestaIa = `Análisis IA especializado sobre "${this.inputPrompt}": Desde la perspectiva exegética, antropológica y lingüística, este estudio exalta la consistencia del diseño divino original en las Escrituras.`;
                     }
                 },
 
