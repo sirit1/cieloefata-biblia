@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CieloEfata Biblia de Estudio — Plataforma Teológica Avanzada</title>
+    <title>CieloEfata Biblia de Estudio — Plataforma con Agente IA</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -45,8 +45,8 @@
             </div>
             <div class="space-y-2">
                 <span class="px-4 py-1.5 rounded-full bg-cielo-gold/10 text-cielo-gold border border-cielo-gold/30 text-xs font-black tracking-widest uppercase">Ministerio Cielo Efata</span>
-                <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Acceso a la Biblia de Estudio</h2>
-                <p class="text-gray-300 text-sm">Introduce tus datos para desbloquear el comparador multiversión y el motor exegético avanzado.</p>
+                <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Acceso a Efata AI</h2>
+                <p class="text-gray-300 text-sm">Introduce tus datos para iniciar sesión conversacional con el Agente Teológico de las Sagradas Escrituras.</p>
             </div>
             
             <div class="space-y-4 text-left">
@@ -65,53 +65,8 @@
             </div>
 
             <button @click="registrarUsuario()" class="w-full bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-4 rounded-2xl uppercase tracking-wider shadow-lg transition-all text-base cursor-pointer">
-                Desbloquear Plataforma de Estudio
+                Iniciar Conversación con Efata AI
             </button>
-        </div>
-    </div>
-
-    <!-- MODAL SELECTOR RÁPIDO DE LIBRO / CAPÍTULO / VERSÍCULO (ESTILO ENDURING WORD) -->
-    <div x-show="showSelectorModal" class="fixed inset-0 z-40 flex items-center justify-center bg-black/80 backdrop-blur-md p-4" @click.self="showSelectorModal = false">
-        <div class="bg-cielo-900 border border-cielo-gold/40 p-6 md:p-8 rounded-3xl max-w-2xl w-full space-y-6 shadow-2xl animate-fade-in">
-            <div class="flex justify-between items-center border-b border-white/10 pb-4">
-                <h3 class="text-lg font-bold text-cielo-gold uppercase tracking-wider">Selector Rápido de Escrituras</h3>
-                <button @click="showSelectorModal = false" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-4">
-                <!-- Selector de Libro -->
-                <div class="space-y-2">
-                    <label class="text-xs uppercase font-bold text-gray-400">Seleccionar Libro</label>
-                    <div class="space-y-1 max-h-48 overflow-y-auto pr-2">
-                        <template x-for="b in ['Juan', 'Romanos', 'Génesis', 'Hechos', 'Marcos']">
-                            <button @click="tempLibro = b" :class="tempLibro === b ? 'bg-cielo-gold text-black font-bold' : 'bg-black/40 text-gray-300 hover:bg-white/5'" class="w-full text-left px-3 py-2 rounded-xl text-xs transition-all" x-text="b"></button>
-                        </template>
-                    </div>
-                </div>
-                <!-- Selector de Capítulo -->
-                <div class="space-y-2">
-                    <label class="text-xs uppercase font-bold text-gray-400">Capítulo</label>
-                    <div class="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
-                        <template x-for="c in [1, 3, 8, 14]">
-                            <button @click="tempCapitulo = c" :class="tempCapitulo === c ? 'bg-cielo-gold text-black font-bold' : 'bg-black/40 text-gray-300 hover:bg-white/5'" class="py-2 rounded-xl text-xs text-center transition-all" x-text="c"></button>
-                        </template>
-                    </div>
-                </div>
-                <!-- Selector de Versículo -->
-                <div class="space-y-2">
-                    <label class="text-xs uppercase font-bold text-gray-400">Versículo</label>
-                    <div class="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
-                        <template x-for="v in [1, 2, 3, 6, 19, 32, 36]">
-                            <button @click="tempVerso = v" :class="tempVerso === v ? 'bg-cielo-gold text-black font-bold' : 'bg-black/40 text-gray-300 hover:bg-white/5'" class="py-2 rounded-xl text-xs text-center transition-all" x-text="v"></button>
-                        </template>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
-                <button @click="showSelectorModal = false" class="px-5 py-2.5 rounded-xl bg-gray-800 text-gray-300 text-xs font-bold uppercase hover:bg-gray-700">Cancelar</button>
-                <button @click="aplicarSeleccionModal()" class="px-6 py-2.5 rounded-xl bg-cielo-gold text-black text-xs font-black uppercase hover:bg-amber-400">Cargar Pasaje</button>
-            </div>
         </div>
     </div>
 
@@ -149,44 +104,65 @@
 
         </aside>
 
-        <!-- 2. COLUMNA CENTRAL (NAVEGACIÓN ESTILO ENDURING WORD + LECTOR MULTIVERSIÓN) -->
+        <!-- 2. COLUMNA CENTRAL (EXPERIENCIA AGÉNTICA CONVERSACIONAL + LECTOR MULTIVERSIÓN) -->
         <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-10 space-y-8">
 
-            <!-- Top Header Estilo Enduring Word (Selector de Pasaje Central + Herramientas) -->
-            <header class="bg-cielo-900/90 backdrop-blur-md p-4 md:px-8 rounded-3xl border border-cielo-gold/30 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
-                <div class="flex items-center gap-3">
-                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-10 h-10 rounded-xl border border-cielo-gold object-cover shadow-md">
+            <!-- Top Header -->
+            <header class="bg-cielo-900/90 backdrop-blur-md p-6 rounded-3xl border border-cielo-gold/30 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-14 h-14 rounded-2xl border-2 border-cielo-gold object-cover shadow-lg">
                     <div>
-                        <h1 class="font-serif font-bold text-white text-sm">CieloEfata</h1>
-                        <p class="text-[9px] text-cielo-gold uppercase tracking-widest font-bold">Biblia de Estudio</p>
+                        <h1 class="font-serif font-bold text-white text-lg tracking-wide">CieloEfata Biblia de Estudio</h1>
+                        <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-bold">Plataforma Agéntica Teológica</p>
                     </div>
                 </div>
-
-                <!-- Botón Selector Central (Estilo Enduring Word) -->
-                <button @click="showSelectorModal = true" class="bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-6 py-2.5 rounded-2xl shadow-lg text-xs tracking-wider uppercase flex items-center gap-2 cursor-pointer transition-all">
-                    <span x-text="referenciaActual"></span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></button>
-                </button>
-
                 <div class="flex items-center gap-3">
-                    <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" alt="Xtrametrik" class="h-8 rounded-lg object-contain border border-white/10 bg-black/40 px-2">
+                    <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" alt="Xtrametrik" class="h-10 rounded-xl object-contain border border-white/10 bg-black/40 px-2">
                 </div>
             </header>
 
-            <!-- CONSOLA DE BÚSQUEDA RÁPIDA / CONSULTA IA -->
-            <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-6 md:p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <h2 class="text-xs font-extrabold text-white uppercase tracking-wider">Buscador y Asistente Exegético</h2>
+            <!-- INTERFAZ DE CHAT CON EL AGENTE EFATA AI -->
+            <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-6 md:p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-6">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <div>
+                            <h2 class="text-sm font-extrabold text-white uppercase tracking-wider">Efata AI — Agente Teológico en Vivo</h2>
+                            <p class="text-[10px] text-gray-400">Pregúntale o pídele cualquier pasaje de forma natural</p>
+                        </div>
                     </div>
+                    <span class="text-xs text-cielo-gold font-mono uppercase bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="'Pasaje Activo: ' + referenciaActual"></span>
                 </div>
 
+                <!-- Historial de Conversación con el Agente -->
+                <div class="bg-black/70 p-4 rounded-2xl border border-white/10 max-h-60 overflow-y-auto space-y-4 text-xs font-serif">
+                    <div class="bg-cielo-800 p-3 rounded-xl text-gray-200 border border-white/5 space-y-1">
+                        <p class="font-sans font-bold text-cielo-gold">Efata AI:</p>
+                        <p>Shalom. Soy tu Agente teológico asistente. Escríbeme cualquier pregunta, doctrina o pasaje (ej: *"Analicemos Juan 1:1"* o *"¿Qué dice Marcos 14 sobre Getsemaní?"*) y traeré de inmediato el texto multiversión y su exégesis.</p>
+                    </div>
+                    <template x-for="msg in historialChat">
+                        <div :class="msg.remitente === 'usuario' ? 'bg-cielo-gold/10 border-cielo-gold/30 text-right' : 'bg-cielo-800 border-white/5'" class="p-3 rounded-xl border space-y-1">
+                            <p class="font-sans font-bold text-[10px] text-cielo-gold" x-text="msg.remitente === 'usuario' ? 'Tú:' : 'Efata AI:'"></p>
+                            <p class="text-gray-200 text-xs" x-text="msg.texto"></p>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Input del Chat Agéntico -->
                 <div class="relative">
-                    <input type="text" x-model="inputPrompt" @keyup.enter="procesarBusquedaTexto()" placeholder="Escribe tu referencia (ej: Juan 1:1, Marcos 14:32, Hechos 3:6)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-4 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-sm shadow-inner">
-                    <button @click="procesarBusquedaTexto()" class="absolute right-2 top-2 bg-cielo-gold hover:bg-amber-500 text-black font-bold px-4 py-2.5 rounded-lg text-xs uppercase cursor-pointer">
-                        Ir
+                    <input type="text" x-model="inputPrompt" @keyup.enter="enviarMensajeAgente()" placeholder="Escribe tu consulta o pasaje al Agente (ej: Marcos 14:32)..." class="w-full bg-black/90 border-2 border-cielo-gold/50 p-4 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-sm shadow-inner">
+                    <button @click="enviarMensajeAgente()" class="absolute right-2 top-2 bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-5 py-2.5 rounded-lg text-xs uppercase cursor-pointer shadow-md">
+                        Enviar a la IA
                     </button>
+                </div>
+
+                <!-- Botones de Acceso Rápido al Agente -->
+                <div class="flex flex-wrap gap-2 pt-1 items-center">
+                    <span class="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Consultas Sugeridas:</span>
+                    <button @click="inputPrompt='Juan 1:1'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Juan 1:1</button>
+                    <button @click="inputPrompt='Marcos 14:32'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Marcos 14:32</button>
+                    <button @click="inputPrompt='Hechos 3:6'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Hechos 3:6</button>
+                    <button @click="inputPrompt='Romanos 8:1'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Romanos 8:1</button>
                 </div>
             </div>
 
@@ -233,6 +209,29 @@
                 </div>
             </div>
 
+            <!-- MÓDULO DE TRADUCCIÓN LITERAL (GRIEG, ARAMEO, HEBREO A ESPAÑOL) -->
+            <div class="bg-gradient-to-br from-cielo-900 to-cielo-800 p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-6">
+                <div class="flex items-center gap-3 border-b border-white/10 pb-4">
+                    <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
+                    <h3 class="text-xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Laboratorio de Traducción Literal (Idiomas Originales)</h3>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 text-sm">
+                    <div class="bg-black/50 p-5 rounded-2xl border border-white/5 space-y-2">
+                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Del Griego al Español</span>
+                        <p class="text-gray-300 font-serif text-xs leading-relaxed" x-text="getTraduccionLiteral('griego')"></p>
+                    </div>
+                    <div class="bg-black/50 p-5 rounded-2xl border border-white/5 space-y-2">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Del Arameo / Peshitta al Español</span>
+                        <p class="text-gray-300 font-serif text-xs leading-relaxed" x-text="getTraduccionLiteral('arameo')"></p>
+                    </div>
+                    <div class="bg-black/50 p-5 rounded-2xl border border-white/5 space-y-2">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Del Hebreo al Español</span>
+                        <p class="text-gray-300 font-serif text-xs leading-relaxed" x-text="getTraduccionLiteral('hebreo')"></p>
+                    </div>
+                </div>
+            </div>
+
             <!-- COMENTARIO EXEGÉTICO PROFUNDO -->
             <div class="bg-cielo-900 p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
                 <div class="flex items-center gap-3">
@@ -246,7 +245,7 @@
 
     </div>
 
-    <!-- Script del Motor Estilo Enduring Word y Supabase -->
+    <!-- Script del Agente Teológico Conversacional -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -265,15 +264,12 @@
         function cieloApp() {
             return {
                 isRegistered: false,
-                showSelectorModal: false,
                 inputPrompt: '',
                 referenciaActual: 'Juan 1:1',
                 libroClave: 'Juan',
                 capituloClave: 1,
                 versoClave: 1,
-                tempLibro: 'Juan',
-                tempCapitulo: 1,
-                tempVerso: 1,
+                historialChat: [],
                 
                 registrarUsuario: async function() {
                     const nombre = document.getElementById('reg-nombre').value.trim();
@@ -292,7 +288,7 @@
                                 email: email,
                                 whatsapp: whatsapp,
                                 puntaje_fractura: 0,
-                                estado_diagnostico: 'Acceso Biblia Multiversión'
+                                estado_diagnostico: 'Acceso Agente Efata AI'
                             }]);
                         } catch (err) {
                             console.error("Error al registrar lead en Supabase:", err);
@@ -302,42 +298,53 @@
                     this.isRegistered = true;
                 },
 
-                aplicarSeleccionModal: function() {
-                    this.libroClave = this.tempLibro;
-                    this.capituloClave = this.tempCapitulo;
-                    this.versoClave = this.tempVerso;
-                    this.referenciaActual = `${this.libroClave} ${this.capituloClave}:${this.versoClave}`;
-                    this.showSelectorModal = false;
-                },
-
-                procesarBusquedaTexto: function() {
-                    const raw = this.inputPrompt.trim().toLowerCase();
+                enviarMensajeAgente: function() {
+                    const raw = this.inputPrompt.trim();
                     if (!raw) return;
+                    const q = raw.toLowerCase();
 
-                    if (raw.includes('marcos') || raw.includes('mc')) {
+                    // Añadir pregunta del usuario al chat agéntico
+                    this.historialChat.push({ remitente: 'usuario', texto: raw });
+                    this.inputPrompt = '';
+
+                    // Motor de indexación inteligente y respuesta del Agente
+                    let respuestaAgente = "";
+                    if (q.includes('marcos') || q.includes('mc')) {
                         this.libroClave = 'Marcos';
                         this.capituloClave = 14;
-                        this.versoClave = raw.includes('36') ? 36 : (raw.includes('34') ? 34 : 32);
-                    } else if (raw.includes('hechos') || raw.includes('act')) {
+                        this.versoClave = q.includes('36') ? 36 : (q.includes('34') ? 34 : 32);
+                        this.referenciaActual = `Marcos 14:${this.versoClave}`;
+                        respuestaAgente = `Analizando ${this.referenciaActual}: El Agente identifica la profunda humanidad y angustia de Cristo en Getsemaní, contrastada con la sumisión absoluta al plan redentor del Padre. He sincronizado todas las versiones paralelas para ti.`;
+                    } else if (q.includes('hechos') || q.includes('act')) {
                         this.libroClave = 'Hechos';
                         this.capituloClave = 3;
-                        this.versoClave = raw.includes('19') ? 19 : (raw.includes('6') ? 6 : 1);
-                    } else if (raw.includes('romanos') || raw.includes('rom')) {
+                        this.versoClave = q.includes('19') ? 19 : (q.includes('6') ? 6 : 1);
+                        this.referenciaActual = `Hechos 3:${this.versoClave}`;
+                        respuestaAgente = `Analizando ${this.referenciaActual}: El Agente destaca el poder transformador operado en el nombre de Jesucristo frente al templo, enfatizando el arrepentimiento genuino.`;
+                    } else if (q.includes('romanos') || q.includes('rom')) {
                         this.libroClave = 'Romanos';
                         this.capituloClave = 8;
-                        this.versoClave = raw.includes('3') ? 3 : (raw.includes('2') ? 2 : 1);
-                    } else if (raw.includes('genesis') || raw.includes('génesis') || raw.includes('gen')) {
+                        this.versoClave = q.includes('3') ? 3 : (q.includes('2') ? 2 : 1);
+                        this.referenciaActual = `Romanos 8:${this.versoClave}`;
+                        respuestaAgente = `Analizando ${this.referenciaActual}: El Agente examina la cumbre de la soteriología paulina sobre la total ausencia de condenación en Cristo Jesús.`;
+                    } else if (q.includes('genesis') || q.includes('génesis') || q.includes('gen')) {
                         this.libroClave = 'Génesis';
                         this.capituloClave = 1;
-                        this.versoClave = raw.includes('3') ? 3 : (raw.includes('2') ? 2 : 1);
+                        this.versoClave = q.includes('3') ? 3 : (q.includes('2') ? 2 : 1);
+                        this.referenciaActual = `Génesis 1:${this.versoClave}`;
+                        respuestaAgente = `Analizando ${this.referenciaActual}: El Agente evalúa la creación ex nihilo y la soberanía absoluta de la Palabra ordenando el universo.`;
                     } else {
                         this.libroClave = 'Juan';
                         this.capituloClave = 1;
                         this.versoClave = 1;
+                        this.referenciaActual = 'Juan 1:1';
+                        respuestaAgente = `Como Agente Teológico, he procesado tu consulta sobre "${raw}". He cargado Juan 1:1 en paralelo y en sus lenguas originales para profundizar en la naturaleza del Logos.`;
                     }
 
-                    this.referenciaActual = `${this.libroClave} ${this.capituloClave}:${this.versoClave}`;
-                    this.inputPrompt = '';
+                    // Añadir respuesta del Agente al chat
+                    setTimeout(() => {
+                        this.historialChat.push({ remitente: 'ia', texto: respuestaAgente });
+                    }, 400);
                 },
 
                 getKey: function() {
@@ -366,7 +373,7 @@
                                 rvr60: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 rvr95: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 peshitta: 'Ahora, pues, no hay condenación para aquellos que están unidos a el Mesías Yeshúa, los cuales no andan según la carne.',
-                                hebreo: 'עַתָּה אֵפֶר لְאֵין כָּל־הַרְשָׁעָה לַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
+                                hebreo: 'עַתָּה אֵפֶר لְאֵין כָּל־הַרְשָׁעָה لַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
                                 griego: 'Οὐδὲν ἄρα νῦν κατακριμα τοῖς ἐν Χριστῷ Ἰησοῦ.'
                             },
                             '2': {
@@ -410,15 +417,15 @@
                                 rvr60: 'Mas Pedro dijo: No tengo plata ni oro, pero lo que tengo te doy; en el nombre de Jesucristo de Nazaret, levántate y anda.',
                                 rvr95: 'Mas Pedro dijo: «No tengo plata ni oro, pero lo que tengo te doy: en el nombre de Jesucristo de Nazaret, ¡levántate y anda!».',
                                 peshitta: 'Mas Pedro dijo: Plata y oro no tengo; pero lo que tengo te doy: En el nombre de Jesucristo el nazareno, levántate y anda.',
-                                hebreo: 'וַיֹּאמֶר פְּטְרוֹס כֶּסֶף וְזָהָב אֵין لִי وَأَسْرِعْ... Космос...',
+                                hebreo: 'וַיֹּאמֶר פְּטְרוֹס כֶּסֶף וְזָהָב אֵין لִי وَأَسْرِعْ...',
                                 griego: 'εἶπεν δὲ Πέτρος· Ἀργύριον καὶ χρυσίον οὐχ ὑπάρχει μοι, ὃ δὲ ἔχω τοῦτό σοι δίδωμι· ἐν τῷ ὀνόματι Ἰησοῦ Χριστοῦ τοῦ Ναζωραίου περιπάτει.'
                             }
                         },
                         'Marcos 14': {
                             '32': {
-                                ntv: 'Fueron a un lugar llamado Getsemaní, y Jesús les dijo a sus discípulos: « siéntense aquí mientras voy a orar».',
-                                nbla: 'Llegaron a un lugar que se llama Getsemaní, y Jesús dijo a Sus discípulos: «Sentense aquí hasta que yo oré».',
-                                nvi: 'Fueron a un lugar llamado Getsemaní, y Jesús dijo a sus discípulos: «Sentense aquí mientras voy a orar».',
+                                ntv: 'Fueron a un lugar llamado Getsemaní, y Jesús les dijo a sus discípulos: «séntense aquí mientras voy a orar».',
+                                nbla: 'Llegaron a un lugar que se llama Getsemaní, y Jesús dijo a Sus discípulos: «Séntense aquí hasta que yo ore».',
+                                nvi: 'Fueron a un lugar llamado Getsemaní, y Jesús dijo a sus discípulos: «Séntense aquí mientras voy a orar».',
                                 rvr60: 'Y llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí, entre tanto que yo oro.',
                                 rvr95: 'Llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: "Sentaos aquí, entre tanto que yo oro".',
                                 peshitta: 'Y vinieron a una aldea que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí mientras oro.',
@@ -442,6 +449,43 @@
                     const b = baseData[k] || baseData['Juan 1'];
                     const v = b[this.versoClave] || b[Object.keys(b)[0]];
                     return v[version] || 'Texto disponible próximamente para esta versión.';
+                },
+
+                getKey: function() {
+                    return `${this.libroClave} ${this.capituloClave}`;
+                },
+
+                getTraduccionLiteral: function(idioma) {
+                    const literalData = {
+                        'Juan 1:1': {
+                            griego: 'En [el] comienzo era el Verbo [Logos], y el Verbo era hacia el Dios, y Dios era el Verbo.',
+                            arameo: 'En el principio era la Palabra (Melta), y la misma Palabra estaba con Dios, y Dios era la Palabra.',
+                            hebreo: 'En el principio existía la Palabra (Davar), y la Palabra estaba junto a Elohim, y Elohim era la Palabra.'
+                        },
+                        'Romanos 8:1': {
+                            griego: 'Ninguna por lo tanto ahora condenación para los en Cristo Jesús.',
+                            arameo: 'Ahora pues, no hay castigo para aquellos unidos en el Mesías Yeshúa.',
+                            hebreo: 'Ahora no hay ninguna sentencia de culpabilidad para los que están en el Ungido Yeshúa.'
+                        },
+                        'Génesis 1:1': {
+                            griego: 'En principio hizo el Dios el cielo y la tierra.',
+                            arameo: 'En el principio creó Dios los cielos y la tierra.',
+                            hebreo: 'En el principio creó Elohim los cielos y la tierra.'
+                        },
+                        'Hechos 3:6': {
+                            griego: 'Mas Pedro dijo: Plata y oro no hay para mí, lo que en cambio tengo esto te doy: en el nombre de Jesucristo el Nazareno, camina.',
+                            arameo: 'Mas Pedro dijo: Plata y oro no tengo, pero lo que tengo te doy: En el nombre de Yeshúa el Mesías el Nazareno, levántate y anda.',
+                            hebreo: 'Y dijo Pedro: Plata y oro no hay en mi poder, mas lo que tengo te doy: En el nombre de Yeshúa el Nazareno, ponte de pie y anda.'
+                        },
+                        'Marcos 14:32': {
+                            griego: 'Y vienen a un lugar cuyo nombre Getsemaní, y dice a los discípulos de él: Sentaos aquí hasta que ore.',
+                            arameo: 'Y llegaron a una heredad llamada Getsemaní, y dijo a sus discípulos: Sentaos aquí mientras oro.',
+                            hebreo: 'Y llegaron a un sitio llamado Gat Shemanim, y dijo a sus discípulos: Sentaos aquí entre tanto que oro.'
+                        }
+                    };
+                    const ref = `${this.libroClave} ${this.capituloClave}:${this.versoClave}`;
+                    const item = literalData[ref] || literalData['Juan 1:1'];
+                    return item[idioma] || 'Traducción literal en proceso de indexación.';
                 },
 
                 getComentario: function() {
