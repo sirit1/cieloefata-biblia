@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CieloEfata Biblia de Estudio — Plataforma con Agente IA</title>
+    <title>CieloEfata Biblia de Estudio — Plataforma Agéntica Avanzada</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -46,7 +46,7 @@
             <div class="space-y-2">
                 <span class="px-4 py-1.5 rounded-full bg-cielo-gold/10 text-cielo-gold border border-cielo-gold/30 text-xs font-black tracking-widest uppercase">Ministerio Cielo Efata</span>
                 <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Acceso a Efata AI</h2>
-                <p class="text-gray-300 text-sm">Introduce tus datos para iniciar sesión conversacional con el Agente Teológico de las Sagradas Escrituras.</p>
+                <p class="text-gray-300 text-sm">Introduce tus datos para iniciar la experiencia conversacional con el Agente Teológico de las Sagradas Escrituras.</p>
             </div>
             
             <div class="space-y-4 text-left">
@@ -65,7 +65,7 @@
             </div>
 
             <button @click="registrarUsuario()" class="w-full bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-4 rounded-2xl uppercase tracking-wider shadow-lg transition-all text-base cursor-pointer">
-                Iniciar Conversación con Efata AI
+                Iniciar Sesión con el Agente
             </button>
         </div>
     </div>
@@ -104,7 +104,7 @@
 
         </aside>
 
-        <!-- 2. COLUMNA CENTRAL (EXPERIENCIA AGÉNTICA CONVERSACIONAL + LECTOR MULTIVERSIÓN) -->
+        <!-- 2. COLUMNA CENTRAL (AGENTE EFATA AI + COMPARADOR + COMENTARIO ERUDITO) -->
         <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-10 space-y-8">
 
             <!-- Top Header -->
@@ -128,7 +128,7 @@
                         <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
                         <div>
                             <h2 class="text-sm font-extrabold text-white uppercase tracking-wider">Efata AI — Agente Teológico en Vivo</h2>
-                            <p class="text-[10px] text-gray-400">Pregúntale o pídele cualquier pasaje de forma natural</p>
+                            <p class="text-[10px] text-gray-400">Pregúntale cualquier doctrina, autoría o pídele un pasaje</p>
                         </div>
                     </div>
                     <span class="text-xs text-cielo-gold font-mono uppercase bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="'Pasaje Activo: ' + referenciaActual"></span>
@@ -138,19 +138,19 @@
                 <div class="bg-black/70 p-4 rounded-2xl border border-white/10 max-h-60 overflow-y-auto space-y-4 text-xs font-serif">
                     <div class="bg-cielo-800 p-3 rounded-xl text-gray-200 border border-white/5 space-y-1">
                         <p class="font-sans font-bold text-cielo-gold">Efata AI:</p>
-                        <p>Shalom. Soy tu Agente teológico asistente. Escríbeme cualquier pregunta, doctrina o pasaje (ej: *"Analicemos Juan 1:1"* o *"¿Qué dice Marcos 14 sobre Getsemaní?"*) y traeré de inmediato el texto multiversión y su exégesis.</p>
+                        <p>Shalom. Soy tu Agente teológico asistente. Escríbeme cualquier pregunta histórica (ej: *"¿Quién escribió Hechos y por qué?"*), doctrina o pasaje, y traeré de inmediato el texto multiversión y su exégesis erudita.</p>
                     </div>
                     <template x-for="msg in historialChat">
                         <div :class="msg.remitente === 'usuario' ? 'bg-cielo-gold/10 border-cielo-gold/30 text-right' : 'bg-cielo-800 border-white/5'" class="p-3 rounded-xl border space-y-1">
                             <p class="font-sans font-bold text-[10px] text-cielo-gold" x-text="msg.remitente === 'usuario' ? 'Tú:' : 'Efata AI:'"></p>
-                            <p class="text-gray-200 text-xs" x-text="msg.texto"></p>
+                            <p class="text-gray-200 text-xs leading-relaxed" x-text="msg.texto"></p>
                         </div>
                     </template>
                 </div>
 
                 <!-- Input del Chat Agéntico -->
                 <div class="relative">
-                    <input type="text" x-model="inputPrompt" @keyup.enter="enviarMensajeAgente()" placeholder="Escribe tu consulta o pasaje al Agente (ej: Marcos 14:32)..." class="w-full bg-black/90 border-2 border-cielo-gold/50 p-4 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-sm shadow-inner">
+                    <input type="text" x-model="inputPrompt" @keyup.enter="enviarMensajeAgente()" placeholder="Pregúntale al Agente (ej: ¿Quién escribió Hechos? o Marcos 14:32)..." class="w-full bg-black/90 border-2 border-cielo-gold/50 p-4 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-sm shadow-inner">
                     <button @click="enviarMensajeAgente()" class="absolute right-2 top-2 bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-5 py-2.5 rounded-lg text-xs uppercase cursor-pointer shadow-md">
                         Enviar a la IA
                     </button>
@@ -159,10 +159,10 @@
                 <!-- Botones de Acceso Rápido al Agente -->
                 <div class="flex flex-wrap gap-2 pt-1 items-center">
                     <span class="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Consultas Sugeridas:</span>
+                    <button @click="inputPrompt='¿Quién escribió Hechos y por qué?'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Autoría de Hechos</button>
                     <button @click="inputPrompt='Juan 1:1'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Juan 1:1</button>
                     <button @click="inputPrompt='Marcos 14:32'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Marcos 14:32</button>
                     <button @click="inputPrompt='Hechos 3:6'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Hechos 3:6</button>
-                    <button @click="inputPrompt='Romanos 8:1'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Romanos 8:1</button>
                 </div>
             </div>
 
@@ -232,20 +232,20 @@
                 </div>
             </div>
 
-            <!-- COMENTARIO EXEGÉTICO PROFUNDO -->
+            <!-- COMENTARIO EXEGÉTICO PROFUNDO Y ERUDITO (ESTILO MACARTHUR / BIBLIA DE ESTUDIO) -->
             <div class="bg-cielo-900 p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
-                    <h3 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comentario Exegético, Teológico y Antropológico</h3>
+                    <h3 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comentario Exegético Erudito (Estilo MacArthur & Teología Contemporánea)</h3>
                 </div>
-                <p class="text-gray-200 font-serif text-lg leading-relaxed" x-text="getComentario()"></p>
+                <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getComentarioErudito()"></p>
             </div>
 
         </main>
 
     </div>
 
-    <!-- Script del Agente Teológico Conversacional -->
+    <!-- Script del Agente Teológico y Motor Erudito -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -265,8 +265,8 @@
             return {
                 isRegistered: false,
                 inputPrompt: '',
-                referenciaActual: 'Juan 1:1',
-                libroClave: 'Juan',
+                referenciaActual: 'Hechos 1:1',
+                libroClave: 'Hechos',
                 capituloClave: 1,
                 versoClave: 1,
                 historialChat: [],
@@ -288,7 +288,7 @@
                                 email: email,
                                 whatsapp: whatsapp,
                                 puntaje_fractura: 0,
-                                estado_diagnostico: 'Acceso Agente Efata AI'
+                                estado_diagnostico: 'Acceso Agente Efata AI Erudito'
                             }]);
                         } catch (err) {
                             console.error("Error al registrar lead en Supabase:", err);
@@ -303,45 +303,42 @@
                     if (!raw) return;
                     const q = raw.toLowerCase();
 
-                    // Añadir pregunta del usuario al chat agéntico
                     this.historialChat.push({ remitente: 'usuario', texto: raw });
                     this.inputPrompt = '';
 
-                    // Motor de indexación inteligente y respuesta del Agente
                     let respuestaAgente = "";
-                    if (q.includes('marcos') || q.includes('mc')) {
+                    if (q.includes('escribio') || q.includes('autor') || q.includes('hechos')) {
+                        this.libroClave = 'Hechos';
+                        this.capituloClave = 1;
+                        this.versoClave = 1;
+                        this.referenciaActual = 'Hechos 1:1';
+                        respuestaAgente = `Análisis Erudito (Autoría de Hechos): Como señala la exégesis conservadora (estilo MacArthur y la crítica textual histórica), el libro de los Hechos fue escrito indudablemente por Lucas, el médico amado y fiel compañero del apóstol Pablo. Fue redactado hacia el 60-62 d.C. como la segunda parte de su tratado histórico dirigido a Teófilo, demostrando la transición del ministerio terrenal de Cristo a la era de la Iglesia guiada por el Espíritu Santo. He sincronizado la plataforma con Hechos 1:1.`;
+                    } else if (q.includes('marcos') || q.includes('mc') || q.includes('getsemani')) {
                         this.libroClave = 'Marcos';
                         this.capituloClave = 14;
-                        this.versoClave = q.includes('36') ? 36 : (q.includes('34') ? 34 : 32);
+                        this.versoClave = q.includes('36') ? 36 : 32;
                         this.referenciaActual = `Marcos 14:${this.versoClave}`;
-                        respuestaAgente = `Analizando ${this.referenciaActual}: El Agente identifica la profunda humanidad y angustia de Cristo en Getsemaní, contrastada con la sumisión absoluta al plan redentor del Padre. He sincronizado todas las versiones paralelas para ti.`;
-                    } else if (q.includes('hechos') || q.includes('act')) {
-                        this.libroClave = 'Hechos';
-                        this.capituloClave = 3;
-                        this.versoClave = q.includes('19') ? 19 : (q.includes('6') ? 6 : 1);
-                        this.referenciaActual = `Hechos 3:${this.versoClave}`;
-                        respuestaAgente = `Analizando ${this.referenciaActual}: El Agente destaca el poder transformador operado en el nombre de Jesucristo frente al templo, enfatizando el arrepentimiento genuino.`;
+                        respuestaAgente = `Análisis Erudito (${this.referenciaActual}): Getsemaní representa la cúspide de la angustia vicaria de Cristo. El término 'Abba' refleja la intimidad filial perfecta antes de asumir la imputación del pecado en la cruz. He cargado el texto multiversión correspondiente.`;
                     } else if (q.includes('romanos') || q.includes('rom')) {
                         this.libroClave = 'Romanos';
                         this.capituloClave = 8;
-                        this.versoClave = q.includes('3') ? 3 : (q.includes('2') ? 2 : 1);
-                        this.referenciaActual = `Romanos 8:${this.versoClave}`;
-                        respuestaAgente = `Analizando ${this.referenciaActual}: El Agente examina la cumbre de la soteriología paulina sobre la total ausencia de condenación en Cristo Jesús.`;
-                    } else if (q.includes('genesis') || q.includes('génesis') || q.includes('gen')) {
-                        this.libroClave = 'Génesis';
+                        this.versoClave = 1;
+                        this.referenciaActual = 'Romanos 8:1';
+                        respuestaAgente = `Análisis Erudito (Romanos 8:1): La obra maestra soteriológica de Pablo. La palabra katakrima (condenación/sentencia legal) es abolida de forma irrevocable para los que están unidos a Cristo. Texto sincronizado.`;
+                    } else if (q.includes('juan') || q.includes('jhn') || q.includes('logos')) {
+                        this.libroClave = 'Juan';
                         this.capituloClave = 1;
-                        this.versoClave = q.includes('3') ? 3 : (q.includes('2') ? 2 : 1);
-                        this.referenciaActual = `Génesis 1:${this.versoClave}`;
-                        respuestaAgente = `Analizando ${this.referenciaActual}: El Agente evalúa la creación ex nihilo y la soberanía absoluta de la Palabra ordenando el universo.`;
+                        this.versoClave = 1;
+                        this.referenciaActual = 'Juan 1:1';
+                        respuestaAgente = `Análisis Erudito (Juan 1:1): El Logos coeterno y consustancial con el Padre. Refutación exegética absoluta del subordinacionismo y arrianismo. Texto sincronizado en paralelo.`;
                     } else {
                         this.libroClave = 'Juan';
                         this.capituloClave = 1;
                         this.versoClave = 1;
                         this.referenciaActual = 'Juan 1:1';
-                        respuestaAgente = `Como Agente Teológico, he procesado tu consulta sobre "${raw}". He cargado Juan 1:1 en paralelo y en sus lenguas originales para profundizar en la naturaleza del Logos.`;
+                        respuestaAgente = `El Agente ha procesado tu consulta sobre "${raw}". He sincronizado el comparador con Juan 1:1 y su exégesis erudita contemporánea.`;
                     }
 
-                    // Añadir respuesta del Agente al chat
                     setTimeout(() => {
                         this.historialChat.push({ remitente: 'ia', texto: respuestaAgente });
                     }, 400);
@@ -353,6 +350,18 @@
 
                 getTexto: function(version) {
                     const baseData = {
+                        'Hechos 1': {
+                            '1': {
+                                ntv: 'Estimado Teófilo, en mi primer libro te escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
+                                nbla: 'El primer tratado, oh Teófilo, traté acerca de todo lo que Jesús comenzó a hacer y a enseñar,',
+                                nvi: 'Estimado Teófilo: En mi primer libro escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
+                                rvr60: 'En el primer tratado, oh Teófilo, hablé acerca de todas las cosas que Jesús comenzó a hacer y a enseñar,',
+                                rvr95: 'En el primer tratado, oh Teófilo, hablé acerca de todas las cosas que Jesús comenzó a hacer y a enseñar,',
+                                peshitta: 'El primer libro que escribí, oh Teófilo, fue acerca de todo lo que Jesús comenzó a hacer y a enseñar,',
+                                hebreo: 'הַסֵּפֶר הָרִאשׁוֹן כָּתַבְתִּי תָּאוֹפִילוֹס עַל כָּל־אֲשֶׁר הֵחֵל יֵשׁוּעַ לַעֲשׂוֹת וְלַלַּמֵּד׃',
+                                griego: 'Τὸν μὲν πρῶτον λόγον ἐποιησάμην περὶ πάντων, ὦ Θεόφιλε, ὧν ἤρξατο ὁ Ἰησοῦς ποιεῖν τε καὶ διδάσκειν.'
+                            }
+                        },
                         'Juan 1': {
                             '1': {
                                 ntv: 'En el principio ya existía el Palabra. El Palabra estaba con Dios, y el Palabra era Dios.',
@@ -375,88 +384,35 @@
                                 peshitta: 'Ahora, pues, no hay condenación para aquellos que están unidos a el Mesías Yeshúa, los cuales no andan según la carne.',
                                 hebreo: 'עַתָּה אֵפֶר لְאֵין כָּל־הַרְשָׁעָה لַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
                                 griego: 'Οὐδὲν ἄρα νῦν κατακριμα τοῖς ἐν Χριστῷ Ἰησοῦ.'
-                            },
-                            '2': {
-                                ntv: 'Pues el poder del Espíritu que da vida te ha liberado del poder del pecado y de la muerte.',
-                                nbla: 'Porque la ley del Espíritu de vida en Cristo Jesús te ha libertado de la ley del pecado y de la muerte.',
-                                nvi: 'porque la ley del Espíritu que da vida en Cristo Jesús me ha libertado de la ley del pecado y de la muerte.',
-                                rvr60: 'Porque la ley del Espíritu de vida en Cristo Jesús me ha librado de la ley del pecado y de la muerte.',
-                                rvr95: 'Porque la ley del Espíritu de vida en Cristo Jesús me ha librado de la ley del pecado y de la muerte.',
-                                peshitta: 'Porque la ley del Espíritu de la vida que está en Yeshúa el Mesías me ha librado de la ley del pecado y de la muerte.',
-                                hebreo: 'כִּי תּוֹרַת רוּחַ הַחַיִּים בַּמָּשִׁיחַ יֵשׁוּעַ שִׁחְרְתָה אֹתִי מִתּוֹרַת הַחֵטְא וְהַמָּוֶת׃',
-                                griego: 'ὁ γὰρ νόμος τοῦ πνεُματος τῆς ζωῆς ἐν Χριστῷ Ἰησοῦ ἠλευθέρωσέν με ἀπὸ τοῦ νόμου τῆς ἁμαρτίας καὶ τοῦ θανάτου.'
-                            }
-                        },
-                        'Génesis 1': {
-                            '1': {
-                                ntv: 'En el principio, Dios creó los cielos y la tierra.',
-                                nbla: 'En el principio Dios creó los cielos y la tierra.',
-                                nvi: 'En el principio, Dios creó los cielos y la tierra.',
-                                rvr60: 'En el principio creó Dios los cielos y la tierra.',
-                                rvr95: 'En el principio creó Dios los cielos y la tierra.',
-                                peshitta: 'En el principio creó Dios los cielos y la tierra.',
-                                hebreo: 'בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ׃',
-                                griego: 'Ἐν ἀρχῇ ἐποίησεν ὁ θεὸς τὸν οὐρανὸν καὶ τὴν γῆν.'
-                            }
-                        },
-                        'Hechos 3': {
-                            '1': {
-                                ntv: 'Pedro y Juan iban al templo a la hora novena, que es la hora de la oración.',
-                                nbla: 'Pedro y Juan subían al templo a la hora novena, la hora de la oración.',
-                                nvi: 'Pedro y Juan subían al templo a la hora novena, que es la de la oración.',
-                                rvr60: 'Pedro y Juan subían juntos al templo a la hora novena, la de la oración.',
-                                rvr95: 'Pedro y Juan subían juntos al templo a la hora novena, la de la oración.',
-                                peshitta: 'Pedro y Juan subían al templo a la hora novena, la de la oración.',
-                                hebreo: 'פְּטְרוֹס וְיוֹחָנָן עָלוּ יַחְדָּו אֶל־הַמִּקְדָּשׁ לְעֵת הַתְפִלָּה שָׁעָה תְּשִׁעִית׃',
-                                griego: 'Πέτρος δὲ καὶ Ἰωάννης ἀνέβαινον εἰς τὸ ἱερὸν ἐπὶ τὴν ὥραν τῆς προσευχῆς τὴν ἐννάτην.'
-                            },
-                            '6': {
-                                ntv: 'Pero Pedro le dijo: «No tengo plata ni oro, pero lo que tengo te doy: En el nombre de Jesucristo de Nazaret, ¡levántate y anda!».',
-                                nbla: 'Pero Pedro dijo: «No tengo plata ni oro, pero lo que tengo te doy: En el nombre de Jesucristo el Nazareno, ¡anda!».',
-                                nvi: 'Pedro le dijo: «No tengo plata ni oro, pero lo que tengo te doy. En el nombre de Jesucristo de Nazaret, ¡levántate y anda!».',
-                                rvr60: 'Mas Pedro dijo: No tengo plata ni oro, pero lo que tengo te doy; en el nombre de Jesucristo de Nazaret, levántate y anda.',
-                                rvr95: 'Mas Pedro dijo: «No tengo plata ni oro, pero lo que tengo te doy: en el nombre de Jesucristo de Nazaret, ¡levántate y anda!».',
-                                peshitta: 'Mas Pedro dijo: Plata y oro no tengo; pero lo que tengo te doy: En el nombre de Jesucristo el nazareno, levántate y anda.',
-                                hebreo: 'וַיֹּאמֶר פְּטְרוֹס כֶּסֶף וְזָהָב אֵין لִי وَأَسْرِعْ...',
-                                griego: 'εἶπεν δὲ Πέτρος· Ἀργύριον καὶ χρυσίον οὐχ ὑπάρχει μοι, ὃ δὲ ἔχω τοῦτό σοι δίδωμι· ἐν τῷ ὀνόματι Ἰησοῦ Χριστοῦ τοῦ Ναζωραίου περιπάτει.'
                             }
                         },
                         'Marcos 14': {
                             '32': {
                                 ntv: 'Fueron a un lugar llamado Getsemaní, y Jesús les dijo a sus discípulos: «séntense aquí mientras voy a orar».',
                                 nbla: 'Llegaron a un lugar que se llama Getsemaní, y Jesús dijo a Sus discípulos: «Séntense aquí hasta que yo ore».',
-                                nvi: 'Fueron a un lugar llamado Getsemaní, y Jesús dijo a sus discípulos: «Séntense aquí mientras voy a orar».',
+                                nvi: 'Fueron a un lugar llamado Getsemaní, y Jesús dijo a sus discípulos: «Séntense hier mientras voy a orar».',
                                 rvr60: 'Y llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí, entre tanto que yo oro.',
                                 rvr95: 'Llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: "Sentaos aquí, entre tanto que yo oro".',
                                 peshitta: 'Y vinieron a una aldea que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí mientras oro.',
                                 hebreo: 'וַיָּבֹאוּ אֶל־מָקוֹם שְׁמוֹ גַּת שְׁמָנִים וַיֹּאמֶר אֶל־תַּלְמִידָיו שְׁבוּ פֹה עַד אֲשֶׁר אֶתְפַּלֵּל׃',
                                 griego: 'Καὶ ἔρχονται εἰς χωρίον οὗ τὸ ὄνομα Γεθσημανῆ, καὶ λέγει τοῖς μαθηταῖς αὐτοῦ· Καθίσατε ὧδε ἕως προσεύξωμαι.'
-                            },
-                            '36': {
-                                ntv: '—Abba, Padre —clamaba—, todo es posible para ti. Llévate de mí esta copa; pero que no se haga lo que yo quiero, sino lo que tú quieres.',
-                                nbla: 'Y decía: «¡Abba, Padre! Todas las cosas son posibles para Ti; aparta de Mí esta copa; pero no sea lo que Yo quiero, sino lo que tú quieras».',
-                                nvi: '—Abba, Padre —decía—, todo es posible para ti. Llévate de mí esta copa. Pero no sea lo que yo quiero, sino lo que tú quieres.',
-                                rvr60: 'Y decía: Abba, Padre, todas las cosas son posibles para ti; aparta de mí esta copa; mas no lo que yo quiero, sino lo que tú.',
-                                rvr95: 'Y decía: «¡Abba, Padre!, todas las cosas son posibles para ti; aparta de mí esta copa; pero no sea como yo quiero, sino como tú».',
-                                peshitta: 'Y decía: Abba, Padre, todo es posible para ti; aparta de mí esta copa; mas no sea lo que yo quiero, sino lo que tú.',
-                                hebreo: 'וַיֹּאמֶר אַבָּא אָבִי הַכֹּל יָכוֹל אַתָּה הַעֲבֵר מִמֶּנִּי אֶת־הַכּוֹס הַזֹּאת אַךְ לֹא כַּאֲשֶׁר אֲנִי רֹצֶה אֶלָּא כַּאֲשֶׁר אַתָּה׃',
-                                griego: 'καὶ ἔλεγεν· Ἀββά ὁ πατήρ, πάντα δυνατά σοι· παρενέγκετε τὸ ποτήριον τοῦτο ἀπ’ ἐμοῦ· ἀλλ’ οὐ τί ἐγὼ θέλω, ἀλλὰ τί σύ.'
                             }
                         }
                     };
 
-                    const k = this.getKey();
-                    const b = baseData[k] || baseData['Juan 1'];
+                    const k = `${this.libroClave} ${this.capituloClave}`;
+                    const b = baseData[k] || baseData['Hechos 1'];
                     const v = b[this.versoClave] || b[Object.keys(b)[0]];
-                    return v[version] || 'Texto disponible próximamente para esta versión.';
-                },
-
-                getKey: function() {
-                    return `${this.libroClave} ${this.capituloClave}`;
+                    return v[version] || 'Texto disponible próximamente.';
                 },
 
                 getTraduccionLiteral: function(idioma) {
                     const literalData = {
+                        'Hechos 1:1': {
+                            griego: 'El quidem primum sermonem feci... El primer tratado en verdad hice, oh Teófilo, acerca de todas las cosas que comenzó Jesús a hacer y a enseñar.',
+                            arameo: 'El primer libro que escribí, oh Teófilo, fue acerca de todo lo que Jesús comenzó a hacer y a enseñar.',
+                            hebreo: 'El libro primero escribí, oh Teófilo, sobre todo lo que comenzó Yeshúa a hacer y a enseñar.'
+                        },
                         'Juan 1:1': {
                             griego: 'En [el] comienzo era el Verbo [Logos], y el Verbo era hacia el Dios, y Dios era el Verbo.',
                             arameo: 'En el principio era la Palabra (Melta), y la misma Palabra estaba con Dios, y Dios era la Palabra.',
@@ -467,16 +423,6 @@
                             arameo: 'Ahora pues, no hay castigo para aquellos unidos en el Mesías Yeshúa.',
                             hebreo: 'Ahora no hay ninguna sentencia de culpabilidad para los que están en el Ungido Yeshúa.'
                         },
-                        'Génesis 1:1': {
-                            griego: 'En principio hizo el Dios el cielo y la tierra.',
-                            arameo: 'En el principio creó Dios los cielos y la tierra.',
-                            hebreo: 'En el principio creó Elohim los cielos y la tierra.'
-                        },
-                        'Hechos 3:6': {
-                            griego: 'Mas Pedro dijo: Plata y oro no hay para mí, lo que en cambio tengo esto te doy: en el nombre de Jesucristo el Nazareno, camina.',
-                            arameo: 'Mas Pedro dijo: Plata y oro no tengo, pero lo que tengo te doy: En el nombre de Yeshúa el Mesías el Nazareno, levántate y anda.',
-                            hebreo: 'Y dijo Pedro: Plata y oro no hay en mi poder, mas lo que tengo te doy: En el nombre de Yeshúa el Nazareno, ponte de pie y anda.'
-                        },
                         'Marcos 14:32': {
                             griego: 'Y vienen a un lugar cuyo nombre Getsemaní, y dice a los discípulos de él: Sentaos aquí hasta que ore.',
                             arameo: 'Y llegaron a una heredad llamada Getsemaní, y dijo a sus discípulos: Sentaos aquí mientras oro.',
@@ -484,19 +430,18 @@
                         }
                     };
                     const ref = `${this.libroClave} ${this.capituloClave}:${this.versoClave}`;
-                    const item = literalData[ref] || literalData['Juan 1:1'];
+                    const item = literalData[ref] || literalData['Hechos 1:1'];
                     return item[idioma] || 'Traducción literal en proceso de indexación.';
                 },
 
-                getComentario: function() {
-                    const comentariosMap = {
-                        'Juan 1': 'Este pasaje fundamental establece la deidad absoluta y eterna del Verbo (Logos). Históricamente refuta el arrianismo y el gnosticismo primitivo al afirmar que el Hijo no es una criatura creada, sino el Creador mismo.',
-                        'Romanos 8': 'El capítulo cumbre de la soteriología paulina. La declaración de que no hay condenación descansa enteramente en la obra vicaria de Cristo y en la morada vivificante del Espíritu Santo.',
-                        'Génesis 1': 'El relato de la creación ex nihilo (de la nada) por el poder soberano de la Palabra de Dios. Revela que el cosmos no es producto del azar, sino el templo ordenado donde YHWH establece su diseño original.',
-                        'Hechos 3': 'El milagro del paralítico en la Puerta la Hermosa y el segundo gran discurso de Pedro. Ilustra el poder transformador del nombre de Jesucristo y el llamado urgente al arrepentimiento nacional.',
-                        'Marcos 14': 'La transición hacia la pasión de Cristo. Desde la unción en Betania hasta la agonía en Getsemaní, Marcos destaca el realismo de la humanidad de Jesús y su entrega vicaria voluntaria.'
+                getComentarioErudito: function() {
+                    const comEruditoMap = {
+                        'Hechos 1': '<b>Perspectiva Erudita (Estilo Comentario MacArthur / Exégesis Histórica):</b> Lucas presenta Hechos como la continuación directa de su Evangelio. Dirigido a Teófilo ("amigo de Dios"), el libro documenta la transición crítica del ministerio terrenal de Cristo en Galilea y Judea a la expansión indetenible del evangelio por el poder soberano del Espíritu Santo en Pentecostés. La mención de "todo lo que Jesús comenzó a hacer y a enseñar" subraya que la obra de Cristo continúa a través de Su cuerpo, la Iglesia, bajo la autoridad absoluta de la Palabra y la dirección apostólica.',
+                        'Juan 1': '<b>Perspectiva Erudita (Teología Sistemática & Exégesis Gramatical):</b> El prólogo de Juan es el pináculo de la cristología bíblica. El uso del término imperfecto <i>ēn</i> ("existía en el principio") denota la eternidad sin principio del Logos. Al afirmar que el Verbo estaba con Dios (en íntima comunión personal) y que el Verbo era Dios (en esencia y naturaleza divina), Juan demuele categóricamente cualquier forma de subordinacionismo o arrianismo.',
+                        'Romanos 8': '<b>Perspectiva Erudita (Soteriología Paulina):</b> Romanos 8:1 es el gran estallido de libertad espiritual tras el dilema del capítulo 7. La palabra griega <i>katakrima</i> significa sentencia judicial adversa. Para los que están unidos vitalmente a Cristo Jesús (incorporados por fe y regeneración), la culpa legal ha sido eliminada de forma definitiva y perpetua por la satisfacción penal vicaria en la cruz.',
+                        'Marcos 14': '<b>Perspectiva Erudita (Cristología & Pasión):</b> En Getsemaní, Marcos nos muestra la verdadera y completa humanidad de Cristo experimentando el peso aplastante del pecado humano. El clamor <i>Abba, Padre</i> revela la confianza absoluta en medio del sufrimiento extremo, anticipando el momento en que cargaría con la ira santa del Padre como sustituto propiciatorio.'
                     };
-                    return comentariosMap[this.getKey()] || 'Comentario exegético riguroso y teológico especializado.';
+                    return comEruditoMap[this.getKey()] || '<b>Análisis Erudito Profundo:</b> Este pasaje examina los fundamentos de la revelación divina, combinando el contexto histórico del Cercano Oriente antiguo con la aplicación teológica de la soberanía de YHWH.';
                 }
             }
         }
