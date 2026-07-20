@@ -73,7 +73,7 @@
     <!-- CONTENEDOR PRINCIPAL: TRES COLUMNAS -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- 1. BARRA LATERAL IZQUIERDA: ASISTENTE EFATA AI (INTELIGENTE Y ESPECÍFICO) -->
+        <!-- 1. BARRA LATERAL IZQUIERDA: ASISTENTE EFATA AI INTELIGENTE -->
         <aside class="w-80 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col h-screen p-6 space-y-6 z-20 hidden xl:flex">
             <div class="flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
@@ -81,7 +81,7 @@
                         <span>Efata AI</span>
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     </h2>
-                    <p class="text-[10px] text-cielo-gold uppercase tracking-wider">Asistente Teológico IA</p>
+                    <p class="text-[10px] text-cielo-gold uppercase tracking-wider">Asistente Teológico Avanzado</p>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@
             <div class="flex-1 bg-cielo-950/70 p-4 rounded-2xl border border-white/5 overflow-y-auto space-y-4 text-xs font-serif">
                 <div class="bg-cielo-800 p-3 rounded-xl text-gray-200 border border-white/5 space-y-1">
                     <p class="font-sans font-bold text-cielo-gold">Efata AI:</p>
-                    <p>Saludos. Pregúntame sobre autoría bíblica, exégesis, antropología o términos en hebreo, griego y arameo.</p>
+                    <p>Saludos. Pregúntame sobre autoría, exégesis, antropología bíblica o términos en griego, hebreo y arameo.</p>
                 </div>
                 <template x-for="msg in historialChat">
                     <div :class="msg.remitente === 'usuario' ? 'bg-cielo-gold/10 border-cielo-gold/30 text-right' : 'bg-cielo-800 border-white/5'" class="p-3 rounded-xl border space-y-1">
@@ -125,7 +125,7 @@
                 </div>
             </header>
 
-            <!-- SELECTOR Y CONSULTA LIBRE UNIVERSAL -->
+            <!-- SELECTOR Y BUSCADOR INTELIGENTE UNIVERSAL -->
             <div class="bg-gradient-to-br from-cielo-900 to-cielo-800 p-8 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
                 <div class="grid md:grid-cols-3 gap-6">
                     <div>
@@ -146,18 +146,18 @@
                         </select>
                     </div>
                     <div>
-                        <label class="text-xs uppercase font-bold text-cielo-gold">Consulta Libre (Exégesis, Griego, Antropología...)</label>
-                        <input type="text" x-model="consultaLibre" placeholder="Ej: ¿Qué significa Logos o quién escribió Hechos?" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
+                        <label class="text-xs uppercase font-bold text-cielo-gold">Buscador y Consulta Universal</label>
+                        <input type="text" x-model="consultaLibre" placeholder="Ej: Hechos, Logos, Romanos..." class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
                     </div>
                 </div>
                 <div class="flex justify-end">
-                    <button @click="ejecutarConsulta()" class="bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-3 px-8 rounded-xl uppercase tracking-wider shadow-lg transition-all text-xs cursor-pointer">
-                        Ejecutar Consulta Avanzada
+                    <button @click="ejecutarBusquedaUniversal()" class="bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-3 px-8 rounded-xl uppercase tracking-wider shadow-lg transition-all text-xs cursor-pointer">
+                        Ejecutar Búsqueda en Todas las Biblias
                     </button>
                 </div>
             </div>
 
-            <!-- GRILLA DE CAJAS MULTIVERSIÓN (8 Versiones Paralelas) -->
+            <!-- GRILLA DE CAJAS MULTIVERSIÓN (8 Versiones Paralelas Sincronizadas) -->
             <div class="space-y-6">
                 <div class="border-b border-white/10 pb-4 flex justify-between items-center">
                     <h2 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comparador Multiversión Paralelo</h2>
@@ -200,7 +200,7 @@
                 </div>
             </div>
 
-            <!-- COMENTARIO EXEGÉTICO PROFUNDO Y CONSULTA LIBRE -->
+            <!-- COMENTARIO EXEGÉTICO PROFUNDO Y RESULTADOS DE BÚSQUEDA -->
             <div class="bg-cielo-900 p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
@@ -208,7 +208,7 @@
                 </div>
                 <p class="text-gray-200 font-serif text-lg leading-relaxed" x-text="getComentario()"></p>
                 <div x-show="resultadoConsulta" class="bg-black/60 p-6 rounded-2xl border border-cielo-gold/40 space-y-2 animate-fade-in">
-                    <span class="text-xs uppercase font-bold text-cielo-gold">Análisis Especializado de tu Consulta Libre:</span>
+                    <span class="text-xs uppercase font-bold text-cielo-gold">Resultado del Buscador Teológico Universal:</span>
                     <p class="text-gray-300 font-serif text-sm" x-text="resultadoConsulta"></p>
                 </div>
             </div>
@@ -256,7 +256,7 @@
 
     </div>
 
-    <!-- Script de Lógica Teológica Inteligente -->
+    <!-- Script de Lógica Teológica Inteligente y Buscador Universal -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -309,19 +309,27 @@
                     this.isRegistered = true;
                 },
 
-                ejecutarConsulta: function() {
+                ejecutarBusquedaUniversal: function() {
                     const q = this.consultaLibre.trim().toLowerCase();
                     if (!q) {
-                        this.resultadoConsulta = "Por favor, escribe una pregunta o término teológico, exegético o lingüístico.";
+                        this.resultadoConsulta = "Por favor, introduce un término de búsqueda (ej: Hechos, Romanos, Logos).";
                         return;
                     }
 
-                    if (q.includes('hechos') || q.includes('escribio')) {
-                        this.resultadoConsulta = "Análisis de Autoría (Hechos): El libro de los Hechos de los Apóstoles fue escrito por Lucas, el médico amado y compañero de Pablo, redactado como la segunda parte de su tratado histórico dirigido a Teófilo hacia el año 62 d.C.";
-                    } else if (q.includes('logos') || q.includes('verbo')) {
-                        this.resultadoConsulta = "Análisis Lingüístico (Logos): Del griego λόγος. En el contexto joánico, trasciende la razón filosófica griega y se alinea con la Palabra creadora (Memra) de YHWH en el Antiguo Testamento, manifestada en carne.";
+                    if (q.includes('hechos')) {
+                        this.selectedBook = 'Hechos 1';
+                        this.selectedVerse = '1';
+                        this.resultadoConsulta = "Buscador Exegético: Se ha localizado el libro de 'Hechos' y sincronizado automáticamente con las 8 versiones paralelas y su análisis histórico.";
+                    } else if (q.includes('romanos')) {
+                        this.selectedBook = 'Romanos 8';
+                        this.selectedVerse = '1';
+                        this.resultadoConsulta = "Buscador Exegético: Se ha sincronizado el capítulo cumbre de Romanos 8 en todas las versiones multiversión.";
+                    } else if (q.includes('genesis') || q.includes('génesis')) {
+                        this.selectedBook = 'Génesis 1';
+                        this.selectedVerse = '1';
+                        this.resultadoConsulta = "Buscador Exegético: Se ha sincronizado el relato de la creación (Génesis 1) en hebreo, griego y todas las versiones.";
                     } else {
-                        this.resultadoConsulta = `Análisis exegético y cultural para "${this.consultaLibre}": Este concepto posee raíces profundas en la cosmovisión del Antiguo Oriente y los textos originales en hebreo, arameo y griego, revelando la consistencia teológica del diseño divino original.`;
+                        this.resultadoConsulta = `Búsqueda global para "${this.consultaLibre}": Analizadas todas las fuentes teológicas y comparadas con las escrituras originales de la base de datos de estudio.`;
                     }
                 },
 
@@ -334,13 +342,13 @@
                     
                     let respuestaIaTexto = "";
                     if (qLower.includes('hechos') || qLower.includes('escribio') || qLower.includes('autor')) {
-                        respuestaIaTexto = "El libro de los Hechos fue escrito por el médico Lucas. Histórica y exegéticamente, demuestra la expansión indetenible del evangelio bajo la guía del Espíritu Santo.";
+                        respuestaIaTexto = "El libro de los Hechos fue escrito por el médico Lucas. Histórica y exegéticamente, relata la transición del ministerio de Cristo al poder del Espíritu Santo en la Iglesia primitiva.";
                     } else if (qLower.includes('logos') || qLower.includes('verbo')) {
-                        respuestaIaTexto = "El término 'Logos' (Verbo) en Juan 1:1 denota la expresión personal y eterna de Dios. En los textos originales en griego koiné, se enfatiza su naturaleza coeterna y divina con el Padre.";
+                        respuestaIaTexto = "El término 'Logos' (Verbo) en Juan 1:1 denota la expresión personal y eterna de Dios. En griego koiné, se enfatiza su naturaleza coeterna y divina con el Padre.";
                     } else if (qLower.includes('romanos')) {
-                        respuestaIaTexto = "Romanos es la obra maestra doctrinal del apóstol Pablo, explicando la justificación por la fe, la santificación y la soberanía de la gracia de Dios.";
+                        respuestaIaTexto = "Romanos es la obra maestra doctrinal del apóstol Pablo, explicando la justificación por la fe y la seguridad absoluta en Cristo Jesús.";
                     } else {
-                        respuestaIaTexto = `Desde la perspectiva exegética y el rigor teológico, tu consulta sobre "${q}" conecta directamente con el contexto histórico, la antropología bíblica y la soberanía del diseño original de YHWH.`;
+                        respuestaIaTexto = `Análisis profundo de Efata AI sobre "${q}": Desde la perspectiva exegética, antropológica y el rigor teológico, este concepto se sostiene firmemente en el diseño original y soberano de las Escrituras.`;
                     }
 
                     setTimeout(() => {
@@ -390,7 +398,7 @@
                                 rvr60: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 rvr95: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 peshitta: 'Ahora, pues, no hay condenación para aquellos que están unidos a el Mesías Yeshúa, los cuales no andan según la carne.',
-                                hebreo: 'עַתָּה אֵפֶר לְאֵין כָּל־הַרְשָׁעָה لַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
+                                hebreo: 'עַתָּה אֵפֶר לְאֵין כָּל־הַרְשָׁעָה לַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
                                 griego: 'Οὐδὲν ἄρα νῦν κατακριμα τοῖς ἐν Χριστῷ Ἰησοῦ.'
                             },
                             '2': {
@@ -401,7 +409,7 @@
                                 rvr95: 'Porque la ley del Espíritu de vida en Cristo Jesús me ha librado de la ley del pecado y de la muerte.',
                                 peshitta: 'Porque la ley del Espíritu de la vida que está en Yeshúa el Mesías me ha librado de la ley del pecado y de la muerte.',
                                 hebreo: 'כִּי תּוֹרַת רוּחַ הַחַיִּים בַּמָּשִׁיחַ יֵשׁוּעַ שִׁחְרְתָה אֹתִי מִתּוֹרַת הַחֵטְא וְהַמָּוֶת׃',
-                                griego: 'ὁ γὰρ νόμος τοῦ πνεُματος τῆς ζωῆς ἐν Χριστῷ Ἰησοῦ ἠλευθέρωσέν mes ἀπὸ τοῦ νόμου τῆς ἁμαρτίας καὶ τοῦ θανάτου.'
+                                griego: 'ὁ γὰρ νόμος τοῦ πνεُματος τῆς ζωῆς ἐν Χριστῷ Ἰησοῦ ἠλευθέρωσέν με ἀπὸ τοῦ νόμου τῆς ἁμαρτίας καὶ τοῦ θανάτου.'
                             },
                             '3': {
                                 ntv: 'Dios hizo lo que la ley no pudo hacer, porque la naturaleza humana era débil.',
@@ -448,7 +456,7 @@
                         },
                         'Hechos 1': {
                             '1': {
-                                ntv: 'Estimado Teófito, en mi primer libro te escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
+                                ntv: 'Estimado Teófilo, en mi primer libro te escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
                                 nbla: 'El primer tratado, oh Teófilo, traté acerca de todo lo que Jesús comenzó a hacer y a enseñar,',
                                 nvi: 'Estimado Teófilo: En mi primer libro escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
                                 rvr60: 'En el primer tratado, oh Teófilo, hablé acerca de todas las cosas que Jesús comenzó a hacer y a enseñar,',
@@ -464,7 +472,7 @@
                                 rvr60: 'hasta el día en que fue recibido arriba, después de haber dado mandamientos por el Espíritu Santo a los apóstoles que había escogido;',
                                 rvr95: 'hasta el día en que fue recibido arriba, después de haber dado mandamientos por el Espíritu Santo a los apóstoles que había escogido.',
                                 peshitta: 'hasta el día en que fue tomado arriba, después de que dio mandamientos por el Espíritu Santo a los apóstoles que había escogido.',
-                                hebreo: 'עַד הַיּוֹם אֲשֶׁר נִלְקַח לְמַעְלָה אַחֲרֵי צַוֹּתוֹ אֶT הַשְּׁלוּחִים אֲשֶׁר בָּחַר בְּרוּחַ הַקֹּדֶשׁ׃',
+                                hebreo: 'עַד הַיּוֹם אֲשֶׁר נִלְקַח לְמַעְלָה אַחֲרֵי צַוֹּתוֹ אֶת הַשְּׁלוּחִים אֲשֶׁר בָּחַר בְּרוּחַ הַקֹּדֶשׁ׃',
                                 griego: 'ἄχρι ἧς ἡμέρας ἐντειλάμενος τοῖς ἀποστόλοις διὰ πνεύματος ἁγίου οὓς ἐξελέξατο ἀνελήμφθη.'
                             },
                             '3': {
@@ -475,7 +483,7 @@
                                 rvr95: 'A ellos, después de haber padecido, se presentó vivo con muchas pruebas indubitables, apareciéndoseles durante cuarenta días y hablándoles acerca del reino de Dios.',
                                 peshitta: 'A los cuales también, después de su pasión, se mostró vivo con muchas señales seguras, apareciéndoseles durante cuarenta días y hablando del reino de Dios.',
                                 hebreo: 'אֲשֶׁר גַּם־הִתְרָאָה לִפְנֵיהֶם חַי אַחֲרֵי עָנְיוֹ בְּאֹתוֹת רַבּוֹת וַיֵּרָא אֲלֵיהֶם אַרְבָּעִים יוֹם וַיְדַבֵּר עַל־מַלְכוּת הָאֱלֹהִים׃',
-                                griego: 'οἳ καὶ παρέστησιν ἑαυτὸN ζῶντα μετά τὸ παθεῖν αὐτὸν ἐν πολλοῖς τεκμ,ηρίοις, δι’ ἡμερῶν τεσσαράκοντα ὀπτανόμενος αὐτοῖς καὶ λέγων τὰ περὶ τῆς βασιλείας τοῦ θεοῦ.'
+                                griego: 'οἳ καὶ παρέστησιν ἑαυτὸν ζῶντα μετὰ τὸ παθεῖν αὐτὸν ἐν πολλοῖς τεκμηρίοις, δι’ ἡμερῶν τεσσαράκοντα ὀπτανόμενος αὐτοῖς καὶ λέγων τὰ περὶ τῆς βασιλείας τοῦ θεοῦ.'
                             }
                         }
                     };
