@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +14,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            950: '#020617', 
+                            950: '#020617',
                             900: '#0f172a',
                             800: '#1e293b',
-                            accent: '#10b981', 
+                            accent: '#10b981',
                             'accent-hover': '#059669',
-                            soft: '#38bdf8' 
+                            soft: '#38bdf8'
                         }
                     },
                     fontFamily: {
@@ -32,40 +33,68 @@
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
-<body class="text-gray-100 font-sans antialiased min-h-screen relative selection:bg-brand-accent selection:text-white" x-data="cieloApp()">
+
+<body class="text-gray-100 font-sans antialiased min-h-screen relative selection:bg-brand-accent selection:text-white"
+    x-data="cieloApp()">
 
     <!-- FONDO MAJESTUOSO (Atmósfera de Reflexión) -->
     <div class="fixed inset-0 z-[-1]">
-        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2500&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 mix-blend-screen" alt="Atmósfera Cielo">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2500&auto=format&fit=crop"
+            class="w-full h-full object-cover opacity-30 mix-blend-screen" alt="Atmósfera Cielo">
         <div class="absolute inset-0 bg-gradient-to-br from-brand-950 via-brand-900/90 to-brand-950"></div>
     </div>
 
     <!-- PANTALLA DE CARGA DEL MOTOR BÍBLICO -->
-    <div x-show="inicializando" class="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-brand-950/95 backdrop-blur-md">
-        <svg class="animate-spin h-10 w-10 text-brand-accent mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+    <div x-show="inicializando"
+        class="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-brand-950/95 backdrop-blur-md">
+        <svg class="animate-spin h-10 w-10 text-brand-accent mb-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
+        </svg>
         <p class="text-brand-soft font-bold tracking-widest text-sm uppercase">Cargando Base de Datos Local...</p>
         <p class="text-gray-500 text-xs mt-2">Leyendo biblia.json</p>
     </div>
 
     <!-- MODAL DE ENTRADA -->
-    <div x-show="!isRegistered && !inicializando" class="fixed inset-0 z-50 flex items-center justify-center bg-brand-950/80 backdrop-blur-xl p-4 transition-opacity">
-        <div class="bg-brand-800/50 backdrop-blur-2xl p-8 md:p-10 rounded-[2rem] border border-white/10 shadow-2xl max-w-sm w-full text-center space-y-6">
-            <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-20 h-20 rounded-2xl border border-white/20 mx-auto object-cover shadow-lg">
+    <div x-show="!isRegistered && !inicializando"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-brand-950/80 backdrop-blur-xl p-4 transition-opacity">
+        <div
+            class="bg-brand-800/50 backdrop-blur-2xl p-8 md:p-10 rounded-[2rem] border border-white/10 shadow-2xl max-w-sm w-full text-center space-y-6">
+            <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata"
+                class="w-20 h-20 rounded-2xl border border-white/20 mx-auto object-cover shadow-lg">
             <div class="space-y-1">
-                <span class="text-[9px] text-brand-accent uppercase tracking-widest font-bold">Ministerio CieloEfata</span>
+                <span class="text-[9px] text-brand-accent uppercase tracking-widest font-bold">Ministerio
+                    CieloEfata</span>
                 <h2 class="text-2xl font-black text-white tracking-tight">Efata AI</h2>
                 <p class="text-gray-400 text-xs mt-2">La exactitud de la exégesis y el poder de la IA en tus manos.</p>
             </div>
             <div class="space-y-3 text-left">
-                <input type="text" id="reg-nombre" placeholder="Tu nombre" class="w-full bg-black/40 border border-white/10 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-accent text-sm transition-colors">
+                <input type="text" id="reg-nombre" placeholder="Tu nombre"
+                    class="w-full bg-black/40 border border-white/10 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-accent text-sm transition-colors">
             </div>
-            <button @click="entrar()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-3.5 rounded-xl shadow-lg transition-all text-sm">
+            <button @click="entrar()"
+                class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-3.5 rounded-xl shadow-lg transition-all text-sm">
                 Comenzar
             </button>
         </div>
@@ -75,223 +104,262 @@
     <div class="flex h-screen overflow-hidden">
 
         <!-- 1. BARRA LATERAL IZQUIERDA -->
-        <aside class="w-72 bg-brand-950/40 backdrop-blur-md border-r border-white/5 flex flex-col h-screen overflow-y-auto p-6 z-20 hidden lg:flex shrink-0">
-            
+        <aside
+            class="w-72 bg-brand-950/40 backdrop-blur-md border-r border-white/5 flex flex-col h-screen overflow-y-auto p-6 z-20 hidden lg:flex shrink-0">
+
             <!-- Bio Autor -->
             <div class="text-center space-y-3 mb-6 mt-2 border-b border-white/5 pb-6">
                 <div class="relative inline-block">
-                    <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-20 h-20 rounded-full border-2 border-brand-accent shadow-lg object-cover mx-auto">
-                    <span class="absolute bottom-1 right-1 w-4 h-4 bg-brand-accent border-2 border-brand-900 rounded-full"></span>
+                    <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg"
+                        class="w-20 h-20 rounded-full border-2 border-brand-accent shadow-lg object-cover mx-auto">
+                    <span
+                        class="absolute bottom-1 right-1 w-4 h-4 bg-brand-accent border-2 border-brand-900 rounded-full"></span>
                 </div>
                 <div>
                     <h3 class="text-base font-bold text-white">Dr. Alejandro Sirit</h3>
-                    <p class="text-[9px] text-brand-soft font-bold uppercase tracking-widest mt-1">AI Project Manager</p>
+                    <p class="text-[9px] text-brand-soft font-bold uppercase tracking-widest mt-1">AI Project Manager
+                    </p>
                 </div>
                 <div class="flex flex-wrap justify-center gap-1.5 mt-2">
-                    <span class="text-[8px] bg-white/5 text-gray-300 px-2 py-1 rounded border border-white/10">Doctor Honoris Causa</span>
-                    <span class="text-[8px] bg-white/5 text-gray-300 px-2 py-1 rounded border border-white/10">IBM Data Scientist Certified</span>
+                    <span class="text-[8px] bg-white/5 text-gray-300 px-2 py-1 rounded border border-white/10">Doctor
+                        Honoris Causa</span>
+                    <span class="text-[8px] bg-white/5 text-gray-300 px-2 py-1 rounded border border-white/10">IBM Data
+                        Scientist Certified</span>
                 </div>
             </div>
 
             <!-- Manifiesto -->
             <div class="mb-6 border-b border-white/5 pb-6">
-                <h4 class="text-[10px] font-bold uppercase tracking-widest text-brand-accent mb-2">Visión del Ministerio</h4>
+                <h4 class="text-[10px] font-bold uppercase tracking-widest text-brand-accent mb-2">Visión del Ministerio
+                </h4>
                 <p class="text-xs text-gray-400 italic leading-relaxed">
-                    "Restaurar el diseño original de YHWH integrando la precisión de la tecnología con la inmutabilidad de las Escrituras."
+                    "Restaurar el diseño original de YHWH integrando la precisión de la tecnología con la inmutabilidad
+                    de las Escrituras."
                 </p>
             </div>
 
             <!-- Obras Literarias -->
             <div class="space-y-4 flex-1">
-                <h4 class="text-[10px] font-bold uppercase tracking-widest text-brand-soft text-center">Biblioteca Literaria</h4>
+                <h4 class="text-[10px] font-bold uppercase tracking-widest text-brand-soft text-center">Biblioteca
+                    Literaria</h4>
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all"><img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="w-full h-full object-cover"></div>
-                    <div class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all"><img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="w-full h-full object-cover"></div>
-                    <div class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all"><img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="w-full h-full object-cover"></div>
-                    <div class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all"><img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="w-full h-full object-cover"></div>
-                    <div class="col-span-2 w-1/2 mx-auto aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all"><img src="https://i.ibb.co/k2JtzT5W/libro-golgota.png" class="w-full h-full object-cover"></div>
+                    <div
+                        class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all">
+                        <img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="w-full h-full object-cover">
+                    </div>
+                    <div
+                        class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all">
+                        <img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="w-full h-full object-cover">
+                    </div>
+                    <div
+                        class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all">
+                        <img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="w-full h-full object-cover">
+                    </div>
+                    <div
+                        class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all">
+                        <img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="w-full h-full object-cover">
+                    </div>
+                    <div
+                        class="col-span-2 w-1/2 mx-auto aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-lg hover:border-brand-accent transition-all">
+                        <img src="https://i.ibb.co/k2JtzT5W/libro-golgota.png" class="w-full h-full object-cover">
+                    </div>
                 </div>
             </div>
-            
+
         </aside>
 
         <!-- 2. ZONA CENTRAL (EL AGENTE Y LOS RESULTADOS) -->
         <main class="flex-1 flex flex-col h-screen overflow-y-auto p-4 md:p-8 space-y-6 relative">
 
             <!-- CABECERA DEL CHAT / BUSCADOR -->
-            <div class="bg-brand-900/60 backdrop-blur-2xl p-6 md:p-8 rounded-3xl border border-white/10 shadow-2xl flex flex-col space-y-4">
+            <div
+                class="bg-brand-900/60 backdrop-blur-2xl p-6 md:p-8 rounded-3xl border border-white/10 shadow-2xl flex flex-col space-y-4">
                 <div class="flex items-center gap-2 mb-2">
-                    <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+                        </path>
+                    </svg>
                     <span class="text-sm font-semibold text-white uppercase tracking-wider">Efata AI</span>
                 </div>
-                
+
                 <div class="relative">
-                    <input type="text" x-model="busqueda" @keyup.enter="procesarConsulta()" placeholder="Pide un texto (Ej: 1 Corintios 1:10) o haz una pregunta teológica..." class="w-full bg-black/40 border border-white/10 py-5 pl-5 pr-32 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-accent transition-all text-sm shadow-inner">
-                    
-                    <button @click="procesarConsulta()" class="absolute right-2 top-2 bottom-2 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold px-6 rounded-xl text-xs uppercase tracking-wider transition-all flex items-center gap-2">
+                    <input type="text" x-model="busqueda" @keyup.enter="procesarConsulta()"
+                        placeholder="Pide un texto (Ej: 1 Corintios 1:10) o haz una pregunta teológica..."
+                        class="w-full bg-black/40 border border-white/10 py-5 pl-5 pr-32 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-accent transition-all text-sm shadow-inner">
+
+                    <button @click="procesarConsulta()"
+                        class="absolute right-2 top-2 bottom-2 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold px-6 rounded-xl text-xs uppercase tracking-wider transition-all flex items-center gap-2">
                         <span x-show="!procesando">Preguntar</span>
-                        <svg x-show="procesando" class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        <svg x-show="procesando" class="animate-spin h-4 w-4 text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
                     </button>
                 </div>
             </div>
 
             <!-- RESULTADOS DEL AGENTE Y LECTOR -->
             <div x-show="resultadoMostrado" class="space-y-6 animate-fade-in" style="display: none;">
-                
+
                 <!-- RESPUESTA DEL AGENTE AI -->
                 <div class="bg-brand-800/40 backdrop-blur-xl p-6 rounded-3xl border border-white/5 shadow-xl">
                     <div class="flex items-start gap-4">
                         <div class="bg-brand-accent/20 p-2 rounded-xl text-brand-accent">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
                         </div>
                         <div>
-                            <h3 class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Respuesta de Efata AI</h3>
+                            <h3 class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Respuesta de
+                                Efata AI</h3>
                             <p class="text-gray-200 text-sm leading-relaxed" x-html="respuestaAgente"></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- LECTOR DE LA BIBLIA (Extraído de tu JSON local) -->
-                <div x-show="textoBibliaLocal" class="bg-brand-900/80 backdrop-blur-2xl p-6 rounded-3xl border border-brand-accent/30 shadow-2xl">
+                <div x-show="textoBibliaLocal"
+                    class="bg-brand-900/80 backdrop-blur-2xl p-6 rounded-3xl border border-brand-accent/30 shadow-2xl">
                     <div class="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
                         <h2 class="text-lg font-serif font-bold text-white flex items-center gap-2">
-                            <svg class="w-5 h-5 text-brand-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0-3.332.477-4.5 1.253"></path></svg>
+                            <svg class="w-5 h-5 text-brand-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0-3.332.477-4.5 1.253">
+                                </path>
+                            </svg>
                             Texto Original Encontrado
                         </h2>
-                        <span class="text-xs bg-brand-accent/10 text-brand-accent px-3 py-1 rounded-full font-mono uppercase" x-text="refFormateada"></span>
+                        <span
+                            class="text-xs bg-brand-accent/10 text-brand-accent px-3 py-1 rounded-full font-mono uppercase"
+                            x-text="refFormateada"></span>
                     </div>
-                    
+
                     <p class="text-brand-gold font-serif text-lg leading-loose" x-text="textoBibliaLocal"></p>
-                    <p class="text-[10px] text-gray-500 mt-4 text-right">* Reina Valera 1960. Extraído de la base de datos local de CieloEfata.</p>
+                    <p class="text-[10px] text-gray-500 mt-4 text-right">* Reina Valera 1960. Extraído de la base de
+                        datos local de CieloEfata.</p>
                 </div>
 
                 <!-- LABORATORIO DE IDIOMAS ORIGINALES -->
                 <div class="grid md:grid-cols-2 gap-4">
                     <div class="bg-brand-900/40 backdrop-blur-md p-6 rounded-3xl border border-white/5">
-                        <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 text-brand-soft">Raíz en Idioma Original</h3>
-                        <p class="text-gray-400 text-sm italic">Módulo de Hebreo / Griego en indexación para este pasaje...</p>
+                        <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 text-brand-soft">Raíz en
+                            Idioma Original</h3>
+                        <p class="text-gray-400 text-sm italic">Módulo de Hebreo / Griego en indexación para este
+                            pasaje...</p>
                     </div>
-                    
+
                     <!-- COMENTARIO EXEGÉTICO -->
-                    <div class="bg-black/40 backdrop-blur-md p-6 rounded-3xl border border-white/5">
-                        <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Perspectiva Erudita</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed" x-text="comentarioErudito"></p>
+                    <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-5 shadow-lg">
+                        <h4 class="text-xs font-semibold tracking-wider text-emerald-400 uppercase mb-2">Perspectiva
+                            Erudita</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed" x-text="comentarioErudito"></p>
                     </div>
                 </div>
 
             </div>
+            <script>
+                function cieloApp() {
+                    return {
+                        inicializando: false,
+                        isRegistered: false,
+                        busqueda: '',
+                        procesando: false,
+                        resultadoMostrado: false,
 
-        </main>
-    </div>
+                        textoBibliaLocal: '',
+                        refFormateada: '',
+                        respuestaAgente: '',
+                        comentarioErudito: 'Esperando referencia bíblica para iniciar análisis erudito.',
 
-    <script>
-        function cieloApp() {
-            return {
-                inicializando: true,
-                isRegistered: false,
-                busqueda: '',
-                procesando: false,
-                resultadoMostrado: false,
-                
-                // Base de datos completa en memoria
-                dbCompleta: null,
-                
-                // Variables de estado del UI
-                textoBibliaLocal: '',
-                refFormateada: '',
-                respuestaAgente: '',
-                comentarioErudito: '',
-
-                async init() {
-                    try {
-                        // 1. EL MOTOR FETCH: Carga tu biblia.json local a la memoria de la App.
-                        const response = await fetch('./biblia.json');
-                        if (!response.ok) throw new Error('No se pudo cargar el archivo biblia.json');
-                        
-                        this.dbCompleta = await response.json();
-                        console.log("Base de datos bíblica cargada exitosamente.");
-                        this.inicializando = false;
-                    } catch (error) {
-                        console.error("Error al cargar la Biblia:", error);
-                        alert("Asegúrate de que 'biblia.json' esté en la misma carpeta que 'index.html' y estés usando un Servidor Local (Live Server).");
-                        this.inicializando = false;
-                    }
-                },
-
-                entrar: function() {
-                    if(document.getElementById('reg-nombre').value.trim() !== '') {
-                        this.isRegistered = true;
-                    }
-                },
-
-                // 2. FUNCIÓN DE LIMPIEZA DE DATOS (Arregla la "basura" del JSON)
-                limpiarTexto: function(textoSucio) {
-                    if(!textoSucio) return "";
-                    // Esta expresión regular elimina el '),", del final del string.
-                    return textoSucio.replace(/'\),"?$/, '').trim();
-                },
-
-                // 3. NORMALIZADOR DE BÚSQUEDA (De "1 Corintios 1:1" a "1-corintios")
-                normalizarReferencia: function(input) {
-                    const regex = /^(\d?\s*[a-zA-ZáéíóúÁÉÍÓÚñÑ]+)\s+(\d+)\s*:\s*(\d+)$/;
-                    const match = input.trim().match(regex);
-                    
-                    if (match) {
-                        let libro = match[1].toLowerCase().trim();
-                        // Reemplazar espacios por guiones para libros como "1 corintios" -> "1-corintios"
-                        libro = libro.replace(/\s+/g, '-'); 
-                        // Normalizar acentos (ej: "génesis" -> "genesis")
-                        libro = libro.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-                        return {
-                            libroKey: libro,
-                            capitulo: match[2],
-                            versiculo: match[3],
-                            formatoBonito: `${match[1]} ${match[2]}:${match[3]}`
-                        };
-                    }
-                    return null;
-                },
-
-                procesarConsulta: function() {
-                    const query = this.busqueda.trim();
-                    if (!query) return;
-
-                    this.procesando = true;
-                    this.resultadoMostrado = true;
-                    this.textoBibliaLocal = '';
-
-                    setTimeout(() => {
-                        const refParsed = this.normalizarReferencia(query);
-
-                        if (refParsed) {
-                            // Buscar en la base de datos local
-                            try {
-                                const textoCrudo = this.dbCompleta[refParsed.libroKey][refParsed.capitulo][refParsed.versiculo];
-                                
-                                if (textoCrudo) {
-                                    this.textoBibliaLocal = this.limpiarTexto(textoCrudo);
-                                    this.refFormateada = refParsed.formatoBonito;
-                                    this.respuestaAgente = `He extraído el texto exacto desde la base de datos segura del Ministerio. ¿En qué aspecto exegético o doctrinal te gustaría que profundizáramos sobre este pasaje?`;
-                                    this.comentarioErudito = "El análisis gramatical-histórico de este pasaje requiere considerar el contexto de la audiencia original. (El Agente está listo para profundizar).";
-                                } else {
-                                    throw new Error("Versículo no encontrado");
-                                }
-                            } catch (e) {
-                                this.respuestaAgente = `No pude localizar el versículo exacto en el archivo local. Verifica que el libro esté escrito correctamente (Ej: "1 Corintios 1:1" o "Juan 3:16").`;
-                                this.comentarioErudito = "";
+                        entrar: function () {
+                            if (document.getElementById('reg-nombre').value.trim() !== '') {
+                                this.isRegistered = true;
                             }
-                        } else {
-                            // Es una pregunta abierta
-                            this.respuestaAgente = `He recibido tu pregunta: <i>"${query}"</i>.<br><br>Soy tu Agente Teológico de CieloEfata. Para darte la mejor respuesta exegética, por favor indícame un pasaje bíblico base con el formato <b>Libro Capítulo:Versículo</b> (Por ejemplo: <i>Hechos 1:1</i>).`;
-                            this.comentarioErudito = "Esperando referencia bíblica para iniciar análisis erudito.";
-                        }
+                        },
 
-                        this.procesando = false;
-                    }, 400); // Pequeña demora para sensación de procesamiento
+                        normalizarReferencia: function (input) {
+                            const regex = /^(\d?\s*[a-zA-ZáéíóúÁÉÍÓÚñÑ]+)\s+(\d+)(?:\s*[:\s]\s*(\d+))?$/;
+                            const match = input.trim().match(regex);
+
+                            if (match) {
+                                let libro = match[1].toLowerCase().trim();
+                                libro = libro.replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                let capitulo = parseInt(match[2]);
+                                let versiculo = parseInt(match[3] || "1");
+
+                                return {
+                                    libroKey: libro,
+                                    capitulo: capitulo,
+                                    versiculo: versiculo,
+                                    formatoBonito: `${match[1].trim()} ${capitulo}:${versiculo}`
+                                };
+                            }
+                            return null;
+                        },
+
+                        async procesarConsulta() {
+                            const query = this.busqueda.trim();
+                            if (!query) return;
+
+                            this.procesando = true;
+                            this.resultadoMostrado = true;
+                            this.textoBibliaLocal = '';
+                            this.comentarioErudito = 'Consultando el motor exegético...';
+
+                            const refParsed = this.normalizarReferencia(query);
+
+                            if (refParsed) {
+                                try {
+                                    const endpoint = `/api/biblia?libro=${refParsed.libroKey}&capitulo=${refParsed.capitulo}&versiculo=${refParsed.versiculo}`;
+
+                                    const response = await fetch(endpoint);
+                                    const result = await response.json();
+
+                                    if (!result.success || !result.data || result.data.length === 0) {
+                                        throw new Error("Versículo no encontrado en la base de datos.");
+                                    }
+
+                                    const registro = result.data[0];
+                                    this.textoBibliaLocal = registro.texto_rvr1960;
+                                    this.refFormateada = refParsed.formatoBonito;
+
+                                    this.respuestaAgente = `Exégesis completada para <b>${refParsed.formatoBonito}</b> a través del servidor seguro.`;
+                                    this.generarComentario(refParsed.libroKey, refParsed.capitulo);
+
+                                } catch (e) {
+                                    console.error("Error en la consulta:", e);
+                                    this.respuestaAgente = `No se pudo completar la consulta para <b>"${query}"</b>. Verifica la referencia (ej: 1 Corintios 1:1).`;
+                                    this.textoBibliaLocal = "";
+                                    this.comentarioErudito = "Error de sincronización con el servidor.";
+                                }
+                            } else {
+                                this.respuestaAgente = `Consulta general recibida: <i>"${query}"</i>. Ingresa un pasaje bíblico válido.`;
+                                this.comentarioErudito = "Esperando referencia bíblica.";
+                            }
+
+                            this.procesando = false;
+                        },
+
+                        generarComentario: function (libro, capitulo) {
+                            if (libro === '1-corintios') {
+                                this.comentarioErudito = "Pablo establece su apostolado por la voluntad divina, dirigiéndose a una comunidad fracturada pero santificada en Cristo.";
+                            } else if (libro === 'juan' && capitulo === 1) {
+                                this.comentarioErudito = "El prólogo de Juan establece la deidad absoluta de Cristo (El Logos) en el marco del monoteísmo hebreo.";
+                            } else if (libro === 'romanos' && capitulo === 8) {
+                                this.comentarioErudito = "Pablo establece la anulación de la sentencia legal (katakrima) para los que están en unión con el Mesías.";
+                            } else {
+                                this.comentarioErudito = "El análisis gramatical-histórico de este pasaje revela matices profundos del contexto original del Cercano Oriente.";
+                            }
+                        }
+                    }
                 }
-            }
-        }
-    </script>
+            </script>
 </body>
+
 </html>
