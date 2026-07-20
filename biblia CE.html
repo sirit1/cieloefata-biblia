@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CieloEfata Biblia de Estudio — Plataforma Teológica Avanzada</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cielo: {
+                            950: '#06080f',
+                            900: '#0b0f19',
+                            800: '#111827',
+                            700: '#1f2937',
+                            gold: '#d4af37',
+                            'gold-light': '#f3e5ab',
+                            pergamino: '#f4ebd0'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- SDK de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Alpine.js para reactividad ligera y limpia -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-cielo-950 text-gray-100 font-sans antialiased min-h-screen selection:bg-cielo-gold selection:text-black" x-data="cieloApp()">
+
+    <!-- CONTENEDOR PRINCIPAL DE APLICACIÓN DE ESTUDIO -->
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- 1. BARRA LATERAL DE NAVEGACIÓN (ESTILO BIBLIOTECA ANTIGUA Y MODERNA) -->
+        <aside class="w-72 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col justify-between hidden md:flex z-20">
+            <div>
+                <!-- Brand / Logo Header -->
+                <div class="p-6 border-b border-white/5 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cielo-gold/20 to-purple-900/40 border border-cielo-gold/40 flex items-center justify-center shadow-lg">
+                        <span class="text-cielo-gold font-serif font-black text-xl">Ω</span>
+                    </div>
+                    <div>
+                        <h1 class="font-serif font-bold text-white tracking-wide text-base">CieloEfata</h1>
+                        <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-semibold">Biblia de Estudio</p>
+                    </div>
+                </div>
+
+                <!-- Menú de Módulos Teológicos -->
+                <nav class="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-220px)]">
+                    <button @click="currentView = 'lector'" :class="currentView === 'lector' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <span>Lector Bíblico Avanzado</span>
+                    </button>
+
+                    <button @click="currentView = 'comparador'" :class="currentView === 'comparador' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <span>Comparador Multiversión</span>
+                    </button>
+
+                    <button @click="currentView = 'laboratorio'" :class="currentView === 'laboratorio' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        <span>Laboratorio Bíblico Original</span>
+                    </button>
+
+                    <button @click="currentView = 'comentarios'" :class="currentView === 'comentarios' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <span>Comentario Exegético / MacArthur</span>
+                    </button>
+
+                    <button @click="currentView = 'ia'" :class="currentView === 'ia' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        <span>Asistente Efata AI</span>
+                    </button>
+
+                    <button @click="currentView = 'devocional'" :class="currentView === 'devocional' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        <span>Devocionales "Caminar con Dios"</span>
+                    </button>
+
+                    <button @click="currentView = 'dashboard'" :class="currentView === 'dashboard' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <span>Dashboard del Usuario</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Footer Sidebar con Sello Editorial -->
+            <div class="p-4 border-t border-white/5 text-center">
+                <p class="text-[11px] text-gray-400">Editorial CieloEfata</p>
+                <p class="text-[9px] text-cico-gold/60 mt-0.5">Teología & Inteligencia Artificial</p>
+            </div>
+        </aside>
+
+        <!-- 2. ÁREA PRINCIPAL DE TRABAJO Y LECTURA -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden bg-cielo-950">
+
+            <!-- Top Header de Control -->
+            <header class="h-20 bg-cielo-900 border-b border-white/5 flex items-center justify-between px-8 z-10">
+                <div class="flex items-center gap-4">
+                    <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="getViewTitle()"></span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="p-2.5 rounded-xl bg-cielo-800 text-gray-300 hover:text-white border border-white/5 transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                    <div class="flex items-center gap-3 pl-4 border-l border-white/10">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cielo-gold to-purple-600 flex items-center justify-center font-bold text-black text-sm">AS</div>
+                        <div class="hidden sm:block text-left">
+                            <p class="text-xs font-bold text-white">Dr. Alejandro Sirit</p>
+                            <p class="text-[10px] text-gray-400">Investigador Teológico</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenedor Dinámico de Vistas -->
+            <div class="flex-1 overflow-y-auto p-6 md:p-10 space-y-8">
+
+                <!-- VISTA 1: LECTOR BÍBLICO AVANZADO -->
+                <div x-show="currentView === 'lector'" class="max-w-4xl mx-auto space-y-8 animate-fade-in">
+                    <!-- Selector de Libro / Capítulo -->
+                    <div class="bg-cielo-900 p-6 rounded-3xl border border-white/5 flex flex-wrap gap-4 items-center justify-between shadow-2xl">
+                        <div class="flex gap-4">
+                            <select x-model="selectedBook" class="bg-cielo-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white font-medium focus:outline-none focus:border-cielo-gold">
+                                <option value="Juan">Evangelio según San Juan</option>
+                                <option value="Romanos">Epístola a los Romanos</option>
+                                <option value="Génesis">Génesis</option>
+                            </select>
+                            <select x-model="selectedChapter" class="bg-cielo-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white font-medium focus:outline-none focus:border-cielo-gold">
+                                <option value="1">Capítulo 1</option>
+                                <option value="3">Capítulo 3</option>
+                                <option value="8">Capítulo 8</option>
+                            </select>
+                        </div>
+                        <div class="text-xs text-cielo-gold tracking-widest font-semibold uppercase">Versión: Reina Valera 1960 / MacArthur</div>
+                    </div>
+
+                    <!-- Texto del Capítulo con Comentarios Integrados -->
+                    <div class="bg-cielo-900/60 p-8 md:p-12 rounded-[2.5rem] border border-cielo-gold/20 shadow-2xl space-y-6">
+                        <h2 class="text-3xl font-serif font-bold text-cielo-gold mb-6" x-text="selectedBook + ' ' + selectedChapter"></h2>
+                        
+                        <div class="space-y-6 font-serif text-lg leading-relaxed text-gray-200">
+                            <p class="hover:bg-white/5 p-3 rounded-xl transition-all cursor-pointer border-l-2 border-transparent hover:border-cielo-gold">
+                                <span class="text-xs font-sans font-bold text-cielo-gold mr-3">1</span>
+                                En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios.
+                            </p>
+                            <p class="hover:bg-white/5 p-3 rounded-xl transition-all cursor-pointer border-l-2 border-transparent hover:border-cielo-gold">
+                                <span class="text-xs font-sans font-bold text-cielo-gold mr-3">2</span>
+                                Este era en el principio con Dios.
+                            </p>
+                            <p class="hover:bg-white/5 p-3 rounded-xl transition-all cursor-pointer border-l-2 border-transparent hover:border-cielo-gold bg-cielo-gold/5 border-l-cielo-gold">
+                                <span class="text-xs font-sans font-bold text-cielo-gold mr-3">3</span>
+                                Todas las cosas por él fueron hechas, y sin él nada de lo que ha sido hecho fue hecho.
+                                <span class="block mt-2 text-xs font-sans text-cielo-gold/80 italic bg-cielo-950/80 p-3 rounded-lg border border-cielo-gold/20">
+                                    <b>Nota MacArthur:</b> El Logos encarnado es el agente creador absoluto. No hay materia autónoma; toda existencia depende causalmente de la deidad eterna del Hijo.
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISTA 2: COMPARADOR BÍBLICO LINEAL MULTIVERSIÓN -->
+                <div x-show="currentView === 'comparador'" class="space-y-6 animate-fade-in">
+                    <div class="bg-cielo-900 p-6 rounded-3xl border border-white/5">
+                        <h2 class="text-2xl font-bold text-white mb-2">Comparador Multiversión de Estudio</h2>
+                        <p class="text-sm text-gray-400">Análisis paralelo de traducciones y variantes semánticas para Juan 1:1</p>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-3xl border border-white/10 bg-cielo-900 shadow-2xl">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-cielo-800 text-xs font-bold uppercase tracking-wider text-cielo-gold border-b border-white/10">
+                                    <th class="p-4">Versión / Fuente</th>
+                                    <th class="p-4">Texto Bíblico</th>
+                                    <th class="p-4">Nota Semántica / Diferencia</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5 text-sm text-gray-300 font-serif">
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-sans font-bold text-white">Reina Valera 1960</td>
+                                    <td class="p-4">En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios.</td>
+                                    <td class="p-4 text-xs font-sans text-gray-400">Traducción clásica formal con énfasis en la co-divinidad.</td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-sans font-bold text-white">Nueva Versión Internacional</td>
+                                    <td class="p-4">En el principio ya existía el Palabra, y el Palabra estaba con Dios, y el Palabra era Dios.</td>
+                                    <td class="p-4 text-xs font-sans text-gray-400">Equivalencia dinámica enfocada en claridad conceptual.</td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-sans font-bold text-white">Peshitta Aramea</td>
+                                    <td class="p-4">Beshughra men qadmayda howa Melta...</td>
+                                    <td class="p-4 text-xs font-sans text-gray-400">Matiz semítico original de la lengua que hablaba nuestro Señor.</td>
+                                </tr>
+                                <tr class="hover:bg-white/5 bg-cielo-gold/5">
+                                    <td class="p-4 font-sans font-bold text-cielo-gold">Griego Koiné (Original)</td>
+                                    <td class="p-4 font-mono">Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν προς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος.</td>
+                                    <td class="p-4 text-xs font-sans text-cielo-gold">Estructura anartra (sin artículo) que resalta la cualidad divina del Logos.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VISTA 3: LABORATORIO BÍBLICO ORIGINAL -->
+                <div x-show="currentView === 'laboratorio'" class="space-y-6 animate-fade-in max-w-4xl mx-auto">
+                    <div class="bg-cielo-900 p-8 rounded-3xl border border-white/5 space-y-4">
+                        <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold">Análisis Lingüístico Profundo</span>
+                        <h2 class="text-4xl font-serif font-bold text-white">Laboratorio Bíblico Original</h2>
+                        <p class="text-gray-300">Exploración morfológica, raíz y semántica de los términos originales.</p>
+                    </div>
+
+                    <!-- Término Destacado -->
+                    <div class="bg-gradient-to-br from-cielo-900 to-cielo-800 p-8 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-6">
+                            <div>
+                                <span class="text-xs text-cielo-gold uppercase font-bold tracking-widest">Griego Koiné (Nuevo Testamento)</span>
+                                <h3 class="text-5xl font-mono font-bold text-white mt-2">λόγος</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xl font-bold text-cielo-gold">Logos</span>
+                                <p class="text-xs text-gray-400">Sustantivo masculino</p>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6 text-sm">
+                            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 space-y-2">
+                                <span class="text-xs uppercase font-bold text-cielo-gold">Significado Raíz</span>
+                                <p class="text-gray-200">Palabra, expresión articulada, concepto divino, razón ordenadora del universo.</p>
+                            </div>
+                            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 space-y-2">
+                                <span class="text-xs uppercase font-bold text-cielo-gold">Forma Gramatical y Uso</span>
+                                <p class="text-gray-200">Nominativo singular. Utilizado en la filosofía helenística y adoptado por Juan para revelar la preexistencia de Cristo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISTA 4: COMENTARIO EXEGÉTICO Y MACARTHUR -->
+                <div x-show="currentView === 'comentarios'" class="space-y-6 animate-fade-in max-w-4xl mx-auto">
+                    <div class="bg-cielo-900 p-8 rounded-3xl border border-white/5 space-y-4">
+                        <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold">Teología Sistemática & Exégesis</span>
+                        <h2 class="text-3xl font-serif font-bold text-white">Comentario MacArthur y Exegético</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-cielo-900 p-8 rounded-3xl border border-white/10 space-y-4 shadow-xl">
+                            <h3 class="text-xl font-bold text-cielo-gold">Contexto Histórico y Autor (Juan)</h3>
+                            <p class="text-gray-300 font-serif leading-relaxed">
+                                Escrito por el apóstol Juan hacia finales del siglo I d.C. desde Éfeso. Su propósito fundamental es presentar de manera irrefutable la deidad absoluta de Jesucristo frente a las primeras corrientes gnósticas que intentaban socavar la encarnación real del Verbo.
+                            </p>
+                        </div>
+                        <div class="bg-cielo-900 p-8 rounded-3xl border border-white/10 space-y-4 shadow-xl">
+                            <h3 class="text-xl font-bold text-cielo-gold">Análisis Antropológico y Cultural</h3>
+                            <p class="text-gray-300 font-serif leading-relaxed">
+                                El concepto del "Logos" resonaba tanto en la mente judía (como la Palabra creadora de YHWH en el Génesis y los Targumes) como en la mentalidad griega (la Razón que gobierna el cosmos). Juan unifica magistralmente ambas culturas bajo la soberanía exclusiva de Cristo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISTA 5: ASISTENTE EFATA AI -->
+                <div x-show="currentView === 'ia'" class="space-y-6 animate-fade-in max-w-4xl mx-auto h-[calc(100vh-160px)] flex flex-col">
+                    <div class="bg-cielo-900 p-6 rounded-3xl border border-white/5 flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Efata AI</h2>
+                            <p class="text-xs text-cielo-gold">Asistente Teológico e Inteligencia Artificial Especializada</p>
+                        </div>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    </div>
+
+                    <!-- Chat Box -->
+                    <div class="flex-1 bg-cielo-900/60 p-6 rounded-3xl border border-white/5 overflow-y-auto space-y-4">
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-cielo-gold flex items-center justify-center font-bold text-black text-xs">AI</div>
+                            <div class="bg-cielo-800 p-4 rounded-2xl text-sm text-gray-200 max-w-lg border border-white/5">
+                                Saludos, Dr. Sirit. Estoy listo para asistirle en su investigación exegética, análisis del texto original o resolución de dudas teológicas. ¿Qué pasaje o doctrina estudiaremos hoy?
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Chat -->
+                    <div class="flex gap-4">
+                        <input type="text" placeholder="Pregúntale al Asistente Teológico sobre exégesis, griego o contexto histórico..." class="flex-1 bg-cielo-900 border border-white/10 p-4 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
+                        <button class="bg-cielo-gold hover:bg-cielo-gold/90 text-black px-6 rounded-2xl font-bold uppercase text-xs tracking-wider transition-all">Enviar</button>
+                    </div>
+                </div>
+
+                <!-- VISTA 6: DEVOCIONALES "CAMINAR CON DIOS" -->
+                <div x-show="currentView === 'devocional'" class="space-y-6 animate-fade-in max-w-3xl mx-auto">
+                    <div class="bg-gradient-to-br from-cielo-900 to-purple-950/40 p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
+                        <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold">Caminar con Dios — Devocional Diario</span>
+                        <h2 class="text-4xl font-serif font-bold text-white">La Soberanía que Sostiene el Caos</h2>
+                        <p class="text-lg text-purple-200 font-serif italic">"Todas las cosas por él fueron hechas..." — Juan 1:3</p>
+                        
+                        <div class="space-y-4 text-gray-300 font-serif text-base leading-relaxed border-t border-white/10 pt-6">
+                            <p>En momentos donde el entorno parece fragmentarse bajo el peso de la incertidumbre, la Escritura nos devuelve al punto de partida absoluto: Cristo es el sustentador de cada átomo del universo.</p>
+                            <p><b>Aplicación Práctica:</b> Hoy, ante cualquier desafío laboral o personal, detén tu impulso reactivo y reconoce que tu vida está anclada en Su diseño original.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISTA 7: DASHBOARD DEL USUARIO -->
+                <div x-show="currentView === 'dashboard'" class="space-y-8 animate-fade-in max-w-4xl mx-auto">
+                    <div class="bg-cielo-900 p-8 rounded-3xl border border-white/5 space-y-2">
+                        <h2 class="text-3xl font-bold text-white">Dashboard de Investigación</h2>
+                        <p class="text-gray-400 text-sm">Panel personal de estudios, notas y progreso teológico.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-cielo-900 p-6 rounded-2xl border border-white/5 space-y-2">
+                            <span class="text-xs text-gray-400 uppercase font-bold">Estudios Guardados</span>
+                            <p class="text-3xl font-black text-cielo-gold">14</p>
+                        </div>
+                        <div class="bg-cielo-900 p-6 rounded-2xl border border-white/5 space-y-2">
+                            <span class="text-xs text-gray-400 uppercase font-bold">Devocionales Completados</span>
+                            <p class="text-3xl font-black text-emerald-400">28</p>
+                        </div>
+                        <div class="bg-cielo-900 p-6 rounded-2xl border border-white/5 space-y-2">
+                            <span class="text-xs text-gray-400 uppercase font-bold">Ruta Teológica Activa</span>
+                            <p class="text-lg font-bold text-white">Exégesis Avanzada</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Script de Control de Vistas -->
+    <script>
+        function cieloApp() {
+            return {
+                currentView: 'lector',
+                selectedBook: 'Juan',
+                selectedChapter: '1',
+                getViewTitle() {
+                    const titles = {
+                        'lector': 'Lector Bíblico Avanzado',
+                        'comparador': 'Comparador Multiversión',
+                        'laboratorio': 'Laboratorio Bíblico Original',
+                        'comentarios': 'Comentario Exegético & MacArthur',
+                        'ia': 'Asistente Efata AI',
+                        'devocional': 'Devocionales "Caminar con Dios"',
+                        'dashboard': 'Dashboard del Usuario'
+                    };
+                    return titles[this.currentView] || 'Plataforma';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
