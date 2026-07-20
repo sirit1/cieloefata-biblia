@@ -70,10 +70,45 @@
         </div>
     </div>
 
-    <!-- CONTENEDOR PRINCIPAL: DOS COLUMNAS -->
+    <!-- CONTENEDOR PRINCIPAL: TRES COLUMNAS (IZQUIERDA: ASISTENTE IA | CENTRO: ESTUDIO | DERECHA: BIO Y LIBROS) -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- COLUMNA IZQUIERDA: CONTENIDO Y LECTOR DE ESTUDIO -->
+        <!-- 1. BARRA LATERAL IZQUIERDA: ASISTENTE EFATA AI -->
+        <aside class="w-80 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col h-screen p-6 space-y-6 z-20 hidden xl:flex">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <span>Efata AI</span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    </h2>
+                    <p class="text-[10px] text-cielo-gold uppercase tracking-wider">Asistente Teológico IA</p>
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="flex-1 bg-cielo-950/70 p-4 rounded-2xl border border-white/5 overflow-y-auto space-y-4 text-xs font-serif">
+                <div class="bg-cielo-800 p-3 rounded-xl text-gray-200 border border-white/5 space-y-1">
+                    <p class="font-sans font-bold text-cielo-gold">Efata AI:</p>
+                    <p>Saludos. Estoy listo para asistirte en exégesis, análisis de los idiomas originales (griego/hebreo/arameo) o contexto histórico.</p>
+                </div>
+                <template x-for="msg in historialChat">
+                    <div :class="msg.remitente === 'usuario' ? 'bg-cielo-gold/10 border-cielo-gold/30 text-right' : 'bg-cielo-800 border-white/5'" class="p-3 rounded-xl border space-y-1">
+                        <p class="font-sans font-bold text-[10px] text-cielo-gold" x-text="msg.remitente === 'usuario' ? 'Tú:' : 'Efata AI:'"></p>
+                        <p class="text-gray-200" x-text="msg.texto"></p>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Input Chat -->
+            <div class="space-y-2">
+                <input type="text" x-model="preguntaIa" @keyup.enter="enviarPreguntaIa()" placeholder="Pregúntale a Efata AI..." class="w-full bg-cielo-950 border border-cielo-gold/30 p-3 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-xs">
+                <button @click="enviarPreguntaIa()" class="w-full bg-cielo-gold hover:bg-cielo-gold/90 text-black py-2.5 rounded-xl font-bold uppercase text-[10px] tracking-wider transition-all cursor-pointer">
+                    Consultar a la IA
+                </button>
+            </div>
+        </aside>
+
+        <!-- 2. COLUMNA CENTRAL: CONTENIDO Y LECTOR DE ESTUDIO -->
         <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-10 space-y-10">
 
             <!-- Top Header con Logos -->
@@ -171,7 +206,7 @@
                     <h3 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comentario Exegético, Teológico y Antropológico</h3>
                 </div>
                 <p class="text-gray-200 font-serif text-lg leading-relaxed" x-text="getComentario()"></p>
-                <div x-show="resultadoConsulta" class="bg-black/60 p-6 rounded-2xl border border-cielo-gold/40 space-y-2">
+                <div x-show="resultadoConsulta" class="bg-black/60 p-6 rounded-2xl border border-cielo-gold/40 space-y-2 animate-fade-in">
                     <span class="text-xs uppercase font-bold text-cielo-gold">Análisis Especializado de tu Consulta Libre:</span>
                     <p class="text-gray-300 font-serif text-sm" x-text="resultadoConsulta"></p>
                 </div>
@@ -187,10 +222,10 @@
 
         </main>
 
-        <!-- COLUMNA DERECHA FIJA (TARJETA DE BIO + LIBROS EN VERTICAL) -->
+        <!-- 3. BARRA LATERAL DERECHA: TARJETA DE BIO + LIBROS EN VERTICAL -->
         <aside class="w-80 bg-cielo-900 border-l border-cielo-gold/20 flex flex-col h-screen overflow-y-auto p-6 space-y-8 z-20 hidden lg:flex">
             
-            <!-- 1. TARJETA DE BIO AL INICIO (FIJA EN SCROLL) -->
+            <!-- Tarjeta de Bio al Inicio (Fija en Scroll) -->
             <div class="bg-gradient-to-br from-cielo-800 to-black p-6 rounded-3xl border border-cielo-gold/30 shadow-2xl space-y-4 text-center shrink-0">
                 <a href="https://ibb.co/G31Gzhk8" target="_blank" class="inline-block">
                     <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-24 h-24 rounded-2xl border-2 border-cielo-gold shadow-2xl object-cover mx-auto" alt="Dr. Alejandro Sirit">
@@ -204,7 +239,7 @@
                 </p>
             </div>
 
-            <!-- 2. PORTADAS DE LIBROS EN VERTICAL (JUSTIFICADAS A LA DERECHA) -->
+            <!-- Portadas de Libros en Vertical (Justificadas a la Derecha) -->
             <div class="space-y-4 flex flex-col items-end text-right shrink-0 pb-10">
                 <h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-cielo-gold">Obras Literarias</h4>
                 <div class="flex flex-col gap-3 w-40">
@@ -220,7 +255,7 @@
 
     </div>
 
-    <!-- Script de Base de Datos y Lógica Dinámica -->
+    <!-- Script de Lógica Interactiva y Base de Datos -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -243,6 +278,8 @@
                 selectedVerse: '1',
                 consultaLibre: '',
                 resultadoConsulta: '',
+                preguntaIa: '',
+                historialChat: [],
                 
                 registrarUsuario: async function() {
                     const nombre = document.getElementById('reg-nombre').value.trim();
@@ -277,6 +314,20 @@
                         return;
                     }
                     this.resultadoConsulta = `Análisis exegético y cultural para "${this.consultaLibre}": Este concepto posee raíces profundas en la cosmovisión del Antiguo Oriente y los textos originales en hebreo/griego, revelando la consistencia teológica del diseño divino original.`;
+                },
+
+                enviarPreguntaIa: function() {
+                    if (!this.preguntaIa.trim()) return;
+                    const q = this.preguntaIa;
+                    this.historialChat.push({ remitente: 'usuario', texto: q });
+                    this.preguntaIa = '';
+                    
+                    setTimeout(() => {
+                        this.historialChat.push({ 
+                            remitente: 'ia', 
+                            texto: `Análisis de Efata AI sobre "${q}": Desde la perspectiva exegética y el rigor teológico, este aspecto conecta directamente con la soberanía y el propósito original de las Escrituras.` 
+                        });
+                    }, 500);
                 },
 
                 getTexto: function(version) {
