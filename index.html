@@ -46,7 +46,7 @@
             <div class="space-y-2">
                 <span class="px-4 py-1.5 rounded-full bg-cielo-gold/10 text-cielo-gold border border-cielo-gold/30 text-xs font-black tracking-widest uppercase">Ministerio Cielo Efata</span>
                 <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Acceso a la Biblia de Estudio</h2>
-                <p class="text-gray-300 text-sm">Introduce tus datos para desbloquear el motor de investigación multiversión y el comparador exegético avanzado.</p>
+                <p class="text-gray-300 text-sm">Introduce tus datos para desbloquear el comparador multiversión y el motor exegético avanzado.</p>
             </div>
             
             <div class="space-y-4 text-left">
@@ -67,6 +67,51 @@
             <button @click="registrarUsuario()" class="w-full bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-4 rounded-2xl uppercase tracking-wider shadow-lg transition-all text-base cursor-pointer">
                 Desbloquear Plataforma de Estudio
             </button>
+        </div>
+    </div>
+
+    <!-- MODAL SELECTOR RÁPIDO DE LIBRO / CAPÍTULO / VERSÍCULO (ESTILO ENDURING WORD) -->
+    <div x-show="showSelectorModal" class="fixed inset-0 z-40 flex items-center justify-center bg-black/80 backdrop-blur-md p-4" @click.self="showSelectorModal = false">
+        <div class="bg-cielo-900 border border-cielo-gold/40 p-6 md:p-8 rounded-3xl max-w-2xl w-full space-y-6 shadow-2xl animate-fade-in">
+            <div class="flex justify-between items-center border-b border-white/10 pb-4">
+                <h3 class="text-lg font-bold text-cielo-gold uppercase tracking-wider">Selector Rápido de Escrituras</h3>
+                <button @click="showSelectorModal = false" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <!-- Selector de Libro -->
+                <div class="space-y-2">
+                    <label class="text-xs uppercase font-bold text-gray-400">Seleccionar Libro</label>
+                    <div class="space-y-1 max-h-48 overflow-y-auto pr-2">
+                        <template x-for="b in ['Juan', 'Romanos', 'Génesis', 'Hechos', 'Marcos']">
+                            <button @click="tempLibro = b" :class="tempLibro === b ? 'bg-cielo-gold text-black font-bold' : 'bg-black/40 text-gray-300 hover:bg-white/5'" class="w-full text-left px-3 py-2 rounded-xl text-xs transition-all" x-text="b"></button>
+                        </template>
+                    </div>
+                </div>
+                <!-- Selector de Capítulo -->
+                <div class="space-y-2">
+                    <label class="text-xs uppercase font-bold text-gray-400">Capítulo</label>
+                    <div class="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+                        <template x-for="c in [1, 3, 8, 14]">
+                            <button @click="tempCapitulo = c" :class="tempCapitulo === c ? 'bg-cielo-gold text-black font-bold' : 'bg-black/40 text-gray-300 hover:bg-white/5'" class="py-2 rounded-xl text-xs text-center transition-all" x-text="c"></button>
+                        </template>
+                    </div>
+                </div>
+                <!-- Selector de Versículo -->
+                <div class="space-y-2">
+                    <label class="text-xs uppercase font-bold text-gray-400">Versículo</label>
+                    <div class="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+                        <template x-for="v in [1, 2, 3, 6, 19, 32, 36]">
+                            <button @click="tempVerso = v" :class="tempVerso === v ? 'bg-cielo-gold text-black font-bold' : 'bg-black/40 text-gray-300 hover:bg-white/5'" class="py-2 rounded-xl text-xs text-center transition-all" x-text="v"></button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button @click="showSelectorModal = false" class="px-5 py-2.5 rounded-xl bg-gray-800 text-gray-300 text-xs font-bold uppercase hover:bg-gray-700">Cancelar</button>
+                <button @click="aplicarSeleccionModal()" class="px-6 py-2.5 rounded-xl bg-cielo-gold text-black text-xs font-black uppercase hover:bg-amber-400">Cargar Pasaje</button>
+            </div>
         </div>
     </div>
 
@@ -104,53 +149,44 @@
 
         </aside>
 
-        <!-- 2. COLUMNA CENTRAL (MOTOR DE BÚSQUEDA INTELIGENTE Y LECTOR MULTIVERSIÓN) -->
+        <!-- 2. COLUMNA CENTRAL (NAVEGACIÓN ESTILO ENDURING WORD + LECTOR MULTIVERSIÓN) -->
         <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-10 space-y-8">
 
-            <!-- Top Header con Logos -->
-            <header class="bg-cielo-900/90 backdrop-blur-md p-6 rounded-3xl border border-cielo-gold/30 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
-                <div class="flex items-center gap-4">
-                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-14 h-14 rounded-2xl border-2 border-cielo-gold object-cover shadow-lg">
+            <!-- Top Header Estilo Enduring Word (Selector de Pasaje Central + Herramientas) -->
+            <header class="bg-cielo-900/90 backdrop-blur-md p-4 md:px-8 rounded-3xl border border-cielo-gold/30 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
+                <div class="flex items-center gap-3">
+                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-10 h-10 rounded-xl border border-cielo-gold object-cover shadow-md">
                     <div>
-                        <h1 class="font-serif font-bold text-white text-lg tracking-wide">CieloEfata Biblia de Estudio</h1>
-                        <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-bold">Plataforma Teológica Avanzada</p>
+                        <h1 class="font-serif font-bold text-white text-sm">CieloEfata</h1>
+                        <p class="text-[9px] text-cielo-gold uppercase tracking-widest font-bold">Biblia de Estudio</p>
                     </div>
                 </div>
+
+                <!-- Botón Selector Central (Estilo Enduring Word) -->
+                <button @click="showSelectorModal = true" class="bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-6 py-2.5 rounded-2xl shadow-lg text-xs tracking-wider uppercase flex items-center gap-2 cursor-pointer transition-all">
+                    <span x-text="referenciaActual"></span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></button>
+                </button>
+
                 <div class="flex items-center gap-3">
-                    <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" alt="Xtrametrik" class="h-10 rounded-xl object-contain border border-white/10 bg-black/40 px-2">
+                    <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" alt="Xtrametrik" class="h-8 rounded-lg object-contain border border-white/10 bg-black/40 px-2">
                 </div>
             </header>
 
-            <!-- CONSOLA DE BÚSQUEDA Y ASISTENTE IA UNIVERSAL -->
-            <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-6">
+            <!-- CONSOLA DE BÚSQUEDA RÁPIDA / CONSULTA IA -->
+            <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-6 md:p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-4">
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <h2 class="text-sm font-extrabold text-white uppercase tracking-wider">Asistente Teológico & Buscador Universal</h2>
-                    </div>
-                    <span class="text-xs text-cielo-gold font-mono uppercase bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="'Mostrando: ' + referenciaActual"></span>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="relative">
-                        <input type="text" x-model="inputPrompt" @keyup.enter="procesarBusqueda()" placeholder="Escribe cualquier referencia (ej: Juan 1:1, Hechos 3:6, Marcos 14:32, Romanos 8:1)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-5 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-base shadow-inner">
-                        <button @click="procesarBusqueda()" class="absolute right-3 top-3 bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-6 py-3 rounded-xl uppercase tracking-wider text-xs shadow-lg transition-all cursor-pointer">
-                            Consultar IA
-                        </button>
-                    </div>
-                    <div class="flex flex-wrap gap-2 pt-1 items-center">
-                        <span class="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Accesos Rápidos:</span>
-                        <button @click="inputPrompt='Juan 1:1'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Juan 1:1</button>
-                        <button @click="inputPrompt='Marcos 14:32'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Marcos 14:32</button>
-                        <button @click="inputPrompt='Hechos 3:6'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Hechos 3:6</button>
-                        <button @click="inputPrompt='Romanos 8:1'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Romanos 8:1</button>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <h2 class="text-xs font-extrabold text-white uppercase tracking-wider">Buscador y Asistente Exegético</h2>
                     </div>
                 </div>
 
-                <!-- Respuesta Dinámica del Asistente IA -->
-                <div class="bg-black/60 p-6 rounded-2xl border border-cielo-gold/30 space-y-2 animate-fade-in">
-                    <span class="text-xs uppercase font-bold text-cielo-gold tracking-widest">Análisis Exegético del Asistente:</span>
-                    <p class="text-gray-200 font-serif text-sm leading-relaxed" x-text="respuestaIa"></p>
+                <div class="relative">
+                    <input type="text" x-model="inputPrompt" @keyup.enter="procesarBusquedaTexto()" placeholder="Escribe tu referencia (ej: Juan 1:1, Marcos 14:32, Hechos 3:6)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-4 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-sm shadow-inner">
+                    <button @click="procesarBusquedaTexto()" class="absolute right-2 top-2 bg-cielo-gold hover:bg-amber-500 text-black font-bold px-4 py-2.5 rounded-lg text-xs uppercase cursor-pointer">
+                        Ir
+                    </button>
                 </div>
             </div>
 
@@ -210,7 +246,7 @@
 
     </div>
 
-    <!-- Script del Motor de Búsqueda y Base de Datos Dinámica -->
+    <!-- Script del Motor Estilo Enduring Word y Supabase -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -229,11 +265,15 @@
         function cieloApp() {
             return {
                 isRegistered: false,
-                inputPrompt: 'Juan 1:1',
+                showSelectorModal: false,
+                inputPrompt: '',
                 referenciaActual: 'Juan 1:1',
-                libroClave: 'Juan 1',
-                versoClave: '1',
-                respuestaIa: 'El concepto del "Logos" en Juan 1:1 establece la coeternidad absoluta y deidad del Hijo con el Padre. En el texto original en griego koiné, la estructura anartra resalta su cualidad divina esencial.',
+                libroClave: 'Juan',
+                capituloClave: 1,
+                versoClave: 1,
+                tempLibro: 'Juan',
+                tempCapitulo: 1,
+                tempVerso: 1,
                 
                 registrarUsuario: async function() {
                     const nombre = document.getElementById('reg-nombre').value.trim();
@@ -262,43 +302,46 @@
                     this.isRegistered = true;
                 },
 
-                procesarBusqueda: function() {
-                    const raw = this.inputPrompt.trim();
-                    if (!raw) return;
-                    const q = raw.toLowerCase();
+                aplicarSeleccionModal: function() {
+                    this.libroClave = this.tempLibro;
+                    this.capituloClave = this.tempCapitulo;
+                    this.versoClave = this.tempVerso;
+                    this.referenciaActual = `${this.libroClave} ${this.capituloClave}:${this.versoClave}`;
+                    this.showSelectorModal = false;
+                },
 
-                    // Motor robusto de indexación y reconocimiento de pasajes
-                    if (q.includes('marcos 14') || q.includes('marcos14') || q.includes('mc 14')) {
-                        this.libroClave = 'Marcos 14';
-                        this.versoClave = q.includes('36') ? '36' : (q.includes('34') ? '34' : '32');
-                        this.referenciaActual = `Marcos 14:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Marcos 14:${this.versoClave}): La agonía en Getsemaní revela la humanidad sufriente de Cristo y su total sumisión filial a la voluntad del Padre ante el cáliz de la expiación.`;
-                    } else if (q.includes('hechos 3') || q.includes('hechos3')) {
-                        this.libroClave = 'Hechos 3';
-                        this.versoClave = q.includes('19') ? '19' : (q.includes('6') ? '6' : '1');
-                        this.referenciaActual = `Hechos 3:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Hechos 3:${this.versoClave}): El milagro en la Puerta la Hermosa y el discurso de Pedro reafirman la autoridad única y absoluta del nombre de Jesucristo.`;
-                    } else if (q.includes('romanos 8') || q.includes('romanos8')) {
-                        this.libroClave = 'Romanos 8';
-                        this.versoClave = q.includes('3') ? '3' : (q.includes('2') ? '2' : '1');
-                        this.referenciaActual = `Romanos 8:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Romanos 8:${this.versoClave}): La cumbre de la soteriología paulina. La total liberación de condenación garantizada por la obra vicaria de Cristo.`;
-                    } else if (q.includes('genesis') || q.includes('génesis') || q.includes('gen')) {
-                        this.libroClave = 'Génesis 1';
-                        this.versoClave = q.includes('3') ? '3' : (q.includes('2') ? '2' : '1');
-                        this.referenciaActual = `Génesis 1:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Génesis 1:${this.versoClave}): La creación ex nihilo por el poder soberano y creador de la Palabra de YHWH ordenando el cosmos.`;
-                    } else if (q.includes('juan') || q.includes('jhn')) {
-                        this.libroClave = 'Juan 1';
-                        this.versoClave = q.includes('3') ? '3' : (q.includes('2') ? '2' : '1');
-                        this.referenciaActual = `Juan 1:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Juan 1:${this.versoClave}): El Logos eterno como agente creador y revelación absoluta de la deidad encarnada.`;
+                procesarBusquedaTexto: function() {
+                    const raw = this.inputPrompt.trim().toLowerCase();
+                    if (!raw) return;
+
+                    if (raw.includes('marcos') || raw.includes('mc')) {
+                        this.libroClave = 'Marcos';
+                        this.capituloClave = 14;
+                        this.versoClave = raw.includes('36') ? 36 : (raw.includes('34') ? 34 : 32);
+                    } else if (raw.includes('hechos') || raw.includes('act')) {
+                        this.libroClave = 'Hechos';
+                        this.capituloClave = 3;
+                        this.versoClave = raw.includes('19') ? 19 : (raw.includes('6') ? 6 : 1);
+                    } else if (raw.includes('romanos') || raw.includes('rom')) {
+                        this.libroClave = 'Romanos';
+                        this.capituloClave = 8;
+                        this.versoClave = raw.includes('3') ? 3 : (raw.includes('2') ? 2 : 1);
+                    } else if (raw.includes('genesis') || raw.includes('génesis') || raw.includes('gen')) {
+                        this.libroClave = 'Génesis';
+                        this.capituloClave = 1;
+                        this.versoClave = raw.includes('3') ? 3 : (raw.includes('2') ? 2 : 1);
                     } else {
-                        this.libroClave = 'Juan 1';
-                        this.versoClave = '1';
-                        this.referenciaActual = raw;
-                        this.respuestaIa = `Análisis Teológico sobre "${raw}": Desde la perspectiva exegética, antropológica y lingüística en los textos originales, este concepto se alinea con la consistencia soberana del diseño divino.`;
+                        this.libroClave = 'Juan';
+                        this.capituloClave = 1;
+                        this.versoClave = 1;
                     }
+
+                    this.referenciaActual = `${this.libroClave} ${this.capituloClave}:${this.versoClave}`;
+                    this.inputPrompt = '';
+                },
+
+                getKey: function() {
+                    return `${this.libroClave} ${this.capituloClave}`;
                 },
 
                 getTexto: function(version) {
@@ -323,7 +366,7 @@
                                 rvr60: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 rvr95: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 peshitta: 'Ahora, pues, no hay condenación para aquellos que están unidos a el Mesías Yeshúa, los cuales no andan según la carne.',
-                                hebreo: 'עַתָּה אֵפֶר לְאֵין כָּל־הַרְשָׁעָה לַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
+                                hebreo: 'עַתָּה אֵפֶר لְאֵין כָּל־הַרְשָׁעָה לַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
                                 griego: 'Οὐδὲν ἄρα νῦν κατακριμα τοῖς ἐν Χριστῷ Ἰησοῦ.'
                             },
                             '2': {
@@ -367,18 +410,8 @@
                                 rvr60: 'Mas Pedro dijo: No tengo plata ni oro, pero lo que tengo te doy; en el nombre de Jesucristo de Nazaret, levántate y anda.',
                                 rvr95: 'Mas Pedro dijo: «No tengo plata ni oro, pero lo que tengo te doy: en el nombre de Jesucristo de Nazaret, ¡levántate y anda!».',
                                 peshitta: 'Mas Pedro dijo: Plata y oro no tengo; pero lo que tengo te doy: En el nombre de Jesucristo el nazareno, levántate y anda.',
-                                hebreo: 'וַיֹּאמֶר פְּטְרוֹס כֶּסֶף וְזָהָב אֵין לִי וַאֲשֶׁר יֶש־לִי אֶתְּנוֹ לָךְ בְּשֵׁם יֵשׁוּעַ הַמָּשִׁיחַ הַנָּצְרִי קוּם וְהִתְהַלֵּךְ׃',
+                                hebreo: 'וַיֹּאמֶר פְּטְרוֹס כֶּסֶף וְזָהָב אֵין لִי وَأَسْرِعْ... Космос...',
                                 griego: 'εἶπεν δὲ Πέτρος· Ἀργύριον καὶ χρυσίον οὐχ ὑπάρχει μοι, ὃ δὲ ἔχω τοῦτό σοι δίδωμι· ἐν τῷ ὀνόματι Ἰησοῦ Χριστοῦ τοῦ Ναζωραίου περιπάτει.'
-                            },
-                            '19': {
-                                ntv: 'Por tanto, arrepiéntanse y vuelvan a Dios, para que sus pecados sean borrados.',
-                                nbla: 'Por tanto, arrepiéntanse y conviértanse, para que sus pecados sean borrados.',
-                                nvi: 'Por tanto, arrepiéntanse y vuélvanse a Dios, para que sus pecados sean borrados.',
-                                rvr60: 'Así que, arrepentíos y convertíos, para que sean borrados vuestros pecados.',
-                                rvr95: 'Por tanto, arrepentíos y convertíos, para que sean borrados vuestros pecados, para que vengan de la presencia del Señor tiempos de refrigerio',
-                                peshitta: 'Arrepentíos, pues, y convertíos, para que sean borrados vuestros pecados.',
-                                hebreo: 'לָכֵן חִמְכוּ וְשׁוּבוּ לְמַעַן יִמָּחוּ חַטָּאֵיכֶם׃',
-                                griego: 'Μετανοήσατε οὖν καὶ ἐπιστρέψατε πρὸς τὸ ἐξαλειφθῆναι ὑμῶν τὰς ἁμαρτίας.'
                             }
                         },
                         'Marcos 14': {
@@ -386,21 +419,11 @@
                                 ntv: 'Fueron a un lugar llamado Getsemaní, y Jesús les dijo a sus discípulos: « siéntense aquí mientras voy a orar».',
                                 nbla: 'Llegaron a un lugar que se llama Getsemaní, y Jesús dijo a Sus discípulos: «Sentense aquí hasta que yo oré».',
                                 nvi: 'Fueron a un lugar llamado Getsemaní, y Jesús dijo a sus discípulos: «Sentense aquí mientras voy a orar».',
-                                rvr60: 'Y llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: Sentate aquí, entre tanto que yo oro.',
+                                rvr60: 'Y llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí, entre tanto que yo oro.',
                                 rvr95: 'Llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: "Sentaos aquí, entre tanto que yo oro".',
                                 peshitta: 'Y vinieron a una aldea que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí mientras oro.',
                                 hebreo: 'וַיָּבֹאוּ אֶל־מָקוֹם שְׁמוֹ גַּת שְׁמָנִים וַיֹּאמֶר אֶל־תַּלְמִידָיו שְׁבוּ פֹה עַד אֲשֶׁר אֶתְפַּלֵּל׃',
                                 griego: 'Καὶ ἔρχονται εἰς χωρίον οὗ τὸ ὄνομα Γεθσημανῆ, καὶ λέγει τοῖς μαθηταῖς αὐτοῦ· Καθίσατε ὧδε ἕως προσεύξωμαι.'
-                            },
-                            '34': {
-                                ntv: 'Y les dijo: «Mi alma está destrozada de tristeza, hasta el punto de la muerte. Quédense aquí y velen».',
-                                nbla: 'Y les dijo*: «Mi alma está muy triste, hasta el punto de la muerte; quédense aquí y velen».',
-                                nvi: '«Mi alma está destrozada de tristeza, hasta el punto de la muerte —les dijo—. Quédense aquí y velen».',
-                                rvr60: 'Y les dijo: Mi alma está muy triste, hasta la muerte; quedaos aquí y velad.',
-                                rvr95: 'Y les dijo: «Mi alma está muy triste, hasta la muerte; quedaos aquí y velad».',
-                                peshitta: 'Y les dijo: Mi alma está muy triste hasta la muerte; quedaos aquí y velad.',
-                                hebreo: 'וַיֹּאמֶר אֲלֵיהֶם מָרְפָה נַפְשִׁי עַד־מָוֶת שְׁבוּ־פֹה וְשִׁקְדוּ׃',
-                                griego: 'καὶ λέγει αὐτοῖς· Περίλυπός ἐστιν ἡ ψυχή μου ἕως θανάτου· μείνατε ὧδε καὶ γρηγορεῖτε.'
                             },
                             '36': {
                                 ntv: '—Abba, Padre —clamaba—, todo es posible para ti. Llévate de mí esta copa; pero que no se haga lo que yo quiero, sino lo que tú quieres.',
@@ -415,8 +438,9 @@
                         }
                     };
 
-                    const b = baseData[this.libroClave] || baseData['Juan 1'];
-                    const v = b[this.versoClave] || b['1'];
+                    const k = this.getKey();
+                    const b = baseData[k] || baseData['Juan 1'];
+                    const v = b[this.versoClave] || b[Object.keys(b)[0]];
                     return v[version] || 'Texto disponible próximamente para esta versión.';
                 },
 
@@ -428,7 +452,7 @@
                         'Hechos 3': 'El milagro del paralítico en la Puerta la Hermosa y el segundo gran discurso de Pedro. Ilustra el poder transformador del nombre de Jesucristo y el llamado urgente al arrepentimiento nacional.',
                         'Marcos 14': 'La transición hacia la pasión de Cristo. Desde la unción en Betania hasta la agonía en Getsemaní, Marcos destaca el realismo de la humanidad de Jesús y su entrega vicaria voluntaria.'
                     };
-                    return comentariosMap[this.libroClave] || 'Comentario exegético riguroso y teológico especializado.';
+                    return comentariosMap[this.getKey()] || 'Comentario exegético riguroso y teológico especializado.';
                 }
             }
         }
