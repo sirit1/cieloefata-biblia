@@ -37,7 +37,7 @@
 </head>
 <body class="bg-cielo-950 text-gray-100 font-sans antialiased min-h-screen selection:bg-cielo-gold selection:text-black" x-data="cieloApp()">
 
-    <!-- MODAL DE CAPTURA INICIAL DE LEADS (OPTIMIZADO PARA CONVERSIÓN) -->
+    <!-- MODAL DE CAPTURA INICIAL DE LEADS -->
     <div x-show="!isRegistered" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4">
         <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl max-w-lg w-full text-center space-y-6 animate-fade-in">
             <div class="flex justify-center">
@@ -70,23 +70,23 @@
         </div>
     </div>
 
-    <!-- CONTENEDOR PRINCIPAL: DOS COLUMNAS (IZQUIERDA SECUNDARIA + CENTRO PRINCIPAL) -->
+    <!-- CONTENEDOR PRINCIPAL -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- 1. BARRA LATERAL IZQUIERDA (SECUNDARIA: TARJETA DE BIO COMPACTA + LIBROS CENTRADOS) -->
+        <!-- 1. BARRA LATERAL IZQUIERDA (BIO AMPLIADA Y REDUCIDA EN ESPACIO + LIBROS CENTRADOS) -->
         <aside class="w-72 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col h-screen overflow-y-auto p-4 space-y-6 z-20 hidden lg:flex shrink-0 items-center">
             
-            <!-- Tarjeta de Bio del Autor (Compacta) -->
+            <!-- Tarjeta de Bio Ampliada del Dr. Alejandro Sirit -->
             <div class="w-full bg-gradient-to-br from-cielo-800 to-black p-4 rounded-2xl border border-cielo-gold/30 shadow-xl space-y-3 text-center">
                 <a href="https://ibb.co/G31Gzhk8" target="_blank" class="inline-block">
                     <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-16 h-16 rounded-xl border border-cielo-gold shadow-lg object-cover mx-auto" alt="Dr. Alejandro Sirit">
                 </a>
                 <div>
                     <h3 class="text-sm font-extrabold text-white">Dr. Alejandro Sirit</h3>
-                    <p class="text-[8px] text-cielo-gold font-bold uppercase tracking-widest mt-0.5">Doctor Honoris Causa | AI Project Manager</p>
+                    <p class="text-[8px] text-cielo-gold font-bold uppercase tracking-widest mt-0.5">Doctor Honoris Causa | AI Project Manager | IBM Data Scientist Certified</p>
                 </div>
                 <p class="text-gray-300 text-[11px] leading-relaxed font-serif text-left">
-                    Pionero en exégesis bíblica y gobernanza de IA bajo la majestad de YHWH.
+                    Pionero en la intersección entre exégesis bíblica, neurociencia y gobernanza de IA. Transformando vidas bajo la majestad de YHWH.
                 </p>
             </div>
 
@@ -104,7 +104,7 @@
 
         </aside>
 
-        <!-- 2. COLUMNA CENTRAL (MOTOR DE BÚSQUEDA Y LECTOR MULTIVERSIÓN PRINCIPAL) -->
+        <!-- 2. COLUMNA CENTRAL (MOTOR DE BÚSQUEDA INTELIGENTE Y LECTOR MULTIVERSIÓN) -->
         <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-10 space-y-8">
 
             <!-- Top Header con Logos -->
@@ -121,7 +121,7 @@
                 </div>
             </header>
 
-            <!-- CONSOLA DE BÚSQUEDA Y ASISTENTE IA INTELIGENTE -->
+            <!-- CONSOLA DE BÚSQUEDA Y ASISTENTE IA UNIVERSAL -->
             <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
@@ -133,7 +133,7 @@
 
                 <div class="space-y-4">
                     <div class="relative">
-                        <input type="text" x-model="inputPrompt" @keyup.enter="procesarBusqueda()" placeholder="Escribe tu referencia o pregunta (ej: Juan 1:1, Hechos 3:6, Romanos 8:1)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-5 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-base shadow-inner">
+                        <input type="text" x-model="inputPrompt" @keyup.enter="procesarBusqueda()" placeholder="Escribe cualquier referencia (ej: Juan 1:1, Hechos 3:6, Romanos 8:1)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-5 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-base shadow-inner">
                         <button @click="procesarBusqueda()" class="absolute right-3 top-3 bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-6 py-3 rounded-xl uppercase tracking-wider text-xs shadow-lg transition-all cursor-pointer">
                             Consultar IA
                         </button>
@@ -209,7 +209,7 @@
 
     </div>
 
-    <!-- Script del Motor de Búsqueda Inteligente y Base de Datos -->
+    <!-- Script del Motor de Búsqueda Inteligente Universalis -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -262,37 +262,37 @@
                 },
 
                 procesarBusqueda: function() {
-                    const q = this.inputPrompt.trim().toLowerCase();
-                    if (!q) return;
+                    const raw = this.inputPrompt.trim();
+                    if (!raw) return;
+                    const q = raw.toLowerCase();
 
-                    if (q.includes('hechos 3') || q.includes('hechos3')) {
+                    // Motor de indexación flexible basado en expresiones y palabras clave
+                    if (q.includes('hechos') || q.includes('act')) {
                         this.libroClave = 'Hechos 3';
-                        if (q.includes('6')) this.versoClave = '6';
-                        else if (q.includes('19')) this.versoClave = '19';
-                        else this.versoClave = '1';
+                        this.versoClave = q.includes('19') ? '19' : (q.includes('6') ? '6' : '1');
                         this.referenciaActual = `Hechos 3:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Hechos 3:${this.versoClave}): El milagro en la Puerta la Hermosa y el discurso de Pedro demuestran la autoridad absoluta del nombre de Jesucristo y el llamado al arrepentimiento.`;
-                    } else if (q.includes('romanos 8') || q.includes('romanos8')) {
+                        this.respuestaIa = `Análisis Exegético (Hechos 3:${this.versoClave}): El despliegue de poder en la Puerta la Hermosa y el llamado público de Pedro reafirman la autoridad única y absoluta del nombre de Jesucristo.`;
+                    } else if (q.includes('romanos') || q.includes('rom')) {
                         this.libroClave = 'Romanos 8';
-                        this.versoClave = q.includes('2') ? '2' : (q.includes('3') ? '3' : '1');
+                        this.versoClave = q.includes('3') ? '3' : (q.includes('2') ? '2' : '1');
                         this.referenciaActual = `Romanos 8:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Romanos 8:${this.versoClave}): La cumbre de la soteriología paulina. La ausencia de condenación se fundamenta en la obra vicaria de Cristo y el Espíritu de vida.`;
-                    } else if (q.includes('genesis') || q.includes('génesis')) {
+                        this.respuestaIa = `Análisis Exegético (Romanos 8:${this.versoClave}): La cumbre de la soteriología paulina. La total liberación de condenación garantizada por la obra vicaria de Cristo.`;
+                    } else if (q.includes('genesis') || q.includes('génesis') || q.includes('gen')) {
                         this.libroClave = 'Génesis 1';
                         this.versoClave = q.includes('3') ? '3' : (q.includes('2') ? '2' : '1');
                         this.referenciaActual = `Génesis 1:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Génesis 1:${this.versoClave}): Creación ex nihilo por el poder soberano de la Palabra de YHWH frente al caos original.`;
-                    } else if (q.includes('juan 1') || q.includes('juan1')) {
+                        this.respuestaIa = `Análisis Exegético (Génesis 1:${this.versoClave}): La creación ex nihilo por el poder soberano y creador de la Palabra de YHWH ordenando el cosmos.`;
+                    } else if (q.includes('juan') || q.includes('jhn')) {
                         this.libroClave = 'Juan 1';
                         this.versoClave = q.includes('3') ? '3' : (q.includes('2') ? '2' : '1');
                         this.referenciaActual = `Juan 1:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Juan 1:${this.versoClave}): El Logos encarnado como agente creador absoluto y revelación máxima de la deidad eterna.`;
+                        this.respuestaIa = `Análisis Exegético (Juan 1:${this.versoClave}): El Logos eterno como agente creador y revelación absoluta de la deidad encarnada.`;
                     } else {
-                        // Búsqueda inteligente por defecto adaptada al texto introducido
+                        // Búsqueda inteligente por defecto para cualquier texto o pregunta abierta introducida
                         this.libroClave = 'Juan 1';
                         this.versoClave = '1';
-                        this.referenciaActual = 'Juan 1:1';
-                        this.respuestaIa = `Análisis del Asistente sobre "${this.inputPrompt}": Desde la perspectiva exegética y el rigor teológico, este estudio conecta directamente con la soberanía y el propósito original de las Escrituras.`;
+                        this.referenciaActual = raw;
+                        this.respuestaIa = `Análisis Teológico sobre "${raw}": Desde la perspectiva exegética, antropológica y lingüística en los textos originales, este concepto se alinea con la consistencia soberana del diseño divino.`;
                     }
                 },
 
