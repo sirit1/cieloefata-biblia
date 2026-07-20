@@ -70,10 +70,10 @@
         </div>
     </div>
 
-    <!-- CONTENEDOR PRINCIPAL -->
+    <!-- CONTENEDOR PRINCIPAL: DOS COLUMNAS -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- 1. BARRA LATERAL IZQUIERDA (BIO AMPLIADA Y REDUCIDA EN ESPACIO + LIBROS CENTRADOS) -->
+        <!-- 1. BARRA LATERAL IZQUIERDA (BIO AMPLIADA + OBRAS LITERARIAS CENTRADAS) -->
         <aside class="w-72 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col h-screen overflow-y-auto p-4 space-y-6 z-20 hidden lg:flex shrink-0 items-center">
             
             <!-- Tarjeta de Bio Ampliada del Dr. Alejandro Sirit -->
@@ -133,7 +133,7 @@
 
                 <div class="space-y-4">
                     <div class="relative">
-                        <input type="text" x-model="inputPrompt" @keyup.enter="procesarBusqueda()" placeholder="Escribe cualquier referencia (ej: Juan 1:1, Hechos 3:6, Romanos 8:1)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-5 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-base shadow-inner">
+                        <input type="text" x-model="inputPrompt" @keyup.enter="procesarBusqueda()" placeholder="Escribe cualquier referencia (ej: Juan 1:1, Hechos 3:6, Marcos 14:32, Romanos 8:1)..." class="w-full bg-black/80 border-2 border-cielo-gold/50 p-5 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-base shadow-inner">
                         <button @click="procesarBusqueda()" class="absolute right-3 top-3 bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-6 py-3 rounded-xl uppercase tracking-wider text-xs shadow-lg transition-all cursor-pointer">
                             Consultar IA
                         </button>
@@ -141,6 +141,7 @@
                     <div class="flex flex-wrap gap-2 pt-1 items-center">
                         <span class="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Accesos Rápidos:</span>
                         <button @click="inputPrompt='Juan 1:1'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Juan 1:1</button>
+                        <button @click="inputPrompt='Marcos 14:32'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Marcos 14:32</button>
                         <button @click="inputPrompt='Hechos 3:6'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Hechos 3:6</button>
                         <button @click="inputPrompt='Romanos 8:1'; procesarBusqueda();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3.5 py-1.5 rounded-lg transition-all font-bold">Romanos 8:1</button>
                     </div>
@@ -209,7 +210,7 @@
 
     </div>
 
-    <!-- Script del Motor de Búsqueda Inteligente Universalis -->
+    <!-- Script del Motor de Búsqueda y Base de Datos Dinámica -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -266,13 +267,18 @@
                     if (!raw) return;
                     const q = raw.toLowerCase();
 
-                    // Motor de indexación flexible basado en expresiones y palabras clave
-                    if (q.includes('hechos') || q.includes('act')) {
+                    // Motor robusto de indexación y reconocimiento de pasajes
+                    if (q.includes('marcos 14') || q.includes('marcos14') || q.includes('mc 14')) {
+                        this.libroClave = 'Marcos 14';
+                        this.versoClave = q.includes('36') ? '36' : (q.includes('34') ? '34' : '32');
+                        this.referenciaActual = `Marcos 14:${this.versoClave}`;
+                        this.respuestaIa = `Análisis Exegético (Marcos 14:${this.versoClave}): La agonía en Getsemaní revela la humanidad sufriente de Cristo y su total sumisión filial a la voluntad del Padre ante el cáliz de la expiación.`;
+                    } else if (q.includes('hechos 3') || q.includes('hechos3')) {
                         this.libroClave = 'Hechos 3';
                         this.versoClave = q.includes('19') ? '19' : (q.includes('6') ? '6' : '1');
                         this.referenciaActual = `Hechos 3:${this.versoClave}`;
-                        this.respuestaIa = `Análisis Exegético (Hechos 3:${this.versoClave}): El despliegue de poder en la Puerta la Hermosa y el llamado público de Pedro reafirman la autoridad única y absoluta del nombre de Jesucristo.`;
-                    } else if (q.includes('romanos') || q.includes('rom')) {
+                        this.respuestaIa = `Análisis Exegético (Hechos 3:${this.versoClave}): El milagro en la Puerta la Hermosa y el discurso de Pedro reafirman la autoridad única y absoluta del nombre de Jesucristo.`;
+                    } else if (q.includes('romanos 8') || q.includes('romanos8')) {
                         this.libroClave = 'Romanos 8';
                         this.versoClave = q.includes('3') ? '3' : (q.includes('2') ? '2' : '1');
                         this.referenciaActual = `Romanos 8:${this.versoClave}`;
@@ -288,7 +294,6 @@
                         this.referenciaActual = `Juan 1:${this.versoClave}`;
                         this.respuestaIa = `Análisis Exegético (Juan 1:${this.versoClave}): El Logos eterno como agente creador y revelación absoluta de la deidad encarnada.`;
                     } else {
-                        // Búsqueda inteligente por defecto para cualquier texto o pregunta abierta introducida
                         this.libroClave = 'Juan 1';
                         this.versoClave = '1';
                         this.referenciaActual = raw;
@@ -318,7 +323,7 @@
                                 rvr60: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 rvr95: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 peshitta: 'Ahora, pues, no hay condenación para aquellos que están unidos a el Mesías Yeshúa, los cuales no andan según la carne.',
-                                hebreo: 'עַתָּה אֵפֶר לְאֵין כָּל־הַרְשָׁעָה لַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
+                                hebreo: 'עַתָּה אֵפֶר לְאֵין כָּל־הַרְשָׁעָה לַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
                                 griego: 'Οὐδὲν ἄρα νῦν κατακριμα τοῖς ἐν Χριστῷ Ἰησοῦ.'
                             },
                             '2': {
@@ -375,12 +380,44 @@
                                 hebreo: 'לָכֵן חִמְכוּ וְשׁוּבוּ לְמַעַן יִמָּחוּ חַטָּאֵיכֶם׃',
                                 griego: 'Μετανοήσατε οὖν καὶ ἐπιστρέψατε πρὸς τὸ ἐξαλειφθῆναι ὑμῶν τὰς ἁμαρτίας.'
                             }
+                        },
+                        'Marcos 14': {
+                            '32': {
+                                ntv: 'Fueron a un lugar llamado Getsemaní, y Jesús les dijo a sus discípulos: « siéntense aquí mientras voy a orar».',
+                                nbla: 'Llegaron a un lugar que se llama Getsemaní, y Jesús dijo a Sus discípulos: «Sentense aquí hasta que yo oré».',
+                                nvi: 'Fueron a un lugar llamado Getsemaní, y Jesús dijo a sus discípulos: «Sentense aquí mientras voy a orar».',
+                                rvr60: 'Y llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: Sentate aquí, entre tanto que yo oro.',
+                                rvr95: 'Llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: "Sentaos aquí, entre tanto que yo oro".',
+                                peshitta: 'Y vinieron a una aldea que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí mientras oro.',
+                                hebreo: 'וַיָּבֹאוּ אֶל־מָקוֹם שְׁמוֹ גַּת שְׁמָנִים וַיֹּאמֶר אֶל־תַּלְמִידָיו שְׁבוּ פֹה עַד אֲשֶׁר אֶתְפַּלֵּל׃',
+                                griego: 'Καὶ ἔρχονται εἰς χωρίον οὗ τὸ ὄνομα Γεθσημανῆ, καὶ λέγει τοῖς μαθηταῖς αὐτοῦ· Καθίσατε ὧδε ἕως προσεύξωμαι.'
+                            },
+                            '34': {
+                                ntv: 'Y les dijo: «Mi alma está destrozada de tristeza, hasta el punto de la muerte. Quédense aquí y velen».',
+                                nbla: 'Y les dijo*: «Mi alma está muy triste, hasta el punto de la muerte; quédense aquí y velen».',
+                                nvi: '«Mi alma está destrozada de tristeza, hasta el punto de la muerte —les dijo—. Quédense aquí y velen».',
+                                rvr60: 'Y les dijo: Mi alma está muy triste, hasta la muerte; quedaos aquí y velad.',
+                                rvr95: 'Y les dijo: «Mi alma está muy triste, hasta la muerte; quedaos aquí y velad».',
+                                peshitta: 'Y les dijo: Mi alma está muy triste hasta la muerte; quedaos aquí y velad.',
+                                hebreo: 'וַיֹּאמֶר אֲלֵיהֶם מָרְפָה נַפְשִׁי עַד־מָוֶת שְׁבוּ־פֹה וְשִׁקְדוּ׃',
+                                griego: 'καὶ λέγει αὐτοῖς· Περίλυπός ἐστιν ἡ ψυχή μου ἕως θανάτου· μείνατε ὧδε καὶ γρηγορεῖτε.'
+                            },
+                            '36': {
+                                ntv: '—Abba, Padre —clamaba—, todo es posible para ti. Llévate de mí esta copa; pero que no se haga lo que yo quiero, sino lo que tú quieres.',
+                                nbla: 'Y decía: «¡Abba, Padre! Todas las cosas son posibles para Ti; aparta de Mí esta copa; pero no sea lo que Yo quiero, sino lo que tú quieras».',
+                                nvi: '—Abba, Padre —decía—, todo es posible para ti. Llévate de mí esta copa. Pero no sea lo que yo quiero, sino lo que tú quieres.',
+                                rvr60: 'Y decía: Abba, Padre, todas las cosas son posibles para ti; aparta de mí esta copa; mas no lo que yo quiero, sino lo que tú.',
+                                rvr95: 'Y decía: «¡Abba, Padre!, todas las cosas son posibles para ti; aparta de mí esta copa; pero no sea como yo quiero, sino como tú».',
+                                peshitta: 'Y decía: Abba, Padre, todo es posible para ti; aparta de mí esta copa; mas no sea lo que yo quiero, sino lo que tú.',
+                                hebreo: 'וַיֹּאמֶר אַבָּא אָבִי הַכֹּל יָכוֹל אַתָּה הַעֲבֵר מִמֶּנִּי אֶת־הַכּוֹס הַזֹּאת אַךְ לֹא כַּאֲשֶׁר אֲנִי רֹצֶה אֶלָּא כַּאֲשֶׁר אַתָּה׃',
+                                griego: 'καὶ ἔλεγεν· Ἀββά ὁ πατήρ, πάντα δυνατά σοι· παρενέγκετε τὸ ποτήριον τοῦτο ἀπ’ ἐμοῦ· ἀλλ’ οὐ τί ἐγὼ θέλω, ἀλλὰ τί σύ.'
+                            }
                         }
                     };
 
                     const b = baseData[this.libroClave] || baseData['Juan 1'];
                     const v = b[this.versoClave] || b['1'];
-                    return v[version] || 'Texto no disponible para esta combinación.';
+                    return v[version] || 'Texto disponible próximamente para esta versión.';
                 },
 
                 getComentario: function() {
@@ -388,9 +425,10 @@
                         'Juan 1': 'Este pasaje fundamental establece la deidad absoluta y eterna del Verbo (Logos). Históricamente refuta el arrianismo y el gnosticismo primitivo al afirmar que el Hijo no es una criatura creada, sino el Creador mismo.',
                         'Romanos 8': 'El capítulo cumbre de la soteriología paulina. La declaración de que no hay condenación descansa enteramente en la obra vicaria de Cristo y en la morada vivificante del Espíritu Santo.',
                         'Génesis 1': 'El relato de la creación ex nihilo (de la nada) por el poder soberano de la Palabra de Dios. Revela que el cosmos no es producto del azar, sino el templo ordenado donde YHWH establece su diseño original.',
-                        'Hechos 3': 'El milagro del paralítico en la Puerta la Hermosa y el segundo gran discurso de Pedro. Ilustra el poder transformador del nombre de Jesucristo y el llamado urgente al arrepentimiento nacional.'
+                        'Hechos 3': 'El milagro del paralítico en la Puerta la Hermosa y el segundo gran discurso de Pedro. Ilustra el poder transformador del nombre de Jesucristo y el llamado urgente al arrepentimiento nacional.',
+                        'Marcos 14': 'La transición hacia la pasión de Cristo. Desde la unción en Betania hasta la agonía en Getsemaní, Marcos destaca el realismo de la humanidad de Jesús y su entrega vicaria voluntaria.'
                     };
-                    return comentariosMap[this.libroClave] || 'Comentario exegético riguroso y teológico.';
+                    return comentariosMap[this.libroClave] || 'Comentario exegético riguroso y teológico especializado.';
                 }
             }
         }
