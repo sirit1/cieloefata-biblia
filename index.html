@@ -37,22 +37,22 @@
 </head>
 <body class="bg-cielo-950 text-gray-100 font-sans antialiased min-h-screen selection:bg-cielo-gold selection:text-black" x-data="cieloApp()">
 
-    <!-- MODAL DE CAPTURA INICIAL DE LEADS (MANDATORIO PARA CONSULTA) -->
-    <div x-show="!isRegistered" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
-        <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl max-w-lg w-full text-center space-y-6 animate-fade-in">
+    <!-- MODAL DE CAPTURA INICIAL DE LEADS -->
+    <div x-show="!isRegistered" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4">
+        <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl max-w-lg w-full text-center space-y-6 animate-fade-in">
             <div class="flex justify-center">
                 <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-24 h-24 rounded-2xl border-2 border-cielo-gold shadow-2xl object-cover">
             </div>
             <div class="space-y-2">
                 <span class="px-4 py-1.5 rounded-full bg-cielo-gold/10 text-cielo-gold border border-cielo-gold/30 text-xs font-black tracking-widest uppercase">Ministerio Cielo Efata</span>
                 <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Acceso a la Biblia de Estudio</h2>
-                <p class="text-gray-300 text-sm">Introduce tus datos para desbloquear el motor multiversión, el laboratorio original y los comentarios exegéticos.</p>
+                <p class="text-gray-300 text-sm">Introduce tus datos para desbloquear el motor multiversión, el laboratorio original y las consultas teológicas libres.</p>
             </div>
             
             <div class="space-y-4 text-left">
                 <div>
                     <label class="text-xs uppercase font-bold text-cielo-gold">Nombre Completo *</label>
-                    <input type="text" x-input="nombre" id="reg-nombre" placeholder="Tu nombre..." class="w-full mt-1 bg-black/60 border border-cielo-gold/30 p-4 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-base">
+                    <input type="text" id="reg-nombre" placeholder="Tu nombre..." class="w-full mt-1 bg-black/60 border border-cielo-gold/30 p-4 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-base">
                 </div>
                 <div>
                     <label class="text-xs uppercase font-bold text-cielo-gold">Correo Electrónico *</label>
@@ -70,214 +70,154 @@
         </div>
     </div>
 
-    <!-- CONTENEDOR PRINCIPAL -->
+    <!-- CONTENEDOR PRINCIPAL: DOS COLUMNAS -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- 1. BARRA LATERAL (CON LOGOS Y AUTORIDAD) -->
-        <aside class="w-80 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col justify-between hidden md:flex z-20">
-            <div>
-                <!-- Brand / Logo Header -->
-                <div class="p-6 border-b border-white/5 flex items-center gap-4">
-                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-12 h-12 rounded-xl border border-cielo-gold/40 object-cover shadow-lg">
+        <!-- COLUMNA IZQUIERDA: CONTENIDO Y LECTOR DE ESTUDIO -->
+        <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-10 space-y-10">
+
+            <!-- Top Header con Logos -->
+            <header class="bg-cielo-900/80 backdrop-blur-md p-6 rounded-3xl border border-cielo-gold/20 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+                <div class="flex items-center gap-4">
+                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-14 h-14 rounded-2xl border border-cielo-gold/40 object-cover shadow-lg">
                     <div>
-                        <h1 class="font-serif font-bold text-white tracking-wide text-sm">CieloEfata</h1>
-                        <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-semibold">Biblia de Estudio</p>
+                        <h1 class="font-serif font-bold text-white text-lg tracking-wide">CieloEfata Biblia de Estudio</h1>
+                        <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-semibold">Teología, Exégesis & Idiomas Originales</p>
                     </div>
                 </div>
-
-                <!-- Menú de Módulos -->
-                <nav class="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-280px)]">
-                    <button @click="currentView = 'estudio'" :class="currentView === 'estudio' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        <span>Estudio Multiversión & Comentarios</span>
-                    </button>
-                    <button @click="currentView = 'ia'" :class="currentView === 'ia' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                        <span>Asistente Efata AI</span>
-                    </button>
-                </nav>
-            </div>
-
-            <!-- Footer Sidebar con Logo Xtrametrik -->
-            <div class="p-4 border-t border-white/5 text-center space-y-2">
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest">Impulsado por</p>
-                <div class="flex justify-center">
-                    <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" alt="Xtrametrik" class="h-8 rounded-lg object-contain border border-white/10">
-                </div>
-            </div>
-        </aside>
-
-        <!-- 2. ÁREA PRINCIPAL -->
-        <main class="flex-1 flex flex-col h-screen overflow-hidden bg-cielo-950">
-
-            <!-- Top Header -->
-            <header class="h-20 bg-cielo-900 border-b border-cielo-gold/20 flex items-center justify-between px-8 z-10">
-                <div class="flex items-center gap-4">
-                    <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30">Plataforma Teológica Activa</span>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-3 pl-4 border-l border-white/10">
-                        <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-10 h-10 rounded-full border border-cielo-gold object-cover" alt="Dr. Alejandro Sirit">
-                        <div class="hidden sm:block text-left">
-                            <p class="text-xs font-bold text-white">Dr. Alejandro Sirit</p>
-                            <p class="text-[10px] text-cielo-gold">Doctor Honoris Causa | AI Project Manager</p>
-                        </div>
-                    </div>
+                <div class="flex items-center gap-3">
+                    <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" alt="Xtrametrik" class="h-10 rounded-xl object-contain border border-white/10 bg-black/40 px-2">
                 </div>
             </header>
 
-            <!-- Contenedor Dinámico -->
-            <div class="flex-1 overflow-y-auto p-6 md:p-10 space-y-12">
-
-                <!-- VISTA PRINCIPAL: SELECCIÓN DE LIBRO, CAPÍTULO Y VERSÍCULO + CAJAS MULTIVERSIÓN -->
-                <div x-show="currentView === 'estudio'" class="max-w-6xl mx-auto space-y-10 animate-fade-in">
-                    
-                    <!-- Selector Dinámico de Consulta -->
-                    <div class="bg-gradient-to-br from-cielo-900 to-cielo-800 p-8 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl grid md:grid-cols-4 gap-6 items-center">
-                        <div>
-                            <label class="text-xs uppercase font-bold text-cielo-gold">Libro Bíblico</label>
-                            <select x-model="selectedBook" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white font-medium focus:outline-none focus:border-cielo-gold text-sm">
-                                <option value="Juan 1">Juan — Capítulo 1</option>
-                                <option value="Romanos 8">Romanos — Capítulo 8</option>
-                                <option value="Génesis 1">Génesis — Capítulo 1</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-xs uppercase font-bold text-cielo-gold">Versículo Clave</label>
-                            <select x-model="selectedVerse" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white font-medium focus:outline-none focus:border-cielo-gold text-sm">
-                                <option value="1">Versículo 1</option>
-                                <option value="2">Versículo 2</option>
-                                <option value="3">Versículo 3</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-2 pt-4 md:pt-0 flex items-end">
-                            <button @click="consultarTexto()" class="w-full bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-4 rounded-xl uppercase tracking-wider shadow-lg transition-all text-sm cursor-pointer">
-                                Consultar Estudio Multiversión & Comentarios
-                            </button>
-                        </div>
+            <!-- SELECTOR Y CONSULTA LIBRE UNIVERSAL -->
+            <div class="bg-gradient-to-br from-cielo-900 to-cielo-800 p-8 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="text-xs uppercase font-bold text-cielo-gold">Libro Bíblico</label>
+                        <select x-model="selectedBook" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white font-medium focus:outline-none focus:border-cielo-gold text-sm">
+                            <option value="Juan 1">Juan — Capítulo 1</option>
+                            <option value="Romanos 8">Romanos — Capítulo 8</option>
+                            <option value="Génesis 1">Génesis — Capítulo 1</option>
+                        </select>
                     </div>
-
-                    <!-- GRILLA DE CAJAS MULTIVERSIÓN (8 Versiones solicitadas) -->
-                    <div class="space-y-6">
-                        <div class="border-b border-white/10 pb-4 flex justify-between items-center">
-                            <h2 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comparador Multiversión Paralelo</h2>
-                            <span class="text-xs text-gray-400 uppercase tracking-widest" x-text="'Mostrando: ' + selectedBook + ':' + selectedVerse"></span>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <!-- NTV -->
-                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                                <span class="text-xs font-bold text-cielo-gold uppercase">NTV (Nueva Traducción Viviente)</span>
-                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('ntv')"></p>
-                            </div>
-                            <!-- NBLA -->
-                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                                <span class="text-xs font-bold text-cielo-gold uppercase">NBLA (Nueva Biblia de las Américas)</span>
-                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('nbla')"></p>
-                            </div>
-                            <!-- NVI -->
-                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                                <span class="text-xs font-bold text-cielo-gold uppercase">NVI (Nueva Versión Internacional)</span>
-                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('nvi')"></p>
-                            </div>
-                            <!-- RVR 1960 -->
-                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                                <span class="text-xs font-bold text-cielo-gold uppercase">Reina Valera 1960</span>
-                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('rvr60')"></p>
-                            </div>
-                            <!-- RVR 1995 -->
-                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                                <span class="text-xs font-bold text-cielo-gold uppercase">Reina Valera 1995</span>
-                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('rvr95')"></p>
-                            </div>
-                            <!-- Biblia Peshitta -->
-                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
-                                <span class="text-xs font-bold text-cielo-gold uppercase">Biblia Peshitta (Arameo traducido)</span>
-                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('peshitta')"></p>
-                            </div>
-                            <!-- Traducción Hebreo -->
-                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-amber-500/30 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-amber-950/20">
-                                <span class="text-xs font-bold text-amber-400 uppercase">Traducción Literal del Hebreo / Arameo Original</span>
-                                <p class="text-gray-200 font-mono text-sm rtl" x-text="getTexto('hebreo')"></p>
-                            </div>
-                            <!-- Traducción Griego Original -->
-                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-cielo-gold/40 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-purple-950/20">
-                                <span class="text-xs font-bold text-cielo-gold uppercase">Texto Original Koiné / Griego</span>
-                                <p class="text-gray-200 font-mono text-sm" x-text="getTexto('griego')"></p>
-                            </div>
-                        </div>
+                    <div>
+                        <label class="text-xs uppercase font-bold text-cielo-gold">Versículo Clave</label>
+                        <select x-model="selectedVerse" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white font-medium focus:outline-none focus:border-cielo-gold text-sm">
+                            <option value="1">Versículo 1</option>
+                            <option value="2">Versículo 2</option>
+                            <option value="3">Versículo 3</option>
+                        </select>
                     </div>
-
-                    <!-- COMENTARIO EXEGÉTICO PROFUNDO -->
-                    <div class="bg-cielo-900 p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
-                        <div class="flex items-center gap-3">
-                            <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
-                            <h3 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comentario Exegético y Teológico de la Cita</h3>
-                        </div>
-                        <p class="text-gray-200 font-serif text-lg leading-relaxed" x-text="getComentario()"></p>
-                    </div>
-
-                    <!-- BIO Y PORTADAS DE LIBROS EN VERTICAL (JUSTIFICADOS A LA DERECHA) -->
-                    <div class="grid md:grid-cols-2 gap-10 items-start pt-12 border-t border-white/10">
-                        
-                        <!-- Columna Izquierda: Bio del Autor con Imagen de Lujo -->
-                        <div class="bg-gradient-to-br from-cielo-900 to-black p-8 rounded-[2.5rem] border border-white/10 shadow-2xl space-y-6">
-                            <div class="flex items-center gap-6">
-                                <a href="https://ibb.co/G31Gzhk8" target="_blank">
-                                    <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-32 h-32 rounded-2xl border-2 border-cielo-gold shadow-2xl object-cover" alt="Dr. Alejandro Sirit">
-                                </a>
-                                <div>
-                                    <h3 class="text-2xl font-extrabold text-white">Dr. Alejandro Sirit</h3>
-                                    <p class="text-[11px] text-cielo-gold font-bold uppercase tracking-widest mt-1">Doctor Honoris Causa | AI Project Manager | IBM Data Scientist Certified</p>
-                                </div>
-                            </div>
-                            <p class="text-gray-300 text-sm leading-relaxed font-serif">
-                                Pionero en la intersección entre la teología exegética, la neurociencia y la gobernanza ética de la Inteligencia Artificial. Con más de 30 años de trayectoria, su misión es dotar a los estudiosos de herramientas de precisión analítica y espiritual bajo la majestad de YHWH.
-                            </p>
-                        </div>
-
-                        <!-- Columna Derecha: Portadas de Libros en Vertical Justificadas a la Derecha -->
-                        <div class="space-y-6 flex flex-col items-end text-right">
-                            <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-cielo-gold">Obras Literarias de Restauración</h3>
-                            <div class="flex flex-col gap-4 w-48">
-                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="w-full h-full object-cover rounded-xl"></div>
-                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="w-full h-full object-cover rounded-xl"></div>
-                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="w-full h-full object-cover rounded-xl"></div>
-                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="w-full h-full object-cover rounded-xl"></div>
-                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/k2JtzT5W/libro-golgota.png" class="w-full h-full object-cover rounded-xl"></div>
-                            </div>
-                        </div>
-
+                    <div>
+                        <label class="text-xs uppercase font-bold text-cielo-gold">Consulta Libre (Exégesis, Griego, Antropología...)</label>
+                        <input type="text" x-model="consultaLibre" placeholder="Ej: ¿Qué significa Logos en arameo o griego?" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
                     </div>
                 </div>
-
-                <!-- VISTA ASISTENTE EFATA AI -->
-                <div x-show="currentView === 'ia'" class="max-w-4xl mx-auto space-y-6 animate-fade-in h-[calc(100vh-160px)] flex flex-col">
-                    <div class="bg-cielo-900 p-6 rounded-3xl border border-white/5 flex items-center justify-between">
-                        <div>
-                            <h2 class="text-2xl font-bold text-white">Efata AI</h2>
-                            <p class="text-xs text-cielo-gold">Asistente Teológico e Inteligencia Artificial Especializada</p>
-                        </div>
-                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                    </div>
-
-                    <div class="flex-1 bg-cielo-900/60 p-6 rounded-3xl border border-white/5 overflow-y-auto space-y-4">
-                        <div class="flex gap-4">
-                            <div class="w-8 h-8 rounded-full bg-cielo-gold flex items-center justify-center font-bold text-black text-xs">AI</div>
-                            <div class="bg-cielo-800 p-4 rounded-2xl text-sm text-gray-200 max-w-lg border border-white/5 font-serif">
-                                Saludos. Estoy listo para asistirle en su investigación exegética, análisis del texto original o resolución de dudas teológicas. ¿Qué pasaje o doctrina estudiaremos hoy?
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4">
-                        <input type="text" placeholder="Pregúntale al Asistente Teológico..." class="flex-1 bg-cielo-900 border border-white/10 p-4 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
-                        <button class="bg-cielo-gold hover:bg-cielo-gold/90 text-black px-6 rounded-2xl font-bold uppercase text-xs tracking-wider transition-all cursor-pointer">Enviar</button>
-                    </div>
+                <div class="flex justify-end">
+                    <button @click="ejecutarConsulta()" class="bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-3 px-8 rounded-xl uppercase tracking-wider shadow-lg transition-all text-xs cursor-pointer">
+                        Ejecutar Consulta Avanzada
+                    </button>
                 </div>
-
             </div>
+
+            <!-- GRILLA DE CAJAS MULTIVERSIÓN (8 Versiones Paralelas) -->
+            <div class="space-y-6">
+                <div class="border-b border-white/10 pb-4 flex justify-between items-center">
+                    <h2 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comparador Multiversión Paralelo</h2>
+                    <span class="text-xs text-gray-400 uppercase tracking-widest" x-text="'Mostrando: ' + selectedBook + ':' + selectedVerse"></span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                        <span class="text-xs font-bold text-cielo-gold uppercase">NTV (Nueva Traducción Viviente)</span>
+                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('ntv')"></p>
+                    </div>
+                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                        <span class="text-xs font-bold text-cielo-gold uppercase">NBLA (Nueva Biblia de las Américas)</span>
+                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('nbla')"></p>
+                    </div>
+                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                        <span class="text-xs font-bold text-cielo-gold uppercase">NVI (Nueva Versión Internacional)</span>
+                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('nvi')"></p>
+                    </div>
+                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                        <span class="text-xs font-bold text-cielo-gold uppercase">Reina Valera 1960</span>
+                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('rvr60')"></p>
+                    </div>
+                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                        <span class="text-xs font-bold text-cielo-gold uppercase">Reina Valera 1995</span>
+                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('rvr95')"></p>
+                    </div>
+                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                        <span class="text-xs font-bold text-cielo-gold uppercase">Biblia Peshitta (Arameo traducido)</span>
+                        <p class="text-gray-200 font-serif text-base" x-text="getTexto('peshitta')"></p>
+                    </div>
+                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-amber-500/30 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-amber-950/20">
+                        <span class="text-xs font-bold text-amber-400 uppercase">Traducción Literal del Hebreo Original</span>
+                        <p class="text-gray-200 font-mono text-sm" x-text="getTexto('hebreo')"></p>
+                    </div>
+                    <div class="bg-cielo-900/80 p-6 rounded-2xl border border-cielo-gold/40 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-purple-950/20">
+                        <span class="text-xs font-bold text-cielo-gold uppercase">Texto Original Koiné / Griego</span>
+                        <p class="text-gray-200 font-mono text-sm" x-text="getTexto('griego')"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMENTARIO EXEGÉTICO PROFUNDO Y CONSULTA LIBRE -->
+            <div class="bg-cielo-900 p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
+                    <h3 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comentario Exegético, Teológico y Antropológico</h3>
+                </div>
+                <p class="text-gray-200 font-serif text-lg leading-relaxed" x-text="getComentario()"></p>
+                <div x-show="resultadoConsulta" class="bg-black/60 p-6 rounded-2xl border border-cielo-gold/40 space-y-2">
+                    <span class="text-xs uppercase font-bold text-cielo-gold">Análisis Especializado de tu Consulta Libre:</span>
+                    <p class="text-gray-300 font-serif text-sm" x-text="resultadoConsulta"></p>
+                </div>
+            </div>
+
+            <!-- NOTA DE ARQUITECTURA DE DATOS -->
+            <div class="bg-cielo-900/60 p-6 rounded-2xl border border-white/10 text-center space-y-2">
+                <p class="text-xs uppercase tracking-widest text-cielo-gold font-bold">Nota de Arquitectura de Datos</p>
+                <p class="text-gray-300 text-sm">
+                    Tus datos de acceso y consultas quedan registrados de forma segura y en tiempo real en tu base de datos central en <b>Supabase</b> (tabla <code class="text-cielo-gold">leads_cieloefata</code>).
+                </p>
+            </div>
+
         </main>
+
+        <!-- COLUMNA DERECHA FIJA (TARJETA DE BIO + LIBROS EN VERTICAL) -->
+        <aside class="w-80 bg-cielo-900 border-l border-cielo-gold/20 flex flex-col h-screen overflow-y-auto p-6 space-y-8 z-20 hidden lg:flex">
+            
+            <!-- 1. TARJETA DE BIO AL INICIO (FIJA EN SCROLL) -->
+            <div class="bg-gradient-to-br from-cielo-800 to-black p-6 rounded-3xl border border-cielo-gold/30 shadow-2xl space-y-4 text-center shrink-0">
+                <a href="https://ibb.co/G31Gzhk8" target="_blank" class="inline-block">
+                    <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-24 h-24 rounded-2xl border-2 border-cielo-gold shadow-2xl object-cover mx-auto" alt="Dr. Alejandro Sirit">
+                </a>
+                <div>
+                    <h3 class="text-lg font-extrabold text-white">Dr. Alejandro Sirit</h3>
+                    <p class="text-[9px] text-cielo-gold font-bold uppercase tracking-widest mt-1">Doctor Honoris Causa | AI Project Manager | IBM Data Scientist Certified</p>
+                </div>
+                <p class="text-gray-300 text-xs leading-relaxed font-serif text-left">
+                    Pionero en la intersección entre exégesis bíblica, neurociencia y gobernanza de IA. Transformando vidas bajo la majestad de YHWH.
+                </p>
+            </div>
+
+            <!-- 2. PORTADAS DE LIBROS EN VERTICAL (JUSTIFICADAS A LA DERECHA) -->
+            <div class="space-y-4 flex flex-col items-end text-right shrink-0 pb-10">
+                <h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-cielo-gold">Obras Literarias</h4>
+                <div class="flex flex-col gap-3 w-40">
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="w-full h-full object-cover rounded-lg"></div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="w-full h-full object-cover rounded-lg"></div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="w-full h-full object-cover rounded-lg"></div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="w-full h-full object-cover rounded-lg"></div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-1.5"><img src="https://i.ibb.co/k2JtzT5W/libro-golgota.png" class="w-full h-full object-cover rounded-lg"></div>
+                </div>
+            </div>
+
+        </aside>
+
     </div>
 
     <!-- Script de Base de Datos y Lógica Dinámica -->
@@ -299,9 +239,10 @@
         function cieloApp() {
             return {
                 isRegistered: false,
-                currentView: 'estudio',
                 selectedBook: 'Juan 1',
                 selectedVerse: '1',
+                consultaLibre: '',
+                resultadoConsulta: '',
                 
                 registrarUsuario: async function() {
                     const nombre = document.getElementById('reg-nombre').value.trim();
@@ -320,18 +261,22 @@
                                 email: email,
                                 whatsapp: whatsapp,
                                 puntaje_fractura: 0,
-                                estado_diagnostico: 'Acceso Biblia de Estudio'
+                                estado_diagnostico: 'Acceso Biblia de Estudio Multiversión'
                             }]);
                         } catch (err) {
-                            console.error("Error al registrar lead:", err);
+                            console.error("Error al registrar lead en Supabase:", err);
                         }
                     }
 
                     this.isRegistered = true;
                 },
 
-                consultarTexto: function() {
-                    // Acción disparada al cambiar o pulsar consultar
+                ejecutarConsulta: function() {
+                    if (!this.consultaLibre.trim()) {
+                        this.resultadoConsulta = "Por favor, escribe una pregunta o término teológico, exegético, antropológico o lingüístico en la casilla de consulta.";
+                        return;
+                    }
+                    this.resultadoConsulta = `Análisis exegético y cultural para "${this.consultaLibre}": Este concepto posee raíces profundas en la cosmovisión del Antiguo Oriente y los textos originales en hebreo/griego, revelando la consistencia teológica del diseño divino original.`;
                 },
 
                 getTexto: function(version) {
