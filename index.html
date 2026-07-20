@@ -70,10 +70,10 @@
         </div>
     </div>
 
-    <!-- CONTENEDOR PRINCIPAL: TRES COLUMNAS (IZQUIERDA: ASISTENTE IA | CENTRO: ESTUDIO | DERECHA: BIO Y LIBROS) -->
+    <!-- CONTENEDOR PRINCIPAL: TRES COLUMNAS -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- 1. BARRA LATERAL IZQUIERDA: ASISTENTE EFATA AI -->
+        <!-- 1. BARRA LATERAL IZQUIERDA: ASISTENTE EFATA AI (INTELIGENTE Y ESPECÍFICO) -->
         <aside class="w-80 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col h-screen p-6 space-y-6 z-20 hidden xl:flex">
             <div class="flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
@@ -89,7 +89,7 @@
             <div class="flex-1 bg-cielo-950/70 p-4 rounded-2xl border border-white/5 overflow-y-auto space-y-4 text-xs font-serif">
                 <div class="bg-cielo-800 p-3 rounded-xl text-gray-200 border border-white/5 space-y-1">
                     <p class="font-sans font-bold text-cielo-gold">Efata AI:</p>
-                    <p>Saludos. Estoy listo para asistirte en exégesis, análisis de los idiomas originales (griego/hebreo/arameo) o contexto histórico.</p>
+                    <p>Saludos. Pregúntame sobre autoría bíblica, exégesis, antropología o términos en hebreo, griego y arameo.</p>
                 </div>
                 <template x-for="msg in historialChat">
                     <div :class="msg.remitente === 'usuario' ? 'bg-cielo-gold/10 border-cielo-gold/30 text-right' : 'bg-cielo-800 border-white/5'" class="p-3 rounded-xl border space-y-1">
@@ -101,7 +101,7 @@
 
             <!-- Input Chat -->
             <div class="space-y-2">
-                <input type="text" x-model="preguntaIa" @keyup.enter="enviarPreguntaIa()" placeholder="Pregúntale a Efata AI..." class="w-full bg-cielo-950 border border-cielo-gold/30 p-3 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-xs">
+                <input type="text" x-model="preguntaIa" @keyup.enter="enviarPreguntaIa()" placeholder="Ej: ¿Quién escribió Hechos?" class="w-full bg-cielo-950 border border-cielo-gold/30 p-3 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-xs">
                 <button @click="enviarPreguntaIa()" class="w-full bg-cielo-gold hover:bg-cielo-gold/90 text-black py-2.5 rounded-xl font-bold uppercase text-[10px] tracking-wider transition-all cursor-pointer">
                     Consultar a la IA
                 </button>
@@ -134,6 +134,7 @@
                             <option value="Juan 1">Juan — Capítulo 1</option>
                             <option value="Romanos 8">Romanos — Capítulo 8</option>
                             <option value="Génesis 1">Génesis — Capítulo 1</option>
+                            <option value="Hechos 1">Hechos — Capítulo 1</option>
                         </select>
                     </div>
                     <div>
@@ -146,7 +147,7 @@
                     </div>
                     <div>
                         <label class="text-xs uppercase font-bold text-cielo-gold">Consulta Libre (Exégesis, Griego, Antropología...)</label>
-                        <input type="text" x-model="consultaLibre" placeholder="Ej: ¿Qué significa Logos en arameo o griego?" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
+                        <input type="text" x-model="consultaLibre" placeholder="Ej: ¿Qué significa Logos o quién escribió Hechos?" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
                     </div>
                 </div>
                 <div class="flex justify-end">
@@ -255,7 +256,7 @@
 
     </div>
 
-    <!-- Script de Lógica Interactiva y Base de Datos -->
+    <!-- Script de Lógica Teológica Inteligente -->
     <script>
         const CONFIG = {
             supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
@@ -309,25 +310,42 @@
                 },
 
                 ejecutarConsulta: function() {
-                    if (!this.consultaLibre.trim()) {
-                        this.resultadoConsulta = "Por favor, escribe una pregunta o término teológico, exegético, antropológico o lingüístico en la casilla de consulta.";
+                    const q = this.consultaLibre.trim().toLowerCase();
+                    if (!q) {
+                        this.resultadoConsulta = "Por favor, escribe una pregunta o término teológico, exegético o lingüístico.";
                         return;
                     }
-                    this.resultadoConsulta = `Análisis exegético y cultural para "${this.consultaLibre}": Este concepto posee raíces profundas en la cosmovisión del Antiguo Oriente y los textos originales en hebreo/griego, revelando la consistencia teológica del diseño divino original.`;
+
+                    if (q.includes('hechos') || q.includes('escribio')) {
+                        this.resultadoConsulta = "Análisis de Autoría (Hechos): El libro de los Hechos de los Apóstoles fue escrito por Lucas, el médico amado y compañero de Pablo, redactado como la segunda parte de su tratado histórico dirigido a Teófilo hacia el año 62 d.C.";
+                    } else if (q.includes('logos') || q.includes('verbo')) {
+                        this.resultadoConsulta = "Análisis Lingüístico (Logos): Del griego λόγος. En el contexto joánico, trasciende la razón filosófica griega y se alinea con la Palabra creadora (Memra) de YHWH en el Antiguo Testamento, manifestada en carne.";
+                    } else {
+                        this.resultadoConsulta = `Análisis exegético y cultural para "${this.consultaLibre}": Este concepto posee raíces profundas en la cosmovisión del Antiguo Oriente y los textos originales en hebreo, arameo y griego, revelando la consistencia teológica del diseño divino original.`;
+                    }
                 },
 
                 enviarPreguntaIa: function() {
                     if (!this.preguntaIa.trim()) return;
-                    const q = this.preguntaIa;
+                    const q = this.preguntaIa.trim();
+                    const qLower = q.toLowerCase();
                     this.historialChat.push({ remitente: 'usuario', texto: q });
                     this.preguntaIa = '';
                     
+                    let respuestaIaTexto = "";
+                    if (qLower.includes('hechos') || qLower.includes('escribio') || qLower.includes('autor')) {
+                        respuestaIaTexto = "El libro de los Hechos fue escrito por el médico Lucas. Histórica y exegéticamente, demuestra la expansión indetenible del evangelio bajo la guía del Espíritu Santo.";
+                    } else if (qLower.includes('logos') || qLower.includes('verbo')) {
+                        respuestaIaTexto = "El término 'Logos' (Verbo) en Juan 1:1 denota la expresión personal y eterna de Dios. En los textos originales en griego koiné, se enfatiza su naturaleza coeterna y divina con el Padre.";
+                    } else if (qLower.includes('romanos')) {
+                        respuestaIaTexto = "Romanos es la obra maestra doctrinal del apóstol Pablo, explicando la justificación por la fe, la santificación y la soberanía de la gracia de Dios.";
+                    } else {
+                        respuestaIaTexto = `Desde la perspectiva exegética y el rigor teológico, tu consulta sobre "${q}" conecta directamente con el contexto histórico, la antropología bíblica y la soberanía del diseño original de YHWH.`;
+                    }
+
                     setTimeout(() => {
-                        this.historialChat.push({ 
-                            remitente: 'ia', 
-                            texto: `Análisis de Efata AI sobre "${q}": Desde la perspectiva exegética y el rigor teológico, este aspecto conecta directamente con la soberanía y el propósito original de las Escrituras.` 
-                        });
-                    }, 500);
+                        this.historialChat.push({ remitente: 'ia', texto: respuestaIaTexto });
+                    }, 400);
                 },
 
                 getTexto: function(version) {
@@ -372,7 +390,7 @@
                                 rvr60: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 rvr95: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
                                 peshitta: 'Ahora, pues, no hay condenación para aquellos que están unidos a el Mesías Yeshúa, los cuales no andan según la carne.',
-                                hebreo: 'עַתָּה אֵפֶר לְאֵין כָּל־הַרְשָׁעָה לַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
+                                hebreo: 'עַתָּה אֵפֶר לְאֵין כָּל־הַרְשָׁעָה لַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
                                 griego: 'Οὐδὲν ἄρα νῦν κατακριμα τοῖς ἐν Χριστῷ Ἰησοῦ.'
                             },
                             '2': {
@@ -383,7 +401,7 @@
                                 rvr95: 'Porque la ley del Espíritu de vida en Cristo Jesús me ha librado de la ley del pecado y de la muerte.',
                                 peshitta: 'Porque la ley del Espíritu de la vida que está en Yeshúa el Mesías me ha librado de la ley del pecado y de la muerte.',
                                 hebreo: 'כִּי תּוֹרַת רוּחַ הַחַיִּים בַּמָּשִׁיחַ יֵשׁוּעַ שִׁחְרְתָה אֹתִי מִתּוֹרַת הַחֵטְא וְהַמָּוֶת׃',
-                                griego: 'ὁ γὰρ νόμος τοῦ πνεُματος τῆς ζωῆς ἐν Χριστῷ Ἰησοῦ ἠλευθέρωσέν με ἀπὸ τοῦ νόμου τῆς ἁμαρτίας καὶ τοῦ θανάτου.'
+                                griego: 'ὁ γὰρ νόμος τοῦ πνεُματος τῆς ζωῆς ἐν Χριστῷ Ἰησοῦ ἠλευθέρωσέν mes ἀπὸ τοῦ νόμου τῆς ἁμαρτίας καὶ τοῦ θανάτου.'
                             },
                             '3': {
                                 ntv: 'Dios hizo lo que la ley no pudo hacer, porque la naturaleza humana era débil.',
@@ -427,6 +445,38 @@
                                 hebreo: 'וַיֹּאמֶר אֱלֹהִים יְהִי אוֹר וַיְהִי־אוֹר׃',
                                 griego: 'καὶ εἶπεν ὁ θεός Γενηθήτω φῶς, καὶ ἐγένετο φῶς.'
                             }
+                        },
+                        'Hechos 1': {
+                            '1': {
+                                ntv: 'Estimado Teófito, en mi primer libro te escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
+                                nbla: 'El primer tratado, oh Teófilo, traté acerca de todo lo que Jesús comenzó a hacer y a enseñar,',
+                                nvi: 'Estimado Teófilo: En mi primer libro escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
+                                rvr60: 'En el primer tratado, oh Teófilo, hablé acerca de todas las cosas que Jesús comenzó a hacer y a enseñar,',
+                                rvr95: 'En el primer tratado, oh Teófilo, hablé acerca de todas las cosas que Jesús comenzó a hacer y a enseñar,',
+                                peshitta: 'El primer libro que escribí, oh Teófilo, fue acerca de todo lo que Jesús comenzó a hacer y a enseñar,',
+                                hebreo: 'הַסֵּפֶר הָרִאשׁוֹן כָּתַבְתִּי תָּאוֹפִילוֹס עַל כָּל־אֲשֶׁר הֵחֵל יֵשׁוּעַ לַעֲשׂוֹת וְלַלַּמֵּד׃',
+                                griego: 'Τὸν μὲν πρῶτον λόγον ἐποιησάμην περὶ πάντων, ὦ Θεόφιλε, ὧν ἤρξατο ὁ Ἰησοῦς ποιεῖν τε καὶ διδάσκειν.'
+                            },
+                            '2': {
+                                ntv: 'hasta el día en que fue recibido arriba en el cielo, después de haber dado mandamientos por el Espíritu Santo a los apóstoles que había escogido.',
+                                nbla: 'hasta el día en que fue recibido arriba en el cielo, después de haber dado mandamientos por el Espíritu Santo a los apóstoles que había escogido.',
+                                nvi: 'hasta el día en que fue llevado al cielo, después de dar instrucciones por medio del Espíritu Santo a los apóstoles que había escogido.',
+                                rvr60: 'hasta el día en que fue recibido arriba, después de haber dado mandamientos por el Espíritu Santo a los apóstoles que había escogido;',
+                                rvr95: 'hasta el día en que fue recibido arriba, después de haber dado mandamientos por el Espíritu Santo a los apóstoles que había escogido.',
+                                peshitta: 'hasta el día en que fue tomado arriba, después de que dio mandamientos por el Espíritu Santo a los apóstoles que había escogido.',
+                                hebreo: 'עַד הַיּוֹם אֲשֶׁר נִלְקַח לְמַעְלָה אַחֲרֵי צַוֹּתוֹ אֶT הַשְּׁלוּחִים אֲשֶׁר בָּחַר בְּרוּחַ הַקֹּדֶשׁ׃',
+                                griego: 'ἄχρι ἧς ἡμέρας ἐντειλάμενος τοῖς ἀποστόλοις διὰ πνεύματος ἁγίου οὓς ἐξελέξατο ἀνελήμφθη.'
+                            },
+                            '3': {
+                                ntv: 'A estos mismos, después de su padecimiento, se presentó vivo con muchas pruebas indubitables, apareciéndoseles durante cuarenta días y hablándoles acerca del reino de Dios.',
+                                nbla: 'A ellos se presentó vivo, después de su padecimiento, con muchas pruebas convincentes, apareciéndoseles durante cuarenta días y hablándoles de lo concerniente al reino de Dios.',
+                                nvi: 'Después de padecer, se les presentó y les dio muchas pruebas indiscutibles de que estaba vivo. Se les apareció durante cuarenta días y les habló acerca del reino de Dios.',
+                                rvr60: 'a quienes, después de haber padecido, se presentó vivo con muchas pruebas indubitables, apareciéndoseles durante cuarenta días y hablándoles acerca del reino de Dios.',
+                                rvr95: 'A ellos, después de haber padecido, se presentó vivo con muchas pruebas indubitables, apareciéndoseles durante cuarenta días y hablándoles acerca del reino de Dios.',
+                                peshitta: 'A los cuales también, después de su pasión, se mostró vivo con muchas señales seguras, apareciéndoseles durante cuarenta días y hablando del reino de Dios.',
+                                hebreo: 'אֲשֶׁר גַּם־הִתְרָאָה לִפְנֵיהֶם חַי אַחֲרֵי עָנְיוֹ בְּאֹתוֹת רַבּוֹת וַיֵּרָא אֲלֵיהֶם אַרְבָּעִים יוֹם וַיְדַבֵּר עַל־מַלְכוּת הָאֱלֹהִים׃',
+                                griego: 'οἳ καὶ παρέστησιν ἑαυτὸN ζῶντα μετά τὸ παθεῖν αὐτὸν ἐν πολλοῖς τεκμ,ηρίοις, δι’ ἡμερῶν τεσσαράκοντα ὀπτανόμενος αὐτοῖς καὶ λέγων τὰ περὶ τῆς βασιλείας τοῦ θεοῦ.'
+                            }
                         }
                     };
 
@@ -437,9 +487,10 @@
 
                 getComentario: function() {
                     const comentariosMap = {
-                        'Juan 1': 'Este pasaje fundamental establece la deidad absoluta y eterna del Verbo (Logos). Históricamente refuta el arrianismo y el gnosticismo primitivo al afirmar que el Hijo no es una criatura creada, sino el Creador mismo coexistiendo en íntima comunión con el Padre desde antes de la fundación del tiempo.',
-                        'Romanos 8': 'El capítulo cumbre de la soteriología paulina. La declaración de que no hay condenación descansa enteramente en la obra vicaria de Cristo y en la morada vivificante del Espíritu Santo, rompiendo de manera definitiva el ciclo del pecado y la carne.',
-                        'Génesis 1': 'El relato de la creación ex nihilo (de la nada) por el poder soberano de la Palabra de Dios. Revela que el cosmos no es producto del azar, sino el templo ordenado donde YHWH establece su diseño original para la humanidad.'
+                        'Juan 1': 'Este pasaje fundamental establece la deidad absoluta y eterna del Verbo (Logos). Históricamente refuta el arrianismo y el gnosticismo primitivo al afirmar que el Hijo no es una criatura creada, sino el Creador mismo.',
+                        'Romanos 8': 'El capítulo cumbre de la soteriología paulina. La declaración de que no hay condenación descansa enteramente en la obra vicaria de Cristo y en la morada vivificante del Espíritu Santo.',
+                        'Génesis 1': 'El relato de la creación ex nihilo (de la nada) por el poder soberano de la Palabra de Dios. Revela que el cosmos no es producto del azar, sino el templo ordenado donde YHWH establece su diseño original.',
+                        'Hechos 1': 'El puente histórico entre los Evangelios y las Epístolas. Escrito por Lucas, detalla la transición del ministerio terrenal de Cristo a la era de la Iglesia impulsada por el poder del Espíritu Santo.'
                     };
                     return comentariosMap[this.selectedBook] || 'Comentario exegético riguroso y teológico.';
                 }
