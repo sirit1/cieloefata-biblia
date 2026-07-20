@@ -13,8 +13,8 @@
                 extend: {
                     colors: {
                         cielo: {
-                            950: '#06080f',
-                            900: '#0b0f19',
+                            950: '#04060b',
+                            900: '#090d16',
                             800: '#111827',
                             700: '#1f2937',
                             gold: '#d4af37',
@@ -32,243 +32,227 @@
     </script>
     <!-- SDK de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Alpine.js para reactividad ligera y limpia -->
+    <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-cielo-950 text-gray-100 font-sans antialiased min-h-screen selection:bg-cielo-gold selection:text-black" x-data="cieloApp()">
 
-    <!-- CONTENEDOR PRINCIPAL DE APLICACIÓN DE ESTUDIO -->
+    <!-- MODAL DE CAPTURA INICIAL DE LEADS (MANDATORIO PARA CONSULTA) -->
+    <div x-show="!isRegistered" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
+        <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl max-w-lg w-full text-center space-y-6 animate-fade-in">
+            <div class="flex justify-center">
+                <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-24 h-24 rounded-2xl border-2 border-cielo-gold shadow-2xl object-cover">
+            </div>
+            <div class="space-y-2">
+                <span class="px-4 py-1.5 rounded-full bg-cielo-gold/10 text-cielo-gold border border-cielo-gold/30 text-xs font-black tracking-widest uppercase">Ministerio Cielo Efata</span>
+                <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Acceso a la Biblia de Estudio</h2>
+                <p class="text-gray-300 text-sm">Introduce tus datos para desbloquear el motor multiversión, el laboratorio original y los comentarios exegéticos.</p>
+            </div>
+            
+            <div class="space-y-4 text-left">
+                <div>
+                    <label class="text-xs uppercase font-bold text-cielo-gold">Nombre Completo *</label>
+                    <input type="text" x-input="nombre" id="reg-nombre" placeholder="Tu nombre..." class="w-full mt-1 bg-black/60 border border-cielo-gold/30 p-4 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-base">
+                </div>
+                <div>
+                    <label class="text-xs uppercase font-bold text-cielo-gold">Correo Electrónico *</label>
+                    <input type="email" id="reg-email" placeholder="tu.correo@dominio.com" class="w-full mt-1 bg-black/60 border border-cielo-gold/30 p-4 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-base">
+                </div>
+                <div>
+                    <label class="text-xs uppercase font-bold text-cielo-gold">WhatsApp *</label>
+                    <input type="text" id="reg-whatsapp" placeholder="+58 412 0000000" class="w-full mt-1 bg-black/60 border border-cielo-gold/30 p-4 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-base">
+                </div>
+            </div>
+
+            <button @click="registrarUsuario()" class="w-full bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-4 rounded-2xl uppercase tracking-wider shadow-lg transition-all text-base cursor-pointer">
+                Desbloquear Plataforma de Estudio
+            </button>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- 1. BARRA LATERAL DE NAVEGACIÓN (ESTILO BIBLIOTECA ANTIGUA Y MODERNA) -->
-        <aside class="w-72 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col justify-between hidden md:flex z-20">
+        <!-- 1. BARRA LATERAL (CON LOGOS Y AUTORIDAD) -->
+        <aside class="w-80 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col justify-between hidden md:flex z-20">
             <div>
                 <!-- Brand / Logo Header -->
                 <div class="p-6 border-b border-white/5 flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cielo-gold/20 to-purple-900/40 border border-cielo-gold/40 flex items-center justify-center shadow-lg">
-                        <span class="text-cielo-gold font-serif font-black text-xl">Ω</span>
-                    </div>
+                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-12 h-12 rounded-xl border border-cielo-gold/40 object-cover shadow-lg">
                     <div>
-                        <h1 class="font-serif font-bold text-white tracking-wide text-base">CieloEfata</h1>
+                        <h1 class="font-serif font-bold text-white tracking-wide text-sm">CieloEfata</h1>
                         <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-semibold">Biblia de Estudio</p>
                     </div>
                 </div>
 
-                <!-- Menú de Módulos Teológicos -->
-                <nav class="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-220px)]">
-                    <button @click="currentView = 'lector'" :class="currentView === 'lector' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
+                <!-- Menú de Módulos -->
+                <nav class="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-280px)]">
+                    <button @click="currentView = 'estudio'" :class="currentView === 'estudio' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        <span>Lector Bíblico Avanzado</span>
+                        <span>Estudio Multiversión & Comentarios</span>
                     </button>
-
-                    <button @click="currentView = 'comparador'" :class="currentView === 'comparador' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                        <span>Comparador Multiversión</span>
-                    </button>
-
-                    <button @click="currentView = 'laboratorio'" :class="currentView === 'laboratorio' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        <span>Laboratorio Bíblico Original</span>
-                    </button>
-
-                    <button @click="currentView = 'comentarios'" :class="currentView === 'comentarios' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        <span>Comentario Exegético / MacArthur</span>
-                    </button>
-
                     <button @click="currentView = 'ia'" :class="currentView === 'ia' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                         <span>Asistente Efata AI</span>
                     </button>
-
-                    <button @click="currentView = 'devocional'" :class="currentView === 'devocional' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                        <span>Devocionales "Caminar con Dios"</span>
-                    </button>
-
-                    <button @click="currentView = 'dashboard'" :class="currentView === 'dashboard' ? 'bg-cielo-gold/10 text-cielo-gold border-cielo-gold/30' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent transition-all text-sm font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        <span>Dashboard del Usuario</span>
-                    </button>
                 </nav>
             </div>
 
-            <!-- Footer Sidebar con Sello Editorial -->
-            <div class="p-4 border-t border-white/5 text-center">
-                <p class="text-[11px] text-gray-400">Editorial CieloEfata</p>
-                <p class="text-[9px] text-cico-gold/60 mt-0.5">Teología & Inteligencia Artificial</p>
+            <!-- Footer Sidebar con Logo Xtrametrik -->
+            <div class="p-4 border-t border-white/5 text-center space-y-2">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest">Impulsado por</p>
+                <div class="flex justify-center">
+                    <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" alt="Xtrametrik" class="h-8 rounded-lg object-contain border border-white/10">
+                </div>
             </div>
         </aside>
 
-        <!-- 2. ÁREA PRINCIPAL DE TRABAJO Y LECTURA -->
+        <!-- 2. ÁREA PRINCIPAL -->
         <main class="flex-1 flex flex-col h-screen overflow-hidden bg-cielo-950">
 
-            <!-- Top Header de Control -->
-            <header class="h-20 bg-cielo-900 border-b border-white/5 flex items-center justify-between px-8 z-10">
+            <!-- Top Header -->
+            <header class="h-20 bg-cielo-900 border-b border-cielo-gold/20 flex items-center justify-between px-8 z-10">
                 <div class="flex items-center gap-4">
-                    <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="getViewTitle()"></span>
+                    <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30">Plataforma Teológica Activa</span>
                 </div>
                 <div class="flex items-center gap-4">
-                    <button class="p-2.5 rounded-xl bg-cielo-800 text-gray-300 hover:text-white border border-white/5 transition-all">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </button>
                     <div class="flex items-center gap-3 pl-4 border-l border-white/10">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cielo-gold to-purple-600 flex items-center justify-center font-bold text-black text-sm">AS</div>
+                        <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-10 h-10 rounded-full border border-cielo-gold object-cover" alt="Dr. Alejandro Sirit">
                         <div class="hidden sm:block text-left">
                             <p class="text-xs font-bold text-white">Dr. Alejandro Sirit</p>
-                            <p class="text-[10px] text-gray-400">Investigador Teológico</p>
+                            <p class="text-[10px] text-cielo-gold">Doctor Honoris Causa | AI Project Manager</p>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <!-- Contenedor Dinámico de Vistas -->
-            <div class="flex-1 overflow-y-auto p-6 md:p-10 space-y-8">
+            <!-- Contenedor Dinámico -->
+            <div class="flex-1 overflow-y-auto p-6 md:p-10 space-y-12">
 
-                <!-- VISTA 1: LECTOR BÍBLICO AVANZADO -->
-                <div x-show="currentView === 'lector'" class="max-w-4xl mx-auto space-y-8 animate-fade-in">
-                    <!-- Selector de Libro / Capítulo -->
-                    <div class="bg-cielo-900 p-6 rounded-3xl border border-white/5 flex flex-wrap gap-4 items-center justify-between shadow-2xl">
-                        <div class="flex gap-4">
-                            <select x-model="selectedBook" class="bg-cielo-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white font-medium focus:outline-none focus:border-cielo-gold">
-                                <option value="Juan">Evangelio según San Juan</option>
-                                <option value="Romanos">Epístola a los Romanos</option>
-                                <option value="Génesis">Génesis</option>
-                            </select>
-                            <select x-model="selectedChapter" class="bg-cielo-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white font-medium focus:outline-none focus:border-cielo-gold">
-                                <option value="1">Capítulo 1</option>
-                                <option value="3">Capítulo 3</option>
-                                <option value="8">Capítulo 8</option>
+                <!-- VISTA PRINCIPAL: SELECCIÓN DE LIBRO, CAPÍTULO Y VERSÍCULO + CAJAS MULTIVERSIÓN -->
+                <div x-show="currentView === 'estudio'" class="max-w-6xl mx-auto space-y-10 animate-fade-in">
+                    
+                    <!-- Selector Dinámico de Consulta -->
+                    <div class="bg-gradient-to-br from-cielo-900 to-cielo-800 p-8 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl grid md:grid-cols-4 gap-6 items-center">
+                        <div>
+                            <label class="text-xs uppercase font-bold text-cielo-gold">Libro Bíblico</label>
+                            <select x-model="selectedBook" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white font-medium focus:outline-none focus:border-cielo-gold text-sm">
+                                <option value="Juan 1">Juan — Capítulo 1</option>
+                                <option value="Romanos 8">Romanos — Capítulo 8</option>
+                                <option value="Génesis 1">Génesis — Capítulo 1</option>
                             </select>
                         </div>
-                        <div class="text-xs text-cielo-gold tracking-widest font-semibold uppercase">Versión: Reina Valera 1960 / MacArthur</div>
-                    </div>
-
-                    <!-- Texto del Capítulo con Comentarios Integrados -->
-                    <div class="bg-cielo-900/60 p-8 md:p-12 rounded-[2.5rem] border border-cielo-gold/20 shadow-2xl space-y-6">
-                        <h2 class="text-3xl font-serif font-bold text-cielo-gold mb-6" x-text="selectedBook + ' ' + selectedChapter"></h2>
-                        
-                        <div class="space-y-6 font-serif text-lg leading-relaxed text-gray-200">
-                            <p class="hover:bg-white/5 p-3 rounded-xl transition-all cursor-pointer border-l-2 border-transparent hover:border-cielo-gold">
-                                <span class="text-xs font-sans font-bold text-cielo-gold mr-3">1</span>
-                                En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios.
-                            </p>
-                            <p class="hover:bg-white/5 p-3 rounded-xl transition-all cursor-pointer border-l-2 border-transparent hover:border-cielo-gold">
-                                <span class="text-xs font-sans font-bold text-cielo-gold mr-3">2</span>
-                                Este era en el principio con Dios.
-                            </p>
-                            <p class="hover:bg-white/5 p-3 rounded-xl transition-all cursor-pointer border-l-2 border-transparent hover:border-cielo-gold bg-cielo-gold/5 border-l-cielo-gold">
-                                <span class="text-xs font-sans font-bold text-cielo-gold mr-3">3</span>
-                                Todas las cosas por él fueron hechas, y sin él nada de lo que ha sido hecho fue hecho.
-                                <span class="block mt-2 text-xs font-sans text-cielo-gold/80 italic bg-cielo-950/80 p-3 rounded-lg border border-cielo-gold/20">
-                                    <b>Nota MacArthur:</b> El Logos encarnado es el agente creador absoluto. No hay materia autónoma; toda existencia depende causalmente de la deidad eterna del Hijo.
-                                </span>
-                            </p>
+                        <div>
+                            <label class="text-xs uppercase font-bold text-cielo-gold">Versículo Clave</label>
+                            <select x-model="selectedVerse" class="w-full mt-2 bg-black/60 border border-cielo-gold/30 p-3.5 rounded-xl text-white font-medium focus:outline-none focus:border-cielo-gold text-sm">
+                                <option value="1">Versículo 1</option>
+                                <option value="2">Versículo 2</option>
+                                <option value="3">Versículo 3</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2 pt-4 md:pt-0 flex items-end">
+                            <button @click="consultarTexto()" class="w-full bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-4 rounded-xl uppercase tracking-wider shadow-lg transition-all text-sm cursor-pointer">
+                                Consultar Estudio Multiversión & Comentarios
+                            </button>
                         </div>
                     </div>
-                </div>
 
-                <!-- VISTA 2: COMPARADOR BÍBLICO LINEAL MULTIVERSIÓN -->
-                <div x-show="currentView === 'comparador'" class="space-y-6 animate-fade-in">
-                    <div class="bg-cielo-900 p-6 rounded-3xl border border-white/5">
-                        <h2 class="text-2xl font-bold text-white mb-2">Comparador Multiversión de Estudio</h2>
-                        <p class="text-sm text-gray-400">Análisis paralelo de traducciones y variantes semánticas para Juan 1:1</p>
-                    </div>
-
-                    <div class="overflow-x-auto rounded-3xl border border-white/10 bg-cielo-900 shadow-2xl">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-cielo-800 text-xs font-bold uppercase tracking-wider text-cielo-gold border-b border-white/10">
-                                    <th class="p-4">Versión / Fuente</th>
-                                    <th class="p-4">Texto Bíblico</th>
-                                    <th class="p-4">Nota Semántica / Diferencia</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-white/5 text-sm text-gray-300 font-serif">
-                                <tr class="hover:bg-white/5">
-                                    <td class="p-4 font-sans font-bold text-white">Reina Valera 1960</td>
-                                    <td class="p-4">En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios.</td>
-                                    <td class="p-4 text-xs font-sans text-gray-400">Traducción clásica formal con énfasis en la co-divinidad.</td>
-                                </tr>
-                                <tr class="hover:bg-white/5">
-                                    <td class="p-4 font-sans font-bold text-white">Nueva Versión Internacional</td>
-                                    <td class="p-4">En el principio ya existía el Palabra, y el Palabra estaba con Dios, y el Palabra era Dios.</td>
-                                    <td class="p-4 text-xs font-sans text-gray-400">Equivalencia dinámica enfocada en claridad conceptual.</td>
-                                </tr>
-                                <tr class="hover:bg-white/5">
-                                    <td class="p-4 font-sans font-bold text-white">Peshitta Aramea</td>
-                                    <td class="p-4">Beshughra men qadmayda howa Melta...</td>
-                                    <td class="p-4 text-xs font-sans text-gray-400">Matiz semítico original de la lengua que hablaba nuestro Señor.</td>
-                                </tr>
-                                <tr class="hover:bg-white/5 bg-cielo-gold/5">
-                                    <td class="p-4 font-sans font-bold text-cielo-gold">Griego Koiné (Original)</td>
-                                    <td class="p-4 font-mono">Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν προς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος.</td>
-                                    <td class="p-4 text-xs font-sans text-cielo-gold">Estructura anartra (sin artículo) que resalta la cualidad divina del Logos.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- VISTA 3: LABORATORIO BÍBLICO ORIGINAL -->
-                <div x-show="currentView === 'laboratorio'" class="space-y-6 animate-fade-in max-w-4xl mx-auto">
-                    <div class="bg-cielo-900 p-8 rounded-3xl border border-white/5 space-y-4">
-                        <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold">Análisis Lingüístico Profundo</span>
-                        <h2 class="text-4xl font-serif font-bold text-white">Laboratorio Bíblico Original</h2>
-                        <p class="text-gray-300">Exploración morfológica, raíz y semántica de los términos originales.</p>
-                    </div>
-
-                    <!-- Término Destacado -->
-                    <div class="bg-gradient-to-br from-cielo-900 to-cielo-800 p-8 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
-                        <div class="flex items-center justify-between border-b border-white/10 pb-6">
-                            <div>
-                                <span class="text-xs text-cielo-gold uppercase font-bold tracking-widest">Griego Koiné (Nuevo Testamento)</span>
-                                <h3 class="text-5xl font-mono font-bold text-white mt-2">λόγος</h3>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-xl font-bold text-cielo-gold">Logos</span>
-                                <p class="text-xs text-gray-400">Sustantivo masculino</p>
-                            </div>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-6 text-sm">
-                            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 space-y-2">
-                                <span class="text-xs uppercase font-bold text-cielo-gold">Significado Raíz</span>
-                                <p class="text-gray-200">Palabra, expresión articulada, concepto divino, razón ordenadora del universo.</p>
-                            </div>
-                            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 space-y-2">
-                                <span class="text-xs uppercase font-bold text-cielo-gold">Forma Gramatical y Uso</span>
-                                <p class="text-gray-200">Nominativo singular. Utilizado en la filosofía helenística y adoptado por Juan para revelar la preexistencia de Cristo.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VISTA 4: COMENTARIO EXEGÉTICO Y MACARTHUR -->
-                <div x-show="currentView === 'comentarios'" class="space-y-6 animate-fade-in max-w-4xl mx-auto">
-                    <div class="bg-cielo-900 p-8 rounded-3xl border border-white/5 space-y-4">
-                        <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold">Teología Sistemática & Exégesis</span>
-                        <h2 class="text-3xl font-serif font-bold text-white">Comentario MacArthur y Exegético</h2>
-                    </div>
-
+                    <!-- GRILLA DE CAJAS MULTIVERSIÓN (8 Versiones solicitadas) -->
                     <div class="space-y-6">
-                        <div class="bg-cielo-900 p-8 rounded-3xl border border-white/10 space-y-4 shadow-xl">
-                            <h3 class="text-xl font-bold text-cielo-gold">Contexto Histórico y Autor (Juan)</h3>
-                            <p class="text-gray-300 font-serif leading-relaxed">
-                                Escrito por el apóstol Juan hacia finales del siglo I d.C. desde Éfeso. Su propósito fundamental es presentar de manera irrefutable la deidad absoluta de Jesucristo frente a las primeras corrientes gnósticas que intentaban socavar la encarnación real del Verbo.
+                        <div class="border-b border-white/10 pb-4 flex justify-between items-center">
+                            <h2 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comparador Multiversión Paralelo</h2>
+                            <span class="text-xs text-gray-400 uppercase tracking-widest" x-text="'Mostrando: ' + selectedBook + ':' + selectedVerse"></span>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- NTV -->
+                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                                <span class="text-xs font-bold text-cielo-gold uppercase">NTV (Nueva Traducción Viviente)</span>
+                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('ntv')"></p>
+                            </div>
+                            <!-- NBLA -->
+                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                                <span class="text-xs font-bold text-cielo-gold uppercase">NBLA (Nueva Biblia de las Américas)</span>
+                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('nbla')"></p>
+                            </div>
+                            <!-- NVI -->
+                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                                <span class="text-xs font-bold text-cielo-gold uppercase">NVI (Nueva Versión Internacional)</span>
+                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('nvi')"></p>
+                            </div>
+                            <!-- RVR 1960 -->
+                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                                <span class="text-xs font-bold text-cielo-gold uppercase">Reina Valera 1960</span>
+                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('rvr60')"></p>
+                            </div>
+                            <!-- RVR 1995 -->
+                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                                <span class="text-xs font-bold text-cielo-gold uppercase">Reina Valera 1995</span>
+                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('rvr95')"></p>
+                            </div>
+                            <!-- Biblia Peshitta -->
+                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2">
+                                <span class="text-xs font-bold text-cielo-gold uppercase">Biblia Peshitta (Arameo traducido)</span>
+                                <p class="text-gray-200 font-serif text-base" x-text="getTexto('peshitta')"></p>
+                            </div>
+                            <!-- Traducción Hebreo -->
+                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-amber-500/30 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-amber-950/20">
+                                <span class="text-xs font-bold text-amber-400 uppercase">Traducción Literal del Hebreo / Arameo Original</span>
+                                <p class="text-gray-200 font-mono text-sm rtl" x-text="getTexto('hebreo')"></p>
+                            </div>
+                            <!-- Traducción Griego Original -->
+                            <div class="bg-cielo-900/80 p-6 rounded-2xl border border-cielo-gold/40 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-purple-950/20">
+                                <span class="text-xs font-bold text-cielo-gold uppercase">Texto Original Koiné / Griego</span>
+                                <p class="text-gray-200 font-mono text-sm" x-text="getTexto('griego')"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMENTARIO EXEGÉTICO PROFUNDO -->
+                    <div class="bg-cielo-900 p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
+                            <h3 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comentario Exegético y Teológico de la Cita</h3>
+                        </div>
+                        <p class="text-gray-200 font-serif text-lg leading-relaxed" x-text="getComentario()"></p>
+                    </div>
+
+                    <!-- BIO Y PORTADAS DE LIBROS EN VERTICAL (JUSTIFICADOS A LA DERECHA) -->
+                    <div class="grid md:grid-cols-2 gap-10 items-start pt-12 border-t border-white/10">
+                        
+                        <!-- Columna Izquierda: Bio del Autor con Imagen de Lujo -->
+                        <div class="bg-gradient-to-br from-cielo-900 to-black p-8 rounded-[2.5rem] border border-white/10 shadow-2xl space-y-6">
+                            <div class="flex items-center gap-6">
+                                <a href="https://ibb.co/G31Gzhk8" target="_blank">
+                                    <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-32 h-32 rounded-2xl border-2 border-cielo-gold shadow-2xl object-cover" alt="Dr. Alejandro Sirit">
+                                </a>
+                                <div>
+                                    <h3 class="text-2xl font-extrabold text-white">Dr. Alejandro Sirit</h3>
+                                    <p class="text-[11px] text-cielo-gold font-bold uppercase tracking-widest mt-1">Doctor Honoris Causa | AI Project Manager | IBM Data Scientist Certified</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 text-sm leading-relaxed font-serif">
+                                Pionero en la intersección entre la teología exegética, la neurociencia y la gobernanza ética de la Inteligencia Artificial. Con más de 30 años de trayectoria, su misión es dotar a los estudiosos de herramientas de precisión analítica y espiritual bajo la majestad de YHWH.
                             </p>
                         </div>
-                        <div class="bg-cielo-900 p-8 rounded-3xl border border-white/10 space-y-4 shadow-xl">
-                            <h3 class="text-xl font-bold text-cielo-gold">Análisis Antropológico y Cultural</h3>
-                            <p class="text-gray-300 font-serif leading-relaxed">
-                                El concepto del "Logos" resonaba tanto en la mente judía (como la Palabra creadora de YHWH en el Génesis y los Targumes) como en la mentalidad griega (la Razón que gobierna el cosmos). Juan unifica magistralmente ambas culturas bajo la soberanía exclusiva de Cristo.
-                            </p>
+
+                        <!-- Columna Derecha: Portadas de Libros en Vertical Justificadas a la Derecha -->
+                        <div class="space-y-6 flex flex-col items-end text-right">
+                            <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-cielo-gold">Obras Literarias de Restauración</h3>
+                            <div class="flex flex-col gap-4 w-48">
+                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="w-full h-full object-cover rounded-xl"></div>
+                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="w-full h-full object-cover rounded-xl"></div>
+                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="w-full h-full object-cover rounded-xl"></div>
+                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="w-full h-full object-cover rounded-xl"></div>
+                                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-xl aspect-[2/3] bg-black/40 p-2"><img src="https://i.ibb.co/k2JtzT5W/libro-golgota.png" class="w-full h-full object-cover rounded-xl"></div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
 
-                <!-- VISTA 5: ASISTENTE EFATA AI -->
-                <div x-show="currentView === 'ia'" class="space-y-6 animate-fade-in max-w-4xl mx-auto h-[calc(100vh-160px)] flex flex-col">
+                <!-- VISTA ASISTENTE EFATA AI -->
+                <div x-show="currentView === 'ia'" class="max-w-4xl mx-auto space-y-6 animate-fade-in h-[calc(100vh-160px)] flex flex-col">
                     <div class="bg-cielo-900 p-6 rounded-3xl border border-white/5 flex items-center justify-between">
                         <div>
                             <h2 class="text-2xl font-bold text-white">Efata AI</h2>
@@ -277,57 +261,18 @@
                         <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
                     </div>
 
-                    <!-- Chat Box -->
                     <div class="flex-1 bg-cielo-900/60 p-6 rounded-3xl border border-white/5 overflow-y-auto space-y-4">
                         <div class="flex gap-4">
                             <div class="w-8 h-8 rounded-full bg-cielo-gold flex items-center justify-center font-bold text-black text-xs">AI</div>
-                            <div class="bg-cielo-800 p-4 rounded-2xl text-sm text-gray-200 max-w-lg border border-white/5">
-                                Saludos, Dr. Sirit. Estoy listo para asistirle en su investigación exegética, análisis del texto original o resolución de dudas teológicas. ¿Qué pasaje o doctrina estudiaremos hoy?
+                            <div class="bg-cielo-800 p-4 rounded-2xl text-sm text-gray-200 max-w-lg border border-white/5 font-serif">
+                                Saludos. Estoy listo para asistirle en su investigación exegética, análisis del texto original o resolución de dudas teológicas. ¿Qué pasaje o doctrina estudiaremos hoy?
                             </div>
                         </div>
                     </div>
 
-                    <!-- Input Chat -->
                     <div class="flex gap-4">
-                        <input type="text" placeholder="Pregúntale al Asistente Teológico sobre exégesis, griego o contexto histórico..." class="flex-1 bg-cielo-900 border border-white/10 p-4 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
-                        <button class="bg-cielo-gold hover:bg-cielo-gold/90 text-black px-6 rounded-2xl font-bold uppercase text-xs tracking-wider transition-all">Enviar</button>
-                    </div>
-                </div>
-
-                <!-- VISTA 6: DEVOCIONALES "CAMINAR CON DIOS" -->
-                <div x-show="currentView === 'devocional'" class="space-y-6 animate-fade-in max-w-3xl mx-auto">
-                    <div class="bg-gradient-to-br from-cielo-900 to-purple-950/40 p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
-                        <span class="text-xs uppercase font-bold tracking-widest text-cielo-gold">Caminar con Dios — Devocional Diario</span>
-                        <h2 class="text-4xl font-serif font-bold text-white">La Soberanía que Sostiene el Caos</h2>
-                        <p class="text-lg text-purple-200 font-serif italic">"Todas las cosas por él fueron hechas..." — Juan 1:3</p>
-                        
-                        <div class="space-y-4 text-gray-300 font-serif text-base leading-relaxed border-t border-white/10 pt-6">
-                            <p>En momentos donde el entorno parece fragmentarse bajo el peso de la incertidumbre, la Escritura nos devuelve al punto de partida absoluto: Cristo es el sustentador de cada átomo del universo.</p>
-                            <p><b>Aplicación Práctica:</b> Hoy, ante cualquier desafío laboral o personal, detén tu impulso reactivo y reconoce que tu vida está anclada en Su diseño original.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VISTA 7: DASHBOARD DEL USUARIO -->
-                <div x-show="currentView === 'dashboard'" class="space-y-8 animate-fade-in max-w-4xl mx-auto">
-                    <div class="bg-cielo-900 p-8 rounded-3xl border border-white/5 space-y-2">
-                        <h2 class="text-3xl font-bold text-white">Dashboard de Investigación</h2>
-                        <p class="text-gray-400 text-sm">Panel personal de estudios, notas y progreso teológico.</p>
-                    </div>
-
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="bg-cielo-900 p-6 rounded-2xl border border-white/5 space-y-2">
-                            <span class="text-xs text-gray-400 uppercase font-bold">Estudios Guardados</span>
-                            <p class="text-3xl font-black text-cielo-gold">14</p>
-                        </div>
-                        <div class="bg-cielo-900 p-6 rounded-2xl border border-white/5 space-y-2">
-                            <span class="text-xs text-gray-400 uppercase font-bold">Devocionales Completados</span>
-                            <p class="text-3xl font-black text-emerald-400">28</p>
-                        </div>
-                        <div class="bg-cielo-900 p-6 rounded-2xl border border-white/5 space-y-2">
-                            <span class="text-xs text-gray-400 uppercase font-bold">Ruta Teológica Activa</span>
-                            <p class="text-lg font-bold text-white">Exégesis Avanzada</p>
-                        </div>
+                        <input type="text" placeholder="Pregúntale al Asistente Teológico..." class="flex-1 bg-cielo-900 border border-white/10 p-4 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-sm">
+                        <button class="bg-cielo-gold hover:bg-cielo-gold/90 text-black px-6 rounded-2xl font-bold uppercase text-xs tracking-wider transition-all cursor-pointer">Enviar</button>
                     </div>
                 </div>
 
@@ -335,24 +280,172 @@
         </main>
     </div>
 
-    <!-- Script de Control de Vistas -->
+    <!-- Script de Base de Datos y Lógica Dinámica -->
     <script>
+        const CONFIG = {
+            supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
+            supabaseKey: 'sb_publishable_AVcvj1Bq_uD7sYhbJZeHWA_NobPbVVF'
+        };
+
+        let db = null;
+        try {
+            if (window.supabase) {
+                db = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseKey);
+            }
+        } catch (e) {
+            console.warn("Modo offline.");
+        }
+
         function cieloApp() {
             return {
-                currentView: 'lector',
-                selectedBook: 'Juan',
-                selectedChapter: '1',
-                getViewTitle() {
-                    const titles = {
-                        'lector': 'Lector Bíblico Avanzado',
-                        'comparador': 'Comparador Multiversión',
-                        'laboratorio': 'Laboratorio Bíblico Original',
-                        'comentarios': 'Comentario Exegético & MacArthur',
-                        'ia': 'Asistente Efata AI',
-                        'devocional': 'Devocionales "Caminar con Dios"',
-                        'dashboard': 'Dashboard del Usuario'
+                isRegistered: false,
+                currentView: 'estudio',
+                selectedBook: 'Juan 1',
+                selectedVerse: '1',
+                
+                registrarUsuario: async function() {
+                    const nombre = document.getElementById('reg-nombre').value.trim();
+                    const email = document.getElementById('reg-email').value.trim();
+                    const whatsapp = document.getElementById('reg-whatsapp').value.trim();
+
+                    if (!nombre || !email || !email.includes('@') || !whatsapp) {
+                        alert("Por favor, completa todos los campos correctamente.");
+                        return;
+                    }
+
+                    if (db) {
+                        try {
+                            await db.from('leads_cieloefata').insert([{
+                                nombre: nombre,
+                                email: email,
+                                whatsapp: whatsapp,
+                                puntaje_fractura: 0,
+                                estado_diagnostico: 'Acceso Biblia de Estudio'
+                            }]);
+                        } catch (err) {
+                            console.error("Error al registrar lead:", err);
+                        }
+                    }
+
+                    this.isRegistered = true;
+                },
+
+                consultarTexto: function() {
+                    // Acción disparada al cambiar o pulsar consultar
+                },
+
+                getTexto: function(version) {
+                    const baseData = {
+                        'Juan 1': {
+                            '1': {
+                                ntv: 'En el principio ya existía el Palabra. El Palabra estaba con Dios, y el Palabra era Dios.',
+                                nbla: 'En el principio existía el Verbo, y el Verbo estaba con Dios, y el Verbo era Dios.',
+                                nvi: 'En el principio ya existía el Verbo, y el Verbo estaba con Dios, y el Verbo era Dios.',
+                                rvr60: 'En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios.',
+                                rvr95: 'En el principio era el Verbo, y el Verbo era el que estaba con Dios, y el Verbo era Dios.',
+                                peshitta: 'En el principio era el Verbo, y ese Verbo estaba con Dios, y Dios era el Verbo.',
+                                hebreo: 'בְּרֵאשִׁית הָיָה הַדָּבָר וְהַדָּבָר הָיָה אֵת הָאֱלֹהִים וֵאלֹהִים הָיָה הַדָּבָר׃',
+                                griego: 'Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν προς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος.'
+                            },
+                            '2': {
+                                ntv: 'Él estaba con Dios en el principio.',
+                                nbla: 'Él estaba en el principio con Dios.',
+                                nvi: 'Él estaba con Dios en el principio.',
+                                rvr60: 'Este era en el principio con Dios.',
+                                rvr95: 'Este existía en el principio con Dios.',
+                                peshitta: 'Este mismo estaba en el principio con Dios.',
+                                hebreo: 'הוּא הָיָה בְּרֵאשִׁית אֵת הָאֱלֹהִים׃',
+                                griego: 'οὗτος ἦν ἐν ἀρχῇ προς τὸν θεόν.'
+                            },
+                            '3': {
+                                ntv: 'Dios creó todas las cosas por medio de él, y nada fue creado sin él.',
+                                nbla: 'Todas las cosas fueron hechas por medio de Él, y sin Él nada de lo que ha sido hecho fue hecho.',
+                                nvi: 'Por medio de él, todas las cosas fueron creadas; sin él, nada de lo creado llegó a existir.',
+                                rvr60: 'Todas las cosas por él fueron hechas, y sin él nada de lo que ha sido hecho fue hecho.',
+                                rvr95: 'Todas las cosas fueron hechas por medio de él, y sin él nada de lo que ha sido hecho fue hecho.',
+                                peshitta: 'Todas las cosas fueron hechas por medio de él, y sin él no se hizo nada de lo que existe.',
+                                hebreo: 'הַכֹּל נִהְיָה עַל־יָדוֹ וּמִבַּלְעָדָיו לֹא נִהְיָה כָּל־אֲשֶׁר נִהְיָה׃',
+                                griego: 'πάντα δι’ αὐτοῦ ἐγένετο, καὶ χωρὶς αὐτοῦ ἐγένετο οὐδὲ ἕν ὃ γέγονεν.'
+                            }
+                        },
+                        'Romanos 8': {
+                            '1': {
+                                ntv: 'Por lo tanto, ya no hay condenación para los que pertenecen a Cristo Jesús.',
+                                nbla: 'Por lo tanto, ahora no hay condenación para los que están en Cristo Jesús.',
+                                nvi: 'Por lo tanto, ya no hay condenación para los que están en Cristo Jesús.',
+                                rvr60: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
+                                rvr95: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
+                                peshitta: 'Ahora, pues, no hay condenación para aquellos que están unidos a el Mesías Yeshúa, los cuales no andan según la carne.',
+                                hebreo: 'עַתָּה אֵפֶר לְאֵין כָּל־הַרְשָׁעָה לַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
+                                griego: 'Οὐδὲν ἄρα νῦν κατακριμα τοῖς ἐν Χριστῷ Ἰησοῦ.'
+                            },
+                            '2': {
+                                ntv: 'Pues el poder del Espíritu que da vida te ha liberado del poder del pecado y de la muerte.',
+                                nbla: 'Porque la ley del Espíritu de vida en Cristo Jesús te ha libertado de la ley del pecado y de la muerte.',
+                                nvi: 'porque la ley del Espíritu que da vida en Cristo Jesús me ha libertado de la ley del pecado y de la muerte.',
+                                rvr60: 'Porque la ley del Espíritu de vida en Cristo Jesús me ha librado de la ley del pecado y de la muerte.',
+                                rvr95: 'Porque la ley del Espíritu de vida en Cristo Jesús me ha librado de la ley del pecado y de la muerte.',
+                                peshitta: 'Porque la ley del Espíritu de la vida que está en Yeshúa el Mesías me ha librado de la ley del pecado y de la muerte.',
+                                hebreo: 'כִּי תּוֹרַת רוּחַ הַחַיִּים בַּמָּשִׁיחַ יֵשׁוּעַ שִׁחְרְתָה אֹתִי מִתּוֹרַת הַחֵטְא וְהַמָּוֶת׃',
+                                griego: 'ὁ γὰρ νόμος τοῦ πνεُματος τῆς ζωῆς ἐν Χριστῷ Ἰησοῦ ἠλευθέρωσέν με ἀπὸ τοῦ νόμου τῆς ἁμαρτίας καὶ τοῦ θανάτου.'
+                            },
+                            '3': {
+                                ntv: 'Dios hizo lo que la ley no pudo hacer, porque la naturaleza humana era débil.',
+                                nbla: 'Pues lo que la ley no pudo hacer, ya que era débil por causa de la carne, Dios lo hizo.',
+                                nvi: 'En efecto, la ley no pudo lograr esto porque nuestra naturaleza humana era débil.',
+                                rvr60: 'Porque lo que era imposible para la ley, por cuanto era débil por la carne, Dios, enviando a su Hijo en semejanza de carne de pecado y a causa del pecado, condenó al pecado en la carne;',
+                                rvr95: 'Porque lo que era imposible para la ley, por cuanto era débil por la carne, Dios, enviando a su Hijo en semejanza de carne de pecado y a causa del pecado, condenó al pecado en la carne;',
+                                peshitta: 'Lo que la ley no pudo hacer por cuanto era débil por causa de la carne, Dios lo envió a su Hijo en semejanza de carne de pecado.',
+                                hebreo: 'כִּי אֲשֶׁר נִצְלָה הַתּוֹרָה מִכֹּחַ בְּשַׂר הָאָדָם שָׁלַח אֱלֹהִים אֶת־בְּנוֹ׃',
+                                griego: 'τὸ γὰρ ἀδύνατον τοῦ νόμου, ἐν ᾧ ἠσθένει διὰ τῆς σαρκός, ὁ θεὸς τὸν ἑαυτοῦ υἱὸν πέμψας ἐν ὁμοιώματι σαρκὸς ἁμαρτίας καὶ περὶ ἁμαρτίας κατέκρινε τὴν ἁμαρτίαν ἐν τῇ σαρκί.'
+                            }
+                        },
+                        'Génesis 1': {
+                            '1': {
+                                ntv: 'En el principio, Dios creó los cielos y la tierra.',
+                                nbla: 'En el principio Dios creó los cielos y la tierra.',
+                                nvi: 'En el principio, Dios creó los cielos y la tierra.',
+                                rvr60: 'En el principio creó Dios los cielos y la tierra.',
+                                rvr95: 'En el principio creó Dios los cielos y la tierra.',
+                                peshitta: 'En el principio creó Dios los cielos y la tierra.',
+                                hebreo: 'בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ׃',
+                                griego: 'Ἐν ἀρχῇ ἐποίησεν ὁ θεὸς τὸν οὐρανὸν καὶ τὴν γῆν.'
+                            },
+                            '2': {
+                                ntv: 'La tierra estaba desordenada y vacía, y las tinieblas cubrían la superficie del abismo.',
+                                nbla: 'Y la tierra estaba sin orden y vacía, y las tinieblas cubrían la superficie del abismo.',
+                                nvi: 'La tierra estaba desordenada y vacía; las tinieblas cubrían la superficie del abismo.',
+                                rvr60: 'Y la tierra estaba desordenada y vacía, y las tinieblas estaban sobre la faz del abismo, y el Espíritu de Dios se movía sobre la faz de las aguas.',
+                                rvr95: 'La tierra estaba desordenada y vacía, las tinieblas estaban sobre la faz del abismo, y el Espíritu de Dios se movía sobre la faz de las aguas.',
+                                peshitta: 'Y la tierra era caos y vacía, y las tinieblas estaban sobre el abismo, y el Espíritu de Dios se movía sobre las aguas.',
+                                hebreo: 'וְהָאָרֶץ הָיְתָה תֹהוּ וָבֹהוּ וְחֹשֶׁךְ עַל־פְּנֵי תְהוֹם וְרוּחַ אֱלֹהִים מְרַחֶפֶת עַל־פְּנֵי הַמָּיִם׃',
+                                griego: 'ἡ δὲ γῆ ἦν ἀόρατος καὶ ἀκατασκεύαστος, καὶ σκότος ἐπάνω τῆς ἀβύσσου, καὶ πνεُμα θεοῦ ἐπεφέρετο ἐπάνω τοῦ ὕδατος.'
+                            },
+                            '3': {
+                                ntv: 'Y Dios dijo: «¡Que haya luz!», y hubo luz.',
+                                nbla: 'Entonces Dios dijo: «Sea la luz». Y hubo luz.',
+                                nvi: 'Y Dios dijo: «¡Que exista la luz!», y la luz existió.',
+                                rvr60: 'Y dijo Dios: Sea la luz; y fue la luz.',
+                                rvr95: 'Y dijo Dios: «Sea la luz», y fue la luz.',
+                                peshitta: 'Y dijo Dios: Sea la luz; y fue la luz.',
+                                hebreo: 'וַיֹּאמֶר אֱלֹהִים יְהִי אוֹר וַיְהִי־אוֹר׃',
+                                griego: 'καὶ εἶπεν ὁ θεός Γενηθήτω φῶς, καὶ ἐγένετο φῶς.'
+                            }
+                        }
                     };
-                    return titles[this.currentView] || 'Plataforma';
+
+                    const b = baseData[this.selectedBook] || baseData['Juan 1'];
+                    const v = b[this.selectedVerse] || b['1'];
+                    return v[version] || 'Texto no disponible.';
+                },
+
+                getComentario: function() {
+                    const comentariosMap = {
+                        'Juan 1': 'Este pasaje fundamental establece la deidad absoluta y eterna del Verbo (Logos). Históricamente refuta el arrianismo y el gnosticismo primitivo al afirmar que el Hijo no es una criatura creada, sino el Creador mismo coexistiendo en íntima comunión con el Padre desde antes de la fundación del tiempo.',
+                        'Romanos 8': 'El capítulo cumbre de la soteriología paulina. La declaración de que no hay condenación descansa enteramente en la obra vicaria de Cristo y en la morada vivificante del Espíritu Santo, rompiendo de manera definitiva el ciclo del pecado y la carne.',
+                        'Génesis 1': 'El relato de la creación ex nihilo (de la nada) por el poder soberano de la Palabra de Dios. Revela que el cosmos no es producto del azar, sino el templo ordenado donde YHWH establece su diseño original para la humanidad.'
+                    };
+                    return comentariosMap[this.selectedBook] || 'Comentario exegético riguroso y teológico.';
                 }
             }
         }
