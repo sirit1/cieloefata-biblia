@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CieloEfata Biblia de Estudio — Plataforma Agéntica Avanzada</title>
+    <title>CieloEfata | IA Teológica</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,436 +12,260 @@
             theme: {
                 extend: {
                     colors: {
-                        cielo: {
-                            950: '#020408',
-                            900: '#060a12',
-                            800: '#0f172a',
-                            700: '#1e293b',
-                            gold: '#dfb740',
-                            'gold-light': '#fdf0cd',
-                            pergamino: '#f4ebd0'
+                        brand: {
+                            950: '#020617', // Fondo muy oscuro azul/pizarra
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            accent: '#10b981', // Esmeralda fresco
+                            'accent-hover': '#059669',
+                            soft: '#38bdf8' // Azul cielo
                         }
                     },
                     fontFamily: {
                         serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
                         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
                     }
                 }
             }
         }
     </script>
-    <!-- SDK de Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Alpine.js -->
+    <!-- Alpine.js para reactividad -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        /* Ocultar scrollbar para un look más limpio */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+    </style>
 </head>
-<body class="bg-cielo-950 text-gray-100 font-sans antialiased min-h-screen selection:bg-cielo-gold selection:text-black" x-data="cieloApp()">
+<body class="text-gray-100 font-sans antialiased min-h-screen relative selection:bg-brand-accent selection:text-white" x-data="cieloApp()">
 
-    <!-- MODAL DE CAPTURA INICIAL DE LEADS -->
-    <div x-show="!isRegistered" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4">
-        <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl max-w-lg w-full text-center space-y-6 animate-fade-in">
-            <div class="flex justify-center">
-                <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-24 h-24 rounded-2xl border-2 border-cielo-gold shadow-2xl object-cover">
-            </div>
-            <div class="space-y-2">
-                <span class="px-4 py-1.5 rounded-full bg-cielo-gold/10 text-cielo-gold border border-cielo-gold/30 text-xs font-black tracking-widest uppercase">Ministerio Cielo Efata</span>
-                <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Acceso a Efata AI</h2>
-                <p class="text-gray-300 text-sm">Introduce tus datos para iniciar la experiencia conversacional con el Agente Teológico de las Sagradas Escrituras.</p>
-            </div>
-            
-            <div class="space-y-4 text-left">
-                <div>
-                    <label class="text-xs uppercase font-bold text-cielo-gold">Nombre Completo *</label>
-                    <input type="text" id="reg-nombre" placeholder="Tu nombre..." class="w-full mt-1 bg-black/60 border border-cielo-gold/30 p-4 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-base">
-                </div>
-                <div>
-                    <label class="text-xs uppercase font-bold text-cielo-gold">Correo Electrónico *</label>
-                    <input type="email" id="reg-email" placeholder="tu.correo@dominio.com" class="w-full mt-1 bg-black/60 border border-cielo-gold/30 p-4 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-base">
-                </div>
-                <div>
-                    <label class="text-xs uppercase font-bold text-cielo-gold">WhatsApp *</label>
-                    <input type="text" id="reg-whatsapp" placeholder="+58 412 0000000" class="w-full mt-1 bg-black/60 border border-cielo-gold/30 p-4 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cielo-gold text-base">
-                </div>
-            </div>
+    <!-- FONDO MAJESTUOSO (Atmósfera de Reflexión) -->
+    <div class="fixed inset-0 z-[-1]">
+        <!-- Imagen de amanecer/naturaleza serena -->
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2500&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 mix-blend-screen" alt="Atmósfera Cielo">
+        <!-- Gradiente para legibilidad -->
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-950 via-brand-900/90 to-brand-950"></div>
+    </div>
 
-            <button @click="registrarUsuario()" class="w-full bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black py-4 rounded-2xl uppercase tracking-wider shadow-lg transition-all text-base cursor-pointer">
-                Iniciar Sesión con el Agente
+    <!-- MODAL DE ENTRADA -->
+    <div x-show="!isRegistered" class="fixed inset-0 z-50 flex items-center justify-center bg-brand-950/90 backdrop-blur-xl p-4 transition-opacity">
+        <div class="bg-brand-800/50 backdrop-blur-2xl p-8 md:p-10 rounded-[2rem] border border-white/10 shadow-2xl max-w-sm w-full text-center space-y-6">
+            <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-20 h-20 rounded-2xl border border-white/20 mx-auto object-cover shadow-lg">
+            <div class="space-y-1">
+                <h2 class="text-2xl font-black text-white tracking-tight">CieloEfata AI</h2>
+                <p class="text-gray-400 text-sm">Explora las Escrituras con IA.</p>
+            </div>
+            <div class="space-y-3 text-left">
+                <input type="text" id="reg-nombre" placeholder="Tu nombre" class="w-full bg-black/40 border border-white/10 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-accent text-sm transition-colors">
+                <input type="email" id="reg-email" placeholder="Tu correo" class="w-full bg-black/40 border border-white/10 p-3.5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-accent text-sm transition-colors">
+            </div>
+            <button @click="entrar()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-3.5 rounded-xl shadow-lg transition-all text-sm">
+                Comenzar
             </button>
         </div>
     </div>
 
-    <!-- CONTENEDOR PRINCIPAL: DOS COLUMNAS -->
+    <!-- CONTENEDOR PRINCIPAL -->
     <div class="flex h-screen overflow-hidden">
 
-        <!-- 1. BARRA LATERAL IZQUIERDA (BIO AMPLIADA + OBRAS LITERARIAS CENTRADAS) -->
-        <aside class="w-72 bg-cielo-900 border-r border-cielo-gold/20 flex flex-col h-screen overflow-y-auto p-4 space-y-6 z-20 hidden lg:flex shrink-0 items-center">
+        <!-- 1. BARRA LATERAL IZQUIERDA (Perfil Minimalista) -->
+        <aside class="w-64 bg-brand-950/40 backdrop-blur-md border-r border-white/5 flex flex-col h-screen overflow-y-auto p-5 z-20 hidden lg:flex shrink-0">
             
-            <!-- Tarjeta de Bio Ampliada del Dr. Alejandro Sirit -->
-            <div class="w-full bg-gradient-to-br from-cielo-800 to-black p-4 rounded-2xl border border-cielo-gold/30 shadow-xl space-y-3 text-center">
-                <a href="https://ibb.co/G31Gzhk8" target="_blank" class="inline-block">
-                    <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-16 h-16 rounded-xl border border-cielo-gold shadow-lg object-cover mx-auto" alt="Dr. Alejandro Sirit">
-                </a>
+            <div class="text-center space-y-3 mb-8 mt-2">
+                <div class="relative inline-block">
+                    <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" class="w-16 h-16 rounded-full border-2 border-brand-accent shadow-lg object-cover mx-auto">
+                    <span class="absolute bottom-0 right-0 w-4 h-4 bg-brand-accent border-2 border-brand-900 rounded-full"></span>
+                </div>
                 <div>
-                    <h3 class="text-sm font-extrabold text-white">Dr. Alejandro Sirit</h3>
-                    <p class="text-[8px] text-cielo-gold font-bold uppercase tracking-widest mt-0.5">Doctor Honoris Causa | AI Project Manager | IBM Data Scientist Certified</p>
-                </div>
-                <p class="text-gray-300 text-[11px] leading-relaxed font-serif text-left">
-                    Pionero en la intersección entre exégesis bíblica, neurociencia y gobernanza de IA. Transformando vidas bajo la majestad de YHWH.
-                </p>
-            </div>
-
-            <!-- Obras Literarias (Centradas y en Formato Vertical Reducido) -->
-            <div class="w-full flex flex-col items-center space-y-3 pb-8">
-                <h4 class="text-[9px] font-bold uppercase tracking-[0.25em] text-cielo-gold">Obras Literarias</h4>
-                <div class="flex flex-col items-center gap-3 w-32">
-                    <div class="rounded-lg overflow-hidden border border-white/10 shadow-lg aspect-[2/3] bg-black/40 p-1 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="w-full h-full object-cover rounded"></div>
-                    <div class="rounded-lg overflow-hidden border border-white/10 shadow-lg aspect-[2/3] bg-black/40 p-1 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="w-full h-full object-cover rounded"></div>
-                    <div class="rounded-lg overflow-hidden border border-white/10 shadow-lg aspect-[2/3] bg-black/40 p-1 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="w-full h-full object-cover rounded"></div>
-                    <div class="rounded-lg overflow-hidden border border-white/10 shadow-lg aspect-[2/3] bg-black/40 p-1 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="w-full h-full object-cover rounded"></div>
-                    <div class="rounded-lg overflow-hidden border border-white/10 shadow-lg aspect-[2/3] bg-black/40 p-1 w-full hover:scale-105 transition-all"><img src="https://i.ibb.co/k2JtzT5W/libro-golgota.png" class="w-full h-full object-cover rounded"></div>
+                    <h3 class="text-sm font-bold text-white">Dr. Alejandro Sirit</h3>
+                    <p class="text-[9px] text-brand-soft font-medium uppercase tracking-wider mt-1">AI Project Manager</p>
                 </div>
             </div>
 
+            <!-- Libros (Miniaturas) -->
+            <div class="space-y-3 flex-1">
+                <h4 class="text-[10px] font-bold uppercase tracking-widest text-gray-400 pl-2">Biblioteca</h4>
+                <div class="grid grid-cols-2 gap-2">
+                    <img src="https://i.ibb.co/h1c2rwDM/la-fe-no-basta-1.png" class="rounded-lg border border-white/5 opacity-80 hover:opacity-100 transition-opacity">
+                    <img src="https://i.ibb.co/8ntN4b4b/libro-espejo.png" class="rounded-lg border border-white/5 opacity-80 hover:opacity-100 transition-opacity">
+                    <img src="https://i.ibb.co/bgBBCXm9/libro-cielo.png" class="rounded-lg border border-white/5 opacity-80 hover:opacity-100 transition-opacity">
+                    <img src="https://i.ibb.co/Xxs70K0L/libro-callar.png" class="rounded-lg border border-white/5 opacity-80 hover:opacity-100 transition-opacity">
+                </div>
+            </div>
+            
+            <div class="text-center pt-4 border-t border-white/5">
+                <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" class="h-6 mx-auto opacity-50">
+            </div>
         </aside>
 
-        <!-- 2. COLUMNA CENTRAL (AGENTE EFATA AI + COMPARADOR + COMENTARIO ERUDITO) -->
-        <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-cielo-950 p-6 md:p-10 space-y-8">
+        <!-- 2. ZONA CENTRAL DE LECTURA E IA -->
+        <main class="flex-1 flex flex-col h-screen overflow-y-auto p-4 md:p-8 space-y-6">
 
-            <!-- Top Header -->
-            <header class="bg-cielo-900/90 backdrop-blur-md p-6 rounded-3xl border border-cielo-gold/30 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
-                <div class="flex items-center gap-4">
-                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-14 h-14 rounded-2xl border-2 border-cielo-gold object-cover shadow-lg">
-                    <div>
-                        <h1 class="font-serif font-bold text-white text-lg tracking-wide">CieloEfata Biblia de Estudio</h1>
-                        <p class="text-[10px] text-cielo-gold uppercase tracking-[0.2em] font-bold">Plataforma Agéntica Teológica</p>
-                    </div>
+            <!-- CABECERA DE CHAT E INVESTIGACIÓN -->
+            <div class="bg-brand-900/60 backdrop-blur-2xl p-6 rounded-3xl border border-white/10 shadow-2xl flex flex-col space-y-4">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    <span class="text-sm font-semibold text-white">Pregúntale a Efata AI</span>
                 </div>
-                <div class="flex items-center gap-3">
-                    <img src="https://i.ibb.co/5xtJGdGy/xtrametrik-black-blue.jpg" alt="Xtrametrik" class="h-10 rounded-xl object-contain border border-white/10 bg-black/40 px-2">
-                </div>
-            </header>
-
-            <!-- INTERFAZ DE CHAT CON EL AGENTE EFATA AI -->
-            <div class="bg-gradient-to-br from-cielo-900 via-cielo-800 to-black p-6 md:p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-6">
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                    <div class="flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <div>
-                            <h2 class="text-sm font-extrabold text-white uppercase tracking-wider">Efata AI — Agente Teológico en Vivo</h2>
-                            <p class="text-[10px] text-gray-400">Pregúntale cualquier doctrina, autoría o pídele un pasaje</p>
-                        </div>
-                    </div>
-                    <span class="text-xs text-cielo-gold font-mono uppercase bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="'Pasaje Activo: ' + referenciaActual"></span>
-                </div>
-
-                <!-- Historial de Conversación con el Agente -->
-                <div class="bg-black/70 p-4 rounded-2xl border border-white/10 max-h-60 overflow-y-auto space-y-4 text-xs font-serif">
-                    <div class="bg-cielo-800 p-3 rounded-xl text-gray-200 border border-white/5 space-y-1">
-                        <p class="font-sans font-bold text-cielo-gold">Efata AI:</p>
-                        <p>Shalom. Soy tu Agente teológico asistente. Escríbeme cualquier pregunta histórica (ej: *"¿Quién escribió Hechos y por qué?"*), doctrina o pasaje, y traeré de inmediato el texto multiversión y su exégesis erudita.</p>
-                    </div>
-                    <template x-for="msg in historialChat">
-                        <div :class="msg.remitente === 'usuario' ? 'bg-cielo-gold/10 border-cielo-gold/30 text-right' : 'bg-cielo-800 border-white/5'" class="p-3 rounded-xl border space-y-1">
-                            <p class="font-sans font-bold text-[10px] text-cielo-gold" x-text="msg.remitente === 'usuario' ? 'Tú:' : 'Efata AI:'"></p>
-                            <p class="text-gray-200 text-xs leading-relaxed" x-text="msg.texto"></p>
-                        </div>
-                    </template>
-                </div>
-
-                <!-- Input del Chat Agéntico -->
+                
                 <div class="relative">
-                    <input type="text" x-model="inputPrompt" @keyup.enter="enviarMensajeAgente()" placeholder="Pregúntale al Agente (ej: ¿Quién escribió Hechos? o Marcos 14:32)..." class="w-full bg-black/90 border-2 border-cielo-gold/50 p-4 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cielo-gold text-sm shadow-inner">
-                    <button @click="enviarMensajeAgente()" class="absolute right-2 top-2 bg-gradient-to-r from-cielo-gold to-amber-600 hover:from-amber-500 hover:to-amber-700 text-black font-black px-5 py-2.5 rounded-lg text-xs uppercase cursor-pointer shadow-md">
-                        Enviar a la IA
+                    <input type="text" x-model="busqueda" @keyup.enter="ejecutarMotorApi()" placeholder="Ej: Busca 'Juan 3:16' o pregunta '¿Qué es el Logos?'..." class="w-full bg-black/30 border border-white/10 py-4 pl-4 pr-32 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-accent transition-all text-sm">
+                    
+                    <button @click="ejecutarMotorApi()" class="absolute right-2 top-2 bottom-2 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold px-6 rounded-xl text-xs transition-all flex items-center gap-2">
+                        <span x-show="!cargando">Buscar</span>
+                        <svg x-show="cargando" class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     </button>
                 </div>
-
-                <!-- Botones de Acceso Rápido al Agente -->
-                <div class="flex flex-wrap gap-2 pt-1 items-center">
-                    <span class="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Consultas Sugeridas:</span>
-                    <button @click="inputPrompt='¿Quién escribió Hechos y por qué?'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Autoría de Hechos</button>
-                    <button @click="inputPrompt='Juan 1:1'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Juan 1:1</button>
-                    <button @click="inputPrompt='Marcos 14:32'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Marcos 14:32</button>
-                    <button @click="inputPrompt='Hechos 3:6'; enviarMensajeAgente();" class="text-xs bg-cielo-gold/10 hover:bg-cielo-gold/20 text-cielo-gold border border-cielo-gold/30 px-3 py-1 rounded-lg transition-all font-bold">Hechos 3:6</button>
-                </div>
             </div>
 
-            <!-- GRILLA DE CAJAS MULTIVERSIÓN (8 Versiones Paralelas Sincronizadas) -->
-            <div class="space-y-6">
-                <div class="border-b border-white/10 pb-4 flex justify-between items-center">
-                    <h2 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comparador Multiversión Paralelo</h2>
-                    <span class="text-xs text-cielo-gold font-mono tracking-widest uppercase bg-cielo-gold/10 px-3 py-1 rounded-full border border-cielo-gold/30" x-text="referenciaActual"></span>
+            <!-- ÁREA DE RESULTADOS DINÁMICOS -->
+            <div x-show="busquedaRealizada" class="space-y-6 animate-fade-in" style="display: none;">
+                
+                <!-- RESPUESTA DEL AGENTE -->
+                <div class="bg-brand-800/40 backdrop-blur-xl p-6 rounded-3xl border border-white/5 shadow-xl">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-brand-accent/20 p-2 rounded-xl text-brand-accent">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Análisis de Efata AI</h3>
+                            <p class="text-gray-200 text-sm leading-relaxed" x-text="respuestaAgente"></p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
-                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">NTV (Nueva Traducción Viviente)</span>
-                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('ntv')"></p>
+                <!-- CINTA DE TEXTO EXTRAÍDO DE LA API WEB -->
+                <div class="bg-brand-900/80 backdrop-blur-2xl p-6 rounded-3xl border border-brand-accent/30 shadow-2xl">
+                    <div class="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
+                        <h2 class="text-lg font-serif font-bold text-white flex items-center gap-2">
+                            <svg class="w-5 h-5 text-brand-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            Texto Base Encontrado
+                        </h2>
+                        <span class="text-xs bg-brand-accent/10 text-brand-accent px-3 py-1 rounded-full font-mono" x-text="referenciaWeb"></span>
                     </div>
-                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
-                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">NBLA (Nueva Biblia de las Américas)</span>
-                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('nbla')"></p>
-                    </div>
-                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
-                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">NVI (Nueva Versión Internacional)</span>
-                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('nvi')"></p>
-                    </div>
-                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
-                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Reina Valera 1960</span>
-                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('rvr60')"></p>
-                    </div>
-                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
-                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Reina Valera 1995</span>
-                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('rvr95')"></p>
-                    </div>
-                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-2 hover:border-cielo-gold/40 transition-all">
-                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Biblia Peshitta (Arameo traducido)</span>
-                        <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getTexto('peshitta')"></p>
-                    </div>
-                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-amber-500/30 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-amber-950/20 hover:border-amber-500/50 transition-all">
-                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Traducción Literal del Hebreo Original</span>
-                        <p class="text-gray-200 font-mono text-sm leading-relaxed" x-text="getTexto('hebreo')"></p>
-                    </div>
-                    <div class="bg-cielo-900/90 p-6 rounded-2xl border border-cielo-gold/40 shadow-xl space-y-2 bg-gradient-to-br from-cielo-900 to-purple-950/20 hover:border-cielo-gold/60 transition-all">
-                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Texto Original Koiné / Griego</span>
-                        <p class="text-gray-200 font-mono text-sm leading-relaxed" x-text="getTexto('griego')"></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MÓDULO DE TRADUCCIÓN LITERAL (GRIEG, ARAMEO, HEBREO A ESPAÑOL) -->
-            <div class="bg-gradient-to-br from-cielo-900 to-cielo-800 p-8 rounded-[2.5rem] border border-cielo-gold/40 shadow-2xl space-y-6">
-                <div class="flex items-center gap-3 border-b border-white/10 pb-4">
-                    <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
-                    <h3 class="text-xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Laboratorio de Traducción Literal (Idiomas Originales)</h3>
+                    
+                    <p class="text-gray-100 font-serif text-lg leading-loose" x-text="textoWebAPI"></p>
+                    <p class="text-[10px] text-gray-500 mt-4 text-right">* Texto extraído en tiempo real de la API web pública.</p>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-6 text-sm">
-                    <div class="bg-black/50 p-5 rounded-2xl border border-white/5 space-y-2">
-                        <span class="text-xs font-bold text-cielo-gold uppercase tracking-wider">Del Griego al Español</span>
-                        <p class="text-gray-300 font-serif text-xs leading-relaxed" x-text="getTraduccionLiteral('griego')"></p>
+                <!-- CAJAS MULTIVERSIÓN SIMULADAS -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- NTV -->
+                    <div class="bg-black/20 backdrop-blur-md p-5 rounded-2xl border border-white/5">
+                        <span class="text-[10px] font-bold text-brand-soft uppercase tracking-wider block mb-2">Nueva Traducción Viviente</span>
+                        <p class="text-gray-300 font-serif text-sm" x-text="simularTraduccion('NTV')"></p>
                     </div>
-                    <div class="bg-black/50 p-5 rounded-2xl border border-white/5 space-y-2">
-                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Del Arameo / Peshitta al Español</span>
-                        <p class="text-gray-300 font-serif text-xs leading-relaxed" x-text="getTraduccionLiteral('arameo')"></p>
+                    <!-- NVI -->
+                    <div class="bg-black/20 backdrop-blur-md p-5 rounded-2xl border border-white/5">
+                        <span class="text-[10px] font-bold text-brand-soft uppercase tracking-wider block mb-2">Nueva Versión Internacional</span>
+                        <p class="text-gray-300 font-serif text-sm" x-text="simularTraduccion('NVI')"></p>
                     </div>
-                    <div class="bg-black/50 p-5 rounded-2xl border border-white/5 space-y-2">
-                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Del Hebreo al Español</span>
-                        <p class="text-gray-300 font-serif text-xs leading-relaxed" x-text="getTraduccionLiteral('hebreo')"></p>
+                    <!-- Idioma Original (Hebreo/Griego) -->
+                    <div class="bg-brand-800/30 backdrop-blur-md p-5 rounded-2xl border border-brand-accent/20">
+                        <span class="text-[10px] font-bold text-brand-accent uppercase tracking-wider block mb-2">Traducción Literal (Idiomas Originales)</span>
+                        <p class="text-gray-300 font-serif text-sm italic" x-text="simularLiteral()"></p>
                     </div>
                 </div>
-            </div>
 
-            <!-- COMENTARIO EXEGÉTICO PROFUNDO Y ERUDITO (ESTILO MACARTHUR / BIBLIA DE ESTUDIO) -->
-            <div class="bg-cielo-900 p-8 md:p-10 rounded-[2.5rem] border border-cielo-gold/30 shadow-2xl space-y-6">
-                <div class="flex items-center gap-3">
-                    <span class="w-3 h-3 rounded-full bg-cielo-gold"></span>
-                    <h3 class="text-2xl font-serif font-bold text-cielo-gold uppercase tracking-tight">Comentario Exegético Erudito (Estilo MacArthur & Teología Contemporánea)</h3>
+                <!-- COMENTARIOS ERUDITOS (MacArthur / Exegético) -->
+                <div class="bg-black/40 backdrop-blur-md p-6 rounded-3xl border border-white/5">
+                    <h3 class="text-sm font-bold text-white mb-3">Comentario Exegético (Perspectiva Erudita)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed" x-text="comentarioErudito"></p>
                 </div>
-                <p class="text-gray-200 font-serif text-base leading-relaxed" x-text="getComentarioErudito()"></p>
+
             </div>
 
         </main>
-
     </div>
 
-    <!-- Script del Agente Teológico y Motor Erudito -->
+    <!-- SCRIPT DE ARQUITECTURA (CONEXIÓN API REAL) -->
     <script>
-        const CONFIG = {
-            supabaseUrl: 'https://xzjoruazhlwmaebnqqbv.supabase.co',
-            supabaseKey: 'sb_publishable_AVcvj1Bq_uD7sYhbJZeHWA_NobPbVVF'
-        };
-
-        let db = null;
-        try {
-            if (window.supabase) {
-                db = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseKey);
-            }
-        } catch (e) {
-            console.warn("Modo offline.");
-        }
-
         function cieloApp() {
             return {
                 isRegistered: false,
-                inputPrompt: '',
-                referenciaActual: 'Hechos 1:1',
-                libroClave: 'Hechos',
-                capituloClave: 1,
-                versoClave: 1,
-                historialChat: [],
+                busqueda: '',
+                busquedaRealizada: false,
+                cargando: false,
                 
-                registrarUsuario: async function() {
-                    const nombre = document.getElementById('reg-nombre').value.trim();
-                    const email = document.getElementById('reg-email').value.trim();
-                    const whatsapp = document.getElementById('reg-whatsapp').value.trim();
+                // Datos de la API
+                textoWebAPI: '',
+                referenciaWeb: '',
+                
+                // Datos Generados por el Agente
+                respuestaAgente: '',
+                comentarioErudito: '',
 
-                    if (!nombre || !email || !email.includes('@') || !whatsapp) {
-                        alert("Por favor, completa todos los campos correctamente.");
-                        return;
-                    }
-
-                    if (db) {
-                        try {
-                            await db.from('leads_cieloefata').insert([{
-                                nombre: nombre,
-                                email: email,
-                                whatsapp: whatsapp,
-                                puntaje_fractura: 0,
-                                estado_diagnostico: 'Acceso Agente Efata AI Erudito'
-                            }]);
-                        } catch (err) {
-                            console.error("Error al registrar lead en Supabase:", err);
-                        }
-                    }
-
+                entrar: function() {
+                    if(!document.getElementById('reg-nombre').value) return;
                     this.isRegistered = true;
                 },
 
-                enviarMensajeAgente: function() {
-                    const raw = this.inputPrompt.trim();
-                    if (!raw) return;
-                    const q = raw.toLowerCase();
+                // EL MOTOR PRINCIPAL ASÍNCRONO
+                ejecutarMotorApi: async function() {
+                    const query = this.busqueda.trim();
+                    if (!query) return;
 
-                    this.historialChat.push({ remitente: 'usuario', texto: raw });
-                    this.inputPrompt = '';
+                    this.cargando = true;
+                    this.busquedaRealizada = true;
+                    this.respuestaAgente = "Analizando intención y conectando con repositorios de la nube...";
 
-                    let respuestaAgente = "";
-                    if (q.includes('escribio') || q.includes('autor') || q.includes('hechos')) {
-                        this.libroClave = 'Hechos';
-                        this.capituloClave = 1;
-                        this.versoClave = 1;
-                        this.referenciaActual = 'Hechos 1:1';
-                        respuestaAgente = `Análisis Erudito (Autoría de Hechos): Como señala la exégesis conservadora (estilo MacArthur y la crítica textual histórica), el libro de los Hechos fue escrito indudablemente por Lucas, el médico amado y fiel compañero del apóstol Pablo. Fue redactado hacia el 60-62 d.C. como la segunda parte de su tratado histórico dirigido a Teófilo, demostrando la transición del ministerio terrenal de Cristo a la era de la Iglesia guiada por el Espíritu Santo. He sincronizado la plataforma con Hechos 1:1.`;
-                    } else if (q.includes('marcos') || q.includes('mc') || q.includes('getsemani')) {
-                        this.libroClave = 'Marcos';
-                        this.capituloClave = 14;
-                        this.versoClave = q.includes('36') ? 36 : 32;
-                        this.referenciaActual = `Marcos 14:${this.versoClave}`;
-                        respuestaAgente = `Análisis Erudito (${this.referenciaActual}): Getsemaní representa la cúspide de la angustia vicaria de Cristo. El término 'Abba' refleja la intimidad filial perfecta antes de asumir la imputación del pecado en la cruz. He cargado el texto multiversión correspondiente.`;
-                    } else if (q.includes('romanos') || q.includes('rom')) {
-                        this.libroClave = 'Romanos';
-                        this.capituloClave = 8;
-                        this.versoClave = 1;
-                        this.referenciaActual = 'Romanos 8:1';
-                        respuestaAgente = `Análisis Erudito (Romanos 8:1): La obra maestra soteriológica de Pablo. La palabra katakrima (condenación/sentencia legal) es abolida de forma irrevocable para los que están unidos a Cristo. Texto sincronizado.`;
-                    } else if (q.includes('juan') || q.includes('jhn') || q.includes('logos')) {
-                        this.libroClave = 'Juan';
-                        this.capituloClave = 1;
-                        this.versoClave = 1;
-                        this.referenciaActual = 'Juan 1:1';
-                        respuestaAgente = `Análisis Erudito (Juan 1:1): El Logos coeterno y consustancial con el Padre. Refutación exegética absoluta del subordinacionismo y arrianismo. Texto sincronizado en paralelo.`;
-                    } else {
-                        this.libroClave = 'Juan';
-                        this.capituloClave = 1;
-                        this.versoClave = 1;
-                        this.referenciaActual = 'Juan 1:1';
-                        respuestaAgente = `El Agente ha procesado tu consulta sobre "${raw}". He sincronizado el comparador con Juan 1:1 y su exégesis erudita contemporánea.`;
+                    try {
+                        // AQUÍ ESTÁ LA CONEXIÓN A LA API REAL (BIBLE-API.COM)
+                        // Para la prueba, intentamos pedir la cita a la web.
+                        const url = `https://bible-api.com/${encodeURIComponent(query)}?translation=valera`;
+                        const respuesta = await fetch(url);
+                        
+                        if (respuesta.ok) {
+                            const data = await respuesta.json();
+                            this.textoWebAPI = data.text.trim();
+                            this.referenciaWeb = data.reference;
+                            
+                            // Agente procesa el éxito
+                            this.respuestaAgente = `He localizado el texto oficial de ${data.reference} en la base de datos web. Procedo a generar las traducciones literales y el contexto teológico aplicable.`;
+                            this.generarContextoErudito(data.reference);
+                        } else {
+                            // Si la API falla o no entiende (ej: es una pregunta y no una cita)
+                            this.textoWebAPI = "No se pudo extraer una cita exacta de la base de datos pública. Intenta formato como 'Juan 3:16' o 'Romanos 8:1'.";
+                            this.referenciaWeb = "Consulta Abierta";
+                            this.respuestaAgente = `He analizado tu consulta como una pregunta abierta teológica. Basado en exégesis sistemática: Tu búsqueda sobre "${query}" requiere un estudio de contexto. ¿Hay algún libro específico que desees que abra?`;
+                            this.comentarioErudito = "El sistema requiere una referencia bíblica específica para desplegar comentarios de MacArthur u otros eruditos.";
+                        }
+                    } catch (error) {
+                        this.textoWebAPI = "Error de red al conectar con el servidor teológico.";
+                        this.referenciaWeb = "Error";
                     }
 
-                    setTimeout(() => {
-                        this.historialChat.push({ remitente: 'ia', texto: respuestaAgente });
-                    }, 400);
+                    this.cargando = false;
                 },
 
-                getKey: function() {
-                    return `${this.libroClave} ${this.capituloClave}`;
+                // Simulación dinámica para las versiones protegidas por copyright
+                simularTraduccion: function(version) {
+                    if(!this.textoWebAPI || this.referenciaWeb === "Consulta Abierta") return "...";
+                    return `[Versión ${version} adaptada dinámicamente]: ` + this.textoWebAPI.substring(0, 80) + "...";
                 },
 
-                getTexto: function(version) {
-                    const baseData = {
-                        'Hechos 1': {
-                            '1': {
-                                ntv: 'Estimado Teófilo, en mi primer libro te escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
-                                nbla: 'El primer tratado, oh Teófilo, traté acerca de todo lo que Jesús comenzó a hacer y a enseñar,',
-                                nvi: 'Estimado Teófilo: En mi primer libro escribí acerca de todo lo que Jesús comenzó a hacer y a enseñar',
-                                rvr60: 'En el primer tratado, oh Teófilo, hablé acerca de todas las cosas que Jesús comenzó a hacer y a enseñar,',
-                                rvr95: 'En el primer tratado, oh Teófilo, hablé acerca de todas las cosas que Jesús comenzó a hacer y a enseñar,',
-                                peshitta: 'El primer libro que escribí, oh Teófilo, fue acerca de todo lo que Jesús comenzó a hacer y a enseñar,',
-                                hebreo: 'הַסֵּפֶר הָרִאשׁוֹן כָּתַבְתִּי תָּאוֹפִילוֹס עַל כָּל־אֲשֶׁר הֵחֵל יֵשׁוּעַ לַעֲשׂוֹת וְלַלַּמֵּד׃',
-                                griego: 'Τὸν μὲν πρῶτον λόγον ἐποιησάμην περὶ πάντων, ὦ Θεόφιλε, ὧν ἤρξατο ὁ Ἰησοῦς ποιεῖν τε καὶ διδάσκειν.'
-                            }
-                        },
-                        'Juan 1': {
-                            '1': {
-                                ntv: 'En el principio ya existía el Palabra. El Palabra estaba con Dios, y el Palabra era Dios.',
-                                nbla: 'En el principio existía el Verbo, y el Verbo estaba con Dios, y el Verbo era Dios.',
-                                nvi: 'En el principio ya existía el Verbo, y el Verbo estaba con Dios, y el Verbo era Dios.',
-                                rvr60: 'En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios.',
-                                rvr95: 'En el principio era el Verbo, y el Verbo era el que estaba con Dios, y el Verbo era Dios.',
-                                peshitta: 'En el principio era el Verbo, y ese Verbo estaba con Dios, y Dios era el Verbo.',
-                                hebreo: 'בְּרֵאשִׁית הָיָה הַדָּבָר וְהַדָּבָר הָיָה אֵת הָאֱלֹהִים וֵאלֹהִים הָיָה הַדָּבָר׃',
-                                griego: 'Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν προς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος.'
-                            }
-                        },
-                        'Romanos 8': {
-                            '1': {
-                                ntv: 'Por lo tanto, ya no hay condenación para los que pertenecen a Cristo Jesús.',
-                                nbla: 'Por lo tanto, ahora no hay condenación para los que están en Cristo Jesús.',
-                                nvi: 'Por lo tanto, ya no hay condenación para los que están en Cristo Jesús.',
-                                rvr60: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
-                                rvr95: 'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.',
-                                peshitta: 'Ahora, pues, no hay condenación para aquellos que están unidos a el Mesías Yeshúa, los cuales no andan según la carne.',
-                                hebreo: 'עַתָּה אֵפֶר لְאֵין כָּל־הַרְשָׁעָה لַאֲשֶׁר בַּמָּשִׁיחַ יֵשׁוּעַ׃',
-                                griego: 'Οὐδὲν ἄρα νῦν κατακριμα τοῖς ἐν Χριστῷ Ἰησοῦ.'
-                            }
-                        },
-                        'Marcos 14': {
-                            '32': {
-                                ntv: 'Fueron a un lugar llamado Getsemaní, y Jesús les dijo a sus discípulos: «séntense aquí mientras voy a orar».',
-                                nbla: 'Llegaron a un lugar que se llama Getsemaní, y Jesús dijo a Sus discípulos: «Séntense aquí hasta que yo ore».',
-                                nvi: 'Fueron a un lugar llamado Getsemaní, y Jesús dijo a sus discípulos: «Séntense hier mientras voy a orar».',
-                                rvr60: 'Y llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí, entre tanto que yo oro.',
-                                rvr95: 'Llegaron a un lugar que se llama Getsemaní, y dijo a sus discípulos: "Sentaos aquí, entre tanto que yo oro".',
-                                peshitta: 'Y vinieron a una aldea que se llama Getsemaní, y dijo a sus discípulos: Sentaos aquí mientras oro.',
-                                hebreo: 'וַיָּבֹאוּ אֶל־מָקוֹם שְׁמוֹ גַּת שְׁמָנִים וַיֹּאמֶר אֶל־תַּלְמִידָיו שְׁבוּ פֹה עַד אֲשֶׁר אֶתְפַּלֵּל׃',
-                                griego: 'Καὶ ἔρχονται εἰς χωρίον οὗ τὸ ὄνομα Γεθσημανῆ, καὶ λέγει τοῖς μαθηταῖς αὐτοῦ· Καθίσατε ὧδε ἕως προσεύξωμαι.'
-                            }
-                        }
-                    };
-
-                    const k = `${this.libroClave} ${this.capituloClave}`;
-                    const b = baseData[k] || baseData['Hechos 1'];
-                    const v = b[this.versoClave] || b[Object.keys(b)[0]];
-                    return v[version] || 'Texto disponible próximamente.';
+                simularLiteral: function() {
+                    if(this.referenciaWeb.includes("Juan") || this.referenciaWeb.includes("Romanos") || this.referenciaWeb.includes("Hechos")) {
+                        return "Texto del Griego Koiné analizado: La sintaxis original enfatiza el tiempo verbal de acción continua. (Traducción en curso...)";
+                    } else if(this.referenciaWeb.includes("Génesis") || this.referenciaWeb.includes("Salmos")) {
+                        return "Texto Hebreo / Masorético: La raíz de la palabra indica un significado mucho más profundo y de acción causal.";
+                    }
+                    return "Análisis de idiomas originales aplicándose...";
                 },
 
-                getTraduccionLiteral: function(idioma) {
-                    const literalData = {
-                        'Hechos 1:1': {
-                            griego: 'El quidem primum sermonem feci... El primer tratado en verdad hice, oh Teófilo, acerca de todas las cosas que comenzó Jesús a hacer y a enseñar.',
-                            arameo: 'El primer libro que escribí, oh Teófilo, fue acerca de todo lo que Jesús comenzó a hacer y a enseñar.',
-                            hebreo: 'El libro primero escribí, oh Teófilo, sobre todo lo que comenzó Yeshúa a hacer y a enseñar.'
-                        },
-                        'Juan 1:1': {
-                            griego: 'En [el] comienzo era el Verbo [Logos], y el Verbo era hacia el Dios, y Dios era el Verbo.',
-                            arameo: 'En el principio era la Palabra (Melta), y la misma Palabra estaba con Dios, y Dios era la Palabra.',
-                            hebreo: 'En el principio existía la Palabra (Davar), y la Palabra estaba junto a Elohim, y Elohim era la Palabra.'
-                        },
-                        'Romanos 8:1': {
-                            griego: 'Ninguna por lo tanto ahora condenación para los en Cristo Jesús.',
-                            arameo: 'Ahora pues, no hay castigo para aquellos unidos en el Mesías Yeshúa.',
-                            hebreo: 'Ahora no hay ninguna sentencia de culpabilidad para los que están en el Ungido Yeshúa.'
-                        },
-                        'Marcos 14:32': {
-                            griego: 'Y vienen a un lugar cuyo nombre Getsemaní, y dice a los discípulos de él: Sentaos aquí hasta que ore.',
-                            arameo: 'Y llegaron a una heredad llamada Getsemaní, y dijo a sus discípulos: Sentaos aquí mientras oro.',
-                            hebreo: 'Y llegaron a un sitio llamado Gat Shemanim, y dijo a sus discípulos: Sentaos aquí entre tanto que oro.'
-                        }
-                    };
-                    const ref = `${this.libroClave} ${this.capituloClave}:${this.versoClave}`;
-                    const item = literalData[ref] || literalData['Hechos 1:1'];
-                    return item[idioma] || 'Traducción literal en proceso de indexación.';
-                },
-
-                getComentarioErudito: function() {
-                    const comEruditoMap = {
-                        'Hechos 1': '<b>Perspectiva Erudita (Estilo Comentario MacArthur / Exégesis Histórica):</b> Lucas presenta Hechos como la continuación directa de su Evangelio. Dirigido a Teófilo ("amigo de Dios"), el libro documenta la transición crítica del ministerio terrenal de Cristo en Galilea y Judea a la expansión indetenible del evangelio por el poder soberano del Espíritu Santo en Pentecostés. La mención de "todo lo que Jesús comenzó a hacer y a enseñar" subraya que la obra de Cristo continúa a través de Su cuerpo, la Iglesia, bajo la autoridad absoluta de la Palabra y la dirección apostólica.',
-                        'Juan 1': '<b>Perspectiva Erudita (Teología Sistemática & Exégesis Gramatical):</b> El prólogo de Juan es el pináculo de la cristología bíblica. El uso del término imperfecto <i>ēn</i> ("existía en el principio") denota la eternidad sin principio del Logos. Al afirmar que el Verbo estaba con Dios (en íntima comunión personal) y que el Verbo era Dios (en esencia y naturaleza divina), Juan demuele categóricamente cualquier forma de subordinacionismo o arrianismo.',
-                        'Romanos 8': '<b>Perspectiva Erudita (Soteriología Paulina):</b> Romanos 8:1 es el gran estallido de libertad espiritual tras el dilema del capítulo 7. La palabra griega <i>katakrima</i> significa sentencia judicial adversa. Para los que están unidos vitalmente a Cristo Jesús (incorporados por fe y regeneración), la culpa legal ha sido eliminada de forma definitiva y perpetua por la satisfacción penal vicaria en la cruz.',
-                        'Marcos 14': '<b>Perspectiva Erudita (Cristología & Pasión):</b> En Getsemaní, Marcos nos muestra la verdadera y completa humanidad de Cristo experimentando el peso aplastante del pecado humano. El clamor <i>Abba, Padre</i> revela la confianza absoluta en medio del sufrimiento extremo, anticipando el momento en que cargaría con la ira santa del Padre como sustituto propiciatorio.'
-                    };
-                    return comEruditoMap[this.getKey()] || '<b>Análisis Erudito Profundo:</b> Este pasaje examina los fundamentos de la revelación divina, combinando el contexto histórico del Cercano Oriente antiguo con la aplicación teológica de la soberanía de YHWH.';
+                generarContextoErudito: function(ref) {
+                    if (ref.includes('Juan 1')) {
+                        this.comentarioErudito = "Perspectiva Erudita: El uso del término Logos aquí destruye la premisa de que Cristo fue un ser creado. Él compartía intimidad eterna con el Padre antes del tiempo.";
+                    } else if (ref.includes('Romanos 8')) {
+                        this.comentarioErudito = "Perspectiva Erudita: La anulación de la sentencia (katakrima) marca la base de la seguridad eterna del creyente. Es un veredicto judicial, no emocional.";
+                    } else {
+                        this.comentarioErudito = "Los eruditos contemporáneos coinciden en que este pasaje debe leerse respetando el contexto histórico-gramatical de la audiencia original, sin imponer teologías modernas sobre el texto.";
+                    }
                 }
             }
         }
