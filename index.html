@@ -233,10 +233,10 @@
                 </div>
 
                 <div class="flex gap-3 mt-3">
-                    <input id="efata-input" type="text" x-model="busqueda" @keyup.enter="enviarConsultaEfata()"
+                    <input id="efata-input" type="text" x-model="busqueda" @keyup.enter="ejecutarConsultaEfata()"
                         placeholder="Ingrese pasaje bíblico (Ej: Efesios 1:1, Juan 1:1, Salmos 27:3)..."
                         class="flex-1 bg-[#040609] border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-amber-500 transition-all shadow-inner">
-                    <button type="button" onclick="enviarConsultaEfata()"
+                    <button type="button" onclick="ejecutarConsultaEfata()"
                         class="bg-gradient-to-r from-amber-600 to-amber-500 text-gray-950 font-bold px-6 py-3 rounded-xl hover:from-amber-500 hover:to-amber-400 shadow-lg shadow-amber-950/50 transition-all text-sm uppercase tracking-wider flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -490,56 +490,76 @@
             }
         }
 
-        // Motor de conexión unificado C-Level para Efata AI
-        async function enviarConsultaEfata() {
-            const inputField = document.querySelector('input[type="text"], textarea') || document.getElementById('efata-input');
-            if (!inputField) {
-                console.error('No se encontró el campo de entrada de texto.');
-                return;
-            }
+        async function ejecutarConsultaEfata() {
+            const inputElement = document.getElementById('efata-input') || document.querySelector('input[type="text"]');
+            if (!inputElement) return;
 
-            const query = inputField.value.trim();
-            if (!query) return;
+            const consulta = inputElement.value.trim();
+            if (!consulta) return;
 
-            const boxRespuesta = document.getElementById('respuesta-efata-ai') || document.querySelector('.respuesta-efata');
-            const boxLexico = document.getElementById('raiz-idioma-original');
-            const boxPerspectiva = document.getElementById('perspectiva-erudita');
+            const cajaRespuesta = document.getElementById('respuesta-efata-ai');
+            const cajaLexico = document.getElementById('raiz-idioma-original');
+            const cajaPerspectiva = document.getElementById('perspectiva-erudita');
 
-            if (boxRespuesta) boxRespuesta.innerHTML = '<span class="text-amber-400 animate-pulse">Sintetizando exégesis con IA...</span>';
-            if (boxLexico) boxLexico.innerHTML = 'Analizando raíces originales...';
-            if (boxPerspectiva) boxPerspectiva.innerHTML = 'Procesando contexto teológico...';
+            if (cajaRespuesta) cajaRespuesta.innerHTML = '<p class="text-amber-400 animate-pulse">Sintetizando análisis multiversión y exégesis...</p>';
+            if (cajaLexico) cajaLexico.innerHTML = 'Extrayendo raíces en hebreo/griego...';
+            if (cajaPerspectiva) cajaPerspectiva.innerHTML = 'Consultando notas doctrinales...';
 
             try {
-                const res = await fetch('/api/exegesis', {
+                const response = await fetch('/api/exegesis', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ consulta: query })
+                    body: JSON.stringify({ consulta: consulta })
                 });
 
-                const json = await res.json();
+                const resultadoJson = await response.json();
+                if (resultadoJson.success) {
+                    const data = resultadoJson.data || {};
 
-                if (json.success && json.data) {
-                    const d = json.data;
-                    if (boxRespuesta) {
-                        boxRespuesta.innerHTML = `
-                            <div class="space-y-2 text-slate-100">
-                                <p class="text-sm leading-relaxed">${d.contexto || JSON.stringify(d.versiones || d)}</p>
-                                ${d.aplicacion ? `<div class="mt-2 p-2 bg-amber-950/40 border border-amber-600/30 rounded text-xs text-amber-200"><strong>Aplicación:</strong> ${d.aplicacion}</div>` : ''}
+                    if (cajaRespuesta) {
+                        cajaRespuesta.innerHTML = `
+                            <div class="space-y-4 text-slate-200">
+                                <div class="bg-slate-950/70 p-3 rounded-lg border border-amber-600/30 space-y-2">
+                                    <h4 class="text-xs uppercase tracking-wider text-amber-400 font-bold">Versiones Bíblicas</h4>
+                                    <p class="text-xs text-slate-300"><strong>RVR1960:</strong> ${data.versiones?.rvr1960 || 'N/A'}</p>
+                                    <p class="text-xs text-slate-300"><strong>NBLA:</strong> ${data.versiones?.nbla || 'N/A'}</p>
+                                    <p class="text-xs text-slate-300"><strong>NVI:</strong> ${data.versiones?.nvi || 'N/A'}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs uppercase tracking-wider text-amber-400 font-bold mb-1">Comentario Exegético y Teológico</h4>
+                                    <p class="text-sm leading-relaxed">${data.comentarioMacArthur || data.contexto || ''}</p>
+                                </div>
+                                ${data.aplicacion ? `<div class="p-2 bg-amber-950/40 border border-amber-600/30 rounded text-xs text-amber-200"><strong>Aplicación y Renovación Mental:</strong> ${data.aplicacion}</div>` : ''}
                             </div>
                         `;
                     }
-                    if (boxLexico && d.lexico) {
-                        boxLexico.innerHTML = `<p class="text-xs text-slate-300">${typeof d.lexico === 'object' ? JSON.stringify(d.lexico) : d.lexico}</p>`;
+
+                    if (cajaLexico && data.idiomaOriginal) {
+                        cajaLexico.innerHTML = `
+                            <div class="space-y-1 text-slate-300 text-xs">
+                                <p><strong class="text-amber-400">Término:</strong> ${data.idiomaOriginal.termino || 'N/A'}</p>
+                                <p><strong class="text-amber-400">Strong:</strong> ${data.idiomaOriginal.strong || 'N/A'}</p>
+                                <p class="mt-1">${data.idiomaOriginal.analisis || ''}</p>
+                            </div>
+                        `;
+                    } else if (cajaLexico && data.lexico) {
+                        cajaLexico.textContent = typeof data.lexico === 'object' ? JSON.stringify(data.lexico) : data.lexico;
                     }
-                    if (boxPerspectiva && d.versiones) {
-                        boxPerspectiva.innerHTML = `<p class="text-xs text-slate-300">${typeof d.versiones === 'object' ? JSON.stringify(d.versiones) : d.versiones}</p>`;
+
+                    if (cajaPerspectiva) {
+                        cajaPerspectiva.innerHTML = `
+                            <div class="text-slate-300 text-xs leading-relaxed space-y-1">
+                                <p><strong class="text-amber-400">Contexto Histórico-Gramatical:</strong></p>
+                                <p>${data.contexto || 'Análisis estructurado bajo los parámetros de estudio exegético profundo.'}</p>
+                            </div>
+                        `;
                     }
-                } else if (boxRespuesta) {
-                    boxRespuesta.innerHTML = '<span class="text-red-400">Error: El motor no devolvió una respuesta válida.</span>';
+                } else if (cajaRespuesta) {
+                    cajaRespuesta.innerHTML = '<span class="text-red-400">Error al procesar la consulta en el motor.</span>';
                 }
-            } catch (err) {
-                console.error('Fallo crítico de red:', err);
-                if (boxRespuesta) boxRespuesta.innerHTML = '<span class="text-red-400">Error de comunicación con el servidor serverless.</span>';
+            } catch (error) {
+                console.error('Error crítico:', error);
+                if (cajaRespuesta) cajaRespuesta.innerHTML = '<span class="text-red-400">Error de conexión con el servidor.</span>';
             }
         }
 
@@ -547,10 +567,11 @@
             const botonPreguntar = Array.from(document.querySelectorAll('button')).find((el) => el.textContent.trim().toUpperCase() === 'PREGUNTAR');
             if (botonPreguntar) {
                 const nuevoBoton = botonPreguntar.cloneNode(true);
+                nuevoBoton.removeAttribute('onclick');
                 botonPreguntar.parentNode.replaceChild(nuevoBoton, botonPreguntar);
                 nuevoBoton.addEventListener('click', (event) => {
                     event.preventDefault();
-                    enviarConsultaEfata();
+                    ejecutarConsultaEfata();
                 });
             }
         });
