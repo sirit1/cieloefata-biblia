@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CieloEfata AI | Motor Teológico Exegético</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap');
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+
+<body class="h-full bg-[#040609] text-gray-100 flex overflow-hidden" x-data="cieloApp()">
+
+    <!-- VISTA 1: PANTALLA DE ACCESO / LOGIN (Persistente con LocalStorage) -->
+    <div x-show="!isLoggedIn" class="fixed inset-0 z-50 bg-[#040609] flex items-center justify-center p-4">
+        <div
+            class="bg-[#0b0e14] border border-amber-500/40 rounded-3xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl"></div>
+
+            <div class="text-center mb-6">
+                <div
+                    class="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-4 shadow-lg shadow-amber-950/50 border border-amber-500/40 bg-gray-900 flex items-center justify-center">
+                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata Logo"
+                        class="w-full h-full object-cover">
+                </div>
+                <h2 class="text-xl font-bold text-amber-100 uppercase tracking-wider font-serif">CieloEfata AI</h2>
+                <p class="text-xs text-amber-400 mt-1">Plataforma Exegética de Alta Dirección Ministerial</p>
+            </div>
+
+            <form @submit.prevent="iniciarSesion()" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Correo
+                        Electrónico</label>
+                    <input type="email" x-model="loginEmail" required placeholder="alejandro.sirit@gmail.com"
+                        class="w-full bg-[#040609] border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-amber-500 transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Contraseña
+                        de Acceso</label>
+                    <input type="password" x-model="loginPass" required placeholder="••••••••"
+                        class="w-full bg-[#040609] border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-amber-500 transition-all">
+                </div>
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-gray-950 font-bold py-3.5 rounded-xl hover:from-amber-500 hover:to-amber-400 shadow-lg shadow-amber-950/50 transition-all text-sm uppercase tracking-wider mt-2">
+                    Iniciar Sesión Segura
+                </button>
+            </form>
+            <p class="text-[10px] text-center text-gray-500 mt-6">Acceso exclusivo autorizado para Dr. Alejandro Sirit &
+                Miembros del Ministerio.</p>
+        </div>
+    </div>
+
+    <!-- VISTA 2: APLICACIÓN PRINCIPAL -->
+    <div x-show="isLoggedIn" class="flex h-full w-full overflow-hidden">
+
+        <!-- SIDEBAR EJECUTIVO DE ALTA GAMA -->
+        <aside
+            class="w-80 bg-[#07090e] border-r border-amber-500/20 flex flex-col justify-between p-6 overflow-y-auto shadow-2xl shrink-0">
+            <div>
+                <!-- Logotipo Corporativo con Imagen Real (Cabecera) -->
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800/80">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-amber-950/50 border border-amber-500/30 shrink-0 bg-gray-900">
+                            <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata Logo"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h1 class="text-sm font-bold tracking-wider text-amber-100 uppercase">CieloEfata AI</h1>
+                            <p class="text-xs text-amber-400 font-medium">Motor Teológico</p>
+                        </div>
+                    </div>
+                    <button @click="cerrarSesion()" title="Cerrar Sesión"
+                        class="text-gray-400 hover:text-amber-400 text-xs px-2 py-1 rounded border border-gray-800 hover:border-amber-500/50 transition-all">Salir</button>
+                </div>
+
+                <!-- Perfil del Autor y Autoridad Académica con Fotografía Real de Lujo -->
+                <div class="mb-6 p-4 rounded-xl bg-[#0c1017] border border-amber-500/30 shadow-xl">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div
+                            class="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400/80 shadow-md bg-gray-900 shrink-0">
+                            <img src="https://i.ibb.co/jZxqnpGQ/foto-mia-de-lujo.jpg" alt="Dr. Alejandro Sirit"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-bold text-gray-100">Dr. Alejandro Sirit</h2>
+                            <p class="text-xs text-amber-400 font-semibold">AI Project Manager</p>
+                        </div>
+                    </div>
+
+                    <p class="text-[11px] text-gray-300 leading-relaxed text-justify mb-3 font-light">
+                        Investigador, conferencista y autor de obras teológicas de referencia como <i>«El altar del
+                            espejo»</i> y <i>«Callar para ganar»</i>. Con sólida trayectoria ejecutiva y certificaciones
+                        en ciencia de datos (IBM Data Scientist & Data Analyst), integra la analítica computacional con
+                        la exégesis rigurosa. Doctor Honoris Causa por aportes en tecnología y el factor humano.
+                    </p>
+
+                    <div class="flex flex-wrap gap-1.5 pt-2 border-t border-gray-800">
+                        <span
+                            class="text-[9px] bg-amber-950/80 text-amber-300 px-2 py-0.5 rounded border border-amber-700/50 font-medium">Dr.
+                            Honoris Causa</span>
+                        <span
+                            class="text-[9px] bg-amber-950/80 text-amber-300 px-2 py-0.5 rounded border border-amber-700/50 font-medium">IBM
+                            Data Certified</span>
+                    </div>
+                </div>
+
+                <!-- Visión del Ministerio -->
+                <div class="mb-6 p-3 rounded-lg bg-[#0c1017] border border-gray-800">
+                    <h3 class="text-[10px] font-semibold uppercase tracking-wider text-amber-400 mb-1">Visión del
+                        Ministerio</h3>
+                    <blockquote
+                        class="text-[11px] text-gray-300 italic border-l-2 border-amber-500 pl-2 leading-relaxed">
+                        "Restaurar el diseño original de YHWH, integrando la precisión de la tecnología con la
+                        inmutabilidad de las Escrituras."
+                    </blockquote>
+                </div>
+
+                <!-- Biblioteca Literaria (Miniaturas de Obras del Autor) -->
+                <div class="mb-6">
+                    <h3
+                        class="text-[10px] font-semibold uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                        Biblioteca Literaria
+                    </h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div
+                            class="rounded-lg overflow-hidden border border-amber-500/30 bg-gradient-to-br from-gray-900 via-[#10141d] to-amber-950/40 aspect-[3/4] flex flex-col justify-between p-2.5 shadow-lg hover:border-amber-400 transition-all cursor-pointer group">
+                            <span class="text-[8px] uppercase tracking-widest text-amber-400/80 font-bold">Obra I</span>
+                            <div>
+                                <p
+                                    class="text-[11px] font-bold text-amber-100 font-serif leading-tight group-hover:text-amber-300">
+                                    La Fe No Basta</p>
+                                <p class="text-[8px] text-gray-400 mt-1">Dr. Alejandro Sirit</p>
+                            </div>
+                        </div>
+                        <div
+                            class="rounded-lg overflow-hidden border border-amber-500/30 bg-gradient-to-br from-gray-900 via-[#10141d] to-amber-950/40 aspect-[3/4] flex flex-col justify-between p-2.5 shadow-lg hover:border-amber-400 transition-all cursor-pointer group">
+                            <span class="text-[8px] uppercase tracking-widest text-amber-400/80 font-bold">Obra
+                                II</span>
+                            <div>
+                                <p
+                                    class="text-[11px] font-bold text-amber-100 font-serif leading-tight group-hover:text-amber-300">
+                                    El Altar del Espejo</p>
+                                <p class="text-[8px] text-gray-400 mt-1">Dr. Alejandro Sirit</p>
+                            </div>
+                        </div>
+                        <div
+                            class="rounded-lg overflow-hidden border border-amber-500/30 bg-gradient-to-br from-gray-900 via-[#10141d] to-amber-950/40 aspect-[3/4] flex flex-col justify-between p-2.5 shadow-lg hover:border-amber-400 transition-all cursor-pointer group">
+                            <span class="text-[8px] uppercase tracking-widest text-amber-400/80 font-bold">Obra
+                                III</span>
+                            <div>
+                                <p
+                                    class="text-[11px] font-bold text-amber-100 font-serif leading-tight group-hover:text-amber-300">
+                                    Cuando del Cielo se Cae</p>
+                                <p class="text-[8px] text-gray-400 mt-1">Dr. Alejandro Sirit</p>
+                            </div>
+                        </div>
+                        <div
+                            class="rounded-lg overflow-hidden border border-amber-500/30 bg-gradient-to-br from-gray-900 via-[#10141d] to-amber-950/40 aspect-[3/4] flex flex-col justify-between p-2.5 shadow-lg hover:border-amber-400 transition-all cursor-pointer group">
+                            <span class="text-[8px] uppercase tracking-widest text-amber-400/80 font-bold">Obra
+                                IV</span>
+                            <div>
+                                <p
+                                    class="text-[11px] font-bold text-amber-100 font-serif leading-tight group-hover:text-amber-300">
+                                    Callar para Ganar</p>
+                                <p class="text-[8px] text-gray-400 mt-1">Dr. Alejandro Sirit</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-2 rounded-lg border border-amber-500/30 bg-gradient-to-r from-gray-900 via-[#10141d] to-amber-950/40 p-2.5 flex items-center justify-between hover:border-amber-400 transition-all cursor-pointer group">
+                        <div>
+                            <span class="text-[8px] uppercase tracking-widest text-amber-400/80 font-bold block">Obra
+                                Magistral</span>
+                            <span class="text-[11px] font-bold text-amber-100 font-serif group-hover:text-amber-300">El
+                                Código del Gólgota</span>
+                        </div>
+                        <span class="text-[9px] text-gray-400">Dr. Sirit</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PIE DE APP CON LOGOTIPO XTRA-METRIK Y LEYENDA POWERED BY -->
+            <div class="pt-4 border-t border-gray-800 text-center flex flex-col items-center justify-center">
+                <div class="flex items-center justify-center gap-1.5 mb-1">
+                    <span class="text-sm font-extrabold text-cyan-400 tracking-tight">Xtra</span><span
+                        class="text-sm font-extrabold text-white tracking-tight">Metrik</span>
+                </div>
+                <p class="text-[10px] text-amber-400 uppercase tracking-widest font-semibold">powered by</p>
+                <p class="text-[9px] text-gray-500 mt-1">© 2026 Ministerio CieloEfata. Todos los derechos reservados.
+                </p>
+            </div>
+        </aside>
+
+        <!-- CONTENEDOR PRINCIPAL DE RESULTADOS -->
+        <main class="flex-1 bg-[#040609] p-8 overflow-y-auto">
+
+            <!-- BARRA DE COMANDOS UNIFICADA -->
+            <div class="bg-[#0b0e14] border border-amber-500/30 rounded-2xl p-6 shadow-2xl mb-8">
+                <div class="flex items-center justify-between mb-2">
+                    <label
+                        class="block text-xs font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+                            </path>
+                        </svg>
+                        Efata AI - Motor Exegético Inteligente
+                    </label>
+                    <span
+                        class="text-[10px] bg-amber-950/80 text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-700/50">Modo
+                        Ejecutivo Activo</span>
+                </div>
+
+                <div class="flex gap-3 mt-3">
+                    <input id="efata-input" type="text" x-model="busqueda" @keyup.enter="enviarConsultaEfata()"
+                        placeholder="Ingrese pasaje bíblico (Ej: Efesios 1:1, Juan 1:1, Salmos 27:3)..."
+                        class="flex-1 bg-[#040609] border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-amber-500 transition-all shadow-inner">
+                    <button type="button" onclick="enviarConsultaEfata()"
+                        class="bg-gradient-to-r from-amber-600 to-amber-500 text-gray-950 font-bold px-6 py-3 rounded-xl hover:from-amber-500 hover:to-amber-400 shadow-lg shadow-amber-950/50 transition-all text-sm uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        PREGUNTAR
+                    </button>
+                </div>
+                <p id="respuesta-efata-ai" class="text-[11px] text-gray-400 mt-2.5" x-text="respuestaAgente">Ingrese una
+                    coordenada bíblica
+                    precisa para activar el análisis multiversión y exegético.</p>
+            </div>
+
+            <div id="resultados-exegesis" x-show="exegesisApi"
+                class="bg-[#0b0e14] border border-amber-500/30 rounded-2xl p-6 shadow-2xl mb-8" style="display: none;">
+                <h3 class="text-xl font-bold text-amber-400 mb-4">Análisis Teológico</h3>
+                <div class="space-y-4 text-sm text-gray-300">
+                    <div>
+                        <h4 class="font-semibold text-amber-200">Textos Bíblicos:</h4>
+                        <pre class="mt-1 whitespace-pre-wrap font-sans"
+                            x-text="formatearDato(exegesisApi.versiones)"></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-amber-200">Léxico Original:</h4>
+                        <pre class="mt-1 whitespace-pre-wrap font-sans"
+                            x-text="formatearDato(exegesisApi.lexico)"></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-amber-200">Contexto Histórico:</h4>
+                        <p class="mt-1" x-text="exegesisApi.contexto"></p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-amber-200">Aplicación Práctica:</h4>
+                        <p class="mt-1" x-text="exegesisApi.aplicacion"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA MULTIVERSIÓN DE TEXTO BÍBLICO -->
+            <div x-show="resultadoMostrado"
+                class="bg-[#0b0e14] border border-amber-500/30 rounded-2xl p-6 shadow-2xl mb-8">
+                <div
+                    class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 mb-4 border-b border-gray-800 gap-3">
+                    <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                        <span x-text="refFormateada"></span>
+                    </h3>
+
+                    <!-- Pestañas de Versiones -->
+                    <div class="flex flex-wrap gap-1 bg-[#040609] p-1 rounded-lg border border-gray-800">
+                        <button @click="versionSeleccionada = 'rvr1960'"
+                            :class="versionSeleccionada === 'rvr1960' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
+                            class="text-[10px] px-2.5 py-1 rounded transition-all">RVR 1960</button>
+                        <button @click="versionSeleccionada = 'nvi'"
+                            :class="versionSeleccionada === 'nvi' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
+                            class="text-[10px] px-2.5 py-1 rounded transition-all">NVI</button>
+                        <button @click="versionSeleccionada = 'ntv'"
+                            :class="versionSeleccionada === 'ntv' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
+                            class="text-[10px] px-2.5 py-1 rounded transition-all">NTV</button>
+                        <button @click="versionSeleccionada = 'nbla'"
+                            :class="versionSeleccionada === 'nbla' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
+                            class="text-[10px] px-2.5 py-1 rounded transition-all">NBLA</button>
+                        <button @click="versionSeleccionada = 'peshitta'"
+                            :class="versionSeleccionada === 'peshitta' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
+                            class="text-[10px] px-2.5 py-1 rounded transition-all">Peshitta</button>
+                    </div>
+                </div>
+
+                <p class="text-amber-100/90 text-lg leading-relaxed font-serif italic" x-text="textoActual"></p>
+            </div>
+
+            <!-- MÓDULOS DE ANÁLISIS PROFUNDO Y EXTENSO -->
+            <div x-show="resultadoMostrado" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <!-- Módulo 1: Notas de Estudio NBLA (John MacArthur) -->
+                <div
+                    class="bg-[#0b0e14] border border-amber-500/30 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4
+                            class="text-xs font-semibold tracking-wider text-amber-400 uppercase mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                </path>
+                            </svg>
+                            Comentarios de Estudio (Biblia NBLA - John MacArthur)
+                        </h4>
+                        <p class="text-gray-300 text-sm leading-relaxed" x-html="comentarioMacArthur"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-800 text-[10px] text-amber-500 font-medium">Exégesis
+                        Pastoral Rigurosa</div>
+                </div>
+
+                <!-- Módulo 2: Raíz en Idioma Original -->
+                <div
+                    class="bg-[#0b0e14] border border-amber-500/30 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4
+                            class="text-xs font-semibold tracking-wider text-amber-400 uppercase mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129">
+                                </path>
+                            </svg>
+                            Raíz en Idioma Original (Griego / Hebreo)
+                        </h4>
+                        <p id="raiz-idioma-original" class="text-gray-300 text-sm leading-relaxed"
+                            x-html="analisisOriginal"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-800 text-[10px] text-amber-500 font-medium">Análisis
+                        Morfológico y Etimológico</div>
+                </div>
+
+                <!-- Módulo 3: Perspectiva Erudita e Histórica -->
+                <div class="lg:col-span-2 bg-[#0b0e14] border border-amber-500/30 rounded-2xl p-6 shadow-xl">
+                    <h4
+                        class="text-xs font-semibold tracking-wider text-amber-400 uppercase mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                            </path>
+                        </svg>
+                        Perspectiva Histórica y Teológica Avanzada
+                    </h4>
+                    <p id="perspectiva-erudita" class="text-gray-300 text-sm leading-relaxed"
+                        x-text="comentarioErudito"></p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Motor JavaScript Asíncrono con Gestión de Sesión Local -->
+    <script>
+        // Inicialización del cliente Supabase con credenciales de producción
+        const SUPABASE_URL = "https://xzjoruazhlwmaebnnqqbv.supabase.co";
+        const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY_PUBLICA";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        function cieloApp() {
+            return {
+                isLoggedIn: localStorage.getItem('cielo_session_active') === 'true',
+                loginEmail: '',
+                loginPass: '',
+
+                busqueda: '',
+                procesando: false,
+                resultadoMostrado: false,
+                versionesDisponibles: {},
+                versionSeleccionada: 'rvr1960',
+                refFormateada: '',
+                respuestaAgente: 'Ingrese una coordenada bíblica precisa para activar el motor exegético en la nube.',
+                comentarioErudito: '',
+                comentarioMacArthur: '',
+                analisisOriginal: '',
+                exegesisApi: null,
+
+                iniciarSesion() {
+                    if (this.loginEmail.trim() !== '' && this.loginPass.trim() !== '') {
+                        localStorage.setItem('cielo_session_active', 'true');
+                        localStorage.setItem('cielo_user_email', this.loginEmail);
+                        this.isLoggedIn = true;
+                    }
+                },
+
+                cerrarSesion() {
+                    localStorage.removeItem('cielo_session_active');
+                    this.isLoggedIn = false;
+                },
+
+                normalizarReferencia(input) {
+                    const limpio = input.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    const regex = /^(\d?\s*[a-zA-Z]+)\s+(\d+)(?:\s*[:\s]\s*(\d+))?$/;
+                    const match = limpio.match(regex);
+
+                    if (match) {
+                        let libroInput = match[1].trim().replace(/\s+/g, '-');
+                        let capitulo = parseInt(match[2]);
+                        let versiculo = parseInt(match[3] || "1");
+
+                        return {
+                            libroKey: libroInput,
+                            libroNombreOriginal: match[1].trim(),
+                            capitulo: capitulo,
+                            versiculo: versiculo,
+                            formatoBonito: `${match[1].trim().toUpperCase()} ${capitulo}:${versiculo}`
+                        };
+                    }
+                    return null;
+                },
+
+                formatearDato(valor) {
+                    if (valor === null || valor === undefined) return 'No disponible.';
+                    return typeof valor === 'string' ? valor : JSON.stringify(valor, null, 2);
+                },
+
+                async manejarConsultaIA() {
+                    const query = this.busqueda.trim();
+                    if (!query) return;
+
+                    this.procesando = true;
+                    this.resultadoMostrado = true;
+                    this.exegesisApi = null;
+                    this.versionesDisponibles = {};
+                    this.respuestaAgente = 'Consultando el motor exegético...';
+
+                    try {
+                        const respuesta = await fetch('/api/exegesis', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ consulta: query })
+                        });
+
+                        const resultado = await respuesta.json();
+                        if (!respuesta.ok || !resultado.success) {
+                            throw new Error(resultado.error || 'No se pudo procesar la consulta.');
+                        }
+
+                        const data = resultado.data || {};
+                        this.exegesisApi = {
+                            versiones: data.versiones,
+                            lexico: data.lexico,
+                            contexto: data.contexto || 'No disponible.',
+                            aplicacion: data.aplicacion || 'No disponible.'
+                        };
+                        this.versionesDisponibles = data.versiones || {};
+                        this.versionSeleccionada = 'rvr1960';
+                        this.refFormateada = query;
+                        this.respuestaAgente = data.contexto || this.formatearDato(data);
+                        this.procesando = false;
+                    } catch (error) {
+                        console.error('Error de conexión con el servidor exegético:', error);
+                        this.exegesisApi = null;
+                        this.respuestaAgente = 'Error de conexión con el servidor.';
+                        this.procesando = false;
+                    }
+                },
+
+                limpiarTexto(texto) {
+                    if (!texto) return "Traducción no disponible.";
+                    return texto.replace(/\/n/g, ' ').replace(/\\n/g, ' ').replace(/^['"“„«]+|['"”»]+$/g, '').replace(/\s+/g, ' ').trim();
+                },
+
+                get textoActual() {
+                    return this.versionesDisponibles[this.versionSeleccionada] || "Traducción no disponible.";
+                }
+            }
+        }
+
+        // Motor de conexión unificado C-Level para Efata AI
+        async function enviarConsultaEfata() {
+            const inputField = document.querySelector('input[type="text"], textarea') || document.getElementById('efata-input');
+            if (!inputField) {
+                console.error('No se encontró el campo de entrada de texto.');
+                return;
+            }
+
+            const query = inputField.value.trim();
+            if (!query) return;
+
+            const boxRespuesta = document.getElementById('respuesta-efata-ai') || document.querySelector('.respuesta-efata');
+            const boxLexico = document.getElementById('raiz-idioma-original');
+            const boxPerspectiva = document.getElementById('perspectiva-erudita');
+
+            if (boxRespuesta) boxRespuesta.innerHTML = '<span class="text-amber-400 animate-pulse">Sintetizando exégesis con IA...</span>';
+            if (boxLexico) boxLexico.innerHTML = 'Analizando raíces originales...';
+            if (boxPerspectiva) boxPerspectiva.innerHTML = 'Procesando contexto teológico...';
+
+            try {
+                const res = await fetch('/api/exegesis', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ consulta: query })
+                });
+
+                const json = await res.json();
+
+                if (json.success && json.data) {
+                    const d = json.data;
+                    if (boxRespuesta) {
+                        boxRespuesta.innerHTML = `
+                            <div class="space-y-2 text-slate-100">
+                                <p class="text-sm leading-relaxed">${d.contexto || JSON.stringify(d.versiones || d)}</p>
+                                ${d.aplicacion ? `<div class="mt-2 p-2 bg-amber-950/40 border border-amber-600/30 rounded text-xs text-amber-200"><strong>Aplicación:</strong> ${d.aplicacion}</div>` : ''}
+                            </div>
+                        `;
+                    }
+                    if (boxLexico && d.lexico) {
+                        boxLexico.innerHTML = `<p class="text-xs text-slate-300">${typeof d.lexico === 'object' ? JSON.stringify(d.lexico) : d.lexico}</p>`;
+                    }
+                    if (boxPerspectiva && d.versiones) {
+                        boxPerspectiva.innerHTML = `<p class="text-xs text-slate-300">${typeof d.versiones === 'object' ? JSON.stringify(d.versiones) : d.versiones}</p>`;
+                    }
+                } else if (boxRespuesta) {
+                    boxRespuesta.innerHTML = '<span class="text-red-400">Error: El motor no devolvió una respuesta válida.</span>';
+                }
+            } catch (err) {
+                console.error('Fallo crítico de red:', err);
+                if (boxRespuesta) boxRespuesta.innerHTML = '<span class="text-red-400">Error de comunicación con el servidor serverless.</span>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const botonPreguntar = Array.from(document.querySelectorAll('button')).find((el) => el.textContent.trim().toUpperCase() === 'PREGUNTAR');
+            if (botonPreguntar) {
+                const nuevoBoton = botonPreguntar.cloneNode(true);
+                botonPreguntar.parentNode.replaceChild(nuevoBoton, botonPreguntar);
+                nuevoBoton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    enviarConsultaEfata();
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
