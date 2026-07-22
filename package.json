@@ -1,0 +1,11 @@
+{
+    "name": "cieloefata-biblia",
+    "version": "1.0.0",
+    "description": "Motor Teológico Exegético de Cielo Efata",
+    "dependencies": {
+        "@google/genai": "^0.1.2"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
