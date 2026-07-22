@@ -1,51 +1,52 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI } from '@google/genai';
+import { createClient } from '@supabase/supabase-js';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const getSupabaseConfig = () => ({
+  url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
+  anonKey: process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+});
+
+async function authenticate(req) {
+  const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
+  const { url, anonKey } = getSupabaseConfig();
+  if (!token || !url || !anonKey) return null;
+
+  const supabase = createClient(url, anonKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const { data, error } = await supabase.auth.getUser(token);
+  return error ? null : data.user;
+}
 
 export default async function handler(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Método no permitido' });
-    }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Método no permitido.' });
+  }
 
-    const { consulta } = req.body;
-    if (!consulta) {
-        return res.status(400).json({ error: 'La consulta es obligatoria.' });
-    }
+  const user = await authenticate(req);
+  if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
 
-    try {
-        const promptSistema = `
-            Eres el motor exegético y teológico supremo de Cielo Efata. 
-            Analiza la consulta, pasaje o tema bíblico del usuario y responde ESTRICTAMENTE en formato JSON con la siguiente estructura exacta:
-            {
-                "versiones": {
-                    "rvr1960": "Texto exacto en Reina Valera 1960",
-                    "nbla": "Texto exacto en Nueva Biblia de las Américas",
-                    "nvi": "Texto exacto en Nueva Versión Internacional"
-                },
-                "idiomaOriginal": {
-                    "termino": "Palabra clave en Hebreo o Griego con su transliteración",
-                    "strong": "Número de Strong y morfología",
-                    "analisis": "Desglose gramatical del término original"
-                },
-                "comentarioMacArthur": "Análisis doctrinal, histórico y exegético profundo bajo la perspectiva teológica de la Biblia de Estudio John MacArthur",
-                "aplicacion": "Principio práctico enfocado en la renovación mental, la soberanía espiritual y el diseño original"
-            }
-            Consulta del usuario: ${consulta}
-        `;
+  const consulta = typeof req.body?.consulta === 'string' ? req.body.consulta.trim() : '';
+  if (!consulta || consulta.length > 300) {
+    return res.status(400).json({ error: 'Escribe una consulta de entre 1 y 300 caracteres.' });
+  }
+  if (!process.env.GEMINI_API_KEY) {
+    return res.status(503).json({ error: 'El motor de IA todavía no está configurado.' });
+  }
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: promptSistema,
-            config: {
-                responseMimeType: "application/json"
-            }
-        });
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: `Eres el motor exegético de CieloEfata. Analiza con rigor la consulta bíblica y responde únicamente JSON válido con esta estructura exacta: {"versiones":{"rvr1960":"","nbla":"","nvi":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":""}. No inventes citas; si no puedes confirmar un texto exacto, indícalo con claridad. Consulta: ${consulta}`,
+      config: { responseMimeType: 'application/json' },
+    });
 
-        const resultado = JSON.parse(response.text);
-        return res.status(200).json({ success: true, data: resultado });
-
-    } catch (error) {
-        console.error("Error en exégesis:", error);
-        return res.status(500).json({ error: 'Error interno en el motor exegético.' });
-    }
+    const data = JSON.parse(response.text);
+    return res.status(200).json({ success: true, data });
+  } catch (error) {
+    console.error('Error en el motor exegético:', error?.message);
+    return res.status(502).json({ error: 'No fue posible completar el análisis. Intenta nuevamente.' });
+  }
 }

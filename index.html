@@ -14,6 +14,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap');
 
+        [x-cloak] {
+            display: none !important;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
@@ -26,12 +30,20 @@
 
 <body class="h-full bg-[#040609] text-gray-100 flex overflow-hidden" x-data="cieloApp()">
 
-    <!-- VISTA 1: PANTALLA DE ACCESO / LOGIN (Persistente con LocalStorage) -->
-    <div x-show="!isLoggedIn" class="fixed inset-0 z-50 bg-[#040609] flex items-center justify-center p-4">
+    <!-- CARGA INICIAL DE SESIÓN -->
+    <div x-show="!sesionVerificada" class="fixed inset-0 z-[60] bg-[#040609] flex items-center justify-center">
+        <div class="flex items-center gap-3 text-amber-300 text-sm">
+            <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
+            </svg>
+            Verificando acceso...
+        </div>
+    </div>
+
+    <!-- VISTA 1: PANTALLA DE ACCESO / LOGIN (Solo invitados vía Supabase) -->
+    <div x-show="sesionVerificada && !isLoggedIn" x-cloak class="fixed inset-0 z-50 bg-[#040609] flex items-center justify-center p-4">
         <div
             class="bg-[#0b0e14] border border-amber-500/40 rounded-3xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
-            <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl"></div>
-
             <div class="text-center mb-6">
                 <div
                     class="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-4 shadow-lg shadow-amber-950/50 border border-amber-500/40 bg-gray-900 flex items-center justify-center">
@@ -44,33 +56,40 @@
 
             <form @submit.prevent="iniciarSesion()" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Correo
+                    <label for="login-email" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Correo
                         Electrónico</label>
-                    <input type="email" x-model="loginEmail" required placeholder="alejandro.sirit@gmail.com"
+                    <input id="login-email" type="email" x-model="loginEmail" required autocomplete="email" placeholder="correo@ejemplo.com"
                         class="w-full bg-[#040609] border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-amber-500 transition-all">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Contraseña
+                    <label for="login-pass" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Contraseña
                         de Acceso</label>
-                    <input type="password" x-model="loginPass" required placeholder="••••••••"
+                    <input id="login-pass" type="password" x-model="loginPass" required autocomplete="current-password" placeholder="••••••••"
                         class="w-full bg-[#040609] border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-amber-500 transition-all">
                 </div>
-                <button type="submit"
-                    class="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-gray-950 font-bold py-3.5 rounded-xl hover:from-amber-500 hover:to-amber-400 shadow-lg shadow-amber-950/50 transition-all text-sm uppercase tracking-wider mt-2">
-                    Iniciar Sesión Segura
+
+                <p x-show="loginError" x-cloak x-text="loginError" role="alert"
+                    class="text-xs text-red-400 bg-red-950/40 border border-red-800/50 rounded-lg px-3 py-2"></p>
+
+                <button type="submit" :disabled="autenticando"
+                    class="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-gray-950 font-bold py-3.5 rounded-xl hover:from-amber-500 hover:to-amber-400 shadow-lg shadow-amber-950/50 transition-all text-sm uppercase tracking-wider mt-2 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                    <svg x-show="autenticando" class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
+                    </svg>
+                    <span x-text="autenticando ? 'Verificando...' : 'Iniciar Sesión Segura'"></span>
                 </button>
             </form>
-            <p class="text-[10px] text-center text-gray-500 mt-6">Acceso exclusivo autorizado para Dr. Alejandro Sirit &
-                Miembros del Ministerio.</p>
+            <p class="text-[10px] text-center text-gray-500 mt-6">Acceso exclusivo para miembros autorizados del
+                Ministerio CieloEfata. Las cuentas se otorgan por invitación.</p>
         </div>
     </div>
 
     <!-- VISTA 2: APLICACIÓN PRINCIPAL -->
-    <div x-show="isLoggedIn" class="flex h-full w-full overflow-hidden">
+    <div x-show="sesionVerificada && isLoggedIn" x-cloak class="flex flex-col lg:flex-row h-full w-full overflow-hidden">
 
         <!-- SIDEBAR EJECUTIVO DE ALTA GAMA -->
         <aside
-            class="w-80 bg-[#07090e] border-r border-amber-500/20 flex flex-col justify-between p-6 overflow-y-auto shadow-2xl shrink-0">
+            class="w-full lg:w-80 max-h-72 lg:max-h-none bg-[#07090e] border-b lg:border-b-0 lg:border-r border-amber-500/20 flex flex-col justify-between p-4 lg:p-6 overflow-y-auto shadow-2xl shrink-0">
             <div>
                 <!-- Logotipo Corporativo con Imagen Real (Cabecera) -->
                 <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800/80">
@@ -213,7 +232,7 @@
         </aside>
 
         <!-- CONTENEDOR PRINCIPAL DE RESULTADOS -->
-        <main class="flex-1 bg-[#040609] p-8 overflow-y-auto">
+        <main class="flex-1 bg-[#040609] p-4 sm:p-6 lg:p-8 overflow-y-auto">
 
             <!-- BARRA DE COMANDOS UNIFICADA -->
             <div class="bg-[#0b0e14] border border-amber-500/30 rounded-2xl p-6 shadow-2xl mb-8">
@@ -232,47 +251,23 @@
                         Ejecutivo Activo</span>
                 </div>
 
-                <div class="flex gap-3 mt-3">
-                    <input id="efata-input" type="text" x-model="busqueda" @keyup.enter="ejecutarConsultaEfata()"
+                <form @submit.prevent="manejarConsultaIA()" class="flex flex-col sm:flex-row gap-3 mt-3">
+                    <label for="efata-input" class="sr-only">Pasaje o tema bíblico</label>
+                    <input id="efata-input" type="text" x-model="busqueda" maxlength="300" required
                         placeholder="Ingrese pasaje bíblico (Ej: Efesios 1:1, Juan 1:1, Salmos 27:3)..."
-                        class="flex-1 bg-[#040609] border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-amber-500 transition-all shadow-inner">
-                    <button type="button" onclick="ejecutarConsultaEfata()"
-                        class="bg-gradient-to-r from-amber-600 to-amber-500 text-gray-950 font-bold px-6 py-3 rounded-xl hover:from-amber-500 hover:to-amber-400 shadow-lg shadow-amber-950/50 transition-all text-sm uppercase tracking-wider flex items-center gap-2">
+                        class="flex-1 min-w-0 bg-[#040609] border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-amber-500 transition-all shadow-inner">
+                    <button type="submit" :disabled="procesando"
+                        class="bg-gradient-to-r from-amber-600 to-amber-500 text-gray-950 font-bold px-6 py-3 rounded-xl hover:from-amber-500 hover:to-amber-400 shadow-lg shadow-amber-950/50 transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
-                        PREGUNTAR
+                        <span x-text="procesando ? 'Analizando...' : 'Preguntar'"></span>
                     </button>
-                </div>
-                <p id="respuesta-efata-ai" class="text-[11px] text-gray-400 mt-2.5" x-text="respuestaAgente">Ingrese una
+                </form>
+                <p id="respuesta-efata-ai" role="status" aria-live="polite" class="text-[11px] mt-2.5" :class="errorConsulta ? 'text-red-400' : 'text-gray-400'" x-text="respuestaAgente">Ingrese una
                     coordenada bíblica
                     precisa para activar el análisis multiversión y exegético.</p>
-            </div>
-
-            <div id="resultados-exegesis" x-show="exegesisApi"
-                class="bg-[#0b0e14] border border-amber-500/30 rounded-2xl p-6 shadow-2xl mb-8" style="display: none;">
-                <h3 class="text-xl font-bold text-amber-400 mb-4">Análisis Teológico</h3>
-                <div class="space-y-4 text-sm text-gray-300">
-                    <div>
-                        <h4 class="font-semibold text-amber-200">Textos Bíblicos:</h4>
-                        <pre class="mt-1 whitespace-pre-wrap font-sans"
-                            x-text="formatearDato(exegesisApi.versiones)"></pre>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-amber-200">Léxico Original:</h4>
-                        <pre class="mt-1 whitespace-pre-wrap font-sans"
-                            x-text="formatearDato(exegesisApi.lexico)"></pre>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-amber-200">Contexto Histórico:</h4>
-                        <p class="mt-1" x-text="exegesisApi.contexto"></p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-amber-200">Aplicación Práctica:</h4>
-                        <p class="mt-1" x-text="exegesisApi.aplicacion"></p>
-                    </div>
-                </div>
             </div>
 
             <!-- TARJETA MULTIVERSIÓN DE TEXTO BÍBLICO -->
@@ -297,15 +292,9 @@
                         <button @click="versionSeleccionada = 'nvi'"
                             :class="versionSeleccionada === 'nvi' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
                             class="text-[10px] px-2.5 py-1 rounded transition-all">NVI</button>
-                        <button @click="versionSeleccionada = 'ntv'"
-                            :class="versionSeleccionada === 'ntv' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
-                            class="text-[10px] px-2.5 py-1 rounded transition-all">NTV</button>
                         <button @click="versionSeleccionada = 'nbla'"
                             :class="versionSeleccionada === 'nbla' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
                             class="text-[10px] px-2.5 py-1 rounded transition-all">NBLA</button>
-                        <button @click="versionSeleccionada = 'peshitta'"
-                            :class="versionSeleccionada === 'peshitta' ? 'bg-amber-600 text-gray-950 font-bold shadow' : 'text-gray-400 hover:text-white'"
-                            class="text-[10px] px-2.5 py-1 rounded transition-all">Peshitta</button>
                     </div>
                 </div>
 
@@ -328,7 +317,7 @@
                             </svg>
                             Comentarios de Estudio (Biblia NBLA - John MacArthur)
                         </h4>
-                        <p class="text-gray-300 text-sm leading-relaxed" x-html="comentarioMacArthur"></p>
+                        <p class="text-gray-300 text-sm leading-relaxed" x-text="comentarioMacArthur"></p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-gray-800 text-[10px] text-amber-500 font-medium">Exégesis
                         Pastoral Rigurosa</div>
@@ -348,7 +337,7 @@
                             Raíz en Idioma Original (Griego / Hebreo)
                         </h4>
                         <p id="raiz-idioma-original" class="text-gray-300 text-sm leading-relaxed"
-                            x-html="analisisOriginal"></p>
+                            x-text="analisisOriginal"></p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-gray-800 text-[10px] text-amber-500 font-medium">Análisis
                         Morfológico y Etimológico</div>
@@ -363,7 +352,7 @@
                                 d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
                             </path>
                         </svg>
-                        Perspectiva Histórica y Teológica Avanzada
+                        Aplicación Ministerial y Renovación Mental
                     </h4>
                     <p id="perspectiva-erudita" class="text-gray-300 text-sm leading-relaxed"
                         x-text="comentarioErudito"></p>
@@ -375,19 +364,19 @@
 
     <!-- Motor JavaScript Asíncrono con Gestión de Sesión Local -->
     <script>
-        // Inicialización del cliente Supabase con credenciales de producción
-        const SUPABASE_URL = "https://xzjoruazhlwmaebnnqqbv.supabase.co";
-        const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY_PUBLICA";
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let supabaseClient;
 
         function cieloApp() {
             return {
-                isLoggedIn: localStorage.getItem('cielo_session_active') === 'true',
+                sesionVerificada: false,
+                isLoggedIn: false,
+                autenticando: false,
                 loginEmail: '',
                 loginPass: '',
-
+                loginError: '',
                 busqueda: '',
                 procesando: false,
+                errorConsulta: false,
                 resultadoMostrado: false,
                 versionesDisponibles: {},
                 versionSeleccionada: 'rvr1960',
@@ -396,185 +385,98 @@
                 comentarioErudito: '',
                 comentarioMacArthur: '',
                 analisisOriginal: '',
-                exegesisApi: null,
 
-                iniciarSesion() {
-                    if (this.loginEmail.trim() !== '' && this.loginPass.trim() !== '') {
-                        localStorage.setItem('cielo_session_active', 'true');
-                        localStorage.setItem('cielo_user_email', this.loginEmail);
-                        this.isLoggedIn = true;
+                async init() {
+                    try {
+                        const response = await fetch('/api/config');
+                        const config = await response.json();
+                        if (!response.ok) throw new Error(config.error || 'No se pudo cargar la configuración.');
+
+                        supabaseClient = supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+                        const { data } = await supabaseClient.auth.getSession();
+                        this.isLoggedIn = Boolean(data.session);
+                        supabaseClient.auth.onAuthStateChange((_event, session) => {
+                            this.isLoggedIn = Boolean(session);
+                        });
+                    } catch (error) {
+                        this.loginError = error.message || 'La autenticación no está disponible.';
+                    } finally {
+                        this.sesionVerificada = true;
                     }
                 },
 
-                cerrarSesion() {
-                    localStorage.removeItem('cielo_session_active');
+                async iniciarSesion() {
+                    if (!supabaseClient || this.autenticando) return;
+                    this.autenticando = true;
+                    this.loginError = '';
+                    const { error } = await supabaseClient.auth.signInWithPassword({
+                        email: this.loginEmail.trim(),
+                        password: this.loginPass
+                    });
+                    if (error) this.loginError = 'Correo o contraseña incorrectos, o cuenta no autorizada.';
+                    else this.loginPass = '';
+                    this.autenticando = false;
+                },
+
+                async cerrarSesion() {
+                    if (supabaseClient) await supabaseClient.auth.signOut();
                     this.isLoggedIn = false;
-                },
-
-                normalizarReferencia(input) {
-                    const limpio = input.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    const regex = /^(\d?\s*[a-zA-Z]+)\s+(\d+)(?:\s*[:\s]\s*(\d+))?$/;
-                    const match = limpio.match(regex);
-
-                    if (match) {
-                        let libroInput = match[1].trim().replace(/\s+/g, '-');
-                        let capitulo = parseInt(match[2]);
-                        let versiculo = parseInt(match[3] || "1");
-
-                        return {
-                            libroKey: libroInput,
-                            libroNombreOriginal: match[1].trim(),
-                            capitulo: capitulo,
-                            versiculo: versiculo,
-                            formatoBonito: `${match[1].trim().toUpperCase()} ${capitulo}:${versiculo}`
-                        };
-                    }
-                    return null;
-                },
-
-                formatearDato(valor) {
-                    if (valor === null || valor === undefined) return 'No disponible.';
-                    return typeof valor === 'string' ? valor : JSON.stringify(valor, null, 2);
+                    this.resultadoMostrado = false;
                 },
 
                 async manejarConsultaIA() {
                     const query = this.busqueda.trim();
-                    if (!query) return;
+                    if (!query || this.procesando || !supabaseClient) return;
 
                     this.procesando = true;
-                    this.resultadoMostrado = true;
-                    this.exegesisApi = null;
-                    this.versionesDisponibles = {};
-                    this.respuestaAgente = 'Consultando el motor exegético...';
+                    this.errorConsulta = false;
+                    this.resultadoMostrado = false;
+                    this.respuestaAgente = 'Sintetizando análisis multiversión y exegético...';
 
                     try {
-                        const respuesta = await fetch('/api/exegesis', {
+                        const { data: sessionData } = await supabaseClient.auth.getSession();
+                        const token = sessionData.session?.access_token;
+                        if (!token) throw new Error('Tu sesión venció. Inicia sesión nuevamente.');
+
+                        const response = await fetch('/api/exegesis', {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${token}`
+                            },
                             body: JSON.stringify({ consulta: query })
                         });
-
-                        const resultado = await respuesta.json();
-                        if (!respuesta.ok || !resultado.success) {
-                            throw new Error(resultado.error || 'No se pudo procesar la consulta.');
+                        const result = await response.json();
+                        if (response.status === 401) {
+                            await this.cerrarSesion();
+                            throw new Error('Tu sesión venció. Inicia sesión nuevamente.');
                         }
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo procesar la consulta.');
 
-                        const data = resultado.data || {};
-                        this.exegesisApi = {
-                            versiones: data.versiones,
-                            lexico: data.lexico,
-                            contexto: data.contexto || 'No disponible.',
-                            aplicacion: data.aplicacion || 'No disponible.'
-                        };
+                        const data = result.data || {};
                         this.versionesDisponibles = data.versiones || {};
-                        this.versionSeleccionada = 'rvr1960';
+                        this.versionSeleccionada = Object.keys(this.versionesDisponibles)[0] || 'rvr1960';
                         this.refFormateada = query;
-                        this.respuestaAgente = data.contexto || this.formatearDato(data);
-                        this.procesando = false;
+                        this.comentarioMacArthur = data.comentarioMacArthur || 'Comentario no disponible.';
+                        const original = data.idiomaOriginal || {};
+                        this.analisisOriginal = [original.termino, original.strong, original.analisis].filter(Boolean).join(' · ') || 'Análisis no disponible.';
+                        this.comentarioErudito = data.aplicacion || 'Aplicación no disponible.';
+                        this.respuestaAgente = 'Análisis completado. Revisa las traducciones y módulos de estudio.';
+                        this.resultadoMostrado = true;
                     } catch (error) {
-                        console.error('Error de conexión con el servidor exegético:', error);
-                        this.exegesisApi = null;
-                        this.respuestaAgente = 'Error de conexión con el servidor.';
+                        this.errorConsulta = true;
+                        this.respuestaAgente = error.message || 'Error de conexión con el servidor.';
+                    } finally {
                         this.procesando = false;
                     }
-                },
-
-                limpiarTexto(texto) {
-                    if (!texto) return "Traducción no disponible.";
-                    return texto.replace(/\/n/g, ' ').replace(/\\n/g, ' ').replace(/^['"“„«]+|['"”»]+$/g, '').replace(/\s+/g, ' ').trim();
                 },
 
                 get textoActual() {
-                    return this.versionesDisponibles[this.versionSeleccionada] || "Traducción no disponible.";
+                    return this.versionesDisponibles[this.versionSeleccionada] || 'Traducción no disponible.';
                 }
-            }
+            };
         }
 
-        async function ejecutarConsultaEfata() {
-            const inputElement = document.getElementById('efata-input') || document.querySelector('input[type="text"]');
-            if (!inputElement) return;
-
-            const consulta = inputElement.value.trim();
-            if (!consulta) return;
-
-            const cajaRespuesta = document.getElementById('respuesta-efata-ai');
-            const cajaLexico = document.getElementById('raiz-idioma-original');
-            const cajaPerspectiva = document.getElementById('perspectiva-erudita');
-
-            if (cajaRespuesta) cajaRespuesta.innerHTML = '<p class="text-amber-400 animate-pulse">Sintetizando análisis multiversión y exégesis...</p>';
-            if (cajaLexico) cajaLexico.innerHTML = 'Extrayendo raíces en hebreo/griego...';
-            if (cajaPerspectiva) cajaPerspectiva.innerHTML = 'Consultando notas doctrinales...';
-
-            try {
-                const response = await fetch('/api/exegesis', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ consulta: consulta })
-                });
-
-                const resultadoJson = await response.json();
-                if (resultadoJson.success) {
-                    const data = resultadoJson.data || {};
-
-                    if (cajaRespuesta) {
-                        cajaRespuesta.innerHTML = `
-                            <div class="space-y-4 text-slate-200">
-                                <div class="bg-slate-950/70 p-3 rounded-lg border border-amber-600/30 space-y-2">
-                                    <h4 class="text-xs uppercase tracking-wider text-amber-400 font-bold">Versiones Bíblicas</h4>
-                                    <p class="text-xs text-slate-300"><strong>RVR1960:</strong> ${data.versiones?.rvr1960 || 'N/A'}</p>
-                                    <p class="text-xs text-slate-300"><strong>NBLA:</strong> ${data.versiones?.nbla || 'N/A'}</p>
-                                    <p class="text-xs text-slate-300"><strong>NVI:</strong> ${data.versiones?.nvi || 'N/A'}</p>
-                                </div>
-                                <div>
-                                    <h4 class="text-xs uppercase tracking-wider text-amber-400 font-bold mb-1">Comentario Exegético y Teológico</h4>
-                                    <p class="text-sm leading-relaxed">${data.comentarioMacArthur || data.contexto || ''}</p>
-                                </div>
-                                ${data.aplicacion ? `<div class="p-2 bg-amber-950/40 border border-amber-600/30 rounded text-xs text-amber-200"><strong>Aplicación y Renovación Mental:</strong> ${data.aplicacion}</div>` : ''}
-                            </div>
-                        `;
-                    }
-
-                    if (cajaLexico && data.idiomaOriginal) {
-                        cajaLexico.innerHTML = `
-                            <div class="space-y-1 text-slate-300 text-xs">
-                                <p><strong class="text-amber-400">Término:</strong> ${data.idiomaOriginal.termino || 'N/A'}</p>
-                                <p><strong class="text-amber-400">Strong:</strong> ${data.idiomaOriginal.strong || 'N/A'}</p>
-                                <p class="mt-1">${data.idiomaOriginal.analisis || ''}</p>
-                            </div>
-                        `;
-                    } else if (cajaLexico && data.lexico) {
-                        cajaLexico.textContent = typeof data.lexico === 'object' ? JSON.stringify(data.lexico) : data.lexico;
-                    }
-
-                    if (cajaPerspectiva) {
-                        cajaPerspectiva.innerHTML = `
-                            <div class="text-slate-300 text-xs leading-relaxed space-y-1">
-                                <p><strong class="text-amber-400">Contexto Histórico-Gramatical:</strong></p>
-                                <p>${data.contexto || 'Análisis estructurado bajo los parámetros de estudio exegético profundo.'}</p>
-                            </div>
-                        `;
-                    }
-                } else if (cajaRespuesta) {
-                    cajaRespuesta.innerHTML = '<span class="text-red-400">Error al procesar la consulta en el motor.</span>';
-                }
-            } catch (error) {
-                console.error('Error crítico:', error);
-                if (cajaRespuesta) cajaRespuesta.innerHTML = '<span class="text-red-400">Error de conexión con el servidor.</span>';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const botonPreguntar = Array.from(document.querySelectorAll('button')).find((el) => el.textContent.trim().toUpperCase() === 'PREGUNTAR');
-            if (botonPreguntar) {
-                const nuevoBoton = botonPreguntar.cloneNode(true);
-                nuevoBoton.removeAttribute('onclick');
-                botonPreguntar.parentNode.replaceChild(nuevoBoton, botonPreguntar);
-                nuevoBoton.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    ejecutarConsultaEfata();
-                });
-            }
-        });
     </script>
 </body>
 
