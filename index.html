@@ -713,23 +713,96 @@
 
                     <!-- ============ PLANES ============ -->
                     <section x-show="vista === 'planes'" class="space-y-6">
-                        <div>
-                            <h2 class="text-2xl font-bold text-gold-50 font-serif">Planes de lectura</h2>
-                            <p class="text-sm text-gray-500 mt-1">El camino del evangelio en tres etapas.</p>
+                        <!-- Vista catálogo -->
+                        <div x-show="!planActivo" x-cloak class="space-y-6">
+                            <div>
+                                <h2 class="text-2xl font-bold text-gold-50 font-serif">Planes de lectura</h2>
+                                <p class="text-sm text-gray-500 mt-1">Elige un camino y avanza día a día. RevelatiO guarda tu progreso.</p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <template x-for="plan in planesCatalogo" :key="plan.id">
+                                    <button @click="abrirPlan(plan.id)" class="text-left bg-panel border rounded-2xl p-6 transition-all hover:shadow-lg"
+                                        :class="plan.destacado ? 'border-gold-500/40' : 'border-line hover:border-gold-500/30'">
+                                        <div class="flex items-center justify-between gap-3 mb-3">
+                                            <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full"
+                                                :class="plan.destacado ? 'bg-gold-600/20 text-gold-300' : 'bg-ink text-gray-400'" x-text="plan.categoria"></span>
+                                            <span class="text-[11px] text-gray-500" x-text="plan.duracion + ' días'"></span>
+                                        </div>
+                                        <h3 class="text-lg font-serif text-gold-100 mb-1.5" x-text="plan.titulo"></h3>
+                                        <p class="text-sm text-gray-400 leading-relaxed mb-4" x-text="plan.descripcion"></p>
+                                        <!-- Barra de progreso -->
+                                        <div class="flex items-center gap-3">
+                                            <div class="flex-1 h-1.5 bg-ink rounded-full overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-gold-600 to-gold-400 transition-all" :style="`width: ${planProgreso(plan.id)}%`"></div>
+                                            </div>
+                                            <span class="text-[11px] font-semibold shrink-0"
+                                                :class="planProgreso(plan.id) > 0 ? 'text-gold-300' : 'text-gray-600'"
+                                                x-text="planProgreso(plan.id) > 0 ? planProgreso(plan.id) + '%' : 'Nuevo'"></span>
+                                        </div>
+                                        <p class="mt-3 text-xs font-semibold text-gold-400 flex items-center gap-1">
+                                            <span x-text="planProgreso(plan.id) > 0 ? (planProgreso(plan.id) === 100 ? 'Completado · repasar' : 'Continuar') : 'Comenzar plan'"></span>
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 6l6 6-6 6"></path></svg>
+                                        </p>
+                                    </button>
+                                </template>
+                            </div>
                         </div>
-                        <div class="space-y-5">
-                            <template x-for="plan in planes" :key="plan.titulo">
-                                <div class="bg-panel border border-line rounded-2xl p-6">
-                                    <div class="flex items-start gap-4 mb-4">
-                                        <span class="w-10 h-10 rounded-xl bg-gold-600/15 text-gold-400 font-bold flex items-center justify-center shrink-0 font-serif text-lg" x-text="plan.etapa"></span>
-                                        <div>
-                                            <h3 class="text-base font-semibold text-gold-100" x-text="plan.titulo"></h3>
-                                            <p class="text-xs text-gray-500 mt-0.5" x-text="plan.subtitulo"></p>
+
+                        <!-- Vista detalle del plan -->
+                        <div x-show="planActivo" x-cloak class="space-y-6">
+                            <template x-if="planActivo">
+                                <div class="space-y-6">
+                                    <button @click="volverACatalogo()" class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gold-300 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M15 6l-6 6 6 6"></path></svg>
+                                        Todos los planes
+                                    </button>
+
+                                    <!-- Cabecera con progreso -->
+                                    <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
+                                        <div class="flex flex-wrap items-start justify-between gap-3">
+                                            <div>
+                                                <span class="text-[10px] uppercase tracking-wider font-semibold text-gold-400" x-text="planActivo.categoria"></span>
+                                                <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1" x-text="planActivo.titulo"></h2>
+                                                <p class="text-sm text-gray-400 mt-1.5 max-w-xl" x-text="planActivo.descripcion"></p>
+                                            </div>
+                                            <div class="text-right shrink-0">
+                                                <p class="text-3xl font-bold text-gold-100 font-serif" x-text="planProgreso(planActivo.id) + '%'"></p>
+                                                <p class="text-[11px] text-gray-500" x-text="diasCompletados(planActivo.id).length + ' / ' + planActivo.duracion + ' días'"></p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 h-2 bg-ink rounded-full overflow-hidden">
+                                            <div class="h-full bg-gradient-to-r from-gold-600 to-gold-400 transition-all" :style="`width: ${planProgreso(planActivo.id)}%`"></div>
+                                        </div>
+                                        <div class="mt-4 flex flex-wrap gap-2">
+                                            <button @click="irAlSiguienteDia()" class="text-xs bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-4 py-2 rounded-lg hover:from-gold-500 hover:to-gold-400 transition-all" x-text="planProgreso(planActivo.id) === 100 ? 'Plan completado' : 'Leer día de hoy'"></button>
+                                            <button x-show="diasCompletados(planActivo.id).length" @click="reiniciarPlan(planActivo.id)" class="text-xs bg-ink text-gray-400 border border-line px-4 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">Reiniciar progreso</button>
                                         </div>
                                     </div>
-                                    <div class="flex flex-wrap gap-2">
-                                        <template x-for="ref in plan.pasajes" :key="ref">
-                                            <button @click="leerReferencia(ref)" class="text-xs bg-ink border border-line text-gray-300 px-3 py-1.5 rounded-lg hover:border-gold-500/40 hover:text-gold-200 transition-all" x-text="ref"></button>
+
+                                    <!-- Lista de días -->
+                                    <div class="space-y-3">
+                                        <template x-for="(dia, i) in planActivo.dias" :key="i">
+                                            <div class="bg-panel border rounded-xl p-4 transition-all"
+                                                :class="diaCompleto(planActivo.id, i) ? 'border-gold-500/40' : 'border-line'">
+                                                <div class="flex items-center gap-3">
+                                                    <button @click="toggleDia(planActivo.id, i)" class="shrink-0 w-6 h-6 rounded-md border flex items-center justify-center transition-all"
+                                                        :class="diaCompleto(planActivo.id, i) ? 'bg-gold-500 border-gold-500 text-gray-950' : 'border-line text-transparent hover:border-gold-500/50'"
+                                                        :aria-label="diaCompleto(planActivo.id, i) ? 'Marcar día como pendiente' : 'Marcar día como leído'">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                                                    </button>
+                                                    <div class="flex-1 min-w-0">
+                                                        <div class="flex items-center gap-2">
+                                                            <span x-show="dia.etapa" class="text-[10px] font-bold text-gold-400 bg-gold-600/15 px-1.5 py-0.5 rounded" x-text="'Etapa ' + dia.etapa"></span>
+                                                            <p class="text-sm font-semibold" :class="diaCompleto(planActivo.id, i) ? 'text-gold-300' : 'text-gold-100'" x-text="dia.titulo"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3 pl-9">
+                                                    <template x-for="ref in dia.pasajes" :key="ref">
+                                                        <button @click="leerReferencia(ref)" class="text-xs bg-ink border border-line text-gray-300 px-3 py-1.5 rounded-lg hover:border-gold-500/40 hover:text-gold-200 transition-all" x-text="ref"></button>
+                                                    </template>
+                                                </div>
+                                            </div>
                                         </template>
                                     </div>
                                 </div>
@@ -825,10 +898,87 @@
             { ref: 'Romanos 8:28', tema: 'A los que aman a Dios, todas las cosas les ayudan a bien.' }
         ];
 
-        const PLANES = [
-            { etapa: 'I', titulo: 'Confesión y arrepentimiento', subtitulo: 'Reconocer el pecado y volver a Dios · 1 Juan 1:9', pasajes: ['1 Juan 1:9', 'Salmos 51:10', 'Isaías 55:7', 'Hechos 3:19', 'Lucas 15:18'] },
-            { etapa: 'II', titulo: 'Conversión y estudio de la Palabra', subtitulo: 'Nacer de nuevo y crecer en la Escritura · 1 Pedro 2:2', pasajes: ['1 Pedro 2:2', 'Juan 3:3', 'Romanos 10:9', '2 Timoteo 3:16', 'Josué 1:8'] },
-            { etapa: 'III', titulo: 'Firmes y constantes en la fe', subtitulo: 'Permanecer sólidos hasta el fin · 1 Corintios 15:58', pasajes: ['1 Corintios 15:58', 'Hebreos 10:23', 'Gálatas 6:9', 'Efesios 6:13', 'Santiago 1:12'] }
+        // Helpers para construir planes día a día con referencias reales.
+        const caps = (libro, n) => Array.from({ length: n }, (_, i) => `${libro} ${i + 1}`);
+        const trocear = (arr, tam) => { const o = []; for (let i = 0; i < arr.length; i += tam) o.push(arr.slice(i, i + tam)); return o; };
+        // Convierte una lista de capítulos en días de N capítulos, con título automático.
+        const diasPorCapitulos = (capsArr, porDia) => trocear(capsArr, porDia).map((grupo, i) => ({
+            titulo: `Día ${i + 1}`,
+            pasajes: grupo
+        }));
+
+        const PLANES_CATALOGO = [
+            {
+                id: 'camino-revelatio',
+                titulo: 'El Camino RevelatiO',
+                categoria: 'Discipulado',
+                duracion: 21,
+                destacado: true,
+                descripcion: 'Tres semanas por el corazón del evangelio: del pecado reconocido a una mente firme y renovada.',
+                dias: [
+                    { titulo: 'Día 1 · Confesión', etapa: 'I', pasajes: ['1 Juan 1:9', 'Salmos 32:5'] },
+                    { titulo: 'Día 2 · Un corazón contrito', etapa: 'I', pasajes: ['Salmos 51:1-12'] },
+                    { titulo: 'Día 3 · Volver a Dios', etapa: 'I', pasajes: ['Isaías 55:6-7', 'Joel 2:12-13'] },
+                    { titulo: 'Día 4 · Arrepentíos', etapa: 'I', pasajes: ['Hechos 3:19', 'Lucas 13:3-5'] },
+                    { titulo: 'Día 5 · El hijo que vuelve', etapa: 'I', pasajes: ['Lucas 15:11-24'] },
+                    { titulo: 'Día 6 · Tristeza que salva', etapa: 'I', pasajes: ['2 Corintios 7:9-10'] },
+                    { titulo: 'Día 7 · Perdón y limpieza', etapa: 'I', pasajes: ['Salmos 103:8-14'] },
+                    { titulo: 'Día 8 · Nacer de nuevo', etapa: 'II', pasajes: ['Juan 3:1-8'] },
+                    { titulo: 'Día 9 · Confesar y creer', etapa: 'II', pasajes: ['Romanos 10:8-13'] },
+                    { titulo: 'Día 10 · Nueva criatura', etapa: 'II', pasajes: ['2 Corintios 5:17', 'Efesios 2:8-10'] },
+                    { titulo: 'Día 11 · Desead la Palabra', etapa: 'II', pasajes: ['1 Pedro 2:1-3', 'Salmos 1'] },
+                    { titulo: 'Día 12 · Toda la Escritura', etapa: 'II', pasajes: ['2 Timoteo 3:14-17'] },
+                    { titulo: 'Día 13 · Medita de día y de noche', etapa: 'II', pasajes: ['Josué 1:8-9', 'Salmos 119:9-16'] },
+                    { titulo: 'Día 14 · Renovad vuestra mente', etapa: 'II', pasajes: ['Romanos 12:1-2'] },
+                    { titulo: 'Día 15 · Firmes y constantes', etapa: 'III', pasajes: ['1 Corintios 15:58'] },
+                    { titulo: 'Día 16 · Retened la esperanza', etapa: 'III', pasajes: ['Hebreos 10:23-25'] },
+                    { titulo: 'Día 17 · No os canséis', etapa: 'III', pasajes: ['Gálatas 6:9', 'Hebreos 12:1-3'] },
+                    { titulo: 'Día 18 · La armadura de Dios', etapa: 'III', pasajes: ['Efesios 6:10-18'] },
+                    { titulo: 'Día 19 · Bienaventurado el que persevera', etapa: 'III', pasajes: ['Santiago 1:2-4', 'Santiago 1:12'] },
+                    { titulo: 'Día 20 · Permaneced en Mí', etapa: 'III', pasajes: ['Juan 15:1-11'] },
+                    { titulo: 'Día 21 · He guardado la fe', etapa: 'III', pasajes: ['2 Timoteo 4:6-8', 'Filipenses 1:6'] }
+                ]
+            },
+            {
+                id: 'proverbios-31',
+                titulo: 'Proverbios en 31 días',
+                categoria: 'Sabiduría',
+                duracion: 31,
+                descripcion: 'Un capítulo de Proverbios por día: sabiduría práctica para cada jornada del mes.',
+                dias: caps('Proverbios', 31).map((c, i) => ({ titulo: `Día ${i + 1}`, pasajes: [c] }))
+            },
+            {
+                id: 'salmos-consuelo',
+                titulo: 'Salmos para el alma',
+                categoria: 'Consuelo',
+                duracion: 30,
+                descripcion: 'Treinta salmos de refugio, gratitud y esperanza para fortalecer el corazón.',
+                dias: ['Salmos 1', 'Salmos 8', 'Salmos 16', 'Salmos 19', 'Salmos 23', 'Salmos 27', 'Salmos 32', 'Salmos 34', 'Salmos 37', 'Salmos 40', 'Salmos 42', 'Salmos 46', 'Salmos 51', 'Salmos 62', 'Salmos 63', 'Salmos 84', 'Salmos 90', 'Salmos 91', 'Salmos 100', 'Salmos 103', 'Salmos 107', 'Salmos 118', 'Salmos 119:105-112', 'Salmos 121', 'Salmos 126', 'Salmos 130', 'Salmos 138', 'Salmos 139', 'Salmos 145', 'Salmos 150']
+                    .map((s, i) => ({ titulo: `Día ${i + 1}`, pasajes: [s] }))
+            },
+            {
+                id: 'evangelios',
+                titulo: 'Los Evangelios',
+                categoria: 'Vida de Jesús',
+                duracion: 30,
+                descripcion: 'Recorre Mateo, Marcos, Lucas y Juan en un mes, ~3 capítulos por día.',
+                dias: diasPorCapitulos([
+                    ...caps('Mateo', 28), ...caps('Marcos', 16), ...caps('Lucas', 24), ...caps('Juan', 21)
+                ], 3)
+            },
+            {
+                id: 'cartas-pablo',
+                titulo: 'Cartas de Pablo',
+                categoria: 'Doctrina',
+                duracion: 33,
+                descripcion: 'De Romanos a Filemón: la doctrina y el corazón pastoral del apóstol, un par de capítulos por día.',
+                dias: diasPorCapitulos([
+                    ...caps('Romanos', 16), ...caps('1 Corintios', 16), ...caps('2 Corintios', 13),
+                    ...caps('Gálatas', 6), ...caps('Efesios', 6), ...caps('Filipenses', 4),
+                    ...caps('Colosenses', 4), ...caps('1 Tesalonicenses', 5), ...caps('2 Tesalonicenses', 3),
+                    ...caps('1 Timoteo', 6), ...caps('2 Timoteo', 4), ...caps('Tito', 3), ...caps('Filemón', 1)
+                ], 3)
+            }
         ];
 
         const TEMAS_ESTUDIO = [
@@ -877,7 +1027,9 @@
                 ],
 
                 // datos
-                planes: PLANES,
+                planesCatalogo: PLANES_CATALOGO,
+                planActivoId: null,
+                progresoPlanes: {},
                 temasEstudio: TEMAS_ESTUDIO,
                 temaLibre: '',
                 versiculoDelDia: VERSICULOS_DIA[0],
@@ -950,6 +1102,7 @@
                 async init() {
                     const dia = Math.floor(Date.now() / 86400000) % VERSICULOS_DIA.length;
                     this.versiculoDelDia = VERSICULOS_DIA[dia];
+                    this.cargarProgresoPlanes();
                     try {
                         const response = await fetch('/api/config');
                         const config = await response.json();
@@ -1429,6 +1582,60 @@
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
                         this.referenciasBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
                     }
+                },
+
+                // ---------- Planes de lectura ----------
+                get planActivo() {
+                    return this.planesCatalogo.find(p => p.id === this.planActivoId) || null;
+                },
+                diasCompletados(planId) {
+                    return this.progresoPlanes[planId] || [];
+                },
+                diaCompleto(planId, i) {
+                    return this.diasCompletados(planId).includes(i);
+                },
+                planProgreso(planId) {
+                    const plan = this.planesCatalogo.find(p => p.id === planId);
+                    if (!plan || !plan.dias.length) return 0;
+                    return Math.round((this.diasCompletados(planId).length / plan.dias.length) * 100);
+                },
+                abrirPlan(id) {
+                    this.planActivoId = id;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                volverACatalogo() {
+                    this.planActivoId = null;
+                },
+                toggleDia(planId, i) {
+                    const actual = [...this.diasCompletados(planId)];
+                    const idx = actual.indexOf(i);
+                    if (idx === -1) actual.push(i); else actual.splice(idx, 1);
+                    this.progresoPlanes = { ...this.progresoPlanes, [planId]: actual };
+                    this.guardarProgresoPlanes();
+                },
+                reiniciarPlan(planId) {
+                    const copia = { ...this.progresoPlanes };
+                    delete copia[planId];
+                    this.progresoPlanes = copia;
+                    this.guardarProgresoPlanes();
+                },
+                irAlSiguienteDia() {
+                    const plan = this.planActivo;
+                    if (!plan) return;
+                    const completados = this.diasCompletados(plan.id);
+                    let dia = plan.dias.findIndex((_, i) => !completados.includes(i));
+                    if (dia === -1) dia = 0; // todo completado: repasar desde el inicio
+                    const primeraRef = plan.dias[dia]?.pasajes?.[0];
+                    if (primeraRef) this.leerReferencia(primeraRef);
+                },
+                guardarProgresoPlanes() {
+                    try { localStorage.setItem('revelatio-planes-progreso', JSON.stringify(this.progresoPlanes)); } catch (_e) {}
+                },
+                cargarProgresoPlanes() {
+                    try {
+                        const raw = localStorage.getItem('revelatio-planes-progreso');
+                        if (raw) this.progresoPlanes = JSON.parse(raw) || {};
+                    } catch (_e) { this.progresoPlanes = {}; }
                 },
 
                 buscarGlobal() {
