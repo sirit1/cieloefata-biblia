@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CieloEfata: plataforma de estudio bíblico. Lee la Palabra en varias versiones, estudia con profundidad y consulta el motor exegético CieloEfata IA.">
+    <meta name="description" content="RevelatiO by Efata: plataforma ministerial de inteligencia exegética, conversión y sanidad de la mente. Estudia la Palabra con rigor, idiomas originales y renovación de la mente. Libre distribución y completamente gratuita.">
     <meta name="theme-color" content="#040609">
-    <title>CieloEfata | Plataforma de Estudio Bíblico</title>
+    <title>RevelatiO by Efata | Inteligencia Exegética y Renovación de la Mente</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -60,7 +60,7 @@
                 <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
                 </svg>
-                Preparando la plataforma...
+                Preparando RevelatiO...
             </div>
         </div>
     </div>
@@ -71,10 +71,11 @@
             <div class="bg-panel border border-gold-500/30 rounded-3xl p-8 shadow-2xl">
                 <div class="text-center mb-7">
                     <div class="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-4 border border-gold-500/40 shadow-lg shadow-gold-600/10">
-                        <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-full h-full object-cover">
+                        <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="RevelatiO by Efata" class="w-full h-full object-cover">
                     </div>
-                    <h1 class="text-2xl font-bold text-gold-100 font-serif">CieloEfata</h1>
-                    <p class="text-xs text-gold-400 mt-1 tracking-wide">Plataforma de Estudio Bíblico</p>
+                    <h1 class="text-3xl font-bold text-gold-100 font-serif tracking-tight">RevelatiO</h1>
+                    <p class="text-xs text-gold-400 mt-1 tracking-[0.25em] uppercase">by Efata</p>
+                    <p class="text-[11px] text-gray-400 mt-3 leading-relaxed max-w-xs mx-auto">Inteligencia exegética, conversión y renovación de la mente.</p>
                 </div>
 
                 <form @submit.prevent="iniciarSesion()" class="space-y-4">
@@ -100,11 +101,15 @@
                         <span x-text="autenticando ? 'Verificando...' : 'Entrar'"></span>
                     </button>
                 </form>
-                <p class="text-[11px] text-center text-gray-500 mt-6 leading-relaxed">Acceso exclusivo para miembros del Ministerio CieloEfata.<br>Las cuentas se otorgan por invitación.</p>
+                <p class="text-[11px] text-center text-gray-500 mt-6 leading-relaxed">Plataforma de libre distribución, completamente gratuita para la edificación del pueblo de Dios.<br>El acceso se otorga por invitación.</p>
             </div>
-            <div class="flex items-center justify-center gap-1.5 mt-5">
-                <span class="text-[11px] text-gray-500">Impulsado por</span>
-                <span class="text-xs font-extrabold text-cyan-400">Xtra</span><span class="text-xs font-extrabold text-white">Metrik</span>
+            <div class="mt-5 space-y-1.5 text-center">
+                <p class="text-[10px] text-gray-500">Desarrollo y arquitectura de IA ética
+                    <span class="font-extrabold text-cyan-400">Xtra</span><span class="font-extrabold text-white">metrik</span>
+                </p>
+                <p class="text-[10px] text-gray-500">Sello editorial y dirección teológica
+                    <span class="font-semibold text-gold-300">Cielo-Efata</span>
+                </p>
             </div>
         </div>
     </div>
@@ -120,11 +125,11 @@
 
             <a href="#" @click.prevent="irA('inicio')" class="flex items-center gap-2.5 shrink-0">
                 <div class="w-9 h-9 rounded-xl overflow-hidden border border-gold-500/40 shadow shrink-0">
-                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="CieloEfata" class="w-full h-full object-cover">
+                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="RevelatiO by Efata" class="w-full h-full object-cover">
                 </div>
                 <div class="hidden sm:block leading-tight">
-                    <p class="text-sm font-bold text-gold-100 font-serif">CieloEfata</p>
-                    <p class="text-[10px] text-gold-400/80">Estudio Bíblico</p>
+                    <p class="text-sm font-bold text-gold-100 font-serif tracking-tight">RevelatiO</p>
+                    <p class="text-[10px] text-gold-400/80 tracking-[0.18em] uppercase">by Efata</p>
                 </div>
             </a>
 
@@ -179,19 +184,24 @@
                     <div class="pt-4 mt-3 border-t border-line">
                         <button @click="irA('ia')" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold text-sm shadow-lg shadow-gold-600/20 hover:from-gold-500 hover:to-gold-400 transition-all">
                             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z"></path></svg>
-                            Consultar CieloEfata IA
+                            Consultar RevelatiO IA
                         </button>
                     </div>
                 </nav>
 
-                <!-- Crédito XtraMetrik -->
-                <div class="p-5 border-t border-line text-center">
-                    <div class="flex items-center justify-center gap-1 mb-1">
-                        <span class="text-sm font-extrabold text-cyan-400">Xtra</span><span class="text-sm font-extrabold text-white">Metrik</span>
+                <!-- Créditos -->
+                <div class="p-5 border-t border-line space-y-3">
+                    <div>
+                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Desarrollo e IA ética</p>
+                        <a href="https://www.xtrametrik.com" target="_blank" rel="noopener" class="inline-flex items-center gap-0.5 mt-0.5 hover:opacity-80 transition-opacity">
+                            <span class="text-sm font-extrabold text-cyan-400">Xtra</span><span class="text-sm font-extrabold text-white">metrik</span>
+                        </a>
                     </div>
-                    <p class="text-[10px] text-gold-400 uppercase tracking-widest font-semibold">Powered by</p>
-                    <a href="https://www.xtrametrik.com" target="_blank" rel="noopener" class="text-[10px] text-gray-500 hover:text-cyan-400 transition-colors">xtrametrik.com</a>
-                    <p class="text-[9px] text-gray-600 mt-2">© 2026 Ministerio CieloEfata</p>
+                    <div>
+                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Sello editorial y dirección teológica</p>
+                        <p class="text-sm font-semibold text-gold-300 mt-0.5 font-serif">Cielo-Efata</p>
+                    </div>
+                    <p class="text-[9px] text-gray-600 pt-1">Libre distribución · Gratuita · © 2026</p>
                 </div>
             </aside>
 
@@ -203,11 +213,14 @@
                     <section x-show="vista === 'inicio'" class="space-y-8">
                         <div class="relative overflow-hidden rounded-3xl border border-gold-500/30 bg-panel p-6 sm:p-9">
                             <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
-                            <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Del texto a tu corazón</h2>
-                            <p class="text-sm text-gray-400 mt-3 max-w-xl leading-relaxed">Un mismo camino: confesión y arrepentimiento, conversión y estudio de la Palabra, y permanecer firmes y constantes en la fe.</p>
+                            <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Transformaos mediante la renovación de vuestra mente</h2>
+                            <blockquote class="mt-4 border-l-2 border-gold-500/50 pl-4 max-w-2xl">
+                                <p class="text-sm text-gray-300 italic leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
+                                <cite class="block text-xs text-gold-400 mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
+                            </blockquote>
                             <div class="flex flex-wrap gap-3 mt-6">
                                 <button @click="leerReferencia(versiculoDelDia.ref)" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer el pasaje del día</button>
-                                <button @click="irA('planes')" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Ver planes de lectura</button>
+                                <button @click="irA('ia')" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Consultar RevelatiO IA</button>
                             </div>
                         </div>
 
@@ -264,6 +277,31 @@
                                         <p class="text-xs text-gray-500 mt-1 leading-snug" x-text="item.desc"></p>
                                     </button>
                                 </template>
+                            </div>
+                        </div>
+
+                        <!-- Declaración de propósito -->
+                        <div class="rounded-3xl border border-line bg-panel2 p-6 sm:p-9">
+                            <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3">Declaración de propósito</p>
+                            <h3 class="text-xl sm:text-2xl font-bold text-gold-50 font-serif text-balance">No una herramienta, una plataforma ministerial</h3>
+                            <div class="mt-4 space-y-4 text-sm text-gray-400 leading-relaxed max-w-3xl">
+                                <p><span class="text-gold-200 font-semibold">RevelatiO by Efata</span> nace como una plataforma de inteligencia exegética, conversión y sanidad de la mente, concebida para llevar la luz inmutable de las Escrituras a la vida del creyente y de quien busca la verdad.</p>
+                                <p>En un tiempo donde la distracción y el ruido desgastan la salud mental y la firmeza espiritual, RevelatiO une el rigor de la exégesis histórica y gramatical, el análisis de los idiomas originales, la psicología cristiana y los principios de la neuroplasticidad, para reconfigurar los patrones de pensamiento caídos a través de la verdad viva de la Palabra.</p>
+                                <p>Su fin es guiar hacia la convicción, el arrepentimiento genuino <span class="italic">(metanoia)</span>, la salvación en Jesucristo y una vida plenamente restaurada.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7">
+                                <template x-for="pilar in pilares" :key="pilar.titulo">
+                                    <div class="bg-panel border border-line rounded-2xl p-5">
+                                        <p class="text-sm font-semibold text-gold-100" x-text="pilar.titulo"></p>
+                                        <p class="text-xs text-gray-500 mt-1.5 leading-snug" x-text="pilar.desc"></p>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <div class="mt-7 flex items-start gap-3 rounded-2xl border border-gold-500/25 bg-gold-600/5 p-4">
+                                <svg class="w-5 h-5 text-gold-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path></svg>
+                                <p class="text-xs text-gray-300 leading-relaxed">Iniciativa de <span class="text-gold-200 font-semibold">libre distribución, completamente gratuita</span> para la edificación del pueblo de Dios y la extensión del Evangelio a nivel global.</p>
                             </div>
                         </div>
                     </section>
@@ -369,11 +407,11 @@
                         </div>
                     </section>
 
-                    <!-- ============ CIELOEFATA IA ============ -->
+                    <!-- ============ REVELATIO IA ============ -->
                     <section x-show="vista === 'ia'" class="space-y-6">
                         <div>
-                            <h2 class="text-2xl font-bold text-gold-50 font-serif">CieloEfata IA</h2>
-                            <p class="text-sm text-gray-500 mt-1">Motor exegético: análisis multiversión, idioma original y aplicación ministerial.</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif">RevelatiO IA</h2>
+                            <p class="text-sm text-gray-500 mt-1">Inteligencia exegética: análisis multiversión, idiomas originales y aplicación para la renovación de la mente.</p>
                         </div>
 
                         <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
@@ -443,7 +481,7 @@
                         </div>
                         <div class="bg-panel border border-gold-500/20 rounded-2xl p-6">
                             <h3 class="text-sm font-semibold text-gold-200 mb-2">Búsqueda temática libre</h3>
-                            <p class="text-xs text-gray-500 mb-4">Escribe cualquier concepto y CieloEfata IA te dará el pasaje base, el idioma original y una aplicación.</p>
+                            <p class="text-xs text-gray-500 mb-4">Escribe cualquier concepto y RevelatiO IA te dará el pasaje base, el idioma original y una aplicación.</p>
                             <form @submit.prevent="busqueda = temaLibre; irA('ia'); ejecutarEstudio(temaLibre)" class="flex flex-col sm:flex-row gap-3">
                                 <label for="tema-libre" class="sr-only">Tema a estudiar</label>
                                 <input id="tema-libre" type="text" x-model="temaLibre" maxlength="300" required placeholder="Ej: la esperanza, el temor de Dios..." class="flex-1 bg-ink border border-line rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-gold-500">
@@ -599,16 +637,22 @@
                 navegacion: [
                     { id: 'inicio', label: 'Inicio', labelCorto: 'Inicio', icon: ICON.inicio },
                     { id: 'biblia', label: 'Biblia', labelCorto: 'Biblia', icon: ICON.biblia },
-                    { id: 'ia', label: 'CieloEfata IA', labelCorto: 'IA', icon: ICON.ia },
+                    { id: 'ia', label: 'RevelatiO IA', labelCorto: 'IA', icon: ICON.ia },
                     { id: 'estudio', label: 'Estudio', labelCorto: 'Estudio', icon: ICON.estudio },
                     { id: 'planes', label: 'Planes', labelCorto: 'Planes', icon: ICON.planes },
                     { id: 'favoritos', label: 'Favoritos', labelCorto: 'Guardados', icon: ICON.favoritos }
                 ],
                 accesos: [
                     { id: 'biblia', label: 'Leer la Biblia', desc: 'Varias versiones lado a lado', icon: ICON.biblia },
-                    { id: 'ia', label: 'CieloEfata IA', desc: 'Exégesis con inteligencia', icon: ICON.ia },
+                    { id: 'ia', label: 'RevelatiO IA', desc: 'Exégesis con inteligencia ética', icon: ICON.ia },
                     { id: 'estudio', label: 'Estudio temático', desc: 'Profundiza por temas', icon: ICON.estudio },
                     { id: 'planes', label: 'Planes de lectura', desc: 'El camino del evangelio', icon: ICON.planes }
+                ],
+                pilares: [
+                    { titulo: 'Exégesis histórica y gramatical', desc: 'Rigor académico sobre el texto en su contexto original.' },
+                    { titulo: 'Idiomas originales', desc: 'Análisis del hebreo y griego que sostienen la Palabra.' },
+                    { titulo: 'Psicología cristiana', desc: 'Sanidad de la mente a la luz de las Escrituras.' },
+                    { titulo: 'Neuroplasticidad', desc: 'Reconfigurar patrones de pensamiento mediante la verdad viva.' }
                 ],
 
                 // datos
