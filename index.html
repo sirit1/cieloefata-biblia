@@ -1870,9 +1870,9 @@
                 get versionesLista() {
                     const etiquetas = {
                         rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
-                        lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004'
+                        lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta'
                     };
-                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004'];
+                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta'];
                     return Object.keys(this.versiones)
                         .filter(k => this.versiones[k])
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
