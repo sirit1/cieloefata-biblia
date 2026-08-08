@@ -1,0 +1,15 @@
+{
+  "name": "RevelatiO by Efata",
+  "short_name": "RevelatiO",
+  "description": "Estudio bíblico, idiomas originales y renovación de la mente.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F5EFE3",
+  "theme_color": "#1C2E4A",
+  "icons": [
+    { "src": "/brand/revelatio-pwa-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
