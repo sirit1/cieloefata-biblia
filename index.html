@@ -3,10 +3,49 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RevelatiO by Efata: plataforma ministerial de inteligencia exegética, conversión y sanidad de la mente. Estudia la Palabra con rigor, idiomas originales y renovación de la mente. Libre distribución y completamente gratuita.">
-    <meta name="theme-color" content="#040609">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="RevelatiO by Efata: plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Estudia la Biblia con rigor exegético, idiomas originales (hebreo y griego), psicología cristiana y neuroplasticidad. Libre distribución y completamente gratuita.">
+    <meta name="keywords" content="RevelatiO, Efata, estudio bíblico, exégesis, Biblia, hebreo, griego, idiomas originales, neuroplasticidad, renovación de la mente, psicología cristiana, arrepentimiento, metanoia, salvación, Cielo-Efata, Xtrametrik">
+    <meta name="author" content="Cielo-Efata · Xtrametrik">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1C2E4A">
+    <link rel="canonical" href="https://revelatio.efata.app/">
+    <link rel="icon" type="image/png" href="/brand/revelatio-logo.png">
+    <link rel="apple-touch-icon" href="/brand/revelatio-logo.png">
     <title>RevelatiO by Efata | Inteligencia Exegética y Renovación de la Mente</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RevelatiO by Efata">
+    <meta property="og:title" content="RevelatiO by Efata | Inteligencia Exegética y Renovación de la Mente">
+    <meta property="og:description" content="Plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Exégesis histórica y gramatical, idiomas originales, psicología cristiana y neuroplasticidad. Libre distribución y gratuita.">
+    <meta property="og:image" content="/brand/revelatio-logo.png">
+    <meta property="og:locale" content="es_ES">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RevelatiO by Efata">
+    <meta name="twitter:description" content="Inteligencia exegética, conversión y renovación de la mente. Estudio bíblico riguroso, gratuito y de libre distribución.">
+    <meta name="twitter:image" content="/brand/revelatio-logo.png">
+
+    <!-- Datos estructurados (SEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "RevelatiO by Efata",
+      "alternateName": "RevelatiO",
+      "applicationCategory": "EducationApplication",
+      "description": "Plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Une exégesis histórica y gramatical, idiomas originales (hebreo y griego), psicología cristiana y neuroplasticidad. Iniciativa de libre distribución, completamente gratuita.",
+      "inLanguage": "es",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": [
+        { "@type": "Organization", "name": "Cielo-Efata", "description": "Sello editorial y dirección teológica" },
+        { "@type": "Organization", "name": "Xtrametrik", "url": "https://www.xtrametrik.com", "description": "Desarrollo tecnológico y arquitectura de IA ética" }
+      ]
+    }
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -14,15 +53,18 @@
             theme: {
                 extend: {
                     colors: {
-                        ink: '#040609',
-                        panel: '#0b0e14',
-                        panel2: '#07090e',
-                        line: '#1b2130',
+                        /* Paleta cálida apta para lectura (pergamino + oro + azul noche) */
+                        ink: '#F5EFE3',        /* fondo base: pergamino cálido */
+                        panel: '#FEFBF4',      /* superficie principal (tarjetas) */
+                        panel2: '#EFE7D6',     /* superficie secundaria */
+                        line: '#E3D8C2',       /* bordes suaves */
+                        night: '#1C2E4A',      /* azul noche del logo (header/sidebar) */
+                        night2: '#16243B',     /* azul noche más profundo */
                         gold: {
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706'
+                            300: '#C89B3C',
+                            400: '#B8860B',
+                            500: '#9A6B12',
+                            600: '#7C550E'
                         }
                     },
                     fontFamily: {
@@ -39,23 +81,48 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&display=swap');
 
         [x-cloak] { display: none !important; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #2B2417; }
         .font-serif { font-family: 'Playfair Display', serif; }
+        /* Texto de lectura cómodo */
+        .prose-lectura { color: #2B2417; line-height: 1.75; }
+
+        /* ===== Remapeo de utilidades oscuras -> paleta cálida legible =====
+           El diseño original asumía fondo oscuro. Sobre pergamino, el texto gris
+           claro debe volverse tinta cálida oscura para máxima legibilidad. */
+        .text-gray-100 { color: #2B2417 !important; }
+        .text-gray-200 { color: #33291a !important; }
+        .text-gray-300 { color: #4A3E2A !important; }
+        .text-gray-400 { color: #6B5D45 !important; }
+        .text-gray-500 { color: #8A7A5E !important; }
+        .text-gray-600 { color: #9A8A6E !important; }
+        .text-gold-50  { color: #5A3E0A !important; }
+
+        /* Zonas oscuras (header + sidebar + login): fondo azul noche, texto claro.
+           Dentro de .zona-oscura restauramos claridad sobre el remapeo anterior. */
+        .zona-oscura { background: #1C2E4A; color: #EAE3D2; }
+        .zona-oscura .text-gray-100 { color: #F4EEDF !important; }
+        .zona-oscura .text-gray-200 { color: #E7DFCC !important; }
+        .zona-oscura .text-gray-300 { color: #D8CEB7 !important; }
+        .zona-oscura .text-gray-400 { color: #BEB49A !important; }
+        .zona-oscura .text-gray-500 { color: #A99E82 !important; }
+        .zona-oscura .text-gray-600 { color: #8F846A !important; }
+        .zona-oscura .text-gold-50  { color: #F0DFB0 !important; }
+        .zona-oscura .bg-panel { background: #16243B !important; }
+        .zona-oscura .bg-panel2 { background: #16243B !important; }
+        .zona-oscura .border-line { border-color: #2C3E5C !important; }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: #07090e; }
-        ::-webkit-scrollbar-thumb { background: #26304240; border-radius: 8px; border: 2px solid #07090e; }
-        ::-webkit-scrollbar-thumb:hover { background: #f59e0b60; }
+        ::-webkit-scrollbar-track { background: #EFE7D6; }
+        ::-webkit-scrollbar-thumb { background: #C89B3C66; border-radius: 8px; border: 2px solid #EFE7D6; }
+        ::-webkit-scrollbar-thumb:hover { background: #B8860B; }
     </style>
 </head>
 
-<body class="h-full bg-ink text-gray-200 antialiased" x-data="cieloApp()">
+<body class="h-full bg-ink antialiased" x-data="cieloApp()">
 
     <!-- ===================== CARGA INICIAL ===================== -->
-    <div x-show="!sesionVerificada" class="fixed inset-0 z-[70] bg-ink flex items-center justify-center">
-        <div class="flex flex-col items-center gap-4 text-center">
-            <div class="w-14 h-14 rounded-2xl overflow-hidden border border-gold-500/40 shadow-lg shadow-gold-600/10">
-                <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="" class="w-full h-full object-cover">
-            </div>
+    <div x-show="!sesionVerificada" class="zona-oscura fixed inset-0 z-[70] flex items-center justify-center">
+        <div class="flex flex-col items-center gap-5 text-center">
+            <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-40 h-40 object-contain">
             <div class="flex items-center gap-2 text-gold-300 text-sm">
                 <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
@@ -66,28 +133,26 @@
     </div>
 
     <!-- ===================== LOGIN (Solo invitados) ===================== -->
-    <div x-show="sesionVerificada && !isLoggedIn" x-cloak class="fixed inset-0 z-[60] bg-ink flex items-center justify-center p-4">
+    <div x-show="sesionVerificada && !isLoggedIn" x-cloak class="zona-oscura fixed inset-0 z-[60] flex items-center justify-center p-4">
         <div class="w-full max-w-md">
             <div class="bg-panel border border-gold-500/30 rounded-3xl p-8 shadow-2xl">
                 <div class="text-center mb-7">
-                    <div class="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-4 border border-gold-500/40 shadow-lg shadow-gold-600/10">
-                        <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="RevelatiO by Efata" class="w-full h-full object-cover">
-                    </div>
-                    <h1 class="text-3xl font-bold text-gold-100 font-serif tracking-tight">RevelatiO</h1>
-                    <p class="text-xs text-gold-400 mt-1 tracking-[0.25em] uppercase">by Efata</p>
-                    <p class="text-[11px] text-gray-400 mt-3 leading-relaxed max-w-xs mx-auto">Inteligencia exegética, conversión y renovación de la mente.</p>
+                    <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-44 h-44 object-contain mx-auto mb-2 rounded-2xl">
+                    <p class="text-[11px] text-gray-400 mt-2 leading-relaxed max-w-xs mx-auto">Inteligencia exegética, conversión y renovación de la mente.</p>
                 </div>
 
                 <form @submit.prevent="iniciarSesion()" class="space-y-4">
                     <div>
                         <label for="login-email" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Correo electrónico</label>
                         <input id="login-email" type="email" x-model="loginEmail" required autocomplete="email" placeholder="correo@ejemplo.com"
-                            class="w-full bg-ink border border-line rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-gold-500 transition-all">
+                            style="color:#2B2417"
+                            class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
                     </div>
                     <div>
                         <label for="login-pass" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Contraseña</label>
                         <input id="login-pass" type="password" x-model="loginPass" required autocomplete="current-password" placeholder="••••••••"
-                            class="w-full bg-ink border border-line rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-gold-500 transition-all">
+                            style="color:#2B2417"
+                            class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
                     </div>
 
                     <p x-show="loginError" x-cloak x-text="loginError" role="alert"
@@ -118,17 +183,15 @@
     <div x-show="sesionVerificada && isLoggedIn" x-cloak class="flex flex-col h-full">
 
         <!-- HEADER GLOBAL -->
-        <header class="shrink-0 h-16 bg-panel2/90 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40">
-            <button @click="sidebarAbierta = !sidebarAbierta" class="lg:hidden text-gray-300 hover:text-gold-400 p-1" aria-label="Abrir menú">
+        <header class="zona-oscura shrink-0 h-16 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40">
+            <button @click="sidebarAbierta = !sidebarAbierta" class="lg:hidden text-gray-300 hover:text-gold-300 p-1" aria-label="Abrir menú">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
 
             <a href="#" @click.prevent="irA('inicio')" class="flex items-center gap-2.5 shrink-0">
-                <div class="w-9 h-9 rounded-xl overflow-hidden border border-gold-500/40 shadow shrink-0">
-                    <img src="https://i.ibb.co/twyTZ7Kz/logo-cieloefata.jpg" alt="RevelatiO by Efata" class="w-full h-full object-cover">
-                </div>
+                <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-11 w-11 object-contain shrink-0">
                 <div class="hidden sm:block leading-tight">
-                    <p class="text-sm font-bold text-gold-100 font-serif tracking-tight">RevelatiO</p>
+                    <p class="text-sm font-bold text-gold-300 font-serif tracking-tight">RevelatiO</p>
                     <p class="text-[10px] text-gold-400/80 tracking-[0.18em] uppercase">by Efata</p>
                 </div>
             </a>
@@ -140,7 +203,8 @@
                     <svg class="w-4 h-4 text-gray-500 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     <input id="busqueda-global" type="text" x-model="consultaGlobal" maxlength="300"
                         placeholder="Buscar un pasaje o tema (Ej: Juan 3:16, el perdón)..."
-                        class="w-full bg-ink border border-line rounded-full pl-10 pr-4 py-2.5 text-sm text-gray-100 focus:outline-none focus:border-gold-500 transition-all">
+                        style="color:#2B2417"
+                        class="w-full bg-white border border-line rounded-full pl-10 pr-4 py-2.5 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
                 </div>
             </form>
 
@@ -168,12 +232,12 @@
 
             <!-- SIDEBAR -->
             <aside :class="sidebarAbierta ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-                class="fixed lg:static top-16 lg:top-0 bottom-0 left-0 w-72 bg-panel2 border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto">
+                class="zona-oscura fixed lg:static top-16 lg:top-0 bottom-0 left-0 w-72 border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto">
                 <nav class="p-4 space-y-1" aria-label="Navegación principal">
                     <template x-for="item in navegacion" :key="item.id">
                         <button @click="irA(item.id)"
                             :aria-current="vista === item.id ? 'page' : false"
-                            :class="vista === item.id ? 'bg-gradient-to-r from-gold-600/20 to-transparent text-gold-200 border-gold-500/40' : 'text-gray-400 hover:text-gray-100 hover:bg-ink border-transparent'"
+                            :class="vista === item.id ? 'bg-gradient-to-r from-gold-500/25 to-transparent text-gold-300 border-gold-500/40' : 'text-gray-400 hover:text-gray-100 hover:bg-white/5 border-transparent'"
                             class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl border transition-all text-sm font-medium">
                             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" x-html="item.icon"></svg>
                             <span x-text="item.label"></span>
@@ -189,8 +253,15 @@
                     </div>
                 </nav>
 
+                <!-- Bio de marca (posicionamiento) -->
+                <div class="px-5 pt-5">
+                    <p class="text-[11px] text-gray-400 leading-relaxed">
+                        <span class="text-gold-300 font-semibold">RevelatiO by Efata</span> une exégesis, idiomas originales, psicología cristiana y neuroplasticidad para la renovación de la mente. Libre distribución, completamente gratuita.
+                    </p>
+                </div>
+
                 <!-- Créditos -->
-                <div class="p-5 border-t border-line space-y-3">
+                <div class="p-5 border-t border-line space-y-3 mt-3">
                     <div>
                         <p class="text-[9px] text-gray-600 uppercase tracking-widest">Desarrollo e IA ética</p>
                         <a href="https://www.xtrametrik.com" target="_blank" rel="noopener" class="inline-flex items-center gap-0.5 mt-0.5 hover:opacity-80 transition-opacity">

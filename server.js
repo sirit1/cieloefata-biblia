@@ -56,7 +56,26 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  // Archivo estático principal
+  // Archivos estáticos de public/ (en Vercel se sirven en la raíz)
+  if (pathname !== '/' && pathname !== '/index.html') {
+    const safe = pathname.replace(/\.\.+/g, '').replace(/^\/+/, '');
+    try {
+      const file = await readFile(join(__dirname, 'public', safe));
+      const ext = safe.split('.').pop().toLowerCase();
+      const types = {
+        png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', svg: 'image/svg+xml',
+        webp: 'image/webp', ico: 'image/x-icon', gif: 'image/gif',
+        css: 'text/css', js: 'text/javascript', json: 'application/json',
+        woff: 'font/woff', woff2: 'font/woff2', mp3: 'audio/mpeg'
+      };
+      res.setHeader('Content-Type', types[ext] || 'application/octet-stream');
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+      res.end(file);
+      return;
+    } catch { /* cae al index (SPA) */ }
+  }
+
+  // Archivo estático principal (SPA)
   try {
     const html = await readFile(join(__dirname, 'index.html'));
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
