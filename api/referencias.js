@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
+import { parsearReferencia, obtenerOriginal, originalComoTextoPlano } from '../lib/biblia.js';
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -37,6 +38,19 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: 'El motor de IA todavía no está configurado.' });
   }
 
+  // Contexto real: si la consulta es una referencia puntual, se le da a la IA
+  // el texto original real (griego/hebreo con Strong's) para que las citas
+  // del NT al AT (o viceversa) que proponga se apoyen en el término original
+  // real en vez de en una asociación de memoria sin verificar.
+  let contextoOriginal = '';
+  try {
+    const ref = parsearReferencia(consulta);
+    if (ref && ref.versoInicio) {
+      const original = await obtenerOriginal(ref);
+      if (original) contextoOriginal = `\n\nCONTEXTO REAL VERIFICADO (${original.etiqueta}): ${originalComoTextoPlano(original)}`;
+    }
+  } catch (_e) { /* si falla, sigue sin este contexto extra */ }
+
   try {
     const data = await generarJSON(`Eres RevelatiO IA, motor de estudio bíblico en español. Para el pasaje o tema dado, entrega sus REFERENCIAS CRUZADAS: otros pasajes bíblicos relacionados por tema, promesa, cumplimiento profético, cita del NT al AT, paralelo o contraste doctrinal.
 
@@ -48,10 +62,10 @@ Reglas:
 - "ref": la cita en formato estándar español (ej. "Juan 3:16", "1 Pedro 2:2", "Romanos 12:2"). Usa nombres de libros en español.
 - "nota": una frase muy breve (máximo 15 palabras) que explique POR QUÉ se conecta con la consulta.
 - Ordena de la conexión más directa a la más temática.
-- No inventes citas: usa solo referencias reales y correctas.
+- Prioriza SIEMPRE referencias ampliamente reconocidas y verificables en cualquier Biblia de estudio (ej. citas explícitas del NT al AT, pasajes paralelos de los evangelios sinópticos, promesas y su cumplimiento). No inventes citas ni conexiones forzadas: si dudas de una conexión, descártala.
 - PROHIBIDO LaTeX o notación matemática.
 
-Consulta: ${consulta}`);
+Consulta: ${consulta}${contextoOriginal}`);
     const referencias = Array.isArray(data.referencias)
       ? data.referencias
           .filter((r) => r && typeof r.ref === 'string' && r.ref.trim())

@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
+import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnicos, obtenerDefinicionStrong } from '../lib/biblia.js';
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -77,6 +78,13 @@ const AUTORES = {
   'juan-crisostomo': 'Juan Crisóstomo',
 };
 
+// Autores cuya obra es de dominio público (murieron hace más de 70 años):
+// se puede exponer su interpretación histórica documentada con mayor detalle.
+// MacArthur y Barclay son autores con obra bajo derechos de autor vigentes:
+// jamás se debe presentar como cita textual entrecomillada, solo como línea
+// teológica conocida y públicamente documentada (predicaciones, entrevistas).
+const AUTORES_DOMINIO_PUBLICO = new Set(['matthew-henry', 'juan-calvino', 'charles-spurgeon', 'juan-wesley', 'agustin-de-hipona', 'juan-crisostomo']);
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -106,11 +114,32 @@ export default async function handler(req, res) {
   }
 
   const nombreAutor = esAutor ? AUTORES[autorKey] : '';
+  const esDominioPublico = esAutor && AUTORES_DOMINIO_PUBLICO.has(autorKey);
   const instruccion = esAutor
-    ? `Redacta un comentario bíblico sobre la consulta SIGUIENDO FIELMENTE la línea teológica, el énfasis y el estilo documentado de ${nombreAutor}. No inventes citas textuales entrecomilladas ni números de página; expón la interpretación en la voz y perspectiva conocida de este autor. Debe ser exegético, fiel a su tradición y edificante.`
+    ? esDominioPublico
+      ? `Redacta un comentario bíblico sobre la consulta SIGUIENDO FIELMENTE la línea teológica, el énfasis y el estilo documentado de ${nombreAutor} (autor de obra ya de dominio público). No inventes citas textuales entrecomilladas como si fueran transcripción literal; expón la interpretación en la voz y perspectiva histórica conocida de este autor. Debe ser exegético, fiel a su tradición y edificante.`
+      : `Redacta un comentario bíblico sobre la consulta en la línea teológica y el énfasis AMPLIAMENTE DOCUMENTADO y públicamente conocido de ${nombreAutor} (autor con obra bajo derechos de autor vigentes). PROHIBIDO presentar frases como cita textual entrecomillada o atribuírsela como transcripción exacta de un libro suyo: solo describe su posición y enfoque conocidos (p. ej. su énfasis en la interpretación literal-histórica-gramatical si aplica), aclarando que es una síntesis de su línea, no una cita.`
     : LENTES[lente].instruccion;
 
   const titulo = esAutor ? `Comentario · ${nombreAutor}` : LENTES[lente].titulo;
+
+  // Contexto real verificado: texto original (griego/hebreo con Strong's) +
+  // definiciones léxicas reales, para que el comentario se apoye en datos
+  // verificables en vez de que la IA invente el idioma original de memoria.
+  let contextoOriginal = '';
+  try {
+    const ref = parsearReferencia(consulta);
+    if (ref && ref.versoInicio) {
+      const original = await obtenerOriginal(ref);
+      if (original) {
+        const plano = originalComoTextoPlano(original);
+        const codigos = strongsUnicos(original).slice(0, 8);
+        const definiciones = (await Promise.all(codigos.map((c) => obtenerDefinicionStrong(c).catch(() => null)))).filter(Boolean);
+        const lineas = definiciones.map((d) => `${d.codigo}: ${d.lexema} (${d.transliteracion}) — ${d.definicionCorta || d.definicion.split('\n')[0]}`);
+        contextoOriginal = `\n\nCONTEXTO REAL VERIFICADO (${original.etiqueta}): ${plano}\nDefiniciones léxicas reales (Strong's):\n${lineas.join('\n')}`;
+      }
+    }
+  } catch (_e) { /* si falla, el comentario sigue sin este contexto extra */ }
 
   try {
     const data = await generarJSON(`Eres RevelatiO IA, el motor de estudio bíblico de la plataforma RevelatiO by Efata (ministerio en español). Tu autoridad final SIEMPRE es la Escritura. La consulta del usuario es un pasaje o un tema.
@@ -122,12 +151,12 @@ Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
 
 Reglas:
 - "titulo": un título breve y atractivo para esta lente aplicada a la consulta.
-- "cuerpo": el desarrollo, en español claro y pastoral. Usa 2 a 4 párrafos separados por un salto de línea doble. Incluye referencias bíblicas concretas cuando aporten.
+- "cuerpo": el desarrollo, en español claro y pastoral. Usa 2 a 4 párrafos separados por un salto de línea doble. Incluye referencias bíblicas concretas cuando aporten. Si se te da un CONTEXTO REAL VERIFICADO más abajo, apóyate en ese griego/hebreo y en el número de Strong real en vez de inventarlo.
 - "destacado": una sola frase memorable que resuma la enseñanza clave (para resaltar en pantalla).
 - No inventes datos que no puedas sostener. Sé riguroso, cálido y edificante.
 - PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}`);
+Consulta: ${consulta}${contextoOriginal}`);
     return res.status(200).json({
       success: true,
       data: {
@@ -135,6 +164,7 @@ Consulta: ${consulta}`);
         cuerpo: data.cuerpo || '',
         destacado: data.destacado || '',
         autor: nombreAutor || null,
+        esDominioPublico: esAutor ? esDominioPublico : null,
       },
     });
   } catch (error) {

@@ -561,7 +561,12 @@
                                                         </template>
                                                     </div>
                                                     <p class="mt-4 pt-3 border-t border-line text-[10px] text-gray-500 leading-relaxed">
-                                                        Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span class="text-gold-500" x-text="comentarioEstado.autor"></span>. No sustituye la lectura directa de su obra.
+                                                        <template x-if="comentarioEstado.esDominioPublico === false">
+                                                            <span>Síntesis de RevelatiO IA sobre la línea teológica <strong class="text-gold-500">públicamente conocida</strong> de <span class="text-gold-500" x-text="comentarioEstado.autor"></span> (autor con obra bajo derechos de autor vigentes). No es una cita textual de sus libros.</span>
+                                                        </template>
+                                                        <template x-if="comentarioEstado.esDominioPublico !== false">
+                                                            <span>Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span class="text-gold-500" x-text="comentarioEstado.autor"></span>. No sustituye la lectura directa de su obra.</span>
+                                                        </template>
                                                     </p>
                                                 </div>
                                             </div>
@@ -790,10 +795,13 @@
                                 <template x-for="plan in planesFiltrados" :key="plan.id">
                                     <button @click="abrirPlan(plan.id)" class="text-left bg-panel border rounded-2xl p-6 transition-all hover:shadow-lg"
                                         :class="plan.destacado ? 'border-gold-500/40' : 'border-line hover:border-gold-500/30'">
-                                        <div class="flex items-center justify-between gap-3 mb-3">
-                                            <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full"
-                                                :class="plan.destacado ? 'bg-gold-600/20 text-gold-300' : 'bg-ink text-gray-400'" x-text="plan.categoria"></span>
-                                            <span class="text-[11px] text-gray-500" x-text="plan.duracion + ' días'"></span>
+                                        <div class="flex items-start gap-4 mb-3">
+                                            <img x-show="plan.imagen" :src="plan.imagen" alt="" aria-hidden="true" class="w-14 h-14 rounded-xl object-cover shrink-0 border border-line/60">
+                                            <div class="flex-1 flex items-center justify-between gap-3">
+                                                <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full"
+                                                    :class="plan.destacado ? 'bg-gold-600/20 text-gold-300' : 'bg-ink text-gray-400'" x-text="plan.categoria"></span>
+                                                <span class="text-[11px] text-gray-500 shrink-0" x-text="plan.duracion + ' días'"></span>
+                                            </div>
                                         </div>
                                         <h3 class="text-lg font-serif text-gold-100 mb-1.5" x-text="plan.titulo"></h3>
                                         <p class="text-sm text-gray-400 leading-relaxed mb-4" x-text="plan.descripcion"></p>
@@ -1259,6 +1267,73 @@
                     { titulo: 'Día 5 · La crucifixión', pasajes: ['Juan 19:16-30'] },
                     { titulo: 'Día 6 · En la tumba', pasajes: ['Mateo 27:57-66'] },
                     { titulo: 'Día 7 · Ha resucitado', pasajes: ['Lucas 24:1-12'] }
+                ]
+            },
+            {
+                id: 'libres-pantalla',
+                titulo: 'Libres de la pantalla',
+                categoria: 'Vida Digital',
+                duracion: 7,
+                imagen: '/planes/libres-pantalla.png',
+                descripcion: 'Siete días para soltar el scroll infinito, sanar la comparación digital y volver a mirar a Dios de frente.',
+                dias: [
+                    { titulo: 'Día 1 · El ojo, lámpara del cuerpo', pasajes: ['Mateo 6:22-23', 'Salmos 101:3'] },
+                    { titulo: 'Día 2 · Todo lo que aprovecha', pasajes: ['1 Corintios 6:12', '1 Corintios 10:23-24'] },
+                    { titulo: 'Día 3 · Rendid cuentas del tiempo', pasajes: ['Efesios 5:15-16', 'Salmos 90:12'] },
+                    { titulo: 'Día 4 · Comparar es necedad', pasajes: ['2 Corintios 10:12', 'Gálatas 6:4'] },
+                    { titulo: 'Día 5 · Buscad las cosas de arriba', pasajes: ['Colosenses 3:1-2', 'Filipenses 4:8'] },
+                    { titulo: 'Día 6 · El lugar secreto', pasajes: ['Mateo 6:6', 'Salmos 46:10'] },
+                    { titulo: 'Día 7 · Libres para servir, no para exhibir', pasajes: ['Gálatas 5:1', 'Mateo 6:1-4'] }
+                ]
+            },
+            {
+                id: 'trono-vacio',
+                titulo: 'El trono que no es mío',
+                categoria: 'Identidad',
+                duracion: 7,
+                imagen: '/planes/trono-vacio.png',
+                descripcion: 'Cuando el "yo" ocupa el lugar de Dios: siete días para derribar el ídolo del ego y adorar solo a Dios.',
+                dias: [
+                    { titulo: 'Día 1 · No tendrás dioses ajenos', pasajes: ['Éxodo 20:3', 'Deuteronomio 5:7'] },
+                    { titulo: 'Día 2 · El corazón engañoso', pasajes: ['Jeremías 17:9-10', 'Proverbios 16:2'] },
+                    { titulo: 'Día 3 · Nada por vanagloria', pasajes: ['Filipenses 2:3-8'] },
+                    { titulo: 'Día 4 · El que se enaltece será humillado', pasajes: ['Lucas 14:11', 'Proverbios 16:18'] },
+                    { titulo: 'Día 5 · No para agradar a los hombres', pasajes: ['Gálatas 1:10', 'Juan 5:44'] },
+                    { titulo: 'Día 6 · Muere el yo, vive Cristo', pasajes: ['Gálatas 2:20', 'Lucas 9:23-24'] },
+                    { titulo: 'Día 7 · Toda la gloria a Él', pasajes: ['1 Corintios 10:31', 'Apocalipsis 4:10-11'] }
+                ]
+            },
+            {
+                id: 'contentos-en-cristo',
+                titulo: 'Contentos en Cristo',
+                categoria: 'Carácter',
+                duracion: 6,
+                imagen: '/planes/contentos-en-cristo.png',
+                descripcion: 'La comparación constante roba el gozo. Seis días para aprender el secreto del contentamiento bíblico.',
+                dias: [
+                    { titulo: 'Día 1 · El secreto de Pablo', pasajes: ['Filipenses 4:11-13'] },
+                    { titulo: 'Día 2 · La envidia pudre los huesos', pasajes: ['Proverbios 14:30', 'Santiago 3:16'] },
+                    { titulo: 'Día 3 · Caín y Abel: el fruto de comparar', pasajes: ['Génesis 4:3-8'] },
+                    { titulo: 'Día 4 · Piadosa es fuente de gran ganancia', pasajes: ['1 Timoteo 6:6-10'] },
+                    { titulo: 'Día 5 · Cada uno con su propia carga', pasajes: ['Gálatas 6:4-5'] },
+                    { titulo: 'Día 6 · Dad gracias en todo', pasajes: ['1 Tesalonicenses 5:16-18', 'Salmos 34:1'] }
+                ]
+            },
+            {
+                id: 'reposo-del-alma',
+                titulo: 'Reposo del alma',
+                categoria: 'Descanso',
+                duracion: 7,
+                imagen: '/planes/reposo-del-alma.png',
+                descripcion: 'Para el alma agotada por el rendimiento constante: siete días para aprender el descanso que Dios ofrece.',
+                dias: [
+                    { titulo: 'Día 1 · Venid a mí los cansados', pasajes: ['Mateo 11:28-30'] },
+                    { titulo: 'Día 2 · El séptimo día reposó', pasajes: ['Génesis 2:1-3', 'Éxodo 20:8-11'] },
+                    { titulo: 'Día 3 · En vano madrugáis', pasajes: ['Salmos 127:1-2'] },
+                    { titulo: 'Día 4 · Marta y María: lo necesario', pasajes: ['Lucas 10:38-42'] },
+                    { titulo: 'Día 5 · Quietud para conocerlo', pasajes: ['Salmos 46:10', 'Isaías 30:15'] },
+                    { titulo: 'Día 6 · Reposo del alma', pasajes: ['Jeremías 6:16', 'Hebreos 4:9-11'] },
+                    { titulo: 'Día 7 · Aprended de mí', pasajes: ['Mateo 11:29', 'Salmos 23:1-3'] }
                 ]
             }
         ];
@@ -1885,7 +1960,8 @@
                             estado: 'ready',
                             titulo: this.limpiar(d.titulo),
                             cuerpo: this.limpiar(d.cuerpo),
-                            autor: d.autor || (this.AUTORES_LISTA.find(a => a.id === this.bibliaAutorSel)?.nombre) || ''
+                            autor: d.autor || (this.AUTORES_LISTA.find(a => a.id === this.bibliaAutorSel)?.nombre) || '',
+                            esDominioPublico: typeof d.esDominioPublico === 'boolean' ? d.esDominioPublico : null
                         };
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
