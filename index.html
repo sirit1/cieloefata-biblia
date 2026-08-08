@@ -236,7 +236,7 @@
                                     </div>
                                     <div>
                                         <p class="text-3xl font-bold text-gold-100" x-text="favoritos.length"></p>
-                                        <p class="text-xs text-gray-500">versículos guardados</p>
+                                        <p class="text-xs text-gray-500">versículos guardados en tu cuenta</p>
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +248,7 @@
                                 <p class="text-xs uppercase tracking-wider text-gold-400 mb-1">Continuar leyendo</p>
                                 <p class="text-lg font-serif text-gold-100 truncate" x-text="referenciaActiva"></p>
                             </div>
-                            <button @click="irA('biblia')" class="shrink-0 border border-gold-500/40 text-gold-200 px-4 py-2 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Retomar</button>
+                            <button @click="leerReferencia(referenciaActiva)" class="shrink-0 border border-gold-500/40 text-gold-200 px-4 py-2 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Retomar</button>
                         </div>
 
                         <!-- Accesos rápidos -->
@@ -501,7 +501,7 @@
                                     <p class="text-sm text-gray-300 font-serif italic leading-relaxed" x-text="fav.texto"></p>
                                     <div class="flex items-center gap-3 mt-4 pt-3 border-t border-line">
                                         <button @click="leerReferencia(fav.ref)" class="text-xs text-gold-300 hover:text-gold-200">Abrir</button>
-                                        <button @click="favoritos.splice(i, 1)" class="text-xs text-red-300 hover:text-red-200">Quitar</button>
+                                        <button @click="quitarFavorito(fav)" class="text-xs text-red-300 hover:text-red-200">Quitar</button>
                                     </div>
                                 </div>
                             </template>
@@ -822,12 +822,24 @@
                         this.referenciaActiva = data.referencia;
                         this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
                         this.pasajesLeidos++;
+                        this.guardarProgreso();
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
                         this.errorPasaje = error.message || 'No se pudo cargar el pasaje.';
                     } finally {
                         this.cargandoPasaje = false;
                     }
+                },
+                async guardarProgreso() {
+                    if (!supabaseClient || !this.referenciaActiva) return;
+                    const etiqueta = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    await supabaseClient.from('progreso_lectura').upsert({
+                        libro: this.libroSel?.n || this.referenciaActiva,
+                        capitulo: this.capituloSel || 1,
+                        version: etiqueta,
+                        referencia: this.referenciaActiva,
+                        updated_at: new Date().toISOString()
+                    }, { onConflict: 'user_id' });
                 },
                 versiculoPrev() {
                     if (this.versiculoSel > 1) { this.versiculoSel--; this.leer(); }
