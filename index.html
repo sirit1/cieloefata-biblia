@@ -1089,6 +1089,7 @@
                 bibliaAutorSel: 'matthew-henry',
                 comentariosBiblia: {},
                 referenciasBiblia: {},
+                cachePasaje: {},
 
                 // búsqueda global
                 consultaGlobal: '',
@@ -1236,10 +1237,34 @@
                     return limpio;
                 },
 
+                // Texto bíblico REAL (no generado por IA), instantáneo, con 7 versiones en español.
+                async obtenerPasajeReal(ref) {
+                    if (this.cachePasaje[ref]) return this.cachePasaje[ref];
+                    const token = await this.getToken();
+                    if (!token) throw new Error('SESION');
+                    const response = await fetch('/api/pasaje', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                        body: JSON.stringify({ referencia: ref })
+                    });
+                    if (response.status === 401) throw new Error('SESION');
+                    const result = await response.json();
+                    if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
+                    const data = result.data || {};
+                    const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {} };
+                    this.cachePasaje[ref] = limpio;
+                    return limpio;
+                },
+
                 get versionesLista() {
-                    const etiquetas = { rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI' };
+                    const etiquetas = {
+                        rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
+                        lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004'
+                    };
+                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004'];
                     return Object.keys(this.versiones)
                         .filter(k => this.versiones[k])
+                        .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
                         .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
                 },
                 get textoActual() {
@@ -1270,7 +1295,7 @@
                     this.cargandoPasaje = true;
                     this.errorPasaje = '';
                     try {
-                        const data = await this.obtenerAnalisis(ref);
+                        const data = await this.obtenerPasajeReal(ref);
                         this.versiones = data.versiones;
                         this.referenciaActiva = data.referencia;
                         this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
