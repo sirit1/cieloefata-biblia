@@ -1,5 +1,5 @@
-import { GoogleGenAI } from '@google/genai';
 import { createClient } from '@supabase/supabase-js';
+import { generarJSON, hayMotorIA } from '../lib/ai.js';
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -93,7 +93,7 @@ export default async function handler(req, res) {
   if (!consulta || consulta.length > 300) {
     return res.status(400).json({ error: 'Consulta inválida.' });
   }
-  if (!process.env.GEMINI_API_KEY) {
+  if (!hayMotorIA()) {
     return res.status(503).json({ error: 'El motor de IA todavía no está configurado.' });
   }
 
@@ -113,10 +113,7 @@ export default async function handler(req, res) {
   const titulo = esAutor ? `Comentario · ${nombreAutor}` : LENTES[lente].titulo;
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: `Eres RevelatiO IA, el motor de estudio bíblico de la plataforma RevelatiO by Efata (ministerio en español). Tu autoridad final SIEMPRE es la Escritura. La consulta del usuario es un pasaje o un tema.
+    const data = await generarJSON(`Eres RevelatiO IA, el motor de estudio bíblico de la plataforma RevelatiO by Efata (ministerio en español). Tu autoridad final SIEMPRE es la Escritura. La consulta del usuario es un pasaje o un tema.
 
 TAREA (lente "${titulo}"): ${instruccion}
 
@@ -130,11 +127,7 @@ Reglas:
 - No inventes datos que no puedas sostener. Sé riguroso, cálido y edificante.
 - PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}`,
-      config: { responseMimeType: 'application/json' },
-    });
-
-    const data = JSON.parse(response.text);
+Consulta: ${consulta}`);
     return res.status(200).json({
       success: true,
       data: {

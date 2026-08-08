@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "node --env-file-if-exists=.env.development.local --env-file-if-exists=/vercel/share/.env.project server.js",
     "start": "node server.js",
-    "check": "node --check api/config.js && node --check api/exegesis.js && node --check api/biblia.js"
+    "check": "node --check api/config.js && node --check api/exegesis.js && node --check api/lente.js && node --check api/biblia.js"
   },
   "dependencies": {
-    "@google/genai": "^1.29.1",
+    "@ai-sdk/google": "^4.0.39",
     "@supabase/supabase-js": "^2.57.4",
     "ai": "^7.0.58"
   },
