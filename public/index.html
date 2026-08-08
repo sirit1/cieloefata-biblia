@@ -982,9 +982,15 @@
                                                 </div>
                                                 <div class="flex flex-wrap gap-2 mt-3 pl-9">
                                                     <template x-for="ref in dia.pasajes" :key="ref">
-                                                        <button @click="leerReferencia(ref)" class="text-xs bg-ink border border-line text-gray-300 px-3 py-1.5 rounded-lg hover:border-gold-500/40 hover:text-gold-200 transition-all" x-text="ref"></button>
+                                                        <div class="flex items-center gap-1.5">
+                                                            <button @click="leerReferencia(ref)" class="text-xs bg-ink border border-line text-gray-300 px-3 py-1.5 rounded-lg hover:border-gold-500/40 hover:text-gold-200 transition-all" x-text="ref"></button>
+                                                            <button @click="toggleCapitulo(planActivo.id, i, ref)" class="w-7 h-7 rounded-lg border flex items-center justify-center transition-all" :class="capituloLeido(planActivo.id, i, ref) ? 'bg-gold-500 border-gold-500 text-gray-950' : 'border-line text-transparent hover:border-gold-500/50'" :aria-label="capituloLeido(planActivo.id, i, ref) ? 'Marcar capítulo como pendiente' : 'Marcar capítulo como leído'" :aria-pressed="capituloLeido(planActivo.id, i, ref)">
+                                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                                                            </button>
+                                                        </div>
                                                     </template>
                                                 </div>
+                                                <p class="pl-9 mt-2 text-[11px] text-gray-500" x-text="dia.pasajes.length === 1 ? 'Puedes leer y marcar este capítulo por separado.' : 'Marca cada capítulo por separado; el hito se completa al terminar todas las lecturas del día.'"></p>
                                             </div>
                                         </template>
                                     </div>
@@ -2263,14 +2269,33 @@
                     if (dia?.pasajes?.[0]) this.leerReferencia(dia.pasajes[0]);
                 },
                 diasCompletados(planId) {
-                    return this.progresoPlanes[planId] || [];
+                    const progreso = this.progresoPlanes[planId];
+                    return Array.isArray(progreso) ? progreso : (progreso?.dias || []);
+                },
+                capituloKey(diaIndex, ref) {
+                    return `${diaIndex}:${ref}`;
+                },
+                capitulosLeidos(planId) {
+                    const progreso = this.progresoPlanes[planId];
+                    return Array.isArray(progreso?.capitulos) ? progreso.capitulos : [];
+                },
+                capituloLeido(planId, diaIndex, ref) {
+                    return this.capitulosLeidos(planId).includes(this.capituloKey(diaIndex, ref));
                 },
                 diaCompleto(planId, i) {
-                    return this.diasCompletados(planId).includes(i);
+                    const plan = this.planesCatalogo.find(p => p.id === planId);
+                    const dia = plan?.dias[i];
+                    if (!dia) return false;
+                    const capitulos = this.capitulosLeidos(planId);
+                    return dia.pasajes.every(ref => capitulos.includes(this.capituloKey(i, ref))) || this.diasCompletados(planId).includes(i);
                 },
                 planProgreso(planId) {
                     const plan = this.planesCatalogo.find(p => p.id === planId);
                     if (!plan || !plan.dias.length) return 0;
+                    if (planId === 'biblia-completa-365') {
+                        const total = plan.dias.reduce((sum, dia) => sum + dia.pasajes.length, 0);
+                        return Math.round((this.capitulosLeidos(planId).length / total) * 100);
+                    }
                     return Math.round((this.diasCompletados(planId).length / plan.dias.length) * 100);
                 },
                 abrirPlan(id) {
@@ -2280,11 +2305,38 @@
                 volverACatalogo() {
                     this.planActivoId = null;
                 },
+                toggleCapitulo(planId, diaIndex, ref) {
+                    const actual = [...this.capitulosLeidos(planId)];
+                    const key = this.capituloKey(diaIndex, ref);
+                    const idx = actual.indexOf(key);
+                    if (idx === -1) actual.push(key); else actual.splice(idx, 1);
+                    const dias = [...this.diasCompletados(planId)];
+                    const plan = this.planesCatalogo.find(p => p.id === planId);
+                    const dia = plan?.dias[diaIndex];
+                    if (dia && dia.pasajes.every(p => actual.includes(this.capituloKey(diaIndex, p)))) {
+                        if (!dias.includes(diaIndex)) dias.push(diaIndex);
+                    } else {
+                        const diaIdx = dias.indexOf(diaIndex);
+                        if (diaIdx !== -1) dias.splice(diaIdx, 1);
+                    }
+                    this.progresoPlanes = { ...this.progresoPlanes, [planId]: { dias, capitulos: actual } };
+                    this.guardarProgresoPlanes();
+                },
                 toggleDia(planId, i) {
+                    const plan = this.planesCatalogo.find(p => p.id === planId);
+                    const dia = plan?.dias[i];
+                    if (dia) {
+                        const completado = this.diaCompleto(planId, i);
+                        dia.pasajes.forEach(ref => {
+                            if (completado && this.capituloLeido(planId, i, ref)) this.toggleCapitulo(planId, i, ref);
+                            if (!completado && !this.capituloLeido(planId, i, ref)) this.toggleCapitulo(planId, i, ref);
+                        });
+                        return;
+                    }
                     const actual = [...this.diasCompletados(planId)];
                     const idx = actual.indexOf(i);
                     if (idx === -1) actual.push(i); else actual.splice(idx, 1);
-                    this.progresoPlanes = { ...this.progresoPlanes, [planId]: actual };
+                    this.progresoPlanes = { ...this.progresoPlanes, [planId]: { dias: actual, capitulos: this.capitulosLeidos(planId) } };
                     this.guardarProgresoPlanes();
                 },
                 reiniciarPlan(planId) {
