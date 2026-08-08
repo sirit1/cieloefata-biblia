@@ -409,11 +409,31 @@
                                         <p class="text-3xl font-bold text-gold-100" x-text="favoritos.length"></p>
                                         <p class="text-xs text-gray-500">versículos guardados en tu cuenta</p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+  </div>
+  </div>
+  </div>
 
-                        <!-- Continuar leyendo -->
+  <!-- Hito de lectura de la Biblia completa -->
+  <div class="bg-panel border border-gold-500/30 rounded-2xl p-5 sm:p-6">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div class="min-w-0">
+        <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-300">Hito de lectura</p>
+        <h3 class="text-xl font-serif text-gold-100 mt-1">Biblia completa en un año</h3>
+        <p class="text-sm text-gray-300 mt-1" x-text="hitoBibliaCompletaTexto"></p>
+      </div>
+      <span class="text-2xl font-bold text-gold-100" x-text="planProgreso('biblia-completa-365') + '%'" aria-label="Progreso del plan"></span>
+    </div>
+    <div class="mt-4 h-2 bg-ink rounded-full overflow-hidden" role="progressbar" :aria-valuenow="planProgreso('biblia-completa-365')" aria-valuemin="0" aria-valuemax="100">
+      <div class="h-full bg-gradient-to-r from-gold-600 to-gold-400 transition-all" :style="`width: ${planProgreso('biblia-completa-365')}%`"></div>
+    </div>
+    <div class="mt-4 flex flex-wrap items-center gap-2">
+      <button @click="marcarHitoBiblia()" :aria-pressed="hitoBibliaCompleto" class="text-xs bg-gold-500 text-gray-950 font-bold px-4 py-2.5 rounded-lg hover:bg-gold-400 transition-all" x-text="hitoBibliaCompleto ? 'Hito marcado' : 'Marcar como leído'"></button>
+      <button @click="leerHitoBiblia()" class="text-xs bg-ink text-gold-200 border border-line px-4 py-2.5 rounded-lg hover:border-gold-500/50 transition-all">Leer ahora</button>
+      <button @click="abrirPlan('biblia-completa-365'); irA('planes')" class="text-xs text-gold-300 px-2 py-2.5 hover:text-gold-100 transition-all">Ver plan completo</button>
+    </div>
+  </div>
+  
+  <!-- Continuar leyendo -->
                         <div x-show="referenciaActiva" x-cloak class="bg-panel border border-gold-500/20 rounded-2xl p-6 flex items-center justify-between gap-4">
                             <div class="min-w-0">
                                 <p class="text-xs uppercase tracking-wider text-gold-400 mb-1">Continuar leyendo</p>
@@ -1096,7 +1116,7 @@
             pasajes: grupo
         }));
 
-        const PLANES_CATALOGO = [
+        const PLANES_CATALOGO = [crearPlanBibliaCompleta(),
             {
                 id: 'camino-revelatio',
                 titulo: 'El Camino RevelatiO',
@@ -1425,6 +1445,29 @@
                 ]
             }
         ];
+
+        function crearPlanBibliaCompleta() {
+            const libros = [...LIBROS_AT, ...LIBROS_NT];
+            const capitulos = libros.flatMap(libro => Array.from({ length: libro.c }, (_, i) => ({ nombre: libro.n, capitulo: i + 1 })));
+            const dias = Array.from({ length: 365 }, (_, i) => {
+                const inicio = Math.floor(i * capitulos.length / 365);
+                const fin = Math.floor((i + 1) * capitulos.length / 365);
+                const lecturas = capitulos.slice(inicio, Math.max(inicio + 1, fin));
+                return {
+                    titulo: `Día ${i + 1} · ${lecturas[0].nombre} ${lecturas[0].capitulo}${lecturas.length > 1 ? ' y siguientes' : ''}`,
+                    pasajes: lecturas.map(l => `${l.nombre} ${l.capitulo}`)
+                };
+            });
+            return {
+                id: 'biblia-completa-365',
+                titulo: 'Biblia completa en un año',
+                categoria: 'Biblia',
+                duracion: 365,
+                destacado: true,
+                descripcion: 'Recorre los 66 libros de la Biblia en orden canónico. Lee cada día y marca el hito cuando hayas terminado.',
+                dias
+            };
+        }
 
         const TEMAS_ESTUDIO = [
             { titulo: 'La gracia', desc: 'El favor inmerecido de Dios.', q: 'la gracia' },
@@ -2194,6 +2237,30 @@
                         const pct = this.planProgreso(p.id);
                         return pct > 0 && pct < 100;
                     });
+                },
+                get hitoBibliaCompleta() {
+                    const plan = this.planesCatalogo.find(p => p.id === 'biblia-completa-365');
+                    const completados = this.diasCompletados('biblia-completa-365');
+                    return plan?.dias.findIndex((_, i) => !completados.includes(i)) ?? 0;
+                },
+                get hitoBibliaCompleto() {
+                    return this.planProgreso('biblia-completa-365') === 100;
+                },
+                get hitoBibliaCompletaTexto() {
+                    const plan = this.planesCatalogo.find(p => p.id === 'biblia-completa-365');
+                    if (!plan) return '';
+                    if (this.hitoBibliaCompleto) return 'Has completado los 365 hitos. Puedes volver a recorrer la Biblia.';
+                    const dia = plan.dias[this.hitoBibliaCompleta];
+                    return `Día ${this.hitoBibliaCompleta + 1} de 365 · ${dia?.pasajes?.join(', ') || ''}`;
+                },
+                marcarHitoBiblia() {
+                    if (this.hitoBibliaCompleto) return;
+                    this.toggleDia('biblia-completa-365', this.hitoBibliaCompleta);
+                },
+                leerHitoBiblia() {
+                    const plan = this.planesCatalogo.find(p => p.id === 'biblia-completa-365');
+                    const dia = plan?.dias[this.hitoBibliaCompleta];
+                    if (dia?.pasajes?.[0]) this.leerReferencia(dia.pasajes[0]);
                 },
                 diasCompletados(planId) {
                     return this.progresoPlanes[planId] || [];
