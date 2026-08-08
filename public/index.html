@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-ink">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="RevelatiO by Efata: plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Estudia la Biblia con rigor exegético, idiomas originales (hebreo y griego), psicología cristiana y neuroplasticidad. Libre distribución y completamente gratuita.">
+    <meta name="keywords" content="RevelatiO, Efata, estudio bíblico, exégesis, Biblia, hebreo, griego, idiomas originales, neuroplasticidad, renovación de la mente, psicología cristiana, arrepentimiento, metanoia, salvación, Cielo-Efata, Xtrametrik">
+    <meta name="author" content="Cielo-Efata · Xtrametrik">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1C2E4A">
+    <link rel="canonical" href="https://revelatio.efata.app/">
+    <link rel="icon" type="image/png" href="/brand/revelatio-logo.png">
+    <link rel="apple-touch-icon" href="/brand/revelatio-pwa-icon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RevelatiO">
+    <title>RevelatiO by Efata | Inteligencia Exegética y Renovación de la Mente</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RevelatiO by Efata">
+    <meta property="og:title" content="RevelatiO by Efata | Inteligencia Exegética y Renovación de la Mente">
+    <meta property="og:description" content="Plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Exégesis histórica y gramatical, idiomas originales, psicología cristiana y neuroplasticidad. Libre distribución y gratuita.">
+    <meta property="og:image" content="/brand/revelatio-logo.png">
+    <meta property="og:locale" content="es_ES">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RevelatiO by Efata">
+    <meta name="twitter:description" content="Inteligencia exegética, conversión y renovación de la mente. Estudio bíblico riguroso, gratuito y de libre distribución.">
+    <meta name="twitter:image" content="/brand/revelatio-logo.png">
+
+    <!-- Datos estructurados (SEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "RevelatiO by Efata",
+      "alternateName": "RevelatiO",
+      "applicationCategory": "EducationApplication",
+      "description": "Plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Une exégesis histórica y gramatical, idiomas originales (hebreo y griego), psicología cristiana y neuroplasticidad. Iniciativa de libre distribución, completamente gratuita.",
+      "inLanguage": "es",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": [
+        { "@type": "Organization", "name": "Cielo-Efata", "description": "Sello editorial y dirección teológica" },
+        { "@type": "Organization", "name": "Xtrametrik", "url": "https://www.xtrametrik.com", "description": "Desarrollo tecnológico y arquitectura de IA ética" }
+      ]
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        /* Paleta cálida apta para lectura (pergamino + oro + azul noche) */
+                        ink: '#F5EFE3',        /* fondo base: pergamino cálido */
+                        panel: '#FEFBF4',      /* superficie principal (tarjetas) */
+                        panel2: '#EFE7D6',     /* superficie secundaria */
+                        line: '#E3D8C2',       /* bordes suaves */
+                        night: '#1C2E4A',      /* azul noche del logo (header/sidebar) */
+                        night2: '#16243B',     /* azul noche más profundo */
+                        gold: {
+                            300: '#C89B3C',
+                            400: '#B8860B',
+                            500: '#9A6B12',
+                            600: '#7C550E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
+
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #2B2417; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        /* Playfair Display no tiene glifos griegos/hebreos (aparecen como recuadros vacíos).
+           Noto Serif cubre griego politónico; Noto Serif Hebrew cubre hebreo con niqud. */
+        .font-griego { font-family: 'Noto Serif', 'Playfair Display', serif; }
+        .font-hebreo { font-family: 'Noto Serif Hebrew', 'Noto Serif', serif; }
+        /* Texto de lectura cómodo */
+        .prose-lectura { color: #2B2417; line-height: 1.75; }
+
+        /* ===== Remapeo de utilidades oscuras -> paleta cálida legible =====
+           El diseño original asumía fondo oscuro. Sobre pergamino, el texto gris
+           claro debe volverse tinta cálida oscura para máxima legibilidad. */
+        .text-gray-100 { color: #2B2417 !important; }
+        .text-gray-200 { color: #33291a !important; }
+        .text-gray-300 { color: #4A3E2A !important; }
+        .text-gray-400 { color: #6B5D45 !important; }
+        .text-gray-500 { color: #8A7A5E !important; }
+        .text-gray-600 { color: #9A8A6E !important; }
+        .text-gold-50  { color: #5A3E0A !important; }
+
+        /* Zonas oscuras (header + sidebar + login): fondo azul noche, texto claro.
+           Dentro de .zona-oscura restauramos claridad sobre el remapeo anterior. */
+        .zona-oscura { background: #1C2E4A; color: #EAE3D2; }
+        .zona-oscura .text-gray-100 { color: #F4EEDF !important; }
+        .zona-oscura .text-gray-200 { color: #E7DFCC !important; }
+        .zona-oscura .text-gray-300 { color: #D8CEB7 !important; }
+        .zona-oscura .text-gray-400 { color: #BEB49A !important; }
+        .zona-oscura .text-gray-500 { color: #A99E82 !important; }
+        .zona-oscura .text-gray-600 { color: #8F846A !important; }
+        .zona-oscura .text-gold-50  { color: #F0DFB0 !important; }
+        .zona-oscura .bg-panel { background: #16243B !important; }
+        .zona-oscura .bg-panel2 { background: #16243B !important; }
+        .zona-oscura .border-line { border-color: #2C3E5C !important; }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #EFE7D6; }
+        ::-webkit-scrollbar-thumb { background: #C89B3C66; border-radius: 8px; border: 2px solid #EFE7D6; }
+        ::-webkit-scrollbar-thumb:hover { background: #B8860B; }
+
+        /* Ajustes táctiles y de lectura para teléfonos y tablets */
+        button, a, input, select, textarea { touch-action: manipulation; }
+        @media (max-width: 1023px) {
+            main { -webkit-overflow-scrolling: touch; }
+            .prose-lectura { line-height: 1.7; }
+        }
+        @media (max-width: 640px) {
+            body { min-width: 320px; }
+            header { min-height: 4rem; }
+            #busqueda-global { font-size: 16px; }
+            .prose-lectura { font-size: 1.05rem; }
+            input, select, textarea { font-size: 16px !important; }
+        }
+        @media (min-width: 641px) and (max-width: 1023px) {
+            .prose-lectura { font-size: 1.08rem; }
+        }
+        @media (display-mode: standalone) {
+            body { padding-top: env(safe-area-inset-top); }
+        }
+    </style>
+</head>
+
+<body class="h-full bg-ink antialiased" x-data="cieloApp()">
+
+    <!-- ===================== CARGA INICIAL ===================== -->
+    <div x-show="!sesionVerificada" class="zona-oscura fixed inset-0 z-[70] flex items-center justify-center">
+        <div class="flex flex-col items-center gap-5 text-center">
+            <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-40 h-40 object-contain">
+            <div class="flex items-center gap-2 text-gold-300 text-sm">
+                <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
+                </svg>
+                Preparando RevelatiO...
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== LOGIN (Solo invitados) ===================== -->
+    <div x-show="sesionVerificada && !isLoggedIn" x-cloak class="zona-oscura fixed inset-0 z-[60] flex items-center justify-center p-4 overflow-hidden">
+        <!-- Cerebro dorado como textura de fondo -->
+        <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
+            class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-15 blur-[1px]">
+        <div class="absolute inset-0 bg-gradient-to-b from-night/70 via-night/80 to-night"></div>
+        <div class="relative w-full max-w-md">
+            <div class="bg-panel border border-gold-500/30 rounded-3xl p-8 shadow-2xl">
+                <div class="text-center mb-7">
+                    <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-40 h-40 object-contain mx-auto rounded-2xl">
+                    <p class="text-[11px] text-gray-400 mt-2 leading-relaxed max-w-xs mx-auto">Inteligencia exegética, conversión y renovación de la mente.</p>
+                </div>
+
+                <form @submit.prevent="iniciarSesion()" class="space-y-4">
+                    <div>
+                        <label for="login-email" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Correo electrónico</label>
+                        <input id="login-email" type="email" x-model="loginEmail" required autocomplete="email" placeholder="correo@ejemplo.com"
+                            style="color:#2B2417"
+                            class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
+                    </div>
+                    <div>
+                        <label for="login-pass" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Contraseña</label>
+                        <input id="login-pass" type="password" x-model="loginPass" required autocomplete="current-password" placeholder="��•••••••"
+                            style="color:#2B2417"
+                            class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
+                    </div>
+
+                    <p x-show="loginError" x-cloak x-text="loginError" role="alert"
+                        class="text-xs text-red-300 bg-red-950/40 border border-red-800/50 rounded-lg px-3 py-2"></p>
+
+                    <button type="submit" :disabled="autenticando"
+                        class="w-full bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold py-3.5 rounded-xl hover:from-gold-500 hover:to-gold-400 shadow-lg shadow-gold-600/20 transition-all text-sm uppercase tracking-wider mt-2 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                        <svg x-show="autenticando" class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
+                        </svg>
+                        <span x-text="autenticando ? 'Verificando...' : 'Entrar'"></span>
+                    </button>
+                </form>
+                <p class="text-[11px] text-center text-gray-500 mt-6 leading-relaxed">Plataforma de libre distribución, completamente gratuita para la edificación del pueblo de Dios.<br>El acceso se otorga por invitación.</p>
+            </div>
+            <div class="mt-5 space-y-1.5 text-center">
+                <p class="text-[10px] text-gray-500">Desarrollo y arquitectura de IA ética
+                    <span class="font-extrabold text-cyan-400">Xtra</span><span class="font-extrabold text-white">metrik</span>
+                </p>
+                <p class="text-[10px] text-gray-500">Sello editorial y dirección teológica
+                    <span class="font-semibold text-gold-300">Cielo-Efata</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== APLICACIÓN ===================== -->
+    <div x-show="sesionVerificada && isLoggedIn" x-cloak class="flex flex-col h-full">
+
+        <!-- HEADER GLOBAL -->
+        <header class="zona-oscura shrink-0 h-16 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40">
+            <button @click="sidebarAbierta = !sidebarAbierta" class="lg:hidden text-gray-300 hover:text-gold-300 p-1" aria-label="Abrir menú">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+
+            <a href="#" @click.prevent="irA('inicio')" class="flex items-center gap-2.5 shrink-0">
+                <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-11 w-11 object-contain shrink-0">
+                <div class="leading-tight">
+                    <p class="text-sm font-bold text-gold-300 font-serif tracking-tight">RevelatiO</p>
+                    <p class="text-[9px] text-gold-400/80 tracking-[0.18em] uppercase">by Efata</p>
+                </div>
+            </a>
+
+            <!-- Búsqueda global -->
+            <form @submit.prevent="buscarGlobal()" class="flex-1 max-w-xl mx-auto">
+                <label for="busqueda-global" class="sr-only">Buscar pasaje o tema bíblico</label>
+                <div class="relative">
+                    <svg class="w-4 h-4 text-gray-500 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input id="busqueda-global" type="text" x-model="consultaGlobal" maxlength="300"
+                        placeholder="Buscar un pasaje o tema (Ej: Juan 3:16, el perdón)..."
+                        style="color:#2B2417"
+                        class="w-full bg-white border border-line rounded-full pl-10 pr-4 py-2.5 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
+                </div>
+            </form>
+
+            <button x-show="mostrarInstalar" x-cloak @click="instalarApp()"
+                class="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-gold-500/50 bg-gold-500/15 px-3 py-2 text-xs font-semibold text-gold-200 hover:bg-gold-500/25 transition-all"
+                aria-label="Instalar RevelatiO como aplicación">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"></path></svg>
+                <span class="hidden sm:inline">Descargar app</span>
+                <span class="sm:hidden">Instalar</span>
+            </button>
+
+            <!-- Usuario -->
+            <div class="relative shrink-0" @click.outside="menuUsuario = false">
+                <button @click="menuUsuario = !menuUsuario" class="flex items-center gap-2 pl-1 pr-2 py-1 rounded-full border border-line hover:border-gold-500/50 transition-all" aria-label="Menú de usuario">
+                    <span class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-500 to-gold-600 text-gray-950 font-bold text-sm flex items-center justify-center" x-text="iniciales"></span>
+                    <svg class="w-4 h-4 text-gray-400 hidden sm:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                </button>
+                <div x-show="menuUsuario" x-cloak x-transition class="absolute right-0 mt-2 w-56 bg-panel border border-line rounded-xl shadow-2xl p-2 z-50">
+                    <div class="px-3 py-2 border-b border-line mb-1">
+                        <p class="text-xs text-gray-400">Sesión iniciada</p>
+                        <p class="text-sm text-gray-100 truncate" x-text="userEmail"></p>
+                    </div>
+                    <button @click="irA('favoritos'); menuUsuario=false" class="w-full text-left text-sm text-gray-300 hover:text-gold-300 hover:bg-ink rounded-lg px-3 py-2 transition-all">Mis favoritos</button>
+                    <button @click="cerrarSesion()" class="w-full text-left text-sm text-red-300 hover:bg-red-950/40 rounded-lg px-3 py-2 transition-all">Cerrar sesión</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex flex-1 min-h-0">
+
+            <!-- Backdrop móvil -->
+            <div x-show="sidebarAbierta" x-cloak @click="sidebarAbierta = false" class="fixed inset-0 top-16 bg-black/60 z-30 lg:hidden"></div>
+
+            <!-- SIDEBAR -->
+            <aside :class="sidebarAbierta ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+                class="zona-oscura fixed lg:static top-16 lg:top-0 bottom-0 left-0 w-72 border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto">
+                <div class="mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/25 bg-gradient-to-br from-gold-500/10 via-transparent to-transparent p-3.5">
+                    <div class="flex items-center gap-3">
+                        <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-10 w-10 object-contain shrink-0">
+                        <div class="min-w-0 leading-tight">
+                            <p class="font-serif text-base font-bold tracking-tight text-gold-200">RevelatiO</p>
+                            <p class="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.22em] text-gold-400">by Efata</p>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-[10px] leading-relaxed text-gray-400">Palabra, mente y vida transformadas.</p>
+                </div>
+
+                <nav class="p-4 pt-1 space-y-1" aria-label="Navegación principal">
+                    <template x-for="item in navegacion" :key="item.id">
+                        <button @click="irA(item.id)"
+                            :aria-current="vista === item.id ? 'page' : false"
+                            :class="vista === item.id ? 'bg-gradient-to-r from-gold-500/25 to-transparent text-gold-300 border-gold-500/40' : 'text-gray-400 hover:text-gray-100 hover:bg-white/5 border-transparent'"
+                            class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl border transition-all text-sm font-medium">
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" x-html="item.icon"></svg>
+                            <span x-text="item.label"></span>
+                            <span x-show="item.id === 'favoritos' && favoritos.length" x-cloak class="ml-auto text-[10px] bg-gold-500 text-gray-950 font-bold rounded-full px-2 py-0.5" x-text="favoritos.length"></span>
+                        </button>
+                    </template>
+
+                    <div class="pt-4 mt-3 border-t border-line">
+                        <button @click="irA('ia')" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold text-sm shadow-lg shadow-gold-600/20 hover:from-gold-500 hover:to-gold-400 transition-all">
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z"></path></svg>
+                            Consultar RevelatiO IA
+                        </button>
+                    </div>
+                </nav>
+
+                <!-- Bio de marca (posicionamiento) -->
+                <div class="px-5 pt-5">
+                    <p class="text-[11px] text-gray-400 leading-relaxed">
+                        <span class="text-gold-300 font-semibold">RevelatiO by Efata</span> une exégesis, idiomas originales, psicología cristiana y neuroplasticidad para la renovación de la mente. Libre distribución, completamente gratuita.
+                    </p>
+                </div>
+
+                <!-- Créditos -->
+                <div class="p-5 border-t border-line space-y-3 mt-3">
+                    <div class="flex items-center gap-2.5 rounded-xl border border-gold-500/20 bg-gold-500/5 px-3 py-2.5">
+                        <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-8 w-8 object-contain">
+                        <div class="leading-tight">
+                            <p class="font-serif text-sm font-bold text-gold-200">RevelatiO</p>
+                            <p class="text-[9px] uppercase tracking-[0.16em] text-gold-400">by Efata</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Desarrollo e IA ética</p>
+                        <a href="https://www.xtrametrik.com" target="_blank" rel="noopener" class="inline-flex items-center gap-0.5 mt-0.5 hover:opacity-80 transition-opacity">
+                            <span class="text-sm font-extrabold text-cyan-400">Xtra</span><span class="text-sm font-extrabold text-white">metrik</span>
+                        </a>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Sello editorial y dirección teológica</p>
+                        <p class="text-sm font-semibold text-gold-300 mt-0.5 font-serif">Cielo-Efata</p>
+                    </div>
+                    <p class="text-[9px] text-gray-600 pt-1">Libre distribución · Gratuita · © 2026</p>
+                </div>
+            </aside>
+
+            <!-- CONTENIDO -->
+            <main class="flex-1 min-w-0 overflow-y-auto bg-ink">
+                <div class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+                    <div class="mb-5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-500/75">
+                        <span class="h-px w-8 bg-gold-500/40"></span>
+                        <span>RevelatiO by Efata</span>
+                        <span class="h-px w-8 bg-gold-500/40"></span>
+                    </div>
+
+                    <!-- ============ INICIO ============ -->
+                    <section x-show="vista === 'inicio'" class="space-y-8">
+                        <div class="zona-oscura relative overflow-hidden rounded-3xl border border-gold-500/30 shadow-xl">
+                            <!-- Imagen del cerebro como elemento distintivo (renovación de la mente) -->
+                            <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
+                                class="pointer-events-none select-none absolute right-[-10%] top-1/2 -translate-y-1/2 w-[420px] max-w-[70%] opacity-30 sm:opacity-45 lg:opacity-60 object-contain">
+                            <div class="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-transparent"></div>
+                            <div class="relative p-6 sm:p-9 max-w-2xl">
+                                <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
+                                <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Transformaos mediante la renovación de vuestra mente</h2>
+                                <blockquote class="mt-4 border-l-2 border-gold-500/50 pl-4">
+                                    <p class="text-sm text-gray-300 italic leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
+                                    <cite class="block text-xs text-gold-400 mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
+                                </blockquote>
+                                <div class="flex flex-wrap gap-3 mt-6">
+                                    <button @click="leerReferencia(versiculoDelDia.ref)" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer el pasaje del día</button>
+                                    <button @click="irA('ia')" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Consultar RevelatiO IA</button>
+                                    <button x-show="mostrarInstalar" x-cloak @click="instalarApp()" class="inline-flex items-center gap-2 border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"></path></svg>
+                                        Instalar RevelatiO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                            <!-- Pasaje del día -->
+                            <div class="lg:col-span-2 bg-panel border border-line rounded-2xl p-6">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="text-xs font-semibold uppercase tracking-wider text-gold-400">Pasaje del día</h3>
+                                    <span class="text-[10px] text-gray-500" x-text="fechaHoy"></span>
+                                </div>
+                                <p class="text-2xl font-serif text-gold-100 mb-2" x-text="versiculoDelDia.ref"></p>
+                                <p class="text-sm text-gray-400 leading-relaxed" x-text="versiculoDelDia.tema"></p>
+                                <button @click="leerReferencia(versiculoDelDia.ref)" class="mt-4 inline-flex items-center gap-2 text-sm text-gold-300 hover:text-gold-200 transition-colors">
+                                    Abrir en la Biblia
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M5 12h14m-6-6l6 6-6 6"></path></svg>
+                                </button>
+                            </div>
+
+                            <!-- Progreso de sesión -->
+                            <div class="bg-panel border border-line rounded-2xl p-6">
+                                <h3 class="text-xs font-semibold uppercase tracking-wider text-gold-400 mb-4">Tu actividad</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-3xl font-bold text-gold-100" x-text="pasajesLeidos"></p>
+                                        <p class="text-xs text-gray-500">pasajes leídos en esta sesión</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-3xl font-bold text-gold-100" x-text="favoritos.length"></p>
+                                        <p class="text-xs text-gray-500">versículos guardados en tu cuenta</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Continuar leyendo -->
+                        <div x-show="referenciaActiva" x-cloak class="bg-panel border border-gold-500/20 rounded-2xl p-6 flex items-center justify-between gap-4">
+                            <div class="min-w-0">
+                                <p class="text-xs uppercase tracking-wider text-gold-400 mb-1">Continuar leyendo</p>
+                                <p class="text-lg font-serif text-gold-100 truncate" x-text="referenciaActiva"></p>
+                            </div>
+                            <button @click="leerReferencia(referenciaActiva)" class="shrink-0 border border-gold-500/40 text-gold-200 px-4 py-2 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Retomar</button>
+                        </div>
+
+                        <!-- Accesos rápidos -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-300 mb-4">Explora la plataforma</h3>
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                                <template x-for="item in accesos" :key="item.id">
+                                    <button @click="irA(item.id)" class="text-left bg-panel border border-line rounded-2xl p-5 hover:border-gold-500/40 hover:bg-panel2 transition-all group">
+                                        <div class="w-11 h-11 rounded-xl bg-gold-600/15 text-gold-400 flex items-center justify-center mb-3 group-hover:bg-gold-600/25 transition-all">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" x-html="item.icon"></svg>
+                                        </div>
+                                        <p class="text-sm font-semibold text-gray-100" x-text="item.label"></p>
+                                        <p class="text-xs text-gray-500 mt-1 leading-snug" x-text="item.desc"></p>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Declaración de propósito -->
+                        <div class="rounded-3xl border border-line bg-panel2 p-6 sm:p-9">
+                            <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3">Declaración de propósito</p>
+                            <h3 class="text-xl sm:text-2xl font-bold text-gold-50 font-serif text-balance">No una herramienta, una plataforma ministerial</h3>
+                            <div class="mt-4 space-y-4 text-sm text-gray-400 leading-relaxed max-w-3xl">
+                                <p><span class="text-gold-200 font-semibold">RevelatiO by Efata</span> nace como una plataforma de inteligencia exegética, conversión y sanidad de la mente, concebida para llevar la luz inmutable de las Escrituras a la vida del creyente y de quien busca la verdad.</p>
+                                <p>En un tiempo donde la distracción y el ruido desgastan la salud mental y la firmeza espiritual, RevelatiO une el rigor de la exégesis histórica y gramatical, el análisis de los idiomas originales, la psicología cristiana y los principios de la neuroplasticidad, para reconfigurar los patrones de pensamiento caídos a través de la verdad viva de la Palabra.</p>
+                                <p>Su fin es guiar hacia la convicción, el arrepentimiento genuino <span class="italic">(metanoia)</span>, la salvación en Jesucristo y una vida plenamente restaurada.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7">
+                                <template x-for="pilar in pilares" :key="pilar.titulo">
+                                    <div class="bg-panel border border-line rounded-2xl p-5">
+                                        <p class="text-sm font-semibold text-gold-100" x-text="pilar.titulo"></p>
+                                        <p class="text-xs text-gray-500 mt-1.5 leading-snug" x-text="pilar.desc"></p>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <div class="mt-7 flex items-start gap-3 rounded-2xl border border-gold-500/25 bg-gold-600/5 p-4">
+                                <svg class="w-5 h-5 text-gold-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path></svg>
+                                <p class="text-xs text-gray-300 leading-relaxed">Iniciativa de <span class="text-gold-200 font-semibold">libre distribución, completamente gratuita</span> para la edificación del pueblo de Dios y la extensión del Evangelio a nivel global.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ BIBLIA ============ -->
+                    <section x-show="vista === 'biblia'" class="space-y-6">
+                        <div class="flex items-end justify-between gap-4">
+                            <div>
+                                <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO · Palabra viva</p>
+                                <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Biblia</h2>
+                            </div>
+                            <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en varias versiones</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- Selector de libro/capítulo -->
+                            <div class="bg-panel border border-line rounded-2xl p-5">
+                                <div class="flex bg-ink rounded-lg p-1 mb-4 border border-line">
+                                    <button @click="testamento = 'at'" :class="testamento === 'at' ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400'" class="flex-1 text-xs py-1.5 rounded-md transition-all">Antiguo</button>
+                                    <button @click="testamento = 'nt'" :class="testamento === 'nt' ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400'" class="flex-1 text-xs py-1.5 rounded-md transition-all">Nuevo</button>
+                                </div>
+
+                                <label class="block text-[10px] uppercase tracking-wider text-gold-400 font-semibold mb-2">Libro</label>
+                                <div class="grid grid-cols-2 gap-1.5 max-h-56 overflow-y-auto pr-1 mb-4">
+                                    <template x-for="libro in librosVisibles" :key="libro.n">
+                                        <button @click="seleccionarLibro(libro)" :class="libroSel && libroSel.n === libro.n ? 'bg-gold-600/20 text-gold-200 border-gold-500/40' : 'text-gray-400 border-transparent hover:bg-ink'"
+                                            class="text-left text-xs px-2.5 py-1.5 rounded-lg border transition-all truncate" x-text="libro.n"></button>
+                                    </template>
+                                </div>
+
+                                <template x-if="libroSel">
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-[10px] uppercase tracking-wider text-gold-400 font-semibold mb-2">Capítulo</label>
+                                            <div class="grid grid-cols-6 gap-1.5 max-h-32 overflow-y-auto pr-1">
+                                                <template x-for="c in libroSel.c" :key="c">
+                                                    <button @click="capituloSel = c" :class="capituloSel === c ? 'bg-gold-600 text-gray-950 font-bold' : 'bg-ink text-gray-400 hover:text-gold-300'"
+                                                        class="text-xs py-1.5 rounded-md transition-all" x-text="c"></button>
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="versiculo-input" class="block text-[10px] uppercase tracking-wider text-gold-400 font-semibold mb-2">Versículo</label>
+                                            <div class="flex gap-2">
+                                                <input id="versiculo-input" type="number" min="1" x-model.number="versiculoSel" class="w-20 bg-ink border border-line rounded-lg px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500">
+                                                <button @click="leer()" class="flex-1 bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold py-2 rounded-lg text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Lectura -->
+                            <div class="lg:col-span-2 bg-panel border border-line rounded-2xl p-6 min-h-[20rem] flex flex-col">
+                                <template x-if="!referenciaActiva && !cargandoPasaje && !errorPasaje">
+                                    <div class="flex-1 flex flex-col items-center justify-center text-center text-gray-500">
+                                        <svg class="w-12 h-12 mb-3 text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25v13m0-13C10.83 5.48 9.25 5 7.5 5S4.17 5.48 3 6.25v13C4.17 18.48 5.75 18 7.5 18s3.33.48 4.5 1.25m0-13C13.17 5.48 14.75 5 16.5 5S19.83 5.48 21 6.25v13C19.83 18.48 18.25 18 16.5 18s-3.33.48-4.5 1.25"></path></svg>
+                                        <p class="text-sm">Selecciona un libro, capítulo y versículo para comenzar a leer.</p>
+                                    </div>
+                                </template>
+
+                                <template x-if="cargandoPasaje">
+                                    <div class="flex-1 flex items-center justify-center gap-2 text-gold-300 text-sm">
+                                        <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                        Cargando pasaje...
+                                    </div>
+                                </template>
+
+                                <template x-if="errorPasaje">
+                                    <div class="flex-1 flex flex-col items-center justify-center text-center text-red-300 text-sm gap-2">
+                                        <p x-text="errorPasaje"></p>
+                                        <button @click="leer()" class="text-xs border border-red-800/60 rounded-lg px-3 py-1.5 hover:bg-red-950/40">Reintentar</button>
+                                    </div>
+                                </template>
+
+                                <div x-show="referenciaActiva && !cargandoPasaje && !errorPasaje" x-cloak class="flex-1 flex flex-col">
+                                    <div class="flex flex-wrap items-end justify-between gap-3 pb-4 mb-4 border-b border-line">
+                                        <div>
+                                            <p class="text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-500/70">RevelatiO by Efata · Lectura</p>
+                                            <h3 class="text-lg font-serif text-gold-100 mt-1" x-text="referenciaActiva"></h3>
+                                        </div>
+                                        <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
+                                            <template x-for="v in versionesLista" :key="v.key">
+                                                <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
+                                            </template>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-xl leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p>
+
+                                    <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
+                                        <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M15 6l-6 6 6 6"></path></svg>
+                                            Anterior
+                                        </button>
+                                        <div class="flex items-center gap-2">
+                                            <button @click="toggleFavorito()" :class="esFavorito() ? 'text-gold-400' : 'text-gray-500 hover:text-gold-300'" class="p-2 rounded-lg hover:bg-ink transition-all" :aria-label="esFavorito() ? 'Quitar de favoritos' : 'Guardar en favoritos'">
+                                                <svg class="w-5 h-5" :fill="esFavorito() ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"></path></svg>
+                                            </button>
+                                            <button @click="estudiarActual()" class="text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/25 transition-all">Estudiar con IA</button>
+                                        </div>
+                                        <button @click="versiculoNext()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
+                                            Siguiente
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 6l6 6-6 6"></path></svg>
+                                        </button>
+                                    </div>
+
+                                    <!-- Herramientas de estudio del pasaje (estilo bibliatodo) -->
+                                    <div class="mt-5 flex flex-col gap-3">
+                                        <!-- Texto original: griego/hebreo con Strong's + diccionario léxico real -->
+                                        <div class="order-3 border border-line rounded-xl overflow-hidden" x-show="original">
+                                            <button @click="verOriginal = !verOriginal" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
+                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20l-5-10-5 10m1.5-4h7"></path></svg>
+                                                    <span x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
+                                                </span>
+                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verOriginal ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                            </button>
+                                            <div x-show="verOriginal" x-collapse x-cloak class="p-4 border-t border-line">
+                                                <p class="text-[11px] text-gray-500 mb-3" x-text="original?.etiqueta"></p>
+                                                <p :dir="original?.idioma === 'hebreo' ? 'rtl' : 'ltr'" class="text-xl leading-loose text-gold-50/90 mb-1" :class="original?.idioma === 'hebreo' ? 'font-hebreo' : 'font-griego'">
+                                                    <template x-for="(v, vi) in (original?.versos || [])" :key="vi">
+                                                        <span>
+                                                            <template x-for="(t, ti) in v.tokens" :key="ti">
+                                                                <span>
+                                                                    <button x-show="t.strong" @click="consultarLexico(t.strong)" class="hover:text-gold-300 hover:underline underline-offset-4 cursor-pointer align-baseline">
+                                                                        <span x-text="t.palabra"></span><sup class="text-[10px] text-gold-500/80 font-sans ml-0.5" x-text="t.strong"></sup>
+                                                                    </button>
+                                                                    <span x-show="!t.strong" x-text="t.palabra"></span>
+                                                                </span>
+                                                            </template>
+                                                        </span>
+                                                    </template>
+                                                </p>
+                                                <p class="text-[11px] text-gray-500 mt-2">El número en superíndice es el código Strong real de cada palabra. Toca cualquier palabra para ver su definición léxica completa (Brown-Driver-Briggs / Thayer).</p>
+
+                                                <template x-if="original?.septuaginta">
+                                                    <div class="mt-4 pt-4 border-t border-line/60">
+                                                        <p class="text-xs font-semibold text-gold-300 mb-1" x-text="original.septuaginta.etiqueta"></p>
+                                                        <p class="text-lg leading-relaxed font-griego text-gold-50/80" x-text="original.septuaginta.texto" dir="ltr"></p>
+                                                        <p class="text-[11px] text-gray-500 mt-2" x-text="original.septuaginta.nota"></p>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+
+                                        <!-- Comentarios de autores -->
+                                        <div class="order-1 border border-gold-500/30 rounded-xl overflow-hidden">
+                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
+                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
+                                                    <span>Comentarios de autores</span>
+                                                    <span class="hidden sm:inline text-[9px] uppercase tracking-[0.16em] text-gold-400/70">RevelatiO by Efata</span>
+                                                </span>
+                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                            </button>
+                                            <div x-show="verComentarios" x-collapse x-cloak class="p-4 border-t border-line">
+                                                <div class="flex flex-wrap items-center gap-3 mb-4">
+                                                    <label for="biblia-autor" class="text-[11px] text-gray-500 uppercase tracking-wider">Comentarista</label>
+                                                    <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#2B2417" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                                        <template x-for="a in AUTORES_LISTA" :key="a.id">
+                                                            <option :value="a.id" x-text="a.nombre"></option>
+                                                        </template>
+                                                    </select>
+                                                </div>
+                                                <div x-show="comentarioEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                                                    <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                                    RevelatiO IA está preparando el comentario...
+                                                </div>
+                                                <div x-show="comentarioEstado.estado === 'error'" class="text-center py-4">
+                                                    <p class="text-sm text-red-300" x-text="comentarioEstado.mensaje"></p>
+                                                    <button @click="cargarComentario(true)" class="mt-2 text-xs text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/15">Reintentar</button>
+                                                </div>
+                                                <div x-show="comentarioEstado.estado === 'ready'">
+                                                    <h5 class="text-base font-serif text-gold-100 mb-3" x-text="comentarioEstado.titulo"></h5>
+                                                    <div class="space-y-2.5">
+                                                        <template x-for="(p, i) in parrafosDe(comentarioEstado.cuerpo)" :key="i">
+                                                            <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
+                                                        </template>
+                                                    </div>
+                                                    <p class="mt-4 pt-3 border-t border-line text-[10px] text-gray-500 leading-relaxed">
+                                                        <template x-if="comentarioEstado.esDominioPublico === false">
+                                                            <span>Síntesis de RevelatiO IA sobre la línea teológica <strong class="text-gold-500">públicamente conocida</strong> de <span class="text-gold-500" x-text="comentarioEstado.autor"></span> (autor con obra bajo derechos de autor vigentes). No es una cita textual de sus libros.</span>
+                                                        </template>
+                                                        <template x-if="comentarioEstado.esDominioPublico !== false">
+                                                            <span>Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span class="text-gold-500" x-text="comentarioEstado.autor"></span>. No sustituye la lectura directa de su obra.</span>
+                                                        </template>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Referencias cruzadas -->
+                                        <div class="order-2 border border-gold-500/30 rounded-xl overflow-hidden">
+                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
+                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
+                                                    <span>Referencias cruzadas</span>
+                                                    <span class="hidden sm:inline text-[9px] uppercase tracking-[0.16em] text-gold-400/70">RevelatiO by Efata</span>
+                                                </span>
+                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                            </button>
+                                            <div x-show="verReferencias" x-collapse x-cloak class="p-4 border-t border-line">
+                                                <div x-show="referenciasEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                                                    <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                                    Buscando pasajes relacionados...
+                                                </div>
+                                                <div x-show="referenciasEstado.estado === 'error'" class="text-center py-4">
+                                                    <p class="text-sm text-red-300" x-text="referenciasEstado.mensaje"></p>
+                                                    <button @click="cargarReferencias(true)" class="mt-2 text-xs text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/15">Reintentar</button>
+                                                </div>
+                                                <div x-show="referenciasEstado.estado === 'ready'" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                    <template x-for="(r, i) in referenciasEstado.referencias" :key="i">
+                                                        <button @click="leerReferencia(r.ref)" class="text-left bg-ink/50 hover:bg-gold-600/15 border border-line hover:border-gold-500/40 rounded-lg px-3 py-2.5 transition-all group">
+                                                            <span class="block text-sm font-semibold text-gold-300 group-hover:text-gold-200" x-text="r.ref"></span>
+                                                            <span class="block text-xs text-gray-400 mt-0.5 leading-snug" x-text="r.nota"></span>
+                                                        </button>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ REVELATIO IA ============ -->
+                    <section x-show="vista === 'ia'" class="space-y-6">
+                        <div>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
+                            <p class="text-sm text-gray-500 mt-1">Una consulta, muchas lentes: exégesis, teología, hermenéutica, psicología, neurociencia, neuroplasticidad, antropología y una palabra de RevelatiO para ti.</p>
+                        </div>
+
+                        <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
+                            <form @submit.prevent="ejecutarEstudio(busqueda)" class="flex flex-col sm:flex-row gap-3">
+                                <label for="ia-input" class="sr-only">Pasaje o tema bíblico</label>
+                                <input id="ia-input" type="text" x-model="busqueda" maxlength="300" required
+                                    placeholder="Escribe un pasaje o tema (Ej: Efesios 1:1, la gracia, el perdón)..."
+                                    class="flex-1 min-w-0 bg-ink border border-line rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-gold-500 transition-all">
+                                <button type="submit" :disabled="cargandoEstudio" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-6 py-3 rounded-xl text-sm uppercase tracking-wider hover:from-gold-500 hover:to-gold-400 transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                                    <svg x-show="cargandoEstudio" class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                    <span x-text="cargandoEstudio ? 'Analizando...' : 'Analizar'"></span>
+                                </button>
+                            </form>
+                            <p role="status" aria-live="polite" class="text-xs mt-3" :class="errorEstudio ? 'text-red-300' : 'text-gray-500'" x-text="mensajeEstudio"></p>
+                        </div>
+
+                        <!-- Estado inicial (Alfa y Omega) -->
+                        <div x-show="!estudioListo && !cargandoEstudio" class="zona-oscura relative overflow-hidden rounded-2xl border border-gold-500/25 min-h-[16rem] flex items-center justify-center text-center p-8">
+                            <img src="/brand/alfa-omega.jpg" alt="" aria-hidden="true" class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-40">
+                            <div class="absolute inset-0 bg-gradient-to-t from-night via-night/60 to-transparent"></div>
+                            <div class="relative max-w-md">
+                                <p class="text-gold-200 font-serif text-lg">«Yo soy el Alfa y la Omega, el principio y el fin.»</p>
+                                <cite class="block text-xs text-gold-400 mt-2 not-italic">— Apocalipsis 21:6</cite>
+                                <p class="text-sm text-gray-300 mt-4 leading-relaxed">Escribe un pasaje o un tema y RevelatiO IA te entregará el texto en varias versiones, el idioma original y una aplicación para la renovación de tu mente.</p>
+                            </div>
+                        </div>
+
+                        <!-- Resultado -->
+                        <div x-show="estudioListo" x-cloak class="space-y-6">
+                            <!-- Pasaje + versiones -->
+                            <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
+                                <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-line">
+                                    <h3 class="text-lg font-serif text-gold-100" x-text="estudioRef"></h3>
+                                    <div x-show="versionesLista.length" x-cloak class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
+                                        <template x-for="v in versionesLista" :key="v.key">
+                                            <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
+                                        </template>
+                                    </div>
+                                </div>
+                                <p class="text-lg leading-relaxed font-serif italic text-gold-50/90" x-text="textoActual"></p>
+                                <p x-show="estudio.original" class="mt-4 pt-3 border-t border-line text-xs text-gray-400"><span class="text-gold-400 font-semibold uppercase tracking-wider text-[10px]">Idioma original</span> · <span x-text="estudio.original"></span></p>
+                            </div>
+
+                            <!-- Barra de exportar -->
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-[11px] text-gray-500 uppercase tracking-wider mr-1">Tu estudio:</span>
+                                <button @click="compartirEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zm12 7a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+                                    <span x-text="compartido ? 'Compartido' : (copiado ? 'Copiado al portapapeles' : 'Compartir')"></span>
+                                </button>
+                                <button @click="descargarPDF()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"></path></svg>
+                                    PDF
+                                </button>
+                                <button @click="imprimirEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6v-8z"></path></svg>
+                                    Imprimir
+                                </button>
+                                <button @click="copiarEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-ink text-gray-400 border border-line px-3 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    <span x-text="copiado ? 'Copiado' : 'Copiar'"></span>
+                                </button>
+                            </div>
+
+                            <!-- Barra de lentes -->
+                            <div>
+                                <p class="text-xs text-gray-500 mb-2.5 uppercase tracking-wider">Explora tu consulta desde cada disciplina, bajo la autoridad de la Escritura</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="l in LENTES_LISTA" :key="l.id">
+                                        <button @click="activarLente(l.id)"
+                                            :class="lenteActiva === l.id ? 'bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold border-transparent' : 'bg-panel text-gray-300 border-line hover:border-gold-500/40 hover:text-gold-200'"
+                                            class="text-xs px-3.5 py-2 rounded-full border transition-all" x-text="l.etiqueta"></button>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Panel de la lente activa -->
+                            <div class="bg-panel border border-gold-500/30 rounded-2xl p-6 min-h-[13rem]">
+                                <!-- Selector de autor (solo lente 'autores') -->
+                                <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b border-line">
+                                    <label for="autor-sel" class="text-xs text-gray-400 uppercase tracking-wider">Comentarista</label>
+                                    <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#2B2417" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                        <template x-for="a in AUTORES_LISTA" :key="a.id">
+                                            <option :value="a.id" x-text="a.nombre"></option>
+                                        </template>
+                                    </select>
+                                </div>
+
+                                <!-- Cargando -->
+                                <div x-show="lenteEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-8 justify-center">
+                                    <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                    <span x-text="'RevelatiO IA está iluminando esta lente...'"></span>
+                                </div>
+
+                                <!-- Error -->
+                                <div x-show="lenteEstado.estado === 'error'" class="text-center py-8">
+                                    <p class="text-sm text-red-300" x-text="lenteEstado.mensaje || 'No fue posible generar esta lente.'"></p>
+                                    <button @click="cargarLente(lenteActiva, true)" class="mt-3 text-xs text-gold-300 border border-gold-500/30 px-4 py-2 rounded-lg hover:bg-gold-600/15">Reintentar</button>
+                                </div>
+
+                                <!-- Contenido -->
+                                <div x-show="lenteEstado.estado === 'ready'">
+                                    <h4 class="text-lg font-serif text-gold-100 mb-4" x-text="lenteEstado.titulo"></h4>
+                                    <div class="space-y-3">
+                                        <template x-for="(p, i) in parrafosDe(lenteEstado.cuerpo)" :key="i">
+                                            <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
+                                        </template>
+                                    </div>
+                                    <blockquote x-show="lenteEstado.destacado" class="mt-5 border-l-2 border-gold-500/60 pl-4 py-1">
+                                        <p class="text-sm text-gold-200 italic font-serif" x-text="lenteEstado.destacado"></p>
+                                    </blockquote>
+                                    <p x-show="lenteActiva === 'autores' && lenteEstado.autor" class="mt-5 pt-3 border-t border-line text-[10px] text-gray-500 leading-relaxed">
+                                        Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span x-text="lenteEstado.autor" class="text-gold-500"></span>. No sustituye la lectura directa de su obra.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ ESTUDIO ============ -->
+                    <section x-show="vista === 'estudio'" class="space-y-6">
+                        <div>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Profundizar</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Herramientas de estudio</h2>
+                            <p class="text-sm text-gray-500 mt-1">Profundiza en un tema o palabra clave con el motor RevelatiO IA.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <template x-for="tema in temasEstudio" :key="tema.q">
+                                <button @click="busqueda = tema.q; irA('ia'); ejecutarEstudio(tema.q)" class="text-left bg-panel border border-line rounded-2xl p-5 hover:border-gold-500/40 transition-all">
+                                    <p class="text-sm font-semibold text-gold-100 mb-1" x-text="tema.titulo"></p>
+                                    <p class="text-xs text-gray-500 leading-snug" x-text="tema.desc"></p>
+                                </button>
+                            </template>
+                        </div>
+                        <div class="bg-panel border border-gold-500/20 rounded-2xl p-6">
+                            <h3 class="text-sm font-semibold text-gold-200 mb-2">Búsqueda temática libre</h3>
+                            <p class="text-xs text-gray-500 mb-4">Escribe cualquier concepto y RevelatiO IA te dará el pasaje base, el idioma original y una aplicación.</p>
+                            <form @submit.prevent="busqueda = temaLibre; irA('ia'); ejecutarEstudio(temaLibre)" class="flex flex-col sm:flex-row gap-3">
+                                <label for="tema-libre" class="sr-only">Tema a estudiar</label>
+                                <input id="tema-libre" type="text" x-model="temaLibre" maxlength="300" required placeholder="Ej: la esperanza, el temor de Dios..." class="flex-1 bg-ink border border-line rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-gold-500">
+                                <button type="submit" class="bg-gold-600/15 text-gold-300 border border-gold-500/30 px-5 py-3 rounded-xl text-sm hover:bg-gold-600/25 transition-all">Estudiar</button>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- ============ PLANES ============ -->
+                    <section x-show="vista === 'planes'" class="space-y-6">
+                        <!-- Vista catálogo -->
+                        <div x-show="!planActivo" x-cloak class="space-y-6">
+                        <div>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · El camino</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Planes de lectura</h2>
+                            <p class="text-sm text-gray-500 mt-1">Elige un camino y avanza día a día. RevelatiO guarda tu progreso.</p>
+                        </div>
+
+                            <!-- Continuar leyendo -->
+                            <div x-show="planesEnProgreso.length" x-cloak class="space-y-3">
+                                <h3 class="text-xs uppercase tracking-wider font-semibold text-gray-500">Continuar leyendo</h3>
+                                <div class="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1">
+                                    <template x-for="plan in planesEnProgreso" :key="'cont-' + plan.id">
+                                        <button @click="abrirPlan(plan.id)" class="text-left shrink-0 w-64 bg-panel border border-gold-500/30 rounded-xl p-4 hover:border-gold-500/50 transition-all">
+                                            <p class="text-sm font-semibold text-gold-100 truncate" x-text="plan.titulo"></p>
+                                            <div class="mt-2 flex items-center gap-2">
+                                                <div class="flex-1 h-1.5 bg-ink rounded-full overflow-hidden">
+                                                    <div class="h-full bg-gradient-to-r from-gold-600 to-gold-400" :style="`width: ${planProgreso(plan.id)}%`"></div>
+                                                </div>
+                                                <span class="text-[11px] text-gold-300 font-semibold shrink-0" x-text="planProgreso(plan.id) + '%'"></span>
+                                            </div>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Filtro de categorías -->
+                            <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+                                <template x-for="cat in categoriasDisponibles" :key="cat">
+                                    <button @click="categoriaFiltro = cat" class="shrink-0 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all"
+                                        :class="categoriaFiltro === cat ? 'bg-gold-500 border-gold-500 text-gray-950' : 'bg-panel border-line text-gray-400 hover:border-gold-500/40 hover:text-gold-200'"
+                                        x-text="cat"></button>
+                                </template>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <template x-for="plan in planesFiltrados" :key="plan.id">
+                                    <button @click="abrirPlan(plan.id)" class="text-left bg-panel border rounded-2xl p-6 transition-all hover:shadow-lg"
+                                        :class="plan.destacado ? 'border-gold-500/40' : 'border-line hover:border-gold-500/30'">
+                                        <div class="flex items-start gap-4 mb-3">
+                                            <img x-show="plan.imagen" :src="plan.imagen" alt="" aria-hidden="true" class="w-14 h-14 rounded-xl object-cover shrink-0 border border-line/60">
+                                            <div class="flex-1 flex items-center justify-between gap-3">
+                                                <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full"
+                                                    :class="plan.destacado ? 'bg-gold-600/20 text-gold-300' : 'bg-ink text-gray-400'" x-text="plan.categoria"></span>
+                                                <span class="text-[11px] text-gray-500 shrink-0" x-text="plan.duracion + ' días'"></span>
+                                            </div>
+                                        </div>
+                                        <h3 class="text-lg font-serif text-gold-100 mb-1.5" x-text="plan.titulo"></h3>
+                                        <p class="text-sm text-gray-400 leading-relaxed mb-4" x-text="plan.descripcion"></p>
+                                        <!-- Barra de progreso -->
+                                        <div class="flex items-center gap-3">
+                                            <div class="flex-1 h-1.5 bg-ink rounded-full overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-gold-600 to-gold-400 transition-all" :style="`width: ${planProgreso(plan.id)}%`"></div>
+                                            </div>
+                                            <span class="text-[11px] font-semibold shrink-0"
+                                                :class="planProgreso(plan.id) > 0 ? 'text-gold-300' : 'text-gray-600'"
+                                                x-text="planProgreso(plan.id) > 0 ? planProgreso(plan.id) + '%' : 'Nuevo'"></span>
+                                        </div>
+                                        <p class="mt-3 text-xs font-semibold text-gold-400 flex items-center gap-1">
+                                            <span x-text="planProgreso(plan.id) > 0 ? (planProgreso(plan.id) === 100 ? 'Completado · repasar' : 'Continuar') : 'Comenzar plan'"></span>
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 6l6 6-6 6"></path></svg>
+                                        </p>
+                                    </button>
+                                </template>
+                                <p x-show="!planesFiltrados.length" x-cloak class="text-sm text-gray-500 col-span-full text-center py-8">No hay planes en esta categoría todavía.</p>
+                            </div>
+                        </div>
+
+                        <!-- Vista detalle del plan -->
+                        <div x-show="planActivo" x-cloak class="space-y-6">
+                            <template x-if="planActivo">
+                                <div class="space-y-6">
+                                    <button @click="volverACatalogo()" class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gold-300 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M15 6l-6 6 6 6"></path></svg>
+                                        Todos los planes
+                                    </button>
+
+                                    <!-- Cabecera con progreso -->
+                                    <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
+                                        <div class="flex flex-wrap items-start justify-between gap-3">
+                                            <div class="flex items-start gap-4">
+                                                <img x-show="planActivo.imagen" :src="planActivo.imagen" alt="" aria-hidden="true" class="w-16 h-16 rounded-xl object-cover shrink-0 border border-gold-500/30">
+                                                <div>
+                                                    <span class="text-[10px] uppercase tracking-wider font-semibold text-gold-400" x-text="planActivo.categoria"></span>
+                                                    <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1" x-text="planActivo.titulo"></h2>
+                                                    <p class="text-sm text-gray-400 mt-1.5 max-w-xl" x-text="planActivo.descripcion"></p>
+                                                </div>
+                                            </div>
+                                            <div class="text-right shrink-0">
+                                                <p class="text-3xl font-bold text-gold-100 font-serif" x-text="planProgreso(planActivo.id) + '%'"></p>
+                                                <p class="text-[11px] text-gray-500" x-text="diasCompletados(planActivo.id).length + ' / ' + planActivo.duracion + ' días'"></p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 h-2 bg-ink rounded-full overflow-hidden">
+                                            <div class="h-full bg-gradient-to-r from-gold-600 to-gold-400 transition-all" :style="`width: ${planProgreso(planActivo.id)}%`"></div>
+                                        </div>
+                                        <div class="mt-4 flex flex-wrap gap-2">
+                                            <button @click="irAlSiguienteDia()" class="text-xs bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-4 py-2 rounded-lg hover:from-gold-500 hover:to-gold-400 transition-all" x-text="planProgreso(planActivo.id) === 100 ? 'Plan completado' : 'Leer día de hoy'"></button>
+                                            <button x-show="diasCompletados(planActivo.id).length" @click="reiniciarPlan(planActivo.id)" class="text-xs bg-ink text-gray-400 border border-line px-4 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">Reiniciar progreso</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Lista de días -->
+                                    <div class="space-y-3">
+                                        <template x-for="(dia, i) in planActivo.dias" :key="i">
+                                            <div class="bg-panel border rounded-xl p-4 transition-all"
+                                                :class="diaCompleto(planActivo.id, i) ? 'border-gold-500/40' : 'border-line'">
+                                                <div class="flex items-center gap-3">
+                                                    <button @click="toggleDia(planActivo.id, i)" class="shrink-0 w-6 h-6 rounded-md border flex items-center justify-center transition-all"
+                                                        :class="diaCompleto(planActivo.id, i) ? 'bg-gold-500 border-gold-500 text-gray-950' : 'border-line text-transparent hover:border-gold-500/50'"
+                                                        :aria-label="diaCompleto(planActivo.id, i) ? 'Marcar día como pendiente' : 'Marcar día como leído'">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                                                    </button>
+                                                    <div class="flex-1 min-w-0">
+                                                        <div class="flex items-center gap-2">
+                                                            <span x-show="dia.etapa" class="text-[10px] font-bold text-gold-400 bg-gold-600/15 px-1.5 py-0.5 rounded" x-text="'Etapa ' + dia.etapa"></span>
+                                                            <p class="text-sm font-semibold" :class="diaCompleto(planActivo.id, i) ? 'text-gold-300' : 'text-gold-100'" x-text="dia.titulo"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3 pl-9">
+                                                    <template x-for="ref in dia.pasajes" :key="ref">
+                                                        <button @click="leerReferencia(ref)" class="text-xs bg-ink border border-line text-gray-300 px-3 py-1.5 rounded-lg hover:border-gold-500/40 hover:text-gold-200 transition-all" x-text="ref"></button>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+
+                    <!-- ============ FAVORITOS ============ -->
+                    <section x-show="vista === 'favoritos'" class="space-y-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif">Mis favoritos</h2>
+                            <p class="text-sm text-gray-500 mt-1">Versículos que has guardado en esta sesión.</p>
+                        </div>
+                        <template x-if="!favoritos.length">
+                            <div class="bg-panel border border-line rounded-2xl p-10 text-center text-gray-500">
+                                <svg class="w-12 h-12 mx-auto mb-3 text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"></path></svg>
+                                <p class="text-sm">Aún no guardas versículos. Marca el ícono de marcador mientras lees.</p>
+                                <button @click="irA('biblia')" class="mt-4 text-sm text-gold-300 hover:text-gold-200">Ir a la Biblia</button>
+                            </div>
+                        </template>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <template x-for="(fav, i) in favoritos" :key="fav.ref + fav.version">
+                                <div class="bg-panel border border-line rounded-2xl p-5">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="text-sm font-serif text-gold-100" x-text="fav.ref"></p>
+                                        <span class="text-[10px] text-gold-400 uppercase" x-text="fav.version"></span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 font-serif italic leading-relaxed" x-text="fav.texto"></p>
+                                    <div class="flex items-center gap-3 mt-4 pt-3 border-t border-line">
+                                        <button @click="leerReferencia(fav.ref)" class="text-xs text-gold-300 hover:text-gold-200">Abrir</button>
+                                        <button @click="quitarFavorito(fav)" class="text-xs text-red-300 hover:text-red-200">Quitar</button>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+
+        <!-- NAV INFERIOR MÓVIL -->
+        <nav class="lg:hidden shrink-0 bg-panel2 border-t border-line flex items-center justify-around px-2 py-1.5 z-30">
+            <template x-for="item in navegacion" :key="'m-' + item.id">
+                <button @click="irA(item.id)" :class="vista === item.id ? 'text-gold-400' : 'text-gray-500'" class="flex flex-col items-center gap-0.5 px-2 py-1 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" x-html="item.icon"></svg>
+                    <span class="text-[9px] font-medium" x-text="item.labelCorto"></span>
+                </button>
+            </template>
+        </nav>
+
+        <!-- Modal: definición léxica real (Strong's) al tocar una palabra original -->
+        <div x-show="lexicoAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[80] flex items-end sm:items-center justify-center bg-black/70 p-4" @click.self="lexicoAbierto = false">
+            <div class="zona-oscura bg-night border border-gold-500/40 shadow-2xl rounded-2xl w-full sm:max-w-md p-5 max-h-[80vh] overflow-y-auto text-gold-50">
+                <div class="flex items-start justify-between gap-3 mb-3">
+                    <div>
+                        <p class="text-[11px] font-semibold text-gold-300 uppercase tracking-wider">Número Strong · <span x-text="lexicoDatos?.codigo"></span></p>
+                        <h4 class="text-2xl text-gold-100" :class="lexicoDatos?.codigo?.startsWith('H') ? 'font-hebreo' : 'font-griego'" :dir="lexicoDatos?.codigo?.startsWith('H') ? 'rtl' : 'ltr'" x-text="lexicoDatos?.lexema"></h4>
+                        <p class="text-sm text-gold-100/80" x-text="[lexicoDatos?.transliteracion, lexicoDatos?.pronunciacion].filter(Boolean).join(' · ')"></p>
+                        <p class="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-400">Definición en español</p>
+                    </div>
+                    <button @click="lexicoAbierto = false" class="text-gray-500 hover:text-white p-1" aria-label="Cerrar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
+                    </button>
+                </div>
+                <div x-show="cargandoLexico" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                    <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                    Consultando el diccionario...
+                </div>
+                <div x-show="errorLexico" class="text-sm text-red-300 py-2" x-text="errorLexico"></div>
+                <p x-show="!cargandoLexico && lexicoDatos" class="mt-2 rounded-xl border border-gold-500/25 bg-night2/80 p-4 text-[15px] text-gold-50 leading-7 whitespace-pre-line" x-text="lexicoDatos?.definicionEs || lexicoDatos?.definicion"></p>
+                <p class="mt-4 pt-3 border-t border-gold-500/20 text-[11px] text-gold-100/70 leading-relaxed">
+                    Fuente léxica: Brown-Driver-Briggs (hebreo) / Thayer (griego), vinculada al número Strong. La traducción al español la prepara RevelatiO IA para facilitar la lectura; el término original y la fuente permanecen visibles.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== LÓGICA ===================== -->
+    <script>
+        // Fuera de Alpine: el proxy reactivo no debe envolver el cliente de Supabase.
+        let supabaseClient;
+
+        const ICON = {
+            inicio: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-8 9 8M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10"></path>',
+            biblia: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25v13m0-13C10.83 5.48 9.25 5 7.5 5S4.17 5.48 3 6.25v13C4.17 18.48 5.75 18 7.5 18s3.33.48 4.5 1.25m0-13C13.17 5.48 14.75 5 16.5 5S19.83 5.48 21 6.25v13C19.83 18.48 18.25 18 16.5 18s-3.33.48-4.5 1.25"></path>',
+            ia: '<path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z"></path>',
+            estudio: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.42A12 12 0 0112 19.5 12 12 0 015.84 10.6L12 14z"></path>',
+            planes: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.5 2V6L9 4m0 16l6-2m-6 2V4m6 14l5.5 2V4l-5.5 2m0 12V6"></path>',
+            favoritos: '<path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"></path>'
+        };
+
+        const LIBROS_AT = [
+            { n: 'Génesis', c: 50 }, { n: 'Éxodo', c: 40 }, { n: 'Levítico', c: 27 }, { n: 'Números', c: 36 }, { n: 'Deuteronomio', c: 34 },
+            { n: 'Josué', c: 24 }, { n: 'Jueces', c: 21 }, { n: 'Rut', c: 4 }, { n: '1 Samuel', c: 31 }, { n: '2 Samuel', c: 24 },
+            { n: '1 Reyes', c: 22 }, { n: '2 Reyes', c: 25 }, { n: '1 Crónicas', c: 29 }, { n: '2 Crónicas', c: 36 }, { n: 'Esdras', c: 10 },
+            { n: 'Nehemías', c: 13 }, { n: 'Ester', c: 10 }, { n: 'Job', c: 42 }, { n: 'Salmos', c: 150 }, { n: 'Proverbios', c: 31 },
+            { n: 'Eclesiastés', c: 12 }, { n: 'Cantares', c: 8 }, { n: 'Isaías', c: 66 }, { n: 'Jeremías', c: 52 }, { n: 'Lamentaciones', c: 5 },
+            { n: 'Ezequiel', c: 48 }, { n: 'Daniel', c: 12 }, { n: 'Oseas', c: 14 }, { n: 'Joel', c: 3 }, { n: 'Amós', c: 9 },
+            { n: 'Abdías', c: 1 }, { n: 'Jonás', c: 4 }, { n: 'Miqueas', c: 7 }, { n: 'Nahúm', c: 3 }, { n: 'Habacuc', c: 3 },
+            { n: 'Sofonías', c: 3 }, { n: 'Hageo', c: 2 }, { n: 'Zacarías', c: 14 }, { n: 'Malaquías', c: 4 }
+        ];
+        const LIBROS_NT = [
+            { n: 'Mateo', c: 28 }, { n: 'Marcos', c: 16 }, { n: 'Lucas', c: 24 }, { n: 'Juan', c: 21 }, { n: 'Hechos', c: 28 },
+            { n: 'Romanos', c: 16 }, { n: '1 Corintios', c: 16 }, { n: '2 Corintios', c: 13 }, { n: 'Gálatas', c: 6 }, { n: 'Efesios', c: 6 },
+            { n: 'Filipenses', c: 4 }, { n: 'Colosenses', c: 4 }, { n: '1 Tesalonicenses', c: 5 }, { n: '2 Tesalonicenses', c: 3 }, { n: '1 Timoteo', c: 6 },
+            { n: '2 Timoteo', c: 4 }, { n: 'Tito', c: 3 }, { n: 'Filemón', c: 1 }, { n: 'Hebreos', c: 13 }, { n: 'Santiago', c: 5 },
+            { n: '1 Pedro', c: 5 }, { n: '2 Pedro', c: 3 }, { n: '1 Juan', c: 5 }, { n: '2 Juan', c: 1 }, { n: '3 Juan', c: 1 },
+            { n: 'Judas', c: 1 }, { n: 'Apocalipsis', c: 22 }
+        ];
+
+        const VERSICULOS_DIA = [
+            { ref: 'Lamentaciones 3:22-23', tema: 'Nuevas son cada mañana sus misericordias; grande es su fidelidad.' },
+            { ref: 'Salmos 23:1', tema: 'Jehová es mi pastor; nada me faltará.' },
+            { ref: 'Juan 3:16', tema: 'De tal manera amó Dios al mundo, que ha dado a su Hijo unigénito.' },
+            { ref: 'Filipenses 4:13', tema: 'Todo lo puedo en Cristo que me fortalece.' },
+            { ref: 'Isaías 41:10', tema: 'No temas, porque yo estoy contigo.' },
+            { ref: 'Proverbios 3:5', tema: 'Fíate de Jehová de todo tu corazón.' },
+            { ref: 'Romanos 8:28', tema: 'A los que aman a Dios, todas las cosas les ayudan a bien.' }
+        ];
+
+        // Helpers para construir planes día a día con referencias reales.
+        const caps = (libro, n) => Array.from({ length: n }, (_, i) => `${libro} ${i + 1}`);
+        const trocear = (arr, tam) => { const o = []; for (let i = 0; i < arr.length; i += tam) o.push(arr.slice(i, i + tam)); return o; };
+        // Convierte una lista de capítulos en días de N capítulos, con título automático.
+        const diasPorCapitulos = (capsArr, porDia) => trocear(capsArr, porDia).map((grupo, i) => ({
+            titulo: `Día ${i + 1}`,
+            pasajes: grupo
+        }));
+
+        const PLANES_CATALOGO = [
+            {
+                id: 'camino-revelatio',
+                titulo: 'El Camino RevelatiO',
+                categoria: 'Discipulado',
+                duracion: 21,
+                destacado: true,
+                descripcion: 'Tres semanas por el corazón del evangelio: del pecado reconocido a una mente firme y renovada.',
+                dias: [
+                    { titulo: 'Día 1 · Confesión', etapa: 'I', pasajes: ['1 Juan 1:9', 'Salmos 32:5'] },
+                    { titulo: 'Día 2 · Un corazón contrito', etapa: 'I', pasajes: ['Salmos 51:1-12'] },
+                    { titulo: 'Día 3 · Volver a Dios', etapa: 'I', pasajes: ['Isaías 55:6-7', 'Joel 2:12-13'] },
+                    { titulo: 'Día 4 · Arrepentíos', etapa: 'I', pasajes: ['Hechos 3:19', 'Lucas 13:3-5'] },
+                    { titulo: 'Día 5 · El hijo que vuelve', etapa: 'I', pasajes: ['Lucas 15:11-24'] },
+                    { titulo: 'Día 6 · Tristeza que salva', etapa: 'I', pasajes: ['2 Corintios 7:9-10'] },
+                    { titulo: 'Día 7 · Perdón y limpieza', etapa: 'I', pasajes: ['Salmos 103:8-14'] },
+                    { titulo: 'Día 8 · Nacer de nuevo', etapa: 'II', pasajes: ['Juan 3:1-8'] },
+                    { titulo: 'Día 9 · Confesar y creer', etapa: 'II', pasajes: ['Romanos 10:8-13'] },
+                    { titulo: 'Día 10 · Nueva criatura', etapa: 'II', pasajes: ['2 Corintios 5:17', 'Efesios 2:8-10'] },
+                    { titulo: 'Día 11 · Desead la Palabra', etapa: 'II', pasajes: ['1 Pedro 2:1-3', 'Salmos 1'] },
+                    { titulo: 'Día 12 · Toda la Escritura', etapa: 'II', pasajes: ['2 Timoteo 3:14-17'] },
+                    { titulo: 'Día 13 · Medita de día y de noche', etapa: 'II', pasajes: ['Josué 1:8-9', 'Salmos 119:9-16'] },
+                    { titulo: 'Día 14 · Renovad vuestra mente', etapa: 'II', pasajes: ['Romanos 12:1-2'] },
+                    { titulo: 'Día 15 · Firmes y constantes', etapa: 'III', pasajes: ['1 Corintios 15:58'] },
+                    { titulo: 'Día 16 · Retened la esperanza', etapa: 'III', pasajes: ['Hebreos 10:23-25'] },
+                    { titulo: 'Día 17 · No os canséis', etapa: 'III', pasajes: ['Gálatas 6:9', 'Hebreos 12:1-3'] },
+                    { titulo: 'Día 18 · La armadura de Dios', etapa: 'III', pasajes: ['Efesios 6:10-18'] },
+                    { titulo: 'Día 19 · Bienaventurado el que persevera', etapa: 'III', pasajes: ['Santiago 1:2-4', 'Santiago 1:12'] },
+                    { titulo: 'Día 20 · Permaneced en Mí', etapa: 'III', pasajes: ['Juan 15:1-11'] },
+                    { titulo: 'Día 21 · He guardado la fe', etapa: 'III', pasajes: ['2 Timoteo 4:6-8', 'Filipenses 1:6'] }
+                ]
+            },
+            {
+                id: 'proverbios-31',
+                titulo: 'Proverbios en 31 días',
+                categoria: 'Sabiduría',
+                duracion: 31,
+                descripcion: 'Un capítulo de Proverbios por día: sabiduría práctica para cada jornada del mes.',
+                dias: caps('Proverbios', 31).map((c, i) => ({ titulo: `Día ${i + 1}`, pasajes: [c] }))
+            },
+            {
+                id: 'salmos-consuelo',
+                titulo: 'Salmos para el alma',
+                categoria: 'Consuelo',
+                duracion: 30,
+                descripcion: 'Treinta salmos de refugio, gratitud y esperanza para fortalecer el corazón.',
+                dias: ['Salmos 1', 'Salmos 8', 'Salmos 16', 'Salmos 19', 'Salmos 23', 'Salmos 27', 'Salmos 32', 'Salmos 34', 'Salmos 37', 'Salmos 40', 'Salmos 42', 'Salmos 46', 'Salmos 51', 'Salmos 62', 'Salmos 63', 'Salmos 84', 'Salmos 90', 'Salmos 91', 'Salmos 100', 'Salmos 103', 'Salmos 107', 'Salmos 118', 'Salmos 119:105-112', 'Salmos 121', 'Salmos 126', 'Salmos 130', 'Salmos 138', 'Salmos 139', 'Salmos 145', 'Salmos 150']
+                    .map((s, i) => ({ titulo: `Día ${i + 1}`, pasajes: [s] }))
+            },
+            {
+                id: 'evangelios',
+                titulo: 'Los Evangelios',
+                categoria: 'Vida de Jesús',
+                duracion: 30,
+                descripcion: 'Recorre Mateo, Marcos, Lucas y Juan en un mes, ~3 capítulos por día.',
+                dias: diasPorCapitulos([
+                    ...caps('Mateo', 28), ...caps('Marcos', 16), ...caps('Lucas', 24), ...caps('Juan', 21)
+                ], 3)
+            },
+            {
+                id: 'cartas-pablo',
+                titulo: 'Cartas de Pablo',
+                categoria: 'Doctrina',
+                duracion: 33,
+                descripcion: 'De Romanos a Filemón: la doctrina y el corazón pastoral del apóstol, un par de capítulos por día.',
+                dias: diasPorCapitulos([
+                    ...caps('Romanos', 16), ...caps('1 Corintios', 16), ...caps('2 Corintios', 13),
+                    ...caps('Gálatas', 6), ...caps('Efesios', 6), ...caps('Filipenses', 4),
+                    ...caps('Colosenses', 4), ...caps('1 Tesalonicenses', 5), ...caps('2 Tesalonicenses', 3),
+                    ...caps('1 Timoteo', 6), ...caps('2 Timoteo', 4), ...caps('Tito', 3), ...caps('Filemón', 1)
+                ], 3)
+            },
+            {
+                id: 'primeros-pasos',
+                titulo: 'Primeros pasos en la fe',
+                categoria: 'Nuevo en la fe',
+                duracion: 10,
+                descripcion: 'Diez días para afirmar los fundamentos de una vida nueva en Cristo.',
+                dias: [
+                    { titulo: 'Día 1 · Dios te ama', pasajes: ['Juan 3:16'] },
+                    { titulo: 'Día 2 · Todos hemos pecado', pasajes: ['Romanos 3:23', 'Romanos 6:23'] },
+                    { titulo: 'Día 3 · Cristo murió por ti', pasajes: ['Romanos 5:8'] },
+                    { titulo: 'Día 4 · Cree y confiesa', pasajes: ['Romanos 10:9-10'] },
+                    { titulo: 'Día 5 · Salvo por gracia', pasajes: ['Efesios 2:8-9'] },
+                    { titulo: 'Día 6 · Nueva criatura', pasajes: ['2 Corintios 5:17'] },
+                    { titulo: 'Día 7 · Hijo de Dios', pasajes: ['Juan 1:12', 'Romanos 8:16'] },
+                    { titulo: 'Día 8 · Ya no hay condenación', pasajes: ['Romanos 8:1'] },
+                    { titulo: 'Día 9 · Vida eterna segura', pasajes: ['1 Juan 5:11-13'] },
+                    { titulo: 'Día 10 · Él completará la obra', pasajes: ['Filipenses 1:6', 'Mateo 28:19-20'] }
+                ]
+            },
+            {
+                id: 'paz-ansiedad',
+                titulo: 'Paz en medio de la tormenta',
+                categoria: 'Ansiedad',
+                duracion: 7,
+                descripcion: 'Siete días para entregar tus cargas y recibir la paz que sobrepasa todo entendimiento.',
+                dias: [
+                    { titulo: 'Día 1 · No te angusties', pasajes: ['Filipenses 4:6-7'] },
+                    { titulo: 'Día 2 · Considerad las aves', pasajes: ['Mateo 6:25-34'] },
+                    { titulo: 'Día 3 · Dios es nuestro refugio', pasajes: ['Salmos 46'] },
+                    { titulo: 'Día 4 · Echad vuestra ansiedad', pasajes: ['1 Pedro 5:6-7'] },
+                    { titulo: 'Día 5 · No temas', pasajes: ['Isaías 41:10'] },
+                    { titulo: 'Día 6 · Mi paz os dejo', pasajes: ['Juan 14:27'] },
+                    { titulo: 'Día 7 · En el día que temo', pasajes: ['Salmos 94:19', 'Salmos 55:22'] }
+                ]
+            },
+            {
+                id: 'esperanza-firme',
+                titulo: 'Firmes en la esperanza',
+                categoria: 'Esperanza',
+                duracion: 7,
+                descripcion: 'Una semana para anclar el alma en las promesas de Dios cuando todo parece incierto.',
+                dias: [
+                    { titulo: 'Día 1 · Dios de esperanza', pasajes: ['Romanos 15:13'] },
+                    { titulo: 'Día 2 · Planes de bienestar', pasajes: ['Jeremías 29:11'] },
+                    { titulo: 'Día 3 · La certeza de lo que se espera', pasajes: ['Hebreos 11:1'] },
+                    { titulo: 'Día 4 · Por qué te abates, alma mía', pasajes: ['Salmos 42:11'] },
+                    { titulo: 'Día 5 · Esperamos con paciencia', pasajes: ['Romanos 8:24-25'] },
+                    { titulo: 'Día 6 · La esperanza bienaventurada', pasajes: ['Tito 2:13'] },
+                    { titulo: 'Día 7 · Esperanza viva', pasajes: ['1 Pedro 1:3-5'] }
+                ]
+            },
+            {
+                id: 'amor-no-falla',
+                titulo: 'El amor que no falla',
+                categoria: 'Amor',
+                duracion: 7,
+                descripcion: 'Contempla el amor de Dios y aprende a amar como Él ama, siete días a la vez.',
+                dias: [
+                    { titulo: 'Día 1 · El himno del amor', pasajes: ['1 Corintios 13:1-13'] },
+                    { titulo: 'Día 2 · Dios es amor', pasajes: ['1 Juan 4:7-12'] },
+                    { titulo: 'Día 3 · Nadie tiene mayor amor', pasajes: ['Juan 15:12-13'] },
+                    { titulo: 'Día 4 · Mientras éramos pecadores', pasajes: ['Romanos 5:8'] },
+                    { titulo: 'Día 5 · Amemos de hecho y verdad', pasajes: ['1 Juan 3:16-18'] },
+                    { titulo: 'Día 6 · Fuerte como la muerte', pasajes: ['Cantares 8:6-7'] },
+                    { titulo: 'Día 7 · Un nuevo mandamiento', pasajes: ['Juan 13:34-35'] }
+                ]
+            },
+            {
+                id: 'ensename-orar',
+                titulo: 'Enséñame a orar',
+                categoria: 'Oración',
+                duracion: 7,
+                descripcion: 'Aprende de Jesús y los apóstoles a orar con fe, constancia y confianza.',
+                dias: [
+                    { titulo: 'Día 1 · El Padre Nuestro', pasajes: ['Mateo 6:5-13'] },
+                    { titulo: 'Día 2 · Pedid y se os dará', pasajes: ['Lucas 11:1-13'] },
+                    { titulo: 'Día 3 · Por nada estéis afanosos', pasajes: ['Filipenses 4:6-7'] },
+                    { titulo: 'Día 4 · La oración de fe', pasajes: ['Santiago 5:13-16'] },
+                    { titulo: 'Día 5 · Orad sin cesar', pasajes: ['1 Tesalonicenses 5:16-18'] },
+                    { titulo: 'Día 6 · Un salmo de alabanza', pasajes: ['Salmos 145'] },
+                    { titulo: 'Día 7 · Permaneced en Mí', pasajes: ['Juan 15:7'] }
+                ]
+            },
+            {
+                id: 'hogar-conforme-dios',
+                titulo: 'Un hogar conforme a Dios',
+                categoria: 'Familia',
+                duracion: 7,
+                descripcion: 'Principios bíblicos para el matrimonio, la crianza y la vida en el hogar.',
+                dias: [
+                    { titulo: 'Día 1 · Amor y sumisión mutua', pasajes: ['Efesios 5:22-33'] },
+                    { titulo: 'Día 2 · Padres e hijos', pasajes: ['Efesios 6:1-4'] },
+                    { titulo: 'Día 3 · Orden en el hogar', pasajes: ['Colosenses 3:18-21'] },
+                    { titulo: 'Día 4 · La mujer virtuosa', pasajes: ['Proverbios 31:10-31'] },
+                    { titulo: 'Día 5 · Enseña a tus hijos', pasajes: ['Deuteronomio 6:4-9'] },
+                    { titulo: 'Día 6 · Escoge a quién servir', pasajes: ['Josué 24:14-15'] },
+                    { titulo: 'Día 7 · Edificados por el Señor', pasajes: ['Salmos 127'] }
+                ]
+            },
+            {
+                id: 'liberados-perdon',
+                titulo: 'Liberados por el perdón',
+                categoria: 'Perdón',
+                duracion: 7,
+                descripcion: 'Perdonar como fuimos perdonados: sana el corazón y suelta la ofensa.',
+                dias: [
+                    { titulo: 'Día 1 · El siervo despiadado', pasajes: ['Mateo 18:21-35'] },
+                    { titulo: 'Día 2 · Perdonaos unos a otros', pasajes: ['Colosenses 3:12-13'] },
+                    { titulo: 'Día 3 · Como Dios nos perdonó', pasajes: ['Efesios 4:31-32'] },
+                    { titulo: 'Día 4 · Si tenéis algo contra alguien', pasajes: ['Marcos 11:25'] },
+                    { titulo: 'Día 5 · Perdonad y seréis perdonados', pasajes: ['Lucas 6:37'] },
+                    { titulo: 'Día 6 · Misericordioso y clemente', pasajes: ['Salmos 103:8-12'] },
+                    { titulo: 'Día 7 · José perdona a sus hermanos', pasajes: ['Génesis 45:1-15'] }
+                ]
+            },
+            {
+                id: 'santiago-sabiduria',
+                titulo: 'Decisiones sabias',
+                categoria: 'Sabiduría',
+                duracion: 5,
+                descripcion: 'La carta de Santiago: fe que se demuestra en obras, palabras y paciencia.',
+                dias: diasPorCapitulos(caps('Santiago', 5), 1)
+            },
+            {
+                id: 'fruto-espiritu',
+                titulo: 'El fruto del Espíritu',
+                categoria: 'Carácter',
+                duracion: 9,
+                descripcion: 'Amor, gozo, paz, paciencia, benignidad, bondad, fe, mansedumbre y templanza, uno por día.',
+                dias: [
+                    { titulo: 'Día 1 · Amor', pasajes: ['Gálatas 5:22-23', '1 Corintios 13:4-7'] },
+                    { titulo: 'Día 2 · Gozo', pasajes: ['Nehemías 8:10', 'Filipenses 4:4'] },
+                    { titulo: 'Día 3 · Paz', pasajes: ['Juan 14:27', 'Colosenses 3:15'] },
+                    { titulo: 'Día 4 · Paciencia', pasajes: ['Romanos 12:12', 'Santiago 1:2-4'] },
+                    { titulo: 'Día 5 · Benignidad', pasajes: ['Efesios 4:32'] },
+                    { titulo: 'Día 6 · Bondad', pasajes: ['Salmos 34:8', 'Gálatas 6:9-10'] },
+                    { titulo: 'Día 7 · Fe', pasajes: ['Hebreos 11:6', 'Marcos 11:22-24'] },
+                    { titulo: 'Día 8 · Mansedumbre', pasajes: ['Mateo 11:28-30', 'Gálatas 6:1'] },
+                    { titulo: 'Día 9 · Templanza', pasajes: ['1 Corintios 9:24-27', '2 Pedro 1:5-8'] }
+                ]
+            },
+            {
+                id: 'mujeres-biblia',
+                titulo: 'Mujeres de fe en la Biblia',
+                categoria: 'Personajes',
+                duracion: 7,
+                descripcion: 'Vidas de mujeres valientes cuya fe sigue hablando hoy.',
+                dias: [
+                    { titulo: 'Día 1 · Eva, la madre de todos', pasajes: ['Génesis 3:1-15'] },
+                    { titulo: 'Día 2 · Rut, la lealtad', pasajes: ['Rut 1:15-18'] },
+                    { titulo: 'Día 3 · Débora, la jueza', pasajes: ['Jueces 4:1-16'] },
+                    { titulo: 'Día 4 · Ana, la oración perseverante', pasajes: ['1 Samuel 1:9-20'] },
+                    { titulo: 'Día 5 · Ester, el valor', pasajes: ['Ester 4:12-17'] },
+                    { titulo: 'Día 6 · María, la fe humilde', pasajes: ['Lucas 1:26-38'] },
+                    { titulo: 'Día 7 · María de Betania, la devoción', pasajes: ['Juan 12:1-8'] }
+                ]
+            },
+            {
+                id: 'lideres-biblia',
+                titulo: 'Líderes según el corazón de Dios',
+                categoria: 'Personajes',
+                duracion: 7,
+                descripcion: 'David, Josué, Nehemías, Daniel y otros: liderazgo forjado en la fe.',
+                dias: [
+                    { titulo: 'Día 1 · Josué, valor y obediencia', pasajes: ['Josué 1:1-9'] },
+                    { titulo: 'Día 2 · David, un hombre según Su corazón', pasajes: ['1 Samuel 17:32-37'] },
+                    { titulo: 'Día 3 · David y Betsabé: caída y arrepentimiento', pasajes: ['Salmos 51:1-12'] },
+                    { titulo: 'Día 4 · Nehemías, reconstruir con fe', pasajes: ['Nehemías 1:1-11'] },
+                    { titulo: 'Día 5 · Daniel, integridad bajo presión', pasajes: ['Daniel 1:8-20'] },
+                    { titulo: 'Día 6 · Daniel en el foso de los leones', pasajes: ['Daniel 6:10-23'] },
+                    { titulo: 'Día 7 · Pablo, corriendo la carrera', pasajes: ['2 Timoteo 4:6-8'] }
+                ]
+            },
+            {
+                id: 'semana-santa',
+                titulo: 'Camino a la cruz',
+                categoria: 'Vida de Jesús',
+                duracion: 7,
+                descripcion: 'La última semana de Jesús: de la entrada triunfal a la resurrección.',
+                dias: [
+                    { titulo: 'Día 1 · Entrada triunfal', pasajes: ['Mateo 21:1-11'] },
+                    { titulo: 'Día 2 · La última cena', pasajes: ['Lucas 22:14-23'] },
+                    { titulo: 'Día 3 · Getsemaní', pasajes: ['Mateo 26:36-46'] },
+                    { titulo: 'Día 4 · Traicionado y juzgado', pasajes: ['Juan 18:1-14'] },
+                    { titulo: 'Día 5 · La crucifixión', pasajes: ['Juan 19:16-30'] },
+                    { titulo: 'Día 6 · En la tumba', pasajes: ['Mateo 27:57-66'] },
+                    { titulo: 'Día 7 · Ha resucitado', pasajes: ['Lucas 24:1-12'] }
+                ]
+            },
+            {
+                id: 'libres-pantalla',
+                titulo: 'Libres de la pantalla',
+                categoria: 'Vida Digital',
+                duracion: 7,
+                imagen: '/planes/libres-pantalla.png',
+                descripcion: 'Siete días para soltar el scroll infinito, sanar la comparación digital y volver a mirar a Dios de frente.',
+                dias: [
+                    { titulo: 'Día 1 · El ojo, lámpara del cuerpo', pasajes: ['Mateo 6:22-23', 'Salmos 101:3'] },
+                    { titulo: 'Día 2 · Todo lo que aprovecha', pasajes: ['1 Corintios 6:12', '1 Corintios 10:23-24'] },
+                    { titulo: 'Día 3 · Rendid cuentas del tiempo', pasajes: ['Efesios 5:15-16', 'Salmos 90:12'] },
+                    { titulo: 'Día 4 · Comparar es necedad', pasajes: ['2 Corintios 10:12', 'Gálatas 6:4'] },
+                    { titulo: 'Día 5 · Buscad las cosas de arriba', pasajes: ['Colosenses 3:1-2', 'Filipenses 4:8'] },
+                    { titulo: 'Día 6 · El lugar secreto', pasajes: ['Mateo 6:6', 'Salmos 46:10'] },
+                    { titulo: 'Día 7 · Libres para servir, no para exhibir', pasajes: ['Gálatas 5:1', 'Mateo 6:1-4'] }
+                ]
+            },
+            {
+                id: 'trono-vacio',
+                titulo: 'El trono que no es mío',
+                categoria: 'Identidad',
+                duracion: 7,
+                imagen: '/planes/trono-vacio.png',
+                descripcion: 'Cuando el "yo" ocupa el lugar de Dios: siete días para derribar el ídolo del ego y adorar solo a Dios.',
+                dias: [
+                    { titulo: 'Día 1 · No tendrás dioses ajenos', pasajes: ['Éxodo 20:3', 'Deuteronomio 5:7'] },
+                    { titulo: 'Día 2 · El corazón engañoso', pasajes: ['Jeremías 17:9-10', 'Proverbios 16:2'] },
+                    { titulo: 'Día 3 · Nada por vanagloria', pasajes: ['Filipenses 2:3-8'] },
+                    { titulo: 'Día 4 · El que se enaltece será humillado', pasajes: ['Lucas 14:11', 'Proverbios 16:18'] },
+                    { titulo: 'D����a 5 · No para agradar a los hombres', pasajes: ['Gálatas 1:10', 'Juan 5:44'] },
+                    { titulo: 'Día 6 · Muere el yo, vive Cristo', pasajes: ['Gálatas 2:20', 'Lucas 9:23-24'] },
+                    { titulo: 'Día 7 · Toda la gloria a Él', pasajes: ['1 Corintios 10:31', 'Apocalipsis 4:10-11'] }
+                ]
+            },
+            {
+                id: 'contentos-en-cristo',
+                titulo: 'Contentos en Cristo',
+                categoria: 'Carácter',
+                duracion: 6,
+                imagen: '/planes/contentos-en-cristo.png',
+                descripcion: 'La comparación constante roba el gozo. Seis días para aprender el secreto del contentamiento bíblico.',
+                dias: [
+                    { titulo: 'Día 1 · El secreto de Pablo', pasajes: ['Filipenses 4:11-13'] },
+                    { titulo: 'Día 2 · La envidia pudre los huesos', pasajes: ['Proverbios 14:30', 'Santiago 3:16'] },
+                    { titulo: 'Día 3 · Caín y Abel: el fruto de comparar', pasajes: ['Génesis 4:3-8'] },
+                    { titulo: 'Día 4 · Piadosa es fuente de gran ganancia', pasajes: ['1 Timoteo 6:6-10'] },
+                    { titulo: 'Día 5 · Cada uno con su propia carga', pasajes: ['Gálatas 6:4-5'] },
+                    { titulo: 'Día 6 · Dad gracias en todo', pasajes: ['1 Tesalonicenses 5:16-18', 'Salmos 34:1'] }
+                ]
+            },
+            {
+                id: 'reposo-del-alma',
+                titulo: 'Reposo del alma',
+                categoria: 'Descanso',
+                duracion: 7,
+                imagen: '/planes/reposo-del-alma.png',
+                descripcion: 'Para el alma agotada por el rendimiento constante: siete días para aprender el descanso que Dios ofrece.',
+                dias: [
+                    { titulo: 'Día 1 · Venid a mí los cansados', pasajes: ['Mateo 11:28-30'] },
+                    { titulo: 'Día 2 · El séptimo día reposó', pasajes: ['Génesis 2:1-3', 'Éxodo 20:8-11'] },
+                    { titulo: 'Día 3 · En vano madrugáis', pasajes: ['Salmos 127:1-2'] },
+                    { titulo: 'Día 4 · Marta y María: lo necesario', pasajes: ['Lucas 10:38-42'] },
+                    { titulo: 'Día 5 · Quietud para conocerlo', pasajes: ['Salmos 46:10', 'Isaías 30:15'] },
+                    { titulo: 'Día 6 · Reposo del alma', pasajes: ['Jeremías 6:16', 'Hebreos 4:9-11'] },
+                    { titulo: 'Día 7 · Aprended de mí', pasajes: ['Mateo 11:29', 'Salmos 23:1-3'] }
+                ]
+            }
+        ];
+
+        const TEMAS_ESTUDIO = [
+            { titulo: 'La gracia', desc: 'El favor inmerecido de Dios.', q: 'la gracia' },
+            { titulo: 'El perdón', desc: 'Perdonar y ser perdonado.', q: 'el perdón' },
+            { titulo: 'El arrepentimiento', desc: 'Cambio de mente y corazón.', q: 'el arrepentimiento' },
+            { titulo: 'La fe', desc: 'Confianza firme en Dios.', q: 'la fe' },
+            { titulo: 'La esperanza', desc: 'Certeza de lo que se espera.', q: 'la esperanza' },
+            { titulo: 'El temor de Dios', desc: 'Reverencia que da sabiduría.', q: 'el temor de Dios' }
+        ];
+
+        function cieloApp() {
+            return {
+                // sesión
+                sesionVerificada: false,
+                isLoggedIn: false,
+                autenticando: false,
+                loginEmail: '',
+                loginPass: '',
+                loginError: '',
+                userEmail: '',
+                menuUsuario: false,
+
+                // instalación PWA
+                promptInstalar: null,
+                mostrarInstalar: false,
+                esIOS: /iphone|ipad|ipod/i.test(navigator.userAgent),
+                appInstalada: window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true,
+
+                // navegación
+                vista: 'inicio',
+                sidebarAbierta: false,
+                navegacion: [
+                    { id: 'inicio', label: 'Inicio', labelCorto: 'Inicio', icon: ICON.inicio },
+                    { id: 'biblia', label: 'Biblia', labelCorto: 'Biblia', icon: ICON.biblia },
+                    { id: 'ia', label: 'RevelatiO IA', labelCorto: 'IA', icon: ICON.ia },
+                    { id: 'estudio', label: 'Estudio', labelCorto: 'Estudio', icon: ICON.estudio },
+                    { id: 'planes', label: 'Planes', labelCorto: 'Planes', icon: ICON.planes },
+                    { id: 'favoritos', label: 'Favoritos', labelCorto: 'Guardados', icon: ICON.favoritos }
+                ],
+                accesos: [
+                    { id: 'biblia', label: 'Leer la Biblia', desc: 'Varias versiones lado a lado', icon: ICON.biblia },
+                    { id: 'ia', label: 'RevelatiO IA', desc: 'Exégesis con inteligencia ética', icon: ICON.ia },
+                    { id: 'estudio', label: 'Estudio temático', desc: 'Profundiza por temas', icon: ICON.estudio },
+                    { id: 'planes', label: 'Planes de lectura', desc: 'El camino del evangelio', icon: ICON.planes }
+                ],
+                pilares: [
+                    { titulo: 'Exégesis histórica y gramatical', desc: 'Rigor académico sobre el texto en su contexto original.' },
+                    { titulo: 'Idiomas originales', desc: 'Análisis del hebreo y griego que sostienen la Palabra.' },
+                    { titulo: 'Psicología cristiana', desc: 'Sanidad de la mente a la luz de las Escrituras.' },
+                    { titulo: 'Neuroplasticidad', desc: 'Reconfigurar patrones de pensamiento mediante la verdad viva.' }
+                ],
+
+                // datos
+                planesCatalogo: PLANES_CATALOGO,
+                planActivoId: null,
+                categoriaFiltro: 'Todos',
+                progresoPlanes: {},
+                temasEstudio: TEMAS_ESTUDIO,
+                temaLibre: '',
+                versiculoDelDia: VERSICULOS_DIA[0],
+
+                // biblia
+                testamento: 'nt',
+                libroSel: null,
+                capituloSel: 1,
+                versiculoSel: 1,
+                referenciaActiva: '',
+                versiones: {},
+                versionSel: 'rvr1960',
+                cargandoPasaje: false,
+                errorPasaje: '',
+                pasajesLeidos: 0,
+                original: null,
+                // Abierto por defecto: es el único lugar donde se ven los números Strong
+                // reales, ya que las versiones en español no tienen alineación palabra-por-palabra
+                // verificable con Strong's en la fuente de datos.
+                verOriginal: false,
+                lexicoAbierto: false,
+                lexicoDatos: null,
+                cargandoLexico: false,
+                errorLexico: '',
+
+                // estudio / IA
+                busqueda: '',
+                estudioRef: '',
+                estudio: { comentario: '', original: '', aplicacion: '' },
+                cargandoEstudio: false,
+                errorEstudio: false,
+                estudioListo: false,
+                mensajeEstudio: 'Escribe un pasaje o tema para comenzar el análisis exegético.',
+
+                // lentes multi-disciplina de RevelatiO IA
+                LENTES_LISTA: [
+                    { id: 'exegesis', etiqueta: 'Exégesis' },
+                    { id: 'teologia', etiqueta: 'Teología' },
+                    { id: 'hermeneutica', etiqueta: 'Hermenéutica' },
+                    { id: 'psicologia', etiqueta: 'Psicolog��a' },
+                    { id: 'neurociencia', etiqueta: 'Neurociencia' },
+                    { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad' },
+                    { id: 'antropologia', etiqueta: 'Antropología' },
+                    { id: 'diaadia', etiqueta: 'En tu día a día' },
+                    { id: 'revelatio', etiqueta: 'RevelatiO para ti' },
+                    { id: 'autores', etiqueta: 'Comentarios de autores' }
+                ],
+                AUTORES_LISTA: [
+                    { id: 'john-macarthur', nombre: 'John MacArthur' },
+                    { id: 'matthew-henry', nombre: 'Matthew Henry' },
+                    { id: 'juan-calvino', nombre: 'Juan Calvino' },
+                    { id: 'charles-spurgeon', nombre: 'Charles Spurgeon' },
+                    { id: 'juan-wesley', nombre: 'Juan Wesley' },
+                    { id: 'william-barclay', nombre: 'William Barclay' },
+                    { id: 'agustin-de-hipona', nombre: 'Agustín de Hipona' },
+                    { id: 'juan-crisostomo', nombre: 'Juan Crisóstomo' }
+                ],
+                lenteActiva: 'exegesis',
+                lentes: {},
+                autorSel: 'matthew-henry',
+                copiado: false,
+                compartido: false,
+
+                // Herramientas de estudio del lector de Biblia (estilo bibliatodo)
+                verComentarios: true,
+                verReferencias: true,
+                bibliaAutorSel: 'john-macarthur',
+                comentariosBiblia: {},
+                referenciasBiblia: {},
+                cachePasaje: {},
+                cacheLexico: {},
+
+                // búsqueda global
+                consultaGlobal: '',
+
+                // favoritos
+                favoritos: [],
+
+                // caché de análisis por referencia
+                cache: {},
+
+                async init() {
+                    window.addEventListener('beforeinstallprompt', (event) => {
+                        event.preventDefault();
+                        this.promptInstalar = event;
+                        this.mostrarInstalar = !this.appInstalada;
+                    });
+                    window.addEventListener('appinstalled', () => {
+                        this.appInstalada = true;
+                        this.mostrarInstalar = false;
+                        this.promptInstalar = null;
+                    });
+                    this.mostrarInstalar = !this.appInstalada && this.esIOS;
+
+                    const dia = Math.floor(Date.now() / 86400000) % VERSICULOS_DIA.length;
+                    this.versiculoDelDia = VERSICULOS_DIA[dia];
+                    this.cargarProgresoPlanes();
+                    try {
+                        const response = await fetch('/api/config');
+                        const config = await response.json();
+                        if (!response.ok) throw new Error(config.error || 'No se pudo cargar la configuración.');
+                        supabaseClient = supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+                        const { data } = await supabaseClient.auth.getSession();
+                        this.aplicarSesion(data.session);
+                        supabaseClient.auth.onAuthStateChange((_e, session) => this.aplicarSesion(session));
+                    } catch (error) {
+                        this.loginError = error.message || 'La autenticación no está disponible.';
+                    } finally {
+                        this.sesionVerificada = true;
+                    }
+                },
+
+                aplicarSesion(session) {
+                    const estaba = this.isLoggedIn;
+                    this.isLoggedIn = Boolean(session);
+                    this.userEmail = session?.user?.email || '';
+                    if (this.isLoggedIn && !estaba) {
+                        this.cargarDatosUsuario();
+                    } else if (!this.isLoggedIn) {
+                        this.favoritos = [];
+                    }
+                },
+
+                async cargarDatosUsuario() {
+                    if (!supabaseClient) return;
+                    try {
+                        const [favRes, progRes] = await Promise.all([
+                            supabaseClient.from('favoritos').select('referencia, texto, version').order('created_at', { ascending: false }),
+                            supabaseClient.from('progreso_lectura').select('referencia, libro, capitulo, version').maybeSingle()
+                        ]);
+                        if (!favRes.error && favRes.data) {
+                            this.favoritos = favRes.data.map(f => ({ ref: f.referencia, version: f.version, texto: f.texto }));
+                        }
+                        if (!progRes.error && progRes.data && progRes.data.referencia) {
+                            // No basta con fijar la referencia: hay que sincronizar el
+                            // selector (libro/capítulo) y traer el texto real, o el
+                            // lector queda mostrando "Juan 3:16" sin contenido alguno.
+                            const refGuardada = progRes.data.referencia;
+                            const m = String(refGuardada).match(/^(\d?\s?[^\d]+?)\s+(\d+)/);
+                            if (m) {
+                                const nombre = m[1].trim();
+                                const libro = [...LIBROS_AT, ...LIBROS_NT].find(l => l.n.toLowerCase() === nombre.toLowerCase());
+                                if (libro) {
+                                    this.testamento = LIBROS_NT.includes(libro) ? 'nt' : 'at';
+                                    this.libroSel = libro;
+                                    this.capituloSel = Math.min(parseInt(m[2], 10) || 1, libro.c);
+                                }
+                            }
+                            this.cargarPasaje(refGuardada);
+                        }
+                    } catch (_e) { /* la sesión sigue siendo válida aunque falle la carga */ }
+                },
+
+                get iniciales() {
+                    return (this.userEmail || '?').trim().charAt(0).toUpperCase();
+                },
+                get saludo() {
+                    const h = new Date().getHours();
+                    return h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
+                },
+                get fechaHoy() {
+                    return new Date().toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long' });
+                },
+
+                async instalarApp() {
+                    if (this.appInstalada) return;
+                    if (this.promptInstalar) {
+                        this.promptInstalar.prompt();
+                        const resultado = await this.promptInstalar.userChoice;
+                        if (resultado?.outcome === 'accepted') this.mostrarInstalar = false;
+                        this.promptInstalar = null;
+                        return;
+                    }
+                    if (this.esIOS) {
+                        window.alert('Para instalar RevelatiO: toca el botón Compartir de Safari y elige “Añadir a pantalla de inicio”.');
+                        return;
+                    }
+                    window.alert('Abre el menú de tu navegador y elige “Instalar aplicación” o “Añadir a pantalla de inicio”.');
+                },
+
+                async iniciarSesion() {
+                    if (!supabaseClient || this.autenticando) return;
+                    this.autenticando = true;
+                    this.loginError = '';
+                    const { error } = await supabaseClient.auth.signInWithPassword({
+                        email: this.loginEmail.trim(),
+                        password: this.loginPass
+                    });
+                    if (error) this.loginError = 'Correo o contraseña incorrectos, o cuenta no autorizada.';
+                    else this.loginPass = '';
+                    this.autenticando = false;
+                },
+
+                async cerrarSesion() {
+                    if (supabaseClient) await supabaseClient.auth.signOut();
+                    this.isLoggedIn = false;
+                    this.menuUsuario = false;
+                    this.vista = 'inicio';
+                },
+
+                irA(vista) {
+                    this.vista = vista;
+                    this.sidebarAbierta = false;
+                    this.menuUsuario = false;
+                    document.querySelector('main')?.scrollTo({ top: 0 });
+                },
+
+                get librosVisibles() {
+                    return this.testamento === 'at' ? LIBROS_AT : LIBROS_NT;
+                },
+                seleccionarLibro(libro) {
+                    this.libroSel = libro;
+                    this.capituloSel = 1;
+                    this.versiculoSel = 1;
+                },
+
+                limpiar(texto) {
+                    if (!texto) return '';
+                    return String(texto)
+                        .replace(/\$+/g, '')
+                        .replace(/\\(rightarrow|to|Rightarrow)/g, '->')
+                        .replace(/\\text\{([^}]*)\}/g, '$1')
+                        .replace(/\\[a-zA-Z]+/g, '')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                },
+
+                async getToken() {
+                    const { data } = await supabaseClient.auth.getSession();
+                    return data.session?.access_token || null;
+                },
+
+                async obtenerAnalisis(ref) {
+                    if (this.cache[ref]) return this.cache[ref];
+                    const token = await this.getToken();
+                    if (!token) throw new Error('SESION');
+                    const response = await fetch('/api/exegesis', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                        body: JSON.stringify({ consulta: ref })
+                    });
+                    if (response.status === 401) throw new Error('SESION');
+                    const result = await response.json();
+                    if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo procesar la consulta.');
+                    const data = result.data || {};
+                    const limpio = {
+                        referencia: this.limpiar(data.referencia) || ref,
+                        versiones: {
+                            rvr1960: this.limpiar(data.versiones?.rvr1960),
+                            nbla: this.limpiar(data.versiones?.nbla),
+                            nvi: this.limpiar(data.versiones?.nvi)
+                        },
+                        comentario: this.limpiar(data.comentarioMacArthur),
+                        original: [data.idiomaOriginal?.termino, data.idiomaOriginal?.strong, data.idiomaOriginal?.analisis].map(x => this.limpiar(x)).filter(Boolean).join(' · '),
+                        aplicacion: this.limpiar(data.aplicacion)
+                    };
+                    this.cache[ref] = limpio;
+                    return limpio;
+                },
+
+                // Texto b��blico REAL (no generado por IA), instantáneo, con 7 versiones en español.
+                async obtenerPasajeReal(ref) {
+                    if (this.cachePasaje[ref]) return this.cachePasaje[ref];
+                    const token = await this.getToken();
+                    if (!token) throw new Error('SESION');
+                    const response = await fetch('/api/pasaje', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                        body: JSON.stringify({ referencia: ref })
+                    });
+                    if (response.status === 401) throw new Error('SESION');
+                    const result = await response.json();
+                    if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
+                    const data = result.data || {};
+                    const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {}, original: data.original || null };
+                    this.cachePasaje[ref] = limpio;
+                    return limpio;
+                },
+
+                get versionesLista() {
+                    const etiquetas = {
+                        rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
+                        lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004'
+                    };
+                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004'];
+                    return Object.keys(this.versiones)
+                        .filter(k => this.versiones[k])
+                        .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
+                        .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
+                },
+                get textoActual() {
+                    return this.versiones[this.versionSel] || this.versiones.rv1960 || Object.values(this.versiones)[0] || 'Texto no disponible para esta versión.';
+                },
+
+                async leer() {
+                    if (!this.libroSel) return;
+                    const ref = `${this.libroSel.n} ${this.capituloSel}:${this.versiculoSel}`;
+                    await this.cargarPasaje(ref);
+                },
+                async leerReferencia(ref) {
+                    this.irA('biblia');
+                    // intenta situar el selector en el libro correcto
+                    const m = String(ref).match(/^(\d?\s?[^\d]+?)\s+(\d+)/);
+                    if (m) {
+                        const nombre = m[1].trim();
+                        const libro = [...LIBROS_AT, ...LIBROS_NT].find(l => l.n.toLowerCase() === nombre.toLowerCase());
+                        if (libro) {
+                            this.testamento = LIBROS_NT.includes(libro) ? 'nt' : 'at';
+                            this.libroSel = libro;
+                            this.capituloSel = Math.min(parseInt(m[2], 10) || 1, libro.c);
+                        }
+                    }
+                    await this.cargarPasaje(ref);
+                },
+                async cargarPasaje(ref) {
+                    this.cargandoPasaje = true;
+                    this.errorPasaje = '';
+                    try {
+                        const data = await this.obtenerPasajeReal(ref);
+                        this.versiones = data.versiones;
+                        this.referenciaActiva = data.referencia;
+                        this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+                        this.original = data.original || null;
+                        this.pasajesLeidos++;
+                        this.guardarProgreso();
+                        // Si hay paneles de estudio abiertos, cárgalos para el nuevo pasaje.
+                        // Se escalonan (no en paralelo) porque ambos golpean la misma cuota
+                        // gratuita de IA: lanzarlos juntos dispara falsos "muchas consultas"
+                        // sobre todo si el usuario navega rápido de un versículo a otro.
+                        if (this.verComentarios) this.cargarComentario();
+                        if (this.verReferencias) {
+                            setTimeout(() => this.cargarReferencias(), 1400);
+                        }
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.errorPasaje = error.message || 'No se pudo cargar el pasaje.';
+                    } finally {
+                        this.cargandoPasaje = false;
+                    }
+                },
+                async guardarProgreso() {
+                    if (!supabaseClient || !this.referenciaActiva) return;
+                    const etiqueta = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    await supabaseClient.from('progreso_lectura').upsert({
+                        libro: this.libroSel?.n || this.referenciaActiva,
+                        capitulo: this.capituloSel || 1,
+                        version: etiqueta,
+                        referencia: this.referenciaActiva,
+                        updated_at: new Date().toISOString()
+                    }, { onConflict: 'user_id' });
+                },
+                versiculoPrev() {
+                    if (this.versiculoSel > 1) { this.versiculoSel--; this.leer(); }
+                },
+                versiculoNext() {
+                    this.versiculoSel++; this.leer();
+                },
+
+                async estudiarActual() {
+                    if (!this.referenciaActiva) return;
+                    this.busqueda = this.referenciaActiva;
+                    this.irA('ia');
+                    await this.ejecutarEstudio(this.referenciaActiva);
+                },
+                async ejecutarEstudio(consulta) {
+                    const q = String(consulta || '').trim();
+                    if (!q || this.cargandoEstudio) return;
+                    this.busqueda = q;
+                    this.cargandoEstudio = true;
+                    this.errorEstudio = false;
+                    this.estudioListo = false;
+                    this.mensajeEstudio = 'Sintetizando análisis multiversión, idioma original y aplicación...';
+                    try {
+                        const data = await this.obtenerAnalisis(q);
+                        this.versiones = data.versiones;
+                        this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+                        this.estudioRef = data.referencia;
+                        this.estudio = {
+                            comentario: data.comentario || 'Comentario no disponible.',
+                            original: data.original || '',
+                            aplicacion: data.aplicacion || ''
+                        };
+                        // Reinicia las lentes y siembra la exégesis (instantánea, ya la tenemos)
+                        this.lentes = {
+                            exegesis: {
+                                estado: 'ready',
+                                titulo: 'Exégesis',
+                                cuerpo: this.estudio.comentario,
+                                destacado: this.estudio.aplicacion,
+                                autor: null
+                            }
+                        };
+                        this.lenteActiva = 'exegesis';
+                        this.estudioListo = true;
+                        this.mensajeEstudio = 'Análisis completado. Explora las demás lentes cuando quieras.';
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.errorEstudio = true;
+                        this.mensajeEstudio = error.message || 'Error de conexión con el servidor.';
+                    } finally {
+                        this.cargandoEstudio = false;
+                    }
+                },
+
+                // ---------- Lentes multi-disciplina ----------
+                get lenteKey() {
+                    return this.lenteActiva === 'autores' ? `autores:${this.autorSel}` : this.lenteActiva;
+                },
+                get lenteEstado() {
+                    return this.lentes[this.lenteKey] || { estado: 'idle' };
+                },
+                parrafosDe(texto) {
+                    return String(texto || '').split(/\n\n+/).map(s => s.trim()).filter(Boolean);
+                },
+                activarLente(id) {
+                    this.lenteActiva = id;
+                    const key = id === 'autores' ? `autores:${this.autorSel}` : id;
+                    const actual = this.lentes[key];
+                    if (!actual || actual.estado === 'error') this.cargarLente(id);
+                },
+                async cargarLente(id, forzar = false) {
+                    const key = id === 'autores' ? `autores:${this.autorSel}` : id;
+                    if (!forzar && this.lentes[key] && (this.lentes[key].estado === 'ready' || this.lentes[key].estado === 'loading')) return;
+                    if (!this.busqueda) return;
+                    this.lentes[key] = { estado: 'loading' };
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const body = { consulta: this.busqueda, lente: id };
+                        if (id === 'autores') body.autor = this.autorSel;
+                        const response = await fetch('/api/lente', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify(body)
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo generar esta lente.');
+                        const d = result.data || {};
+                        this.lentes[key] = {
+                            estado: 'ready',
+                            titulo: this.limpiar(d.titulo),
+                            cuerpo: this.limpiar(d.cuerpo),
+                            destacado: this.limpiar(d.destacado),
+                            autor: d.autor || null
+                        };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.lentes[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                    }
+                },
+
+                // ---------- Exportar estudio ----------
+                seccionesListas() {
+                    const out = [];
+                    for (const l of this.LENTES_LISTA) {
+                        if (l.id === 'autores') {
+                            for (const k of Object.keys(this.lentes)) {
+                                if (k.startsWith('autores:') && this.lentes[k]?.estado === 'ready') {
+                                    const e = this.lentes[k];
+                                    out.push({ titulo: e.titulo, cuerpo: e.cuerpo, destacado: e.destacado });
+                                }
+                            }
+                        } else if (this.lentes[l.id]?.estado === 'ready') {
+                            const e = this.lentes[l.id];
+                            out.push({ titulo: e.titulo || l.etiqueta, cuerpo: e.cuerpo, destacado: e.destacado });
+                        }
+                    }
+                    return out;
+                },
+                textoEstudioPlano() {
+                    const et = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    let t = `RevelatiO by Efata\nEstudio: ${this.estudioRef}\n`;
+                    if (this.textoActual) t += `\n"${this.textoActual}" (${et})\n`;
+                    if (this.estudio.original) t += `\nIdioma original: ${this.estudio.original}\n`;
+                    for (const s of this.seccionesListas()) {
+                        t += `\n\n== ${s.titulo} ==\n${s.cuerpo}`;
+                        if (s.destacado) t += `\n\n> ${s.destacado}`;
+                    }
+                    t += `\n\n—\nRevelatiO by Efata · Estudio bíblico gratuito · Xtrametrik & Cielo-Efata`;
+                    return t;
+                },
+                async copiarEstudio() {
+                    try {
+                        await navigator.clipboard.writeText(this.textoEstudioPlano());
+                        this.copiado = true;
+                        setTimeout(() => { this.copiado = false; }, 2000);
+                    } catch (_e) { /* algunos navegadores bloquean el portapapeles */ }
+                },
+                async compartirEstudio() {
+                    const texto = this.textoEstudioPlano();
+                    const titulo = `RevelatiO · ${this.estudioRef}`;
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({ title: titulo, text: texto });
+                            this.compartido = true;
+                            setTimeout(() => { this.compartido = false; }, 2000);
+                            return;
+                        } catch (e) {
+                            // El usuario cerró el diálogo nativo de compartir: respetar el gesto, sin error visible.
+                            if (e?.name === 'AbortError') return;
+                            // Cualquier otro fallo (ej. la API Web Share bloqueada por Permissions-Policy
+                            // dentro del iframe de vista previa) cae al portapapeles como respaldo,
+                            // en vez de quedarse sin hacer nada y parecer un botón roto.
+                        }
+                    }
+                    this.copiarEstudio();
+                },
+                imprimirEstudio() {
+                    const et = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    const esc = (s) => String(s || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+                    const secciones = this.seccionesListas().map(s => `
+                        <section>
+                            <h2>${esc(s.titulo)}</h2>
+                            ${this.parrafosDe(s.cuerpo).map(p => `<p>${esc(p)}</p>`).join('')}
+                            ${s.destacado ? `<blockquote>${esc(s.destacado)}</blockquote>` : ''}
+                        </section>`).join('');
+                    const html = `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>RevelatiO · ${esc(this.estudioRef)}</title>
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600&display=swap');
+                            body{font-family:'Plus Jakarta Sans',sans-serif;color:#2B2417;max-width:720px;margin:40px auto;padding:0 24px;line-height:1.65}
+                            .marca{font-family:'Playfair Display',serif;font-size:26px;color:#7C550E;letter-spacing:-.5px}
+                            .sub{font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:#9A6B12;margin-bottom:24px}
+                            h1{font-family:'Playfair Display',serif;font-size:22px;margin:8px 0 4px}
+                            .verso{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;background:#F5EFE3;border-left:3px solid #C89B3C;padding:12px 16px;border-radius:6px;margin:16px 0}
+                            .orig{font-size:12px;color:#6B5D45;margin-bottom:8px}
+                            h2{font-family:'Playfair Display',serif;font-size:16px;color:#7C550E;margin:22px 0 6px;border-bottom:1px solid #E3D8C2;padding-bottom:4px}
+                            p{margin:8px 0;font-size:13.5px}
+                            blockquote{border-left:2px solid #C89B3C;margin:10px 0;padding:4px 14px;font-style:italic;color:#7C550E}
+                            footer{margin-top:32px;padding-top:12px;border-top:1px solid #E3D8C2;font-size:10px;color:#9A8A6E}
+                        </style></head><body>
+                        <div class="marca">RevelatiO</div><div class="sub">by Efata</div>
+                        <h1>${esc(this.estudioRef)}</h1>
+                        ${this.textoActual ? `<div class="verso">"${esc(this.textoActual)}" <span style="font-size:11px;color:#9A6B12">(${esc(et)})</span></div>` : ''}
+                        ${this.estudio.original ? `<div class="orig"><strong>Idioma original:</strong> ${esc(this.estudio.original)}</div>` : ''}
+                        ${secciones}
+                        <footer>RevelatiO by Efata · Estudio bíblico de libre distribución · Desarrollo: Xtrametrik · Dirección teológica: Cielo-Efata</footer>
+                        </body></html>`;
+                    const w = window.open('', '_blank');
+                    if (!w) return;
+                    w.document.write(html);
+                    w.document.close();
+                    w.focus();
+                    setTimeout(() => w.print(), 400);
+                },
+                descargarPDF() {
+                    const jspdf = window.jspdf;
+                    if (!jspdf || !jspdf.jsPDF) { this.imprimirEstudio(); return; }
+                    const doc = new jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+                    const M = 48, W = 595 - M * 2;
+                    let y = M;
+                    const salto = (n = 16) => { y += n; if (y > 780) { doc.addPage(); y = M; } };
+                    const escribir = (texto, size, color, font = 'helvetica', style = 'normal', lh = 15) => {
+                        doc.setFont(font, style); doc.setFontSize(size); doc.setTextColor(...color);
+                        for (const linea of doc.splitTextToSize(String(texto || ''), W)) {
+                            if (y > 790) { doc.addPage(); y = M; }
+                            doc.text(linea, M, y); y += lh;
+                        }
+                    };
+                    escribir('RevelatiO', 22, [124, 85, 14], 'times', 'bold', 24);
+                    escribir('by Efata · Estudio bíblico', 10, [154, 107, 18]); salto(6);
+                    escribir(this.estudioRef, 16, [43, 36, 23], 'times', 'bold', 20); salto(4);
+                    const et = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    if (this.textoActual) { escribir(`"${this.textoActual}" (${et})`, 12, [90, 62, 10], 'times', 'italic', 16); salto(4); }
+                    if (this.estudio.original) { escribir(`Idioma original: ${this.estudio.original}`, 10, [107, 93, 69]); salto(4); }
+                    for (const s of this.seccionesListas()) {
+                        salto(10);
+                        escribir(s.titulo, 14, [124, 85, 14], 'times', 'bold', 18);
+                        escribir(s.cuerpo, 11.5, [43, 36, 23], 'helvetica', 'normal', 15);
+                        if (s.destacado) { salto(2); escribir(s.destacado, 11, [124, 85, 14], 'times', 'italic', 15); }
+                    }
+                    salto(18);
+                    escribir('RevelatiO by Efata · Libre distribución · Xtrametrik & Cielo-Efata', 9, [154, 138, 110]);
+                    const nombre = (this.estudioRef || 'estudio').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+                    doc.save(`revelatio-${nombre}.pdf`);
+                },
+
+                // ---------- Herramientas de estudio del lector (bibliatodo) ----------
+                get comentarioEstado() {
+                    const key = `${this.referenciaActiva}::${this.bibliaAutorSel}`;
+                    return this.comentariosBiblia[key] || { estado: 'idle' };
+                },
+                get referenciasEstado() {
+                    return this.referenciasBiblia[this.referenciaActiva] || { estado: 'idle' };
+                },
+                toggleComentarios() {
+                    this.verComentarios = !this.verComentarios;
+                    if (this.verComentarios) this.cargarComentario();
+                },
+                toggleReferencias() {
+                    this.verReferencias = !this.verReferencias;
+                    if (this.verReferencias) this.cargarReferencias();
+                },
+                async cargarComentario(forzar = false) {
+                    if (!this.referenciaActiva) return;
+                    const key = `${this.referenciaActiva}::${this.bibliaAutorSel}`;
+                    const actual = this.comentariosBiblia[key];
+                    if (!forzar && actual && (actual.estado === 'ready' || actual.estado === 'loading')) return;
+                    this.comentariosBiblia[key] = { estado: 'loading' };
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/lente', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ consulta: this.referenciaActiva, lente: 'autores', autor: this.bibliaAutorSel })
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo generar el comentario.');
+                        const d = result.data || {};
+                        this.comentariosBiblia[key] = {
+                            estado: 'ready',
+                            titulo: this.limpiar(d.titulo),
+                            cuerpo: this.limpiar(d.cuerpo),
+                            autor: d.autor || (this.AUTORES_LISTA.find(a => a.id === this.bibliaAutorSel)?.nombre) || '',
+                            esDominioPublico: typeof d.esDominioPublico === 'boolean' ? d.esDominioPublico : null
+                        };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.comentariosBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                    }
+                },
+                async cargarReferencias(forzar = false) {
+                    if (!this.referenciaActiva) return;
+                    const key = this.referenciaActiva;
+                    const actual = this.referenciasBiblia[key];
+                    if (!forzar && actual && (actual.estado === 'ready' || actual.estado === 'loading')) return;
+                    this.referenciasBiblia[key] = { estado: 'loading' };
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/referencias', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ consulta: this.referenciaActiva })
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudieron obtener las referencias.');
+                        this.referenciasBiblia[key] = {
+                            estado: 'ready',
+                            referencias: (result.data?.referencias || []).map(r => ({ ref: this.limpiar(r.ref), nota: this.limpiar(r.nota) }))
+                        };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.referenciasBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                    }
+                },
+
+                // ---------- Diccionario léxico (Strong's real) ----------
+                async consultarLexico(codigo) {
+                    if (!codigo) return;
+                    this.lexicoAbierto = true;
+                    this.cargandoLexico = true;
+                    this.errorLexico = '';
+                    this.lexicoDatos = null;
+                    if (this.cacheLexico[codigo]) {
+                        this.lexicoDatos = this.cacheLexico[codigo];
+                        this.cargandoLexico = false;
+                        return;
+                    }
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/lexico', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ codigo })
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo consultar el diccionario.');
+                        this.cacheLexico[codigo] = result.data;
+                        this.lexicoDatos = result.data;
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.errorLexico = error.message || 'Error de conexión.';
+                    } finally {
+                        this.cargandoLexico = false;
+                    }
+                },
+
+                // ---------- Planes de lectura ----------
+                get planActivo() {
+                    return this.planesCatalogo.find(p => p.id === this.planActivoId) || null;
+                },
+                get categoriasDisponibles() {
+                    return ['Todos', ...new Set(this.planesCatalogo.map(p => p.categoria))];
+                },
+                get planesFiltrados() {
+                    if (this.categoriaFiltro === 'Todos') return this.planesCatalogo;
+                    return this.planesCatalogo.filter(p => p.categoria === this.categoriaFiltro);
+                },
+                get planesEnProgreso() {
+                    return this.planesCatalogo.filter(p => {
+                        const pct = this.planProgreso(p.id);
+                        return pct > 0 && pct < 100;
+                    });
+                },
+                diasCompletados(planId) {
+                    return this.progresoPlanes[planId] || [];
+                },
+                diaCompleto(planId, i) {
+                    return this.diasCompletados(planId).includes(i);
+                },
+                planProgreso(planId) {
+                    const plan = this.planesCatalogo.find(p => p.id === planId);
+                    if (!plan || !plan.dias.length) return 0;
+                    return Math.round((this.diasCompletados(planId).length / plan.dias.length) * 100);
+                },
+                abrirPlan(id) {
+                    this.planActivoId = id;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                volverACatalogo() {
+                    this.planActivoId = null;
+                },
+                toggleDia(planId, i) {
+                    const actual = [...this.diasCompletados(planId)];
+                    const idx = actual.indexOf(i);
+                    if (idx === -1) actual.push(i); else actual.splice(idx, 1);
+                    this.progresoPlanes = { ...this.progresoPlanes, [planId]: actual };
+                    this.guardarProgresoPlanes();
+                },
+                reiniciarPlan(planId) {
+                    const copia = { ...this.progresoPlanes };
+                    delete copia[planId];
+                    this.progresoPlanes = copia;
+                    this.guardarProgresoPlanes();
+                },
+                irAlSiguienteDia() {
+                    const plan = this.planActivo;
+                    if (!plan) return;
+                    const completados = this.diasCompletados(plan.id);
+                    let dia = plan.dias.findIndex((_, i) => !completados.includes(i));
+                    if (dia === -1) dia = 0; // todo completado: repasar desde el inicio
+                    const primeraRef = plan.dias[dia]?.pasajes?.[0];
+                    if (primeraRef) this.leerReferencia(primeraRef);
+                },
+                guardarProgresoPlanes() {
+                    try { localStorage.setItem('revelatio-planes-progreso', JSON.stringify(this.progresoPlanes)); } catch (_e) {}
+                },
+                cargarProgresoPlanes() {
+                    try {
+                        const raw = localStorage.getItem('revelatio-planes-progreso');
+                        if (raw) this.progresoPlanes = JSON.parse(raw) || {};
+                    } catch (_e) { this.progresoPlanes = {}; }
+                },
+
+                buscarGlobal() {
+                    const q = this.consultaGlobal.trim();
+                    if (!q) return;
+                    this.busqueda = q;
+                    this.irA('ia');
+                    this.ejecutarEstudio(q);
+                    this.consultaGlobal = '';
+                },
+
+                esFavorito() {
+                    const etiqueta = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    return this.favoritos.some(f => f.ref === this.referenciaActiva && f.version === etiqueta);
+                },
+                async toggleFavorito() {
+                    if (!this.referenciaActiva) return;
+                    const etiqueta = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    const existente = this.favoritos.find(f => f.ref === this.referenciaActiva && f.version === etiqueta);
+                    if (existente) { await this.quitarFavorito(existente); return; }
+                    const fav = { ref: this.referenciaActiva, version: etiqueta, texto: this.textoActual };
+                    this.favoritos.unshift(fav);
+                    if (!supabaseClient) return;
+                    const { error } = await supabaseClient.from('favoritos').upsert({
+                        referencia: fav.ref, version: fav.version, texto: fav.texto
+                    }, { onConflict: 'user_id,referencia' });
+                    if (error) {
+                        this.favoritos = this.favoritos.filter(f => f !== fav);
+                    }
+                },
+                async quitarFavorito(fav) {
+                    this.favoritos = this.favoritos.filter(f => f !== fav);
+                    if (supabaseClient) {
+                        await supabaseClient.from('favoritos').delete().eq('referencia', fav.ref);
+                    }
+                }
+            };
+        }
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+        }
+    </script>
+</body>
+
+</html>
