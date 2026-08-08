@@ -133,11 +133,15 @@
     </div>
 
     <!-- ===================== LOGIN (Solo invitados) ===================== -->
-    <div x-show="sesionVerificada && !isLoggedIn" x-cloak class="zona-oscura fixed inset-0 z-[60] flex items-center justify-center p-4">
-        <div class="w-full max-w-md">
+    <div x-show="sesionVerificada && !isLoggedIn" x-cloak class="zona-oscura fixed inset-0 z-[60] flex items-center justify-center p-4 overflow-hidden">
+        <!-- Cerebro dorado como textura de fondo -->
+        <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
+            class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-15 blur-[1px]">
+        <div class="absolute inset-0 bg-gradient-to-b from-night/70 via-night/80 to-night"></div>
+        <div class="relative w-full max-w-md">
             <div class="bg-panel border border-gold-500/30 rounded-3xl p-8 shadow-2xl">
                 <div class="text-center mb-7">
-                    <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-44 h-44 object-contain mx-auto mb-2 rounded-2xl">
+                    <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-40 h-40 object-contain mx-auto rounded-2xl">
                     <p class="text-[11px] text-gray-400 mt-2 leading-relaxed max-w-xs mx-auto">Inteligencia exegética, conversión y renovación de la mente.</p>
                 </div>
 
@@ -282,16 +286,22 @@
 
                     <!-- ============ INICIO ============ -->
                     <section x-show="vista === 'inicio'" class="space-y-8">
-                        <div class="relative overflow-hidden rounded-3xl border border-gold-500/30 bg-panel p-6 sm:p-9">
-                            <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
-                            <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Transformaos mediante la renovación de vuestra mente</h2>
-                            <blockquote class="mt-4 border-l-2 border-gold-500/50 pl-4 max-w-2xl">
-                                <p class="text-sm text-gray-300 italic leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
-                                <cite class="block text-xs text-gold-400 mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
-                            </blockquote>
-                            <div class="flex flex-wrap gap-3 mt-6">
-                                <button @click="leerReferencia(versiculoDelDia.ref)" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer el pasaje del día</button>
-                                <button @click="irA('ia')" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Consultar RevelatiO IA</button>
+                        <div class="zona-oscura relative overflow-hidden rounded-3xl border border-gold-500/30 shadow-xl">
+                            <!-- Imagen del cerebro como elemento distintivo (renovación de la mente) -->
+                            <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
+                                class="pointer-events-none select-none absolute right-[-10%] top-1/2 -translate-y-1/2 w-[420px] max-w-[70%] opacity-30 sm:opacity-45 lg:opacity-60 object-contain">
+                            <div class="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-transparent"></div>
+                            <div class="relative p-6 sm:p-9 max-w-2xl">
+                                <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
+                                <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Transformaos mediante la renovación de vuestra mente</h2>
+                                <blockquote class="mt-4 border-l-2 border-gold-500/50 pl-4">
+                                    <p class="text-sm text-gray-300 italic leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
+                                    <cite class="block text-xs text-gold-400 mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
+                                </blockquote>
+                                <div class="flex flex-wrap gap-3 mt-6">
+                                    <button @click="leerReferencia(versiculoDelDia.ref)" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer el pasaje del día</button>
+                                    <button @click="irA('ia')" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Consultar RevelatiO IA</button>
+                                </div>
                             </div>
                         </div>
 
@@ -499,6 +509,17 @@
                             <p role="status" aria-live="polite" class="text-xs mt-3" :class="errorEstudio ? 'text-red-300' : 'text-gray-500'" x-text="mensajeEstudio"></p>
                         </div>
 
+                        <!-- Estado inicial (Alfa y Omega) -->
+                        <div x-show="!estudioListo && !cargandoEstudio" class="zona-oscura relative overflow-hidden rounded-2xl border border-gold-500/25 min-h-[16rem] flex items-center justify-center text-center p-8">
+                            <img src="/brand/alfa-omega.jpg" alt="" aria-hidden="true" class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-40">
+                            <div class="absolute inset-0 bg-gradient-to-t from-night via-night/60 to-transparent"></div>
+                            <div class="relative max-w-md">
+                                <p class="text-gold-200 font-serif text-lg">«Yo soy el Alfa y la Omega, el principio y el fin.»</p>
+                                <cite class="block text-xs text-gold-400 mt-2 not-italic">— Apocalipsis 21:6</cite>
+                                <p class="text-sm text-gray-300 mt-4 leading-relaxed">Escribe un pasaje o un tema y RevelatiO IA te entregará el texto en varias versiones, el idioma original y una aplicación para la renovación de tu mente.</p>
+                            </div>
+                        </div>
+
                         <!-- Resultado -->
                         <div x-show="estudioListo" x-cloak class="space-y-6">
                             <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
@@ -540,7 +561,7 @@
                     <section x-show="vista === 'estudio'" class="space-y-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif">Herramientas de estudio</h2>
-                            <p class="text-sm text-gray-500 mt-1">Profundiza en un tema o palabra clave con el motor CieloEfata.</p>
+                            <p class="text-sm text-gray-500 mt-1">Profundiza en un tema o palabra clave con el motor RevelatiO IA.</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <template x-for="tema in temasEstudio" :key="tema.q">
