@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { parsearReferencia, obtenerCapitulo, extraerTexto, obtenerOriginal } from '../lib/biblia.js';
+import { parsearReferencia, obtenerCapitulo, extraerTexto, extraerVersos, obtenerOriginal } from '../lib/biblia.js';
 
 // Texto bíblico REAL (no generado por IA): se sirve desde Bolls Bible
 // (bolls.life), una API pública gratuita y sin clave, para que la lectura
@@ -48,18 +48,23 @@ const PESHITTA_LIBROS = {
 };
 
 async function obtenerPeshitta(ref) {
-  if (!ref.versoInicio) return '';
   const libro = PESHITTA_LIBROS[ref.libro];
-  if (!libro) return '';
+  if (!libro) return { texto: '', versos: [] };
+  // Sin versículo puntual (lectura de capítulo completo): la API de Peshitta
+  // no expone un endpoint de capítulo, así que no se pueden recorrer decenas
+  // de versículos uno por uno sin arriesgar timeout. Se omite en ese caso;
+  // el resto de versiones sigue disponible para el lector.
+  if (!ref.versoInicio) return { texto: '', versos: [] };
   const versos = [];
   for (let numero = ref.versoInicio; numero <= (ref.versoFin || ref.versoInicio); numero += 1) {
     const query = encodeURIComponent(`${libro} ${ref.capitulo}:${numero}`);
     const respuesta = await fetch(`https://peshitta.onrender.com/api/verse?ref=${query}&lang=es`);
     if (!respuesta.ok) continue;
     const dato = await respuesta.json();
-    if (dato.translation_es) versos.push(dato.translation_es);
+    if (dato.translation_es) versos.push({ n: numero, texto: dato.translation_es });
   }
-  return versos.join(' ').trim();
+  const texto = versos.map((v) => v.texto).join(' ').trim();
+  return { texto, versos };
 }
 
 export default async function handler(req, res) {
@@ -87,23 +92,27 @@ export default async function handler(req, res) {
         VERSIONES.map(async (v) => {
           const data = await obtenerCapitulo(v.bolls, ref.libroId, ref.capitulo);
           const texto = extraerTexto(data, ref.versoInicio, ref.versoFin);
-          return { ...v, texto };
+          const versos = extraerVersos(data, ref.versoInicio, ref.versoFin);
+          return { ...v, texto, versos };
         })
       ),
       obtenerOriginal(ref).catch(() => null),
-      obtenerPeshitta(ref).catch(() => '')
+      obtenerPeshitta(ref).catch(() => ({ texto: '', versos: [] }))
     ]);
 
     const versiones = {};
+    const versionesVersos = {};
     const versionesLista = [];
     for (const r of resultados) {
       if (r.texto) {
         versiones[r.key] = r.texto;
+        versionesVersos[r.key] = r.versos;
         versionesLista.push({ key: r.key, etiqueta: r.etiqueta });
       }
     }
-    if (peshitta) {
-      versiones.peshitta = peshitta;
+    if (peshitta.texto) {
+      versiones.peshitta = peshitta.texto;
+      versionesVersos.peshitta = peshitta.versos;
       versionesLista.push({ key: 'peshitta', etiqueta: 'Peshitta · español' });
     }
 
@@ -117,7 +126,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-      data: { referencia: referenciaNormalizada, versiones, versionesLista, original }
+      data: { referencia: referenciaNormalizada, versiones, versionesVersos, versionesLista, original }
     });
   } catch (error) {
     console.error('Error obteniendo pasaje real:', error?.message);

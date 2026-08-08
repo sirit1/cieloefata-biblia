@@ -97,6 +97,12 @@
         /* Texto de lectura cómodo */
         .prose-lectura { color: #2B2417; line-height: 1.75; }
 
+        /* Resaltados del lector "modo libro" (tonos suaves sobre la página cálida) */
+        .hl-oro { background-color: rgba(200, 155, 60, .32); }
+        .hl-terracota { background-color: rgba(178, 90, 69, .26); }
+        .hl-salvia { background-color: rgba(122, 148, 104, .28); }
+        .hl-cielo { background-color: rgba(94, 120, 158, .24); }
+
         /* ===== Remapeo de utilidades oscuras -> paleta cálida legible =====
            El diseño original asumía fondo oscuro. Sobre pergamino, el texto gris
            claro debe volverse tinta cálida oscura para máxima legibilidad. */
@@ -450,8 +456,15 @@
     </div>
   </div>
   
-  <!-- Continuar leyendo -->
-                        <div x-show="referenciaActiva" x-cloak class="bg-panel border border-gold-500/20 rounded-2xl p-6 flex items-center justify-between gap-4">
+                        <!-- Continuar leyendo -->
+                        <div x-show="ultimaPosicionLector" x-cloak class="bg-panel border border-gold-500/20 rounded-2xl p-6 flex items-center justify-between gap-4">
+                            <div class="min-w-0">
+                                <p class="text-xs uppercase tracking-wider text-gold-400 mb-1">Continuar leyendo</p>
+                                <p class="text-lg font-serif text-gold-100 truncate" x-text="ultimaPosicionLector ? `${ultimaPosicionLector.libro} ${ultimaPosicionLector.capitulo}` : ''"></p>
+                            </div>
+                            <button @click="retomarLectura()" class="shrink-0 border border-gold-500/40 text-gold-200 px-4 py-2 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Retomar lectura</button>
+                        </div>
+                        <div x-show="!ultimaPosicionLector && referenciaActiva" x-cloak class="bg-panel border border-gold-500/20 rounded-2xl p-6 flex items-center justify-between gap-4">
                             <div class="min-w-0">
                                 <p class="text-xs uppercase tracking-wider text-gold-400 mb-1">Continuar leyendo</p>
                                 <p class="text-lg font-serif text-gold-100 truncate" x-text="referenciaActiva"></p>
@@ -545,6 +558,10 @@
                                                 <button @click="leer()" class="flex-1 bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold py-2 rounded-lg text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer</button>
                                             </div>
                                         </div>
+                                        <button @click="abrirLector()" class="w-full flex items-center justify-center gap-2 border border-gold-500/40 text-gold-200 font-semibold py-2.5 rounded-lg text-sm hover:bg-gold-600/10 transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25v13m0-13C10.83 5.48 9.25 5 7.5 5S4.17 5.48 3 6.25v13C4.17 18.48 5.75 18 7.5 18s3.33.48 4.5 1.25m0-13C13.17 5.48 14.75 5 16.5 5S19.83 5.48 21 6.25v13C19.83 18.48 18.25 18 16.5 18s-3.33.48-4.5 1.25"></path></svg>
+                                            Leer el capítulo completo
+                                        </button>
                                     </div>
                                 </template>
                             </div>
@@ -1085,6 +1102,110 @@
                 </p>
             </div>
         </div>
+
+        <!-- Modal: lector "modo libro" (capítulo completo, página a página) -->
+        <div x-show="lectorAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[85] flex flex-col bg-ink" role="dialog" aria-modal="true" aria-label="Lector de capítulo">
+            <div class="zona-oscura shrink-0 border-b border-line px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <button @click="cerrarLector()" class="p-2 rounded-lg hover:bg-night2 transition-colors shrink-0" aria-label="Cerrar lectura">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
+                    </button>
+                    <div class="min-w-0">
+                        <p class="text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-500/80">RevelatiO by Efata · Lectura</p>
+                        <h3 class="text-base sm:text-lg font-serif text-gold-100 truncate" x-text="libroSel ? `${libroSel.n} ${capituloSel}` : ''"></h3>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button @click="toggleCapituloLeido()" :class="capituloEstaLeido ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="hidden sm:inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        <span x-text="capituloEstaLeido ? 'Leído' : 'Marcar leído'"></span>
+                    </button>
+                    <button @click="guardarUltimaPosicion(); cerrarLector()" class="text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/25 transition-all font-semibold">Guardar y salir</button>
+                </div>
+            </div>
+
+            <div class="shrink-0 border-b border-line px-4 sm:px-6 py-2 flex items-center gap-1.5 overflow-x-auto bg-panel2">
+                <template x-for="v in versionesLista" :key="v.key">
+                    <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400 hover:text-gold-200'" class="text-[10px] px-2.5 py-1 rounded-md whitespace-nowrap transition-all shrink-0" x-text="v.etiqueta"></button>
+                </template>
+            </div>
+
+            <div class="flex-1 overflow-y-auto">
+                <div class="max-w-2xl mx-auto px-4 sm:px-10 py-6 sm:py-12">
+                    <div class="bg-panel border border-line rounded-3xl shadow-xl p-6 sm:p-10">
+                        <div x-show="cargandoPasaje" class="flex items-center justify-center gap-2 text-gold-500 text-sm py-16">
+                            <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                            Cargando capítulo...
+                        </div>
+                        <template x-if="!cargandoPasaje">
+                            <p class="prose-lectura font-serif text-lg sm:text-xl">
+                                <template x-for="v in versosActuales" :key="v.n">
+                                    <span @click="seleccionarVersiculoLector(v.n)"
+                                        :class="[colorVersiculo(v.n) ? `hl-${colorVersiculo(v.n)}` : '', versiculoLectorSel === v.n ? 'ring-2 ring-gold-500/70' : '']"
+                                        class="cursor-pointer transition-colors hover:bg-gold-500/10 rounded px-0.5">
+                                        <sup class="text-[10px] font-sans font-bold text-gold-600 mr-0.5" x-text="v.n"></sup><span x-text="v.texto + ' '"></span><svg x-show="notaDeVersiculo(v.n)" class="w-3 h-3 inline-block -translate-y-1.5 text-gold-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle></svg>
+                                    </span>
+                                </template>
+                            </p>
+                        </template>
+                        <p x-show="!cargandoPasaje && !versosActuales.length" class="text-sm text-gray-500 text-center py-10">No se pudo cargar el texto de este capítulo.</p>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-3 mt-6">
+                        <button @click="capituloLectorAnterior()" :disabled="capituloSel <= 1" class="flex items-center gap-1.5 text-sm text-gold-300 hover:text-gold-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M15 6l-6 6 6 6"></path></svg>
+                            Capítulo anterior
+                        </button>
+                        <span class="text-xs text-gray-500" x-text="libroSel ? `Capítulo ${capituloSel} de ${libroSel.c}` : ''"></span>
+                        <button @click="capituloLectorSiguiente()" :disabled="libroSel && capituloSel >= libroSel.c" class="flex items-center gap-1.5 text-sm text-gold-300 hover:text-gold-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+                            Capítulo siguiente
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 6l6 6-6 6"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="versiculoLectorSel" x-cloak x-transition class="zona-oscura shrink-0 border-t border-gold-500/30 px-4 sm:px-6 py-3">
+                <div class="max-w-2xl mx-auto flex flex-wrap items-center gap-3">
+                    <p class="text-xs text-gold-300 font-semibold shrink-0" x-text="libroSel ? `${libroSel.n} ${capituloSel}:${versiculoLectorSel}` : ''"></p>
+                    <div class="flex items-center gap-1.5">
+                        <template x-for="c in COLORES_RESALTADO" :key="c.id">
+                            <button @click="resaltarVersiculo(versiculoLectorSel, c.id)" :class="colorVersiculo(versiculoLectorSel) === c.id ? 'ring-2 ring-gold-300' : ''" :style="`background:${c.muestra}`" class="w-5 h-5 rounded-full border border-white/20 transition-all" :aria-label="`Resaltar en ${c.nombre}`"></button>
+                        </template>
+                        <button x-show="colorVersiculo(versiculoLectorSel)" @click="resaltarVersiculo(versiculoLectorSel, null)" class="text-[10px] text-gray-400 hover:text-gray-200 px-1.5">Quitar</button>
+                    </div>
+                    <button @click="abrirNotaVersiculo(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7m-1.5-9.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 8.5-8.5z"></path></svg>
+                        <span x-text="notaDeVersiculo(versiculoLectorSel) ? 'Editar nota' : 'Añadir nota'"></span>
+                    </button>
+                    <button @click="toggleFavoritoVersiculo(versiculoLectorSel, textoDeVersiculo(versiculoLectorSel))" :class="esFavoritoVersiculo(versiculoLectorSel) ? 'text-gold-400' : 'text-gold-200 hover:text-gold-100'" class="text-xs flex items-center gap-1">
+                        <svg class="w-4 h-4" :fill="esFavoritoVersiculo(versiculoLectorSel) ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"></path></svg>
+                        Favorito
+                    </button>
+                    <button @click="profundizarVersiculoLector(versiculoLectorSel)" class="text-xs bg-gold-600/20 text-gold-200 border border-gold-500/40 px-3 py-1.5 rounded-lg hover:bg-gold-600/30 transition-all ml-auto">Profundizar con RevelatiO IA</button>
+                    <button @click="versiculoLectorSel = null" class="text-gray-500 hover:text-gray-200 p-1" aria-label="Cerrar selección">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: nota personal de un versículo -->
+        <div x-show="notaAbierta" x-cloak x-transition.opacity class="fixed inset-0 z-[90] flex items-end sm:items-center justify-center bg-black/70 p-4" @click.self="notaAbierta = false">
+            <div class="bg-panel border border-gold-500/30 shadow-2xl rounded-2xl w-full sm:max-w-md p-5">
+                <div class="flex items-center justify-between gap-3 mb-3">
+                    <h4 class="text-sm font-semibold text-gold-200" x-text="`Nota · ${libroSel ? libroSel.n : ''} ${capituloSel}:${versiculoNotaSel}`"></h4>
+                    <button @click="notaAbierta = false" class="text-gray-500 hover:text-gray-200 p-1" aria-label="Cerrar">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
+                    </button>
+                </div>
+                <textarea x-model="notaTexto" rows="4" placeholder="Escribe tu reflexión personal sobre este versículo..." class="w-full bg-ink border border-line rounded-xl px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500 resize-none"></textarea>
+                <div class="flex items-center justify-end gap-2 mt-3">
+                    <button x-show="notaDeVersiculo(versiculoNotaSel)" @click="eliminarNotaVersiculo(versiculoNotaSel)" class="text-xs text-red-300 hover:text-red-200 px-3 py-2">Eliminar</button>
+                    <button @click="guardarNotaVersiculo()" class="text-xs bg-gold-600 text-gray-950 font-bold px-4 py-2 rounded-lg hover:bg-gold-500 transition-all">Guardar nota</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ===================== LÓGICA ===================== -->
@@ -1561,11 +1682,29 @@
                 versiculoSel: 1,
                 referenciaActiva: '',
                 versiones: {},
+                versionesVersos: {},
                 versionSel: 'rvr1960',
                 cargandoPasaje: false,
                 errorPasaje: '',
                 pasajesLeidos: 0,
                 original: null,
+
+                // lector "modo libro" (capítulo completo, resaltados, notas, progreso)
+                lectorAbierto: false,
+                versiculoLectorSel: null,
+                versiculoNotaSel: null,
+                notaAbierta: false,
+                notaTexto: '',
+                resaltados: {},
+                notas: {},
+                capitulosLeidos: {},
+                ultimaPosicionLector: null,
+                COLORES_RESALTADO: [
+                    { id: 'oro', nombre: 'Oro', muestra: '#C89B3C' },
+                    { id: 'terracota', nombre: 'Terracota', muestra: '#B25A45' },
+                    { id: 'salvia', nombre: 'Salvia', muestra: '#7A9468' },
+                    { id: 'cielo', nombre: 'Cielo', muestra: '#5E789E' }
+                ],
                 // Abierto por defecto: es el único lugar donde se ven los números Strong
                 // reales, ya que las versiones en español no tienen alineación palabra-por-palabra
                 // verificable con Strong's en la fuente de datos.
@@ -1647,6 +1786,10 @@
                     const dia = Math.floor(Date.now() / 86400000) % VERSICULOS_DIA.length;
                     this.versiculoDelDia = VERSICULOS_DIA[dia];
                     this.cargarProgresoPlanes();
+                    this.cargarResaltados();
+                    this.cargarNotas();
+                    this.cargarCapitulosLeidos();
+                    this.cargarUltimaPosicion();
                     try {
                         const response = await fetch('/api/config');
                         const config = await response.json();
@@ -1862,7 +2005,7 @@
                     const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
-                    const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {}, original: data.original || null };
+                    const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {}, versionesVersos: data.versionesVersos || {}, original: data.original || null };
                     this.cachePasaje[ref] = limpio;
                     return limpio;
                 },
@@ -1908,8 +2051,11 @@
                     try {
                         const data = await this.obtenerPasajeReal(ref);
                         this.versiones = data.versiones;
+                        this.versionesVersos = data.versionesVersos || {};
                         this.referenciaActiva = data.referencia;
-                        this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+                        if (!this.versiones[this.versionSel]) {
+                            this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+                        }
                         this.original = data.original || null;
                         this.pasajesLeidos++;
                         this.guardarProgreso();
@@ -2415,6 +2561,186 @@
                     this.irA('ia');
                     this.ejecutarEstudio(q);
                     this.consultaGlobal = '';
+                },
+
+                // ===== Lector "modo libro" =====
+                get versosActuales() {
+                    const versos = this.versionesVersos[this.versionSel] || this.versionesVersos[Object.keys(this.versionesVersos)[0]] || [];
+                    return versos;
+                },
+                claveCapitulo(libro = this.libroSel?.n, capitulo = this.capituloSel) {
+                    return libro ? `${libro}|${capitulo}` : '';
+                },
+                async abrirLector(libro, capitulo) {
+                    if (libro) {
+                        this.testamento = LIBROS_NT.includes(libro) ? 'nt' : 'at';
+                        this.libroSel = libro;
+                    }
+                    if (capitulo) this.capituloSel = capitulo;
+                    if (!this.libroSel) return;
+                    this.versiculoLectorSel = null;
+                    this.lectorAbierto = true;
+                    await this.cargarCapituloLector();
+                },
+                cerrarLector() {
+                    this.lectorAbierto = false;
+                    this.versiculoLectorSel = null;
+                },
+                async cargarCapituloLector() {
+                    if (!this.libroSel) return;
+                    await this.cargarPasaje(`${this.libroSel.n} ${this.capituloSel}`);
+                    this.guardarUltimaPosicion();
+                },
+                async capituloLectorAnterior() {
+                    if (this.capituloSel > 1) {
+                        this.capituloSel--;
+                        this.versiculoLectorSel = null;
+                        await this.cargarCapituloLector();
+                    }
+                },
+                async capituloLectorSiguiente() {
+                    if (this.libroSel && this.capituloSel < this.libroSel.c) {
+                        this.capituloSel++;
+                        this.versiculoLectorSel = null;
+                        await this.cargarCapituloLector();
+                    }
+                },
+                seleccionarVersiculoLector(n) {
+                    this.versiculoLectorSel = this.versiculoLectorSel === n ? null : n;
+                },
+                textoDeVersiculo(n) {
+                    return (this.versosActuales.find(v => v.n === n) || {}).texto || '';
+                },
+
+                // Resaltados (localStorage: son anotaciones personales de lectura,
+                // no datos de cuenta que deban sincronizarse en el servidor)
+                colorVersiculo(n) {
+                    const clave = this.claveCapitulo();
+                    return (this.resaltados[clave] && this.resaltados[clave][n]) || null;
+                },
+                resaltarVersiculo(n, colorId) {
+                    const clave = this.claveCapitulo();
+                    if (!clave) return;
+                    if (!this.resaltados[clave]) this.resaltados[clave] = {};
+                    if (colorId) this.resaltados[clave][n] = colorId;
+                    else delete this.resaltados[clave][n];
+                    this.guardarResaltados();
+                },
+                guardarResaltados() {
+                    try { localStorage.setItem('revelatio-resaltados', JSON.stringify(this.resaltados)); } catch (_e) {}
+                },
+                cargarResaltados() {
+                    try {
+                        const raw = localStorage.getItem('revelatio-resaltados');
+                        if (raw) this.resaltados = JSON.parse(raw) || {};
+                    } catch (_e) {}
+                },
+
+                // Notas personales por versículo
+                notaDeVersiculo(n) {
+                    const clave = this.claveCapitulo();
+                    return (this.notas[clave] && this.notas[clave][n]) || '';
+                },
+                abrirNotaVersiculo(n) {
+                    this.versiculoNotaSel = n;
+                    this.notaTexto = this.notaDeVersiculo(n);
+                    this.notaAbierta = true;
+                },
+                guardarNotaVersiculo() {
+                    const clave = this.claveCapitulo();
+                    if (!clave) return;
+                    if (!this.notas[clave]) this.notas[clave] = {};
+                    const texto = this.notaTexto.trim();
+                    if (texto) this.notas[clave][this.versiculoNotaSel] = texto;
+                    else delete this.notas[clave][this.versiculoNotaSel];
+                    this.guardarNotas();
+                    this.notaAbierta = false;
+                },
+                eliminarNotaVersiculo(n) {
+                    const clave = this.claveCapitulo();
+                    if (clave && this.notas[clave]) delete this.notas[clave][n];
+                    this.guardarNotas();
+                    this.notaAbierta = false;
+                },
+                guardarNotas() {
+                    try { localStorage.setItem('revelatio-notas', JSON.stringify(this.notas)); } catch (_e) {}
+                },
+                cargarNotas() {
+                    try {
+                        const raw = localStorage.getItem('revelatio-notas');
+                        if (raw) this.notas = JSON.parse(raw) || {};
+                    } catch (_e) {}
+                },
+
+                // Capítulos marcados como leídos
+                get capituloEstaLeido() {
+                    return Boolean(this.capitulosLeidos[this.claveCapitulo()]);
+                },
+                toggleCapituloLeido() {
+                    const clave = this.claveCapitulo();
+                    if (!clave) return;
+                    if (this.capitulosLeidos[clave]) delete this.capitulosLeidos[clave];
+                    else this.capitulosLeidos[clave] = true;
+                    this.guardarCapitulosLeidos();
+                },
+                guardarCapitulosLeidos() {
+                    try { localStorage.setItem('revelatio-capitulos-leidos', JSON.stringify(this.capitulosLeidos)); } catch (_e) {}
+                },
+                cargarCapitulosLeidos() {
+                    try {
+                        const raw = localStorage.getItem('revelatio-capitulos-leidos');
+                        if (raw) this.capitulosLeidos = JSON.parse(raw) || {};
+                    } catch (_e) {}
+                },
+
+                // Guardar página y retomar después
+                guardarUltimaPosicion() {
+                    if (!this.libroSel) return;
+                    this.ultimaPosicionLector = { libro: this.libroSel.n, capitulo: this.capituloSel, version: this.versionSel, ts: Date.now() };
+                    try { localStorage.setItem('revelatio-ultima-posicion', JSON.stringify(this.ultimaPosicionLector)); } catch (_e) {}
+                },
+                cargarUltimaPosicion() {
+                    try {
+                        const raw = localStorage.getItem('revelatio-ultima-posicion');
+                        if (raw) this.ultimaPosicionLector = JSON.parse(raw);
+                    } catch (_e) {}
+                },
+                async retomarLectura() {
+                    if (!this.ultimaPosicionLector) return;
+                    const libro = [...LIBROS_AT, ...LIBROS_NT].find(l => l.n === this.ultimaPosicionLector.libro);
+                    if (!libro) return;
+                    this.versionSel = this.ultimaPosicionLector.version || this.versionSel;
+                    await this.abrirLector(libro, this.ultimaPosicionLector.capitulo);
+                },
+
+                // Favoritos por versículo puntual dentro del lector de capítulo
+                esFavoritoVersiculo(n) {
+                    if (!this.libroSel || !n) return false;
+                    const ref = `${this.libroSel.n} ${this.capituloSel}:${n}`;
+                    return this.favoritos.some(f => f.ref === ref);
+                },
+                async toggleFavoritoVersiculo(n, texto) {
+                    if (!this.libroSel || !n) return;
+                    const ref = `${this.libroSel.n} ${this.capituloSel}:${n}`;
+                    const etiqueta = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    const existente = this.favoritos.find(f => f.ref === ref);
+                    if (existente) { await this.quitarFavorito(existente); return; }
+                    const fav = { ref, version: etiqueta, texto };
+                    this.favoritos.unshift(fav);
+                    if (!supabaseClient) return;
+                    const { error } = await supabaseClient.from('favoritos').upsert({
+                        referencia: fav.ref, version: fav.version, texto: fav.texto
+                    }, { onConflict: 'user_id,referencia' });
+                    if (error) this.favoritos = this.favoritos.filter(f => f !== fav);
+                },
+
+                // Profundizar con RevelatiO IA el versículo seleccionado en el lector
+                async profundizarVersiculoLector(n) {
+                    if (!this.libroSel || !n) return;
+                    const ref = `${this.libroSel.n} ${this.capituloSel}:${n}`;
+                    this.cerrarLector();
+                    this.irA('ia');
+                    await this.ejecutarEstudio(ref);
                 },
 
                 esFavorito() {
