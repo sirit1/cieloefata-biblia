@@ -525,8 +525,11 @@
                                 </template>
 
                                 <div x-show="referenciaActiva && !cargandoPasaje && !errorPasaje" x-cloak class="flex-1 flex flex-col">
-                                    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-line">
-                                        <h3 class="text-lg font-serif text-gold-100" x-text="referenciaActiva"></h3>
+                                    <div class="flex flex-wrap items-end justify-between gap-3 pb-4 mb-4 border-b border-line">
+                                        <div>
+                                            <p class="text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-500/70">RevelatiO by Efata · Lectura</p>
+                                            <h3 class="text-lg font-serif text-gold-100 mt-1" x-text="referenciaActiva"></h3>
+                                        </div>
                                         <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
                                             <template x-for="v in versionesLista" :key="v.key">
                                                 <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
@@ -554,10 +557,10 @@
                                     </div>
 
                                     <!-- Herramientas de estudio del pasaje (estilo bibliatodo) -->
-                                    <div class="mt-5 space-y-3">
+                                    <div class="mt-5 flex flex-col gap-3">
                                         <!-- Texto original: griego/hebreo con Strong's + diccionario léxico real -->
-                                        <div class="border border-line rounded-xl overflow-hidden" x-show="original">
-                                            <button @click="verOriginal = !verOriginal" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-ink/60 hover:bg-ink transition-colors text-left">
+                                        <div class="order-3 border border-line rounded-xl overflow-hidden" x-show="original">
+                                            <button @click="verOriginal = !verOriginal" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20l-5-10-5 10m1.5-4h7"></path></svg>
                                                     <span x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
@@ -593,11 +596,12 @@
                                         </div>
 
                                         <!-- Comentarios de autores -->
-                                        <div class="border border-line rounded-xl overflow-hidden">
-                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-ink/60 hover:bg-ink transition-colors text-left">
+                                        <div class="order-1 border border-gold-500/30 rounded-xl overflow-hidden">
+                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
-                                                    Comentarios de autores
+                                                    <span>Comentarios de autores</span>
+                                                    <span class="hidden sm:inline text-[9px] uppercase tracking-[0.16em] text-gold-400/70">RevelatiO by Efata</span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
@@ -638,11 +642,12 @@
                                         </div>
 
                                         <!-- Referencias cruzadas -->
-                                        <div class="border border-line rounded-xl overflow-hidden">
-                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-ink/60 hover:bg-ink transition-colors text-left">
+                                        <div class="order-2 border border-gold-500/30 rounded-xl overflow-hidden">
+                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
-                                                    Referencias cruzadas
+                                                    <span>Referencias cruzadas</span>
+                                                    <span class="hidden sm:inline text-[9px] uppercase tracking-[0.16em] text-gold-400/70">RevelatiO by Efata</span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
@@ -1485,7 +1490,7 @@
                 // Abierto por defecto: es el único lugar donde se ven los números Strong
                 // reales, ya que las versiones en español no tienen alineación palabra-por-palabra
                 // verificable con Strong's en la fuente de datos.
-                verOriginal: true,
+                verOriginal: false,
                 lexicoAbierto: false,
                 lexicoDatos: null,
                 cargandoLexico: false,
@@ -1514,11 +1519,11 @@
                     { id: 'autores', etiqueta: 'Comentarios de autores' }
                 ],
                 AUTORES_LISTA: [
+                    { id: 'john-macarthur', nombre: 'John MacArthur' },
                     { id: 'matthew-henry', nombre: 'Matthew Henry' },
                     { id: 'juan-calvino', nombre: 'Juan Calvino' },
                     { id: 'charles-spurgeon', nombre: 'Charles Spurgeon' },
                     { id: 'juan-wesley', nombre: 'Juan Wesley' },
-                    { id: 'john-macarthur', nombre: 'John MacArthur' },
                     { id: 'william-barclay', nombre: 'William Barclay' },
                     { id: 'agustin-de-hipona', nombre: 'Agustín de Hipona' },
                     { id: 'juan-crisostomo', nombre: 'Juan Crisóstomo' }
@@ -1530,9 +1535,9 @@
                 compartido: false,
 
                 // Herramientas de estudio del lector de Biblia (estilo bibliatodo)
-                verComentarios: false,
-                verReferencias: false,
-                bibliaAutorSel: 'matthew-henry',
+                verComentarios: true,
+                verReferencias: true,
+                bibliaAutorSel: 'john-macarthur',
                 comentariosBiblia: {},
                 referenciasBiblia: {},
                 cachePasaje: {},
