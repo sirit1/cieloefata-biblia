@@ -2,13 +2,24 @@ import { createClient } from '@supabase/supabase-js';
 import { obtenerDefinicionStrong } from '../lib/biblia.js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
 
+function limpiarTextoLexico(texto) {
+  return String(texto || '')
+    .replace(/(^|\\n)\\s*[-–]?\\s*(original|transliteration|transliteración|phonetic|pronunciación|definition|definición|origin|origen|tdnt entry|part\\(s\\) of speech|categoría gramatical|strongs?)\\s*:?/gim, '$1')
+    .replace(/\\b(from|compare|perhaps|to be|of persons|of things|verb|adverb|noun|preposition|conjunction)\\b/gi, '')
+    .replace(/\\n{3,}/g, '\\n\\n')
+    .trim();
+}
+
 async function traducirDefinicion(definicion) {
-  if (!hayMotorIA() || !definicion?.definicion) return definicion;
+  if (!hayMotorIA() || !definicion?.definicion) {
+    return { ...definicion, definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
+  }
   try {
-    const traduccion = await generarJSON(`Traduce al español bíblico claro la siguiente entrada léxica de Strong. Conserva exactamente el código, el lexema, la transliteración y la pronunciación. No añadas información. Devuelve solo JSON válido con la clave definicion_es.\n\nCódigo: ${definicion.codigo}\nLexema: ${definicion.lexema}\nDefinición: ${definicion.definicion}`, { reintentos: 1 });
-    return { ...definicion, definicionEs: String(traduccion?.definicion_es || '').trim() || definicion.definicion };
+    const traduccion = await generarJSON(`Eres un lexicógrafo bíblico. Traduce esta entrada al español claro. Devuelve SOLO JSON válido con una única clave definicion_es. NO incluyas inglés ni etiquetas de campos, tampoco Original, Transliteration, Phonetic, Definition, Origin, TDNT, Part(s) of speech o Strong's. Escribe únicamente una explicación española breve del significado y uso.\n\nCódigo: ${definicion.codigo}\nLexema original: ${definicion.lexema}\nEntrada fuente: ${definicion.definicion}`, { reintentos: 2 });
+    const definicionEs = limpiarTextoLexico(traduccion?.definicion_es);
+    return { ...definicion, definicionEs: definicionEs || 'No se pudo preparar la traducción al español en este momento.' };
   } catch (_) {
-    return { ...definicion, definicionEs: definicion.definicion };
+    return { ...definicion, definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
   }
 }
 

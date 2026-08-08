@@ -1008,13 +1008,13 @@
 
         <!-- Modal: definición léxica real (Strong's) al tocar una palabra original -->
         <div x-show="lexicoAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[80] flex items-end sm:items-center justify-center bg-black/70 p-4" @click.self="lexicoAbierto = false">
-            <div class="zona-oscura bg-night border border-gold-500/40 shadow-2xl rounded-2xl w-full sm:max-w-md p-5 max-h-[80vh] overflow-y-auto text-gold-50">
+            <div class="zona-oscura bg-night border border-gold-300/60 shadow-2xl rounded-2xl w-full sm:max-w-md p-5 max-h-[80vh] overflow-y-auto text-gold-50">
                 <div class="flex items-start justify-between gap-3 mb-3">
                     <div>
-                        <p class="text-[11px] font-semibold text-gold-300 uppercase tracking-wider">Número Strong · <span x-text="lexicoDatos?.codigo"></span></p>
+                        <p class="text-[11px] font-bold text-gold-100 uppercase tracking-wider">Número Strong · <span x-text="lexicoDatos?.codigo"></span></p>
                         <h4 class="text-2xl text-gold-100" :class="lexicoDatos?.codigo?.startsWith('H') ? 'font-hebreo' : 'font-griego'" :dir="lexicoDatos?.codigo?.startsWith('H') ? 'rtl' : 'ltr'" x-text="lexicoDatos?.lexema"></h4>
-                        <p class="text-sm text-gold-100/80" x-text="[lexicoDatos?.transliteracion, lexicoDatos?.pronunciacion].filter(Boolean).join(' · ')"></p>
-                        <p class="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-400">Definición en español</p>
+                        <p class="text-sm text-gold-50" x-text="[lexicoDatos?.transliteracion, lexicoDatos?.pronunciacion].filter(Boolean).join(' · ')"></p>
+                        <p class="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-100">Definición en español</p>
                     </div>
                     <button @click="lexicoAbierto = false" class="text-gray-500 hover:text-white p-1" aria-label="Cerrar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
@@ -1026,8 +1026,8 @@
                 </div>
                 <div x-show="errorLexico" class="text-sm text-red-300 py-2" x-text="errorLexico"></div>
                 <p x-show="!cargandoLexico && lexicoDatos" class="mt-2 rounded-xl border border-gold-500/25 bg-night2/80 p-4 text-[15px] text-gold-50 leading-7 whitespace-pre-line" x-text="lexicoDatos?.definicionEs || lexicoDatos?.definicion"></p>
-                <p class="mt-4 pt-3 border-t border-gold-500/20 text-[11px] text-gold-100/70 leading-relaxed">
-                    Fuente léxica: Brown-Driver-Briggs (hebreo) / Thayer (griego), vinculada al número Strong. La traducción al español la prepara RevelatiO IA para facilitar la lectura; el término original y la fuente permanecen visibles.
+                <p class="mt-4 pt-3 border-t border-gold-500/20 text-[11px] text-gold-100 leading-relaxed">
+                    Fuente léxica: Brown-Driver-Briggs (hebreo) / Thayer (griego), vinculada al número Strong. RevelatiO IA muestra aquí únicamente la explicación en español; el término original se conserva arriba.
                 </p>
             </div>
         </div>
