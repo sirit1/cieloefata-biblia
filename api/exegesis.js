@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
+import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnicos, obtenerDefinicionStrong } from '../lib/biblia.js';
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -35,6 +36,26 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: 'El motor de IA todavía no está configurado.' });
   }
 
+  // Si la consulta es una referencia reconocible, trae el texto original real
+  // (griego/hebreo con Strong's) y sus definiciones léxicas reales (BDBT/Thayer)
+  // ANTES de llamar a la IA, para que el análisis se apoye en datos verificables
+  // en vez de que el modelo "recuerde" el griego/hebreo de memoria (y a veces
+  // invente el número de Strong).
+  let contextoOriginal = '';
+  try {
+    const ref = parsearReferencia(consulta);
+    if (ref && ref.versoInicio) {
+      const original = await obtenerOriginal(ref);
+      if (original) {
+        const plano = originalComoTextoPlano(original);
+        const codigos = strongsUnicos(original).slice(0, 12);
+        const definiciones = (await Promise.all(codigos.map((c) => obtenerDefinicionStrong(c).catch(() => null)))).filter(Boolean);
+        const lineas = definiciones.map((d) => `${d.codigo}: ${d.lexema} (${d.transliteracion}) — ${d.definicionCorta || d.definicion.split('\n')[0]}`);
+        contextoOriginal = `\n\nCONTEXTO REAL VERIFICADO (no inventes sobre esto, básate en él; viene de fuentes reales: ${original.etiqueta}, y el diccionario Brown-Driver-Briggs/Thayer):\nTexto original palabra por palabra con Strong's: ${plano}\nDefiniciones léxicas reales:\n${lineas.join('\n')}` + (original.septuaginta ? `\n\nSeptuaginta (LXX, griego, solo informativo — ${original.septuaginta.nota}): ${original.septuaginta.texto}` : '');
+      }
+    }
+  } catch (_e) { /* si falla, el análisis sigue sin este contexto extra */ }
+
   try {
     const data = await generarJSON(`Eres el motor exegético de RevelatiO by Efata, plataforma de estudio bíblico en español.
 
@@ -46,13 +67,13 @@ Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
 - "versiones": el texto del versículo en cada versión. Si es un tema sin un único versículo, deja los tres campos como cadena vacía "".
-- "idiomaOriginal": término griego o hebreo clave, número Strong y un breve análisis morfológico/etimológico.
+- "idiomaOriginal": término griego o hebreo clave, número Strong y un breve análisis morfológico/etimológico. Si se te da un CONTEXTO REAL VERIFICADO más abajo, tu término y número de Strong DEBEN salir de ahí, no de tu memoria.
 - "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo.
 - "aplicacion": aplicación ministerial que refleje el camino del evangelio: confesión y arrepentimiento (1 Juan 1:9), conversión y estudio de la Palabra (1 Pedro 2:2), y permanecer firmes y constantes en la fe (1 Corintios 15:58).
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}`);
+Consulta: ${consulta}${contextoOriginal}`);
     return res.status(200).json({ success: true, data });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);

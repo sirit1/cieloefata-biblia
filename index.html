@@ -80,7 +80,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
 
         [x-cloak] { display: none !important; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; color: #2B2417; }
@@ -488,6 +488,41 @@
 
                                     <!-- Herramientas de estudio del pasaje (estilo bibliatodo) -->
                                     <div class="mt-5 space-y-3">
+                                        <!-- Texto original: griego/hebreo con Strong's + diccionario léxico real -->
+                                        <div class="border border-line rounded-xl overflow-hidden" x-show="original">
+                                            <button @click="verOriginal = !verOriginal" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-ink/60 hover:bg-ink transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
+                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20l-5-10-5 10m1.5-4h7"></path></svg>
+                                                    <span x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
+                                                </span>
+                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verOriginal ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                            </button>
+                                            <div x-show="verOriginal" x-collapse x-cloak class="p-4 border-t border-line">
+                                                <p class="text-[11px] text-gray-500 mb-3" x-text="original?.etiqueta"></p>
+                                                <p :dir="original?.idioma === 'hebreo' ? 'rtl' : 'ltr'" class="text-xl leading-loose font-serif text-gold-50/90 mb-1">
+                                                    <template x-for="(v, vi) in (original?.versos || [])" :key="vi">
+                                                        <span>
+                                                            <template x-for="(t, ti) in v.tokens" :key="ti">
+                                                                <span>
+                                                                    <button x-show="t.strong" @click="consultarLexico(t.strong)" x-text="t.palabra" class="hover:text-gold-300 hover:underline underline-offset-4 cursor-pointer"></button>
+                                                                    <span x-show="!t.strong" x-text="t.palabra"></span>
+                                                                </span>
+                                                            </template>
+                                                        </span>
+                                                    </template>
+                                                </p>
+                                                <p class="text-[11px] text-gray-500 mt-2">Toca cualquier palabra para ver su definición léxica real (Brown-Driver-Briggs / Thayer, con número de Strong).</p>
+
+                                                <template x-if="original?.septuaginta">
+                                                    <div class="mt-4 pt-4 border-t border-line/60">
+                                                        <p class="text-xs font-semibold text-gold-300 mb-1" x-text="original.septuaginta.etiqueta"></p>
+                                                        <p class="text-lg leading-relaxed font-serif text-gold-50/80" x-text="original.septuaginta.texto" dir="ltr"></p>
+                                                        <p class="text-[11px] text-gray-500 mt-2" x-text="original.septuaginta.nota"></p>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+
                                         <!-- Comentarios de autores -->
                                         <div class="border border-line rounded-xl overflow-hidden">
                                             <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-ink/60 hover:bg-ink transition-colors text-left">
@@ -882,6 +917,31 @@
                 </button>
             </template>
         </nav>
+
+        <!-- Modal: definición léxica real (Strong's) al tocar una palabra original -->
+        <div x-show="lexicoAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[80] flex items-end sm:items-center justify-center bg-black/70 p-4" @click.self="lexicoAbierto = false">
+            <div class="zona-oscura bg-panel border border-line rounded-2xl w-full sm:max-w-md p-5 max-h-[75vh] overflow-y-auto">
+                <div class="flex items-start justify-between gap-3 mb-3">
+                    <div>
+                        <p class="text-[11px] text-gold-500 uppercase tracking-wider" x-text="lexicoDatos?.codigo"></p>
+                        <h4 class="text-2xl font-serif text-gold-100" x-text="lexicoDatos?.lexema"></h4>
+                        <p class="text-sm text-gray-400" x-text="[lexicoDatos?.transliteracion, lexicoDatos?.pronunciacion].filter(Boolean).join(' · ')"></p>
+                    </div>
+                    <button @click="lexicoAbierto = false" class="text-gray-500 hover:text-white p-1" aria-label="Cerrar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
+                    </button>
+                </div>
+                <div x-show="cargandoLexico" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                    <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                    Consultando el diccionario...
+                </div>
+                <div x-show="errorLexico" class="text-sm text-red-300 py-2" x-text="errorLexico"></div>
+                <p x-show="!cargandoLexico && lexicoDatos" class="text-sm text-gray-300 leading-relaxed whitespace-pre-line" x-text="lexicoDatos?.definicion"></p>
+                <p class="mt-4 pt-3 border-t border-line text-[10px] text-gray-500 leading-relaxed">
+                    Fuente: Brown-Driver-Briggs (hebreo) / Thayer (griego), léxicos reales ligados al número de Strong. No es contenido generado por IA.
+                </p>
+            </div>
+        </div>
     </div>
 
     <!-- ===================== LÓGICA ===================== -->
@@ -1264,6 +1324,12 @@
                 cargandoPasaje: false,
                 errorPasaje: '',
                 pasajesLeidos: 0,
+                original: null,
+                verOriginal: false,
+                lexicoAbierto: false,
+                lexicoDatos: null,
+                cargandoLexico: false,
+                errorLexico: '',
 
                 // estudio / IA
                 busqueda: '',
@@ -1309,6 +1375,7 @@
                 comentariosBiblia: {},
                 referenciasBiblia: {},
                 cachePasaje: {},
+                cacheLexico: {},
 
                 // búsqueda global
                 consultaGlobal: '',
@@ -1484,7 +1551,7 @@
                     const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
-                    const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {} };
+                    const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {}, original: data.original || null };
                     this.cachePasaje[ref] = limpio;
                     return limpio;
                 },
@@ -1532,6 +1599,7 @@
                         this.versiones = data.versiones;
                         this.referenciaActiva = data.referencia;
                         this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+                        this.original = data.original || null;
                         this.pasajesLeidos++;
                         this.guardarProgreso();
                         // Si hay paneles de estudio abiertos, cárgalos para el nuevo pasaje
@@ -1839,6 +1907,39 @@
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
                         this.referenciasBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                    }
+                },
+
+                // ---------- Diccionario léxico (Strong's real) ----------
+                async consultarLexico(codigo) {
+                    if (!codigo) return;
+                    this.lexicoAbierto = true;
+                    this.cargandoLexico = true;
+                    this.errorLexico = '';
+                    this.lexicoDatos = null;
+                    if (this.cacheLexico[codigo]) {
+                        this.lexicoDatos = this.cacheLexico[codigo];
+                        this.cargandoLexico = false;
+                        return;
+                    }
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/lexico', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ codigo })
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo consultar el diccionario.');
+                        this.cacheLexico[codigo] = result.data;
+                        this.lexicoDatos = result.data;
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.errorLexico = error.message || 'Error de conexión.';
+                    } finally {
+                        this.cargandoLexico = false;
                     }
                 },
 
