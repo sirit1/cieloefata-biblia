@@ -1,5 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
 import { obtenerDefinicionStrong } from '../lib/biblia.js';
+import { generarJSON, hayMotorIA } from '../lib/ai.js';
+
+async function traducirDefinicion(definicion) {
+  if (!hayMotorIA() || !definicion?.definicion) return definicion;
+  try {
+    const traduccion = await generarJSON(`Traduce al español bíblico claro la siguiente entrada léxica de Strong. Conserva exactamente el código, el lexema, la transliteración y la pronunciación. No añadas información. Devuelve solo JSON válido con la clave definicion_es.\n\nCódigo: ${definicion.codigo}\nLexema: ${definicion.lexema}\nDefinición: ${definicion.definicion}`, { reintentos: 1 });
+    return { ...definicion, definicionEs: String(traduccion?.definicion_es || '').trim() || definicion.definicion };
+  } catch (_) {
+    return { ...definicion, definicionEs: definicion.definicion };
+  }
+}
 
 // Diccionario léxico REAL (Brown-Driver-Briggs para hebreo, Thayer para
 // griego, vía Bolls Bible) para consultar el significado exacto de una
@@ -38,7 +49,8 @@ export default async function handler(req, res) {
     if (!definicion) {
       return res.status(404).json({ error: 'No se encontró una definición para ese término.' });
     }
-    return res.status(200).json({ success: true, data: definicion });
+    const resultado = await traducirDefinicion(definicion);
+    return res.status(200).json({ success: true, data: resultado });
   } catch (error) {
     console.error('Error consultando el diccionario léxico:', error?.message);
     return res.status(502).json({ error: 'No fue posible consultar el diccionario en este momento.' });
