@@ -1303,7 +1303,7 @@
                     { titulo: 'Día 2 · El corazón engañoso', pasajes: ['Jeremías 17:9-10', 'Proverbios 16:2'] },
                     { titulo: 'Día 3 · Nada por vanagloria', pasajes: ['Filipenses 2:3-8'] },
                     { titulo: 'Día 4 · El que se enaltece será humillado', pasajes: ['Lucas 14:11', 'Proverbios 16:18'] },
-                    { titulo: 'Día 5 · No para agradar a los hombres', pasajes: ['Gálatas 1:10', 'Juan 5:44'] },
+                    { titulo: 'D��a 5 · No para agradar a los hombres', pasajes: ['Gálatas 1:10', 'Juan 5:44'] },
                     { titulo: 'Día 6 · Muere el yo, vive Cristo', pasajes: ['Gálatas 2:20', 'Lucas 9:23-24'] },
                     { titulo: 'Día 7 · Toda la gloria a Él', pasajes: ['1 Corintios 10:31', 'Apocalipsis 4:10-11'] }
                 ]
@@ -1409,7 +1409,10 @@
                 errorPasaje: '',
                 pasajesLeidos: 0,
                 original: null,
-                verOriginal: false,
+                // Abierto por defecto: es el único lugar donde se ven los números Strong
+                // reales, ya que las versiones en español no tienen alineación palabra-por-palabra
+                // verificable con Strong's en la fuente de datos.
+                verOriginal: true,
                 lexicoAbierto: false,
                 lexicoDatos: null,
                 cargandoLexico: false,
