@@ -719,8 +719,36 @@
                                 <h2 class="text-2xl font-bold text-gold-50 font-serif">Planes de lectura</h2>
                                 <p class="text-sm text-gray-500 mt-1">Elige un camino y avanza día a día. RevelatiO guarda tu progreso.</p>
                             </div>
+
+                            <!-- Continuar leyendo -->
+                            <div x-show="planesEnProgreso.length" x-cloak class="space-y-3">
+                                <h3 class="text-xs uppercase tracking-wider font-semibold text-gray-500">Continuar leyendo</h3>
+                                <div class="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1">
+                                    <template x-for="plan in planesEnProgreso" :key="'cont-' + plan.id">
+                                        <button @click="abrirPlan(plan.id)" class="text-left shrink-0 w-64 bg-panel border border-gold-500/30 rounded-xl p-4 hover:border-gold-500/50 transition-all">
+                                            <p class="text-sm font-semibold text-gold-100 truncate" x-text="plan.titulo"></p>
+                                            <div class="mt-2 flex items-center gap-2">
+                                                <div class="flex-1 h-1.5 bg-ink rounded-full overflow-hidden">
+                                                    <div class="h-full bg-gradient-to-r from-gold-600 to-gold-400" :style="`width: ${planProgreso(plan.id)}%`"></div>
+                                                </div>
+                                                <span class="text-[11px] text-gold-300 font-semibold shrink-0" x-text="planProgreso(plan.id) + '%'"></span>
+                                            </div>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Filtro de categorías -->
+                            <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+                                <template x-for="cat in categoriasDisponibles" :key="cat">
+                                    <button @click="categoriaFiltro = cat" class="shrink-0 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all"
+                                        :class="categoriaFiltro === cat ? 'bg-gold-500 border-gold-500 text-gray-950' : 'bg-panel border-line text-gray-400 hover:border-gold-500/40 hover:text-gold-200'"
+                                        x-text="cat"></button>
+                                </template>
+                            </div>
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <template x-for="plan in planesCatalogo" :key="plan.id">
+                                <template x-for="plan in planesFiltrados" :key="plan.id">
                                     <button @click="abrirPlan(plan.id)" class="text-left bg-panel border rounded-2xl p-6 transition-all hover:shadow-lg"
                                         :class="plan.destacado ? 'border-gold-500/40' : 'border-line hover:border-gold-500/30'">
                                         <div class="flex items-center justify-between gap-3 mb-3">
@@ -745,6 +773,7 @@
                                         </p>
                                     </button>
                                 </template>
+                                <p x-show="!planesFiltrados.length" x-cloak class="text-sm text-gray-500 col-span-full text-center py-8">No hay planes en esta categoría todavía.</p>
                             </div>
                         </div>
 
@@ -978,6 +1007,195 @@
                     ...caps('Colosenses', 4), ...caps('1 Tesalonicenses', 5), ...caps('2 Tesalonicenses', 3),
                     ...caps('1 Timoteo', 6), ...caps('2 Timoteo', 4), ...caps('Tito', 3), ...caps('Filemón', 1)
                 ], 3)
+            },
+            {
+                id: 'primeros-pasos',
+                titulo: 'Primeros pasos en la fe',
+                categoria: 'Nuevo en la fe',
+                duracion: 10,
+                descripcion: 'Diez días para afirmar los fundamentos de una vida nueva en Cristo.',
+                dias: [
+                    { titulo: 'Día 1 · Dios te ama', pasajes: ['Juan 3:16'] },
+                    { titulo: 'Día 2 · Todos hemos pecado', pasajes: ['Romanos 3:23', 'Romanos 6:23'] },
+                    { titulo: 'Día 3 · Cristo murió por ti', pasajes: ['Romanos 5:8'] },
+                    { titulo: 'Día 4 · Cree y confiesa', pasajes: ['Romanos 10:9-10'] },
+                    { titulo: 'Día 5 · Salvo por gracia', pasajes: ['Efesios 2:8-9'] },
+                    { titulo: 'Día 6 · Nueva criatura', pasajes: ['2 Corintios 5:17'] },
+                    { titulo: 'Día 7 · Hijo de Dios', pasajes: ['Juan 1:12', 'Romanos 8:16'] },
+                    { titulo: 'Día 8 · Ya no hay condenación', pasajes: ['Romanos 8:1'] },
+                    { titulo: 'Día 9 · Vida eterna segura', pasajes: ['1 Juan 5:11-13'] },
+                    { titulo: 'Día 10 · Él completará la obra', pasajes: ['Filipenses 1:6', 'Mateo 28:19-20'] }
+                ]
+            },
+            {
+                id: 'paz-ansiedad',
+                titulo: 'Paz en medio de la tormenta',
+                categoria: 'Ansiedad',
+                duracion: 7,
+                descripcion: 'Siete días para entregar tus cargas y recibir la paz que sobrepasa todo entendimiento.',
+                dias: [
+                    { titulo: 'Día 1 · No te angusties', pasajes: ['Filipenses 4:6-7'] },
+                    { titulo: 'Día 2 · Considerad las aves', pasajes: ['Mateo 6:25-34'] },
+                    { titulo: 'Día 3 · Dios es nuestro refugio', pasajes: ['Salmos 46'] },
+                    { titulo: 'Día 4 · Echad vuestra ansiedad', pasajes: ['1 Pedro 5:6-7'] },
+                    { titulo: 'Día 5 · No temas', pasajes: ['Isaías 41:10'] },
+                    { titulo: 'Día 6 · Mi paz os dejo', pasajes: ['Juan 14:27'] },
+                    { titulo: 'Día 7 · En el día que temo', pasajes: ['Salmos 94:19', 'Salmos 55:22'] }
+                ]
+            },
+            {
+                id: 'esperanza-firme',
+                titulo: 'Firmes en la esperanza',
+                categoria: 'Esperanza',
+                duracion: 7,
+                descripcion: 'Una semana para anclar el alma en las promesas de Dios cuando todo parece incierto.',
+                dias: [
+                    { titulo: 'Día 1 · Dios de esperanza', pasajes: ['Romanos 15:13'] },
+                    { titulo: 'Día 2 · Planes de bienestar', pasajes: ['Jeremías 29:11'] },
+                    { titulo: 'Día 3 · La certeza de lo que se espera', pasajes: ['Hebreos 11:1'] },
+                    { titulo: 'Día 4 · Por qué te abates, alma mía', pasajes: ['Salmos 42:11'] },
+                    { titulo: 'Día 5 · Esperamos con paciencia', pasajes: ['Romanos 8:24-25'] },
+                    { titulo: 'Día 6 · La esperanza bienaventurada', pasajes: ['Tito 2:13'] },
+                    { titulo: 'Día 7 · Esperanza viva', pasajes: ['1 Pedro 1:3-5'] }
+                ]
+            },
+            {
+                id: 'amor-no-falla',
+                titulo: 'El amor que no falla',
+                categoria: 'Amor',
+                duracion: 7,
+                descripcion: 'Contempla el amor de Dios y aprende a amar como Él ama, siete días a la vez.',
+                dias: [
+                    { titulo: 'Día 1 · El himno del amor', pasajes: ['1 Corintios 13:1-13'] },
+                    { titulo: 'Día 2 · Dios es amor', pasajes: ['1 Juan 4:7-12'] },
+                    { titulo: 'Día 3 · Nadie tiene mayor amor', pasajes: ['Juan 15:12-13'] },
+                    { titulo: 'Día 4 · Mientras éramos pecadores', pasajes: ['Romanos 5:8'] },
+                    { titulo: 'Día 5 · Amemos de hecho y verdad', pasajes: ['1 Juan 3:16-18'] },
+                    { titulo: 'Día 6 · Fuerte como la muerte', pasajes: ['Cantares 8:6-7'] },
+                    { titulo: 'Día 7 · Un nuevo mandamiento', pasajes: ['Juan 13:34-35'] }
+                ]
+            },
+            {
+                id: 'ensename-orar',
+                titulo: 'Enséñame a orar',
+                categoria: 'Oración',
+                duracion: 7,
+                descripcion: 'Aprende de Jesús y los apóstoles a orar con fe, constancia y confianza.',
+                dias: [
+                    { titulo: 'Día 1 · El Padre Nuestro', pasajes: ['Mateo 6:5-13'] },
+                    { titulo: 'Día 2 · Pedid y se os dará', pasajes: ['Lucas 11:1-13'] },
+                    { titulo: 'Día 3 · Por nada estéis afanosos', pasajes: ['Filipenses 4:6-7'] },
+                    { titulo: 'Día 4 · La oración de fe', pasajes: ['Santiago 5:13-16'] },
+                    { titulo: 'Día 5 · Orad sin cesar', pasajes: ['1 Tesalonicenses 5:16-18'] },
+                    { titulo: 'Día 6 · Un salmo de alabanza', pasajes: ['Salmos 145'] },
+                    { titulo: 'Día 7 · Permaneced en Mí', pasajes: ['Juan 15:7'] }
+                ]
+            },
+            {
+                id: 'hogar-conforme-dios',
+                titulo: 'Un hogar conforme a Dios',
+                categoria: 'Familia',
+                duracion: 7,
+                descripcion: 'Principios bíblicos para el matrimonio, la crianza y la vida en el hogar.',
+                dias: [
+                    { titulo: 'Día 1 · Amor y sumisión mutua', pasajes: ['Efesios 5:22-33'] },
+                    { titulo: 'Día 2 · Padres e hijos', pasajes: ['Efesios 6:1-4'] },
+                    { titulo: 'Día 3 · Orden en el hogar', pasajes: ['Colosenses 3:18-21'] },
+                    { titulo: 'Día 4 · La mujer virtuosa', pasajes: ['Proverbios 31:10-31'] },
+                    { titulo: 'Día 5 · Enseña a tus hijos', pasajes: ['Deuteronomio 6:4-9'] },
+                    { titulo: 'Día 6 · Escoge a quién servir', pasajes: ['Josué 24:14-15'] },
+                    { titulo: 'Día 7 · Edificados por el Señor', pasajes: ['Salmos 127'] }
+                ]
+            },
+            {
+                id: 'liberados-perdon',
+                titulo: 'Liberados por el perdón',
+                categoria: 'Perdón',
+                duracion: 7,
+                descripcion: 'Perdonar como fuimos perdonados: sana el corazón y suelta la ofensa.',
+                dias: [
+                    { titulo: 'Día 1 · El siervo despiadado', pasajes: ['Mateo 18:21-35'] },
+                    { titulo: 'Día 2 · Perdonaos unos a otros', pasajes: ['Colosenses 3:12-13'] },
+                    { titulo: 'Día 3 · Como Dios nos perdonó', pasajes: ['Efesios 4:31-32'] },
+                    { titulo: 'Día 4 · Si tenéis algo contra alguien', pasajes: ['Marcos 11:25'] },
+                    { titulo: 'Día 5 · Perdonad y seréis perdonados', pasajes: ['Lucas 6:37'] },
+                    { titulo: 'Día 6 · Misericordioso y clemente', pasajes: ['Salmos 103:8-12'] },
+                    { titulo: 'Día 7 · José perdona a sus hermanos', pasajes: ['Génesis 45:1-15'] }
+                ]
+            },
+            {
+                id: 'santiago-sabiduria',
+                titulo: 'Decisiones sabias',
+                categoria: 'Sabiduría',
+                duracion: 5,
+                descripcion: 'La carta de Santiago: fe que se demuestra en obras, palabras y paciencia.',
+                dias: diasPorCapitulos(caps('Santiago', 5), 1)
+            },
+            {
+                id: 'fruto-espiritu',
+                titulo: 'El fruto del Espíritu',
+                categoria: 'Carácter',
+                duracion: 9,
+                descripcion: 'Amor, gozo, paz, paciencia, benignidad, bondad, fe, mansedumbre y templanza, uno por día.',
+                dias: [
+                    { titulo: 'Día 1 · Amor', pasajes: ['Gálatas 5:22-23', '1 Corintios 13:4-7'] },
+                    { titulo: 'Día 2 · Gozo', pasajes: ['Nehemías 8:10', 'Filipenses 4:4'] },
+                    { titulo: 'Día 3 · Paz', pasajes: ['Juan 14:27', 'Colosenses 3:15'] },
+                    { titulo: 'Día 4 · Paciencia', pasajes: ['Romanos 12:12', 'Santiago 1:2-4'] },
+                    { titulo: 'Día 5 · Benignidad', pasajes: ['Efesios 4:32'] },
+                    { titulo: 'Día 6 · Bondad', pasajes: ['Salmos 34:8', 'Gálatas 6:9-10'] },
+                    { titulo: 'Día 7 · Fe', pasajes: ['Hebreos 11:6', 'Marcos 11:22-24'] },
+                    { titulo: 'Día 8 · Mansedumbre', pasajes: ['Mateo 11:28-30', 'Gálatas 6:1'] },
+                    { titulo: 'Día 9 · Templanza', pasajes: ['1 Corintios 9:24-27', '2 Pedro 1:5-8'] }
+                ]
+            },
+            {
+                id: 'mujeres-biblia',
+                titulo: 'Mujeres de fe en la Biblia',
+                categoria: 'Personajes',
+                duracion: 7,
+                descripcion: 'Vidas de mujeres valientes cuya fe sigue hablando hoy.',
+                dias: [
+                    { titulo: 'Día 1 · Eva, la madre de todos', pasajes: ['Génesis 3:1-15'] },
+                    { titulo: 'Día 2 · Rut, la lealtad', pasajes: ['Rut 1:15-18'] },
+                    { titulo: 'Día 3 · Débora, la jueza', pasajes: ['Jueces 4:1-16'] },
+                    { titulo: 'Día 4 · Ana, la oración perseverante', pasajes: ['1 Samuel 1:9-20'] },
+                    { titulo: 'Día 5 · Ester, el valor', pasajes: ['Ester 4:12-17'] },
+                    { titulo: 'Día 6 · María, la fe humilde', pasajes: ['Lucas 1:26-38'] },
+                    { titulo: 'Día 7 · María de Betania, la devoción', pasajes: ['Juan 12:1-8'] }
+                ]
+            },
+            {
+                id: 'lideres-biblia',
+                titulo: 'Líderes según el corazón de Dios',
+                categoria: 'Personajes',
+                duracion: 7,
+                descripcion: 'David, Josué, Nehemías, Daniel y otros: liderazgo forjado en la fe.',
+                dias: [
+                    { titulo: 'Día 1 · Josué, valor y obediencia', pasajes: ['Josué 1:1-9'] },
+                    { titulo: 'Día 2 · David, un hombre según Su corazón', pasajes: ['1 Samuel 17:32-37'] },
+                    { titulo: 'Día 3 · David y Betsabé: caída y arrepentimiento', pasajes: ['Salmos 51:1-12'] },
+                    { titulo: 'Día 4 · Nehemías, reconstruir con fe', pasajes: ['Nehemías 1:1-11'] },
+                    { titulo: 'Día 5 · Daniel, integridad bajo presión', pasajes: ['Daniel 1:8-20'] },
+                    { titulo: 'Día 6 · Daniel en el foso de los leones', pasajes: ['Daniel 6:10-23'] },
+                    { titulo: 'Día 7 · Pablo, corriendo la carrera', pasajes: ['2 Timoteo 4:6-8'] }
+                ]
+            },
+            {
+                id: 'semana-santa',
+                titulo: 'Camino a la cruz',
+                categoria: 'Vida de Jesús',
+                duracion: 7,
+                descripcion: 'La última semana de Jesús: de la entrada triunfal a la resurrección.',
+                dias: [
+                    { titulo: 'Día 1 · Entrada triunfal', pasajes: ['Mateo 21:1-11'] },
+                    { titulo: 'Día 2 · La última cena', pasajes: ['Lucas 22:14-23'] },
+                    { titulo: 'Día 3 · Getsemaní', pasajes: ['Mateo 26:36-46'] },
+                    { titulo: 'Día 4 · Traicionado y juzgado', pasajes: ['Juan 18:1-14'] },
+                    { titulo: 'Día 5 · La crucifixión', pasajes: ['Juan 19:16-30'] },
+                    { titulo: 'Día 6 · En la tumba', pasajes: ['Mateo 27:57-66'] },
+                    { titulo: 'Día 7 · Ha resucitado', pasajes: ['Lucas 24:1-12'] }
+                ]
             }
         ];
 
@@ -1029,6 +1247,7 @@
                 // datos
                 planesCatalogo: PLANES_CATALOGO,
                 planActivoId: null,
+                categoriaFiltro: 'Todos',
                 progresoPlanes: {},
                 temasEstudio: TEMAS_ESTUDIO,
                 temaLibre: '',
@@ -1141,7 +1360,21 @@
                             this.favoritos = favRes.data.map(f => ({ ref: f.referencia, version: f.version, texto: f.texto }));
                         }
                         if (!progRes.error && progRes.data && progRes.data.referencia) {
-                            this.referenciaActiva = progRes.data.referencia;
+                            // No basta con fijar la referencia: hay que sincronizar el
+                            // selector (libro/capítulo) y traer el texto real, o el
+                            // lector queda mostrando "Juan 3:16" sin contenido alguno.
+                            const refGuardada = progRes.data.referencia;
+                            const m = String(refGuardada).match(/^(\d?\s?[^\d]+?)\s+(\d+)/);
+                            if (m) {
+                                const nombre = m[1].trim();
+                                const libro = [...LIBROS_AT, ...LIBROS_NT].find(l => l.n.toLowerCase() === nombre.toLowerCase());
+                                if (libro) {
+                                    this.testamento = LIBROS_NT.includes(libro) ? 'nt' : 'at';
+                                    this.libroSel = libro;
+                                    this.capituloSel = Math.min(parseInt(m[2], 10) || 1, libro.c);
+                                }
+                            }
+                            this.cargarPasaje(refGuardada);
                         }
                     } catch (_e) { /* la sesión sigue siendo válida aunque falle la carga */ }
                 },
@@ -1268,7 +1501,7 @@
                         .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
                 },
                 get textoActual() {
-                    return this.versiones[this.versionSel] || this.versiones.rvr1960 || 'Texto no disponible para esta versión.';
+                    return this.versiones[this.versionSel] || this.versiones.rv1960 || Object.values(this.versiones)[0] || 'Texto no disponible para esta versión.';
                 },
 
                 async leer() {
@@ -1612,6 +1845,19 @@
                 // ---------- Planes de lectura ----------
                 get planActivo() {
                     return this.planesCatalogo.find(p => p.id === this.planActivoId) || null;
+                },
+                get categoriasDisponibles() {
+                    return ['Todos', ...new Set(this.planesCatalogo.map(p => p.categoria))];
+                },
+                get planesFiltrados() {
+                    if (this.categoriaFiltro === 'Todos') return this.planesCatalogo;
+                    return this.planesCatalogo.filter(p => p.categoria === this.categoriaFiltro);
+                },
+                get planesEnProgreso() {
+                    return this.planesCatalogo.filter(p => {
+                        const pct = this.planProgreso(p.id);
+                        return pct > 0 && pct < 100;
+                    });
                 },
                 diasCompletados(planId) {
                     return this.progresoPlanes[planId] || [];
