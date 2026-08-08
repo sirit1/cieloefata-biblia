@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@google/genai": "^1.29.1",
-    "@supabase/supabase-js": "^2.57.4"
+    "@supabase/supabase-js": "^2.57.4",
+    "ai": "^7.0.58"
   },
   "engines": {
     "node": ">=20"

@@ -77,6 +77,7 @@
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&display=swap');
 
@@ -492,7 +493,7 @@
                     <section x-show="vista === 'ia'" class="space-y-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif">RevelatiO IA</h2>
-                            <p class="text-sm text-gray-500 mt-1">Inteligencia exegética: análisis multiversión, idiomas originales y aplicación para la renovación de la mente.</p>
+                            <p class="text-sm text-gray-500 mt-1">Una consulta, muchas lentes: exégesis, teología, hermenéutica, psicología, neurociencia, neuroplasticidad, antropología y una palabra de RevelatiO para ti.</p>
                         </div>
 
                         <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
@@ -522,6 +523,7 @@
 
                         <!-- Resultado -->
                         <div x-show="estudioListo" x-cloak class="space-y-6">
+                            <!-- Pasaje + versiones -->
                             <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
                                 <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-line">
                                     <h3 class="text-lg font-serif text-gold-100" x-text="estudioRef"></h3>
@@ -532,26 +534,80 @@
                                     </div>
                                 </div>
                                 <p class="text-lg leading-relaxed font-serif italic text-gold-50/90" x-text="textoActual"></p>
+                                <p x-show="estudio.original" class="mt-4 pt-3 border-t border-line text-xs text-gray-400"><span class="text-gold-400 font-semibold uppercase tracking-wider text-[10px]">Idioma original</span> · <span x-text="estudio.original"></span></p>
                             </div>
 
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                <div class="bg-panel border border-line rounded-2xl p-6 flex flex-col justify-between">
-                                    <div>
-                                        <h4 class="text-xs font-semibold tracking-wider text-gold-400 uppercase mb-3">Comentario exegético</h4>
-                                        <p class="text-sm text-gray-300 leading-relaxed" x-text="estudio.comentario"></p>
-                                    </div>
-                                    <p class="mt-4 pt-3 border-t border-line text-[10px] text-gold-500 font-medium">Exégesis pastoral rigurosa</p>
+                            <!-- Barra de exportar -->
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-[11px] text-gray-500 uppercase tracking-wider mr-1">Tu estudio:</span>
+                                <button @click="compartirEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zm12 7a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+                                    Compartir
+                                </button>
+                                <button @click="descargarPDF()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"></path></svg>
+                                    PDF
+                                </button>
+                                <button @click="imprimirEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6v-8z"></path></svg>
+                                    Imprimir
+                                </button>
+                                <button @click="copiarEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-ink text-gray-400 border border-line px-3 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    <span x-text="copiado ? 'Copiado' : 'Copiar'"></span>
+                                </button>
+                            </div>
+
+                            <!-- Barra de lentes -->
+                            <div>
+                                <p class="text-xs text-gray-500 mb-2.5 uppercase tracking-wider">Explora tu consulta desde cada disciplina, bajo la autoridad de la Escritura</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="l in LENTES_LISTA" :key="l.id">
+                                        <button @click="activarLente(l.id)"
+                                            :class="lenteActiva === l.id ? 'bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold border-transparent' : 'bg-panel text-gray-300 border-line hover:border-gold-500/40 hover:text-gold-200'"
+                                            class="text-xs px-3.5 py-2 rounded-full border transition-all" x-text="l.etiqueta"></button>
+                                    </template>
                                 </div>
-                                <div class="bg-panel border border-line rounded-2xl p-6 flex flex-col justify-between">
-                                    <div>
-                                        <h4 class="text-xs font-semibold tracking-wider text-gold-400 uppercase mb-3">Idioma original</h4>
-                                        <p class="text-sm text-gray-300 leading-relaxed" x-text="estudio.original"></p>
-                                    </div>
-                                    <p class="mt-4 pt-3 border-t border-line text-[10px] text-gold-500 font-medium">Griego / Hebreo · análisis morfológico</p>
+                            </div>
+
+                            <!-- Panel de la lente activa -->
+                            <div class="bg-panel border border-gold-500/30 rounded-2xl p-6 min-h-[13rem]">
+                                <!-- Selector de autor (solo lente 'autores') -->
+                                <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b border-line">
+                                    <label for="autor-sel" class="text-xs text-gray-400 uppercase tracking-wider">Comentarista</label>
+                                    <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#2B2417" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                        <template x-for="a in AUTORES_LISTA" :key="a.id">
+                                            <option :value="a.id" x-text="a.nombre"></option>
+                                        </template>
+                                    </select>
                                 </div>
-                                <div class="lg:col-span-2 bg-panel border border-line rounded-2xl p-6">
-                                    <h4 class="text-xs font-semibold tracking-wider text-gold-400 uppercase mb-3">Aplicación ministerial</h4>
-                                    <p class="text-sm text-gray-300 leading-relaxed" x-text="estudio.aplicacion"></p>
+
+                                <!-- Cargando -->
+                                <div x-show="lenteEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-8 justify-center">
+                                    <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                    <span x-text="'RevelatiO IA está iluminando esta lente...'"></span>
+                                </div>
+
+                                <!-- Error -->
+                                <div x-show="lenteEstado.estado === 'error'" class="text-center py-8">
+                                    <p class="text-sm text-red-300" x-text="lenteEstado.mensaje || 'No fue posible generar esta lente.'"></p>
+                                    <button @click="cargarLente(lenteActiva, true)" class="mt-3 text-xs text-gold-300 border border-gold-500/30 px-4 py-2 rounded-lg hover:bg-gold-600/15">Reintentar</button>
+                                </div>
+
+                                <!-- Contenido -->
+                                <div x-show="lenteEstado.estado === 'ready'">
+                                    <h4 class="text-lg font-serif text-gold-100 mb-4" x-text="lenteEstado.titulo"></h4>
+                                    <div class="space-y-3">
+                                        <template x-for="(p, i) in parrafosDe(lenteEstado.cuerpo)" :key="i">
+                                            <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
+                                        </template>
+                                    </div>
+                                    <blockquote x-show="lenteEstado.destacado" class="mt-5 border-l-2 border-gold-500/60 pl-4 py-1">
+                                        <p class="text-sm text-gold-200 italic font-serif" x-text="lenteEstado.destacado"></p>
+                                    </blockquote>
+                                    <p x-show="lenteActiva === 'autores' && lenteEstado.autor" class="mt-5 pt-3 border-t border-line text-[10px] text-gray-500 leading-relaxed">
+                                        Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span x-text="lenteEstado.autor" class="text-gold-500"></span>. No sustituye la lectura directa de su obra.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -773,6 +829,34 @@
                 errorEstudio: false,
                 estudioListo: false,
                 mensajeEstudio: 'Escribe un pasaje o tema para comenzar el análisis exegético.',
+
+                // lentes multi-disciplina de RevelatiO IA
+                LENTES_LISTA: [
+                    { id: 'exegesis', etiqueta: 'Exégesis' },
+                    { id: 'teologia', etiqueta: 'Teología' },
+                    { id: 'hermeneutica', etiqueta: 'Hermenéutica' },
+                    { id: 'psicologia', etiqueta: 'Psicología' },
+                    { id: 'neurociencia', etiqueta: 'Neurociencia' },
+                    { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad' },
+                    { id: 'antropologia', etiqueta: 'Antropología' },
+                    { id: 'diaadia', etiqueta: 'En tu día a día' },
+                    { id: 'revelatio', etiqueta: 'RevelatiO para ti' },
+                    { id: 'autores', etiqueta: 'Comentarios de autores' }
+                ],
+                AUTORES_LISTA: [
+                    { id: 'matthew-henry', nombre: 'Matthew Henry' },
+                    { id: 'juan-calvino', nombre: 'Juan Calvino' },
+                    { id: 'charles-spurgeon', nombre: 'Charles Spurgeon' },
+                    { id: 'juan-wesley', nombre: 'Juan Wesley' },
+                    { id: 'john-macarthur', nombre: 'John MacArthur' },
+                    { id: 'william-barclay', nombre: 'William Barclay' },
+                    { id: 'agustin-de-hipona', nombre: 'Agustín de Hipona' },
+                    { id: 'juan-crisostomo', nombre: 'Juan Crisóstomo' }
+                ],
+                lenteActiva: 'exegesis',
+                lentes: {},
+                autorSel: 'matthew-henry',
+                copiado: false,
 
                 // búsqueda global
                 consultaGlobal: '',
@@ -1005,11 +1089,22 @@
                         this.estudioRef = data.referencia;
                         this.estudio = {
                             comentario: data.comentario || 'Comentario no disponible.',
-                            original: data.original || 'Análisis no disponible.',
-                            aplicacion: data.aplicacion || 'Aplicación no disponible.'
+                            original: data.original || '',
+                            aplicacion: data.aplicacion || ''
                         };
+                        // Reinicia las lentes y siembra la exégesis (instantánea, ya la tenemos)
+                        this.lentes = {
+                            exegesis: {
+                                estado: 'ready',
+                                titulo: 'Exégesis',
+                                cuerpo: this.estudio.comentario,
+                                destacado: this.estudio.aplicacion,
+                                autor: null
+                            }
+                        };
+                        this.lenteActiva = 'exegesis';
                         this.estudioListo = true;
-                        this.mensajeEstudio = 'Análisis completado.';
+                        this.mensajeEstudio = 'Análisis completado. Explora las demás lentes cuando quieras.';
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
                         this.errorEstudio = true;
@@ -1017,6 +1112,168 @@
                     } finally {
                         this.cargandoEstudio = false;
                     }
+                },
+
+                // ---------- Lentes multi-disciplina ----------
+                get lenteKey() {
+                    return this.lenteActiva === 'autores' ? `autores:${this.autorSel}` : this.lenteActiva;
+                },
+                get lenteEstado() {
+                    return this.lentes[this.lenteKey] || { estado: 'idle' };
+                },
+                parrafosDe(texto) {
+                    return String(texto || '').split(/\n\n+/).map(s => s.trim()).filter(Boolean);
+                },
+                activarLente(id) {
+                    this.lenteActiva = id;
+                    const key = id === 'autores' ? `autores:${this.autorSel}` : id;
+                    const actual = this.lentes[key];
+                    if (!actual || actual.estado === 'error') this.cargarLente(id);
+                },
+                async cargarLente(id, forzar = false) {
+                    const key = id === 'autores' ? `autores:${this.autorSel}` : id;
+                    if (!forzar && this.lentes[key] && (this.lentes[key].estado === 'ready' || this.lentes[key].estado === 'loading')) return;
+                    if (!this.busqueda) return;
+                    this.lentes[key] = { estado: 'loading' };
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const body = { consulta: this.busqueda, lente: id };
+                        if (id === 'autores') body.autor = this.autorSel;
+                        const response = await fetch('/api/lente', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify(body)
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo generar esta lente.');
+                        const d = result.data || {};
+                        this.lentes[key] = {
+                            estado: 'ready',
+                            titulo: this.limpiar(d.titulo),
+                            cuerpo: this.limpiar(d.cuerpo),
+                            destacado: this.limpiar(d.destacado),
+                            autor: d.autor || null
+                        };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.lentes[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                    }
+                },
+
+                // ---------- Exportar estudio ----------
+                seccionesListas() {
+                    const out = [];
+                    for (const l of this.LENTES_LISTA) {
+                        if (l.id === 'autores') {
+                            for (const k of Object.keys(this.lentes)) {
+                                if (k.startsWith('autores:') && this.lentes[k]?.estado === 'ready') {
+                                    const e = this.lentes[k];
+                                    out.push({ titulo: e.titulo, cuerpo: e.cuerpo, destacado: e.destacado });
+                                }
+                            }
+                        } else if (this.lentes[l.id]?.estado === 'ready') {
+                            const e = this.lentes[l.id];
+                            out.push({ titulo: e.titulo || l.etiqueta, cuerpo: e.cuerpo, destacado: e.destacado });
+                        }
+                    }
+                    return out;
+                },
+                textoEstudioPlano() {
+                    const et = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    let t = `RevelatiO by Efata\nEstudio: ${this.estudioRef}\n`;
+                    if (this.textoActual) t += `\n"${this.textoActual}" (${et})\n`;
+                    if (this.estudio.original) t += `\nIdioma original: ${this.estudio.original}\n`;
+                    for (const s of this.seccionesListas()) {
+                        t += `\n\n== ${s.titulo} ==\n${s.cuerpo}`;
+                        if (s.destacado) t += `\n\n> ${s.destacado}`;
+                    }
+                    t += `\n\n—\nRevelatiO by Efata · Estudio bíblico gratuito · Xtrametrik & Cielo-Efata`;
+                    return t;
+                },
+                async copiarEstudio() {
+                    try {
+                        await navigator.clipboard.writeText(this.textoEstudioPlano());
+                        this.copiado = true;
+                        setTimeout(() => { this.copiado = false; }, 2000);
+                    } catch (_e) { /* algunos navegadores bloquean el portapapeles */ }
+                },
+                async compartirEstudio() {
+                    const texto = this.textoEstudioPlano();
+                    const titulo = `RevelatiO · ${this.estudioRef}`;
+                    if (navigator.share) {
+                        try { await navigator.share({ title: titulo, text: texto }); return; } catch (_e) { /* cancelado */ return; }
+                    }
+                    this.copiarEstudio();
+                },
+                imprimirEstudio() {
+                    const et = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    const esc = (s) => String(s || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+                    const secciones = this.seccionesListas().map(s => `
+                        <section>
+                            <h2>${esc(s.titulo)}</h2>
+                            ${this.parrafosDe(s.cuerpo).map(p => `<p>${esc(p)}</p>`).join('')}
+                            ${s.destacado ? `<blockquote>${esc(s.destacado)}</blockquote>` : ''}
+                        </section>`).join('');
+                    const html = `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>RevelatiO · ${esc(this.estudioRef)}</title>
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600&display=swap');
+                            body{font-family:'Plus Jakarta Sans',sans-serif;color:#2B2417;max-width:720px;margin:40px auto;padding:0 24px;line-height:1.65}
+                            .marca{font-family:'Playfair Display',serif;font-size:26px;color:#7C550E;letter-spacing:-.5px}
+                            .sub{font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:#9A6B12;margin-bottom:24px}
+                            h1{font-family:'Playfair Display',serif;font-size:22px;margin:8px 0 4px}
+                            .verso{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;background:#F5EFE3;border-left:3px solid #C89B3C;padding:12px 16px;border-radius:6px;margin:16px 0}
+                            .orig{font-size:12px;color:#6B5D45;margin-bottom:8px}
+                            h2{font-family:'Playfair Display',serif;font-size:16px;color:#7C550E;margin:22px 0 6px;border-bottom:1px solid #E3D8C2;padding-bottom:4px}
+                            p{margin:8px 0;font-size:13.5px}
+                            blockquote{border-left:2px solid #C89B3C;margin:10px 0;padding:4px 14px;font-style:italic;color:#7C550E}
+                            footer{margin-top:32px;padding-top:12px;border-top:1px solid #E3D8C2;font-size:10px;color:#9A8A6E}
+                        </style></head><body>
+                        <div class="marca">RevelatiO</div><div class="sub">by Efata</div>
+                        <h1>${esc(this.estudioRef)}</h1>
+                        ${this.textoActual ? `<div class="verso">"${esc(this.textoActual)}" <span style="font-size:11px;color:#9A6B12">(${esc(et)})</span></div>` : ''}
+                        ${this.estudio.original ? `<div class="orig"><strong>Idioma original:</strong> ${esc(this.estudio.original)}</div>` : ''}
+                        ${secciones}
+                        <footer>RevelatiO by Efata · Estudio bíblico de libre distribución · Desarrollo: Xtrametrik · Dirección teológica: Cielo-Efata</footer>
+                        </body></html>`;
+                    const w = window.open('', '_blank');
+                    if (!w) return;
+                    w.document.write(html);
+                    w.document.close();
+                    w.focus();
+                    setTimeout(() => w.print(), 400);
+                },
+                descargarPDF() {
+                    const jspdf = window.jspdf;
+                    if (!jspdf || !jspdf.jsPDF) { this.imprimirEstudio(); return; }
+                    const doc = new jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+                    const M = 48, W = 595 - M * 2;
+                    let y = M;
+                    const salto = (n = 16) => { y += n; if (y > 780) { doc.addPage(); y = M; } };
+                    const escribir = (texto, size, color, font = 'helvetica', style = 'normal', lh = 15) => {
+                        doc.setFont(font, style); doc.setFontSize(size); doc.setTextColor(...color);
+                        for (const linea of doc.splitTextToSize(String(texto || ''), W)) {
+                            if (y > 790) { doc.addPage(); y = M; }
+                            doc.text(linea, M, y); y += lh;
+                        }
+                    };
+                    escribir('RevelatiO', 22, [124, 85, 14], 'times', 'bold', 24);
+                    escribir('by Efata · Estudio bíblico', 10, [154, 107, 18]); salto(6);
+                    escribir(this.estudioRef, 16, [43, 36, 23], 'times', 'bold', 20); salto(4);
+                    const et = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    if (this.textoActual) { escribir(`"${this.textoActual}" (${et})`, 12, [90, 62, 10], 'times', 'italic', 16); salto(4); }
+                    if (this.estudio.original) { escribir(`Idioma original: ${this.estudio.original}`, 10, [107, 93, 69]); salto(4); }
+                    for (const s of this.seccionesListas()) {
+                        salto(10);
+                        escribir(s.titulo, 14, [124, 85, 14], 'times', 'bold', 18);
+                        escribir(s.cuerpo, 11.5, [43, 36, 23], 'helvetica', 'normal', 15);
+                        if (s.destacado) { salto(2); escribir(s.destacado, 11, [124, 85, 14], 'times', 'italic', 15); }
+                    }
+                    salto(18);
+                    escribir('RevelatiO by Efata · Libre distribución · Xtrametrik & Cielo-Efata', 9, [154, 138, 110]);
+                    const nombre = (this.estudioRef || 'estudio').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+                    doc.save(`revelatio-${nombre}.pdf`);
                 },
 
                 buscarGlobal() {
