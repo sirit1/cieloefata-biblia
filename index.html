@@ -200,9 +200,9 @@
 
             <a href="#" @click.prevent="irA('inicio')" class="flex items-center gap-2.5 shrink-0">
                 <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-11 w-11 object-contain shrink-0">
-                <div class="hidden sm:block leading-tight">
+                <div class="leading-tight">
                     <p class="text-sm font-bold text-gold-300 font-serif tracking-tight">RevelatiO</p>
-                    <p class="text-[10px] text-gold-400/80 tracking-[0.18em] uppercase">by Efata</p>
+                    <p class="text-[9px] text-gold-400/80 tracking-[0.18em] uppercase">by Efata</p>
                 </div>
             </a>
 
@@ -243,7 +243,18 @@
             <!-- SIDEBAR -->
             <aside :class="sidebarAbierta ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
                 class="zona-oscura fixed lg:static top-16 lg:top-0 bottom-0 left-0 w-72 border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto">
-                <nav class="p-4 space-y-1" aria-label="Navegación principal">
+                <div class="mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/25 bg-gradient-to-br from-gold-500/10 via-transparent to-transparent p-3.5">
+                    <div class="flex items-center gap-3">
+                        <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-10 w-10 object-contain shrink-0">
+                        <div class="min-w-0 leading-tight">
+                            <p class="font-serif text-base font-bold tracking-tight text-gold-200">RevelatiO</p>
+                            <p class="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.22em] text-gold-400">by Efata</p>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-[10px] leading-relaxed text-gray-400">Palabra, mente y vida transformadas.</p>
+                </div>
+
+                <nav class="p-4 pt-1 space-y-1" aria-label="Navegación principal">
                     <template x-for="item in navegacion" :key="item.id">
                         <button @click="irA(item.id)"
                             :aria-current="vista === item.id ? 'page' : false"
@@ -272,6 +283,13 @@
 
                 <!-- Créditos -->
                 <div class="p-5 border-t border-line space-y-3 mt-3">
+                    <div class="flex items-center gap-2.5 rounded-xl border border-gold-500/20 bg-gold-500/5 px-3 py-2.5">
+                        <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-8 w-8 object-contain">
+                        <div class="leading-tight">
+                            <p class="font-serif text-sm font-bold text-gold-200">RevelatiO</p>
+                            <p class="text-[9px] uppercase tracking-[0.16em] text-gold-400">by Efata</p>
+                        </div>
+                    </div>
                     <div>
                         <p class="text-[9px] text-gray-600 uppercase tracking-widest">Desarrollo e IA ética</p>
                         <a href="https://www.xtrametrik.com" target="_blank" rel="noopener" class="inline-flex items-center gap-0.5 mt-0.5 hover:opacity-80 transition-opacity">
@@ -289,6 +307,11 @@
             <!-- CONTENIDO -->
             <main class="flex-1 min-w-0 overflow-y-auto bg-ink">
                 <div class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+                    <div class="mb-5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-500/75">
+                        <span class="h-px w-8 bg-gold-500/40"></span>
+                        <span>RevelatiO by Efata</span>
+                        <span class="h-px w-8 bg-gold-500/40"></span>
+                    </div>
 
                     <!-- ============ INICIO ============ -->
                     <section x-show="vista === 'inicio'" class="space-y-8">
@@ -395,8 +418,11 @@
 
                     <!-- ============ BIBLIA ============ -->
                     <section x-show="vista === 'biblia'" class="space-y-6">
-                        <div class="flex items-center justify-between">
-                            <h2 class="text-2xl font-bold text-gold-50 font-serif">Biblia</h2>
+                        <div class="flex items-end justify-between gap-4">
+                            <div>
+                                <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO · Palabra viva</p>
+                                <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Biblia</h2>
+                            </div>
                             <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en varias versiones</p>
                         </div>
 
@@ -611,7 +637,8 @@
                     <!-- ============ REVELATIO IA ============ -->
                     <section x-show="vista === 'ia'" class="space-y-6">
                         <div>
-                            <h2 class="text-2xl font-bold text-gold-50 font-serif">RevelatiO IA</h2>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
                             <p class="text-sm text-gray-500 mt-1">Una consulta, muchas lentes: exégesis, teología, hermenéutica, psicología, neurociencia, neuroplasticidad, antropología y una palabra de RevelatiO para ti.</p>
                         </div>
 
@@ -735,7 +762,8 @@
                     <!-- ============ ESTUDIO ============ -->
                     <section x-show="vista === 'estudio'" class="space-y-6">
                         <div>
-                            <h2 class="text-2xl font-bold text-gold-50 font-serif">Herramientas de estudio</h2>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Profundizar</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Herramientas de estudio</h2>
                             <p class="text-sm text-gray-500 mt-1">Profundiza en un tema o palabra clave con el motor RevelatiO IA.</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -761,10 +789,11 @@
                     <section x-show="vista === 'planes'" class="space-y-6">
                         <!-- Vista catálogo -->
                         <div x-show="!planActivo" x-cloak class="space-y-6">
-                            <div>
-                                <h2 class="text-2xl font-bold text-gold-50 font-serif">Planes de lectura</h2>
-                                <p class="text-sm text-gray-500 mt-1">Elige un camino y avanza día a día. RevelatiO guarda tu progreso.</p>
-                            </div>
+                        <div>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · El camino</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Planes de lectura</h2>
+                            <p class="text-sm text-gray-500 mt-1">Elige un camino y avanza día a día. RevelatiO guarda tu progreso.</p>
+                        </div>
 
                             <!-- Continuar leyendo -->
                             <div x-show="planesEnProgreso.length" x-cloak class="space-y-3">
