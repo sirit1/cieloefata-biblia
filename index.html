@@ -666,8 +666,30 @@
                 },
 
                 aplicarSesion(session) {
+                    const estaba = this.isLoggedIn;
                     this.isLoggedIn = Boolean(session);
                     this.userEmail = session?.user?.email || '';
+                    if (this.isLoggedIn && !estaba) {
+                        this.cargarDatosUsuario();
+                    } else if (!this.isLoggedIn) {
+                        this.favoritos = [];
+                    }
+                },
+
+                async cargarDatosUsuario() {
+                    if (!supabaseClient) return;
+                    try {
+                        const [favRes, progRes] = await Promise.all([
+                            supabaseClient.from('favoritos').select('referencia, texto, version').order('created_at', { ascending: false }),
+                            supabaseClient.from('progreso_lectura').select('referencia, libro, capitulo, version').maybeSingle()
+                        ]);
+                        if (!favRes.error && favRes.data) {
+                            this.favoritos = favRes.data.map(f => ({ ref: f.referencia, version: f.version, texto: f.texto }));
+                        }
+                        if (!progRes.error && progRes.data && progRes.data.referencia) {
+                            this.referenciaActiva = progRes.data.referencia;
+                        }
+                    } catch (_e) { /* la sesión sigue siendo válida aunque falle la carga */ }
                 },
 
                 get iniciales() {
@@ -859,17 +881,29 @@
                 },
 
                 esFavorito() {
-                    return this.favoritos.some(f => f.ref === this.referenciaActiva && f.version === this.versionSel);
+                    const etiqueta = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    return this.favoritos.some(f => f.ref === this.referenciaActiva && f.version === etiqueta);
                 },
-                toggleFavorito() {
+                async toggleFavorito() {
                     if (!this.referenciaActiva) return;
-                    const idx = this.favoritos.findIndex(f => f.ref === this.referenciaActiva && f.version === this.versionSel);
-                    if (idx >= 0) { this.favoritos.splice(idx, 1); return; }
-                    this.favoritos.push({
-                        ref: this.referenciaActiva,
-                        version: (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel,
-                        texto: this.textoActual
-                    });
+                    const etiqueta = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
+                    const existente = this.favoritos.find(f => f.ref === this.referenciaActiva && f.version === etiqueta);
+                    if (existente) { await this.quitarFavorito(existente); return; }
+                    const fav = { ref: this.referenciaActiva, version: etiqueta, texto: this.textoActual };
+                    this.favoritos.unshift(fav);
+                    if (!supabaseClient) return;
+                    const { error } = await supabaseClient.from('favoritos').upsert({
+                        referencia: fav.ref, version: fav.version, texto: fav.texto
+                    }, { onConflict: 'user_id,referencia' });
+                    if (error) {
+                        this.favoritos = this.favoritos.filter(f => f !== fav);
+                    }
+                },
+                async quitarFavorito(fav) {
+                    this.favoritos = this.favoritos.filter(f => f !== fav);
+                    if (supabaseClient) {
+                        await supabaseClient.from('favoritos').delete().eq('referencia', fav.ref);
+                    }
                 }
             };
         }
