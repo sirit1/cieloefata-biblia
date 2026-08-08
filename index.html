@@ -460,7 +460,7 @@
                                 <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO · Palabra viva</p>
                                 <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Biblia</h2>
                             </div>
-                            <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en varias versiones</p>
+                            <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en ocho versiones y consulta la tradición Peshitta</p>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -1744,7 +1744,7 @@
                     return limpio;
                 },
 
-                // Texto b��blico REAL (no generado por IA), instantáneo, con 7 versiones en español.
+                // Texto b��blico REAL (no generado por IA), instantáneo, con ocho versiones: siete traducciones servidas por Bolls y la línea española asociada a la Peshitta.
                 async obtenerPasajeReal(ref) {
                     if (this.cachePasaje[ref]) return this.cachePasaje[ref];
                     const token = await this.getToken();
