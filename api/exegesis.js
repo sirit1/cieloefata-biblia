@@ -56,6 +56,9 @@ Consulta: ${consulta}`);
     return res.status(200).json({ success: true, data });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);
+    if (error?.code === 'RATE_LIMIT') {
+      return res.status(429).json({ error: 'RevelatiO IA está recibiendo muchas consultas ahora mismo. Espera unos segundos e inténtalo de nuevo.' });
+    }
     return res.status(502).json({ error: 'No fue posible completar el análisis. Intenta nuevamente.' });
   }
 }

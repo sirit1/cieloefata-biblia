@@ -139,6 +139,9 @@ Consulta: ${consulta}`);
     });
   } catch (error) {
     console.error('Error en el motor de lentes:', error?.message);
+    if (error?.code === 'RATE_LIMIT') {
+      return res.status(429).json({ error: 'RevelatiO IA está recibiendo muchas consultas. Espera unos segundos e inténtalo de nuevo.' });
+    }
     return res.status(502).json({ error: 'No fue posible generar esta lente. Intenta nuevamente.' });
   }
 }

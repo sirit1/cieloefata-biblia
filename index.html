@@ -75,6 +75,7 @@
             }
         };
     </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -484,6 +485,78 @@
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 6l6 6-6 6"></path></svg>
                                         </button>
                                     </div>
+
+                                    <!-- Herramientas de estudio del pasaje (estilo bibliatodo) -->
+                                    <div class="mt-5 space-y-3">
+                                        <!-- Comentarios de autores -->
+                                        <div class="border border-line rounded-xl overflow-hidden">
+                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-ink/60 hover:bg-ink transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
+                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
+                                                    Comentarios de autores
+                                                </span>
+                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                            </button>
+                                            <div x-show="verComentarios" x-collapse x-cloak class="p-4 border-t border-line">
+                                                <div class="flex flex-wrap items-center gap-3 mb-4">
+                                                    <label for="biblia-autor" class="text-[11px] text-gray-500 uppercase tracking-wider">Comentarista</label>
+                                                    <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#2B2417" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                                        <template x-for="a in AUTORES_LISTA" :key="a.id">
+                                                            <option :value="a.id" x-text="a.nombre"></option>
+                                                        </template>
+                                                    </select>
+                                                </div>
+                                                <div x-show="comentarioEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                                                    <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                                    RevelatiO IA está preparando el comentario...
+                                                </div>
+                                                <div x-show="comentarioEstado.estado === 'error'" class="text-center py-4">
+                                                    <p class="text-sm text-red-300" x-text="comentarioEstado.mensaje"></p>
+                                                    <button @click="cargarComentario(true)" class="mt-2 text-xs text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/15">Reintentar</button>
+                                                </div>
+                                                <div x-show="comentarioEstado.estado === 'ready'">
+                                                    <h5 class="text-base font-serif text-gold-100 mb-3" x-text="comentarioEstado.titulo"></h5>
+                                                    <div class="space-y-2.5">
+                                                        <template x-for="(p, i) in parrafosDe(comentarioEstado.cuerpo)" :key="i">
+                                                            <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
+                                                        </template>
+                                                    </div>
+                                                    <p class="mt-4 pt-3 border-t border-line text-[10px] text-gray-500 leading-relaxed">
+                                                        Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span class="text-gold-500" x-text="comentarioEstado.autor"></span>. No sustituye la lectura directa de su obra.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Referencias cruzadas -->
+                                        <div class="border border-line rounded-xl overflow-hidden">
+                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-ink/60 hover:bg-ink transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
+                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
+                                                    Referencias cruzadas
+                                                </span>
+                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                            </button>
+                                            <div x-show="verReferencias" x-collapse x-cloak class="p-4 border-t border-line">
+                                                <div x-show="referenciasEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                                                    <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                                    Buscando pasajes relacionados...
+                                                </div>
+                                                <div x-show="referenciasEstado.estado === 'error'" class="text-center py-4">
+                                                    <p class="text-sm text-red-300" x-text="referenciasEstado.mensaje"></p>
+                                                    <button @click="cargarReferencias(true)" class="mt-2 text-xs text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/15">Reintentar</button>
+                                                </div>
+                                                <div x-show="referenciasEstado.estado === 'ready'" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                    <template x-for="(r, i) in referenciasEstado.referencias" :key="i">
+                                                        <button @click="leerReferencia(r.ref)" class="text-left bg-ink/50 hover:bg-gold-600/15 border border-line hover:border-gold-500/40 rounded-lg px-3 py-2.5 transition-all group">
+                                                            <span class="block text-sm font-semibold text-gold-300 group-hover:text-gold-200" x-text="r.ref"></span>
+                                                            <span class="block text-xs text-gray-400 mt-0.5 leading-snug" x-text="r.nota"></span>
+                                                        </button>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -858,6 +931,13 @@
                 autorSel: 'matthew-henry',
                 copiado: false,
 
+                // Herramientas de estudio del lector de Biblia (estilo bibliatodo)
+                verComentarios: false,
+                verReferencias: false,
+                bibliaAutorSel: 'matthew-henry',
+                comentariosBiblia: {},
+                referenciasBiblia: {},
+
                 // búsqueda global
                 consultaGlobal: '',
 
@@ -1043,6 +1123,9 @@
                         this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
                         this.pasajesLeidos++;
                         this.guardarProgreso();
+                        // Si hay paneles de estudio abiertos, cárgalos para el nuevo pasaje
+                        if (this.verComentarios) this.cargarComentario();
+                        if (this.verReferencias) this.cargarReferencias();
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
                         this.errorPasaje = error.message || 'No se pudo cargar el pasaje.';
@@ -1274,6 +1357,78 @@
                     escribir('RevelatiO by Efata · Libre distribución · Xtrametrik & Cielo-Efata', 9, [154, 138, 110]);
                     const nombre = (this.estudioRef || 'estudio').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
                     doc.save(`revelatio-${nombre}.pdf`);
+                },
+
+                // ---------- Herramientas de estudio del lector (bibliatodo) ----------
+                get comentarioEstado() {
+                    const key = `${this.referenciaActiva}::${this.bibliaAutorSel}`;
+                    return this.comentariosBiblia[key] || { estado: 'idle' };
+                },
+                get referenciasEstado() {
+                    return this.referenciasBiblia[this.referenciaActiva] || { estado: 'idle' };
+                },
+                toggleComentarios() {
+                    this.verComentarios = !this.verComentarios;
+                    if (this.verComentarios) this.cargarComentario();
+                },
+                toggleReferencias() {
+                    this.verReferencias = !this.verReferencias;
+                    if (this.verReferencias) this.cargarReferencias();
+                },
+                async cargarComentario(forzar = false) {
+                    if (!this.referenciaActiva) return;
+                    const key = `${this.referenciaActiva}::${this.bibliaAutorSel}`;
+                    const actual = this.comentariosBiblia[key];
+                    if (!forzar && actual && (actual.estado === 'ready' || actual.estado === 'loading')) return;
+                    this.comentariosBiblia[key] = { estado: 'loading' };
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/lente', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ consulta: this.referenciaActiva, lente: 'autores', autor: this.bibliaAutorSel })
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo generar el comentario.');
+                        const d = result.data || {};
+                        this.comentariosBiblia[key] = {
+                            estado: 'ready',
+                            titulo: this.limpiar(d.titulo),
+                            cuerpo: this.limpiar(d.cuerpo),
+                            autor: d.autor || (this.AUTORES_LISTA.find(a => a.id === this.bibliaAutorSel)?.nombre) || ''
+                        };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.comentariosBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                    }
+                },
+                async cargarReferencias(forzar = false) {
+                    if (!this.referenciaActiva) return;
+                    const key = this.referenciaActiva;
+                    const actual = this.referenciasBiblia[key];
+                    if (!forzar && actual && (actual.estado === 'ready' || actual.estado === 'loading')) return;
+                    this.referenciasBiblia[key] = { estado: 'loading' };
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/referencias', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ consulta: this.referenciaActiva })
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudieron obtener las referencias.');
+                        this.referenciasBiblia[key] = {
+                            estado: 'ready',
+                            referencias: (result.data?.referencias || []).map(r => ({ ref: this.limpiar(r.ref), nota: this.limpiar(r.nota) }))
+                        };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.referenciasBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                    }
                 },
 
                 buscarGlobal() {
