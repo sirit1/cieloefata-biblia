@@ -661,7 +661,7 @@
                                 <span class="text-[11px] text-gray-500 uppercase tracking-wider mr-1">Tu estudio:</span>
                                 <button @click="compartirEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zm12 7a3 3 0 100-6 3 3 0 000 6z"></path></svg>
-                                    Compartir
+                                    <span x-text="compartido ? 'Compartido' : (copiado ? 'Copiado al portapapeles' : 'Compartir')"></span>
                                 </button>
                                 <button @click="descargarPDF()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"></path></svg>
@@ -1303,7 +1303,7 @@
                     { titulo: 'Día 2 · El corazón engañoso', pasajes: ['Jeremías 17:9-10', 'Proverbios 16:2'] },
                     { titulo: 'Día 3 · Nada por vanagloria', pasajes: ['Filipenses 2:3-8'] },
                     { titulo: 'Día 4 · El que se enaltece será humillado', pasajes: ['Lucas 14:11', 'Proverbios 16:18'] },
-                    { titulo: 'D��a 5 · No para agradar a los hombres', pasajes: ['Gálatas 1:10', 'Juan 5:44'] },
+                    { titulo: 'D����a 5 · No para agradar a los hombres', pasajes: ['Gálatas 1:10', 'Juan 5:44'] },
                     { titulo: 'Día 6 · Muere el yo, vive Cristo', pasajes: ['Gálatas 2:20', 'Lucas 9:23-24'] },
                     { titulo: 'Día 7 · Toda la gloria a Él', pasajes: ['1 Corintios 10:31', 'Apocalipsis 4:10-11'] }
                 ]
@@ -1454,6 +1454,7 @@
                 lentes: {},
                 autorSel: 'matthew-henry',
                 copiado: false,
+                compartido: false,
 
                 // Herramientas de estudio del lector de Biblia (estilo bibliatodo)
                 verComentarios: false,
@@ -1857,7 +1858,18 @@
                     const texto = this.textoEstudioPlano();
                     const titulo = `RevelatiO · ${this.estudioRef}`;
                     if (navigator.share) {
-                        try { await navigator.share({ title: titulo, text: texto }); return; } catch (_e) { /* cancelado */ return; }
+                        try {
+                            await navigator.share({ title: titulo, text: texto });
+                            this.compartido = true;
+                            setTimeout(() => { this.compartido = false; }, 2000);
+                            return;
+                        } catch (e) {
+                            // El usuario cerró el diálogo nativo de compartir: respetar el gesto, sin error visible.
+                            if (e?.name === 'AbortError') return;
+                            // Cualquier otro fallo (ej. la API Web Share bloqueada por Permissions-Policy
+                            // dentro del iframe de vista previa) cae al portapapeles como respaldo,
+                            // en vez de quedarse sin hacer nada y parecer un botón roto.
+                        }
                     }
                     this.copiarEstudio();
                 },
