@@ -117,7 +117,14 @@
         .zona-oscura .text-gray-400 { color: #BEB49A !important; }
         .zona-oscura .text-gray-500 { color: #A99E82 !important; }
         .zona-oscura .text-gray-600 { color: #8F846A !important; }
-        .zona-oscura .text-gold-50  { color: #F0DFB0 !important; }
+        .zona-oscura .text-gold-50  { color: #FFF4CF !important; }
+        .zona-oscura .text-gold-100 { color: #FFF1C2 !important; }
+        .zona-oscura .text-gold-200 { color: #FFE8A3 !important; }
+        .zona-oscura .text-gold-300 { color: #FFD76A !important; }
+        .zona-oscura .text-gold-400 { color: #F6C84C !important; }
+        .zona-oscura .text-gold-500 { color: #E7B52F !important; }
+        .zona-oscura .text-gold-600 { color: #D9A321 !important; }
+        .zona-oscura .text-gold-700 { color: #F4C64E !important; }
         .zona-oscura .bg-panel { background: #16243B !important; }
         .zona-oscura .bg-panel2 { background: #16243B !important; }
         .zona-oscura .border-line { border-color: #2C3E5C !important; }
@@ -601,13 +608,13 @@
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
                                                     <span>Comentarios de autores</span>
-                                                    <span class="hidden sm:inline text-[9px] uppercase tracking-[0.16em] text-gold-400/70">RevelatiO by Efata</span>
+                                                    <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
                                                 </span>
-                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                                <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
                                             <div x-show="verComentarios" x-collapse x-cloak class="p-4 border-t border-line">
                                                 <div class="flex flex-wrap items-center gap-3 mb-4">
-                                                    <label for="biblia-autor" class="text-[11px] text-gray-500 uppercase tracking-wider">Comentarista</label>
+                                                    <label for="biblia-autor" class="text-[11px] text-gray-300 uppercase tracking-wider">Comentarista</label>
                                                     <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#2B2417" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
                                                         <template x-for="a in AUTORES_LISTA" :key="a.id">
                                                             <option :value="a.id" x-text="a.nombre"></option>
@@ -629,7 +636,7 @@
                                                             <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
                                                         </template>
                                                     </div>
-                                                    <p class="mt-4 pt-3 border-t border-line text-[10px] text-gray-500 leading-relaxed">
+                                                    <p class="mt-4 pt-3 border-t border-line text-[10px] text-gray-300 leading-relaxed">
                                                         <template x-if="comentarioEstado.esDominioPublico === false">
                                                             <span>Síntesis de RevelatiO IA sobre la línea teológica <strong class="text-gold-500">públicamente conocida</strong> de <span class="text-gold-500" x-text="comentarioEstado.autor"></span> (autor con obra bajo derechos de autor vigentes). No es una cita textual de sus libros.</span>
                                                         </template>
@@ -647,9 +654,9 @@
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
                                                     <span>Referencias cruzadas</span>
-                                                    <span class="hidden sm:inline text-[9px] uppercase tracking-[0.16em] text-gold-400/70">RevelatiO by Efata</span>
+                                                    <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
                                                 </span>
-                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                                <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
                                             <div x-show="verReferencias" x-collapse x-cloak class="p-4 border-t border-line">
                                                 <div x-show="referenciasEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
@@ -727,7 +734,7 @@
 
                             <!-- Barra de exportar -->
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="text-[11px] text-gray-500 uppercase tracking-wider mr-1">Tu estudio:</span>
+                                <span class="text-[11px] text-gray-300 uppercase tracking-wider mr-1">Tu estudio:</span>
                                 <button @click="compartirEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zm12 7a3 3 0 100-6 3 3 0 000 6z"></path></svg>
                                     <span x-text="compartido ? 'Compartido' : (copiado ? 'Copiado al portapapeles' : 'Compartir')"></span>
@@ -793,7 +800,7 @@
                                     <blockquote x-show="lenteEstado.destacado" class="mt-5 border-l-2 border-gold-500/60 pl-4 py-1">
                                         <p class="text-sm text-gold-200 italic font-serif" x-text="lenteEstado.destacado"></p>
                                     </blockquote>
-                                    <p x-show="lenteActiva === 'autores' && lenteEstado.autor" class="mt-5 pt-3 border-t border-line text-[10px] text-gray-500 leading-relaxed">
+                                    <p x-show="lenteActiva === 'autores' && lenteEstado.autor" class="mt-5 pt-3 border-t border-line text-[10px] text-gray-300 leading-relaxed">
                                         Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span x-text="lenteEstado.autor" class="text-gold-500"></span>. No sustituye la lectura directa de su obra.
                                     </p>
                                 </div>
