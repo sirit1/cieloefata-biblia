@@ -608,10 +608,10 @@
                                     <div class="mt-5 flex flex-col gap-3">
                                         <!-- Texto original: griego/hebreo con Strong's + diccionario léxico real -->
                                         <div class="order-3 border border-line rounded-xl overflow-hidden" x-show="original">
-                                            <button @click="verOriginal = !verOriginal" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
+                                            <button @click="verOriginal = !verOriginal" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20l-5-10-5 10m1.5-4h7"></path></svg>
-                                                    <span x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
+                                                    <span class="text-[#FFF1C2]" x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verOriginal ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
@@ -645,10 +645,10 @@
 
                                         <!-- Comentarios de autores -->
                                         <div class="order-1 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
+                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
-                                                    <span>Comentarios de autores</span>
+                                                    <span class="text-[#FFF1C2]">Comentarios de autores</span>
                                                     <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
@@ -662,7 +662,7 @@
                                                         </template>
                                                     </select>
                                                 </div>
-                                                <div x-show="comentarioEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                                                <div x-show="comentarioEstado.estado === 'loading'" class="flex items-center gap-2 text-[#FFD76A] text-sm py-4 justify-center">
                                                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                                                     RevelatiO IA está preparando el comentario...
                                                 </div>
@@ -691,16 +691,16 @@
 
                                         <!-- Referencias cruzadas -->
                                         <div class="order-2 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left">
+                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
-                                                    <span>Referencias cruzadas</span>
+                                                    <span class="text-[#FFF1C2]">Referencias cruzadas</span>
                                                     <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
                                             <div x-show="verReferencias" x-collapse x-cloak class="p-4 border-t border-line">
-                                                <div x-show="referenciasEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                                                <div x-show="referenciasEstado.estado === 'loading'" class="flex items-center gap-2 text-[#FFD76A] text-sm py-4 justify-center">
                                                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                                                     Buscando pasajes relacionados...
                                                 </div>
@@ -1074,7 +1074,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
                     </button>
                 </div>
-                <div x-show="cargandoLexico" class="flex items-center gap-2 text-gold-300 text-sm py-4 justify-center">
+                <div x-show="cargandoLexico" class="flex items-center gap-2 text-[#FFD76A] text-sm py-4 justify-center">
                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                     Consultando el diccionario...
                 </div>
