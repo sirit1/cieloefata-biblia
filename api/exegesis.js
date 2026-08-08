@@ -39,7 +39,23 @@ export default async function handler(req, res) {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
-      contents: `Eres el motor exegético de CieloEfata. Analiza con rigor la consulta bíblica y responde únicamente JSON válido con esta estructura exacta: {"versiones":{"rvr1960":"","nbla":"","nvi":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":""}. No inventes citas; si no puedes confirmar un texto exacto, indícalo con claridad. Consulta: ${consulta}`,
+      contents: `Eres el motor exegético de la plataforma CieloEfata, ministerio de estudio bíblico en español.
+
+La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
+
+Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
+{"referencia":"","versiones":{"rvr1960":"","nbla":"","nvi":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":""}
+
+Reglas:
+- "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
+- "versiones": el texto del versículo en cada versión. Si es un tema sin un único versículo, deja los tres campos como cadena vacía "".
+- "idiomaOriginal": término griego o hebreo clave, número Strong y un breve análisis morfológico/etimológico.
+- "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo.
+- "aplicacion": aplicación ministerial que refleje el camino del evangelio: confesión y arrepentimiento (1 Juan 1:9), conversión y estudio de la Palabra (1 Pedro 2:2), y permanecer firmes y constantes en la fe (1 Corintios 15:58).
+- No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
+- Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
+
+Consulta: ${consulta}`,
       config: { responseMimeType: 'application/json' },
     });
 
