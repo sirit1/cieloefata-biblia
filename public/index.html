@@ -1659,8 +1659,21 @@
                         email: this.loginEmail.trim(),
                         password: this.loginPass
                     });
-                    if (error) this.loginError = 'Correo o contraseña incorrectos, o cuenta no autorizada.';
-                    else this.loginPass = '';
+                    if (error) {
+                        console.log('[v0] Error de inicio de sesión:', error.message, error.code);
+                        const mensaje = String(error.message || '').toLowerCase();
+                        if (mensaje.includes('email not confirmed')) {
+                            this.loginError = 'Debes confirmar tu correo electrónico antes de entrar.';
+                        } else if (mensaje.includes('rate limit') || mensaje.includes('too many')) {
+                            this.loginError = 'Demasiados intentos. Espera unos minutos y vuelve a intentarlo.';
+                        } else if (mensaje.includes('invalid login credentials')) {
+                            this.loginError = 'El correo o la contraseña no coinciden. Revisa que no haya espacios y prueba de nuevo.';
+                        } else {
+                            this.loginError = 'No se pudo iniciar sesión. Comprueba tu conexión y vuelve a intentarlo.';
+                        }
+                    } else {
+                        this.loginPass = '';
+                    }
                     this.autenticando = false;
                 },
 
