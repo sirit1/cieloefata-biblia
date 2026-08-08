@@ -85,6 +85,6 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`[dev-server] RevelatiO by Efata escuchando en http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`[dev-server] RevelatiO by Efata escuchando en http://0.0.0.0:${PORT}`);
 });
