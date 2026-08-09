@@ -198,7 +198,6 @@
 
     <!-- ===================== LOGIN (Solo invitados) ===================== -->
 <div x-show="sesionVerificada && !isLoggedIn" x-cloak class="zona-oscura fixed inset-0 z-[60] flex items-center justify-center p-4 overflow-hidden">
-  <div class="pointer-events-none select-none absolute inset-0 flex items-center justify-center text-[clamp(5rem,20vw,15rem)] font-serif font-bold tracking-[.12em] text-gold-300 opacity-[.06] -rotate-12" aria-hidden="true">RevelatiO</div>
   <!-- Cerebro dorado como textura de fondo -->
         <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
             class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-15 blur-[1px]">
@@ -223,7 +222,7 @@
                     </div>
                     <div>
                         <label for="login-pass" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Contraseña</label>
-                        <input id="login-pass" type="password" x-model="loginPass" required autocomplete="current-password" placeholder="��•••••••"
+                        <input id="login-pass" type="password" x-model="loginPass" required autocomplete="current-password" placeholder="••••••••"
                             style="color:#2B2417"
                             class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
                     </div>
@@ -531,7 +530,12 @@
                                 <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO · Palabra viva</p>
                                 <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Biblia</h2>
                             </div>
-                            <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en ocho versiones y consulta la tradición Peshitta</p>
+                            <div class="flex items-center gap-2">
+  <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en ocho versiones y consulta la tradición Peshitta</p>
+  <button @click="reiniciarLectura()" class="inline-flex items-center gap-1.5 text-xs text-gold-600 border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Volver a elegir libro, capítulo y versión">
+  <span aria-hidden="true">↺</span> Nueva consulta
+  </button>
+  </div>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -1559,9 +1563,111 @@
                     { titulo: 'Día 7 · María de Betania, la devoción', pasajes: ['Juan 12:1-8'] }
                 ]
             },
-            {
-                id: 'lideres-biblia',
-                titulo: 'L��deres según el corazón de Dios',
+                {
+                    id: 'dominio-propio',
+                    titulo: 'Dominio propio en tiempos difíciles',
+                    categoria: 'Carácter',
+                    duracion: 7,
+                    imagen: '/brand/revelatio-logo.png',
+                    descripcion: 'Un camino práctico para responder con sabiduría frente al enojo, la impulsividad, la pantalla y la presión diaria.',
+                    dias: [
+                        { titulo: 'Día 1 · Una mente sobria', pasajes: ['2 Timoteo 1:7', '1 Pedro 5:8-9'] },
+                        { titulo: 'Día 2 · Lento para la ira', pasajes: ['Santiago 1:19-20', 'Proverbios 14:29'] },
+                        { titulo: 'Día 3 · Guardar el corazón', pasajes: ['Proverbios 4:23', 'Filipenses 4:8'] },
+                        { titulo: 'Día 4 · No ser gobernado por impulsos', pasajes: ['1 Corintios 6:12', 'Tito 2:11-12'] },
+                        { titulo: 'Día 5 · Palabras que edifican', pasajes: ['Efesios 4:29', 'Proverbios 15:1'] },
+                        { titulo: 'Día 6 · Perseverar en lo bueno', pasajes: ['Gálatas 5:22-23', 'Romanos 12:21'] },
+                        { titulo: 'Día 7 · Firmes y constantes', pasajes: ['1 Corintios 15:58', 'Proverbios 16:32'] }
+                    ]
+                },
+                {
+                    id: 'soledad-conectada',
+                    titulo: 'Cuando te sientes solo',
+                    categoria: 'Consuelo',
+                    duracion: 7,
+                    imagen: '/brand/revelatio-logo.png',
+                    descripcion: 'Para atravesar la soledad, la desconexión y la necesidad de pertenecer desde la presencia de Dios y la comunidad.',
+                    dias: [
+                        { titulo: 'Día 1 · Dios está contigo', pasajes: ['Isaías 41:10', 'Salmos 139:7-10'] },
+                        { titulo: 'Día 2 · El amigo fiel', pasajes: ['Juan 15:13-15'] },
+                        { titulo: 'Día 3 · Llevar las cargas', pasajes: ['Gálatas 6:2', 'Romanos 12:15'] },
+                        { titulo: 'Día 4 · No abandonar la comunidad', pasajes: ['Hebreos 10:24-25'] },
+                        { titulo: 'Día 5 · Ser visto por Dios', pasajes: ['Salmos 34:15-18'] },
+                        { titulo: 'Día 6 · Abrir el corazón', pasajes: ['Santiago 5:16', 'Proverbios 27:17'] },
+                        { titulo: 'Día 7 · Una familia espiritual', pasajes: ['Efesios 2:19-22'] }
+                    ]
+                },
+                {
+                    id: 'comparacion-pantallas',
+                    titulo: 'Libre de la comparación',
+                    categoria: 'Vida Digital',
+                    duracion: 7,
+                    imagen: '/brand/revelatio-logo.png',
+                    descripcion: 'Siete días para recuperar la atención, dejar de medir tu vida con la de otros y volver a mirar a Dios.',
+                    dias: [
+                        { titulo: 'Día 1 · Una identidad recibida', pasajes: ['Efesios 1:3-6', 'Salmos 139:13-14'] },
+                        { titulo: 'Día 2 · No vivir para aparentar', pasajes: ['Mateo 6:1-6'] },
+                        { titulo: 'Día 3 · Contentamiento', pasajes: ['Filipenses 4:11-13', '1 Timoteo 6:6-8'] },
+                        { titulo: 'Día 4 · Examinar la mirada', pasajes: ['Mateo 6:22-23', 'Salmos 101:3'] },
+                        { titulo: 'Día 5 · Celebrar al otro', pasajes: ['Romanos 12:10-16'] },
+                        { titulo: 'Día 6 · Redimir el tiempo', pasajes: ['Efesios 5:15-17', 'Salmos 90:12'] },
+                        { titulo: 'Día 7 · Mirar a Cristo', pasajes: ['Hebreos 12:1-3'] }
+                    ]
+                },
+                {
+                    id: 'duelo-esperanza',
+                    titulo: 'Duelo y esperanza',
+                    categoria: 'Consuelo',
+                    duracion: 7,
+                    imagen: '/brand/revelatio-logo.png',
+                    descripcion: 'Un espacio de acompañamiento bíblico para nombrar la pérdida, llorar con honestidad y esperar sin negar el dolor.',
+                    dias: [
+                        { titulo: 'Día 1 · Hay tiempo para llorar', pasajes: ['Eclesiastés 3:1-4'] },
+                        { titulo: 'Día 2 · Dios cercano al quebrantado', pasajes: ['Salmos 34:18'] },
+                        { titulo: 'Día 3 · Jesús lloró', pasajes: ['Juan 11:32-36'] },
+                        { titulo: 'Día 4 · Esperanza en la resurrección', pasajes: ['1 Tesalonicenses 4:13-18'] },
+                        { titulo: 'Día 5 · Fuerzas para hoy', pasajes: ['2 Corintios 4:16-18'] },
+                        { titulo: 'Día 6 · Consolar a otros', pasajes: ['2 Corintios 1:3-5'] },
+                        { titulo: 'Día 7 · Todas las cosas nuevas', pasajes: ['Apocalipsis 21:1-5'] }
+                    ]
+                },
+                {
+                    id: 'relaciones-sanas',
+                    titulo: 'Relaciones que edifican',
+                    categoria: 'Familia',
+                    duracion: 7,
+                    imagen: '/brand/revelatio-logo.png',
+                    descripcion: 'Principios para escuchar, poner límites, reparar conflictos y amar sin perder la verdad.',
+                    dias: [
+                        { titulo: 'Día 1 · Hablar con verdad y amor', pasajes: ['Efesios 4:15'] },
+                        { titulo: 'Día 2 · Escuchar antes de responder', pasajes: ['Proverbios 18:13', 'Santiago 1:19'] },
+                        { titulo: 'Día 3 · Límites sabios', pasajes: ['Proverbios 4:23', 'Mateo 5:37'] },
+                        { titulo: 'Día 4 · Reparar el conflicto', pasajes: ['Mateo 18:15-17'] },
+                        { titulo: 'Día 5 · No devolver mal por mal', pasajes: ['Romanos 12:17-21'] },
+                        { titulo: 'Día 6 · Servir sin controlar', pasajes: ['Filipenses 2:3-5'] },
+                        { titulo: 'Día 7 · Permanecer en amor', pasajes: ['1 Corintios 13:4-7'] }
+                    ]
+                },
+                {
+                    id: 'ansiedad-cuerpo-mente',
+                    titulo: 'Ansiedad: cuerpo, mente y fe',
+                    categoria: 'Ansiedad',
+                    duracion: 7,
+                    imagen: '/brand/revelatio-logo.png',
+                    descripcion: 'Una lectura bíblica prudente para reconocer la ansiedad, practicar atención y buscar apoyo sin culpa.',
+                    dias: [
+                        { titulo: 'Día 1 · Nombrar la carga', pasajes: ['Salmos 42:5', 'Salmos 62:8'] },
+                        { titulo: 'Día 2 · Respirar y recordar', pasajes: ['Salmos 46:10', 'Isaías 26:3'] },
+                        { titulo: 'Día 3 · No caminar solo', pasajes: ['Gálatas 6:2', 'Proverbios 12:25'] },
+                        { titulo: 'Día 4 · Pensar con verdad', pasajes: ['Filipenses 4:8'] },
+                        { titulo: 'Día 5 · El cuidado de Dios', pasajes: ['Mateo 6:25-34'] },
+                        { titulo: 'Día 6 · Pedir ayuda', pasajes: ['Marcos 2:1-5', 'Proverbios 15:22'] },
+                        { titulo: 'Día 7 · Paz paso a paso', pasajes: ['Filipenses 4:6-9'] }
+                    ]
+                },
+                {
+                    id: 'lideres-biblia',
+                titulo: 'Líderes según el corazón de Dios',
                 categoria: 'Personajes',
                 duracion: 7,
                 descripcion: 'David, Josué, Nehemías, Daniel y otros: liderazgo forjado en la fe.',
@@ -1620,7 +1726,7 @@
                     { titulo: 'Día 2 · El corazón engañoso', pasajes: ['Jeremías 17:9-10', 'Proverbios 16:2'] },
                     { titulo: 'Día 3 · Nada por vanagloria', pasajes: ['Filipenses 2:3-8'] },
                     { titulo: 'Día 4 · El que se enaltece será humillado', pasajes: ['Lucas 14:11', 'Proverbios 16:18'] },
-                    { titulo: 'D����a 5 · No para agradar a los hombres', pasajes: ['Gálatas 1:10', 'Juan 5:44'] },
+                    { titulo: 'Día 5 · No para agradar a los hombres', pasajes: ['Gálatas 1:10', 'Juan 5:44'] },
                     { titulo: 'Día 6 · Muere el yo, vive Cristo', pasajes: ['Gálatas 2:20', 'Lucas 9:23-24'] },
                     { titulo: 'Día 7 · Toda la gloria a Él', pasajes: ['1 Corintios 10:31', 'Apocalipsis 4:10-11'] }
                 ]
@@ -2075,7 +2181,7 @@
                     return limpio;
                 },
 
-                // Texto b��blico REAL (no generado por IA), instantáneo, con ocho versiones: siete traducciones servidas por Bolls y la línea española asociada a la Peshitta.
+                // Texto bíblico REAL (no generado por IA), instantáneo, con ocho versiones: siete traducciones servidas por Bolls y la línea española asociada a la Peshitta.
                 async obtenerPasajeReal(ref) {
                     if (this.cachePasaje[ref]) return this.cachePasaje[ref];
                     const token = await this.getToken();
@@ -2211,9 +2317,20 @@
                         updated_at: new Date().toISOString()
                     }, { onConflict: 'user_id' });
                 },
-                versiculoPrev() {
-                    if (this.versiculoSel > 1) { this.versiculoSel--; this.leer(); }
-                },
+  reiniciarLectura() {
+  this.referenciaActiva = '';
+  this.versiones = {};
+  this.versionesVersos = {};
+  this.errorPasaje = '';
+  this.cargandoPasaje = false;
+  this.lectorAbierto = false;
+  this.versiculoLectorSel = null;
+  this.versiculoSel = 1;
+  this.irA('biblia');
+  },
+  versiculoPrev() {
+  if (this.versiculoSel > 1) { this.versiculoSel--; this.leer(); }
+  },
                 versiculoNext() {
                     this.versiculoSel++; this.leer();
                 },
