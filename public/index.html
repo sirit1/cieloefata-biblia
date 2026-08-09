@@ -300,8 +300,8 @@
             <button x-show="mostrarInstalar" x-cloak @click="instalarApp()"
                 class="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-gold-500/50 bg-gold-500/15 px-3 py-2 text-xs font-semibold text-gold-200 hover:bg-gold-500/25 transition-all"
                 aria-label="Instalar RevelatiO como aplicación">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"></path></svg>
-                <span class="hidden sm:inline">Descargar app</span>
+  <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-5 w-5 rounded-md object-contain">
+  <span class="hidden sm:inline">Descargar app</span>
                 <span class="sm:hidden">Instalar</span>
             </button>
 
@@ -424,9 +424,9 @@
                                 <div class="flex flex-wrap gap-3 mt-6">
                                     <button @click="leerReferencia(versiculoDelDia.ref)" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer el pasaje del día</button>
                                     <button @click="irA('ia')" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Consultar RevelatiO IA</button>
-                                    <button x-show="mostrarInstalar" x-cloak @click="instalarApp()" class="inline-flex items-center gap-2 border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"></path></svg>
-                                        Instalar RevelatiO
+  <button x-show="mostrarInstalar" x-cloak @click="instalarApp()" class="inline-flex items-center gap-2 border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">
+  <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-5 w-5 rounded-md object-contain">
+  Instalar RevelatiO
                                     </button>
                                 </div>
                             </div>
@@ -1047,8 +1047,10 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <template x-for="plan in planesFiltrados" :key="plan.id">
-                                    <button @click="abrirPlan(plan.id)" class="text-left bg-panel border rounded-2xl p-6 transition-all hover:shadow-lg"
-                                        :class="plan.destacado ? 'border-gold-500/40' : 'border-line hover:border-gold-500/30'">
+                                    <button @click="abrirPlan(plan.id)" class="group relative isolate overflow-hidden text-left bg-panel border rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(0,0,0,.25)]"
+                                        :class="plan.destacado ? 'border-gold-500/50' : 'border-line hover:border-gold-500/40'">
+                                        <span class="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-gold-400/80 to-transparent opacity-70 transition-all duration-300 group-hover:via-gold-300 group-hover:opacity-100"></span>
+                                        <span class="pointer-events-none absolute -bottom-12 left-1/2 h-24 w-3/4 -translate-x-1/2 rounded-full bg-gold-500/10 blur-2xl opacity-60 transition-opacity duration-300 group-hover:opacity-100"></span>
                                         <div class="flex items-start gap-4 mb-3">
                                             <img x-show="plan.imagen" :src="plan.imagen" alt="" aria-hidden="true" class="w-14 h-14 rounded-xl object-cover shrink-0 border border-line/60">
                                             <div class="flex-1 flex items-center justify-between gap-3">
@@ -1834,7 +1836,25 @@
         const PLANES_EXTRA = [
             ['Fundamentos de la fe','Fundamentos',14],['Evangelio de Juan','Biblia',21],['Romanos 12:2 y la mente renovada','Vida espiritual',14],['Oración perseverante','Vida espiritual',21],['Ayuno y dependencia','Vida espiritual',7],['Santidad práctica','Carácter',30],['Fruto del Espíritu','Carácter',9],['Humildad de Cristo','Carácter',14],['Sabiduría para decidir','Carácter',14],['Dominio propio','Carácter',14],['Matrimonio conforme a la Escritura','Familia',21],['Crianza con gracia y verdad','Familia',14],['Familia que ora','Familia',7],['Sanidad del corazón','Vida espiritual',21],['Duelo y esperanza','Crisis',14],['Ansiedad y confianza en Dios','Crisis',14],['Pruebas y perseverancia','Crisis',14],['Consuelo en los Salmos','Crisis',7],['Consejería bíblica inicial','Pastoral',21],['Cuidado del rebaño','Pastoral',30],['Restauración del caído','Pastoral',14],['Predicación expositiva','Ministerios',30],['Enseñanza fiel','Ministerios',21],['Servicio cristiano','Ministerios',14],['Evangelización personal','Misión',14],['Hacer discípulos','Misión',30],['Misión en el trabajo','Misión',14],['Liderazgo servicial','Liderazgo',21],['Nehemías: liderazgo y visión','Liderazgo',21],['Integridad del líder','Liderazgo',14],['Mayordomía bíblica','Liderazgo',14],['Ética digital cristiana','Vida digital',14],['Tecnología y dominio propio','Vida digital',7],['Pureza en internet','Vida digital',14],['Descanso y límites','Vida digital',7],['Jóvenes firmes','Carácter',21],['Hombres de palabra','Carácter',21],['Mujeres de fe','Carácter',21],['Discipulado de nuevos creyentes','Fundamentos',30],['Doctrinas esenciales','Fundamentos',30],['La cruz de Cristo','Fundamentos',14],['Resurrección y esperanza','Fundamentos',14],['El Espíritu Santo','Fundamentos',21],['Hebreos: perseverar','Biblia',30],['Salmos para cada día','Biblia',30],['Proverbios: sabiduría diaria','Biblia',31],['Efesios: identidad en Cristo','Biblia',21],['Santiago: fe que obra','Biblia',14],['1 Pedro: firme en la prueba','Biblia',14]
         ].map(([titulo,categoria,duracion], i) => ({ id: `plan-${i+2}`, titulo, categoria, duracion, descripcion: `Un recorrido bíblico de ${duracion} días en NBLA para crecer con verdad, práctica y perseverancia.`, miniatura: '/brand/cielo-efata-full.jpg', dias: Array.from({ length: duracion }, (_, d) => ({ titulo: `Día ${d + 1} · ${titulo}`, pasajes: ['Romanos 12:2'] })) }))
-        const ampliarPlanes = (base) => [...base, ...PLANES_EXTRA].slice(0, 50);
+        const MINIATURAS_PLAN = {
+  'Biblia': '/planes/biblia.png',
+  'Fundamentos': '/planes/fundamentos-fe.png',
+  'Vida espiritual': '/planes/vida-espiritual.png',
+  'Carácter': '/planes/caracter.png',
+  'Familia': '/planes/familia.png',
+  'Pastoral': '/planes/pastoral.png',
+  'Consuelo': '/planes/consuelo.png',
+  'Misión': '/planes/mision.png',
+  'Liderazgo': '/planes/liderazgo.png',
+  'Vida Digital': '/planes/vida-digital.png',
+  'Vida digital': '/planes/vida-digital.png',
+  'Crisis': '/planes/consuelo.png',
+  'Ministerios': '/planes/ministerios.png',
+  'Sabiduría': '/planes/biblia.png',
+  'Personajes': '/planes/biblia.png'
+  };
+  const miniaturaPlan = (plan) => plan.imagen || plan.miniatura || MINIATURAS_PLAN[plan.categoria] || '/brand/revelatio-logo.png';
+  const ampliarPlanes = (base) => [...base, ...PLANES_EXTRA].slice(0, 50).map(plan => ({ ...plan, imagen: miniaturaPlan(plan) }));
 
         const TEMAS_ESTUDIO = [
             { titulo: 'La gracia', desc: 'El favor inmerecido de Dios.', q: 'la gracia' },
