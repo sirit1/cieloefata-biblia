@@ -65,7 +65,7 @@ const server = createServer(async (req, res) => {
       const types = {
         png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', svg: 'image/svg+xml',
         webp: 'image/webp', ico: 'image/x-icon', gif: 'image/gif',
-        css: 'text/css', js: 'text/javascript', json: 'application/json',
+        css: 'text/css', js: 'text/javascript', json: 'application/json', html: 'text/html; charset=utf-8',
         woff: 'font/woff', woff2: 'font/woff2', mp3: 'audio/mpeg'
       };
       res.setHeader('Content-Type', types[ext] || 'application/octet-stream');
