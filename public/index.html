@@ -97,6 +97,13 @@
         /* Texto de lectura cómodo */
         .prose-lectura { color: #2B2417; line-height: 1.75; }
 
+        /* Sistema de marca editorial: firma visible, jerárquica y discreta. */
+        .app-shell { position: relative; isolation: isolate; }
+        .brand-signature { letter-spacing: .12em; }
+        .brand-kicker { letter-spacing: .24em; }
+        .brand-rule { background: linear-gradient(90deg, rgba(200,155,60,.7), rgba(200,155,60,.12)); }
+        .brand-panel { box-shadow: 0 18px 45px rgba(28,46,74,.08); }
+
         /* Resaltados del lector "modo libro" (tonos suaves sobre la página cálida) */
         .hl-oro { background-color: rgba(200, 155, 60, .32); }
         .hl-terracota { background-color: rgba(178, 90, 69, .26); }
@@ -263,6 +270,8 @@
                     <p class="text-sm font-bold text-gold-300 font-serif tracking-tight">RevelatiO</p>
                     <p class="text-[9px] text-gold-400/80 tracking-[0.18em] uppercase">by Efata</p>
                 </div>
+                <span class="hidden xl:block h-6 w-px bg-gold-500/30"></span>
+                <span class="hidden xl:block text-[9px] uppercase tracking-[0.18em] text-gray-400">Palabra · mente · vida</span>
             </a>
 
             <!-- Búsqueda global -->
@@ -374,15 +383,15 @@
             <!-- CONTENIDO -->
             <main class="flex-1 min-w-0 overflow-y-auto bg-ink">
                 <div class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
-                    <div class="mb-5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-500/75">
-                        <span class="h-px w-8 bg-gold-500/40"></span>
-                        <span>RevelatiO by Efata</span>
-                        <span class="h-px w-8 bg-gold-500/40"></span>
-                    </div>
+<div class="mb-5 flex items-center gap-3 text-[10px] font-semibold uppercase text-gold-500/75 brand-kicker">
+  <span class="h-px w-10 brand-rule"></span>
+  <span>RevelatiO <span class="text-gold-400/70">·</span> by Efata</span>
+  <span class="h-px w-10 brand-rule"></span>
+  </div>
 
                     <!-- ============ INICIO ============ -->
                     <section x-show="vista === 'inicio'" class="space-y-8">
-                        <div class="zona-oscura relative overflow-hidden rounded-3xl border border-gold-500/30 shadow-xl">
+                        <div class="zona-oscura brand-panel relative overflow-hidden rounded-3xl border border-gold-500/30 shadow-xl">
                             <!-- Imagen del cerebro como elemento distintivo (renovación de la mente) -->
                             <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
                                 class="pointer-events-none select-none absolute right-[-10%] top-1/2 -translate-y-1/2 w-[420px] max-w-[70%] opacity-30 sm:opacity-45 lg:opacity-60 object-contain">

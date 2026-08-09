@@ -97,40 +97,12 @@
         /* Texto de lectura cómodo */
         .prose-lectura { color: #2B2417; line-height: 1.75; }
 
-        /* Firma visual global: presencia de marca sin competir con la lectura. */
+        /* Sistema de marca editorial: firma visible, jerárquica y discreta. */
         .app-shell { position: relative; isolation: isolate; }
-        .app-shell .brand-watermark {
-            position: fixed;
-            z-index: 20;
-            left: 50%;
-            top: 54%;
-            transform: translate(-50%, -50%) rotate(-18deg);
-            pointer-events: none;
-            user-select: none;
-            white-space: nowrap;
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: clamp(5rem, 16vw, 15rem);
-            font-weight: 700;
-            letter-spacing: .08em;
-            color: #C89B3C;
-            opacity: .16;
-            mix-blend-mode: multiply;
-            -webkit-text-stroke: 1px rgba(124, 85, 14, .18);
-        }
-        .app-shell .brand-watermark::after {
-            content: 'BY EFATA';
-            display: block;
-            margin-top: -.25em;
-            text-align: center;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(.65rem, 1.5vw, 1rem);
-            letter-spacing: .55em;
-            color: #7C550E;
-        }
         .brand-signature { letter-spacing: .12em; }
-        @media (max-width: 640px) {
-            .app-shell .brand-watermark { font-size: clamp(4rem, 22vw, 7rem); opacity: .12; }
-        }
+        .brand-kicker { letter-spacing: .24em; }
+        .brand-rule { background: linear-gradient(90deg, rgba(200,155,60,.7), rgba(200,155,60,.12)); }
+        .brand-panel { box-shadow: 0 18px 45px rgba(28,46,74,.08); }
 
         /* Resaltados del lector "modo libro" (tonos suaves sobre la página cálida) */
         .hl-oro { background-color: rgba(200, 155, 60, .32); }
@@ -299,6 +271,8 @@
                     <p class="text-base font-bold text-gold-300 font-serif tracking-tight brand-signature">RevelatiO</p>
                     <p class="text-[9px] text-gold-400/80 tracking-[0.22em] uppercase">by Efata</p>
                 </div>
+                <span class="hidden xl:block h-6 w-px bg-gold-500/30"></span>
+                <span class="hidden xl:block text-[9px] uppercase tracking-[0.18em] text-gray-400">Palabra · mente · vida</span>
             </a>
 
             <!-- Búsqueda global -->
@@ -346,7 +320,7 @@
             <!-- SIDEBAR -->
             <aside :class="sidebarAbierta ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
                 class="zona-oscura fixed lg:static top-16 lg:top-0 bottom-0 left-0 w-72 border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto">
-                <div class="mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/30 bg-gradient-to-br from-gold-500/15 via-transparent to-transparent p-3.5 shadow-[inset_0_0_30px_rgba(200,155,60,.06)]">
+                <div class="brand-panel mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/30 bg-gradient-to-br from-gold-500/15 via-transparent to-transparent p-3.5 shadow-[inset_0_0_30px_rgba(200,155,60,.06)]">
                     <div class="flex items-center gap-3">
                         <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-10 w-10 object-contain shrink-0">
                         <div class="min-w-0 leading-tight">
@@ -409,17 +383,16 @@
 
             <!-- CONTENIDO -->
             <main class="relative flex-1 min-w-0 overflow-y-auto bg-ink">
-                <div class="brand-watermark" aria-hidden="true">RevelatiO</div>
                 <div class="relative z-10 max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
-                    <div class="mb-5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-500/75">
-                        <span class="h-px w-8 bg-gold-500/40"></span>
-                        <span>RevelatiO by Efata</span>
-                        <span class="h-px w-8 bg-gold-500/40"></span>
+                    <div class="mb-5 flex items-center gap-3 text-[10px] font-semibold uppercase text-gold-500/75 brand-kicker">
+                        <span class="h-px w-10 brand-rule"></span>
+                        <span>RevelatiO <span class="text-gold-400/70">·</span> by Efata</span>
+                        <span class="h-px w-10 brand-rule"></span>
                     </div>
 
                     <!-- ============ INICIO ============ -->
                     <section x-show="vista === 'inicio'" class="space-y-8">
-                        <div class="zona-oscura relative overflow-hidden rounded-3xl border border-gold-500/30 shadow-xl">
+                        <div class="zona-oscura brand-panel relative overflow-hidden rounded-3xl border border-gold-500/30 shadow-xl">
                             <!-- Imagen del cerebro como elemento distintivo (renovación de la mente) -->
                             <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
                                 class="pointer-events-none select-none absolute right-[-10%] top-1/2 -translate-y-1/2 w-[420px] max-w-[70%] opacity-30 sm:opacity-45 lg:opacity-60 object-contain">
