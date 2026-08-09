@@ -258,6 +258,17 @@
     <!-- ===================== APLICACIÓN ===================== -->
     <div x-show="sesionVerificada && isLoggedIn" x-cloak class="app-shell flex flex-col h-full">
 
+        <div x-show="abrirDonaciones" x-cloak class="fixed inset-0 z-[80] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="donaciones-title">
+            <div @click.outside="abrirDonaciones = false" class="w-full max-w-md rounded-2xl border border-gold-500/40 bg-panel p-6 shadow-2xl">
+                <div class="flex items-start justify-between gap-4"><div><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Apoyo voluntario</p><h2 id="donaciones-title" class="mt-1 font-serif text-2xl font-bold text-gold-50">Mantén RevelatiO gratuito</h2></div><button @click="abrirDonaciones = false" class="text-gray-400 hover:text-gray-100" aria-label="Cerrar">×</button></div>
+                <p class="mt-4 text-sm leading-relaxed text-gray-400">Todo el estudio bíblico, los planes y el discipulado son gratuitos. Si esta herramienta te sirve, puedes apoyar voluntariamente su infraestructura mediante Stripe.</p>
+                <div class="mt-5 grid grid-cols-3 gap-2"><button @click="donacionCantidad = 500" class="rounded-lg border border-line px-3 py-2 text-sm text-gray-300 hover:border-gold-500">5 €</button><button @click="donacionCantidad = 1000" class="rounded-lg border border-gold-500/50 bg-gold-500/10 px-3 py-2 text-sm text-gold-200">10 €</button><button @click="donacionCantidad = 2500" class="rounded-lg border border-line px-3 py-2 text-sm text-gray-300 hover:border-gold-500">25 €</button></div>
+                <label class="mt-4 block text-xs text-gray-500">Otra cantidad en euros<input type="number" min="3" max="10000" step="1" x-model.number="donacionCantidad" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-gray-100"></label>
+                <button @click="iniciarDonacion()" :disabled="donacionCargando" class="mt-5 w-full rounded-xl bg-gold-500 px-4 py-3 text-sm font-bold text-gray-950 hover:bg-gold-400 disabled:opacity-60"><span x-text="donacionCargando ? 'Conectando con Stripe...' : 'Continuar con Stripe' "></span></button>
+                <p x-show="donacionEstado" x-text="donacionEstado" class="mt-3 text-xs text-red-300" role="alert"></p><p class="mt-4 text-center text-[10px] text-gray-600">Pago seguro procesado por Stripe · Sin suscripción obligatoria</p>
+            </div>
+        </div>
+
         <!-- HEADER GLOBAL -->
         <header class="zona-oscura shrink-0 min-h-24 lg:min-h-28 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40">
             <button @click="sidebarAbierta = !sidebarAbierta" class="lg:hidden text-gray-300 hover:text-gold-300 p-1" aria-label="Abrir menú">
@@ -355,6 +366,13 @@
                     <p class="text-[11px] text-gray-400 leading-relaxed">
                         <span class="text-gold-300 font-semibold">RevelatiO by Efata</span> une exégesis, idiomas originales, psicología cristiana y neuroplasticidad para la renovación de la mente. Libre distribución, completamente gratuita.
                     </p>
+                </div>
+
+                <!-- Apoyo voluntario -->
+                <div class="mx-4 mt-3 rounded-2xl border border-gold-500/30 bg-gold-500/10 p-4">
+                    <p class="text-[10px] uppercase tracking-[0.18em] text-gold-400">RevelatiO es gratis</p>
+                    <p class="mt-1 text-xs leading-relaxed text-gray-300">Apoya la infraestructura y la difusión de este estudio bíblico sin bloquear ningún contenido.</p>
+                    <button @click="abrirDonaciones = true" class="mt-3 w-full rounded-lg bg-gold-500 px-3 py-2 text-xs font-bold text-gray-950 hover:bg-gold-400 transition-colors">Apoyar voluntariamente</button>
                 </div>
 
                 <!-- Créditos -->
@@ -816,10 +834,16 @@
                         <div>
                             <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
-                            <p class="text-sm text-gray-500 mt-1">Un gabinete de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
-                        </div>
-
-                        <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
+  <p class="text-sm text-gray-500 mt-1">Un gabinete de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
+  <div class="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-5">
+    <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-300">Cómo trabaja RevelatiO IA</p>
+    <p class="mt-2 text-sm leading-relaxed text-gray-300">Esta herramienta utiliza un LLM como asistente de investigación, no como autoridad doctrinal. La consulta se estructura según la lente que eliges y se limita a presentar el análisis solicitado: contexto histórico-gramatical, observaciones del hebreo o griego, referencias bíblicas, doctrina y aplicaciones pastorales. Cada respuesta debe volver al texto de la Escritura y ser discernida en comunidad.</p>
+    <p class="mt-3 text-sm leading-relaxed text-gray-400">La arquitectura aplica el framework <strong class="text-cyan-200">Ailock de XtraMetrik</strong> como capa de control y contención: alcance definido, instrucciones verificables y separación entre evidencia bíblica, interpretación y aplicación. RevelatiO está preparada para avanzar hacia una certificación de IA ética, limpia y auditable; esta preparación no constituye todavía una certificación oficial.</p>
+    <p class="mt-3 text-xs leading-relaxed text-gray-500">Al consultar encontrarás una ficha de estudio que comienza en el pasaje, considera su contexto, contrasta palabras clave y termina con preguntas de obediencia y vida. No es una respuesta rápida: es una invitación a leer, pensar, arrepentirse, convertirse y permanecer firme.</p>
+  </div>
+  </div>
+  
+  <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
                             <form @submit.prevent="ejecutarEstudio(busqueda)" class="flex flex-col sm:flex-row gap-3">
                                 <label for="ia-input" class="sr-only">Pasaje o tema bíblico</label>
                                 <input id="ia-input" type="text" x-model="busqueda" maxlength="300" required
@@ -1572,7 +1596,7 @@
                 duracion: 7,
                 descripcion: 'Vidas de mujeres valientes cuya fe sigue hablando hoy.',
                 dias: [
-                    { titulo: 'Día 1 · Eva, la madre de todos', pasajes: ['Génesis 3:1-15'] },
+                    { titulo: 'Día 1 · Eva, la madre de todos', pasajes: ['G��nesis 3:1-15'] },
                     { titulo: 'Día 2 · Rut, la lealtad', pasajes: ['Rut 1:15-18'] },
                     { titulo: 'Día 3 · Débora, la jueza', pasajes: ['Jueces 4:1-16'] },
                     { titulo: 'Día 4 · Ana, la oración perseverante', pasajes: ['1 Samuel 1:9-20'] },
@@ -1844,6 +1868,10 @@
   audioLogin: null,
   userEmail: '',
                 menuUsuario: false,
+                abrirDonaciones: false,
+                donacionCantidad: 1000,
+                donacionCargando: false,
+                donacionEstado: new URLSearchParams(window.location.search).get('donacion') || '',
 
                 // instalación PWA
                 promptInstalar: null,
@@ -2399,7 +2427,18 @@
                     this.irA('ia');
                     await this.ejecutarEstudio(this.referenciaActiva);
                 },
-                async ejecutarEstudio(consulta) {
+                async iniciarDonacion() {
+  if (this.donacionCargando) return;
+  this.donacionCargando = true;
+  try {
+    const res = await fetch('/api/create-donation-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: Number(this.donacionCantidad) }) });
+    const data = await res.json();
+    if (!res.ok || !data.url) throw new Error(data.error || 'No se pudo iniciar el apoyo');
+    window.location.href = data.url;
+  } catch (error) { this.donacionEstado = error.message; } finally { this.donacionCargando = false; }
+  },
+
+  async ejecutarEstudio(consulta) {
                     const q = String(consulta || '').trim();
                     if (!q || this.cargandoEstudio) return;
                     this.busqueda = q;
