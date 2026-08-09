@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { generarJSON, hayMotorIA } from '../lib/ai.js';
+import { generarJSONDual, hayMotorIA } from '../lib/ai.js';
 import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnicos, obtenerDefinicionStrong } from '../lib/biblia.js';
 
 const getSupabaseConfig = () => ({
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
   } catch (_e) { /* si falla, el análisis sigue sin este contexto extra */ }
 
   try {
-    const data = await generarJSON(`Eres el motor exegético de RevelatiO by Efata, plataforma de estudio bíblico en español.
+    const data = await generarJSONDual(`Eres el motor exegético de RevelatiO by Efata, plataforma de estudio bíblico en español.
 
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
@@ -83,7 +83,7 @@ Reglas:
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`);
+Consulta: ${consulta}${contextoOriginal}`, { maxOutputTokens: 4500 });
     return res.status(200).json({ success: true, data });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);

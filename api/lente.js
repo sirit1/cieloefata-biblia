@@ -174,7 +174,7 @@ Reglas:
 - No inventes datos que no puedas sostener. Sé riguroso, cálido y edificante.
 - PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { perfil: 'rapido', reintentos: 1, maxOutputTokens: 1400 });
+Consulta: ${consulta}${contextoOriginal}`, { perfil: 'rapido', reintentos: 1, maxOutputTokens: 2400 });
     return res.status(200).json({
       success: true,
       data: {
