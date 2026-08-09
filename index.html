@@ -1050,8 +1050,14 @@
     <button @click="discipuladoNotasAbiertas = !discipuladoNotasAbiertas" class="ml-auto rounded-lg border border-cyan-700/40 px-3 py-2 text-xs text-cyan-800 hover:border-cyan-700">Notas laterales</button>
   </div>
   <div x-show="discipuladoPlan" x-cloak class="grid gap-4" :class="discipuladoNotasAbiertas ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'grid-cols-1'">
-    <div class="grid md:grid-cols-3 gap-4">
-    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.descripcion"></p><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89B3C')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.hito"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89B3C')" class="h-5 w-5 rounded-full bg-[#C89B3C]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B25A45')" class="h-5 w-5 rounded-full bg-[#B25A45]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A9468')" class="h-5 w-5 rounded-full bg-[#7A9468]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
+    <div class="rounded-2xl border border-gold-500/30 bg-panel p-6 space-y-5">
+    <div class="flex items-center justify-between gap-3"><div><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Lección activa</p><h3 class="mt-1 font-serif text-2xl text-gold-50" x-text="etapaActualDiscipulado()?.titulo"></h3></div><span class="text-xs text-gray-500" x-text="(discipuladoEtapaActual + 1) + ' / ' + discipuladoEtapas.length"></span></div>
+    <div class="h-2 overflow-hidden rounded-full bg-ink"><div class="h-full bg-gold-500 transition-all" :style="`width: ${discipuladoEtapas.length ? ((discipuladoEtapaActual + 1) / discipuladoEtapas.length) * 100 : 0}%`"></div></div>
+    <p class="text-sm font-semibold text-gold-300" x-text="etapaActualDiscipulado()?.pasaje"></p><p class="text-sm leading-relaxed text-gray-300" x-text="etapaActualDiscipulado()?.contenido || etapaActualDiscipulado()?.descripcion"></p><div class="rounded-xl border border-cyan-700/25 bg-cyan-50/60 p-4"><p class="text-[10px] uppercase tracking-wider text-cyan-800">Práctica</p><p class="mt-1 text-sm text-[#334155]" x-text="etapaActualDiscipulado()?.practica"></p></div>
+    <div x-show="preguntaActualDiscipulado()" class="border-t border-line pt-4"><p class="text-sm font-semibold text-gold-100" x-text="preguntaActualDiscipulado()?.pregunta"></p><div class="mt-3 grid gap-2"><template x-for="(opcion, i) in (preguntaActualDiscipulado()?.opciones || [])" :key="i"><button @click="responderDiscipulado(i)" class="rounded-lg border border-line px-3 py-2 text-left text-sm text-gray-300 hover:border-gold-500" :class="discipuladoRespuestas[discipuladoEtapaActual] === i ? 'border-gold-500 bg-gold-500/10' : ''" x-text="opcion"></button></template></div><p x-show="discipuladoFeedback[discipuladoEtapaActual]" class="mt-3 text-xs" :class="discipuladoFeedback[discipuladoEtapaActual]?.ok ? 'text-green-700' : 'text-red-700'" x-text="discipuladoFeedback[discipuladoEtapaActual]?.texto"></p><button @click="avanzarDiscipulado()" :disabled="!discipuladoCompletadas[discipuladoEtapaActual]" class="mt-4 rounded-lg bg-gold-500 px-4 py-2 text-xs font-bold text-gray-950 disabled:opacity-40" x-text="discipuladoEtapaActual === discipuladoEtapas.length - 1 ? 'Camino completado' : 'Desbloquear siguiente etapa'"></button></div>
+  </div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.objetivo || etapa.descripcion"></p><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89B3C')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.pasaje || etapa.hito"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89B3C')" class="h-5 w-5 rounded-full bg-[#C89B3C]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B25A45')" class="h-5 w-5 rounded-full bg-[#B25A45]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A9468')" class="h-5 w-5 rounded-full bg-[#7A9468]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
     <aside x-show="discipuladoNotasAbiertas" x-cloak class="rounded-xl border border-cyan-700/30 bg-[#F1F7FA] p-4 lg:sticky lg:top-4 lg:h-fit"><div class="flex items-center justify-between"><h3 class="font-serif text-lg text-[#0f172a]">Mis notas</h3><span class="text-[10px] text-cyan-800">guardado automático</span></div><p class="mt-1 text-xs text-[#475569]">Escribe aquí tus respuestas, oraciones o próximos pasos.</p><template x-for="(etapa, index) in discipuladoEtapas" :key="'nota-' + index"><label class="mt-4 block text-xs font-semibold text-[#334155]" x-text="etapa.titulo"><textarea :value="discipuladoNotas[index] || ''" @input="actualizarNota(index, $event.target.value)" rows="3" class="mt-1 w-full rounded-lg border border-cyan-700/20 bg-white p-2 text-xs text-[#1e293b] outline-none focus:border-cyan-700"></textarea></label></template></aside>
   </div>
   </section>
@@ -1966,6 +1972,12 @@
   discipuladoEtapas: [],
   discipuladoNotas: {},
   discipuladoGuardado: false,
+  discipuladoEtapaActual: 0,
+  discipuladoRespuestas: {},
+  discipuladoFeedback: {},
+  discipuladoCompletadas: {},
+  discipuladoCargando: false,
+  discipuladoError: '',
   etapaResaltados: {},
   discipuladoNotasAbiertas: false,
   planActivoId: null,
@@ -2234,22 +2246,25 @@
                     this.vista = 'inicio';
                 },
 
-                generarDiscipulado() {
-  this.discipuladoPlan = true;
-  this.discipuladoEtapas = [
-    { titulo: 'Confesión y arrepentimiento', descripcion: 'Reconocer el pecado delante de Dios y caminar en luz.', hito: '1 Juan 1:9 · NBLA' },
-    { titulo: 'Conversión y Palabra', descripcion: 'Desear la Palabra, aprender y obedecer a Cristo.', hito: '1 Pedro 2:2 · NBLA' },
-    { titulo: 'Firmeza y constancia', descripcion: 'Permanecer sólido, sirviendo y creciendo en comunidad.', hito: '1 Corintios 15:58 · NBLA' }
-  ];
+                async generarDiscipulado() {
+  if (!this.discipuladoObjetivo.trim()) { this.discipuladoError = 'Escribe primero aquello en lo que deseas crecer.'; return; }
+  this.discipuladoCargando = true; this.discipuladoError = '';
+  try {
+    const token = await this.getToken();
+    const response = await fetch('/api/discipulado', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo }) });
+    const result = await response.json();
+    if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo crear el camino.');
+    this.discipuladoPlan = result.data; this.discipuladoEtapas = result.data.etapas || []; this.discipuladoEtapaActual = 0; this.discipuladoRespuestas = {}; this.discipuladoFeedback = {}; this.discipuladoCompletadas = {}; this.guardarDiscipulado();
+  } catch (error) { this.discipuladoError = error.message || 'No se pudo crear el camino.'; }
+  finally { this.discipuladoCargando = false; }
   },
-  guardarDiscipulado() {
-  this.discipuladoGuardado = true;
-  localStorage.setItem('revelatio-discipulado', JSON.stringify({ objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados }));
-  },
-  cargarDiscipulado() {
-  try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado') || 'null'); if (guardado) { this.discipuladoObjetivo = guardado.objetivo || ''; this.discipuladoRitmo = guardado.ritmo || '15 minutos al día'; this.discipuladoEtapas = guardado.etapas || []; this.discipuladoNotas = guardado.notas || {}; this.etapaResaltados = guardado.resaltados || {}; this.discipuladoPlan = this.discipuladoEtapas.length > 0; } } catch (_) {}
-  },
-  contenidoDiscipulado() { return this.discipuladoEtapas.map((etapa, i) => `${i + 1}. ${etapa.titulo}\n${etapa.descripcion}\nHito NBLA: ${etapa.hito}`).join('\n\n'); },
+  etapaActualDiscipulado() { return this.discipuladoEtapas[this.discipuladoEtapaActual] || null; },
+  preguntaActualDiscipulado() { return this.etapaActualDiscipulado()?.preguntas?.[0] || null; },
+  responderDiscipulado(opcion) { const etapa = this.etapaActualDiscipulado(); const pregunta = this.preguntaActualDiscipulado(); if (!etapa || !pregunta) return; this.discipuladoRespuestas[this.discipuladoEtapaActual] = opcion; const ok = Number(opcion) === Number(pregunta.correcta); this.discipuladoFeedback[this.discipuladoEtapaActual] = ok ? { ok: true, texto: 'Respuesta correcta. El hito queda desbloqueado.' } : { ok: false, texto: pregunta.explicacion || 'Vuelve a leer el pasaje y prueba nuevamente.' }; if (ok) { this.discipuladoCompletadas[this.discipuladoEtapaActual] = true; this.guardarDiscipulado(); } },
+  avanzarDiscipulado() { if (!this.discipuladoCompletadas[this.discipuladoEtapaActual]) return; if (this.discipuladoEtapaActual < this.discipuladoEtapas.length - 1) this.discipuladoEtapaActual += 1; this.guardarDiscipulado(); },
+  guardarDiscipulado() { this.discipuladoGuardado = true; localStorage.setItem('revelatio-discipulado', JSON.stringify({ objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, plan: this.discipuladoPlan, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados, etapaActual: this.discipuladoEtapaActual, respuestas: this.discipuladoRespuestas, completadas: this.discipuladoCompletadas })); },
+  cargarDiscipulado() { try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado') || 'null'); if (guardado) { Object.assign(this, { discipuladoObjetivo: guardado.objetivo || '', discipuladoRitmo: guardado.ritmo || '15 minutos al día', discipuladoPlan: guardado.plan || false, discipuladoEtapas: guardado.etapas || [], discipuladoNotas: guardado.notas || {}, etapaResaltados: guardado.resaltados || {}, discipuladoEtapaActual: guardado.etapaActual || 0, discipuladoRespuestas: guardado.respuestas || {}, discipuladoCompletadas: guardado.completadas || {} }); } } catch (_) {} },
+  contenidoDiscipulado() { return this.discipuladoEtapas.map((e, i) => `${i + 1}. ${e.titulo}\n${e.pasaje || e.hito}\n${e.objetivo || e.descripcion}\n${e.practica || ''}`).join('\n\n'); },
   copiarDiscipulado() { navigator.clipboard?.writeText(this.contenidoDiscipulado()); },
   compartirDiscipulado() { const data = { title: 'Mi camino de discipulado · RevelatiO', text: this.contenidoDiscipulado(), url: window.location.href }; if (navigator.share) navigator.share(data); else this.copiarDiscipulado(); },
   imprimirDiscipulado() { window.print(); },

@@ -1,6 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
 
+const CAMINO_BASE = [
+  { id: 'luz', titulo: 'Caminar en la luz', pasaje: '1 Juan 1:9 · NBLA', objetivo: 'Reconocer el pecado y responder con confesión y arrepentimiento.', contenido: 'La vida del discípulo comienza ante Dios con honestidad. La confesión no es una condena: es volver a la verdad y recibir limpieza.', practica: 'Escribe una confesión concreta, ora con humildad y busca reconciliación cuando corresponda.', preguntas: [{ pregunta: '¿Qué respuesta pide 1 Juan 1:9?', opciones: ['Ocultar el pecado', 'Confesarlo a Dios', 'Justificarlo'], correcta: 1, explicacion: 'El texto llama a confesar el pecado y confiar en el carácter fiel y justo de Dios.' }] },
+  { id: 'palabra', titulo: 'Alimentarse de la Palabra', pasaje: '1 Pedro 2:2 · NBLA', objetivo: 'Pasar de conocer versículos a desear y obedecer la Palabra.', contenido: 'El crecimiento cristiano necesita alimento constante. Leer, observar, interpretar y practicar forman un hábito de discípulo.', practica: 'Lee el pasaje lentamente, anota una verdad, una corrección y una obediencia para hoy.', preguntas: [{ pregunta: '¿Qué imagen usa 1 Pedro 2:2 para describir el deseo espiritual?', opciones: ['Agua de lluvia', 'Leche espiritual', 'Pan del cielo'], correcta: 1, explicacion: 'Pedro compara el deseo por la Palabra con el deseo de un recién nacido por la leche.' }] },
+  { id: 'obediencia', titulo: 'Obedecer en comunidad', pasaje: 'Santiago 1:22 · NBLA', objetivo: 'Convertir la escucha bíblica en decisiones visibles y compartidas.', contenido: 'Un discípulo no se limita a escuchar. Examina su vida, practica la verdad y permite que otros le acompañen con gracia y rendición de cuentas.', practica: 'Comparte tu próximo paso con una persona madura y vuelve a revisar tu obediencia.', preguntas: [{ pregunta: '¿Qué peligro señala Santiago 1:22?', opciones: ['Escuchar sin hacer', 'Servir demasiado', 'Leer en comunidad'], correcta: 0, explicacion: 'El texto advierte contra engañarnos al oír la Palabra sin ponerla en práctica.' }] },
+  { id: 'firmeza', titulo: 'Permanecer firmes', pasaje: '1 Corintios 15:58 · NBLA', objetivo: 'Servir con constancia y esperanza sin abandonar el camino.', contenido: 'La madurez se reconoce en una vida sólida, constante y útil. La esperanza en Cristo sostiene el trabajo fiel aun cuando no vemos resultados inmediatos.', practica: 'Define un servicio concreto para esta semana y una forma de permanecer constante.', preguntas: [{ pregunta: '¿Cómo llama Pablo a permanecer en la obra del Señor?', opciones: ['Inconstantes', 'Firmes y constantes', 'Aislados'], correcta: 1, explicacion: 'Pablo anima a estar firmes, constantes y abundando en la obra del Señor.' }] }
+];
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido.' });
   const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
@@ -13,17 +20,12 @@ export default async function handler(req, res) {
   const objetivo = typeof req.body?.objetivo === 'string' ? req.body.objetivo.trim() : '';
   const ritmo = typeof req.body?.ritmo === 'string' ? req.body.ritmo.trim() : '15 minutos al día';
   if (!objetivo || objetivo.length > 300) return res.status(400).json({ error: 'Escribe un objetivo de entre 1 y 300 caracteres.' });
-  if (!hayMotorIA()) return res.status(503).json({ error: 'El motor de IA todavía no está configurado.' });
-  try {
-    const data = await generarJSON(`Eres RevelatiO IA, guía de discipulado bíblico en español. Diseña una propuesta PERSONALIZADA, no una plantilla predeterminada, para una persona cuyo objetivo es: "${objetivo}" y cuyo ritmo es "${ritmo}".
-Responde ÚNICAMENTE JSON válido con esta estructura exacta: {"titulo":"","introduccion":"","invitacion":"","etapas":[{"titulo":"","descripcion":"","hito":""}]}.
-Crea entre 3 y 5 etapas progresivas, concretas y distintas según el objetivo. No uses títulos, descripciones ni etapas genéricas o preconcebidas; no repitas siempre el esquema de confesión, conversión y firmeza. El orden, los temas y las prácticas deben nacer directamente del objetivo de la persona, aunque mantengan fidelidad bíblica. Cada hito debe ser una referencia bíblica verificable y terminar en "· NBLA". No afirmes que la IA sustituye a pastores o comunidad. La introducción explica el camino y la invitación anima a comenzar con un paso concreto. Escribe en español claro, sin Markdown ni LaTeX.`);
-    return res.status(200).json({ success: true, data });
-  } catch (error) {
-    console.error('[v0] Error en discipulado IA:', error?.message);
-    const errorText = `${error?.message || ''} ${error?.name || ''}`.toLowerCase();
-    const rateLimited = error?.code === 'RATE_LIMIT' || error?.statusCode === 429 || errorText.includes('rate limit') || errorText.includes('too many requests');
-    const noConfigurado = errorText.includes('api key') || errorText.includes('configured');
-    return res.status(rateLimited ? 429 : noConfigurado ? 503 : 502).json({ error: rateLimited ? 'RevelatiO IA está recibiendo muchas consultas. Espera unos segundos.' : noConfigurado ? 'El motor de IA no está configurado en este entorno.' : 'No fue posible crear tu camino. Inténtalo de nuevo.' });
+  let data = { titulo: 'Camino de discipulado bíblico', introduccion: `Un recorrido para crecer en ${objetivo}, a un ritmo de ${ritmo}.`, etapas: CAMINO_BASE };
+  if (hayMotorIA()) {
+    try {
+      const generado = await generarJSON(`Eres RevelatiO IA, guía bíblica en español. Personaliza este camino de discipulado para: "${objetivo}" y ritmo: "${ritmo}". Devuelve JSON válido con titulo, introduccion y etapas. Conserva exactamente 4 etapas, cada una con id, titulo, pasaje, objetivo, contenido, practica y preguntas. Cada pregunta debe tener pregunta, opciones (3 textos), correcta (índice numérico) y explicacion. Usa referencias bíblicas verificables y NBLA. No uses Markdown.`);
+      if (generado?.etapas?.length === 4) data = generado;
+    } catch (error) { console.error('[v0] IA discipulado fallback:', error?.message); }
   }
+  return res.status(200).json({ success: true, data });
 }
