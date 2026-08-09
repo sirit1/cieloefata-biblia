@@ -1,6 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
-import { generarJSON, hayMotorIA } from '../lib/ai.js';
+import { z } from 'zod';
+import { generarObjeto, hayMotorIA } from '../lib/ai.js';
 import { parsearReferencia, obtenerOriginal, originalComoTextoPlano } from '../lib/biblia.js';
+
+const ESQUEMA_REFERENCIAS = z.object({
+  referencias: z.array(z.object({
+    ref: z.string().describe('Cita en formato estándar español, ej. "Juan 3:16".'),
+    nota: z.string().describe('Frase muy breve (máximo 15 palabras) que explique por qué se conecta con la consulta.'),
+  })).describe('Entre 6 y 10 referencias cruzadas, de la conexión más directa a la más temática.'),
+});
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -52,10 +60,9 @@ export default async function handler(req, res) {
   } catch (_e) { /* si falla, sigue sin este contexto extra */ }
 
   try {
-    const data = await generarJSON(`Eres RevelatiO IA, motor de estudio bíblico en español. Para el pasaje o tema dado, entrega sus REFERENCIAS CRUZADAS: otros pasajes bíblicos relacionados por tema, promesa, cumplimiento profético, cita del NT al AT, paralelo o contraste doctrinal.
+    const data = await generarObjeto(`Eres RevelatiO IA, motor de estudio bíblico en español. Para el pasaje o tema dado, entrega sus REFERENCIAS CRUZADAS: otros pasajes bíblicos relacionados por tema, promesa, cumplimiento profético, cita del NT al AT, paralelo o contraste doctrinal.
 
-Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"referencias":[{"ref":"","nota":""}]}
+Genera la lista de referencias cruzadas siguiendo el esquema proporcionado.
 
 Reglas:
 - Entre 6 y 10 referencias, las más iluminadoras y verificables.
@@ -65,7 +72,7 @@ Reglas:
 - Prioriza SIEMPRE referencias ampliamente reconocidas y verificables en cualquier Biblia de estudio (ej. citas explícitas del NT al AT, pasajes paralelos de los evangelios sinópticos, promesas y su cumplimiento). No inventes citas ni conexiones forzadas: si dudas de una conexión, descártala.
 - PROHIBIDO LaTeX o notación matemática.
 
-Consulta: ${consulta}${contextoOriginal}`);
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_REFERENCIAS, maxOutputTokens: 3000 });
     const referencias = Array.isArray(data.referencias)
       ? data.referencias
           .filter((r) => r && typeof r.ref === 'string' && r.ref.trim())

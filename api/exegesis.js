@@ -1,6 +1,62 @@
 import { createClient } from '@supabase/supabase-js';
-import { generarJSONDual, hayMotorIA } from '../lib/ai.js';
+import { z } from 'zod';
+import { generarObjetoDual, hayMotorIA } from '../lib/ai.js';
 import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnicos, obtenerDefinicionStrong } from '../lib/biblia.js';
+
+// Esquema exacto del análisis exegético. Con esto el proveedor genera JSON
+// válido garantizado por esquema (salida estructurada), en vez de que el
+// modelo "redacte" JSON en texto libre y lo parseemos a mano — eso era lo que
+// producía los cortes a mitad de cadena en respuestas largas.
+const ESQUEMA_EXEGESIS = z.object({
+  referencia: z.string().describe('Cita canónica normalizada, ej. "Juan 3:16". Si es un tema, el pasaje base más representativo.'),
+  versiones: z.object({
+    rvr1960: z.string(),
+    nvi: z.string(),
+    ntv: z.string(),
+    lbla: z.string(),
+    pdt: z.string(),
+    btx3: z.string(),
+    rv2004: z.string(),
+    peshitta: z.string(),
+  }).describe('Texto del pasaje en cada versión, solo si se puede confirmar con seguridad; si no, cadena vacía.'),
+  idiomaOriginal: z.object({
+    termino: z.string(),
+    strong: z.string(),
+    analisis: z.string(),
+  }).describe('Término griego/hebreo clave, número Strong y análisis morfológico/etimológico.'),
+  comentarioMacArthur: z.string().describe('Comentario exegético pastoral, riguroso y expositivo.'),
+  aplicacion: z.string().describe('Aplicación ministerial: confesión y arrepentimiento, conversión y estudio de la Palabra, y permanecer firmes en la fe.'),
+  objetivo: z.string().describe('Frase concreta de qué debe comprender y practicar el estudiante.'),
+  contexto: z.string().describe('Contexto histórico, literario y canónico del pasaje.'),
+  estructura: z.string().describe('Movimiento argumental y literario del pasaje por unidades.'),
+  analisisGramatical: z.string().describe('Términos clave, sintaxis, verbos, conectores y género literario.'),
+  hermeneutica: z.string().describe('Principios de interpretación, horizonte original y aplicación legítima hoy.'),
+  exegesis: z.string().describe('Explicación versículo por versículo: observación, interpretación y aplicación.'),
+  hitos: z.array(z.object({
+    numero: z.number(),
+    titulo: z.string(),
+    lectura: z.string(),
+    hallazgo: z.string(),
+    pregunta: z.string(),
+    practica: z.string(),
+  })).describe('Exactamente 4 hitos en secuencia pedagógica.'),
+  comparaciones: z.array(z.object({
+    referencia: z.string(),
+    relacion: z.string(),
+    comentario: z.string(),
+  })).describe('3 comparaciones con otros pasajes bíblicos.'),
+  comentarios: z.array(z.object({
+    autor: z.string().describe('"Texto bíblico", "Doctrina" o "Vida cristiana".'),
+    comentario: z.string(),
+  })).describe('3 comentarios breves: texto, doctrina y vida comunitaria.'),
+  predica: z.object({
+    titulo: z.string(),
+    texto: z.string(),
+    puntos: z.array(z.string()),
+    aplicaciones: z.array(z.string()),
+    cierre: z.string(),
+  }).describe('Bosquejo de enseñanza basado solamente en el estudio.'),
+});
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -57,12 +113,11 @@ export default async function handler(req, res) {
   } catch (_e) { /* si falla, el análisis sigue sin este contexto extra */ }
 
   try {
-    const data = await generarJSONDual(`Eres el motor exegético de RevelatiO by Efata, plataforma de estudio bíblico en español.
+    const data = await generarObjetoDual(`Eres el motor exegético de RevelatiO by Efata, plataforma de estudio bíblico en español.
 
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
-Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":"","objetivo":"","contexto":"","estructura":"","analisisGramatical":"","hermeneutica":"","exegesis":"","hitos":[{"numero":1,"titulo":"","lectura":"","hallazgo":"","pregunta":"","practica":""}],"comparaciones":[{"referencia":"","relacion":"","comentario":""}],"comentarios":[{"autor":"Texto bíblico","comentario":""}],"predica":{"titulo":"","texto":"","puntos":[],"aplicaciones":[],"cierre":""}}
+Genera el análisis exegético completo siguiendo el esquema proporcionado.
 
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
@@ -83,7 +138,7 @@ Reglas:
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { maxOutputTokens: 8000 });
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_EXEGESIS, maxOutputTokens: 12000 });
     return res.status(200).json({ success: true, data });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);

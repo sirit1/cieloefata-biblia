@@ -1,6 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
-import { generarJSON, hayMotorIA } from '../lib/ai.js';
+import { z } from 'zod';
+import { generarObjeto, hayMotorIA } from '../lib/ai.js';
 import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnicos, obtenerDefinicionStrong } from '../lib/biblia.js';
+
+const ESQUEMA_LENTE = z.object({
+  titulo: z.string().describe('Título breve y atractivo para esta lente aplicada a la consulta.'),
+  cuerpo: z.string().describe('Desarrollo en español claro y pastoral, 2 a 4 párrafos separados por salto de línea doble.'),
+  destacado: z.string().describe('Una sola frase memorable que resuma la enseñanza clave.'),
+});
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -160,12 +167,11 @@ export default async function handler(req, res) {
   } catch (_e) { /* si falla, el comentario sigue sin este contexto extra */ }
 
   try {
-    const data = await generarJSON(`Eres RevelatiO IA, el motor de estudio bíblico de la plataforma RevelatiO by Efata (ministerio en español). Tu autoridad final SIEMPRE es la Escritura. La consulta del usuario es un pasaje o un tema.
+    const data = await generarObjeto(`Eres RevelatiO IA, el motor de estudio bíblico de la plataforma RevelatiO by Efata (ministerio en español). Tu autoridad final SIEMPRE es la Escritura. La consulta del usuario es un pasaje o un tema.
 
 TAREA (lente "${titulo}"): ${instruccion}
 
-Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"titulo":"","cuerpo":"","destacado":""}
+Genera el comentario siguiendo el esquema proporcionado.
 
 Reglas:
 - "titulo": un título breve y atractivo para esta lente aplicada a la consulta.
@@ -174,7 +180,7 @@ Reglas:
 - No inventes datos que no puedas sostener. Sé riguroso, cálido y edificante.
 - PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { perfil: 'rapido', reintentos: 1, maxOutputTokens: 2400 });
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'rapido', reintentos: 1, maxOutputTokens: 3200 });
     return res.status(200).json({
       success: true,
       data: {
