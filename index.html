@@ -221,7 +221,7 @@
                     </blockquote>
                 </div>
 
-                <form @submit.prevent="iniciarSesion()" @pointerdown="activarMusicaLogin()" class="space-y-4">
+                <form @submit.prevent="iniciarSesion()" class="space-y-4">
                     <div>
                         <label for="login-email" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Correo electrónico</label>
                         <input id="login-email" type="email" x-model="loginEmail" required autocomplete="email" placeholder="correo@ejemplo.com"
@@ -2184,27 +2184,11 @@
 
   activarMusicaLogin() {
   if (this.audioLogin) {
-  this.audioLogin.state === 'running' ? this.audioLogin.suspend() : this.audioLogin.resume();
-  this.musicaLoginActiva = this.audioLogin.state === 'running';
-  return;
+  this.audioLogin.close();
+  this.audioLogin = null;
   }
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) return;
-  const ctx = new AudioContextClass();
-  const master = ctx.createGain();
-  master.gain.value = 0.035;
-  master.connect(ctx.destination);
-  [261.63, 329.63, 392.00].forEach((frecuencia, indice) => {
-  const oscilador = ctx.createOscillator();
-  const ganancia = ctx.createGain();
-  oscilador.type = 'sine';
-  oscilador.frequency.value = frecuencia;
-  ganancia.gain.value = indice === 0 ? 0.32 : 0.18;
-  oscilador.connect(ganancia).connect(master);
-  oscilador.start();
-  });
-  this.audioLogin = ctx;
-  this.musicaLoginActiva = true;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  this.musicaLoginActiva = false;
   },
 
   async iniciarSesion() {
