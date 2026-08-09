@@ -1160,7 +1160,7 @@
                                         </div>
                                     </div>
 
-                                    <section class="brand-panel rounded-2xl border border-gold-500/30 bg-panel p-6"><div class="flex items-start gap-4"><img src="/brand/cielo-efata-full.jpg" alt="RevelatiO by Efata" class="h-16 w-24 rounded-xl object-contain border border-line bg-panel2 p-1"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Comienza tu plan</p><h3 class="mt-1 font-serif text-xl text-gold-100">Devocional de apertura</h3><p class="mt-2 text-sm leading-relaxed text-gray-300">Antes de comenzar, detente, ora y permite que la Palabra forme tu camino.</p></div></div><div class="mt-5 grid gap-4 md:grid-cols-3"><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Lectura inicial</p><p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="planActivo.dias[0].pasajes.join(' · ')"></p></div><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Conclusión de autores</p><p class="mt-2 text-sm leading-relaxed text-gray-300">Lee con humildad: comprende el texto, escucha las voces responsables de la tradición y obedece aquello que Dios hace evidente.</p></div><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Nota aplicable</p><p class="mt-2 text-sm leading-relaxed text-gray-300">¿Qué verdad de esta lectura practicarás hoy en tu familia, trabajo, iglesia o vida interior?</p></div></div><div class="mt-5 border-t border-line pt-4"><p class="font-serif text-lg text-gold-100">De RevelatiO para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs text-gray-500">Que este plan sea un camino de transformación, no solo una lista de lecturas.</p></div></section>
+                                    <section class="brand-panel rounded-2xl border border-gold-500/30 bg-panel p-6"><div class="flex items-start gap-4"><img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 rounded-xl object-contain border border-line bg-panel2 p-1"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Al comenzar · Etapa 1</p><h3 class="mt-1 font-serif text-xl text-gold-100">Devocional de apertura</h3><p class="mt-2 text-sm leading-relaxed text-gray-300">Antes de comenzar, detente, ora y permite que la Palabra forme tu camino.</p></div></div><div class="mt-5 grid gap-4 md:grid-cols-3"><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Lectura inicial</p><p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="planActivo.dias[0].pasajes.join(' · ')"></p></div><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Conclusión de autores</p><p class="mt-2 text-sm leading-relaxed text-gray-300">Lee con humildad: comprende el texto, escucha las voces responsables de la tradición y obedece aquello que Dios hace evidente.</p></div><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Nota aplicable</p><p class="mt-2 text-sm leading-relaxed text-gray-300">¿Qué verdad de esta lectura practicarás hoy en tu familia, trabajo, iglesia o vida interior?</p></div></div><div class="mt-5 border-t border-line pt-4"><p class="font-serif text-lg text-gold-100">De RevelatiO para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs text-gray-500">Que este plan sea un camino de transformación, no solo una lista de lecturas.</p></div></section>
 
                                     <!-- Lista de días -->
                                     <div class="space-y-3">
@@ -1194,6 +1194,51 @@
                                             </div>
                                         </template>
                                     </div>
+
+                                    <!-- Cierre del plan: comentarios bíblicos + conclusión RevelatiO -->
+                                    <section x-show="planCompletado" x-cloak class="space-y-4">
+                                        <div class="rounded-2xl border border-gold-500/40 bg-gradient-to-br from-gold-600/10 to-panel p-6">
+                                            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Has completado el plan</p>
+                                            <h3 class="mt-1 font-serif text-2xl text-gold-50">Cierre del camino</h3>
+                                            <p class="mt-2 text-sm leading-relaxed text-gray-400 max-w-2xl">Terminaste la lectura. Antes de cerrar, recibe un comentario bíblico de lo más destacado de cada lectura y una conclusión aplicable a tu vida.</p>
+                                            <template x-if="!planCierre">
+                                                <div class="mt-4">
+                                                    <button @click="generarCierrePlan()" :disabled="planCierreCargando" class="bg-gold-600 text-gray-950 font-bold rounded-lg px-4 py-2 text-sm disabled:opacity-50">
+                                                        <span x-text="planCierreCargando ? 'Preparando tu cierre...' : 'Recibir comentarios y conclusión'"></span>
+                                                    </button>
+                                                    <p x-show="planCierreError" x-text="planCierreError" class="mt-2 text-xs text-red-600" role="alert"></p>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <template x-if="planCierre">
+                                            <div class="space-y-4">
+                                                <div>
+                                                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Comentarios bíblicos</p>
+                                                    <p class="text-xs text-gray-500 mt-0.5">Lo más destacado de cada lectura del plan.</p>
+                                                    <div class="mt-3 grid gap-3 md:grid-cols-2">
+                                                        <template x-for="(c, ci) in planCierre.comentarios" :key="ci">
+                                                            <div class="rounded-xl border border-line bg-panel p-4">
+                                                                <button @click="leerReferencia(c.pasaje)" class="text-sm font-semibold text-gold-200 hover:text-gold-100 transition-colors" x-text="c.pasaje"></button>
+                                                                <p class="mt-2 text-sm leading-relaxed text-gray-400" x-text="c.comentario"></p>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </div>
+
+                                                <div class="brand-panel rounded-2xl border border-gold-500/40 bg-panel p-6">
+                                                    <div class="flex items-start gap-4">
+                                                        <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-14 w-14 rounded-xl object-contain border border-line bg-panel2 p-1">
+                                                        <div>
+                                                            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Panel de RevelatiO</p>
+                                                            <p class="font-serif text-xl text-gold-100 mt-1">De RevelatiO para ti, <span x-text="nombreParaMarca()"></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <p class="mt-4 text-sm leading-relaxed text-gray-300" x-text="planCierre.conclusion"></p>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </section>
                                 </div>
                             </template>
                         </div>
@@ -1974,6 +2019,9 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
   planActivoId: null,
                 categoriaFiltro: 'Todos',
                 progresoPlanes: {},
+                planCierre: null,
+                planCierreCargando: false,
+                planCierreError: '',
                 temasEstudio: TEMAS_ESTUDIO,
                 temaLibre: '',
                 versiculoDelDia: VERSICULOS_DIA[0],
@@ -2980,11 +3028,14 @@ async generarDiscipulado() {
                     return Math.round((this.diasCompletados(planId).length / plan.dias.length) * 100);
                 },
                 abrirPlan(id) {
+                    if (id !== this.planActivoId) { this.planCierre = null; this.planCierreError = ''; }
                     this.planActivoId = id;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 },
                 volverACatalogo() {
                     this.planActivoId = null;
+                    this.planCierre = null;
+                    this.planCierreError = '';
                 },
                 toggleCapitulo(planId, diaIndex, ref) {
                     const actual = [...this.capitulosLeidos(planId)];
@@ -3034,6 +3085,49 @@ async generarDiscipulado() {
                     if (dia === -1) dia = 0; // todo completado: repasar desde el inicio
                     const primeraRef = plan.dias[dia]?.pasajes?.[0];
                     if (primeraRef) this.leerReferencia(primeraRef);
+                },
+                get planCompletado() {
+                    return !!this.planActivo && this.planProgreso(this.planActivo.id) === 100;
+                },
+                pasajesDestacadosPlan(plan) {
+                    // Lo más destacado de cada lectura: el primer pasaje de cada día, sin repetir, hasta 12.
+                    const vistos = new Set();
+                    const destacados = [];
+                    for (const dia of (plan?.dias || [])) {
+                        const ref = dia?.pasajes?.[0];
+                        if (ref && !vistos.has(ref)) { vistos.add(ref); destacados.push(ref); }
+                        if (destacados.length >= 12) break;
+                    }
+                    return destacados;
+                },
+                async generarCierrePlan() {
+                    const plan = this.planActivo;
+                    if (!plan || this.planCierreCargando) return;
+                    const pasajes = this.pasajesDestacadosPlan(plan);
+                    if (!pasajes.length) return;
+                    this.planCierreCargando = true;
+                    this.planCierreError = '';
+                    try {
+                        const session = await supabaseClient?.auth.getSession();
+                        const token = session?.data?.session?.access_token;
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/plan-cierre', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ titulo: plan.titulo, nombre: this.nombreParaMarca(), pasajes })
+                        });
+                        const result = await response.json();
+                        if (result.usage) this.cuotaIA = result.usage;
+                        if (result.code === 'AI_QUOTA_EXCEEDED') throw new Error(result.error || 'Has alcanzado tu límite diario.');
+                        if (response.status === 401) throw new Error('SESION');
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo preparar el cierre del plan.');
+                        this.planCierre = { planId: plan.id, ...result.data };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.planCierreError = error.message || 'No se pudo preparar el cierre del plan.';
+                    } finally {
+                        this.planCierreCargando = false;
+                    }
                 },
                 guardarProgresoPlanes() {
                     try { localStorage.setItem('revelatio-planes-progreso', JSON.stringify(this.progresoPlanes)); } catch (_e) {}
