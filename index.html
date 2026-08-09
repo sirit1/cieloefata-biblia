@@ -863,10 +863,21 @@
                             <!-- Barra de exportar -->
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="text-[11px] text-gray-300 uppercase tracking-wider mr-1">Tu estudio:</span>
-                                <button @click="compartirEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
+                                <div class="relative">
+  <button @click="menuCompartir = !menuCompartir" @click.outside="menuCompartir = false" aria-haspopup="true" :aria-expanded="menuCompartir" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zm12 7a3 3 0 100-6 3 3 0 000 6z"></path></svg>
-                                    <span x-text="compartido ? 'Compartido' : (copiado ? 'Copiado al portapapeles' : 'Compartir')"></span>
+                                    <span x-text="compartido ? 'Compartido' : 'Compartir'"></span>
                                 </button>
+                                <div x-show="menuCompartir" x-cloak class="absolute z-50 left-0 top-full mt-2 w-64 rounded-xl border border-gold-500/30 bg-night p-2 shadow-2xl">
+                                    <p class="px-3 py-2 text-[10px] uppercase tracking-wider text-gold-400">Compartir estudio gratuito</p>
+                                    <button @click="compartirRed('whatsapp')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-white/10 rounded-lg">WhatsApp</button>
+                                    <button @click="compartirRed('facebook')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-white/10 rounded-lg">Facebook</button>
+                                    <button @click="compartirRed('x')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-white/10 rounded-lg">X</button>
+                                    <button @click="compartirRed('telegram')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-white/10 rounded-lg">Telegram</button>
+                                    <button @click="compartirRed('email')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-white/10 rounded-lg">Correo electrónico</button>
+                                    <button @click="compartirNativo()" class="w-full text-left px-3 py-2 text-xs text-gold-300 hover:bg-white/10 rounded-lg">Más opciones del dispositivo</button>
+                                </div>
+                                </div>
                                 <button @click="descargarPDF()" class="inline-flex items-center gap-1.5 text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-lg hover:bg-gold-600/25 transition-all">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"></path></svg>
                                     PDF
@@ -875,7 +886,7 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6v-8z"></path></svg>
                                     Imprimir
                                 </button>
-                                <button @click="copiarEstudio()" class="inline-flex items-center gap-1.5 text-xs bg-ink text-gray-400 border border-line px-3 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">
+                                <button @click="copiarEnlace()" class="inline-flex items-center gap-1.5 text-xs bg-ink text-gray-400 border border-line px-3 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                                     <span x-text="copiado ? 'Copiado' : 'Copiar'"></span>
                                 </button>
@@ -966,7 +977,14 @@
                         </div>
                     </section>
 
-                    <!-- ============ PLANES ============ -->
+                    <!-- ============ DISCIPULADO ============ -->
+  <section x-show="vista === 'discipulado'" class="space-y-6">
+    <div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Camino bíblico</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Discipulado guiado por IA</h2><p class="text-sm text-gray-500 mt-2 max-w-2xl">Una estructura personal de crecimiento basada en la NBLA: etapas, hitos y prácticas para confesar, convertirte y permanecer firme.</p></div>
+    <div class="bg-panel border border-gold-500/30 rounded-2xl p-6 space-y-4"><p class="text-sm text-gray-300">La IA organiza tu camino a partir de tus respuestas; no sustituye al pastor, mentor ni a la comunidad local.</p><div class="grid md:grid-cols-2 gap-4"><label class="text-xs text-gray-400">Objetivo<input x-model="discipuladoObjetivo" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm" placeholder="Crecer en oración, carácter o servicio"></label><label class="text-xs text-gray-400">Ritmo<select x-model="discipuladoRitmo" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm"><option>15 minutos al día</option><option>30 minutos al día</option><option>3 veces por semana</option></select></label></div><button @click="generarDiscipulado()" class="bg-gold-600 text-gray-950 font-bold rounded-lg px-4 py-2 text-sm">Crear mi camino gratuito</button></div>
+    <div x-show="discipuladoPlan" x-cloak class="grid md:grid-cols-3 gap-4"><template x-for="etapa in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa</p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.descripcion"></p><p class="text-xs text-gray-500 mt-4">Hito NBLA: <span x-text="etapa.hito"></span></p></article></template></div>
+  </section>
+
+  <!-- ============ PLANES ============ -->
                     <section x-show="vista === 'planes'" class="space-y-6">
                         <!-- Vista catálogo -->
                         <div x-show="!planActivo" x-cloak class="space-y-6">
@@ -1789,6 +1807,11 @@
             };
         }
 
+        const PLANES_EXTRA = [
+            ['Fundamentos de la fe','Fundamentos',14],['Evangelio de Juan','Biblia',21],['Romanos 12:2 y la mente renovada','Vida espiritual',14],['Oración perseverante','Vida espiritual',21],['Ayuno y dependencia','Vida espiritual',7],['Santidad práctica','Carácter',30],['Fruto del Espíritu','Carácter',9],['Humildad de Cristo','Carácter',14],['Sabiduría para decidir','Carácter',14],['Dominio propio','Carácter',14],['Matrimonio conforme a la Escritura','Familia',21],['Crianza con gracia y verdad','Familia',14],['Familia que ora','Familia',7],['Sanidad del corazón','Vida espiritual',21],['Duelo y esperanza','Crisis',14],['Ansiedad y confianza en Dios','Crisis',14],['Pruebas y perseverancia','Crisis',14],['Consuelo en los Salmos','Crisis',7],['Consejería bíblica inicial','Pastoral',21],['Cuidado del rebaño','Pastoral',30],['Restauración del caído','Pastoral',14],['Predicación expositiva','Ministerios',30],['Enseñanza fiel','Ministerios',21],['Servicio cristiano','Ministerios',14],['Evangelización personal','Misión',14],['Hacer discípulos','Misión',30],['Misión en el trabajo','Misión',14],['Liderazgo servicial','Liderazgo',21],['Nehemías: liderazgo y visión','Liderazgo',21],['Integridad del líder','Liderazgo',14],['Mayordomía bíblica','Liderazgo',14],['Ética digital cristiana','Vida digital',14],['Tecnología y dominio propio','Vida digital',7],['Pureza en internet','Vida digital',14],['Descanso y límites','Vida digital',7],['Jóvenes firmes','Carácter',21],['Hombres de palabra','Carácter',21],['Mujeres de fe','Carácter',21],['Discipulado de nuevos creyentes','Fundamentos',30],['Doctrinas esenciales','Fundamentos',30],['La cruz de Cristo','Fundamentos',14],['Resurrección y esperanza','Fundamentos',14],['El Espíritu Santo','Fundamentos',21],['Hebreos: perseverar','Biblia',30],['Salmos para cada día','Biblia',30],['Proverbios: sabiduría diaria','Biblia',31],['Efesios: identidad en Cristo','Biblia',21],['Santiago: fe que obra','Biblia',14],['1 Pedro: firme en la prueba','Biblia',14]
+        ].map(([titulo,categoria,duracion], i) => ({ id: `plan-${i+2}`, titulo, categoria, duracion, descripcion: `Un recorrido bíblico de ${duracion} días en NBLA para crecer con verdad, práctica y perseverancia.`, miniatura: '/brand/cielo-efata-full.jpg', dias: Array.from({ length: duracion }, (_, d) => ({ titulo: `Día ${d + 1} · ${titulo}`, pasajes: ['Romanos 12:2'] })) }))
+        const ampliarPlanes = (base) => [...base, ...PLANES_EXTRA].slice(0, 50);
+
         const TEMAS_ESTUDIO = [
             { titulo: 'La gracia', desc: 'El favor inmerecido de Dios.', q: 'la gracia' },
             { titulo: 'El perdón', desc: 'Perdonar y ser perdonado.', q: 'el perdón' },
@@ -1837,6 +1860,7 @@
                     { id: 'ia', label: 'RevelatiO IA', labelCorto: 'IA', icon: ICON.ia },
                     { id: 'estudio', label: 'Estudio', labelCorto: 'Estudio', icon: ICON.estudio },
                     { id: 'planes', label: 'Planes', labelCorto: 'Planes', icon: ICON.planes },
+  { id: 'discipulado', label: 'Discipulado', labelCorto: 'Discipulado', icon: ICON.estudio },
                     { id: 'favoritos', label: 'Favoritos', labelCorto: 'Guardados', icon: ICON.favoritos }
                 ],
                 accesos: [
@@ -1853,7 +1877,9 @@
                 ],
 
                 // datos
-                planesCatalogo: PLANES_CATALOGO,
+                planesCatalogo: ampliarPlanes(PLANES_CATALOGO),
+  discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan: false,
+  discipuladoEtapas: [],
                 planActivoId: null,
                 categoriaFiltro: 'Todos',
                 progresoPlanes: {},
@@ -1957,8 +1983,9 @@
                 lenteActiva: 'hermeneuticaNeurociencia',
                 lentes: {},
                 autorSel: 'matthew-henry',
-                copiado: false,
-                compartido: false,
+  copiado: false,
+  compartido: false,
+  menuCompartir: false,
 
                 // Herramientas de estudio del lector de Biblia (estilo bibliatodo)
                 verComentarios: true,
@@ -2139,7 +2166,15 @@
                     this.vista = 'inicio';
                 },
 
-                irA(vista) {
+                generarDiscipulado() {
+  this.discipuladoPlan = true;
+  this.discipuladoEtapas = [
+    { titulo: 'Confesión y arrepentimiento', descripcion: 'Reconocer el pecado delante de Dios y caminar en luz.', hito: '1 Juan 1:9 · NBLA' },
+    { titulo: 'Conversión y Palabra', descripcion: 'Desear la Palabra, aprender y obedecer a Cristo.', hito: '1 Pedro 2:2 · NBLA' },
+    { titulo: 'Firmeza y constancia', descripcion: 'Permanecer sólido, sirviendo y creciendo en comunidad.', hito: '1 Corintios 15:58 · NBLA' }
+  ];
+  },
+  irA(vista) {
                     this.vista = vista;
                     this.sidebarAbierta = false;
                     this.menuUsuario = false;
@@ -2489,25 +2524,31 @@
                         setTimeout(() => { this.copiado = false; }, 2000);
                     } catch (_e) { /* algunos navegadores bloquean el portapapeles */ }
                 },
-                async compartirEstudio() {
-                    const texto = this.textoEstudioPlano();
-                    const titulo = `RevelatiO · ${this.estudioRef}`;
-                    if (navigator.share) {
-                        try {
-                            await navigator.share({ title: titulo, text: texto });
-                            this.compartido = true;
-                            setTimeout(() => { this.compartido = false; }, 2000);
-                            return;
-                        } catch (e) {
-                            // El usuario cerró el diálogo nativo de compartir: respetar el gesto, sin error visible.
-                            if (e?.name === 'AbortError') return;
-                            // Cualquier otro fallo (ej. la API Web Share bloqueada por Permissions-Policy
-                            // dentro del iframe de vista previa) cae al portapapeles como respaldo,
-                            // en vez de quedarse sin hacer nada y parecer un botón roto.
-                        }
-                    }
-                    this.copiarEstudio();
-                },
+  urlEstudioCompartido() {
+  const url = new URL(window.location.href);
+  url.searchParams.set('estudio', encodeURIComponent(this.estudioRef || 'estudio-biblico'));
+  url.searchParams.set('marca', 'revelatio-by-efata');
+  return url.toString();
+  },
+  textoCompartirMarca() {
+  return `${this.textoEstudioPlano()}\n\nVisita RevelatiO by Efata: estudio bíblico profundo, gratuito y de libre acceso.\n${this.urlEstudioCompartido()}\n\nLee, estudia y suscríbete gratis en RevelatiO.`;
+  },
+  async compartirNativo() {
+  this.menuCompartir = false;
+  if (!navigator.share) return this.copiarEnlace();
+  try { await navigator.share({ title: `RevelatiO · ${this.estudioRef}`, text: this.textoCompartirMarca(), url: this.urlEstudioCompartido() }); this.compartido = true; setTimeout(() => { this.compartido = false; }, 2000); } catch (e) { if (e?.name !== 'AbortError') this.copiarEnlace(); }
+  },
+  compartirRed(red) {
+  const url = encodeURIComponent(this.urlEstudioCompartido());
+  const texto = encodeURIComponent(this.textoCompartirMarca());
+  const enlaces = { whatsapp: `https://wa.me/?text=${texto}`, facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`, x: `https://twitter.com/intent/tweet?text=${texto}&url=${url}`, telegram: `https://t.me/share/url?url=${url}&text=${texto}`, email: `mailto:?subject=${encodeURIComponent('Estudio bíblico en RevelatiO')}&body=${texto}` };
+  this.menuCompartir = false;
+  if (enlaces[red]) window.open(enlaces[red], '_blank', 'noopener,noreferrer');
+  },
+  async copiarEnlace() {
+  try { await navigator.clipboard.writeText(this.urlEstudioCompartido()); this.copiado = true; setTimeout(() => { this.copiado = false; }, 2000); } catch (_e) { /* portapapeles bloqueado */ }
+  },
+  async compartirEstudio() { this.menuCompartir = true; },
                 imprimirEstudio() {
                     const et = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
                     const esc = (s) => String(s || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
