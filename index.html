@@ -178,8 +178,16 @@
         @media (display-mode: standalone) {
             body { padding-top: env(safe-area-inset-top); }
         }
-    </style>
-</head>
+  </style>
+  <style>
+  .libro-lectura-shell { background: linear-gradient(90deg, rgba(200,155,60,.05), transparent 12%, transparent 88%, rgba(200,155,60,.05)); border-radius: 1rem; padding: .25rem; transform-origin: center; }
+  .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
+  @keyframes paso-hoja { 0% { opacity: .25; transform: perspective(1100px) rotateY(var(--pagina-inicio, -8deg)) translateX(var(--pagina-x, 18px)); filter: brightness(.9); } 55% { opacity: 1; transform: perspective(1100px) rotateY(2deg) translateX(0); filter: brightness(1.03); } 100% { opacity: 1; transform: perspective(1100px) rotateY(0) translateX(0); filter: brightness(1); } }
+  .lector-direccion-anterior .pagina-en-movimiento { --pagina-inicio: 8deg; --pagina-x: -18px; }
+  @media (prefers-reduced-motion: reduce) { .pagina-en-movimiento { animation: none; } }
+  @media print { .libro-lectura-shell { background: none; } }
+  </style>
+  </head>
 
 <body class="h-full bg-ink antialiased" x-data="cieloApp()">
 
@@ -1242,7 +1250,7 @@
         </div>
 
         <!-- Modal: lector "modo libro" (capítulo completo, página a página) -->
-        <div x-show="lectorAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[85] flex flex-col bg-ink" role="dialog" aria-modal="true" aria-label="Lector de capítulo">
+        <div x-show="lectorAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[85] flex flex-col bg-ink" role="dialog" aria-modal="true" aria-label="Lector de capítulo" :class="`lector-direccion-${direccionPagina}`">
             <div class="zona-oscura shrink-0 border-b border-line px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3 min-w-0">
                     <button @click="cerrarLector()" class="p-2 rounded-lg hover:bg-night2 transition-colors shrink-0" aria-label="Cerrar lectura">
@@ -1276,7 +1284,7 @@
                             Cargando capítulo...
                         </div>
                         <template x-if="!cargandoPasaje">
-                            <p class="prose-lectura font-serif text-lg sm:text-xl">
+                            <div class="libro-lectura-shell" :class="animandoPagina ? 'pagina-en-movimiento' : ''"><p class="prose-lectura font-serif text-lg sm:text-xl">
                                 <template x-for="v in versosActuales" :key="v.n">
                                     <span @click="seleccionarVersiculoLector(v.n)"
                                         :class="[colorVersiculo(v.n) ? `hl-${colorVersiculo(v.n)}` : '', versiculoLectorSel === v.n ? 'ring-2 ring-gold-500/70' : '']"
@@ -1284,7 +1292,7 @@
                                         <sup class="text-[10px] font-sans font-bold text-gold-600 mr-0.5" x-text="v.n"></sup><span x-text="v.texto + ' '"></span><svg x-show="notaDeVersiculo(v.n)" class="w-3 h-3 inline-block -translate-y-1.5 text-gold-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle></svg>
                                     </span>
                                 </template>
-                            </p>
+                            </p></div>
                         </template>
                         <p x-show="!cargandoPasaje && !versosActuales.length" class="text-sm text-gray-500 text-center py-10">No se pudo cargar el texto de este capítulo.</p>
                     </div>
@@ -1964,8 +1972,10 @@
                 original: null,
 
                 // lector "modo libro" (capítulo completo, resaltados, notas, progreso)
-                lectorAbierto: false,
-                versiculoLectorSel: null,
+  lectorAbierto: false,
+  animandoPagina: false,
+  direccionPagina: 'siguiente',
+  versiculoLectorSel: null,
                 versiculoNotaSel: null,
                 notaAbierta: false,
                 notaTexto: '',
@@ -2983,23 +2993,27 @@
                     this.lectorAbierto = false;
                     this.versiculoLectorSel = null;
                 },
-                async cargarCapituloLector() {
-                    if (!this.libroSel) return;
-                    await this.cargarPasaje(`${this.libroSel.n} ${this.capituloSel}`);
-                    this.guardarUltimaPosicion();
-                },
-                async capituloLectorAnterior() {
+  async cargarCapituloLector(direccion = 'siguiente') {
+  if (!this.libroSel) return;
+  this.direccionPagina = direccion;
+  this.animandoPagina = true;
+  await new Promise(resolve => setTimeout(resolve, 220));
+  await this.cargarPasaje(`${this.libroSel.n} ${this.capituloSel}`);
+  this.guardarUltimaPosicion();
+  requestAnimationFrame(() => { this.animandoPagina = false; });
+  },
+  async capituloLectorAnterior() {
                     if (this.capituloSel > 1) {
                         this.capituloSel--;
                         this.versiculoLectorSel = null;
-                        await this.cargarCapituloLector();
-                    }
-                },
-                async capituloLectorSiguiente() {
+  await this.cargarCapituloLector('anterior');
+  }
+  },
+  async capituloLectorSiguiente() {
                     if (this.libroSel && this.capituloSel < this.libroSel.c) {
                         this.capituloSel++;
                         this.versiculoLectorSel = null;
-                        await this.cargarCapituloLector();
+                        await this.cargarCapituloLector('siguiente');
                     }
                 },
                 seleccionarVersiculoLector(n) {
