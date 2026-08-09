@@ -85,6 +85,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/lib/discipulado-data.js"></script>
 <script src="/lib/crecimiento-data.js"></script>
+<script src="/lib/estudios-tematicos.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
@@ -1027,8 +1028,9 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <template x-for="tema in temasEstudio" :key="tema.q">
                                 <button @click="busqueda = tema.q; irA('ia'); ejecutarEstudio(tema.q)" class="text-left bg-panel border border-line rounded-2xl p-5 hover:border-gold-500/40 transition-all">
-                                    <p class="text-sm font-semibold text-gold-100 mb-1" x-text="tema.titulo"></p>
-                                    <p class="text-xs text-gray-500 leading-snug" x-text="tema.desc"></p>
+<div class="flex items-center justify-between gap-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="`Tema ${tema.id || ''}`"></p><span class="text-[10px] text-cyan-700" x-text="tema.categoria || ''"></span></div>
+  <p class="mt-2 text-sm font-semibold text-gold-100 mb-1" x-text="tema.titulo"></p>
+  <p class="text-xs text-gray-500 leading-snug" x-text="tema.desc"></p>
                                 </button>
                             </template>
                         </div>
@@ -2045,24 +2047,7 @@
   };
   const ampliarPlanes = (base) => [...base, ...PLANES_EXTRA].slice(0, 50).map(plan => ({ ...plan, imagen: miniaturaPlan(plan) }));
 
-        const TEMAS_ESTUDIO = [
-            { titulo: 'La gracia', desc: 'El favor inmerecido de Dios.', q: 'la gracia' },
-            { titulo: 'El perdón', desc: 'Perdonar y ser perdonado.', q: 'el perdón' },
-            { titulo: 'El arrepentimiento', desc: 'Cambio de mente y corazón.', q: 'el arrepentimiento' },
-            { titulo: 'La fe', desc: 'Confianza firme en Dios.', q: 'la fe' },
-            { titulo: 'La esperanza', desc: 'Certeza de lo que se espera.', q: 'la esperanza' },
-            { titulo: 'El temor de Dios', desc: 'Reverencia que da sabiduría.', q: 'el temor de Dios' },
-            { titulo: 'Consejería pastoral', desc: 'Cuidar almas con verdad, gracia y discernimiento.', q: 'consejería pastoral' },
-            { titulo: 'Discipulado', desc: 'Formar discípulos maduros que obedecen y multiplican.', q: 'discipulado cristiano' },
-            { titulo: 'Predicación expositiva', desc: 'Llevar la intención del texto fielmente al púlpito.', q: 'predicación expositiva' },
-            { titulo: 'Liderazgo de servidores', desc: 'Autoridad espiritual modelada por el servicio de Cristo.', q: 'liderazgo de servidores' },
-            { titulo: 'Cuidado del rebaño', desc: 'Pastorado, visitación, restauración y protección.', q: 'cuidado pastoral de la iglesia' },
-            { titulo: 'Conflicto y reconciliación', desc: 'Verdad, perdón y restauración en relaciones quebradas.', q: 'conflicto y reconciliación bíblica' },
-            { titulo: 'Misión y evangelización', desc: 'Anunciar el evangelio y hacer discípulos en cada contexto.', q: 'misi��n y evangelización' },
-            { titulo: 'Ética ministerial', desc: 'Integridad, transparencia y rendición de cuentas.', q: 'ética ministerial' },
-            { titulo: 'Familia pastoral', desc: 'Cuidar el hogar mientras se sirve al pueblo de Dios.', q: 'familia pastoral' },
-            { titulo: 'Duelo y crisis', desc: 'Presencia pastoral, lamento y esperanza bíblica.', q: 'duelo y crisis desde la Biblia' }
-        ];
+        const TEMAS_ESTUDIO = window.ESTUDIOS_TEMATICOS.map((tema) => ({ titulo: tema.titulo, desc: `${tema.categoria} · ${tema.tesis}`, q: tema.titulo, id: tema.id }));
 
         function cieloApp() {
             return {
@@ -2747,9 +2732,39 @@ crearCodigoMentoria() { this.mentoriaCodigo = Math.random().toString(36).slice(2
   } catch (error) { this.donacionEstado = error.message; } finally { this.donacionCargando = false; }
   },
 
+  estudioLocalPorConsulta(consulta) {
+    const q = String(consulta || '').trim().toLocaleLowerCase('es');
+    return window.ESTUDIOS_TEMATICOS.find((tema) => [tema.titulo, tema.categoria, tema.tesis, tema.hito, tema.pasaje].some((valor) => String(valor).toLocaleLowerCase('es').includes(q) || q.includes(String(valor).toLocaleLowerCase('es'))));
+  },
+  cargarEstudioLocal(tema) {
+    this.estudioRef = `${tema.titulo} · ${tema.pasaje}`;
+    this.estudio = {
+      comentario: tema.tesis,
+      original: 'La lectura comienza con el texto base y distingue observación, interpretación y aplicación.',
+      objetivo: `Comprender ${tema.titulo} desde ${tema.pasaje} y responder con una obediencia concreta.`,
+      contexto: `Tema: ${tema.titulo}. Categoría: ${tema.categoria}. Pasaje principal: ${tema.pasaje}. Lee el pasaje completo antes de interpretar sus afirmaciones.`,
+      estructura: `1. Texto base: ${tema.pasaje}.\\n2. Observa quién habla, a quién, qué problema aborda y qué respuesta exige.\\n3. Identifica la idea central: ${tema.tesis}\\n4. Contrasta la interpretación con el contexto inmediato y con el testimonio general de la Escritura.`,
+      analisisGramatical: `Concepto clave: ${tema.titulo}. Pregunta: ¿qué función cumple este concepto en el argumento del pasaje? No lo separes de sus verbos, destinatarios, conectores y promesas.`,
+      hermeneutica: `La aplicación no se inventa fuera del texto. Pasa de la explicación a una decisión verificable: qué abandonar, qué creer, qué practicar y con quién compartirlo.`,
+      exegesis: tema.tesis,
+      comparaciones: [], comentarios: [],
+      predica: { titulo: `Enseñar: ${tema.titulo}`, texto: tema.tesis, puntos: tema.estructura.slice(0, 3), aplicaciones: ['Escribe una respuesta concreta para esta semana.', 'Ora usando el pasaje, no solo sobre el pasaje.', 'Compártelo con un mentor o grupo.'], cierre: 'Permanece firme, sólido y constante en la fe.' },
+      validacionCruzada: null
+    };
+    this.lentes = { exegesis: { estado: 'ready', titulo: 'Exégesis', cuerpo: this.estudio.exegesis, destacado: this.estudio.objetivo, autor: null }, hermeneutica: { estado: 'ready', titulo: 'Hermenéutica bíblica', cuerpo: this.estudio.hermeneutica, destacado: this.estudio.contexto, autor: null } };
+    this.lenteActiva = 'hermeneutica'; this.estudioListo = true; this.mensajeEstudio = `Estudio ${tema.id}/40 cargado desde el catálogo temático. Sin consumo de IA.`;
+  },
   async ejecutarEstudio(consulta) {
                     const q = String(consulta || '').trim();
                     if (!q || this.cargandoEstudio) return;
+                    const temaLocal = this.estudioLocalPorConsulta(q);
+                    if (!temaLocal) { this.errorEstudio = true; this.estudioListo = false; this.mensajeEstudio = 'No hay un estudio catalogado para ese concepto. Elige uno de los 40 temas o busca un sinónimo incluido en su descripción.'; return; }
+                    this.cargandoEstudio = true;
+                    this.errorEstudio = false;
+                    this.busqueda = temaLocal.titulo;
+                    this.cargarEstudioLocal(temaLocal);
+                    this.cargandoEstudio = false;
+                    return;
                     this.busqueda = q;
                     this.cargandoEstudio = true;
                     this.errorEstudio = false;
