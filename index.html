@@ -259,16 +259,16 @@
     <div x-show="sesionVerificada && isLoggedIn" x-cloak class="app-shell flex flex-col h-full">
 
         <!-- HEADER GLOBAL -->
-        <header class="zona-oscura shrink-0 h-16 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40">
+        <header class="zona-oscura shrink-0 min-h-24 lg:min-h-28 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40">
             <button @click="sidebarAbierta = !sidebarAbierta" class="lg:hidden text-gray-300 hover:text-gold-300 p-1" aria-label="Abrir menú">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
 
             <a href="#" @click.prevent="irA('inicio')" class="flex items-center gap-3 shrink-0" aria-label="RevelatiO by Efata, inicio">
-                <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-12 w-12 object-contain shrink-0 drop-shadow-[0_0_10px_rgba(200,155,60,.25)]">
-                <div class="leading-tight">
-                    <p class="text-base font-bold text-gold-300 font-serif tracking-tight brand-signature">RevelatiO</p>
-                    <p class="text-[9px] text-gold-400/80 tracking-[0.22em] uppercase">by Efata</p>
+<img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 sm:h-[4.5rem] sm:w-[4.5rem] lg:h-20 lg:w-20 object-contain shrink-0 drop-shadow-[0_0_12px_rgba(200,155,60,.3)]">
+  <div class="leading-tight">
+  <p class="text-xl sm:text-2xl font-bold text-gold-300 font-serif tracking-tight brand-signature">RevelatiO</p>
+  <p class="text-[10px] sm:text-[11px] text-gold-400/80 tracking-[0.22em] uppercase">by Efata</p>
                 </div>
                 <span class="hidden xl:block h-6 w-px bg-gold-500/30"></span>
                 <span class="hidden xl:block text-[9px] uppercase tracking-[0.18em] text-gray-400">Palabra · mente · vida</span>
