@@ -2210,18 +2210,22 @@
   this.musicaLoginActiva = true;
   window.setTimeout(() => {
   if (!this.musicaLoginActiva || !('speechSynthesis' in window)) return;
+  const hablar = () => {
   window.speechSynthesis.cancel();
   const voces = window.speechSynthesis.getVoices();
   const vozFemenina = voces.find((voz) =>
-    voz.lang.toLowerCase().startsWith('es') && /female|mujer|monica|paulina|helena|elena|sofia|luciana/i.test(voz.name)
-  ) || voces.find((voz) => voz.lang.toLowerCase().startsWith('es'));
-  const voz = new SpeechSynthesisUtterance('Bienvenido a RevelatiO, un camino para conocer al Padre Creador, a Jesús de Nazareth, su Hijo, y al Espíritu Santo.');
-  voz.lang = 'es-ES';
-  voz.rate = 0.86;
-  voz.pitch = 1.08;
+    /^es(-|_)/i.test(voz.lang) && /female|mujer|monica|paulina|helena|elena|sofia|luciana|google español|microsoft/i.test(voz.name)
+  ) || voces.find((voz) => /^es(-|_)/i.test(voz.lang));
+  const voz = new SpeechSynthesisUtterance('Bienvenido a RevelatiO. Un camino para conocer al Padre Creador, a Jesús de Nazareth, su Hijo, y al Espíritu Santo.');
+  voz.lang = vozFemenina?.lang || 'es-ES';
+  voz.rate = 0.94;
+  voz.pitch = 1.18;
   voz.volume = 1;
   if (vozFemenina) voz.voice = vozFemenina;
   window.speechSynthesis.speak(voz);
+  };
+  if (window.speechSynthesis.getVoices().length) hablar();
+  else window.speechSynthesis.addEventListener('voiceschanged', hablar, { once: true });
   }, 5000);
   },
 
