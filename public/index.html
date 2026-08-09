@@ -181,7 +181,7 @@
   </style>
   <style>
   .libro-lectura-shell { background: linear-gradient(90deg, rgba(200,155,60,.05), transparent 12%, transparent 88%, rgba(200,155,60,.05)); border-radius: 1rem; padding: .25rem; transform-origin: center; }
-  .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
+  .pagina-en-movimiento { animation: paso-hoja .68s cubic-bezier(.22,.72,.22,1) both; transform-origin: center; will-change: transform, opacity, filter; }
   @keyframes paso-hoja { 0% { opacity: .25; transform: perspective(1100px) rotateY(var(--pagina-inicio, -8deg)) translateX(var(--pagina-x, 18px)); filter: brightness(.9); } 55% { opacity: 1; transform: perspective(1100px) rotateY(2deg) translateX(0); filter: brightness(1.03); } 100% { opacity: 1; transform: perspective(1100px) rotateY(0) translateX(0); filter: brightness(1); } }
   .lector-direccion-anterior .pagina-en-movimiento { --pagina-inicio: 8deg; --pagina-x: -18px; }
   @media (prefers-reduced-motion: reduce) { .pagina-en-movimiento { animation: none; } }
@@ -1228,7 +1228,7 @@
                         <p class="text-[11px] font-bold text-gold-100 uppercase tracking-wider">Número Strong · <span x-text="lexicoDatos?.codigo"></span></p>
                         <h4 class="text-2xl text-gold-100" :class="lexicoDatos?.codigo?.startsWith('H') ? 'font-hebreo' : 'font-griego'" :dir="lexicoDatos?.codigo?.startsWith('H') ? 'rtl' : 'ltr'" x-text="lexicoDatos?.lexema"></h4>
                         <p class="text-sm text-gold-50" x-text="[lexicoDatos?.transliteracion, lexicoDatos?.pronunciacion].filter(Boolean).join(' · ')"></p>
-                        <p class="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-100">Definición en español</p>
+                        <p class="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-100">Definición en espa��ol</p>
                     </div>
                     <button @click="lexicoAbierto = false" class="text-gray-500 hover:text-white p-1" aria-label="Cerrar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
@@ -1535,7 +1535,7 @@
                 dias: [
                     { titulo: 'Día 1 · El himno del amor', pasajes: ['1 Corintios 13:1-13'] },
                     { titulo: 'Día 2 · Dios es amor', pasajes: ['1 Juan 4:7-12'] },
-                    { titulo: 'Día 3 · Nadie tiene mayor amor', pasajes: ['Juan 15:12-13'] },
+                    { titulo: 'D��a 3 · Nadie tiene mayor amor', pasajes: ['Juan 15:12-13'] },
                     { titulo: 'Día 4 · Mientras éramos pecadores', pasajes: ['Romanos 5:8'] },
                     { titulo: 'Día 5 · Amemos de hecho y verdad', pasajes: ['1 Juan 3:16-18'] },
                     { titulo: 'Día 6 · Fuerte como la muerte', pasajes: ['Cantares 8:6-7'] },
@@ -2967,11 +2967,12 @@
   async cargarCapituloLector(direccion = 'siguiente') {
   if (!this.libroSel) return;
   this.direccionPagina = direccion;
-  this.animandoPagina = true;
-  await new Promise(resolve => setTimeout(resolve, 220));
+  this.animandoPagina = false;
   await this.cargarPasaje(`${this.libroSel.n} ${this.capituloSel}`);
   this.guardarUltimaPosicion();
-  requestAnimationFrame(() => { this.animandoPagina = false; });
+  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  this.animandoPagina = true;
+  window.setTimeout(() => { this.animandoPagina = false; }, 700);
   },
   async capituloLectorAnterior() {
                     if (this.capituloSel > 1) {
