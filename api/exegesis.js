@@ -62,11 +62,11 @@ export default async function handler(req, res) {
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
 Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"referencia":"","versiones":{"rvr1960":"","nbla":"","nvi":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":""}
+{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":""}
 
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
-- "versiones": el texto del versículo en cada versión. Si es un tema sin un único versículo, deja los tres campos como cadena vacía "".
+- "versiones": incluye siempre las ocho claves: rvr1960, nvi, ntv, lbla, pdt, btx3, rv2004 y peshitta. Escribe el texto solo si puedes confirmarlo con seguridad; si no, deja el campo vacío "". No inventes una traducción ni presentes una paráfrasis como texto bíblico.
 - "idiomaOriginal": término griego o hebreo clave, número Strong y un breve análisis morfológico/etimológico. Si se te da un CONTEXTO REAL VERIFICADO más abajo, tu término y número de Strong DEBEN salir de ahí, no de tu memoria.
 - "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo.
 - "aplicacion": aplicación ministerial que refleje el camino del evangelio: confesión y arrepentimiento (1 Juan 1:9), conversión y estudio de la Palabra (1 Pedro 2:2), y permanecer firmes y constantes en la fe (1 Corintios 15:58).

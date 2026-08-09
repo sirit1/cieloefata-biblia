@@ -872,9 +872,9 @@
                             <!-- Pasaje + versiones -->
                             <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
                                 <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-line">
-                                    <h3 class="text-lg font-serif text-gold-100" x-text="estudioRef"></h3>
-                                    <div x-show="versionesLista.length" x-cloak class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
-                                        <template x-for="v in versionesLista" :key="v.key">
+<h3 class="text-lg font-serif text-gold-100" x-text="estudioRef"></h3>
+  <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
+  <template x-for="v in versionesEstudioLista" :key="v.key">
                                             <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
                                         </template>
                                     </div>
@@ -2086,8 +2086,13 @@
                         referencia: this.limpiar(data.referencia) || ref,
                         versiones: {
                             rvr1960: this.limpiar(data.versiones?.rvr1960),
-                            nbla: this.limpiar(data.versiones?.nbla),
-                            nvi: this.limpiar(data.versiones?.nvi)
+                            nvi: this.limpiar(data.versiones?.nvi),
+                            ntv: this.limpiar(data.versiones?.ntv),
+                            lbla: this.limpiar(data.versiones?.lbla),
+                            pdt: this.limpiar(data.versiones?.pdt),
+                            btx3: this.limpiar(data.versiones?.btx3),
+                            rv2004: this.limpiar(data.versiones?.rv2004),
+                            peshitta: this.limpiar(data.versiones?.peshitta)
                         },
                         comentario: this.limpiar(data.comentarioMacArthur),
                         original: [data.idiomaOriginal?.termino, data.idiomaOriginal?.strong, data.idiomaOriginal?.analisis].map(x => this.limpiar(x)).filter(Boolean).join(' · '),
@@ -2130,8 +2135,12 @@
                         .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
                 },
                 get textoActual() {
-                    if (this.versionSel === 'peshitta' && !this.versiones.peshitta) return 'Peshitta: el texto en español está temporalmente no disponible. Selecciona otra versión o inténtalo de nuevo en unos segundos.';
+                    if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
                     return this.versiones[this.versionSel] || this.versiones.rv1960 || Object.values(this.versiones)[0] || 'Texto no disponible para esta versión.';
+                },
+                get versionesEstudioLista() {
+                    const etiquetas = { rvr1960: 'RVR 1960', nvi: 'NVI', ntv: 'NTV', lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta' };
+                    return Object.keys(etiquetas).map(key => ({ key, etiqueta: etiquetas[key] }));
                 },
 
                 async leer() {
