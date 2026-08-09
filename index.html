@@ -991,13 +991,14 @@
                                     </blockquote>
                                     <p x-show="lenteActiva === 'autores' && lenteEstado.autor" class="mt-5 pt-3 border-t border-line text-[10px] text-gray-300 leading-relaxed">
                                         Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span x-text="lenteEstado.autor" class="text-gold-500"></span>. No sustituye la lectura directa de su obra.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- ============ ESTUDIO ============ -->
+  </p>
+  <div class="mt-5 flex items-start gap-3 border-t border-line pt-4"><img src="/brand/cielo-efata-full.jpg" alt="RevelatiO by Efata" class="h-12 w-20 rounded-lg object-contain border border-line bg-panel2 p-1"><div><p class="font-serif text-base text-gold-100">De RevelatiO para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs leading-relaxed text-gray-500">Que esta consulta se convierta en una enseñanza viva para tu realidad.</p></div></div>
+  </div>
+  </div>
+  </div>
+  </section>
+  
+  <!-- ============ ESTUDIO ============ -->
                     <section x-show="vista === 'estudio'" class="space-y-6">
                         <div>
                             <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Profundizar</p>
@@ -1152,6 +1153,8 @@
                                             <button x-show="diasCompletados(planActivo.id).length" @click="reiniciarPlan(planActivo.id)" class="text-xs bg-ink text-gray-400 border border-line px-4 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">Reiniciar progreso</button>
                                         </div>
                                     </div>
+
+                                    <section class="brand-panel rounded-2xl border border-gold-500/30 bg-panel p-6"><div class="flex items-start gap-4"><img src="/brand/cielo-efata-full.jpg" alt="RevelatiO by Efata" class="h-16 w-24 rounded-xl object-contain border border-line bg-panel2 p-1"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Comienza tu plan</p><h3 class="mt-1 font-serif text-xl text-gold-100">Devocional de apertura</h3><p class="mt-2 text-sm leading-relaxed text-gray-300">Antes de comenzar, detente, ora y permite que la Palabra forme tu camino.</p></div></div><div class="mt-5 grid gap-4 md:grid-cols-3"><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Lectura inicial</p><p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="planActivo.dias[0].pasajes.join(' · ')"></p></div><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Conclusión de autores</p><p class="mt-2 text-sm leading-relaxed text-gray-300">Lee con humildad: comprende el texto, escucha las voces responsables de la tradición y obedece aquello que Dios hace evidente.</p></div><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Nota aplicable</p><p class="mt-2 text-sm leading-relaxed text-gray-300">¿Qué verdad de esta lectura practicarás hoy en tu familia, trabajo, iglesia o vida interior?</p></div></div><div class="mt-5 border-t border-line pt-4"><p class="font-serif text-lg text-gold-100">De RevelatiO para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs text-gray-500">Que este plan sea un camino de transformación, no solo una lista de lecturas.</p></div></section>
 
                                     <!-- Lista de días -->
                                     <div class="space-y-3">
@@ -2172,6 +2175,10 @@
 
                 get iniciales() {
                     return (this.userEmail || '?').trim().charAt(0).toUpperCase();
+                },
+                nombreParaMarca() {
+                    const parte = (this.userEmail || '').split('@')[0].replace(/[._-]+/g, ' ').trim();
+                    return parte ? parte.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ') : 'ti';
                 },
                 get saludo() {
                     const h = new Date().getHours();
