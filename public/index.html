@@ -2310,10 +2310,10 @@ async generarDiscipulado() {
   },
   guardarDiscipulado() {
   this.discipuladoGuardado = true;
-  localStorage.setItem('revelatio-discipulado', JSON.stringify({ titulo: this.discipuladoTitulo, introduccion: this.discipuladoIntroduccion, objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados }));
+  localStorage.setItem('revelatio-discipulado-v3', JSON.stringify({ titulo: this.discipuladoTitulo, introduccion: this.discipuladoIntroduccion, objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados }));
   },
   cargarDiscipulado() {
-  try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado') || 'null'); if (guardado && Array.isArray(guardado.etapas) && guardado.etapas.length === 4) { this.discipuladoTitulo = guardado.titulo || ''; this.discipuladoIntroduccion = guardado.introduccion || ''; this.discipuladoObjetivo = guardado.objetivo || ''; this.discipuladoRitmo = guardado.ritmo || '15 minutos al día'; this.discipuladoEtapas = guardado.etapas; this.discipuladoNotas = guardado.notas || {}; this.etapaResaltados = guardado.resaltados || {}; this.discipuladoPlan = true; } else if (guardado) { localStorage.removeItem('revelatio-discipulado'); } } catch (_) {}
+  try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado-v3') || 'null'); if (guardado && Array.isArray(guardado.etapas) && guardado.etapas.length === 4) { this.discipuladoTitulo = guardado.titulo || ''; this.discipuladoIntroduccion = guardado.introduccion || ''; this.discipuladoObjetivo = guardado.objetivo || ''; this.discipuladoRitmo = guardado.ritmo || '15 minutos al día'; this.discipuladoEtapas = guardado.etapas; this.discipuladoNotas = guardado.notas || {}; this.etapaResaltados = guardado.resaltados || {}; this.discipuladoPlan = true; } else if (guardado) { localStorage.removeItem('revelatio-discipulado-v3'); } } catch (_) {}
   },
   contenidoDiscipulado() { return this.discipuladoEtapas.map((etapa, i) => `${i + 1}. ${etapa.titulo}\n${etapa.descripcion}\nHito NBLA: ${etapa.hito}`).join('\n\n'); },
   copiarDiscipulado() { navigator.clipboard?.writeText(this.contenidoDiscipulado()); },
