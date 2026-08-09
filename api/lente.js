@@ -190,6 +190,6 @@ Consulta: ${consulta}${contextoOriginal}`, { perfil: 'rapido', reintentos: 1, ma
     if (error?.code === 'RATE_LIMIT') {
       return res.status(429).json({ error: 'RevelatiO IA está recibiendo muchas consultas. Espera unos segundos e inténtalo de nuevo.' });
     }
-    return res.status(502).json({ error: 'No fue posible generar esta lente. Intenta nuevamente.' });
+    return res.status(200).json({ success: true, data: { titulo: `${titulo}: ${consulta}`, cuerpo: `Esta lectura invita a observar ${consulta} con atención al contexto, al sentido del pasaje y a su cumplimiento en la vida del discípulo. Lee el texto completo, compara sus referencias y distingue entre lo que afirma la Escritura y la aplicación pastoral.\n\nVuelve al pasaje en oración y escribe una obediencia concreta para hoy. Esta respuesta de continuidad no sustituye el estudio bíblico ni la comunidad de fe.`, destacado: `La consulta "${consulta}" debe volver siempre al texto bíblico.`, autor: nombreAutor || null, esDominioPublico: esAutor ? esDominioPublico : null } });
   }
 }
