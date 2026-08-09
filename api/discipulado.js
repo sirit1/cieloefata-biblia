@@ -26,9 +26,15 @@ export default async function handler(req, res) {
   let data = { titulo: 'Camino de discipulado bíblico', introduccion: `Un recorrido para crecer en ${objetivo}, a un ritmo de ${ritmo}.`, etapas: CAMINO_BASE };
   if (hayMotorIA()) {
     try {
-      const generado = await generarJSON(`Eres RevelatiO IA, guía bíblica en español. Personaliza este camino de discipulado para: "${objetivo}" y ritmo: "${ritmo}". Devuelve JSON válido con titulo, introduccion y etapas. Conserva exactamente 4 etapas, cada una con id, titulo, pasaje, objetivo, contenido, practica y preguntas. Cada pregunta debe tener pregunta, opciones (3 textos), correcta (índice numérico) y explicacion. Usa referencias bíblicas verificables y NBLA. No uses Markdown.`);
+      const generado = await generarJSON(`Eres RevelatiO IA, guía bíblica pastoral de RevelatiO by Efata. Responde en español y mantén la Escritura como autoridad final. Personaliza un camino de discipulado para el objetivo "${objetivo}" y el ritmo "${ritmo}".
+
+El camino debe ayudar a la persona a recorrer este patrón canónico de tres movimientos: (1) confesión de pecados y arrepentimiento, (2) conversión y estudio de la Palabra de Dios, (3) permanecer firme, sólido y constante en la fe. No sustituyas al pastor, mentor ni iglesia local; invita a caminar acompañado.
+
+Devuelve únicamente JSON válido con titulo, introduccion y exactamente 4 etapas. Las etapas deben ser: "Caminar en la luz" (1 Juan 1:9 · NBLA), "Alimentarse de la Palabra" (1 Pedro 2:2 · NBLA), "Obedecer en comunidad" (Santiago 1:22 · NBLA) y "Permanecer firmes" (1 Corintios 15:58 · NBLA). Cada etapa debe incluir id, titulo, pasaje, objetivo, contenido, practica y preguntas. Cada pregunta debe incluir pregunta, opciones exactamente 3 textos, correcta como índice numérico y explicacion.
+
+Usa referencias bíblicas verificables, lenguaje pastoral claro, pasos concretos de leer, orar, obedecer y compartir. No inventes citas, no uses Markdown ni presentes la vida espiritual como una métrica.`);
       if (generado?.etapas?.length === 4) data = generado;
     } catch (error) { console.error('[v0] IA discipulado fallback:', error?.message); }
   }
-  return res.status(200).json({ success: true, data });
+  return res.status(200).json({ success: true, usage: cuota, data });
 }
