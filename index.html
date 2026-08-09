@@ -258,7 +258,10 @@
     <!-- ===================== APLICACIÓN ===================== -->
     <div x-show="sesionVerificada && isLoggedIn" x-cloak class="app-shell flex flex-col h-full">
 
-        <div x-show="abrirDonaciones" x-cloak class="fixed inset-0 z-[80] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="donaciones-title">
+        <div x-show="donacionEstado === 'gracias'" x-cloak class="fixed inset-0 z-[81] flex items-center justify-center bg-night/80 p-4" role="status">
+            <div class="w-full max-w-md rounded-2xl border border-gold-500/40 bg-panel p-6 text-center shadow-2xl"><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Gracias por apoyar</p><h2 class="mt-2 font-serif text-2xl font-bold text-gold-50">Tu contribución ayuda a mantener RevelatiO gratuito</h2><p class="mt-3 text-sm leading-relaxed text-gray-400">Stripe ha recibido tu pago. Puedes continuar estudiando, compartiendo y creciendo en la Palabra.</p><button @click="donacionEstado = ''; history.replaceState({}, '', window.location.pathname)" class="mt-5 rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-gray-950">Continuar</button></div>
+        </div>
+        <div x-show="abrirDonaciones && donacionEstado !== 'gracias'" x-cloak class="fixed inset-0 z-[80] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="donaciones-title">
             <div @click.outside="abrirDonaciones = false" class="w-full max-w-md rounded-2xl border border-gold-500/40 bg-panel p-6 shadow-2xl">
                 <div class="flex items-start justify-between gap-4"><div><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Apoyo voluntario</p><h2 id="donaciones-title" class="mt-1 font-serif text-2xl font-bold text-gold-50">Mantén RevelatiO gratuito</h2></div><button @click="abrirDonaciones = false" class="text-gray-400 hover:text-gray-100" aria-label="Cerrar">×</button></div>
                 <p class="mt-4 text-sm leading-relaxed text-gray-400">Todo el estudio bíblico, los planes y el discipulado son gratuitos. Si esta herramienta te sirve, puedes apoyar voluntariamente su infraestructura mediante Stripe.</p>
@@ -1885,8 +1888,9 @@
                 menuUsuario: false,
                 abrirDonaciones: false,
                 donacionCantidad: 1000,
-                donacionCargando: false,
-                donacionEstado: new URLSearchParams(window.location.search).get('donacion') || '',
+  donacionCargando: false,
+  donacionEstado: new URLSearchParams(window.location.search).get('donacion') || '',
+  donacionRequestId: '',
 
                 // instalación PWA
                 promptInstalar: null,
@@ -2445,8 +2449,10 @@
                 async iniciarDonacion() {
   if (this.donacionCargando) return;
   this.donacionCargando = true;
+  this.donacionEstado = '';
+  this.donacionRequestId = this.donacionRequestId || `${Date.now()}-${crypto.randomUUID()}`;
   try {
-    const res = await fetch('/api/create-donation-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: Number(this.donacionCantidad) }) });
+    const res = await fetch('/api/create-donation-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: Number(this.donacionCantidad), requestId: this.donacionRequestId }) });
     const data = await res.json();
     if (!res.ok || !data.url) throw new Error(data.error || 'No se pudo iniciar el apoyo');
     window.location.href = data.url;
