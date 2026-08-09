@@ -62,7 +62,7 @@ export default async function handler(req, res) {
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
 Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":"","objetivo":"","contexto":"","hitos":[{"numero":1,"titulo":"","lectura":"","hallazgo":"","pregunta":"","practica":""}],"comparaciones":[{"referencia":"","relacion":"","comentario":""}],"comentarios":[{"autor":"Texto bíblico","comentario":""}]}
+{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":"","objetivo":"","contexto":"","estructura":"","analisisGramatical":"","hermeneutica":"","exegesis":"","hitos":[{"numero":1,"titulo":"","lectura":"","hallazgo":"","pregunta":"","practica":""}],"comparaciones":[{"referencia":"","relacion":"","comentario":""}],"comentarios":[{"autor":"Texto bíblico","comentario":""}],"predica":{"titulo":"","texto":"","puntos":[],"aplicaciones":[],"cierre":""}}
 
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
@@ -71,6 +71,11 @@ Reglas:
 - "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo.
 - "objetivo": una frase concreta que describa qué debe comprender y practicar el estudiante.
 - "contexto": contexto histórico, literario y canónico del pasaje, distinguiendo hechos del texto de interpretación.
+- "estructura": presenta el movimiento argumental y literario del pasaje por unidades.
+- "analisisGramatical": analiza términos clave, sintaxis, verbos, conectores y género literario sin inventar datos.
+- "hermeneutica": explica principios de interpretación, horizonte original y aplicación legítima hoy.
+- "exegesis": desarrolla una explicación versículo por versículo, señalando observación, interpretación y aplicación.
+- "predica": crea un bosquejo de enseñanza basado solamente en el estudio: título, texto, puntos, aplicaciones y cierre.
 - "hitos": crea exactamente 4 hitos en secuencia pedagógica. Cada hito debe incluir una lectura o referencia bíblica verificable, un hallazgo, una pregunta de reflexión y una práctica concreta para avanzar.
 - "comparaciones": incluye 3 comparaciones con otros pasajes bíblicos. Explica la relación sin forzar equivalencias ni inventar citas.
 - "comentarios": incluye 3 comentarios breves: uno sobre el texto, uno sobre la doctrina y uno sobre la vida comunitaria. El campo autor debe decir "Texto bíblico", "Doctrina" o "Vida cristiana".

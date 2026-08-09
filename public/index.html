@@ -181,7 +181,7 @@
   </style>
   <style>
   .libro-lectura-shell { background: linear-gradient(90deg, rgba(200,155,60,.05), transparent 12%, transparent 88%, rgba(200,155,60,.05)); border-radius: 1rem; padding: .25rem; transform-origin: center; }
-  .pagina-en-movimiento { animation: paso-hoja .68s cubic-bezier(.22,.72,.22,1) both; transform-origin: center; will-change: transform, opacity, filter; }
+  .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
   @keyframes paso-hoja { 0% { opacity: .25; transform: perspective(1100px) rotateY(var(--pagina-inicio, -8deg)) translateX(var(--pagina-x, 18px)); filter: brightness(.9); } 55% { opacity: 1; transform: perspective(1100px) rotateY(2deg) translateX(0); filter: brightness(1.03); } 100% { opacity: 1; transform: perspective(1100px) rotateY(0) translateX(0); filter: brightness(1); } }
   .lector-direccion-anterior .pagina-en-movimiento { --pagina-inicio: 8deg; --pagina-x: -18px; }
   @media (prefers-reduced-motion: reduce) { .pagina-en-movimiento { animation: none; } }
@@ -323,9 +323,8 @@
                         <p class="text-xs text-gray-400">Sesión iniciada</p>
                         <p class="text-sm text-gray-100 truncate" x-text="userEmail"></p>
                     </div>
-  <button @click="irA('favoritos'); menuUsuario=false" class="w-full text-left text-sm text-gray-300 hover:text-gold-300 hover:bg-ink rounded-lg px-3 py-2 transition-all">Mis favoritos</button>
-  <a href="/admin.html" class="block w-full rounded-lg px-3 py-2 text-left text-sm text-gold-300 hover:bg-ink hover:text-gold-200 transition-all">Administración</a>
-  <button @click="cerrarSesion()" class="w-full text-left text-sm text-red-300 hover:bg-red-950/40 rounded-lg px-3 py-2 transition-all">Cerrar sesión</button>
+                    <button @click="irA('favoritos'); menuUsuario=false" class="w-full text-left text-sm text-gray-300 hover:text-gold-300 hover:bg-ink rounded-lg px-3 py-2 transition-all">Mis favoritos</button>
+                    <button @click="cerrarSesion()" class="w-full text-left text-sm text-red-300 hover:bg-red-950/40 rounded-lg px-3 py-2 transition-all">Cerrar sesión</button>
                 </div>
             </div>
         </header>
@@ -890,30 +889,12 @@
                                 </div>
                                 <p class="text-lg leading-relaxed font-serif italic text-gold-50/90" x-text="textoActual"></p>
                                 <p x-show="estudio.original" class="mt-4 pt-3 border-t border-line text-xs text-gray-400"><span class="text-gold-400 font-semibold uppercase tracking-wider text-[10px]">Idioma original</span> · <span x-text="estudio.original"></span></p>
-                                <div x-show="estudio.objetivo" class="mt-5 rounded-xl border border-cyan-500/25 bg-cyan-950/10 p-4">
-                                    <p class="text-[10px] uppercase tracking-[0.16em] text-cyan-700 font-semibold">Objetivo del estudio</p>
-                                    <p class="mt-2 text-sm leading-relaxed text-gray-700" x-text="estudio.objetivo"></p>
-                                </div>
-                                <div x-show="estudio.contexto" class="mt-4">
-                                    <h4 class="text-sm font-semibold text-gold-200">Contexto histórico y literario</h4>
-                                    <p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="estudio.contexto"></p>
-                                </div>
                             </div>
-                            <div x-show="estudio.hitos.length" class="bg-panel border border-gold-500/30 rounded-2xl p-6">
-                                <h3 class="text-lg font-serif text-gold-100">Camino de estudio</h3>
-                                <div class="mt-5 grid gap-3 md:grid-cols-2">
-                                    <template x-for="hito in estudio.hitos" :key="hito.numero">
-                                        <article class="rounded-xl border border-line bg-ink/60 p-4">
-                                            <p class="text-xs font-semibold uppercase tracking-wider text-gold-400" x-text="'Paso ' + hito.numero"></p>
-                                            <h4 class="mt-1 text-sm font-semibold text-gold-100" x-text="hito.titulo"></h4>
-                                            <p class="mt-2 text-xs text-gold-300" x-text="hito.lectura"></p>
-                                            <p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="hito.hallazgo"></p>
-                                            <p class="mt-3 text-xs italic text-gray-400" x-text="hito.pregunta"></p>
-                                            <p class="mt-2 text-xs leading-relaxed text-gray-300" x-text="hito.practica"></p>
-                                        </article>
-                                    </template>
-                                </div>
-                            </div>
+                            <div class="flex flex-wrap gap-2 border-b border-line pb-3"><template x-for="tab in [{id:'analisis',label:'Análisis'}, {id:'comparacion',label:'Comparativo'}, {id:'autores',label:'Comentarios'}, {id:'predica',label:'Predicar'}]" :key="tab.id"><button @click="estudioPestana = tab.id" class="rounded-lg px-3 py-2 text-xs" :class="estudioPestana === tab.id ? 'bg-gold-600 text-gray-950 font-bold' : 'bg-ink text-gray-400'" x-text="tab.label"></button></template></div>
+                            <section x-show="estudioPestana === 'analisis'" class="grid gap-4 md:grid-cols-2"><template x-for="item in [{t:'Estructura literaria',v:estudio.estructura},{t:'Análisis gramatical',v:estudio.analisisGramatical},{t:'Hermenéutica',v:estudio.hermeneutica},{t:'Exégesis versículo a versículo',v:estudio.exegesis}]" :key="item.t"><article class="rounded-xl border border-line bg-panel p-5"><h3 class="font-serif text-lg text-gold-100" x-text="item.t"></h3><p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-gray-300" x-text="item.v"></p></article></template></section>
+                            <section x-show="estudioPestana === 'comparacion'" class="grid gap-3 md:grid-cols-3"><template x-for="item in estudio.comparaciones" :key="item.referencia"><article class="rounded-xl border border-line bg-panel p-5"><h3 class="font-semibold text-gold-100" x-text="item.referencia"></h3><p class="mt-2 text-sm text-gray-300" x-text="item.relacion"></p><p class="mt-3 text-xs text-gray-400" x-text="item.comentario"></p></article></template></section>
+                            <section x-show="estudioPestana === 'autores'" class="grid gap-3 md:grid-cols-3"><template x-for="item in estudio.comentarios" :key="item.autor"><article class="rounded-xl border border-line bg-panel p-5"><p class="text-xs uppercase tracking-wider text-gold-400" x-text="item.autor"></p><p class="mt-3 text-sm leading-relaxed text-gray-300" x-text="item.comentario"></p></article></template><article class="rounded-xl border border-line bg-panel p-5"><p class="text-xs uppercase tracking-wider text-gold-400">Comentario exegético pastoral</p><p class="mt-3 text-sm text-gray-300" x-text="estudio.comentarioMacArthur"></p></article></section>
+                            <section x-show="estudioPestana === 'predica'" class="rounded-2xl border border-gold-500/30 bg-panel p-6"><p class="text-xs uppercase tracking-wider text-gold-400">Enseñanza derivada del estudio</p><h3 class="mt-2 font-serif text-2xl text-gold-100" x-text="estudio.predica.titulo"></h3><p class="mt-4 whitespace-pre-line text-sm text-gray-300" x-text="estudio.predica.texto"></p><div class="mt-4 grid gap-3 md:grid-cols-3"><template x-for="(punto,i) in estudio.predica.puntos" :key="i"><article class="rounded-xl border border-line bg-ink p-4"><p class="text-xs font-bold text-gold-400" x-text="'Punto ' + (i+1)"></p><p class="mt-2 text-sm text-gray-300" x-text="punto"></p></article></template></div><p class="mt-4 text-sm text-gray-300" x-text="estudio.predica.aplicaciones?.join('\\n')"></p><p class="mt-4 border-t border-line pt-4 text-sm font-semibold text-gold-200" x-text="estudio.predica.cierre"></p></section>
 
                             <!-- Barra de exportar -->
                             <div class="flex flex-wrap items-center gap-2">
@@ -1050,14 +1031,8 @@
     <button @click="discipuladoNotasAbiertas = !discipuladoNotasAbiertas" class="ml-auto rounded-lg border border-cyan-700/40 px-3 py-2 text-xs text-cyan-800 hover:border-cyan-700">Notas laterales</button>
   </div>
   <div x-show="discipuladoPlan" x-cloak class="grid gap-4" :class="discipuladoNotasAbiertas ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'grid-cols-1'">
-    <div class="rounded-2xl border border-gold-500/30 bg-panel p-6 space-y-5">
-    <div class="flex items-center justify-between gap-3"><div><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Lección activa</p><h3 class="mt-1 font-serif text-2xl text-gold-50" x-text="etapaActualDiscipulado()?.titulo"></h3></div><span class="text-xs text-gray-500" x-text="(discipuladoEtapaActual + 1) + ' / ' + discipuladoEtapas.length"></span></div>
-    <div class="h-2 overflow-hidden rounded-full bg-ink"><div class="h-full bg-gold-500 transition-all" :style="`width: ${discipuladoEtapas.length ? ((discipuladoEtapaActual + 1) / discipuladoEtapas.length) * 100 : 0}%`"></div></div>
-    <p class="text-sm font-semibold text-gold-300" x-text="etapaActualDiscipulado()?.pasaje"></p><p class="text-sm leading-relaxed text-gray-300" x-text="etapaActualDiscipulado()?.contenido || etapaActualDiscipulado()?.descripcion"></p><div class="rounded-xl border border-cyan-700/25 bg-cyan-50/60 p-4"><p class="text-[10px] uppercase tracking-wider text-cyan-800">Práctica</p><p class="mt-1 text-sm text-[#334155]" x-text="etapaActualDiscipulado()?.practica"></p></div>
-    <div x-show="preguntaActualDiscipulado()" class="border-t border-line pt-4"><p class="text-sm font-semibold text-gold-100" x-text="preguntaActualDiscipulado()?.pregunta"></p><div class="mt-3 grid gap-2"><template x-for="(opcion, i) in (preguntaActualDiscipulado()?.opciones || [])" :key="i"><button @click="responderDiscipulado(i)" class="rounded-lg border border-line px-3 py-2 text-left text-sm text-gray-300 hover:border-gold-500" :class="discipuladoRespuestas[discipuladoEtapaActual] === i ? 'border-gold-500 bg-gold-500/10' : ''" x-text="opcion"></button></template></div><p x-show="discipuladoFeedback[discipuladoEtapaActual]" class="mt-3 text-xs" :class="discipuladoFeedback[discipuladoEtapaActual]?.ok ? 'text-green-700' : 'text-red-700'" x-text="discipuladoFeedback[discipuladoEtapaActual]?.texto"></p><button @click="avanzarDiscipulado()" :disabled="!discipuladoCompletadas[discipuladoEtapaActual]" class="mt-4 rounded-lg bg-gold-500 px-4 py-2 text-xs font-bold text-gray-950 disabled:opacity-40" x-text="discipuladoEtapaActual === discipuladoEtapas.length - 1 ? 'Camino completado' : 'Desbloquear siguiente etapa'"></button></div>
-  </div>
-  <div class="grid md:grid-cols-3 gap-4">
-    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.objetivo || etapa.descripcion"></p><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89B3C')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.pasaje || etapa.hito"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89B3C')" class="h-5 w-5 rounded-full bg-[#C89B3C]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B25A45')" class="h-5 w-5 rounded-full bg-[#B25A45]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A9468')" class="h-5 w-5 rounded-full bg-[#7A9468]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
+    <div class="grid md:grid-cols-3 gap-4">
+    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.descripcion"></p><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89B3C')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.hito"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89B3C')" class="h-5 w-5 rounded-full bg-[#C89B3C]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B25A45')" class="h-5 w-5 rounded-full bg-[#B25A45]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A9468')" class="h-5 w-5 rounded-full bg-[#7A9468]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
     <aside x-show="discipuladoNotasAbiertas" x-cloak class="rounded-xl border border-cyan-700/30 bg-[#F1F7FA] p-4 lg:sticky lg:top-4 lg:h-fit"><div class="flex items-center justify-between"><h3 class="font-serif text-lg text-[#0f172a]">Mis notas</h3><span class="text-[10px] text-cyan-800">guardado automático</span></div><p class="mt-1 text-xs text-[#475569]">Escribe aquí tus respuestas, oraciones o próximos pasos.</p><template x-for="(etapa, index) in discipuladoEtapas" :key="'nota-' + index"><label class="mt-4 block text-xs font-semibold text-[#334155]" x-text="etapa.titulo"><textarea :value="discipuladoNotas[index] || ''" @input="actualizarNota(index, $event.target.value)" rows="3" class="mt-1 w-full rounded-lg border border-cyan-700/20 bg-white p-2 text-xs text-[#1e293b] outline-none focus:border-cyan-700"></textarea></label></template></aside>
   </div>
   </section>
@@ -1257,7 +1232,7 @@
                         <p class="text-[11px] font-bold text-gold-100 uppercase tracking-wider">Número Strong · <span x-text="lexicoDatos?.codigo"></span></p>
                         <h4 class="text-2xl text-gold-100" :class="lexicoDatos?.codigo?.startsWith('H') ? 'font-hebreo' : 'font-griego'" :dir="lexicoDatos?.codigo?.startsWith('H') ? 'rtl' : 'ltr'" x-text="lexicoDatos?.lexema"></h4>
                         <p class="text-sm text-gold-50" x-text="[lexicoDatos?.transliteracion, lexicoDatos?.pronunciacion].filter(Boolean).join(' · ')"></p>
-                        <p class="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-100">Definición en espa��ol</p>
+                        <p class="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-100">Definición en español</p>
                     </div>
                     <button @click="lexicoAbierto = false" class="text-gray-500 hover:text-white p-1" aria-label="Cerrar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
@@ -1564,7 +1539,7 @@
                 dias: [
                     { titulo: 'Día 1 · El himno del amor', pasajes: ['1 Corintios 13:1-13'] },
                     { titulo: 'Día 2 · Dios es amor', pasajes: ['1 Juan 4:7-12'] },
-                    { titulo: 'D��a 3 · Nadie tiene mayor amor', pasajes: ['Juan 15:12-13'] },
+                    { titulo: 'Día 3 · Nadie tiene mayor amor', pasajes: ['Juan 15:12-13'] },
                     { titulo: 'Día 4 · Mientras éramos pecadores', pasajes: ['Romanos 5:8'] },
                     { titulo: 'Día 5 · Amemos de hecho y verdad', pasajes: ['1 Juan 3:16-18'] },
                     { titulo: 'Día 6 · Fuerte como la muerte', pasajes: ['Cantares 8:6-7'] },
@@ -1927,6 +1902,8 @@
                 loginEmail: '',
                 loginPass: '',
   loginError: '',
+  musicaLoginActiva: false,
+  audioLogin: null,
   userEmail: '',
                 menuUsuario: false,
                 abrirDonaciones: false,
@@ -1972,12 +1949,6 @@
   discipuladoEtapas: [],
   discipuladoNotas: {},
   discipuladoGuardado: false,
-  discipuladoEtapaActual: 0,
-  discipuladoRespuestas: {},
-  discipuladoFeedback: {},
-  discipuladoCompletadas: {},
-  discipuladoCargando: false,
-  discipuladoError: '',
   etapaResaltados: {},
   discipuladoNotasAbiertas: false,
   planActivoId: null,
@@ -2039,7 +2010,11 @@
                 // estudio / IA
                 busqueda: '',
                 estudioRef: '',
-                estudio: { comentario: '', original: '', aplicacion: '' },
+                estudio: { comentario: '', original: '', aplicacion: '', objetivo: '', contexto: '', estructura: '', analisisGramatical: '', hermeneutica: '', exegesis: '', comparaciones: [], comentarios: [], predica: { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' } },
+                estudioNotas: {},
+                estudioResaltados: {},
+                estudioPestana: 'analisis',
+                estudioGuardado: false,
                 cargandoEstudio: false,
                 errorEstudio: false,
                 estudioListo: false,
@@ -2212,6 +2187,30 @@
                     window.alert('Abre el menú de tu navegador y elige “Instalar aplicación” o “Añadir a pantalla de inicio”.');
                 },
 
+  activarMusicaLogin() {
+  if (this.audioLogin) {
+  this.audioLogin.state === 'running' ? this.audioLogin.suspend() : this.audioLogin.resume();
+  this.musicaLoginActiva = this.audioLogin.state === 'running';
+  return;
+  }
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return;
+  const ctx = new AudioContextClass();
+  const master = ctx.createGain();
+  master.gain.value = 0.035;
+  master.connect(ctx.destination);
+  [261.63, 329.63, 392.00].forEach((frecuencia, indice) => {
+  const oscilador = ctx.createOscillator();
+  const ganancia = ctx.createGain();
+  oscilador.type = 'sine';
+  oscilador.frequency.value = frecuencia;
+  ganancia.gain.value = indice === 0 ? 0.32 : 0.18;
+  oscilador.connect(ganancia).connect(master);
+  oscilador.start();
+  });
+  this.audioLogin = ctx;
+  this.musicaLoginActiva = true;
+  },
 
   async iniciarSesion() {
   if (!supabaseClient || this.autenticando) return;
@@ -2246,25 +2245,22 @@
                     this.vista = 'inicio';
                 },
 
-                async generarDiscipulado() {
-  if (!this.discipuladoObjetivo.trim()) { this.discipuladoError = 'Escribe primero aquello en lo que deseas crecer.'; return; }
-  this.discipuladoCargando = true; this.discipuladoError = '';
-  try {
-    const token = await this.getToken();
-    const response = await fetch('/api/discipulado', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo }) });
-    const result = await response.json();
-    if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo crear el camino.');
-    this.discipuladoPlan = result.data; this.discipuladoEtapas = result.data.etapas || []; this.discipuladoEtapaActual = 0; this.discipuladoRespuestas = {}; this.discipuladoFeedback = {}; this.discipuladoCompletadas = {}; this.guardarDiscipulado();
-  } catch (error) { this.discipuladoError = error.message || 'No se pudo crear el camino.'; }
-  finally { this.discipuladoCargando = false; }
+                generarDiscipulado() {
+  this.discipuladoPlan = true;
+  this.discipuladoEtapas = [
+    { titulo: 'Confesión y arrepentimiento', descripcion: 'Reconocer el pecado delante de Dios y caminar en luz.', hito: '1 Juan 1:9 · NBLA' },
+    { titulo: 'Conversión y Palabra', descripcion: 'Desear la Palabra, aprender y obedecer a Cristo.', hito: '1 Pedro 2:2 · NBLA' },
+    { titulo: 'Firmeza y constancia', descripcion: 'Permanecer sólido, sirviendo y creciendo en comunidad.', hito: '1 Corintios 15:58 · NBLA' }
+  ];
   },
-  etapaActualDiscipulado() { return this.discipuladoEtapas[this.discipuladoEtapaActual] || null; },
-  preguntaActualDiscipulado() { return this.etapaActualDiscipulado()?.preguntas?.[0] || null; },
-  responderDiscipulado(opcion) { const etapa = this.etapaActualDiscipulado(); const pregunta = this.preguntaActualDiscipulado(); if (!etapa || !pregunta) return; this.discipuladoRespuestas[this.discipuladoEtapaActual] = opcion; const ok = Number(opcion) === Number(pregunta.correcta); this.discipuladoFeedback[this.discipuladoEtapaActual] = ok ? { ok: true, texto: 'Respuesta correcta. El hito queda desbloqueado.' } : { ok: false, texto: pregunta.explicacion || 'Vuelve a leer el pasaje y prueba nuevamente.' }; if (ok) { this.discipuladoCompletadas[this.discipuladoEtapaActual] = true; this.guardarDiscipulado(); } },
-  avanzarDiscipulado() { if (!this.discipuladoCompletadas[this.discipuladoEtapaActual]) return; if (this.discipuladoEtapaActual < this.discipuladoEtapas.length - 1) this.discipuladoEtapaActual += 1; this.guardarDiscipulado(); },
-  guardarDiscipulado() { this.discipuladoGuardado = true; localStorage.setItem('revelatio-discipulado', JSON.stringify({ objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, plan: this.discipuladoPlan, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados, etapaActual: this.discipuladoEtapaActual, respuestas: this.discipuladoRespuestas, completadas: this.discipuladoCompletadas })); },
-  cargarDiscipulado() { try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado') || 'null'); if (guardado) { Object.assign(this, { discipuladoObjetivo: guardado.objetivo || '', discipuladoRitmo: guardado.ritmo || '15 minutos al día', discipuladoPlan: guardado.plan || false, discipuladoEtapas: guardado.etapas || [], discipuladoNotas: guardado.notas || {}, etapaResaltados: guardado.resaltados || {}, discipuladoEtapaActual: guardado.etapaActual || 0, discipuladoRespuestas: guardado.respuestas || {}, discipuladoCompletadas: guardado.completadas || {} }); } } catch (_) {} },
-  contenidoDiscipulado() { return this.discipuladoEtapas.map((e, i) => `${i + 1}. ${e.titulo}\n${e.pasaje || e.hito}\n${e.objetivo || e.descripcion}\n${e.practica || ''}`).join('\n\n'); },
+  guardarDiscipulado() {
+  this.discipuladoGuardado = true;
+  localStorage.setItem('revelatio-discipulado', JSON.stringify({ objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados }));
+  },
+  cargarDiscipulado() {
+  try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado') || 'null'); if (guardado) { this.discipuladoObjetivo = guardado.objetivo || ''; this.discipuladoRitmo = guardado.ritmo || '15 minutos al día'; this.discipuladoEtapas = guardado.etapas || []; this.discipuladoNotas = guardado.notas || {}; this.etapaResaltados = guardado.resaltados || {}; this.discipuladoPlan = this.discipuladoEtapas.length > 0; } } catch (_) {}
+  },
+  contenidoDiscipulado() { return this.discipuladoEtapas.map((etapa, i) => `${i + 1}. ${etapa.titulo}\n${etapa.descripcion}\nHito NBLA: ${etapa.hito}`).join('\n\n'); },
   copiarDiscipulado() { navigator.clipboard?.writeText(this.contenidoDiscipulado()); },
   compartirDiscipulado() { const data = { title: 'Mi camino de discipulado · RevelatiO', text: this.contenidoDiscipulado(), url: window.location.href }; if (navigator.share) navigator.share(data); else this.copiarDiscipulado(); },
   imprimirDiscipulado() { window.print(); },
@@ -2524,12 +2520,7 @@
                         this.estudio = {
                             comentario: data.comentario || 'Comentario no disponible.',
                             original: data.original || '',
-                            aplicacion: data.aplicacion || '',
-                            objetivo: data.objetivo || '',
-                            contexto: data.contexto || '',
-                            hitos: Array.isArray(data.hitos) ? data.hitos : [],
-                            comparaciones: Array.isArray(data.comparaciones) ? data.comparaciones : [],
-                            comentarios: Array.isArray(data.comentarios) ? data.comentarios : []
+                            aplicacion: data.aplicacion || ''
                         };
                         // Reinicia las lentes y siembra la exégesis (instantánea, ya la tenemos)
                         this.lentes = {
@@ -2691,7 +2682,7 @@
                         ${this.textoActual ? `<div class="verso">"${esc(this.textoActual)}" <span style="font-size:11px;color:#9A6B12">(${esc(et)})</span></div>` : ''}
                         ${this.estudio.original ? `<div class="orig"><strong>Idioma original:</strong> ${esc(this.estudio.original)}</div>` : ''}
                         ${secciones}
-                        <footer>RevelatiO by Efata · Estudio bíblico de libre distribución · Desarrollo: Xtrametrik · Dirección teológica: Cielo-Efata</footer>
+                        <footer>RevelatiO by Efata · Estudio bíblico de libre distribución �� Desarrollo: Xtrametrik · Dirección teológica: Cielo-Efata</footer>
                         </body></html>`;
                     const w = window.open('', '_blank');
                     if (!w) return;
@@ -3010,12 +3001,11 @@
   async cargarCapituloLector(direccion = 'siguiente') {
   if (!this.libroSel) return;
   this.direccionPagina = direccion;
-  this.animandoPagina = false;
+  this.animandoPagina = true;
+  await new Promise(resolve => setTimeout(resolve, 220));
   await this.cargarPasaje(`${this.libroSel.n} ${this.capituloSel}`);
   this.guardarUltimaPosicion();
-  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-  this.animandoPagina = true;
-  window.setTimeout(() => { this.animandoPagina = false; }, 700);
+  requestAnimationFrame(() => { this.animandoPagina = false; });
   },
   async capituloLectorAnterior() {
                     if (this.capituloSel > 1) {
