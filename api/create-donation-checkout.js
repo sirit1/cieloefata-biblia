@@ -1,10 +1,15 @@
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+function getStripeClient() {
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (!secretKey) return null;
+  return new Stripe(secretKey);
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido.' });
-  if (!process.env.STRIPE_SECRET_KEY) return res.status(503).json({ error: 'Stripe todavía no está configurado en este entorno.' });
+  const stripe = getStripeClient();
+  if (!stripe) return res.status(503).json({ error: 'Stripe todavía no está configurado en este entorno.' });
   const amount = Number(req.body?.amount);
   const requestId = String(req.body?.requestId || '').trim();
   if (!Number.isInteger(amount) || amount < 300 || amount > 1000000) {

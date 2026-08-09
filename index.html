@@ -2271,8 +2271,8 @@
   try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado') || 'null'); if (guardado) { this.discipuladoObjetivo = guardado.objetivo || ''; this.discipuladoRitmo = guardado.ritmo || '15 minutos al día'; this.discipuladoEtapas = guardado.etapas || []; this.discipuladoNotas = guardado.notas || {}; this.etapaResaltados = guardado.resaltados || {}; this.discipuladoPlan = this.discipuladoEtapas.length > 0; } } catch (_) {}
   },
   contenidoDiscipulado() { return this.discipuladoEtapas.map((etapa, i) => `${i + 1}. ${etapa.titulo}\n${etapa.descripcion}\nHito NBLA: ${etapa.hito}`).join('\n\n'); },
-  copiarDiscipulado() { navigator.clipboard?.writeText(this.contenidoDiscipulado()); },
-  compartirDiscipulado() { const data = { title: 'Mi camino de discipulado · RevelatiO', text: this.contenidoDiscipulado(), url: window.location.href }; if (navigator.share) navigator.share(data); else this.copiarDiscipulado(); },
+  async copiarDiscipulado() { try { await navigator.clipboard.writeText(this.contenidoDiscipulado()); this.compartido = true; setTimeout(() => { this.compartido = false; }, 1800); } catch (_) { this.compartido = false; } },
+  async compartirDiscipulado() { const data = { title: 'Mi camino de discipulado · RevelatiO', text: this.contenidoDiscipulado(), url: window.location.href }; if (!navigator.share) return this.copiarDiscipulado(); try { await navigator.share(data); } catch (error) { if (error?.name !== 'AbortError') await this.copiarDiscipulado(); } },
   imprimirDiscipulado() { window.print(); },
   resaltarEtapa(index, color) { this.etapaResaltados[index] = color; this.guardarDiscipulado(); },
   actualizarNota(index, value) { this.discipuladoNotas[index] = value; this.guardarDiscipulado(); },

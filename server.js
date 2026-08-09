@@ -1,4 +1,5 @@
 // Dev server SOLO para el preview local de v0.
+// Stripe routes are reloaded after configuration changes.
 // Sirve index.html y ejecuta las funciones /api/* con el mismo formato req/res de Vercel.
 // En producción, Vercel enruta /api automáticamente y este archivo no se usa.
 import { createServer } from 'node:http';
