@@ -970,6 +970,7 @@
 
                                 <!-- Contenido -->
                                 <div x-show="lenteEstado.estado === 'ready'">
+                                    <div class="mb-4 rounded-lg border border-cyan-500/25 bg-cyan-950/10 px-3 py-2"><p class="text-[10px] uppercase tracking-wider text-cyan-700">Consulta analizada</p><p class="mt-1 text-sm font-semibold text-[#334155]" x-text="busqueda"></p></div>
                                     <h4 class="text-lg font-serif text-gold-100 mb-4" x-text="lenteEstado.titulo"></h4>
                                     <div class="space-y-3">
                                         <template x-for="(p, i) in parrafosDe(lenteEstado.cuerpo)" :key="i">
@@ -2022,9 +2023,9 @@
 
                 // lentes multi-disciplina de RevelatiO IA
                 LENTES_LISTA: [
-                    { id: 'exegesis', etiqueta: 'Exégesis' },
-                    { id: 'teologia', etiqueta: 'Teología' },
-                    { id: 'hermeneutica', etiqueta: 'Hermenéutica' },
+                                    { id: 'exegesis', etiqueta: 'Exégesis' },
+                                    { id: 'hermeneutica', etiqueta: 'Hermenéutica' },
+                                    { id: 'teologia', etiqueta: 'Teología' },
                     { id: 'hermeneuticaNeurociencia', etiqueta: 'Hermenéutica + neurociencia' },
                     { id: 'psicologia', etiqueta: 'Psicología' },
                     { id: 'neurociencia', etiqueta: 'Neurociencia' },
@@ -2520,19 +2521,35 @@
                         this.estudio = {
                             comentario: data.comentario || 'Comentario no disponible.',
                             original: data.original || '',
-                            aplicacion: data.aplicacion || ''
+                            aplicacion: data.aplicacion || '',
+                            objetivo: data.objetivo || '',
+                            contexto: data.contexto || '',
+                            estructura: data.estructura || '',
+                            analisisGramatical: data.analisisGramatical || '',
+                            hermeneutica: data.hermeneutica || '',
+                            exegesis: data.exegesis || '',
+                            comparaciones: Array.isArray(data.comparaciones) ? data.comparaciones : [],
+                            comentarios: Array.isArray(data.comentarios) ? data.comentarios : [],
+                            predica: data.predica || { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' }
                         };
                         // Reinicia las lentes y siembra la exégesis (instantánea, ya la tenemos)
                         this.lentes = {
                             exegesis: {
                                 estado: 'ready',
                                 titulo: 'Exégesis',
-                                cuerpo: this.estudio.comentario,
+                                cuerpo: this.estudio.exegesis || this.estudio.comentario,
                                 destacado: this.estudio.aplicacion,
+                                autor: null
+                            },
+                            hermeneutica: {
+                                estado: 'ready',
+                                titulo: 'Hermenéutica bíblica · ' + (this.estudioRef || q),
+                                cuerpo: this.estudio.hermeneutica || this.estudio.contexto || 'La respuesta hermenéutica estará disponible al completar el análisis.',
+                                destacado: this.estudio.objetivo || this.estudio.aplicacion,
                                 autor: null
                             }
                         };
-                        this.lenteActiva = 'hermeneuticaNeurociencia';
+                        this.lenteActiva = 'hermeneutica';
                         this.estudioListo = true;
                         this.mensajeEstudio = 'Análisis completado. Explora las demás lentes cuando quieras.';
                     } catch (error) {
