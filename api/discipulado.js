@@ -20,7 +20,10 @@ Responde ÚNICAMENTE JSON válido con esta estructura exacta: {"titulo":"","intr
 Crea entre 3 y 5 etapas progresivas, concretas y distintas según el objetivo. Cada hito debe ser una referencia bíblica verificable y terminar en "· NBLA". Respeta el camino: confesión y arrepentimiento, conversión y alimento en la Palabra, y permanecer firme y constante. No afirmes que la IA sustituye a pastores o comunidad. La introducción explica el camino y la invitación anima a comenzar con un paso concreto. Escribe en español claro, sin Markdown ni LaTeX.`);
     return res.status(200).json({ success: true, data });
   } catch (error) {
-    console.error('Error en discipulado IA:', error?.message);
-    return res.status(error?.code === 'RATE_LIMIT' ? 429 : 502).json({ error: error?.code === 'RATE_LIMIT' ? 'RevelatiO IA está recibiendo muchas consultas. Espera unos segundos.' : 'No fue posible crear tu camino. Inténtalo de nuevo.' });
+    console.error('[v0] Error en discipulado IA:', error?.message);
+    const errorText = `${error?.message || ''} ${error?.name || ''}`.toLowerCase();
+    const rateLimited = error?.code === 'RATE_LIMIT' || error?.statusCode === 429 || errorText.includes('rate limit') || errorText.includes('too many requests');
+    const noConfigurado = errorText.includes('api key') || errorText.includes('configured');
+    return res.status(rateLimited ? 429 : noConfigurado ? 503 : 502).json({ error: rateLimited ? 'RevelatiO IA está recibiendo muchas consultas. Espera unos segundos.' : noConfigurado ? 'El motor de IA no está configurado en este entorno.' : 'No fue posible crear tu camino. Inténtalo de nuevo.' });
   }
 }

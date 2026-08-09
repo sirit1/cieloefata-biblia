@@ -848,7 +848,7 @@
   <p class="text-sm text-gray-500 mt-1">Un gabinete de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
   <div class="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-5">
     <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">Cómo trabaja RevelatiO IA</p>
-    <p class="mt-2 text-sm leading-relaxed text-[#334155]">Esta herramienta utiliza un LLM como asistente de investigación, no como autoridad doctrinal. La consulta se estructura según la lente que eliges y se limita a presentar el análisis solicitado: contexto histórico-gramatical, observaciones del hebreo o griego, referencias bíblicas, doctrina y aplicaciones pastorales. Cada respuesta debe volver al texto de la Escritura y ser discernida en comunidad.</p>
+    <p class="mt-2 max-w-full break-words text-sm leading-relaxed text-[#334155]">Esta herramienta utiliza un LLM como asistente de investigación, no como autoridad doctrinal. La consulta se estructura según la lente que eliges y se limita a presentar el análisis solicitado: contexto histórico-gramatical, observaciones del hebreo o griego, referencias bíblicas, doctrina y aplicaciones pastorales. Cada respuesta debe volver al texto de la Escritura y ser discernida en comunidad.</p>
     <p class="mt-3 text-sm leading-relaxed text-[#334155]">La arquitectura aplica el framework <strong class="font-semibold text-[#075985]">Ailock de XtraMetrik</strong> como capa de control y contención: alcance definido, instrucciones verificables y separación entre evidencia bíblica, interpretación y aplicación. RevelatiO está preparada para avanzar hacia una certificación de IA ética, limpia y auditable; esta preparación no constituye todavía una certificación oficial.</p>
     <p class="mt-3 text-xs leading-relaxed text-gray-500">Al consultar encontrarás una ficha de estudio que comienza en el pasaje, considera su contexto, contrasta palabras clave y termina con preguntas de obediencia y vida. No es una respuesta rápida: es una invitación a leer, pensar, arrepentirse, convertirse y permanecer firme.</p>
   </div>
@@ -1013,11 +1013,11 @@
                     </section>
 
                     <!-- ============ DISCIPULADO ============ -->
-  <section x-show="vista === 'discipulado'" class="space-y-6">
+  <section x-show="vista === 'discipulado'" class="min-w-0 max-w-full space-y-6 overflow-hidden">
     <div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Camino bíblico</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Discipulado guiado por IA</h2><p class="text-sm text-gray-700 mt-2 max-w-2xl">Un camino personal para pasar de la convicción a una fe firme, con la NBLA como texto base y la Escritura como autoridad.</p></div>
     <div class="rounded-2xl border border-cyan-700/30 bg-[#F1F7FA] p-5 shadow-[0_10px_30px_rgba(28,46,74,.08)]">
       <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-800">Cómo trabaja el discipulado RevelatiO</p>
-      <p class="mt-2 text-sm leading-relaxed text-[#334155]">La IA te ayuda a ordenar un itinerario de lectura, oración, práctica y revisión. No reemplaza a un pastor, mentor ni a la comunidad: te prepara para caminar acompañado, obedecer lo aprendido y volver una y otra vez al texto bíblico.</p>
+      <p class="mt-2 max-w-full break-words text-sm leading-relaxed text-[#334155]">La IA te ayuda a ordenar un itinerario de lectura, oración, práctica y revisión. No reemplaza a un pastor, mentor ni a la comunidad: te prepara para caminar acompañado, obedecer lo aprendido y volver una y otra vez al texto bíblico.</p>
       <p class="mt-3 text-sm leading-relaxed text-[#334155]">Encontrarás tres movimientos: confesar y arrepentirte, convertirte y alimentarte de la Palabra, y permanecer firme, sólido y constante en la fe. Cada etapa incluye un hito en NBLA para reconocer el avance sin convertir la vida espiritual en una simple métrica.</p>
       <p class="mt-3 text-xs leading-relaxed text-[#475569]">Entra con honestidad. Escribe aquello en lo que deseas crecer y permite que RevelatiO te invite a un siguiente paso concreto: leer, orar, obedecer y compartir el camino con otros.</p>
     </div>
@@ -2249,11 +2249,16 @@
   this.generandoDiscipulado = true;
   this.discipuladoError = '';
   try {
-    const session = supabaseClient ? (await supabaseClient.auth.getSession()).data.session : null;
-    if (!session?.access_token) throw new Error('Necesitas iniciar sesión para crear tu camino.');
-    const response = await fetch('/api/discipulado', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` }, body: JSON.stringify({ objetivo, ritmo: this.discipuladoRitmo }) });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || 'No se pudo crear el camino.');
+  let session = supabaseClient ? (await supabaseClient.auth.getSession()).data.session : null;
+  if (!session?.access_token) throw new Error('Tu sesión ha caducado. Vuelve a iniciar sesión.');
+  let response = await fetch('/api/discipulado', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` }, body: JSON.stringify({ objetivo, ritmo: this.discipuladoRitmo }) });
+  if (response.status === 401 && supabaseClient) {
+    const refreshed = await supabaseClient.auth.refreshSession();
+    session = refreshed.data.session;
+    if (session?.access_token) response = await fetch('/api/discipulado', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` }, body: JSON.stringify({ objetivo, ritmo: this.discipuladoRitmo }) });
+  }
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.error || 'No se pudo crear el camino.');
     const data = result.data || {};
     this.discipuladoTitulo = data.titulo || 'Mi camino de discipulado';
     this.discipuladoIntroduccion = data.introduccion || '';
