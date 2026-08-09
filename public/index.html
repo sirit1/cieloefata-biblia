@@ -2196,12 +2196,13 @@
   const master = ctx.createGain();
   master.gain.value = 0.035;
   master.connect(ctx.destination);
-  [261.63, 329.63, 392.00].forEach((frecuencia, indice) => {
+  // Arpegio instrumental suave, inspirado en música cristiana de adoración.
+  [261.63, 329.63, 392.00, 523.25].forEach((frecuencia, indice) => {
   const oscilador = ctx.createOscillator();
   const ganancia = ctx.createGain();
-  oscilador.type = 'sine';
+  oscilador.type = indice === 0 ? 'triangle' : 'sine';
   oscilador.frequency.value = frecuencia;
-  ganancia.gain.value = indice === 0 ? 0.32 : 0.18;
+  ganancia.gain.value = indice === 0 ? 0.26 : 0.12;
   oscilador.connect(ganancia).connect(master);
   oscilador.start();
   });
@@ -2210,11 +2211,16 @@
   window.setTimeout(() => {
   if (!this.musicaLoginActiva || !('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
-  const voz = new SpeechSynthesisUtterance('Romanos 12:2');
+  const voces = window.speechSynthesis.getVoices();
+  const vozFemenina = voces.find((voz) =>
+    voz.lang.toLowerCase().startsWith('es') && /female|mujer|monica|paulina|helena|elena|sofia|luciana/i.test(voz.name)
+  ) || voces.find((voz) => voz.lang.toLowerCase().startsWith('es'));
+  const voz = new SpeechSynthesisUtterance('Bienvenido a RevelatiO, un camino para conocer al Padre Creador, a Jesús de Nazareth, su Hijo, y al Espíritu Santo.');
   voz.lang = 'es-ES';
-  voz.rate = 0.82;
-  voz.pitch = 0.72;
+  voz.rate = 0.86;
+  voz.pitch = 1.08;
   voz.volume = 1;
+  if (vozFemenina) voz.voice = vozFemenina;
   window.speechSynthesis.speak(voz);
   }, 5000);
   },
