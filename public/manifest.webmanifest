@@ -10,6 +10,7 @@
   "background_color": "#F5EFE3",
   "theme_color": "#1C2E4A",
   "icons": [
-    { "src": "/brand/revelatio-pwa-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    { "src": "/brand/revelatio-logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/revelatio-logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }

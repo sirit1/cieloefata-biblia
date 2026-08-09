@@ -66,6 +66,19 @@ const LENTES = {
     instruccion:
       'Redacta una recomendación pastoral, cálida y personal, desde un punto de vista bíblico estricto, dirigida directamente al lector ("tú"). Que sea un consejo espiritual concreto y edificante según lo que revela la consulta, llamando al arrepentimiento genuino, a la fe y a la renovación de la mente. Firma implícitamente como la voz de RevelatiO. Máximo 2 párrafos, íntimo y directo.',
   },
+  consejeriaPastoral: { titulo: 'Consejería pastoral', instruccion: 'Aplica el pasaje al acompañamiento pastoral: escucha, discernimiento, límites, restauración y cuidado integral. Distingue consejo bíblico de diagnóstico clínico y termina con preguntas para acompañar a una persona.' },
+  discipulado: { titulo: 'Discipulado', instruccion: 'Construye un itinerario de discipulado basado en el texto: qué debe creer, abandonar, practicar y enseñar un discípulo. Incluye etapas, preguntas y referencias bíblicas.' },
+  predicacionExpositiva: { titulo: 'Predicación expositiva', instruccion: 'Ayuda a preparar una exposición fiel: idea central, contexto, estructura del texto, bosquejo, errores a evitar y aplicaciones para la congregación. No sustituyas la labor del predicador.' },
+  liderazgoServidores: { titulo: 'Liderazgo de servidores', instruccion: 'Examina el liderazgo desde el carácter de Cristo, humildad, autoridad, servicio y rendición de cuentas. Aplica el texto a equipos de servidores y responsables ministeriales.' },
+  formacionLideres: { titulo: 'Formación de líderes', instruccion: 'Extrae criterios bíblicos para identificar, formar, evaluar y acompañar líderes. Incluye carácter, doctrina, hábitos, mentoría y señales de madurez.' },
+  cuidadoRebano: { titulo: 'Cuidado del rebaño', instruccion: 'Aplica el texto al pastoreo de una iglesia: presencia, visitación, protección, enseñanza, disciplina restaurativa y cuidado de los débiles.' },
+  familiaPastoral: { titulo: 'Familia pastoral', instruccion: 'Lee la consulta desde la salud del hogar ministerial: matrimonio, hijos, descanso, límites, hospitalidad y coherencia entre ministerio público y vida privada.' },
+  conflictoReconciliacion: { titulo: 'Conflicto y reconciliación', instruccion: 'Ofrece un marco bíblico para discernir, confrontar con gracia, escuchar, reparar el daño y buscar reconciliación sin encubrir pecado ni abuso.' },
+  misionEvangelizacion: { titulo: 'Misión y evangelización', instruccion: 'Conecta la consulta con la misión de hacer discípulos: mensaje, encarnación, compasión, contexto cultural, conversación y llamado al arrepentimiento y la fe.' },
+  apologetica: { titulo: 'Apologética', instruccion: 'Prepara una respuesta bíblica, razonable y humilde frente a objeciones relacionadas con la consulta. Reconoce límites, evita caricaturas y responde con mansedumbre.' },
+  eticaMinisterial: { titulo: 'Ética ministerial', instruccion: 'Examina integridad, poder, dinero, sexualidad, confidencialidad, transparencia y rendición de cuentas a la luz del texto y de la responsabilidad de quienes sirven.' },
+  juventud: { titulo: 'Ministerio con jóvenes', instruccion: 'Traduce la enseñanza a acompañamiento de adolescentes y jóvenes: identidad, presión cultural, pertenencia, hábitos digitales, vocación y comunidad, sin trivializar el texto.' },
+  dueloCrisis: { titulo: 'Duelo y crisis', instruccion: 'Aplica el pasaje a la presencia pastoral en duelo y crisis: lamentación, esperanza, oración, comunidad y próximos pasos. No prometas resultados que la Escritura no promete.' },
 };
 
 // Autores/comentaristas reconocidos (obra mayormente de dominio público o
@@ -123,7 +136,7 @@ export default async function handler(req, res) {
   const instruccion = esAutor
     ? esDominioPublico
       ? `Redacta un comentario bíblico sobre la consulta SIGUIENDO FIELMENTE la línea teológica, el énfasis y el estilo documentado de ${nombreAutor} (autor de obra ya de dominio público). No inventes citas textuales entrecomilladas como si fueran transcripción literal; expón la interpretación en la voz y perspectiva histórica conocida de este autor. Debe ser exegético, fiel a su tradición y edificante.`
-      : `Redacta un comentario bíblico sobre la consulta en la línea teológica y el énfasis AMPLIAMENTE DOCUMENTADO y públicamente conocido de ${nombreAutor} (autor con obra bajo derechos de autor vigentes). PROHIBIDO presentar frases como cita textual entrecomillada o atribuírsela como transcripción exacta de un libro suyo: solo describe su posición y enfoque conocidos (p. ej. su énfasis en la interpretación literal-histórica-gramatical si aplica), aclarando que es una síntesis de su línea, no una cita.`
+      : `Redacta un comentario bíblico sobre la consulta en la línea teológica y el énfasis AMPLIAMENTE DOCUMENTADO y públicamente conocido de ${nombreAutor} (autor con obra bajo derechos de autor vigentes). PROHIBIDO presentar frases como cita textual entrecomillada o atribuírsela como transcripci��n exacta de un libro suyo: solo describe su posición y enfoque conocidos (p. ej. su énfasis en la interpretación literal-histórica-gramatical si aplica), aclarando que es una síntesis de su línea, no una cita.`
     : LENTES[lente].instruccion;
 
   const titulo = esAutor ? `Comentario · ${nombreAutor}` : LENTES[lente].titulo;

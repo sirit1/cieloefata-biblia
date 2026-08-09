@@ -10,8 +10,8 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#1C2E4A">
     <link rel="canonical" href="https://revelatio.efata.app/">
-    <link rel="icon" type="image/jpeg" href="/brand/cielo-efata-full.jpg">
-    <link rel="apple-touch-icon" href="/brand/revelatio-pwa-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/brand/revelatio-logo.png">
+    <link rel="apple-touch-icon" href="/brand/revelatio-logo.png">
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -186,7 +186,7 @@
     <!-- ===================== CARGA INICIAL ===================== -->
     <div x-show="!sesionVerificada" class="zona-oscura fixed inset-0 z-[70] flex items-center justify-center">
         <div class="flex flex-col items-center gap-5 text-center">
-            <img src="/brand/cielo-efata-full.jpg" alt="Cielo Efatá · RevelatiO by Efata" class="w-full max-w-sm h-40 object-contain rounded-2xl">
+            <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-full max-w-sm h-48 object-contain rounded-2xl">
             <div class="flex items-center gap-2 text-gold-300 text-sm">
                 <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
@@ -816,7 +816,7 @@
                         <div>
                             <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
-                            <p class="text-sm text-gray-500 mt-1">Una consulta, muchas lentes: exégesis, teología, hermenéutica, psicología, neurociencia, neuroplasticidad, antropología y una palabra de RevelatiO para ti.</p>
+                            <p class="text-sm text-gray-500 mt-1">Un gabinete de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
                         </div>
 
                         <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
@@ -1795,7 +1795,17 @@
             { titulo: 'El arrepentimiento', desc: 'Cambio de mente y corazón.', q: 'el arrepentimiento' },
             { titulo: 'La fe', desc: 'Confianza firme en Dios.', q: 'la fe' },
             { titulo: 'La esperanza', desc: 'Certeza de lo que se espera.', q: 'la esperanza' },
-            { titulo: 'El temor de Dios', desc: 'Reverencia que da sabiduría.', q: 'el temor de Dios' }
+            { titulo: 'El temor de Dios', desc: 'Reverencia que da sabiduría.', q: 'el temor de Dios' },
+            { titulo: 'Consejería pastoral', desc: 'Cuidar almas con verdad, gracia y discernimiento.', q: 'consejería pastoral' },
+            { titulo: 'Discipulado', desc: 'Formar discípulos maduros que obedecen y multiplican.', q: 'discipulado cristiano' },
+            { titulo: 'Predicación expositiva', desc: 'Llevar la intención del texto fielmente al púlpito.', q: 'predicación expositiva' },
+            { titulo: 'Liderazgo de servidores', desc: 'Autoridad espiritual modelada por el servicio de Cristo.', q: 'liderazgo de servidores' },
+            { titulo: 'Cuidado del rebaño', desc: 'Pastorado, visitación, restauración y protección.', q: 'cuidado pastoral de la iglesia' },
+            { titulo: 'Conflicto y reconciliación', desc: 'Verdad, perdón y restauración en relaciones quebradas.', q: 'conflicto y reconciliación bíblica' },
+            { titulo: 'Misión y evangelización', desc: 'Anunciar el evangelio y hacer discípulos en cada contexto.', q: 'misión y evangelización' },
+            { titulo: 'Ética ministerial', desc: 'Integridad, transparencia y rendición de cuentas.', q: 'ética ministerial' },
+            { titulo: 'Familia pastoral', desc: 'Cuidar el hogar mientras se sirve al pueblo de Dios.', q: 'familia pastoral' },
+            { titulo: 'Duelo y crisis', desc: 'Presencia pastoral, lamento y esperanza bíblica.', q: 'duelo y crisis desde la Biblia' }
         ];
 
         function cieloApp() {
@@ -1918,8 +1928,21 @@
                     { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad' },
                     { id: 'antropologia', etiqueta: 'Antropología' },
                     { id: 'diaadia', etiqueta: 'En tu día a día' },
-                    { id: 'revelatio', etiqueta: 'RevelatiO para ti' },
-                    { id: 'autores', etiqueta: 'Comentarios de autores' }
+  { id: 'revelatio', etiqueta: 'RevelatiO para ti' },
+  { id: 'consejeriaPastoral', etiqueta: 'Consejería pastoral', descripcion: 'Acompañamiento bíblico, escucha y discernimiento para el cuidado integral.' },
+  { id: 'discipulado', etiqueta: 'Discipulado', descripcion: 'Formación de discípulos maduros, obedientes y multiplicadores.' },
+  { id: 'predicacionExpositiva', etiqueta: 'Predicación expositiva', descripcion: 'Del texto al púlpito: estructura, intención y aplicación fiel.' },
+  { id: 'liderazgoServidores', etiqueta: 'Liderazgo de servidores', descripcion: 'Autoridad espiritual, carácter y servicio según el modelo de Cristo.' },
+  { id: 'formacionLideres', etiqueta: 'Formación de líderes', descripcion: 'Criterios bíblicos para reconocer, formar y acompañar líderes.' },
+  { id: 'cuidadoRebano', etiqueta: 'Cuidado del rebaño', descripcion: 'Pastorado, visitación, restauración y salud espiritual de la iglesia.' },
+  { id: 'familiaPastoral', etiqueta: 'Familia pastoral', descripcion: 'Límites, descanso, unidad y cuidado del hogar ministerial.' },
+  { id: 'conflictoReconciliacion', etiqueta: 'Conflicto y reconciliación', descripcion: 'Verdad, gracia, disciplina y restauración en relaciones quebradas.' },
+  { id: 'misionEvangelizacion', etiqueta: 'Misión y evangelización', descripcion: 'El camino del evangelio llevado a personas, barrios y culturas.' },
+  { id: 'apologetica', etiqueta: 'Apologética', descripcion: 'Responder con mansedumbre, razones y fidelidad a la esperanza cristiana.' },
+  { id: 'eticaMinisterial', etiqueta: 'Ética ministerial', descripcion: 'Integridad, transparencia, poder, dinero y responsabilidad espiritual.' },
+  { id: 'juventud', etiqueta: 'Ministerio con jóvenes', descripcion: 'Fe, identidad, presión cultural y acompañamiento generacional.' },
+  { id: 'dueloCrisis', etiqueta: 'Duelo y crisis', descripcion: 'Presencia pastoral y esperanza bíblica ante pérdidas y emergencias.' },
+  { id: 'autores', etiqueta: 'Comentarios de autores' }
                 ],
                 AUTORES_LISTA: [
                     { id: 'john-macarthur', nombre: 'John MacArthur' },
