@@ -33,11 +33,12 @@ const VERSIONES = [
   { key: 'rv2004', bolls: 'RV2004', etiqueta: 'RVR Gómez 2004' }
 ];
 
+// La fuente peshitta.onrender.com solo tiene el campo translation_es
+// (traducción al español) poblado para el Nuevo Testamento: en el Antiguo
+// Testamento devuelve vacío/null para prácticamente todos los versículos.
+// Por eso el catálogo se limita al NT — pedir libros del AT nunca produce
+// texto y solo desperdicia una llamada a un servicio externo lento.
 const PESHITTA_LIBROS = {
-  'Génesis': 'Genesis', 'Éxodo': 'Exodus', 'Levítico': 'Leviticus', 'Números': 'Numbers',
-  'Deuteronomio': 'Deuteronomy', 'Josué': 'Joshua', 'Jueces': 'Judges', 'Rut': 'Ruth',
-  '1 Samuel': '1 Samuel', '2 Samuel': '2 Samuel', '1 Reyes': '1 Kings', '2 Reyes': '2 Kings',
-  'Salmos': 'Psalms', 'Proverbios': 'Proverbs', 'Isaías': 'Isaiah', 'Jeremías': 'Jeremiah',
   'Mateo': 'Matthew', 'Marcos': 'Mark', 'Lucas': 'Luke', 'Juan': 'John', 'Hechos': 'Acts',
   'Romanos': 'Romans', '1 Corintios': '1 Corinthians', '2 Corintios': '2 Corinthians',
   'Gálatas': 'Galatians', 'Efesios': 'Ephesians', 'Filipenses': 'Philippians', 'Colosenses': 'Colossians',
@@ -46,6 +47,24 @@ const PESHITTA_LIBROS = {
   'Santiago': 'James', '1 Pedro': '1 Peter', '2 Pedro': '2 Peter', '1 Juan': '1 John',
   '2 Juan': '2 John', '3 Juan': '3 John', 'Judas': 'Jude', 'Apocalipsis': 'Revelation'
 };
+
+// El servicio free de Render "duerme" si está inactivo y puede tardar
+// decenas de segundos en despertar (cold start). Se limita cada llamada a
+// 6s para que un arranque en frío no bloquee el resto de versiones (que sí
+// responden rápido) ni haga esperar de más al lector.
+async function obtenerVersoPeshitta(query) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 6000);
+  try {
+    const respuesta = await fetch(`https://peshitta.onrender.com/api/verse?ref=${query}&lang=es`, { signal: controller.signal });
+    if (!respuesta.ok) return null;
+    return await respuesta.json();
+  } catch (_e) {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 async function obtenerPeshitta(ref) {
   const libro = PESHITTA_LIBROS[ref.libro];
@@ -58,10 +77,8 @@ async function obtenerPeshitta(ref) {
   const versos = [];
   for (let numero = ref.versoInicio; numero <= (ref.versoFin || ref.versoInicio); numero += 1) {
     const query = encodeURIComponent(`${libro} ${ref.capitulo}:${numero}`);
-    const respuesta = await fetch(`https://peshitta.onrender.com/api/verse?ref=${query}&lang=es`);
-    if (!respuesta.ok) continue;
-    const dato = await respuesta.json();
-    if (dato.translation_es) versos.push({ n: numero, texto: dato.translation_es });
+    const dato = await obtenerVersoPeshitta(query);
+    if (dato?.translation_es) versos.push({ n: numero, texto: dato.translation_es });
   }
   const texto = versos.map((v) => v.texto).join(' ').trim();
   return { texto, versos };
