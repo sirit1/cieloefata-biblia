@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import { generarObjeto, hayMotorIA } from '../lib/ai.js';
 import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnicos, obtenerDefinicionStrong } from '../lib/biblia.js';
+import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 
 const ESQUEMA_LENTE = z.object({
   titulo: z.string().describe('Título breve y atractivo para esta lente aplicada a la consulta.'),
@@ -118,6 +119,8 @@ export default async function handler(req, res) {
 
   const user = await authenticate(req);
   if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
+  const cuota = await consumirCuota(req, user, 'lente');
+  if (!cuota.allowed) return cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
 
   const consulta = typeof req.body?.consulta === 'string' ? req.body.consulta.trim() : '';
   const lente = typeof req.body?.lente === 'string' ? req.body.lente.trim() : '';

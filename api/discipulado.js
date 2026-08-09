@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
+import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 
 const CAMINO_BASE = [
   { id: 'luz', titulo: 'Caminar en la luz', pasaje: '1 Juan 1:9 · NBLA', objetivo: 'Reconocer el pecado y responder con confesión y arrepentimiento.', contenido: 'La vida del discípulo comienza ante Dios con honestidad. La confesión no es una condena: es volver a la verdad y recibir limpieza.', practica: 'Escribe una confesión concreta, ora con humildad y busca reconciliación cuando corresponda.', preguntas: [{ pregunta: '¿Qué respuesta pide 1 Juan 1:9?', opciones: ['Ocultar el pecado', 'Confesarlo a Dios', 'Justificarlo'], correcta: 1, explicacion: 'El texto llama a confesar el pecado y confiar en el carácter fiel y justo de Dios.' }] },
@@ -17,6 +18,8 @@ export default async function handler(req, res) {
   const supabase = createClient(url, anonKey, { auth: { persistSession: false, autoRefreshToken: false } });
   const { data: authData, error: authError } = await supabase.auth.getUser(token);
   if (authError || !authData.user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
+  const cuota = await consumirCuota(req, authData.user, 'discipulado');
+  if (!cuota.allowed) return cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
   const objetivo = typeof req.body?.objetivo === 'string' ? req.body.objetivo.trim() : '';
   const ritmo = typeof req.body?.ritmo === 'string' ? req.body.ritmo.trim() : '15 minutos al día';
   if (!objetivo || objetivo.length > 300) return res.status(400).json({ error: 'Escribe un objetivo de entre 1 y 300 caracteres.' });

@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import { generarObjetoDual, hayMotorIA } from '../lib/ai.js';
 import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnicos, obtenerDefinicionStrong } from '../lib/biblia.js';
+import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 
 // Esquema exacto del análisis exegético. Con esto el proveedor genera JSON
 // válido garantizado por esquema (salida estructurada), en vez de que el
@@ -83,6 +84,8 @@ export default async function handler(req, res) {
 
   const user = await authenticate(req);
   if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
+  const cuota = await consumirCuota(req, user, 'exegesis');
+  if (!cuota.allowed) return cuota.code === 'AI_QUOTA_EXCEEDED' || cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
 
   const consulta = typeof req.body?.consulta === 'string' ? req.body.consulta.trim() : '';
   if (!consulta || consulta.length > 300) {
@@ -143,7 +146,9 @@ Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_EXEGESIS, maxOutput
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);
     const referencia = consulta.match(/[1-3]?\s?[A-Za-zÁÉÍÓÚáéíóúÑñ]+\s+\d+(?::\d+(?:-\d+)?)?/)?.[0] || consulta;
-    return res.status(200).json({ success: true, data: {
+    return res.status(200).json({       success: true,
+      usage: cuota,
+      data: {
       referencia,
       versiones: { rvr1960: '', nvi: '', ntv: '', lbla: '', pdt: '', btx3: '', rv2004: '', peshitta: '' },
       idiomaOriginal: { termino: '', strong: '', analisis: 'El análisis del idioma original requiere una consulta disponible del motor IA.' },

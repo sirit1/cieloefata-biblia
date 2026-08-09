@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { obtenerDefinicionStrong } from '../lib/biblia.js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
+import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 
 function limpiarTextoLexico(texto) {
   return String(texto || '')
@@ -49,6 +50,8 @@ export default async function handler(req, res) {
 
   const user = await authenticate(req);
   if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
+  const cuota = await consumirCuota(req, user, 'lexico');
+  if (!cuota.allowed) return cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
 
   const codigo = typeof req.body?.codigo === 'string' ? req.body.codigo.trim() : '';
   if (!/^[GH]\d{1,4}$/i.test(codigo)) {

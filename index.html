@@ -861,6 +861,11 @@
                                     <span x-text="cargandoEstudio ? 'Analizando...' : 'Analizar'"></span>
                                 </button>
   </form>
+  <div class="mt-3 flex items-center justify-between gap-3 text-[11px] text-gray-500" aria-live="polite">
+    <span>Consultas profundas disponibles hoy</span>
+    <span class="font-semibold text-gold-600" x-text="`${Math.max(0, (cuotaIA.request_limit || 3) - (cuotaIA.requests_used || 0))} de ${cuotaIA.request_limit || 3}`"></span>
+  </div>
+  <p x-show="errorEstudio" x-cloak class="mt-3 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700" role="alert" x-text="mensajeEstudio"></p>
   <div x-show="busqueda.trim()" class="mt-4 border-t border-line pt-4">
     <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-500">Consultar esta búsqueda desde una lente</p>
     <p class="mt-1 text-xs text-gray-500">La misma consulta se enviará a la disciplina que elijas y su respuesta aparecerá en el panel de abajo.</p>
@@ -2030,6 +2035,7 @@
                 estudioPestana: 'analisis',
                 estudioGuardado: false,
                 cargandoEstudio: false,
+                cuotaIA: { requests_used: 0, request_limit: 3, resets_at: null },
                 errorEstudio: false,
                 estudioListo: false,
                 mensajeEstudio: 'Escribe un pasaje o tema para comenzar el análisis exegético.',
@@ -2327,6 +2333,12 @@
                     });
                     if (response.status === 401) throw new Error('SESION');
                     const result = await response.json();
+                    if (result.usage) this.cuotaIA = result.usage;
+                    if (result.code === 'AI_QUOTA_EXCEEDED') {
+                        const error = new Error(result.error || 'Has alcanzado tu límite diario.');
+                        error.code = result.code;
+                        throw error;
+                    }
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo procesar la consulta.');
                     const data = result.data || {};
                     const limpio = {

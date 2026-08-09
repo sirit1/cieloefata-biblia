@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import { generarObjeto, hayMotorIA } from '../lib/ai.js';
 import { parsearReferencia, obtenerOriginal, originalComoTextoPlano } from '../lib/biblia.js';
+import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 
 const ESQUEMA_REFERENCIAS = z.object({
   referencias: z.array(z.object({
@@ -37,6 +38,8 @@ export default async function handler(req, res) {
 
   const user = await authenticate(req);
   if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
+  const cuota = await consumirCuota(req, user, 'referencias');
+  if (!cuota.allowed) return cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
 
   const consulta = typeof req.body?.consulta === 'string' ? req.body.consulta.trim() : '';
   if (!consulta || consulta.length > 300) {
