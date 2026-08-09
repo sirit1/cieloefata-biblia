@@ -23,17 +23,39 @@ export default async function handler(req, res) {
   const objetivo = typeof req.body?.objetivo === 'string' ? req.body.objetivo.trim() : '';
   const ritmo = typeof req.body?.ritmo === 'string' ? req.body.ritmo.trim() : '15 minutos al día';
   if (!objetivo || objetivo.length > 300) return res.status(400).json({ error: 'Escribe un objetivo de entre 1 y 300 caracteres.' });
-  let data = { titulo: 'Camino de discipulado bíblico', introduccion: `Un recorrido para crecer en ${objetivo}, a un ritmo de ${ritmo}.`, etapas: CAMINO_BASE };
+  const normalizarEtapas = (etapas) => CAMINO_BASE.map((base, index) => {
+    const etapa = etapas?.[index] || {};
+    const preguntas = Array.isArray(etapa.preguntas) && etapa.preguntas.length
+      ? etapa.preguntas.map((pregunta) => ({
+          pregunta: String(pregunta.pregunta || base.preguntas[0].pregunta),
+          opciones: Array.isArray(pregunta.opciones) && pregunta.opciones.length === 3 ? pregunta.opciones.map(String) : base.preguntas[0].opciones,
+          correcta: Number.isInteger(pregunta.correcta) && pregunta.correcta >= 0 && pregunta.correcta < 3 ? pregunta.correcta : base.preguntas[0].correcta,
+          explicacion: String(pregunta.explicacion || base.preguntas[0].explicacion)
+        }))
+      : base.preguntas;
+    return {
+      id: base.id,
+      titulo: String(etapa.titulo || base.titulo),
+      pasaje: String(etapa.pasaje || base.pasaje),
+      objetivo: String(etapa.objetivo || base.objetivo),
+      contenido: String(etapa.contenido || etapa.descripcion || base.contenido),
+      practica: String(etapa.practica || base.practica),
+      preguntas
+    };
+  });
+  let data = { titulo: 'Camino de discipulado bíblico', introduccion: `Un recorrido para crecer en ${objetivo}, a un ritmo de ${ritmo}.`, etapas: normalizarEtapas(CAMINO_BASE) };
   if (hayMotorIA()) {
     try {
       const generado = await generarJSON(`Eres RevelatiO IA, guía bíblica pastoral de RevelatiO by Efata. Responde en español y mantén la Escritura como autoridad final. Personaliza un camino de discipulado para el objetivo "${objetivo}" y el ritmo "${ritmo}".
 
-El camino debe ayudar a la persona a recorrer este patrón canónico de tres movimientos: (1) confesión de pecados y arrepentimiento, (2) conversión y estudio de la Palabra de Dios, (3) permanecer firme, sólido y constante en la fe. No sustituyas al pastor, mentor ni iglesia local; invita a caminar acompañado.
+El camino debe ayudar a la persona a recorrer este cuatro etapas canónicas: (1) confesión de pecados y arrepentimiento, (2) conversión y estudio de la Palabra de Dios, (3) permanecer firme, sólido y constante en la fe. No sustituyas al pastor, mentor ni iglesia local; invita a caminar acompañado.
 
 Devuelve únicamente JSON válido con titulo, introduccion y exactamente 4 etapas. Las etapas deben ser: "Caminar en la luz" (1 Juan 1:9 · NBLA), "Alimentarse de la Palabra" (1 Pedro 2:2 · NBLA), "Obedecer en comunidad" (Santiago 1:22 · NBLA) y "Permanecer firmes" (1 Corintios 15:58 · NBLA). Cada etapa debe incluir id, titulo, pasaje, objetivo, contenido, practica y preguntas. Cada pregunta debe incluir pregunta, opciones exactamente 3 textos, correcta como índice numérico y explicacion.
 
 Usa referencias bíblicas verificables, lenguaje pastoral claro, pasos concretos de leer, orar, obedecer y compartir. No inventes citas, no uses Markdown ni presentes la vida espiritual como una métrica.`);
-      if (generado?.etapas?.length === 4) data = generado;
+      if (generado?.etapas?.length === 4) {
+        data = { ...generado, etapas: normalizarEtapas(generado.etapas) };
+      }
     } catch (error) { console.error('[v0] IA discipulado fallback:', error?.message); }
   }
   return res.status(200).json({ success: true, usage: cuota, data });
