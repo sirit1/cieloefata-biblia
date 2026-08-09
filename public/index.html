@@ -1135,7 +1135,56 @@
                                         Todos los planes
                                     </button>
 
-                                    <!-- Cabecera con progreso -->
+                                    <!-- 1) Devocional de apertura: invitación a orar y leer, construido para este plan -->
+                                    <section class="brand-panel rounded-2xl border border-gold-500/40 bg-gradient-to-br from-gold-600/10 to-panel p-6">
+                                        <div class="flex items-start gap-4">
+                                            <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 rounded-xl object-contain border border-line bg-panel2 p-1 shrink-0">
+                                            <div>
+                                                <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Comienza tu plan · Devocional de apertura</p>
+                                                <h3 class="mt-1 font-serif text-2xl text-gold-100">Antes de leer, ora</h3>
+                                                <p class="mt-2 text-sm leading-relaxed text-gray-400 max-w-2xl">Detente, dispón tu corazón y permite que la Palabra forme tu camino antes de comenzar las lecturas.</p>
+                                            </div>
+                                        </div>
+
+                                        <div x-show="devocionalCargando" x-cloak class="mt-5 flex items-center gap-3 text-sm text-gray-400">
+                                            <svg class="w-4 h-4 animate-spin text-gold-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
+                                            Preparando tu devocional...
+                                        </div>
+
+                                        <div x-show="devocionalError" x-cloak class="mt-5">
+                                            <p x-text="devocionalError" class="text-xs text-red-600" role="alert"></p>
+                                            <button @click="generarDevocional()" class="mt-2 text-xs bg-ink text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:border-gold-500/60 transition-all">Reintentar</button>
+                                        </div>
+
+                                        <template x-if="devocional && !devocionalCargando">
+                                            <div class="mt-5 space-y-4">
+                                                <div class="rounded-xl bg-ink p-4">
+                                                    <p class="text-[10px] uppercase tracking-wider text-gold-400">Oración para comenzar</p>
+                                                    <p class="mt-2 text-sm leading-relaxed text-gray-300 italic" x-text="devocional.oracion"></p>
+                                                </div>
+                                                <div class="grid gap-4 md:grid-cols-3">
+                                                    <div class="rounded-xl bg-ink p-4">
+                                                        <p class="text-[10px] uppercase tracking-wider text-gold-400">Lectura inicial</p>
+                                                        <button @click="leerReferencia(devocional.lecturaInicial)" class="mt-2 text-sm leading-relaxed text-gold-200 hover:text-gold-100 transition-colors text-left" x-text="devocional.lecturaInicial"></button>
+                                                    </div>
+                                                    <div class="rounded-xl bg-ink p-4 md:col-span-2">
+                                                        <p class="text-[10px] uppercase tracking-wider text-gold-400">Meditación</p>
+                                                        <p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="devocional.meditacion"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="rounded-xl border border-gold-500/20 bg-panel p-4">
+                                                    <p class="text-[10px] uppercase tracking-wider text-gold-400">Para aplicar hoy</p>
+                                                    <p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="devocional.aplicacion"></p>
+                                                </div>
+                                                <div class="border-t border-line pt-4">
+                                                    <p class="font-serif text-lg text-gold-100">De RevelatiO para ti, <span x-text="nombreParaMarca()"></span></p>
+                                                    <p class="mt-1 text-xs text-gray-500">Que este plan sea un camino de transformación, no solo una lista de lecturas.</p>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </section>
+
+                                    <!-- 2) Cabecera con progreso -->
                                     <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
                                         <div class="flex flex-wrap items-start justify-between gap-3">
                                             <div class="flex items-start gap-4">
@@ -1178,8 +1227,6 @@
                                             <button x-show="diasCompletados(planActivo.id).length" @click="reiniciarPlan(planActivo.id)" class="text-xs bg-ink text-gray-400 border border-line px-4 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">Reiniciar progreso</button>
                                         </div>
                                     </div>
-
-                                    <section class="brand-panel rounded-2xl border border-gold-500/30 bg-panel p-6"><div class="flex items-start gap-4"><img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 rounded-xl object-contain border border-line bg-panel2 p-1"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Al comenzar · Etapa 1</p><h3 class="mt-1 font-serif text-xl text-gold-100">Devocional de apertura</h3><p class="mt-2 text-sm leading-relaxed text-gray-300">Antes de comenzar, detente, ora y permite que la Palabra forme tu camino.</p></div></div><div class="mt-5 grid gap-4 md:grid-cols-3"><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Lectura inicial</p><p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="planActivo.dias[0].pasajes.join(' · ')"></p></div><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Conclusión de autores</p><p class="mt-2 text-sm leading-relaxed text-gray-300">Lee con humildad: comprende el texto, escucha las voces responsables de la tradición y obedece aquello que Dios hace evidente.</p></div><div class="rounded-xl bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-400">Nota aplicable</p><p class="mt-2 text-sm leading-relaxed text-gray-300">¿Qué verdad de esta lectura practicarás hoy en tu familia, trabajo, iglesia o vida interior?</p></div></div><div class="mt-5 border-t border-line pt-4"><p class="font-serif text-lg text-gold-100">De RevelatiO para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs text-gray-500">Que este plan sea un camino de transformación, no solo una lista de lecturas.</p></div></section>
 
                                     <!-- Lista de días -->
                                     <div class="space-y-3">
@@ -1571,7 +1618,7 @@
                 dias: [
                     { titulo: 'Día 1 · Dios te ama', pasajes: ['Juan 3:16'] },
                     { titulo: 'Día 2 · Todos hemos pecado', pasajes: ['Romanos 3:23', 'Romanos 6:23'] },
-                    { titulo: 'Día 3 · Cristo murió por ti', pasajes: ['Romanos 5:8'] },
+                    { titulo: 'Día 3 �� Cristo murió por ti', pasajes: ['Romanos 5:8'] },
                     { titulo: 'Día 4 · Cree y confiesa', pasajes: ['Romanos 10:9-10'] },
                     { titulo: 'Día 5 · Salvo por gracia', pasajes: ['Efesios 2:8-9'] },
                     { titulo: 'Día 6 · Nueva criatura', pasajes: ['2 Corintios 5:17'] },
@@ -2041,6 +2088,9 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
                 planCierre: null,
                 planCierreCargando: false,
                 planCierreError: '',
+                devocional: null,
+                devocionalCargando: false,
+                devocionalError: '',
                 temasEstudio: TEMAS_ESTUDIO,
                 temaLibre: '',
                 versiculoDelDia: VERSICULOS_DIA[0],
@@ -3047,14 +3097,20 @@ async generarDiscipulado() {
                     return Math.round((this.diasCompletados(planId).length / plan.dias.length) * 100);
                 },
                 abrirPlan(id) {
-                    if (id !== this.planActivoId) { this.planCierre = null; this.planCierreError = ''; }
+                    if (id !== this.planActivoId) {
+                        this.planCierre = null; this.planCierreError = '';
+                        this.devocional = null; this.devocionalError = '';
+                    }
                     this.planActivoId = id;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                    this.generarDevocional();
                 },
                 volverACatalogo() {
                     this.planActivoId = null;
                     this.planCierre = null;
                     this.planCierreError = '';
+                    this.devocional = null;
+                    this.devocionalError = '';
                 },
                 toggleCapitulo(planId, diaIndex, ref) {
                     const actual = [...this.capitulosLeidos(planId)];
@@ -3107,6 +3163,34 @@ async generarDiscipulado() {
                 },
                 get planCompletado() {
                     return !!this.planActivo && this.planProgreso(this.planActivo.id) === 100;
+                },
+                async generarDevocional() {
+                    const plan = this.planActivo;
+                    if (!plan || this.devocionalCargando) return;
+                    if (this.devocional && this.devocional.planId === plan.id) return;
+                    this.devocionalCargando = true;
+                    this.devocionalError = '';
+                    try {
+                        const session = await supabaseClient?.auth.getSession();
+                        const token = session?.data?.session?.access_token;
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/devocional', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ titulo: plan.titulo, descripcion: plan.descripcion, nombre: this.nombreParaMarca(), pasajes: (plan.dias?.[0]?.pasajes || []) })
+                        });
+                        const result = await response.json();
+                        if (result.usage) this.cuotaIA = result.usage;
+                        if (result.code === 'AI_QUOTA_EXCEEDED') throw new Error(result.error || 'Has alcanzado tu límite diario.');
+                        if (response.status === 401) throw new Error('SESION');
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo preparar el devocional.');
+                        this.devocional = { planId: plan.id, ...result.data };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.devocionalError = error.message || 'No se pudo preparar el devocional.';
+                    } finally {
+                        this.devocionalCargando = false;
+                    }
                 },
                 pasajesDestacadosPlan(plan) {
                     // Lo más destacado de cada lectura: el primer pasaje de cada día, sin repetir, hasta 12.
