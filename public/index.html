@@ -2061,8 +2061,10 @@
   menuCompartir: false,
 
                 // Herramientas de estudio del lector de Biblia (estilo bibliatodo)
-                verComentarios: true,
-                verReferencias: true,
+                // Evita llamadas automáticas a Gemini al abrir/cambiar pasajes.
+                // El usuario puede activar estos paneles manualmente.
+                verComentarios: false,
+                verReferencias: false,
                 bibliaAutorSel: 'john-macarthur',
                 comentariosBiblia: {},
                 referenciasBiblia: {},

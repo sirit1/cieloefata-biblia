@@ -1,4 +1,4 @@
-const CACHE_NAME = 'revelatio-shell-v1';
+const CACHE_NAME = 'revelatio-shell-v2';
 const APP_SHELL = ['/', '/manifest.webmanifest', '/brand/revelatio-pwa-icon.png'];
 
 self.addEventListener('install', (event) => {
