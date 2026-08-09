@@ -323,8 +323,9 @@
                         <p class="text-xs text-gray-400">Sesión iniciada</p>
                         <p class="text-sm text-gray-100 truncate" x-text="userEmail"></p>
                     </div>
-                    <button @click="irA('favoritos'); menuUsuario=false" class="w-full text-left text-sm text-gray-300 hover:text-gold-300 hover:bg-ink rounded-lg px-3 py-2 transition-all">Mis favoritos</button>
-                    <button @click="cerrarSesion()" class="w-full text-left text-sm text-red-300 hover:bg-red-950/40 rounded-lg px-3 py-2 transition-all">Cerrar sesión</button>
+  <button @click="irA('favoritos'); menuUsuario=false" class="w-full text-left text-sm text-gray-300 hover:text-gold-300 hover:bg-ink rounded-lg px-3 py-2 transition-all">Mis favoritos</button>
+  <a href="/admin.html" class="block w-full rounded-lg px-3 py-2 text-left text-sm text-gold-300 hover:bg-ink hover:text-gold-200 transition-all">Administración</a>
+  <button @click="cerrarSesion()" class="w-full text-left text-sm text-red-300 hover:bg-red-950/40 rounded-lg px-3 py-2 transition-all">Cerrar sesión</button>
                 </div>
             </div>
         </header>
