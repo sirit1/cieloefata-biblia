@@ -246,10 +246,6 @@
                         <span x-text="autenticando ? 'Verificando...' : 'Entrar'"></span>
                     </button>
                 </form>
-                <button type="button" @click="activarMusicaLogin()" class="mt-4 mx-auto flex items-center gap-2 text-[11px] text-gold-200 border border-gold-500/30 rounded-full px-3 py-2 hover:border-gold-300/70 transition-all" :aria-pressed="musicaLoginActiva">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H3v6h3l5 4V5zm7.07 2.93a6 6 0 010 8.14M15.54 9.46a3 3 0 010 5.08"></path></svg>
-                    <span x-text="musicaLoginActiva ? 'Música ambiental activada' : 'Activar música ambiental'"></span>
-                </button>
                 <p class="text-[11px] text-center text-gray-500 mt-4 leading-relaxed">Plataforma de libre distribución, completamente gratuita para la edificación del pueblo de Dios.<br>El acceso se otorga por invitación.</p>
             </div>
             <div class="mt-5 space-y-1.5 text-center">
@@ -1901,8 +1897,7 @@
                 loginEmail: '',
                 loginPass: '',
   loginError: '',
-  musicaLoginActiva: false,
-  audioLogin: null,
+
   userEmail: '',
                 menuUsuario: false,
                 abrirDonaciones: false,
@@ -2182,14 +2177,6 @@
                     window.alert('Abre el menú de tu navegador y elige “Instalar aplicación” o “Añadir a pantalla de inicio”.');
                 },
 
-  activarMusicaLogin() {
-  if (this.audioLogin) {
-  this.audioLogin.close();
-  this.audioLogin = null;
-  }
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-  this.musicaLoginActiva = false;
-  },
 
   async iniciarSesion() {
   if (!supabaseClient || this.autenticando) return;
