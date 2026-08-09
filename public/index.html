@@ -861,6 +861,11 @@
                                     <span x-text="cargandoEstudio ? 'Analizando...' : 'Analizar'"></span>
                                 </button>
   </form>
+  <div class="mt-3 flex items-center justify-between gap-3 text-[11px] text-gray-500" aria-live="polite">
+    <span>Consultas profundas disponibles hoy</span>
+    <span class="font-semibold text-gold-600" x-text="`${Math.max(0, (cuotaIA.request_limit || 3) - (cuotaIA.requests_used || 0))} de ${cuotaIA.request_limit || 3}`"></span>
+  </div>
+  <p x-show="errorEstudio" x-cloak class="mt-3 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700" role="alert" x-text="mensajeEstudio"></p>
   <div x-show="busqueda.trim()" class="mt-4 border-t border-line pt-4">
     <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-500">Consultar esta búsqueda desde una lente</p>
     <p class="mt-1 text-xs text-gray-500">La misma consulta se enviará a la disciplina que elijas y su respuesta aparecerá en el panel de abajo.</p>
@@ -898,6 +903,7 @@
                                 </div>
                                 <p class="text-lg leading-relaxed font-serif italic text-gold-50/90" x-text="textoActual"></p>
                                 <p x-show="estudio.original" class="mt-4 pt-3 border-t border-line text-xs text-gray-400"><span class="text-gold-400 font-semibold uppercase tracking-wider text-[10px]">Idioma original</span> · <span x-text="estudio.original"></span></p>
+                                <p x-show="estudio.validacionCruzada === 'discrepancia'" class="mt-2 text-[11px] text-gold-400">Gemini 2.5 Pro y 2.5 Flash difieren en este dato; se muestra la lectura de Pro. Verifica el número de Strong en el diccionario léxico.</p>
                             </div>
                             <div class="flex flex-wrap gap-2 border-b border-line pb-3"><template x-for="tab in [{id:'analisis',label:'Análisis'}, {id:'comparacion',label:'Comparativo'}, {id:'autores',label:'Comentarios'}, {id:'predica',label:'Predicar'}]" :key="tab.id"><button @click="estudioPestana = tab.id" class="rounded-lg px-3 py-2 text-xs" :class="estudioPestana === tab.id ? 'bg-gold-600 text-gray-950 font-bold' : 'bg-ink text-gray-400'" x-text="tab.label"></button></template></div>
                             <section x-show="estudioPestana === 'analisis'" class="grid gap-4 md:grid-cols-2"><template x-for="item in [{t:'Estructura literaria',v:estudio.estructura},{t:'Análisis gramatical',v:estudio.analisisGramatical},{t:'Hermenéutica',v:estudio.hermeneutica},{t:'Exégesis versículo a versículo',v:estudio.exegesis}]" :key="item.t"><article class="rounded-xl border border-line bg-panel p-5"><h3 class="font-serif text-lg text-gold-100" x-text="item.t"></h3><p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-gray-300" x-text="item.v"></p></article></template></section>
@@ -1033,8 +1039,8 @@
       <p class="mt-3 text-sm leading-relaxed text-[#334155]">Encontrarás tres movimientos: confesar y arrepentirte, convertirte y alimentarte de la Palabra, y permanecer firme, sólido y constante en la fe. Cada etapa incluye un hito en NBLA para reconocer el avance sin convertir la vida espiritual en una simple métrica.</p>
       <p class="mt-3 text-xs leading-relaxed text-[#475569]">Entra con honestidad. Escribe aquello en lo que deseas crecer y permite que RevelatiO te invite a un siguiente paso concreto: leer, orar, obedecer y compartir el camino con otros.</p>
     </div>
-    <div class="bg-panel border border-gold-500/30 rounded-2xl p-6 space-y-4"><p class="text-sm text-gray-300">La IA organiza tu camino a partir de tus respuestas; no sustituye al pastor, mentor ni a la comunidad local.</p><div class="grid md:grid-cols-2 gap-4"><label class="text-xs text-gray-400">Objetivo<input x-model="discipuladoObjetivo" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm" placeholder="Crecer en oración, carácter o servicio"></label><label class="text-xs text-gray-400">Ritmo<select x-model="discipuladoRitmo" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm"><option>15 minutos al día</option><option>30 minutos al día</option><option>3 veces por semana</option></select></label></div><button @click="generarDiscipulado()" class="bg-gold-600 text-gray-950 font-bold rounded-lg px-4 py-2 text-sm">Crear mi camino gratuito</button></div>
-    <div x-show="discipuladoPlan" x-cloak class="flex flex-wrap items-center gap-2 rounded-2xl border border-gold-500/30 bg-panel p-3">
+    <div class="bg-panel border border-gold-500/30 rounded-2xl p-6 space-y-4"><p class="text-sm text-gray-300">La IA organiza tu camino a partir de tus respuestas; no sustituye al pastor, mentor ni a la comunidad local.</p><div class="grid md:grid-cols-2 gap-4"><label class="text-xs text-gray-400">Objetivo<input x-model="discipuladoObjetivo" maxlength="300" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm" placeholder="Crecer en oración, carácter o servicio"></label><label class="text-xs text-gray-400">Ritmo<select x-model="discipuladoRitmo" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm"><option>15 minutos al día</option><option>30 minutos al día</option><option>3 veces por semana</option></select></label></div><button @click="generarDiscipulado()" :disabled="discipuladoCargando || !discipuladoObjetivo.trim()" class="bg-gold-600 text-gray-950 font-bold rounded-lg px-4 py-2 text-sm disabled:opacity-50"><span x-text="discipuladoCargando ? 'Preparando tu camino...' : 'Crear mi camino gratuito'"></span></button><p x-show="discipuladoError" x-text="discipuladoError" class="text-xs text-red-600" role="alert"></p></div>
+    <div x-show="discipuladoPlan" x-cloak class="space-y-3"><div class="rounded-2xl border border-gold-500/30 bg-panel p-5"><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Tu camino personalizado</p><h3 class="mt-1 font-serif text-2xl text-gold-50" x-text="discipuladoTitulo"></h3><p class="mt-2 text-sm leading-relaxed text-gray-400" x-text="discipuladoIntroduccion"></p></div><div class="flex flex-wrap items-center gap-2 rounded-2xl border border-gold-500/30 bg-panel p-3">
     <button @click="guardarDiscipulado()" class="rounded-lg bg-gold-500 px-3 py-2 text-xs font-bold text-gray-950"><span x-text="discipuladoGuardado ? 'Guardado' : 'Guardar camino'"></span></button>
     <button @click="copiarDiscipulado()" class="rounded-lg border border-line px-3 py-2 text-xs text-gray-300 hover:border-gold-500">Copiar</button>
     <button @click="compartirDiscipulado()" class="rounded-lg border border-line px-3 py-2 text-xs text-gray-300 hover:border-gold-500">Compartir</button>
@@ -1043,7 +1049,7 @@
   </div>
   <div x-show="discipuladoPlan" x-cloak class="grid gap-4" :class="discipuladoNotasAbiertas ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'grid-cols-1'">
     <div class="grid md:grid-cols-3 gap-4">
-    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.descripcion"></p><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89B3C')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.hito"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89B3C')" class="h-5 w-5 rounded-full bg-[#C89B3C]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B25A45')" class="h-5 w-5 rounded-full bg-[#B25A45]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A9468')" class="h-5 w-5 rounded-full bg-[#7A9468]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
+    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.descripcion || etapa.contenido"></p><p class="mt-3 text-xs leading-relaxed text-gray-500"><strong class="text-gold-300">Práctica:</strong> <span x-text="etapa.practica"></span></p><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89B3C')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.hito"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89B3C')" class="h-5 w-5 rounded-full bg-[#C89B3C]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B25A45')" class="h-5 w-5 rounded-full bg-[#B25A45]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A9468')" class="h-5 w-5 rounded-full bg-[#7A9468]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
     <aside x-show="discipuladoNotasAbiertas" x-cloak class="rounded-xl border border-cyan-700/30 bg-[#F1F7FA] p-4 lg:sticky lg:top-4 lg:h-fit"><div class="flex items-center justify-between"><h3 class="font-serif text-lg text-[#0f172a]">Mis notas</h3><span class="text-[10px] text-cyan-800">guardado automático</span></div><p class="mt-1 text-xs text-[#475569]">Escribe aquí tus respuestas, oraciones o próximos pasos.</p><template x-for="(etapa, index) in discipuladoEtapas" :key="'nota-' + index"><label class="mt-4 block text-xs font-semibold text-[#334155]" x-text="etapa.titulo"><textarea :value="discipuladoNotas[index] || ''" @input="actualizarNota(index, $event.target.value)" rows="3" class="mt-1 w-full rounded-lg border border-cyan-700/20 bg-white p-2 text-xs text-[#1e293b] outline-none focus:border-cyan-700"></textarea></label></template></aside>
   </div>
   </section>
@@ -1958,8 +1964,9 @@
 
                 // datos
                 planesCatalogo: ampliarPlanes(PLANES_CATALOGO),
-  discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan: false,
-  discipuladoEtapas: [],
+discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan: false,
+ discipuladoTitulo: '', discipuladoIntroduccion: '', discipuladoCargando: false, discipuladoError: '',
+ discipuladoEtapas: [],
   discipuladoNotas: {},
   discipuladoGuardado: false,
   etapaResaltados: {},
@@ -2029,6 +2036,7 @@
                 estudioPestana: 'analisis',
                 estudioGuardado: false,
                 cargandoEstudio: false,
+                cuotaIA: { requests_used: 0, request_limit: 3, resets_at: null },
                 errorEstudio: false,
                 estudioListo: false,
                 mensajeEstudio: 'Escribe un pasaje o tema para comenzar el análisis exegético.',
@@ -2262,20 +2270,50 @@
                     this.vista = 'inicio';
                 },
 
-                generarDiscipulado() {
-  this.discipuladoPlan = true;
-  this.discipuladoEtapas = [
-    { titulo: 'Confesión y arrepentimiento', descripcion: 'Reconocer el pecado delante de Dios y caminar en luz.', hito: '1 Juan 1:9 · NBLA' },
-    { titulo: 'Conversión y Palabra', descripcion: 'Desear la Palabra, aprender y obedecer a Cristo.', hito: '1 Pedro 2:2 · NBLA' },
-    { titulo: 'Firmeza y constancia', descripcion: 'Permanecer sólido, sirviendo y creciendo en comunidad.', hito: '1 Corintios 15:58 · NBLA' }
-  ];
+async generarDiscipulado() {
+  const objetivo = String(this.discipuladoObjetivo || '').trim();
+  if (!objetivo || this.discipuladoCargando) return;
+  this.discipuladoCargando = true;
+  this.discipuladoGuardado = false;
+  this.discipuladoError = '';
+  try {
+    const session = await supabaseClient?.auth.getSession();
+    const token = session?.data?.session?.access_token;
+    if (!token) throw new Error('SESION');
+    const response = await fetch('/api/discipulado', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ objetivo, ritmo: this.discipuladoRitmo })
+    });
+    const result = await response.json();
+    if (result.usage) this.cuotaIA = result.usage;
+    if (result.code === 'AI_QUOTA_EXCEEDED') throw new Error(result.error || 'Has alcanzado tu límite diario.');
+    if (response.status === 401) throw new Error('SESION');
+    if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo crear tu camino.');
+    this.discipuladoTitulo = result.data.titulo || 'Camino de discipulado bíblico';
+    this.discipuladoIntroduccion = result.data.introduccion || '';
+    this.discipuladoEtapas = (result.data.etapas || []).map((etapa, index) => ({
+      ...etapa,
+      id: etapa.id || `etapa-${index + 1}`,
+      descripcion: etapa.descripcion || etapa.contenido || '',
+      hito: etapa.hito || etapa.pasaje || '',
+      completada: Boolean(this.discipuladoEtapas[index]?.completada)
+    }));
+    this.discipuladoPlan = this.discipuladoEtapas.length === 4;
+    this.discipuladoNotas = {};
+  } catch (error) {
+    if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+    this.discipuladoError = error.message || 'No se pudo crear tu camino.';
+  } finally {
+    this.discipuladoCargando = false;
+  }
   },
   guardarDiscipulado() {
   this.discipuladoGuardado = true;
-  localStorage.setItem('revelatio-discipulado', JSON.stringify({ objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados }));
+  localStorage.setItem('revelatio-discipulado', JSON.stringify({ titulo: this.discipuladoTitulo, introduccion: this.discipuladoIntroduccion, objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados }));
   },
   cargarDiscipulado() {
-  try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado') || 'null'); if (guardado) { this.discipuladoObjetivo = guardado.objetivo || ''; this.discipuladoRitmo = guardado.ritmo || '15 minutos al día'; this.discipuladoEtapas = guardado.etapas || []; this.discipuladoNotas = guardado.notas || {}; this.etapaResaltados = guardado.resaltados || {}; this.discipuladoPlan = this.discipuladoEtapas.length > 0; } } catch (_) {}
+  try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado') || 'null'); if (guardado) { this.discipuladoTitulo = guardado.titulo || ''; this.discipuladoIntroduccion = guardado.introduccion || ''; this.discipuladoObjetivo = guardado.objetivo || ''; this.discipuladoRitmo = guardado.ritmo || '15 minutos al día'; this.discipuladoEtapas = guardado.etapas || []; this.discipuladoNotas = guardado.notas || {}; this.etapaResaltados = guardado.resaltados || {}; this.discipuladoPlan = this.discipuladoEtapas.length === 4; } } catch (_) {}
   },
   contenidoDiscipulado() { return this.discipuladoEtapas.map((etapa, i) => `${i + 1}. ${etapa.titulo}\n${etapa.descripcion}\nHito NBLA: ${etapa.hito}`).join('\n\n'); },
   copiarDiscipulado() { navigator.clipboard?.writeText(this.contenidoDiscipulado()); },
@@ -2326,6 +2364,12 @@
                     });
                     if (response.status === 401) throw new Error('SESION');
                     const result = await response.json();
+                    if (result.usage) this.cuotaIA = result.usage;
+                    if (result.code === 'AI_QUOTA_EXCEEDED') {
+                        const error = new Error(result.error || 'Has alcanzado tu límite diario.');
+                        error.code = result.code;
+                        throw error;
+                    }
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo procesar la consulta.');
                     const data = result.data || {};
                     const limpio = {
@@ -2342,7 +2386,8 @@
                         },
                         comentario: this.limpiar(data.comentarioMacArthur),
                         original: [data.idiomaOriginal?.termino, data.idiomaOriginal?.strong, data.idiomaOriginal?.analisis].map(x => this.limpiar(x)).filter(Boolean).join(' · '),
-                        aplicacion: this.limpiar(data.aplicacion)
+                        aplicacion: this.limpiar(data.aplicacion),
+                        validacionCruzada: data.validacionCruzada || null
                     };
                     this.cache[ref] = limpio;
                     return limpio;
@@ -2546,7 +2591,8 @@
                             exegesis: data.exegesis || '',
                             comparaciones: Array.isArray(data.comparaciones) ? data.comparaciones : [],
                             comentarios: Array.isArray(data.comentarios) ? data.comentarios : [],
-                            predica: data.predica || { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' }
+                            predica: data.predica || { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' },
+                            validacionCruzada: data.validacionCruzada || null
                         };
                         // Reinicia las lentes y siembra la exégesis (instantánea, ya la tenemos)
                         this.lentes = {
