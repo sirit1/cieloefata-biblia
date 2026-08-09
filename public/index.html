@@ -246,6 +246,7 @@
                         <span x-text="autenticando ? 'Verificando...' : 'Entrar'"></span>
                     </button>
                 </form>
+
                 <p class="text-[11px] text-center text-gray-500 mt-4 leading-relaxed">Plataforma de libre distribución, completamente gratuita para la edificación del pueblo de Dios.<br>El acceso se otorga por invitación.</p>
             </div>
             <div class="mt-5 space-y-1.5 text-center">
@@ -1897,7 +1898,6 @@
                 loginEmail: '',
                 loginPass: '',
   loginError: '',
-
   userEmail: '',
                 menuUsuario: false,
                 abrirDonaciones: false,
@@ -2177,7 +2177,6 @@
                     window.alert('Abre el menú de tu navegador y elige “Instalar aplicación” o “Añadir a pantalla de inicio”.');
                 },
 
-
   async iniciarSesion() {
   if (!supabaseClient || this.autenticando) return;
                     this.autenticando = true;
@@ -2200,6 +2199,18 @@
                         }
                     } else {
                         this.loginPass = '';
+                        if ('speechSynthesis' in window) {
+                            window.speechSynthesis.cancel();
+                            const voces = window.speechSynthesis.getVoices();
+                            const vozFemenina = voces.find((voz) => /^es(-|_)/i.test(voz.lang) && /female|mujer|monica|paulina|helena|elena|sofia|luciana|google|microsoft/i.test(voz.name)) || voces.find((voz) => /^es(-|_)/i.test(voz.lang));
+                            const bienvenida = new SpeechSynthesisUtterance('Bienvenida a RevelatiO. Un camino para conocer al Padre Creador, a Jesús de Nazareth, su Hijo, y al Espíritu Santo.');
+                            bienvenida.lang = vozFemenina?.lang || 'es-ES';
+                            bienvenida.rate = 0.9;
+                            bienvenida.pitch = 1.15;
+                            bienvenida.volume = 1;
+                            if (vozFemenina) bienvenida.voice = vozFemenina;
+                            window.speechSynthesis.speak(bienvenida);
+                        }
                     }
                     this.autenticando = false;
                 },
@@ -2648,7 +2659,7 @@
                         ${this.textoActual ? `<div class="verso">"${esc(this.textoActual)}" <span style="font-size:11px;color:#9A6B12">(${esc(et)})</span></div>` : ''}
                         ${this.estudio.original ? `<div class="orig"><strong>Idioma original:</strong> ${esc(this.estudio.original)}</div>` : ''}
                         ${secciones}
-                        <footer>RevelatiO by Efata · Estudio bíblico de libre distribución · Desarrollo: Xtrametrik · Dirección teológica: Cielo-Efata</footer>
+                        <footer>RevelatiO by Efata · Estudio bíblico de libre distribución �� Desarrollo: Xtrametrik · Dirección teológica: Cielo-Efata</footer>
                         </body></html>`;
                     const w = window.open('', '_blank');
                     if (!w) return;
