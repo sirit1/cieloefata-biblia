@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { parsearReferencia, obtenerCapitulo, extraerTexto, extraerVersos, obtenerOriginal } from '../lib/biblia.js';
+import { parsearReferencia, obtenerCapitulo, extraerTexto, extraerVersos, obtenerOriginal, VERSIONES } from '../lib/biblia.js';
 
 // Texto bíblico REAL (no generado por IA): se sirve desde Bolls Bible
 // (bolls.life), una API pública gratuita y sin clave, para que la lectura
@@ -21,17 +21,6 @@ async function authenticate(req) {
   const { data, error } = await supabase.auth.getUser(token);
   return error ? null : data.user;
 }
-
-// Catálogo real de versiones en español disponibles vía Bolls (sin clave, gratis).
-const VERSIONES = [
-  { key: 'rv1960', bolls: 'RV1960', etiqueta: 'RVR 1960' },
-  { key: 'nvi', bolls: 'NVI', etiqueta: 'NVI' },
-  { key: 'ntv', bolls: 'NTV', etiqueta: 'NTV' },
-  { key: 'lbla', bolls: 'LBLA', etiqueta: 'LBLA' },
-  { key: 'pdt', bolls: 'PDT', etiqueta: 'PDT' },
-  { key: 'btx3', bolls: 'BTX3', etiqueta: 'Biblia Textual' },
-  { key: 'rv2004', bolls: 'RV2004', etiqueta: 'RVR Gómez 2004' }
-];
 
 // La fuente peshitta.onrender.com solo tiene el campo translation_es
 // (traducción al español) poblado para el Nuevo Testamento: en el Antiguo
