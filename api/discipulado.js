@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   try {
     const data = await generarJSON(`Eres RevelatiO IA, guía de discipulado bíblico en español. Diseña una propuesta PERSONALIZADA, no una plantilla predeterminada, para una persona cuyo objetivo es: "${objetivo}" y cuyo ritmo es "${ritmo}".
 Responde ÚNICAMENTE JSON válido con esta estructura exacta: {"titulo":"","introduccion":"","invitacion":"","etapas":[{"titulo":"","descripcion":"","hito":""}]}.
-Crea entre 3 y 5 etapas progresivas, concretas y distintas según el objetivo. Cada hito debe ser una referencia bíblica verificable y terminar en "· NBLA". Respeta el camino: confesión y arrepentimiento, conversión y alimento en la Palabra, y permanecer firme y constante. No afirmes que la IA sustituye a pastores o comunidad. La introducción explica el camino y la invitación anima a comenzar con un paso concreto. Escribe en español claro, sin Markdown ni LaTeX.`);
+Crea entre 3 y 5 etapas progresivas, concretas y distintas según el objetivo. No uses títulos, descripciones ni etapas genéricas o preconcebidas; no repitas siempre el esquema de confesión, conversión y firmeza. El orden, los temas y las prácticas deben nacer directamente del objetivo de la persona, aunque mantengan fidelidad bíblica. Cada hito debe ser una referencia bíblica verificable y terminar en "· NBLA". No afirmes que la IA sustituye a pastores o comunidad. La introducción explica el camino y la invitación anima a comenzar con un paso concreto. Escribe en español claro, sin Markdown ni LaTeX.`);
     return res.status(200).json({ success: true, data });
   } catch (error) {
     console.error('[v0] Error en discipulado IA:', error?.message);
