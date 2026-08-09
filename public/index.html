@@ -863,7 +863,7 @@
   </form>
   <div class="mt-3 flex items-center justify-between gap-3 text-[11px] text-gray-500" aria-live="polite">
     <span>Consultas profundas disponibles hoy</span>
-    <span class="font-semibold text-gold-600" x-text="`${Math.max(0, (cuotaIA.request_limit || 3) - (cuotaIA.requests_used || 0))} de ${cuotaIA.request_limit || 3}`"></span>
+    <span class="font-semibold text-gold-600" x-text="cuotaIA.unlimited ? 'Acceso ilimitado' : `${Math.max(0, (cuotaIA.request_limit || 3) - (cuotaIA.requests_used || 0))} de ${cuotaIA.request_limit || 3}`"></span>
   </div>
   <p x-show="errorEstudio" x-cloak class="mt-3 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700" role="alert" x-text="mensajeEstudio"></p>
   <div x-show="busqueda.trim()" class="mt-4 border-t border-line pt-4">
