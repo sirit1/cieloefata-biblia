@@ -83,7 +83,7 @@ Reglas:
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { maxOutputTokens: 4500 });
+Consulta: ${consulta}${contextoOriginal}`, { maxOutputTokens: 8000 });
     return res.status(200).json({ success: true, data });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);
