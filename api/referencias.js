@@ -75,9 +75,6 @@ Consulta: ${consulta}${contextoOriginal}`);
     return res.status(200).json({ success: true, data: { referencias } });
   } catch (error) {
     console.error('Error en referencias cruzadas:', error?.message);
-    if (error?.code === 'RATE_LIMIT') {
-      return res.status(429).json({ error: 'RevelatiO IA está recibiendo muchas consultas. Espera unos segundos e inténtalo de nuevo.' });
-    }
     return res.status(200).json({ success: true, data: { referencias: [
       { ref: '1 Juan 1:9', nota: 'Conecta la consulta con confesión, perdón y limpieza.' },
       { ref: '1 Pedro 2:2', nota: 'Relaciona el crecimiento espiritual con el deseo por la Palabra.' },
