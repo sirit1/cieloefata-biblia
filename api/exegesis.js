@@ -62,13 +62,18 @@ export default async function handler(req, res) {
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
 Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":""}
+{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":"","objetivo":"","contexto":"","hitos":[{"numero":1,"titulo":"","lectura":"","hallazgo":"","pregunta":"","practica":""}],"comparaciones":[{"referencia":"","relacion":"","comentario":""}],"comentarios":[{"autor":"Texto bíblico","comentario":""}]}
 
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
 - "versiones": incluye siempre las ocho claves: rvr1960, nvi, ntv, lbla, pdt, btx3, rv2004 y peshitta. Escribe el texto solo si puedes confirmarlo con seguridad; si no, deja el campo vacío "". No inventes una traducción ni presentes una paráfrasis como texto bíblico.
 - "idiomaOriginal": término griego o hebreo clave, número Strong y un breve análisis morfológico/etimológico. Si se te da un CONTEXTO REAL VERIFICADO más abajo, tu término y número de Strong DEBEN salir de ahí, no de tu memoria.
 - "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo.
+- "objetivo": una frase concreta que describa qué debe comprender y practicar el estudiante.
+- "contexto": contexto histórico, literario y canónico del pasaje, distinguiendo hechos del texto de interpretación.
+- "hitos": crea exactamente 4 hitos en secuencia pedagógica. Cada hito debe incluir una lectura o referencia bíblica verificable, un hallazgo, una pregunta de reflexión y una práctica concreta para avanzar.
+- "comparaciones": incluye 3 comparaciones con otros pasajes bíblicos. Explica la relación sin forzar equivalencias ni inventar citas.
+- "comentarios": incluye 3 comentarios breves: uno sobre el texto, uno sobre la doctrina y uno sobre la vida comunitaria. El campo autor debe decir "Texto bíblico", "Doctrina" o "Vida cristiana".
 - "aplicacion": aplicación ministerial que refleje el camino del evangelio: confesión y arrepentimiento (1 Juan 1:9), conversión y estudio de la Palabra (1 Pedro 2:2), y permanecer firmes y constantes en la fe (1 Corintios 15:58).
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
