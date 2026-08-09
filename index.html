@@ -906,6 +906,10 @@
 
                             <!-- Barra de lentes -->
                             <div>
+                                <div class="mb-3 rounded-xl border border-gold-500/30 bg-gold-500/10 px-4 py-3">
+                                    <p class="text-xs font-semibold text-gold-200">Perspectiva recomendada: Hermenéutica + neurociencia</p>
+                                    <p class="mt-1 text-[11px] leading-relaxed text-gray-400">Interpreta primero el texto en su contexto bíblico y después conecta esa lectura, con rigor y sin exageraciones, con atención, memoria, hábitos y renovación de la mente.</p>
+                                </div>
                                 <p class="text-xs text-gray-500 mb-2.5 uppercase tracking-wider">Explora tu consulta desde cada disciplina, bajo la autoridad de la Escritura</p>
                                 <div class="flex flex-wrap gap-2">
                                     <template x-for="l in LENTES_LISTA" :key="l.id">
@@ -1829,7 +1833,8 @@
                     { id: 'exegesis', etiqueta: 'Exégesis' },
                     { id: 'teologia', etiqueta: 'Teología' },
                     { id: 'hermeneutica', etiqueta: 'Hermenéutica' },
-                    { id: 'psicologia', etiqueta: 'Psicolog��a' },
+                    { id: 'hermeneuticaNeurociencia', etiqueta: 'Hermenéutica + neurociencia' },
+                    { id: 'psicologia', etiqueta: 'Psicología' },
                     { id: 'neurociencia', etiqueta: 'Neurociencia' },
                     { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad' },
                     { id: 'antropologia', etiqueta: 'Antropología' },
@@ -2262,7 +2267,7 @@
                                 autor: null
                             }
                         };
-                        this.lenteActiva = 'exegesis';
+                        this.lenteActiva = 'hermeneuticaNeurociencia';
                         this.estudioListo = true;
                         this.mensajeEstudio = 'Análisis completado. Explora las demás lentes cuando quieras.';
                     } catch (error) {
