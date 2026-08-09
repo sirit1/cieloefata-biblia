@@ -550,6 +550,17 @@
 
                     <!-- ============ BIBLIA ============ -->
                     <section x-show="vista === 'biblia'" class="space-y-6">
+                        <!-- Volver al plan: aparece cuando llegaste aquí desde una lectura del plan -->
+                        <div x-show="retornoLectura" x-cloak class="flex items-center justify-between gap-4 rounded-2xl border border-gold-500/40 bg-gradient-to-r from-gold-600/15 to-panel px-4 py-3">
+                            <div class="min-w-0">
+                                <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-500">Estás leyendo desde tu plan</p>
+                                <p class="text-sm text-gold-100 truncate" x-text="retornoLectura ? retornoLectura.titulo : ''"></p>
+                            </div>
+                            <button @click="volverAlPlan()" class="shrink-0 inline-flex items-center gap-1.5 bg-gold-600 text-gray-950 font-bold text-sm rounded-lg px-4 py-2 hover:bg-gold-500 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"></path></svg>
+                                Volver al plan
+                            </button>
+                        </div>
                         <div class="flex items-end justify-between gap-4">
                             <div>
                                 <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO · Palabra viva</p>
@@ -2101,6 +2112,7 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
                 capituloSel: 1,
                 versiculoSel: 1,
                 referenciaActiva: '',
+                retornoLectura: null,
                 versiones: {},
                 versionesVersos: {},
                 versionSel: 'rvr1960',
@@ -2438,10 +2450,21 @@ async generarDiscipulado() {
   imprimirDiscipulado() { window.print(); },
   resaltarEtapa(index, color) { this.etapaResaltados[index] = color; this.guardarDiscipulado(); },
   actualizarNota(index, value) { this.discipuladoNotas[index] = value; this.guardarDiscipulado(); },
-  irA(vista) {
+                irA(vista) {
+                    // Al salir a una sección distinta de la Biblia, olvido el retorno al plan.
+                    if (vista !== 'biblia') this.retornoLectura = null;
                     this.vista = vista;
                     this.sidebarAbierta = false;
                     this.menuUsuario = false;
+                    document.querySelector('main')?.scrollTo({ top: 0 });
+                },
+                volverAlPlan() {
+                    if (!this.retornoLectura) return;
+                    const destino = this.retornoLectura.planId;
+                    this.retornoLectura = null;
+                    this.planActivoId = destino;
+                    this.vista = 'planes';
+                    this.sidebarAbierta = false;
                     document.querySelector('main')?.scrollTo({ top: 0 });
                 },
 
@@ -2557,6 +2580,10 @@ async generarDiscipulado() {
                     await this.cargarPasaje(ref);
                 },
                 async leerReferencia(ref) {
+                    // Si vengo leyendo desde un plan, recuerdo dónde estaba para poder volver.
+                    if (this.vista === 'planes' && this.planActivo) {
+                        this.retornoLectura = { planId: this.planActivoId, titulo: this.planActivo.titulo, ref };
+                    }
                     this.irA('biblia');
                     // intenta situar el selector en el libro correcto
                     const m = String(ref).match(/^(\d?\s?[^\d]+?)\s+(\d+)/);
