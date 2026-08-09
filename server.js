@@ -79,6 +79,7 @@ const server = createServer(async (req, res) => {
   try {
     const html = await readFile(join(__dirname, 'index.html'));
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
     res.end(html);
   } catch {
     res.status(404).end('No encontrado');
