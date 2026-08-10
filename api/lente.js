@@ -34,10 +34,21 @@ const LENTES = {
     instruccion:
       'Analiza la consulta desde la teología sistemática y bíblica: qué revela sobre Dios (Padre, Hijo, Espíritu), su carácter, sus atributos, el pecado, la gracia, la salvación y la doctrina implicada. Cita doctrinas y referencias cruzadas.',
   },
+  antropologia: {
+    titulo: 'Antropología bíblica',
+    instruccion: 'Analiza la consulta desde la antropología bíblica: imagen de Dios, dignidad, cuerpo, alma, espíritu, caída, propósito y restauración en Cristo. Distingue la visión bíblica de otras visiones del ser humano y termina con implicaciones concretas.',
+  },
   hermeneutica: {
     titulo: 'Hermenéutica bíblica',
-    instruccion:
-      'Aplica principios de interpretación bíblica: género literario, contexto histórico y cultural, contexto inmediato y canónico, intención del autor y cómo evitar malas interpretaciones. Explica cómo se debe leer correctamente el pasaje o tema. Después conecta esa interpretación con la neurociencia: distingue con claridad entre lo que afirma la Escritura y lo que la evidencia científica permite explicar sobre atención, memoria, hábitos, emoción y renovación de la mente. No fuerces equivalencias ni presentes hipótesis como hechos.',
+    instruccion: 'Aplica principios de interpretación bíblica: género literario, contexto histórico y cultural, contexto inmediato y canónico, intención del autor y límites de aplicación. Explica cómo leer correctamente el pasaje o tema sin añadir otra disciplina como neurociencia.',
+  },
+  apologetica: {
+    titulo: 'Apologética',
+    instruccion: 'Responde con razones bíblicas, claras y humildes a las preguntas u objeciones que plantea la consulta. Reconoce límites, evita caricaturas y conecta la verdad con la esperanza cristiana.',
+  },
+  exegesis: {
+    titulo: 'Exégesis',
+    instruccion: 'Explica el texto atendiendo a contexto, género, palabras, estructura, intención del autor y sentido original. Distingue observación, interpretación y aplicación, sin imponer ideas externas al pasaje.',
   },
   inteligenciaEmocional: {
     titulo: 'Inteligencia emocional',
@@ -59,34 +70,7 @@ const LENTES = {
     instruccion:
       'Explica cómo el cerebro puede reconfigurar patrones (neuroplasticidad) y cómo la meditación en la Palabra, la repetición de la verdad y las prácticas espirituales renuevan literalmente la mente (Romanos 12:2). Da pasos concretos y sostenibles.',
   },
-  antropologia: {
-    titulo: 'Antropología bíblica',
-    instruccion:
-      'Analiza la consulta desde la antropología bíblica: qué es el ser humano según la Escritura (imagen de Dios, cuerpo-alma-espíritu), su caída, su dignidad, su propósito y su restauración en Cristo. Contrasta con visiones antropológicas seculares cuando sea útil.',
-  },
-  diaadia: {
-    titulo: 'En tu día a día',
-    instruccion:
-      'Traduce la consulta en aplicaciones prácticas y concretas para la vida diaria del creyente: decisiones, relaciones, trabajo, familia, hábitos y luchas cotidianas. Da ejemplos realistas y pasos accionables para hoy.',
-  },
-  revelatio: {
-    titulo: 'RevelatiO para ti',
-    instruccion:
-      'Redacta una recomendación pastoral, cálida y personal, desde un punto de vista bíblico estricto, dirigida directamente al lector ("tú"). Que sea un consejo espiritual concreto y edificante según lo que revela la consulta, llamando al arrepentimiento genuino, a la fe y a la renovación de la mente. Firma implícitamente como la voz de RevelatiO. Máximo 2 párrafos, íntimo y directo.',
-  },
-  consejeriaPastoral: { titulo: 'Consejería pastoral', instruccion: 'Aplica el pasaje al acompañamiento pastoral: escucha, discernimiento, límites, restauración y cuidado integral. Distingue consejo bíblico de diagnóstico clínico y termina con preguntas para acompañar a una persona.' },
-  discipulado: { titulo: 'Discipulado', instruccion: 'Construye un itinerario de discipulado basado en el texto: qué debe creer, abandonar, practicar y enseñar un discípulo. Incluye etapas, preguntas y referencias bíblicas.' },
-  predicacionExpositiva: { titulo: 'Predicación expositiva', instruccion: 'Ayuda a preparar una exposición fiel: idea central, contexto, estructura del texto, bosquejo, errores a evitar y aplicaciones para la congregación. No sustituyas la labor del predicador.' },
-  liderazgoServidores: { titulo: 'Liderazgo de servidores', instruccion: 'Examina el liderazgo desde el carácter de Cristo, humildad, autoridad, servicio y rendición de cuentas. Aplica el texto a equipos de servidores y responsables ministeriales.' },
-  formacionLideres: { titulo: 'Formación de líderes', instruccion: 'Extrae criterios bíblicos para identificar, formar, evaluar y acompañar líderes. Incluye carácter, doctrina, hábitos, mentoría y señales de madurez.' },
-  cuidadoRebano: { titulo: 'Cuidado del rebaño', instruccion: 'Aplica el texto al pastoreo de una iglesia: presencia, visitación, protección, enseñanza, disciplina restaurativa y cuidado de los débiles.' },
-  familiaPastoral: { titulo: 'Familia pastoral', instruccion: 'Lee la consulta desde la salud del hogar ministerial: matrimonio, hijos, descanso, límites, hospitalidad y coherencia entre ministerio público y vida privada.' },
-  conflictoReconciliacion: { titulo: 'Conflicto y reconciliación', instruccion: 'Ofrece un marco bíblico para discernir, confrontar con gracia, escuchar, reparar el daño y buscar reconciliación sin encubrir pecado ni abuso.' },
-  misionEvangelizacion: { titulo: 'Misión y evangelización', instruccion: 'Conecta la consulta con la misión de hacer discípulos: mensaje, encarnación, compasión, contexto cultural, conversación y llamado al arrepentimiento y la fe.' },
-  apologetica: { titulo: 'Apologética', instruccion: 'Prepara una respuesta bíblica, razonable y humilde frente a objeciones relacionadas con la consulta. Reconoce límites, evita caricaturas y responde con mansedumbre.' },
-  eticaMinisterial: { titulo: 'Ética ministerial', instruccion: 'Examina integridad, poder, dinero, sexualidad, confidencialidad, transparencia y rendición de cuentas a la luz del texto y de la responsabilidad de quienes sirven.' },
-  juventud: { titulo: 'Ministerio con jóvenes', instruccion: 'Traduce la enseñanza a acompañamiento de adolescentes y jóvenes: identidad, presión cultural, pertenencia, hábitos digitales, vocación y comunidad, sin trivializar el texto.' },
-  dueloCrisis: { titulo: 'Duelo y crisis', instruccion: 'Aplica el pasaje a la presencia pastoral en duelo y crisis: lamentación, esperanza, oración, comunidad y próximos pasos. No prometas resultados que la Escritura no promete.' },
+
 };
 
 // Autores/comentaristas reconocidos (obra mayormente de dominio público o

@@ -334,22 +334,22 @@
             <div class="bg-panel border border-gold-500/30 rounded-3xl p-8 shadow-2xl">
                 <div class="text-center mb-7">
                     <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-full max-w-[240px] h-48 object-contain mx-auto">
-                    <p class="text-[11px] text-gray-400 mt-2 leading-relaxed max-w-xs mx-auto">Inteligencia exegética, conversión y renovación de la mente.</p>
+                    <p class="text-[11px] text-slate-700 mt-2 leading-relaxed max-w-xs mx-auto">Inteligencia exegética, conversión y renovación de la mente.</p>
                     <blockquote class="mt-5 mx-auto max-w-sm border-y border-gold-500/30 py-3 px-2">
-                        <p class="text-sm leading-relaxed text-gold-100 font-serif">“Transformaos por medio de la renovación de vuestro entendimiento.”</p>
-                        <cite class="not-italic text-[10px] uppercase tracking-[0.18em] text-gold-300 font-bold">Romanos 12:2 · NBLA</cite>
+                        <p class="text-sm leading-relaxed text-slate-800 font-serif">“Transformaos por medio de la renovación de vuestro entendimiento.”</p>
+                        <cite class="not-italic text-[10px] uppercase tracking-[0.18em] text-amber-800 font-bold">Romanos 12:2 · NBLA</cite>
                     </blockquote>
                 </div>
 
                 <form @submit.prevent="iniciarSesion()" class="space-y-4">
                     <div>
-                        <label for="login-email" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Correo electrónico</label>
+                        <label for="login-email" class="block text-xs font-semibold text-slate-800 uppercase tracking-wider mb-1.5">Correo electrónico</label>
                         <input id="login-email" type="email" x-model="loginEmail" required autocomplete="email" placeholder="correo@ejemplo.com"
                             style="color:#2B2417"
                             class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
                     </div>
                     <div>
-                        <label for="login-pass" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Contraseña</label>
+                        <label for="login-pass" class="block text-xs font-semibold text-slate-800 uppercase tracking-wider mb-1.5">Contraseña</label>
                         <input id="login-pass" type="password" x-model="loginPass" required autocomplete="current-password" placeholder="••••••••"
                             style="color:#2B2417"
                             class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
@@ -366,8 +366,8 @@
                         <span x-text="autenticando ? 'Verificando...' : 'Entrar'"></span>
                     </button>
                 </form>
-                <p class="text-[11px] text-center text-gray-500 mt-4 leading-relaxed">Plataforma de libre distribución, completamente gratuita para la edificación del pueblo de Dios.<br>El acceso se otorga por invitación.</p>
-                <a href="/admin" class="mt-4 inline-flex items-center justify-center rounded-xl border border-gold-500/60 bg-gold-500/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-gold-300 transition hover:bg-gold-500/20" aria-label="Ingresar al panel de administración">Ingresar al panel admin</a>
+                <p class="text-[11px] text-center text-slate-700 mt-4 leading-relaxed">Plataforma de libre distribución, completamente gratuita para la edificación del pueblo de Dios.<br>El acceso se otorga por invitación.</p>
+                <a href="/admin" class="mt-4 inline-flex items-center justify-center rounded-xl border border-gold-500/60 bg-gold-500/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-amber-900 transition hover:bg-gold-500/20" aria-label="Ingresar al panel de administración">Ingresar al panel admin</a>
             </div>
             <div class="mt-5 space-y-1.5 text-center">
                 <p class="text-[10px] text-gray-500">Desarrollo y arquitectura de IA ética
@@ -1080,7 +1080,7 @@
                             <!-- Pasaje + versiones -->
                             <div class="bg-panel border border-gold-500/30 rounded-2xl p-6">
                                 <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-line">
-<h3 class="text-lg font-serif text-gold-100" x-text="estudioRef"></h3>
+<h3 class="text-lg font-serif text-slate-800" x-text="estudioRef"></h3>
   <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
   <template x-for="v in versionesEstudioLista" :key="v.key">
                                             <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-100 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
@@ -1092,8 +1092,8 @@
                                 <p x-show="estudio.validacionCruzada === 'discrepancia'" class="mt-2 text-[11px] text-gold-400">Gemini 2.5 Pro y 2.5 Flash difieren en este dato; se muestra la lectura de Pro. Verifica el número de Strong en el diccionario léxico.</p>
                             </div>
                             <div class="flex flex-wrap gap-2 border-b border-line pb-3"><template x-for="tab in [{id:'analisis',label:'Análisis'}, {id:'comparacion',label:'Comparativo'}, {id:'autores',label:'Comentarios'}, {id:'predica',label:'Predicar'}]" :key="tab.id"><button @click="estudioPestana = tab.id" class="rounded-lg px-3 py-2 text-xs" :class="estudioPestana === tab.id ? 'bg-gold-600 text-gray-950 font-bold' : 'bg-ink text-gray-400'" x-text="tab.label"></button></template></div>
-                            <section x-show="estudioPestana === 'analisis'" class="grid gap-4 md:grid-cols-2"><template x-for="item in [{t:'Estructura literaria',v:estudio.estructura},{t:'Análisis gramatical',v:estudio.analisisGramatical},{t:'Hermenéutica',v:estudio.hermeneutica},{t:'Exégesis versículo a versículo',v:estudio.exegesis}]" :key="item.t"><article class="rounded-xl border border-line bg-panel p-5"><h3 class="font-serif text-lg text-gold-100" x-text="item.t"></h3><p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-gray-300" x-text="item.v"></p></article></template></section>
-                            <section x-show="estudioPestana === 'comparacion'" class="grid gap-3 md:grid-cols-3"><template x-for="item in estudio.comparaciones" :key="item.referencia"><article class="rounded-xl border border-line bg-panel p-5"><h3 class="font-semibold text-gold-100" x-text="item.referencia"></h3><p class="mt-2 text-sm text-gray-300" x-text="item.relacion"></p><p class="mt-3 text-xs text-gray-400" x-text="item.comentario"></p></article></template></section>
+                            <section x-show="estudioPestana === 'analisis'" class="grid gap-4 md:grid-cols-2"><template x-for="item in [{t:'Estructura literaria',v:estudio.estructura},{t:'Análisis gramatical',v:estudio.analisisGramatical},{t:'Hermenéutica',v:estudio.hermeneutica},{t:'Exégesis versículo a versículo',v:estudio.exegesis}]" :key="item.t"><article class="rounded-xl border border-line bg-panel p-5"><h3 class="font-serif text-lg text-slate-800" x-text="item.t"></h3><p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-slate-700" x-text="item.v"></p></article></template></section>
+                            <section x-show="estudioPestana === 'comparacion'" class="grid gap-3 md:grid-cols-3"><template x-if="!estudio.comparaciones.length"><div class="md:col-span-3 rounded-xl border border-line bg-panel p-5 text-sm text-slate-700">No hay comparaciones disponibles para esta consulta. Vuelve a analizarla o revisa la pestaña de Análisis.</div></template><template x-for="item in estudio.comparaciones" :key="item.referencia"><article class="rounded-xl border border-line bg-panel p-5"><h3 class="font-semibold text-slate-800" x-text="item.referencia"></h3><p class="mt-2 text-sm text-slate-700" x-text="item.relacion"></p><p class="mt-3 text-xs leading-relaxed text-slate-600" x-text="item.comentario"></p></article></template></section>
                             <section x-show="estudioPestana === 'autores'" class="grid gap-3 md:grid-cols-3"><template x-for="item in estudio.comentarios" :key="item.autor"><article class="rounded-xl border border-line bg-panel p-5"><p class="text-xs uppercase tracking-wider text-gold-400" x-text="item.autor"></p><p class="mt-3 text-sm leading-relaxed text-gray-300" x-text="item.comentario"></p></article></template><article class="rounded-xl border border-line bg-panel p-5"><p class="text-xs uppercase tracking-wider text-gold-400">Comentario exegético pastoral</p><p class="mt-3 text-sm text-gray-300" x-text="estudio.comentarioMacArthur"></p></article></section>
                             <section x-show="estudioPestana === 'predica'" class="rounded-2xl border border-gold-500/30 bg-panel p-6"><p class="text-xs uppercase tracking-wider text-gold-400">Enseñanza derivada del estudio</p><h3 class="mt-2 font-serif text-2xl text-gold-100" x-text="estudio.predica.titulo"></h3><p class="mt-4 whitespace-pre-line text-sm text-gray-300" x-text="estudio.predica.texto"></p><div class="mt-4 grid gap-3 md:grid-cols-3"><template x-for="(punto,i) in estudio.predica.puntos" :key="i"><article class="rounded-xl border border-line bg-ink p-4"><p class="text-xs font-bold text-gold-400" x-text="'Punto ' + (i+1)"></p><p class="mt-2 text-sm text-gray-300" x-text="punto"></p></article></template></div><p class="mt-4 text-sm text-gray-300" x-text="estudio.predica.aplicaciones?.join('\\n')"></p><p class="mt-4 border-t border-line pt-4 text-sm font-semibold text-gold-200" x-text="estudio.predica.cierre"></p></section>
 
@@ -1132,8 +1132,8 @@
                             <!-- Barra de lentes -->
                             <div>
                                 <div class="mb-3 rounded-xl border border-gold-500/30 bg-gold-500/10 px-4 py-3">
-                                    <p class="text-xs font-semibold text-gold-200">Perspectiva recomendada: Hermenéutica</p>
-                                    <p class="mt-1 text-[11px] leading-relaxed text-gray-400">Interpreta primero el texto en su contexto bíblico y después conecta esa lectura, con rigor y sin exageraciones, con atención, memoria, hábitos y renovación de la mente.</p>
+                                    <p class="text-xs font-semibold text-slate-800">Perspectiva recomendada: Hermenéutica</p>
+                                    <p class="mt-1 text-[11px] leading-relaxed text-slate-700">Interpreta primero el texto en su contexto bíblico; después, si procede, conecta esa lectura con otras disciplinas sin mezclar evidencias ni presentar hipótesis como doctrina.</p>
                                 </div>
                                 <p class="text-xs text-gray-500 mb-2.5 uppercase tracking-wider">Explora tu consulta desde cada disciplina, bajo la autoridad de la Escritura</p>
                                 <div class="flex flex-wrap gap-2">
@@ -1368,7 +1368,7 @@
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <template x-for="(dia, i) in planActivo.dias" :key="i">
                                                     <button @click="leerReferencia(dia.pasajes[0])" type="button"
-                                                        :title="'Día ' + (i + 1) + (diaCompleto(planActivo.id, i) ? ' ���� le��do' : '')"
+                                                        :title="'Día ' + (i + 1) + (diaCompleto(planActivo.id, i) ? ' ����� le��do' : '')"
                                                         class="relative flex h-8 w-8 items-center justify-center rounded-full border text-[11px] font-semibold transition-all duration-300"
                                                         :class="diaCompleto(planActivo.id, i)
                                                             ? 'bg-gradient-to-br from-gold-500 to-gold-600 text-gray-950 border-gold-400 shadow-[0_0_0_3px_rgba(200,155,60,.18)]'
@@ -2966,15 +2966,8 @@
                                 destacado: this.estudio.aplicacion,
                                 autor: null
                             },
-                            hermeneutica: {
-                                estado: 'ready',
-                                titulo: 'Hermenéutica bíblica · ' + (this.estudioRef || q),
-                                cuerpo: this.estudio.hermeneutica || this.estudio.contexto || 'La respuesta hermenéutica estará disponible al completar el análisis.',
-                                destacado: this.estudio.objetivo || this.estudio.aplicacion,
-                                autor: null
-                            }
                         };
-                        this.lenteActiva = 'hermeneutica';
+                        this.lenteActiva = 'teologia';
                         this.estudioListo = true;
                         this.mensajeEstudio = 'Análisis base listo. Estamos preparando las perspectivas para que cambies de lente sin esperas.';
                         // Precarga en paralelo: la pantalla queda disponible de inmediato;
