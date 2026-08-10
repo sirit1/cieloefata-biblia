@@ -2320,7 +2320,7 @@
                 estudioResaltados: {},
                 estudioPestana: 'analisis',
                 iaVista: 'consulta',
-                iaPerspectivasSeleccionadas: ['exegesis', 'hermeneuticaNeurociencia'],
+                iaPerspectivasSeleccionadas: ['teologia', 'exegesis'],
                 iaAnotacionTexto: '',
                 iaAnotacionNota: '',
                 iaFichas: [],
@@ -2333,31 +2333,16 @@
 
                 // lentes multi-disciplina de RevelatiO IA
                 LENTES_LISTA: [
-                                    { id: 'exegesis', etiqueta: 'Exégesis' },
-                                    { id: 'hermeneutica', etiqueta: 'Hermenéutica' },
-                                    { id: 'teologia', etiqueta: 'Teología' },
-                    { id: 'hermeneuticaNeurociencia', etiqueta: 'Hermenéutica + neurociencia' },
-                    { id: 'psicologia', etiqueta: 'Psicología' },
-                    { id: 'neurociencia', etiqueta: 'Neurociencia' },
-                    { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad' },
-                    { id: 'antropologia', etiqueta: 'Antropología' },
-                    { id: 'diaadia', etiqueta: 'En tu día a día' },
-  { id: 'revelatio', etiqueta: 'RevelatiO para ti' },
-  { id: 'consejeriaPastoral', etiqueta: 'Consejería pastoral', descripcion: 'Acompañamiento bíblico, escucha y discernimiento para el cuidado integral.' },
-  { id: 'discipulado', etiqueta: 'Discipulado', descripcion: 'Creer, abandonar, practicar y enseñar como discípulo de Jesús.' },
-  { id: 'predicacionExpositiva', etiqueta: 'Predicación expositiva', descripcion: 'Del texto al púlpito: estructura, intención y aplicación fiel.' },
-  { id: 'liderazgoServidores', etiqueta: 'Liderazgo de servidores', descripcion: 'Autoridad espiritual, carácter y servicio según el modelo de Cristo.' },
-  { id: 'formacionLideres', etiqueta: 'Formación de líderes', descripcion: 'Criterios bíblicos para reconocer, formar y acompañar líderes.' },
-  { id: 'cuidadoRebano', etiqueta: 'Cuidado del rebaño', descripcion: 'Pastorado, visitación, restauración y salud espiritual de la iglesia.' },
-  { id: 'familiaPastoral', etiqueta: 'Familia pastoral', descripcion: 'Límites, descanso, unidad y cuidado del hogar ministerial.' },
-  { id: 'conflictoReconciliacion', etiqueta: 'Conflicto y reconciliación', descripcion: 'Verdad, gracia, disciplina y restauración en relaciones quebradas.' },
-  { id: 'misionEvangelizacion', etiqueta: 'Misión y evangelización', descripcion: 'El camino del evangelio llevado a personas, barrios y culturas.' },
-  { id: 'apologetica', etiqueta: 'Apologética', descripcion: 'Responder con mansedumbre, razones y fidelidad a la esperanza cristiana.' },
-  { id: 'eticaMinisterial', etiqueta: 'Ética ministerial', descripcion: 'Integridad, transparencia, poder, dinero y responsabilidad espiritual.' },
-  { id: 'juventud', etiqueta: 'Ministerio con jóvenes', descripcion: 'Fe, identidad, presión cultural y acompañamiento generacional.' },
-  { id: 'dueloCrisis', etiqueta: 'Duelo y crisis', descripcion: 'Presencia pastoral y esperanza bíblica ante pérdidas y emergencias.' },
-  { id: 'autores', etiqueta: 'Comentarios de autores' }
-                ],
+  { id: 'teologia', etiqueta: 'Teología' },
+  { id: 'antropologia', etiqueta: 'Antropología' },
+  { id: 'hermeneutica', etiqueta: 'Hermenéutica' },
+  { id: 'apologetica', etiqueta: 'Apologética' },
+  { id: 'exegesis', etiqueta: 'Exégesis' },
+  { id: 'psicologia', etiqueta: 'Psicología' },
+  { id: 'neurociencia', etiqueta: 'Neurociencia' },
+  { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad' },
+  { id: 'inteligenciaEmocional', etiqueta: 'Inteligencia emocional' }
+  ],
                 AUTORES_LISTA: [
                     { id: 'john-macarthur', nombre: 'John MacArthur' },
                     { id: 'matthew-henry', nombre: 'Matthew Henry' },
@@ -2923,7 +2908,7 @@
                     this.estudioListo = false;
                     this.estudio = { comentario: '', original: '', aplicacion: '', objetivo: '', contexto: '', estructura: '', analisisGramatical: '', hermeneutica: '', exegesis: '', comparaciones: [], comentarios: [], predica: { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' } };
                     this.lentes = {};
-                    this.lenteActiva = 'hermeneuticaNeurociencia';
+                    this.lenteActiva = 'teologia';
                     this.errorEstudio = false;
                     this.mensajeEstudio = 'Escribe una palabra, un pasaje o un tema para comenzar un nuevo estudio.';
                     this.iaVista = 'consulta';
