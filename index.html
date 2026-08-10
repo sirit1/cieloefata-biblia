@@ -1879,7 +1879,7 @@
                     categoria: 'Carácter',
                     duracion: 7,
                     imagen: '/brand/revelatio-logo.png',
-                    descripcion: 'Un camino práctico para responder con sabiduría frente al enojo, la impulsividad, la pantalla y la presión diaria.',
+                    descripcion: 'Un camino práctico para responder con sabiduría frente al enojo, la impulsividad, la pantalla y la presi��n diaria.',
                     dias: [
                         { titulo: 'Día 1 · Una mente sobria', pasajes: ['2 Timoteo 1:7', '1 Pedro 5:8-9'] },
                         { titulo: 'Día 2 · Lento para la ira', pasajes: ['Santiago 1:19-20', 'Proverbios 14:29'] },
@@ -3743,7 +3743,14 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
         }
-    </script>
+  </script>
+  <style id="qa-fixed-sidebar-contrast">
+    /* Sidebar fijo de escritorio: texto inactivo claro sobre tarjetas oscuras. */
+    body aside button.w-full.flex.items-center.gap-3,
+    body aside button.w-full.flex.items-center.gap-3 > span:first-of-type { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
+    body aside button.w-full.flex.items-center.gap-3 > svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
+    body aside button.w-full.flex.items-center.gap-3 > span.ml-auto { color:#302619 !important; -webkit-text-fill-color:#302619 !important; }
+  </style>
 </body>
-
+  
 </html>
