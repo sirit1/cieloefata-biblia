@@ -83,7 +83,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/lib/discipulado-data.js"></script>
+
 <script src="/lib/estudios-maestro.js"></script>
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -271,7 +271,7 @@
         <div x-show="abrirDonaciones && donacionEstado !== 'gracias'" x-cloak class="fixed inset-0 z-[80] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="donaciones-title">
             <div @click.outside="abrirDonaciones = false" class="w-full max-w-md rounded-2xl border border-gold-500/40 bg-panel p-6 shadow-2xl">
                 <div class="flex items-start justify-between gap-4"><div><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Apoyo voluntario</p><h2 id="donaciones-title" class="mt-1 font-serif text-2xl font-bold text-gold-50">Mantén RevelatiO gratuito</h2></div><button @click="abrirDonaciones = false" class="text-gray-400 hover:text-gray-100" aria-label="Cerrar">×</button></div>
-                <p class="mt-4 text-sm leading-relaxed text-gray-400">Todo el estudio bíblico, los planes y el discipulado son gratuitos. Si esta herramienta te sirve, puedes apoyar voluntariamente su infraestructura mediante Stripe.</p>
+                <p class="mt-4 text-sm leading-relaxed text-gray-400">Todo el estudio bíblico y los planes son gratuitos. Si esta herramienta te sirve, puedes apoyar voluntariamente su infraestructura mediante Stripe.</p>
                 <div class="mt-5 grid grid-cols-3 gap-2"><button @click="donacionCantidad = 500" class="rounded-lg border border-line px-3 py-2 text-sm text-gray-300 hover:border-gold-500">5 €</button><button @click="donacionCantidad = 1000" class="rounded-lg border border-gold-500/50 bg-gold-500/10 px-3 py-2 text-sm text-gold-200">10 €</button><button @click="donacionCantidad = 2500" class="rounded-lg border border-line px-3 py-2 text-sm text-gray-300 hover:border-gold-500">25 €</button></div>
                 <label class="mt-4 block text-xs text-gray-500">Otra cantidad en euros<input type="number" min="3" max="10000" step="1" x-model.number="donacionCantidad" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-gray-100"></label>
                 <button @click="iniciarDonacion()" :disabled="donacionCargando" class="mt-5 w-full rounded-xl bg-gold-500 px-4 py-3 text-sm font-bold text-gray-950 hover:bg-gold-400 disabled:opacity-60"><span x-text="donacionCargando ? 'Conectando con Stripe...' : 'Continuar con Stripe' "></span></button>
@@ -1035,32 +1035,7 @@
   
 
 
-                    <!-- ============ DISCIPULADO ============ -->
-  <section x-show="vista === 'discipulado'" class="space-y-6">
-    <div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Camino bíblico</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Ruta de discipulado integral</h2><p class="text-sm text-gray-700 mt-2 max-w-2xl">Un camino personal para pasar de la convicción a una fe firme, con la NBLA como texto base y la Escritura como autoridad.</p></div>
-    <div class="rounded-2xl border border-cyan-700/30 bg-[#F1F7FA] p-5 shadow-[0_10px_30px_rgba(28,46,74,.08)]">
-      <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-800">Cómo trabaja el discipulado RevelatiO</p>
-      <p class="mt-2 text-sm leading-relaxed text-[#334155]">La ruta usa un itinerario bíblico curado de lectura, oración, práctica y revisión. No depende de consultas de IA: trabaja con contenidos locales, referencias verificables y tu propio ritmo. No reemplaza a un pastor, mentor ni a la comunidad: te prepara para caminar acompañado, obedecer lo aprendido y volver una y otra vez al texto bíblico.</p>
-      <p class="mt-3 text-sm leading-relaxed text-[#334155]">Encontrarás cuatro etapas: caminar en la luz mediante confesión y arrepentimiento, alimentarte de la Palabra, obedecer en comunidad y permanecer firme, sólido y constante en la fe. Cada etapa incluye un hito en NBLA para reconocer el avance sin convertir la vida espiritual en una simple métrica.</p>
-      <p class="mt-3 text-xs leading-relaxed text-[#475569]">Entra con honestidad. Escribe aquello en lo que deseas crecer y permite que RevelatiO te invite a un siguiente paso concreto: leer, orar, obedecer y compartir el camino con otros.</p>
-    </div>
-    <div class="bg-panel border border-gold-500/30 rounded-2xl p-6 space-y-4"><p class="text-sm text-gray-300">Elige tu objetivo y ritmo. La ruta local organiza el camino sin consumir consultas de IA; no sustituye al pastor, mentor ni a la comunidad local.</p><div class="grid md:grid-cols-2 gap-4"><label class="text-xs text-gray-400">Objetivo<input x-model="discipuladoObjetivo" maxlength="300" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm" placeholder="Crecer en oración, carácter o servicio"></label><label class="text-xs text-gray-400">Ritmo<select x-model="discipuladoRitmo" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm"><option>15 minutos al día</option><option>30 minutos al día</option><option>3 veces por semana</option></select></label></div><button @click="generarDiscipulado()" :disabled="discipuladoCargando || !discipuladoObjetivo.trim()" class="bg-gold-600 text-gray-950 font-bold rounded-lg px-4 py-2 text-sm disabled:opacity-50"><span x-text="discipuladoCargando ? 'Preparando tu camino...' : 'Crear mi camino gratuito'"></span></button><p x-show="discipuladoError" x-text="discipuladoError" class="text-xs text-red-600" role="alert"></p></div>
-    <div x-show="discipuladoPlan" x-cloak class="space-y-3"><div class="rounded-2xl border border-gold-500/30 bg-panel p-5"><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Tu camino personalizado</p><h3 class="mt-1 font-serif text-2xl text-gold-50" x-text="discipuladoTitulo"></h3><p class="mt-2 text-sm leading-relaxed text-gray-400" x-text="discipuladoIntroduccion"></p><section class="mt-6 rounded-2xl border border-gold-500/40 bg-gradient-to-br from-gold-500/10 to-panel p-5"><div class="flex items-start gap-3"><img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-12 w-12 shrink-0 rounded-xl border border-line bg-panel2 p-1"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Antes de comenzar</p><h4 class="mt-1 font-serif text-xl text-gold-100">Ora. Lee. Responde desde el corazón.</h4><p class="mt-2 text-sm leading-relaxed text-gray-400">Este camino no empieza con un cuestionario. Empieza presentándote delante de Dios y leyendo la Palabra con atención.</p></div></div><div class="mt-4 rounded-xl bg-ink p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-400">Oración de inicio</p><p class="mt-2 text-sm italic leading-relaxed text-gray-300">Señor, abre mi entendimiento para recibir tu Palabra, muéstrame lo que debo rendir y dame valentía para obedecer. Que este camino me acerque a Cristo y me haga servir mejor a otros. Amén.</p></div><button @click="discipuladoDevocionalIniciado = true" class="mt-4 rounded-lg bg-gold-600 px-4 py-2 text-sm font-bold text-gray-950 hover:bg-gold-500"><span x-text="discipuladoDevocionalIniciado ? 'Devocional iniciado' : 'He orado y quiero comenzar'" ></span></button><p x-show="discipuladoDevocionalIniciado" class="mt-2 text-xs text-gold-300">Ahora puedes avanzar a la primera lección: lee el contenido antes de responder.</p></section><div x-show="discipuladoFases.length" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><template x-for="(fase, faseIndex) in discipuladoFases" :key="fase.id"><article class="rounded-xl border border-line bg-ink p-3"><div class="flex items-center gap-2"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-gold-600 text-[10px] font-bold text-gray-950" x-text="faseIndex + 1"></span><h4 class="text-xs font-bold text-gold-200" x-text="fase.titulo"></h4></div><p class="mt-2 text-[11px] leading-relaxed text-gray-400" x-text="fase.objetivo"></p><p class="mt-2 text-[10px] text-gray-500" x-text="fase.duracionMeses + ' meses · ' + fase.modulos.length + ' módulos'" ></p></article></template></div></div><div class="flex flex-wrap items-center gap-2 rounded-2xl border border-gold-500/30 bg-panel p-3">
-    <button @click="guardarDiscipulado()" class="rounded-lg bg-gold-500 px-3 py-2 text-xs font-bold text-gray-950"><span x-text="discipuladoGuardado ? 'Guardado' : 'Guardar camino'"></span></button>
-    <button @click="copiarDiscipulado()" class="rounded-lg border border-line px-3 py-2 text-xs text-gray-300 hover:border-gold-500">Copiar</button>
-    <button @click="compartirDiscipulado()" class="rounded-lg border border-line px-3 py-2 text-xs text-gray-300 hover:border-gold-500">Compartir</button>
-    <button @click="imprimirDiscipulado()" class="rounded-lg border border-line px-3 py-2 text-xs text-gray-300 hover:border-gold-500">Imprimir</button>
-    <button @click="discipuladoNotasAbiertas = !discipuladoNotasAbiertas" class="ml-auto rounded-lg border border-cyan-700/40 px-3 py-2 text-xs text-cyan-800 hover:border-cyan-700">Notas laterales</button>
-  </div>
-  <div x-show="discipuladoPlan" x-cloak class="grid gap-4" :class="discipuladoNotasAbiertas ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'grid-cols-1'">
-    <section class="rounded-2xl border border-line bg-panel p-5"><div class="flex flex-wrap items-end justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-700">Contenido para leer</p><h3 class="mt-1 font-serif text-xl text-gold-100">Lecciones de la ruta</h3><p class="mt-1 text-sm text-gray-500">Lee el contenido, abre el pasaje y después responde.</p></div><span class="rounded-full border border-gold-500/30 px-3 py-1 text-[10px] text-gold-500" x-text="discipuladoLecciones.length + ' lecciones locales'"></span></div><div class="mt-4 space-y-3"><template x-for="leccion in discipuladoLecciones" :key="leccion.id"><article class="rounded-xl border border-line bg-ink p-4"><button type="button" @click="discipuladoLeccionAbierta = discipuladoLeccionAbierta === leccion.id ? null : leccion.id" class="flex w-full items-start justify-between gap-3 text-left"><div><p class="text-[10px] uppercase tracking-wider text-gold-500" x-text="leccion.referencias?.[0]?.ref"></p><h4 class="mt-1 font-serif text-lg text-gold-100" x-text="leccion.titulo"></h4><p class="mt-1 text-xs text-gray-500" x-text="leccion.puntosClave?.join(' · ')"></p></div><span class="text-gold-400" x-text="discipuladoLeccionAbierta === leccion.id ? '−' : '+'"></span></button><div x-show="discipuladoLeccionAbierta === leccion.id" x-cloak class="mt-4 border-t border-line pt-4"><p class="text-sm leading-relaxed text-gray-300" x-text="leccion.lectura"></p><div class="mt-4 rounded-lg border border-gold-500/25 bg-gold-500/5 p-3"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Texto bíblico para meditar · NBLA</p><p class="mt-2 text-sm italic leading-relaxed text-gold-100" x-text="leccion.referencias?.[0]?.cita"></p><button type="button" class="mt-2 text-xs text-gold-400 underline" @click="leerReferencia(leccion.referencias?.[0]?.ref)">Abrir lectura completa en Biblia</button></div><div class="mt-4 grid gap-2 sm:grid-cols-3"><div class="rounded-lg bg-cyan-50 p-3"><p class="text-[10px] font-bold uppercase text-cyan-800">Mirar atrás</p><p class="mt-1 text-xs text-slate-600" x-text="leccion.modelo3M?.atras"></p></div><div class="rounded-lg bg-gold-500/10 p-3"><p class="text-[10px] font-bold uppercase text-gold-700">Mirar arriba</p><p class="mt-1 text-xs text-slate-600" x-text="leccion.modelo3M?.arriba"></p></div><div class="rounded-lg bg-panel2 p-3"><p class="text-[10px] font-bold uppercase text-slate-700">Mirar adelante</p><p class="mt-1 text-xs text-slate-600" x-text="leccion.modelo3M?.adelante"></p></div></div><label class="mt-4 flex items-start gap-2 text-xs text-gray-400"><input type="checkbox" class="mt-0.5 accent-gold-600"><span><strong class="text-gold-300">Aplicación semanal:</strong> <span x-text="leccion.aplicacion"></span></span></label><label class="mt-3 block text-xs text-gray-500">Mi respuesta<textarea x-model="discipuladoNotas[leccion.id]" @input="guardarDiscipulado()" rows="2" class="mt-1 w-full rounded-lg border border-line bg-panel px-3 py-2 text-sm text-gray-700" placeholder="Escribe tu respuesta delante de Dios..."></textarea></label><button type="button" @click="completarLeccion(leccion.id)" class="mt-3 rounded-lg bg-gold-600 px-3 py-2 text-xs font-bold text-gray-950 hover:bg-gold-500"><span x-text="leccionCompletada(leccion.id) ? 'Lección completada' : 'Marcar lección completada'"></span></button></div></article></template></div></section><div class="grid md:grid-cols-3 gap-4">
-    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><div class="mt-3 rounded-lg border border-gold-500/30 bg-gold-500/10 px-3 py-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Hito bíblico · NBLA</p><p class="mt-1 text-xs text-gold-200" x-text="etapa.pasaje"></p></div><p class="mt-3 text-sm leading-relaxed text-gray-400" x-text="etapa.contenido"></p><p class="mt-3 text-xs leading-relaxed text-gray-500"><strong class="text-gold-300">Práctica:</strong> <span x-text="etapa.practica"></span></p><div x-show="etapa.modelo3M" class="mt-4 grid gap-2 sm:grid-cols-3"><div class="rounded-lg bg-cyan-50 p-3"><p class="text-[10px] font-bold uppercase tracking-wider text-cyan-800">Mirar atrás</p><p class="mt-1 text-[11px] leading-relaxed text-slate-600" x-text="etapa.modelo3M?.atras"></p></div><div class="rounded-lg bg-gold-500/10 p-3"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-700">Mirar arriba</p><p class="mt-1 text-[11px] leading-relaxed text-slate-600" x-text="etapa.modelo3M?.arriba"></p></div><div class="rounded-lg bg-panel2 p-3"><p class="text-[10px] font-bold uppercase tracking-wider text-slate-700">Mirar adelante</p><p class="mt-1 text-[11px] leading-relaxed text-slate-600" x-text="etapa.modelo3M?.adelante"></p></div></div><div x-show="etapa.preguntas && etapa.preguntas.length" class="mt-4 border-t border-line pt-4"><p class="text-[10px] font-semibold uppercase tracking-wider text-cyan-700">Detente y responde</p><template x-for="(pregunta, preguntaIndex) in etapa.preguntas" :key="preguntaIndex"><div class="mt-3"><p class="text-xs font-semibold text-gray-700" x-text="pregunta.pregunta"></p><div class="mt-2 space-y-1.5"><template x-for="(opcion, opcionIndex) in pregunta.opciones" :key="opcionIndex"><button type="button" @click="seleccionarRespuesta(index, preguntaIndex, opcionIndex)" class="w-full rounded-lg border px-3 py-2 text-left text-xs transition-colors" :class="discipuladoRespuestas[index]?.[preguntaIndex] === opcionIndex ? 'border-cyan-700 bg-cyan-50 text-cyan-900' : 'border-line text-gray-500 hover:border-cyan-700/50 hover:bg-cyan-50/50'" x-text="opcion"></button></template></div></div></template></div><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89B3C')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.pasaje"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89B3C')" class="h-5 w-5 rounded-full bg-[#C89B3C]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B25A45')" class="h-5 w-5 rounded-full bg-[#B25A45]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A9468')" class="h-5 w-5 rounded-full bg-[#7A9468]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
-    <aside x-show="discipuladoNotasAbiertas" x-cloak class="rounded-xl border border-cyan-700/30 bg-[#F1F7FA] p-4 lg:sticky lg:top-4 lg:h-fit"><div class="flex items-center justify-between"><h3 class="font-serif text-lg text-[#0f172a]">Mis notas</h3><span class="text-[10px] text-cyan-800">guardado automático</span></div><p class="mt-1 text-xs text-[#475569]">Escribe aquí tus respuestas, oraciones o próximos pasos.</p><template x-for="(etapa, index) in discipuladoEtapas" :key="'nota-' + index"><label class="mt-4 block text-xs font-semibold text-[#334155]" x-text="etapa.titulo"><textarea :value="discipuladoNotas[index] || ''" @input="actualizarNota(index, $event.target.value)" rows="3" class="mt-1 w-full rounded-lg border border-cyan-700/20 bg-white p-2 text-xs text-[#1e293b] outline-none focus:border-cyan-700"></textarea></label></template></aside>
-  </div>
-  </section>
-
-
-  <!-- ============ PLANES ============ -->
+                    <!-- ============ PLANES ============ -->
                     <section x-show="vista === 'planes'" class="space-y-6">
                         <!-- Vista catálogo -->
                         <div x-show="!planActivo" x-cloak class="space-y-6">
@@ -1234,20 +1209,6 @@
   </div>
   </div>
 
-  <div class="rounded-2xl border border-line bg-panel p-4">
-    <p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Avance del camino</p>
-    <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-      <template x-for="(etapa, etapaIndex) in discipuladoEtapas" :key="etapa.id || etapaIndex">
-        <div class="rounded-xl border px-3 py-3 transition-colors" :class="etapaCompletada(planActivo.id, etapaIndex) ? 'border-gold-500/50 bg-gold-500/10' : 'border-line bg-ink'">
-          <div class="flex items-center gap-2">
-            <span class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold" :class="etapaCompletada(planActivo.id, etapaIndex) ? 'bg-gold-500 text-gray-950' : 'border border-line text-gray-500'" x-text="etapaCompletada(planActivo.id, etapaIndex) ? '✓' : etapaIndex + 1"></span>
-            <p class="text-xs font-semibold truncate" :class="etapaCompletada(planActivo.id, etapaIndex) ? 'text-gold-300' : 'text-gray-500'" x-text="etapa.titulo"></p>
-          </div>
-          <p class="mt-2 text-[10px] text-gray-500" x-text="etapaCompletada(planActivo.id, etapaIndex) ? 'Lecturas y reflexión completadas' : 'Lecturas y reflexión pendientes'"></p>
-        </div>
-      </template>
-    </div>
-  </div>
 
   <!-- Lista de días -->
   <div class="space-y-3">
@@ -1559,37 +1520,7 @@
         }));
 
         const PLANES_CATALOGO = [crearPlanBibliaCompleta(),
-            {
-                id: 'camino-revelatio',
-                titulo: 'El Camino RevelatiO',
-                categoria: 'Discipulado',
-                duracion: 21,
-                destacado: true,
-                descripcion: 'Tres semanas por el corazón del evangelio: del pecado reconocido a una mente firme y renovada.',
-                dias: [
-                    { titulo: 'Día 1 · Confesión', etapa: 'I', pasajes: ['1 Juan 1:9', 'Salmos 32:5'] },
-                    { titulo: 'Día 2 · Un corazón contrito', etapa: 'I', pasajes: ['Salmos 51:1-12'] },
-                    { titulo: 'Día 3 · Volver a Dios', etapa: 'I', pasajes: ['Isaías 55:6-7', 'Joel 2:12-13'] },
-                    { titulo: 'Día 4 · Arrepentíos', etapa: 'I', pasajes: ['Hechos 3:19', 'Lucas 13:3-5'] },
-                    { titulo: 'Día 5 · El hijo que vuelve', etapa: 'I', pasajes: ['Lucas 15:11-24'] },
-                    { titulo: 'Día 6 · Tristeza que salva', etapa: 'I', pasajes: ['2 Corintios 7:9-10'] },
-                    { titulo: 'Día 7 · Perdón y limpieza', etapa: 'I', pasajes: ['Salmos 103:8-14'] },
-                    { titulo: 'Día 8 · Nacer de nuevo', etapa: 'II', pasajes: ['Juan 3:1-8'] },
-                    { titulo: 'Día 9 · Confesar y creer', etapa: 'II', pasajes: ['Romanos 10:8-13'] },
-                    { titulo: 'Día 10 · Nueva criatura', etapa: 'II', pasajes: ['2 Corintios 5:17', 'Efesios 2:8-10'] },
-                    { titulo: 'Día 11 · Desead la Palabra', etapa: 'II', pasajes: ['1 Pedro 2:1-3', 'Salmos 1'] },
-                    { titulo: 'Día 12 · Toda la Escritura', etapa: 'II', pasajes: ['2 Timoteo 3:14-17'] },
-                    { titulo: 'Día 13 · Medita de día y de noche', etapa: 'II', pasajes: ['Josué 1:8-9', 'Salmos 119:9-16'] },
-                    { titulo: 'Día 14 · Renovad vuestra mente', etapa: 'II', pasajes: ['Romanos 12:1-2'] },
-                    { titulo: 'Día 15 · Firmes y constantes', etapa: 'III', pasajes: ['1 Corintios 15:58'] },
-                    { titulo: 'Día 16 · Retened la esperanza', etapa: 'III', pasajes: ['Hebreos 10:23-25'] },
-                    { titulo: 'Día 17 · No os canséis', etapa: 'III', pasajes: ['Gálatas 6:9', 'Hebreos 12:1-3'] },
-                    { titulo: 'Día 18 · La armadura de Dios', etapa: 'III', pasajes: ['Efesios 6:10-18'] },
-                    { titulo: 'Día 19 · Bienaventurado el que persevera', etapa: 'III', pasajes: ['Santiago 1:2-4', 'Santiago 1:12'] },
-                    { titulo: 'Día 20 · Permaneced en Mí', etapa: 'III', pasajes: ['Juan 15:1-11'] },
-                    { titulo: 'Día 21 · He guardado la fe', etapa: 'III', pasajes: ['2 Timoteo 4:6-8', 'Filipenses 1:6'] }
-                ]
-            },
+
             {
                 id: 'proverbios-31',
                 titulo: 'Proverbios en 31 días',
@@ -2017,7 +1948,7 @@
             ['Fundamentos de la fe','Fundamentos',14],['Evangelio de Juan','Biblia',21],['Romanos 12:2 y la mente renovada','Vida espiritual',14],['Oración perseverante','Vida espiritual',21],['Ayuno y dependencia','Vida espiritual',7],['Santidad práctica','Carácter',30],['Fruto del Espíritu','Carácter',9],['Humildad de Cristo','Carácter',14],['Sabiduría para decidir','Carácter',14],['Dominio propio','Carácter',14],['Matrimonio conforme a la Escritura','Familia',21],['Crianza con gracia y verdad','Familia',14],['Familia que ora','Familia',7],['Sanidad del corazón','Vida espiritual',21],['Duelo y esperanza','Crisis',14],['Ansiedad y confianza en Dios','Crisis',14],['Pruebas y perseverancia','Crisis',14],['Consuelo en los Salmos','Crisis',7],['Consejería bíblica inicial','Pastoral',21],['Cuidado del rebaño','Pastoral',30],['Restauración del caído','Pastoral',14],['Predicación expositiva','Ministerios',30],['Enseñanza fiel','Ministerios',21],['Servicio cristiano','Ministerios',14],['Evangelización personal','Misión',14],['Hacer discípulos','Misión',30],['Misión en el trabajo','Misión',14],['Liderazgo servicial','Liderazgo',21],['Nehemías: liderazgo y visión','Liderazgo',21],['Integridad del líder','Liderazgo',14],['Mayordomía bíblica','Liderazgo',14],['Ética digital cristiana','Vida digital',14],['Tecnología y dominio propio','Vida digital',7],['Pureza en internet','Vida digital',14],['Descanso y límites','Vida digital',7],['Jóvenes firmes','Carácter',21],['Hombres de palabra','Carácter',21],['Mujeres de fe','Carácter',21],['Discipulado de nuevos creyentes','Fundamentos',30],['Doctrinas esenciales','Fundamentos',30],['La cruz de Cristo','Fundamentos',14],['Resurrección y esperanza','Fundamentos',14],['El Espíritu Santo','Fundamentos',21],['Hebreos: perseverar','Biblia',30],['Salmos para cada día','Biblia',30],['Proverbios: sabiduría diaria','Biblia',31],['Efesios: identidad en Cristo','Biblia',21],['Santiago: fe que obra','Biblia',14],['1 Pedro: firme en la prueba','Biblia',14]
         ].map(([titulo,categoria,duracion], i) => ({ id: `plan-${i+2}`, titulo, categoria, duracion, descripcion: `Un recorrido bíblico de ${duracion} días en NBLA para crecer con verdad, práctica y perseverancia.`, miniatura: '/brand/cielo-efata-full.jpg', dias: Array.from({ length: duracion }, (_, d) => ({ titulo: `Día ${d + 1} · ${titulo}`, pasajes: ['Romanos 12:2'] })) }))
         const MINIATURAS_PLAN = {
-  'Biblia': '/planes/biblia.png', 'Fundamentos': '/planes/fundamentos-fe.png', 'Vida espiritual': '/planes/vida-espiritual.png', 'Carácter': '/planes/caracter.png', 'Familia': '/planes/familia.png', 'Pastoral': '/planes/pastoral.png', 'Consuelo': '/planes/consuelo.png', 'Misión': '/planes/mision.png', 'Liderazgo': '/planes/liderazgo.png', 'Vida Digital': '/planes/vida-digital.png', 'Vida digital': '/planes/vida-digital.png', 'Crisis': '/planes/consuelo.png', 'Ministerios': '/planes/ministerios.png', 'Sabiduría': '/planes/sabiduria.png', 'Personajes': '/planes/biblia.png', 'Discipulado': '/planes/discipulado.png', 'Vida de Jesús': '/planes/vida-jesus.png', 'Doctrina': '/planes/doctrina.png', 'Nuevo en la fe': '/planes/nuevo-fe.png', 'Ansiedad': '/planes/ansiedad.png', 'Esperanza': '/planes/esperanza.png', 'Amor': '/planes/amor.png', 'Oración': '/planes/oracion.png', 'Perdón': '/planes/perdon.png', 'Identidad': '/planes/identidad.png', 'Descanso': '/planes/descanso.png'
+  'Biblia': '/planes/biblia.png', 'Fundamentos': '/planes/fundamentos-fe.png', 'Vida espiritual': '/planes/vida-espiritual.png', 'Carácter': '/planes/caracter.png', 'Familia': '/planes/familia.png', 'Pastoral': '/planes/pastoral.png', 'Consuelo': '/planes/consuelo.png', 'Misión': '/planes/mision.png', 'Liderazgo': '/planes/liderazgo.png', 'Vida Digital': '/planes/vida-digital.png', 'Vida digital': '/planes/vida-digital.png', 'Crisis': '/planes/consuelo.png', 'Ministerios': '/planes/ministerios.png', 'Sabiduría': '/planes/sabiduria.png', 'Personajes': '/planes/biblia.png', 'Vida de Jesús': '/planes/vida-jesus.png', 'Doctrina': '/planes/doctrina.png', 'Nuevo en la fe': '/planes/nuevo-fe.png', 'Ansiedad': '/planes/ansiedad.png', 'Esperanza': '/planes/esperanza.png', 'Amor': '/planes/amor.png', 'Oración': '/planes/oracion.png', 'Perdón': '/planes/perdon.png', 'Identidad': '/planes/identidad.png', 'Descanso': '/planes/descanso.png'
   };
   const miniaturaPlan = (plan) => {
   const imagenValida = plan.imagen && !plan.imagen.endsWith('/brand/revelatio-logo.png');
@@ -2059,7 +1990,6 @@
                     { id: 'ia', label: 'RevelatiO IA', labelCorto: 'IA', icon: ICON.ia },
                     { id: 'estudios', label: 'Estudios bíblicos', labelCorto: 'Estudios', icon: ICON.biblia },
                                       { id: 'planes', label: 'Planes', labelCorto: 'Planes', icon: ICON.planes },
-  { id: 'discipulado', label: 'Discipulado', labelCorto: 'Discipulado', icon: ICON.estudio },
                     { id: 'favoritos', label: 'Favoritos', labelCorto: 'Guardados', icon: ICON.favoritos }
                 ],
                 accesos: [
@@ -2086,20 +2016,8 @@
                 estudiosMarcados: cargarEstudioMarcadores(),
                 get estudiosFiltrados() { return buscarEstudiosMaestro(this.estudioBusqueda, this.estudioCategoria); },
                 planesCatalogo: ampliarPlanes(PLANES_CATALOGO),
-discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan: false,
- discipuladoTitulo: '', discipuladoIntroduccion: '', discipuladoCargando: false, discipuladoError: '',
- discipuladoEtapas: [],
-  discipuladoFases: [],
-  discipuladoModulos: [],
-  discipuladoLecciones: [],
-  discipuladoLeccionAbierta: null,
-  discipuladoDevocionalIniciado: false,
-  discipuladoNotas: {},
-  discipuladoRespuestas: {},
-  discipuladoGuardado: false,
-  discipuladoCompletadas: {},
+
   etapaResaltados: {},
-  discipuladoNotasAbiertas: false,
   planActivoId: null,
                 categoriaFiltro: 'Todos',
                 progresoPlanes: {},
@@ -2189,7 +2107,6 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
                     { id: 'diaadia', etiqueta: 'En tu día a día' },
   { id: 'revelatio', etiqueta: 'RevelatiO para ti' },
   { id: 'consejeriaPastoral', etiqueta: 'Consejería pastoral', descripcion: 'Acompañamiento bíblico, escucha y discernimiento para el cuidado integral.' },
-  { id: 'discipulado', etiqueta: 'Discipulado', descripcion: 'Formación de discípulos maduros, obedientes y multiplicadores.' },
   { id: 'predicacionExpositiva', etiqueta: 'Predicación expositiva', descripcion: 'Del texto al púlpito: estructura, intención y aplicación fiel.' },
   { id: 'liderazgoServidores', etiqueta: 'Liderazgo de servidores', descripcion: 'Autoridad espiritual, carácter y servicio según el modelo de Cristo.' },
   { id: 'formacionLideres', etiqueta: 'Formación de líderes', descripcion: 'Criterios bíblicos para reconocer, formar y acompañar líderes.' },
@@ -2239,9 +2156,6 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
                 cache: {},
 
                 async   init() {
-  this.cargarDiscipulado();
-
-
                     window.addEventListener('beforeinstallprompt', (event) => {
                         event.preventDefault();
                         this.promptInstalar = event;
@@ -2407,45 +2321,6 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
                 },
 
 
-  generarDiscipulado() {
-  const catalogo = window.DISCIPULADO_CATALOGO;
-  if (!catalogo || this.discipuladoCargando) return;
-  this.discipuladoCargando = true;
-  this.discipuladoGuardado = false;
-  this.discipuladoError = '';
-  const objetivo = String(this.discipuladoObjetivo || '').trim();
-  this.discipuladoTitulo = catalogo.titulo;
-  this.discipuladoIntroduccion = objetivo ? `${catalogo.introduccion} Objetivo elegido: ${objetivo}.` : catalogo.introduccion;
-  this.discipuladoFases = catalogo.fases;
-  this.discipuladoModulos = catalogo.modulos;
-  this.discipuladoLecciones = catalogo.lecciones;
-  this.discipuladoLeccionAbierta = catalogo.lecciones[0]?.id || null;
-  this.discipuladoDevocionalIniciado = false;
-  this.discipuladoEtapas = catalogo.fases.map((fase) => ({ id: fase.id, titulo: fase.titulo, contenido: fase.descripcion, pasaje: fase.hito, practica: 'Completa los 10 estudios de esta etapa y registra una obediencia concreta.', preguntas: [], completada: false, moduloIds: fase.lecciones }));
-  this.discipuladoPlan = true;
-  this.discipuladoCargando = false;
-  this.guardarDiscipulado();
-  },
-  guardarDiscipulado() {
-  this.discipuladoGuardado = true;
-  localStorage.setItem('revelatio-discipulado-v4', JSON.stringify({ titulo: this.discipuladoTitulo, introduccion: this.discipuladoIntroduccion, objetivo: this.discipuladoObjetivo, ritmo: this.discipuladoRitmo, etapas: this.discipuladoEtapas, notas: this.discipuladoNotas, resaltados: this.etapaResaltados, respuestas: this.discipuladoRespuestas, completadas: this.discipuladoCompletadas, lecciones: this.discipuladoLecciones }));
-  },
-  cargarDiscipulado() {
-  try { const guardado = JSON.parse(localStorage.getItem('revelatio-discipulado-v4') || 'null'); if (guardado && Array.isArray(guardado.etapas) && guardado.etapas.length === 4) { this.discipuladoTitulo = guardado.titulo || ''; this.discipuladoIntroduccion = guardado.introduccion || ''; this.discipuladoObjetivo = guardado.objetivo || ''; this.discipuladoRitmo = guardado.ritmo || '15 minutos al día'; this.discipuladoEtapas = guardado.etapas; this.discipuladoNotas = guardado.notas || {}; this.etapaResaltados = guardado.resaltados || {}; this.discipuladoRespuestas = guardado.respuestas || {}; this.discipuladoCompletadas = guardado.completadas || {}; this.discipuladoLecciones = guardado.lecciones || window.DISCIPULADO_CATALOGO?.lecciones || []; this.discipuladoFases = window.DISCIPULADO_CATALOGO?.fases || []; this.discipuladoModulos = window.DISCIPULADO_CATALOGO?.modulos || []; this.discipuladoPlan = true; } else if (guardado) { localStorage.removeItem('revelatio-discipulado-v4'); } } catch (_) {}
-  },
-  contenidoDiscipulado() { return this.discipuladoEtapas.map((etapa, i) => `${i + 1}. ${etapa.titulo}\n${etapa.contenido}\nPráctica: ${etapa.practica}\nHito NBLA: ${etapa.pasaje}`).join('\n\n'); },
-  copiarDiscipulado() { navigator.clipboard?.writeText(this.contenidoDiscipulado()); },
-  compartirDiscipulado() { const data = { title: 'Mi camino de discipulado · RevelatiO', text: this.contenidoDiscipulado(), url: window.location.href }; if (navigator.share) navigator.share(data); else this.copiarDiscipulado(); },
-  imprimirDiscipulado() { window.print(); },
-  seleccionarRespuesta(etapaIndex, preguntaIndex, opcionIndex) {
-    if (!this.discipuladoRespuestas[etapaIndex]) this.discipuladoRespuestas[etapaIndex] = {};
-    this.discipuladoRespuestas[etapaIndex][preguntaIndex] = opcionIndex;
-    this.guardarDiscipulado();
-  },
-  resaltarEtapa(index, color) { this.etapaResaltados[index] = color; this.guardarDiscipulado(); },
-  actualizarNota(index, value) { this.discipuladoNotas[index] = value; this.guardarDiscipulado(); },
-  leccionCompletada(id) { return Boolean(this.discipuladoCompletadas[id]); },
-  completarLeccion(id) { this.discipuladoCompletadas[id] = true; this.guardarDiscipulado(); },
                 abrirEstudio(study) {
                     if (!study) return;
                     this.estudioSeleccionado = study;
@@ -2997,7 +2872,7 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
                         };
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
-                        this.comentariosBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                        this.comentariosBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexi��n.' };
                     }
                 },
                 async cargarReferencias(forzar = false) {
@@ -3122,16 +2997,11 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
   const capitulos = this.capitulosLeidos(planId);
   return dia.pasajes.every(ref => capitulos.includes(this.capituloKey(i, ref))) || this.diasCompletados(planId).includes(i);
   },
-  preguntasEtapaRespondidas(etapaIndex) {
-  const etapa = this.discipuladoEtapas[etapaIndex];
-  const respuestas = this.discipuladoRespuestas[etapaIndex] || {};
-  return !etapa?.preguntas?.length || etapa.preguntas.every((_, i) => Number.isInteger(respuestas[i]));
-  },
   etapaCompletada(planId, etapaIndex) {
   const plan = this.planesCatalogo.find(p => p.id === planId);
   const dias = (plan?.dias || []).map((dia, i) => ({ dia, i })).filter(({ dia }) => Number(dia.etapa) === etapaIndex + 1);
   const lecturasCompletas = dias.length > 0 && dias.every(({ i }) => this.diaCompleto(planId, i));
-  return lecturasCompletas && this.preguntasEtapaRespondidas(etapaIndex);
+  return lecturasCompletas;
   },
                 planProgreso(planId) {
                     const plan = this.planesCatalogo.find(p => p.id === planId);
