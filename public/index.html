@@ -84,6 +84,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/lib/discipulado-data.js"></script>
+<script src="/lib/estudios-maestro.js"></script>
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -847,6 +848,21 @@
                                 </div>
                             </div>
                         </div>
+                    </section>
+
+                    <!-- ============ ESTUDIOS BÍBLICOS MAESTROS ============ -->
+                    <section x-show="vista === 'estudios'" class="space-y-6">
+                      <div class="zona-oscura rounded-3xl border border-gold-500/30 bg-night p-6 shadow-xl sm:p-8">
+                        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-400">RevelatiO by Efata · Portal teológico</p>
+                        <h2 class="mt-2 font-serif text-3xl text-gold-50">Estudios bíblicos maestros</h2>
+                        <p class="mt-3 max-w-3xl text-sm leading-relaxed text-gray-300">Un catálogo para leer la Escritura con contexto histórico, lenguas originales, teología bíblica, autores clásicos y una aplicación que llega al corazón. La IA no sustituye el texto: solo se activa cuando tú la solicitas.</p>
+                        <div class="mt-5 flex flex-col gap-3 sm:flex-row"><label class="sr-only" for="buscador-estudios">Buscar estudios</label><input id="buscador-estudios" x-model="estudioBusqueda" type="search" placeholder="Buscar por tema, pasaje o concepto..." class="min-w-0 flex-1 rounded-xl border border-gold-500/30 bg-ink px-4 py-3 text-sm text-gray-100 focus:border-gold-400 focus:outline-none"><button @click="estudioBusqueda = ''" class="rounded-xl border border-line px-4 py-3 text-xs text-gray-300">Limpiar</button></div>
+                      </div>
+                      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"><template x-for="cat in ESTUDIO_CATEGORIAS" :key="cat.slug"><button @click="estudioCategoria = estudioCategoria === cat.slug ? '' : cat.slug" class="rounded-2xl border p-4 text-left transition-all" :class="estudioCategoria === cat.slug ? 'border-gold-500 bg-gold-500/10' : 'border-line bg-panel hover:border-gold-500/40'"><p class="text-sm font-semibold text-gold-100" x-text="cat.title"></p><p class="mt-1 text-xs leading-relaxed text-gray-500" x-text="cat.description"></p></button></template></div>
+                      <div class="flex items-center justify-between gap-3"><p class="text-xs uppercase tracking-wider text-gray-500" x-text="`${estudiosFiltrados.length} estudios disponibles`"></p><button @click="abrirEstudio(estudiosFiltrados[0])" :disabled="!estudiosFiltrados.length" class="rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950 disabled:opacity-40">Estudio del día</button></div>
+                      <div class="grid gap-4 md:grid-cols-2"><template x-for="study in estudiosFiltrados" :key="study.slug"><article class="rounded-2xl border border-line bg-panel p-5 transition hover:border-gold-500/50"><div class="flex items-start justify-between gap-3"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="`Estudio ${study.number}`"></span><button @click="marcarEstudio(study)" class="text-xs" :class="estudiosMarcados.includes(study.slug) ? 'text-gold-400' : 'text-gray-500'" :aria-label="'Guardar ' + study.title" x-text="estudiosMarcados.includes(study.slug) ? 'Guardado' : 'Guardar'"></button></div><h3 class="mt-2 font-serif text-xl text-gold-100" x-text="study.title"></h3><p class="mt-1 text-xs text-cyan-700" x-text="study.passage + ' · ' + study.subtitle"></p><p class="mt-3 text-sm leading-relaxed text-gray-400" x-text="study.context"></p><div class="mt-4 flex flex-wrap gap-2"><button @click="abrirEstudio(study)" class="rounded-lg bg-gold-500 px-3 py-2 text-xs font-bold text-gray-950">Abrir estudio</button><button @click="consultarEstudioIA(study)" class="rounded-lg border border-gold-500/30 px-3 py-2 text-xs text-gold-300">Preguntar a IA</button></div></article></template></div>
+                      <article x-show="estudioSeleccionado" x-cloak class="rounded-3xl border border-gold-500/30 bg-panel p-6 sm:p-8"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="estudioSeleccionado && estudioSeleccionado.passage"></p><h3 class="mt-2 font-serif text-3xl text-gold-100" x-text="estudioSeleccionado && estudioSeleccionado.title"></h3></div><button @click="estudioSeleccionado = null" class="text-xs text-gray-500">Cerrar</button></div><div class="mt-6 flex flex-wrap gap-2 border-b border-line pb-3"><template x-for="tab in ['Contexto','Exégesis','Teología','Corazón']" :key="tab"><button @click="estudioPestanaMaestro = tab" class="rounded-lg px-3 py-2 text-xs" :class="estudioPestanaMaestro === tab ? 'bg-gold-500 text-gray-950 font-bold' : 'bg-ink text-gray-400'" x-text="tab"></button></template></div><div class="mt-5"><div x-show="estudioPestanaMaestro === 'Contexto'"><h4 class="font-serif text-xl text-gold-100">Capa antropológica e histórica</h4><p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-gray-300" x-text="estudioSeleccionado && estudioSeleccionado.context"></p></div><div x-show="estudioPestanaMaestro === 'Exégesis'"><h4 class="font-serif text-xl text-gold-100">Capa lingüística exegética</h4><p class="mt-3 text-sm leading-relaxed text-gray-300" x-text="estudioSeleccionado && estudioSeleccionado.linguistic"></p><div class="mt-4 flex flex-wrap gap-2"><template x-for="word in (estudioSeleccionado ? estudioSeleccionado.words : [])" :key="word.strong"><button @click="diccionarioPalabra = word" class="rounded-lg border border-cyan-700/30 bg-cyan-950/10 px-3 py-2 text-xs text-cyan-700" x-text="`${word.word} · ${word.strong}`"></button></template></div></div><div x-show="estudioPestanaMaestro === 'Teología'"><h4 class="font-serif text-xl text-gold-100">Teología y autores clásicos</h4><p class="mt-3 text-sm leading-relaxed text-gray-300" x-text="estudioSeleccionado && estudioSeleccionado.theology"></p><div class="mt-4 space-y-3"><template x-for="author in (estudioSeleccionado ? estudioSeleccionado.authors : [])" :key="author"><blockquote class="border-l-2 border-gold-500/60 pl-4 text-sm italic leading-relaxed text-gold-200" x-text="author"></blockquote></template></div></div><div x-show="estudioPestanaMaestro === 'Corazón'"><h4 class="font-serif text-xl text-gold-100">Cirugía del corazón</h4><p class="mt-3 text-sm leading-relaxed text-gray-300" x-text="estudioSeleccionado && estudioSeleccionado.bridge"></p><div class="mt-4 space-y-3"><template x-for="question in (estudioSeleccionado ? estudioSeleccionado.questions : [])" :key="question"><p class="rounded-xl border border-line bg-ink p-3 text-sm text-gold-200" x-text="question"></p></template></div><textarea x-model="estudioNota" @input="guardarNotaEstudio()" rows="6" placeholder="Notas privadas y compromisos de obediencia..." class="mt-4 w-full rounded-xl border border-line bg-ink p-4 text-sm text-gray-200 focus:border-gold-500 focus:outline-none"></textarea><p class="mt-2 text-[11px] text-gray-500">Guardado localmente mientras conectamos tu sesión Supabase.</p></div></div></article>
+                      <div x-show="diccionarioPalabra" x-cloak class="rounded-2xl border border-cyan-700/30 bg-[#F1F7FA] p-5"><p class="text-[10px] font-bold uppercase tracking-wider text-cyan-800">Diccionario interlineal</p><h3 class="mt-2 text-xl font-semibold text-slate-900" x-text="diccionarioPalabra && diccionarioPalabra.word"></h3><p class="mt-2 text-sm text-slate-700" x-text="diccionarioPalabra && `${diccionarioPalabra.strong}: ${diccionarioPalabra.meaning}`"></p></div>
                     </section>
 
                     <!-- ============ REVELATIO IA ============ -->
@@ -2041,6 +2057,7 @@
                     { id: 'inicio', label: 'Inicio', labelCorto: 'Inicio', icon: ICON.inicio },
                     { id: 'biblia', label: 'Biblia', labelCorto: 'Biblia', icon: ICON.biblia },
                     { id: 'ia', label: 'RevelatiO IA', labelCorto: 'IA', icon: ICON.ia },
+                    { id: 'estudios', label: 'Estudios bíblicos', labelCorto: 'Estudios', icon: ICON.biblia },
                                       { id: 'planes', label: 'Planes', labelCorto: 'Planes', icon: ICON.planes },
   { id: 'discipulado', label: 'Discipulado', labelCorto: 'Discipulado', icon: ICON.estudio },
                     { id: 'favoritos', label: 'Favoritos', labelCorto: 'Guardados', icon: ICON.favoritos }
@@ -2058,6 +2075,16 @@
                 ],
 
                 // datos
+                ESTUDIO_CATEGORIAS: window.ESTUDIO_CATEGORIAS,
+                ESTUDIO_CATALOGO: window.ESTUDIO_CATALOGO,
+                estudioBusqueda: '',
+                estudioCategoria: '',
+                estudioSeleccionado: null,
+                estudioPestanaMaestro: 'Contexto',
+                estudioNota: '',
+                diccionarioPalabra: null,
+                estudiosMarcados: cargarEstudioMarcadores(),
+                get estudiosFiltrados() { return buscarEstudiosMaestro(this.estudioBusqueda, this.estudioCategoria); },
                 planesCatalogo: ampliarPlanes(PLANES_CATALOGO),
 discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan: false,
  discipuladoTitulo: '', discipuladoIntroduccion: '', discipuladoCargando: false, discipuladoError: '',
@@ -2419,6 +2446,16 @@ discipuladoObjetivo: '', discipuladoRitmo: '15 minutos al día', discipuladoPlan
   actualizarNota(index, value) { this.discipuladoNotas[index] = value; this.guardarDiscipulado(); },
   leccionCompletada(id) { return Boolean(this.discipuladoCompletadas[id]); },
   completarLeccion(id) { this.discipuladoCompletadas[id] = true; this.guardarDiscipulado(); },
+                abrirEstudio(study) {
+                    if (!study) return;
+                    this.estudioSeleccionado = study;
+                    this.estudioPestanaMaestro = 'Contexto';
+                    this.estudioNota = cargarEstudioNota(study.slug);
+                    window.setTimeout(() => document.querySelector('[x-show="estudioSeleccionado"]')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+                },
+                marcarEstudio(study) { this.estudiosMarcados = guardarEstudioMarcador(study.slug); },
+                guardarNotaEstudio() { if (this.estudioSeleccionado) guardarEstudioNota(this.estudioSeleccionado.slug, this.estudioNota); },
+                consultarEstudioIA(study) { if (!study) return; this.busqueda = `${study.passage}: ${study.title}`; this.irA('ia'); this.ejecutarEstudio(this.busqueda); },
                 irA(vista) {
                     // Al salir a una sección distinta de la Biblia, olvido el retorno al plan.
                     if (vista !== 'biblia') this.retornoLectura = null;
