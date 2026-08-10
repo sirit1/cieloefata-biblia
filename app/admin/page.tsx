@@ -22,6 +22,7 @@ export default function AdminPage() {
   const [selected, setSelected] = useState<Lead | null>(null)
   const [showComposer, setShowComposer] = useState(false)
   const [notice, setNotice] = useState('')
+  const [sending, setSending] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => { void loadLeads() }, [])
@@ -29,6 +30,21 @@ export default function AdminPage() {
     const { data, error } = await supabase.from('crm_contacts').select('id,full_name,email,whatsapp,status,source,consent_whatsapp,created_at').order('created_at', { ascending: false }).limit(100)
     if (error) setNotice('No se pudo cargar el CRM. Comprueba que tu usuario sea administrador.')
     setLeads((data as Lead[]) || [])
+  }
+  async function sendWhatsApp() {
+    if (!selected?.whatsapp || !selected.consent_whatsapp) {
+      setNotice('Este lead necesita un WhatsApp válido y consentimiento confirmado.')
+      return
+    }
+    setSending(true)
+    const response = await fetch('/api/admin/whatsapp/send', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ to: selected.whatsapp, body: `Hola ${selected.full_name}, somos Revelatio by Efata. ¿En qué podemos ayudarte?`, consent: selected.consent_whatsapp }),
+    })
+    const result = await response.json()
+    setNotice(response.ok ? `Mensaje enviado correctamente (${result.status || 'enviado'}).` : result.error || 'No se pudo enviar el mensaje.')
+    setSending(false)
   }
   async function addLead(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); const form = new FormData(event.currentTarget)
@@ -59,7 +75,7 @@ export default function AdminPage() {
         {tab === 'automation' && <section className="automation-grid"><div className="automation-card"><div className="panel-icon"><Mail size={21} /></div><h2>Bienvenida por email</h2><p>Se activa cuando un lead completa el registro.</p><span className="state state-active">Borrador</span></div><div className="automation-card"><div className="panel-icon"><MessageCircle size={21} /></div><h2>Seguimiento WhatsApp</h2><p>Listo para probar con el proveedor sandbox.</p><span className="sandbox-badge"><span className="status-dot" /> Sandbox</span></div></section>}
       </div>
     </main>
-    {selected && <aside className="detail-drawer" aria-label="Detalle del lead"><button className="drawer-close" aria-label="Cerrar detalle" onClick={() => setSelected(null)}><X size={18} /></button><span className="drawer-kicker">Detalle del lead</span><div className="drawer-avatar">{selected.full_name.split(' ').map(part => part[0]).slice(0, 2).join('')}</div><h2>{selected.full_name}</h2><p className="drawer-muted">{selected.email || 'Sin email registrado'}</p><div className="drawer-list"><div><span>WhatsApp</span><strong>{selected.whatsapp || 'No registrado'}</strong></div><div><span>Origen</span><strong>{selected.source}</strong></div><div><span>Consentimiento</span><strong>{selected.consent_whatsapp ? 'Confirmado' : 'Pendiente'}</strong></div></div><button className="button-primary full"><MessageCircle size={16} /> Iniciar conversación</button></aside>}
+    {selected && <aside className="detail-drawer" aria-label="Detalle del lead"><button className="drawer-close" aria-label="Cerrar detalle" onClick={() => setSelected(null)}><X size={18} /></button><span className="drawer-kicker">Detalle del lead</span><div className="drawer-avatar">{selected.full_name.split(' ').map(part => part[0]).slice(0, 2).join('')}</div><h2>{selected.full_name}</h2><p className="drawer-muted">{selected.email || 'Sin email registrado'}</p><div className="drawer-list"><div><span>WhatsApp</span><strong>{selected.whatsapp || 'No registrado'}</strong></div><div><span>Origen</span><strong>{selected.source}</strong></div><div><span>Consentimiento</span><strong>{selected.consent_whatsapp ? 'Confirmado' : 'Pendiente'}</strong></div></div><button className="button-primary full" onClick={() => void sendWhatsApp()} disabled={sending}><MessageCircle size={16} /> {sending ? 'Enviando…' : 'Enviar WhatsApp'}</button></aside>}
     {showComposer && <div className="modal-backdrop"><div className="composer-modal" role="dialog" aria-modal="true"><div className="modal-header"><div><span className="drawer-kicker">Nueva acción</span><h2>Crear comunicación</h2></div><button aria-label="Cerrar" onClick={() => setShowComposer(false)}><X size={18} /></button></div><div className="channel-toggle"><button className="selected"><Mail size={15} /> Email</button><button><MessageCircle size={15} /> WhatsApp</button></div><form onSubmit={addLead} className="composer-form"><label>Nombre del lead<input name="full_name" required placeholder="Nombre completo" /></label><label>Email<input name="email" type="email" placeholder="nombre@correo.com" /></label><label>WhatsApp<input name="whatsapp" placeholder="+34 600 000 000" /></label><label className="consent-check"><input name="consent_whatsapp" type="checkbox" /> Cuenta con consentimiento para WhatsApp</label><button className="button-primary full" type="submit"><Send size={16} /> Guardar en sandbox</button></form></div></div>}
   </div>
 }
