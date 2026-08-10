@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Revelatio · Administración',
-  description: 'Panel de administración de Revelatio by Efata.',
+  title: 'RevelatiO by Efata · Una mente renovada comienza aquí',
+  description: 'Biblia, estudio profundo y acompañamiento para renovar la mente por medio de la Palabra de Dios.',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
