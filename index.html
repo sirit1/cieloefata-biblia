@@ -190,7 +190,16 @@
   @keyframes paso-hoja { 0% { opacity: .25; transform: perspective(1100px) rotateY(var(--pagina-inicio, -8deg)) translateX(var(--pagina-x, 18px)); filter: brightness(.9); } 55% { opacity: 1; transform: perspective(1100px) rotateY(2deg) translateX(0); filter: brightness(1.03); } 100% { opacity: 1; transform: perspective(1100px) rotateY(0) translateX(0); filter: brightness(1); } }
   .lector-direccion-anterior .pagina-en-movimiento { --pagina-inicio: 8deg; --pagina-x: -18px; }
   @media (prefers-reduced-motion: reduce) { .pagina-en-movimiento { animation: none; } }
-  @media print { .libro-lectura-shell { background: none; } }
+        @media print { .libro-lectura-shell { background: none; } }
+
+        /* Renovación UX/UI: jerarquía editorial, superficies táctiles y foco visible. */
+        .ux-card { box-shadow: 0 12px 32px rgba(28,46,74,.06); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+        .ux-card:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(28,46,74,.11); border-color: rgba(154,107,18,.42); }
+        .nav-active { box-shadow: inset 3px 0 0 #C89B3C; }
+        :focus-visible { outline: 3px solid rgba(200,155,60,.75); outline-offset: 3px; }
+        .mobile-nav { padding-bottom: max(.5rem, env(safe-area-inset-bottom)); }
+        @media (max-width: 1023px) { .mobile-nav { display: flex; } main { padding-bottom: 5.5rem; } }
+        @media (min-width: 1024px) { .mobile-nav { display: none; } }
   </style>
   </head>
 
@@ -282,7 +291,7 @@
         </div>
 
         <!-- HEADER GLOBAL -->
-        <header class="zona-oscura shrink-0 min-h-24 lg:min-h-28 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40">
+        <header class="zona-oscura shrink-0 min-h-20 lg:min-h-24 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40 shadow-lg shadow-night/10">
             <button @click="sidebarAbierta = !sidebarAbierta" class="lg:hidden text-gray-300 hover:text-gold-300 p-1" aria-label="Abrir menú">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
@@ -358,7 +367,7 @@
                         <button @click="sidebarAbierta = false; irA(item.id)"
                             :aria-current="vista === item.id ? 'page' : false"
                             :class="vista === item.id ? 'bg-gradient-to-r from-gold-500/25 to-transparent text-gold-300 border-gold-500/40' : 'text-gray-400 hover:text-gray-100 hover:bg-white/5 border-transparent'"
-                            class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl border transition-all text-sm font-medium">
+                            class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl border transition-all text-sm font-medium nav-active">
                             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" x-html="item.icon"></svg>
                             <span x-text="item.label"></span>
                             <span x-show="item.id === 'favoritos' && favoritos.length" x-cloak class="ml-auto text-[10px] bg-gold-500 text-gray-950 font-bold rounded-full px-2 py-0.5" x-text="favoritos.length"></span>
@@ -446,7 +455,7 @@
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
                             <!-- Pasaje del día -->
-                            <div class="lg:col-span-2 bg-panel border border-line rounded-2xl p-6">
+                            <div class="ux-card lg:col-span-2 bg-panel border border-line rounded-2xl p-6">
                                 <div class="flex items-center justify-between mb-3">
                                     <h3 class="text-xs font-semibold uppercase tracking-wider text-gold-400">Pasaje del día</h3>
                                     <span class="text-[10px] text-gray-500" x-text="fechaHoy"></span>
@@ -1379,26 +1388,17 @@
             </main>
         </div>
 
-        <!-- NAV INFERIOR MÓVIL -->
-        <nav class="lg:hidden shrink-0 bg-panel2 border-t border-line flex items-center justify-around px-2 py-1.5 z-30">
-            <template x-for="item in navegacion" :key="'m-' + item.id">
-                <button @click="irA(item.id)" :class="vista === item.id ? 'text-gold-400' : 'text-gray-500'" class="flex flex-col items-center gap-0.5 px-2 py-1 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" x-html="item.icon"></svg>
-                    <span class="text-[9px] font-medium" x-text="item.labelCorto"></span>
-                </button>
-            </template>
+        <!-- Navegación móvil persistente: una mano, cuatro destinos principales. -->
+        <nav class="mobile-nav fixed bottom-0 inset-x-0 z-40 border-t border-line bg-night/95 px-2 pt-2 backdrop-blur-lg" aria-label="Navegación móvil">
+            <div class="mx-auto grid max-w-lg grid-cols-4 gap-1">
+                <template x-for="item in [{id:'inicio',label:'Inicio'},{id:'biblia',label:'Biblia'},{id:'estudios',label:'Estudios'},{id:'comunidad',label:'Comunidad'}]" :key="item.id">
+                    <button @click="irA(item.id)" :aria-current="vista === item.id ? 'page' : false" :class="vista === item.id ? 'bg-gold-500 text-gray-950' : 'text-gold-100/75 hover:bg-white/10'" class="flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl px-2 py-1 text-[10px] font-semibold transition-colors">
+                        <span class="flex h-6 w-6 items-center justify-center rounded-full border border-current text-[10px]" aria-hidden="true" x-text="{inicio:'I',biblia:'B',estudios:'E',comunidad:'C'}[item.id]"></span><span x-text="item.label"></span>
+                    </button>
+                </template>
+            </div>
         </nav>
-
-        <!-- Modal: definición léxica real (Strong's) al tocar una palabra original -->
-        <div x-show="lexicoAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[80] flex items-end sm:items-center justify-center bg-black/70 p-4" @click.self="lexicoAbierto = false">
-            <div class="zona-oscura bg-night border border-gold-300/60 shadow-2xl rounded-2xl w-full sm:max-w-md p-5 max-h-[80vh] overflow-y-auto text-gold-50">
-                <div class="flex items-start justify-between gap-3 mb-3">
-                    <div>
-                        <p class="text-[11px] font-bold text-gold-100 uppercase tracking-wider">Número Strong · <span x-text="lexicoDatos?.codigo"></span></p>
-                        <h4 class="text-2xl text-gold-100" :class="lexicoDatos?.codigo?.startsWith('H') ? 'font-hebreo' : 'font-griego'" :dir="lexicoDatos?.codigo?.startsWith('H') ? 'rtl' : 'ltr'" x-text="lexicoDatos?.lexema"></h4>
-                        <p class="text-sm text-gold-50" x-text="[lexicoDatos?.transliteracion, lexicoDatos?.pronunciacion].filter(Boolean).join(' · ')"></p>
-                        <p class="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-100">Definición en español</p>
-                    </div>
+    </div>
                     <button @click="lexicoAbierto = false" class="text-gray-500 hover:text-white p-1" aria-label="Cerrar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
                     </button>
