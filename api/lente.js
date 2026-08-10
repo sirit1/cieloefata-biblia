@@ -39,11 +39,6 @@ const LENTES = {
     instruccion:
       'Aplica principios de interpretación bíblica: género literario, contexto histórico y cultural, contexto inmediato y canónico, intención del autor y cómo evitar malas interpretaciones. Explica cómo se debe leer correctamente el pasaje o tema. Después conecta esa interpretación con la neurociencia: distingue con claridad entre lo que afirma la Escritura y lo que la evidencia científica permite explicar sobre atención, memoria, hábitos, emoción y renovación de la mente. No fuerces equivalencias ni presentes hipótesis como hechos.',
   },
-  hermeneuticaNeurociencia: {
-    titulo: 'Hermenéutica + neurociencia',
-    instruccion:
-      'Integra dos pasos inseparables. Primero interpreta el pasaje con hermenéutica bíblica histórico-gramatical: género, contexto histórico-cultural, contexto inmediato y canónico, intención del autor y límites de interpretación. Después conecta esa lectura con la neurociencia actual: atención, memoria, emoción, hábitos, regulación del estrés y aprendizaje. Separa explícitamente el fundamento teológico de la explicación científica, cita referencias bíblicas concretas, no inventes estudios y no uses la neurociencia para “probar” la doctrina. Termina con una aplicación prudente para la renovación de la mente.',
-  },
   inteligenciaEmocional: {
     titulo: 'Inteligencia emocional',
     instruccion:
