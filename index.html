@@ -2759,14 +2759,28 @@
   escucharTextoBiblico() {
   if (!('speechSynthesis' in window) || !this.textoActual) return;
   if (this.bibliaAudioActivo) { window.speechSynthesis.cancel(); this.bibliaAudioActivo = false; return; }
-  const utterance = new SpeechSynthesisUtterance(this.textoActual);
-  utterance.lang = 'es-ES';
-  utterance.rate = 0.9;
-  utterance.onend = () => { this.bibliaAudioActivo = false; };
-  utterance.onerror = () => { this.bibliaAudioActivo = false; };
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
-  this.bibliaAudioActivo = true;
+  const hablar = () => {
+    const voces = window.speechSynthesis.getVoices();
+    const preferidas = ['Microsoft Sabina', 'Microsoft Dalia', 'Paulina', 'Monica', 'Samantha', 'Google español de Estados Unidos', 'Google español latinoamericano', 'Google español de México'];
+    const voz = preferidas.map(nombre => voces.find(v => v.name.toLowerCase().includes(nombre.toLowerCase()))).find(Boolean)
+      || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang) && /female|mujer|sabina|paulina|monica|dalia/i.test(v.name))
+      || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang))
+      || voces.find(v => /^es/i.test(v.lang));
+    const utterance = new SpeechSynthesisUtterance(this.textoActual);
+    utterance.lang = voz?.lang || 'es-MX';
+    if (voz) utterance.voice = voz;
+    utterance.rate = 0.86;
+    utterance.pitch = 1.04;
+    utterance.volume = 1;
+    utterance.onend = () => { this.bibliaAudioActivo = false; };
+    utterance.onerror = () => { this.bibliaAudioActivo = false; };
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    this.bibliaAudioActivo = true;
+  };
+  // Chromium carga las voces de forma asíncrona.
+  if (window.speechSynthesis.getVoices().length) hablar();
+  else { window.speechSynthesis.addEventListener('voiceschanged', hablar, { once: true }); setTimeout(hablar, 700); }
   },
   reiniciarLectura() {
   window.speechSynthesis?.cancel();
