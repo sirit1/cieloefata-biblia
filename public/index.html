@@ -174,6 +174,12 @@
   @media (prefers-reduced-motion: reduce) { .pagina-en-movimiento { animation: none; } }
         @media print { .libro-lectura-shell { background: none; } }
 
+        /* Contraste QA: la página crema usa tinta oscura, también en móvil. */
+        .libro-lectura-shell { background: #fffaf0 !important; color: #2b2417 !important; }
+        .libro-lectura-shell p, .libro-lectura-shell span, .libro-lectura-shell sup { color: #2b2417 !important; -webkit-text-fill-color: #2b2417 !important; }
+        .libro-lectura-shell .text-gold-500, .libro-lectura-shell .text-gold-600 { color: #8a681b !important; -webkit-text-fill-color: #8a681b !important; }
+        .prose-lectura { color: #2b2417 !important; -webkit-text-fill-color: #2b2417 !important; }
+
         /* Renovación UX/UI: jerarquía editorial, superficies táctiles y foco visible. */
         .ux-card { box-shadow: 0 12px 32px rgba(28,46,74,.06); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
         .ux-card:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(28,46,74,.11); border-color: rgba(154,107,18,.42); }
@@ -849,7 +855,7 @@
                                                         </span>
                                                     </template>
                                                 </p>
-                                                <p class="text-[11px] text-gray-500 mt-2">El número en superíndice es el código Strong real de cada palabra. Toca cualquier palabra para ver su definición léxica completa (Brown-Driver-Briggs / Thayer).</p>
+                                                <p class="text-[11px] text-gray-500 mt-2">El número en superíndice es el código Strong real de cada palabra. Toca cualquier palabra para ver su definici��n léxica completa (Brown-Driver-Briggs / Thayer).</p>
 
                                                 <template x-if="original?.septuaginta">
                                                     <div class="mt-4 pt-4 border-t border-line/60">
