@@ -157,14 +157,21 @@
             body { padding-top: env(safe-area-inset-top); }
         }
   
-        /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
-        .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
-        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
-        .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
-        .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
-        .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
-        .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
-        .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
+  /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
+  .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
+  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
+  .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
+  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
+  .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
+  .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
+  .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
+  /* El DOM real aplica nav-active a todos los botones; text-gray-400 no puede oscurecerlos. */
+  aside nav button.nav-active,
+  aside nav button.nav-active span,
+  aside nav button.nav-active svg,
+  aside nav button.text-gray-400,
+  aside nav button.text-gray-400 span { color:#fff4df !important; opacity:1 !important; }
+  aside nav button.nav-active svg { stroke:#f4cf72 !important; }
 </style>
   <style>
   .libro-lectura-shell { background: linear-gradient(90deg, rgba(200,155,60,.05), transparent 12%, transparent 88%, rgba(200,155,60,.05)); border-radius: 1rem; padding: .25rem; transform-origin: center; }
@@ -187,46 +194,59 @@
         :focus-visible { outline: 3px solid rgba(200,155,60,.75); outline-offset: 3px; }
         .mobile-nav { padding-bottom: max(.5rem, env(safe-area-inset-bottom)); }
         @media (max-width: 1023px) { .mobile-nav { display: flex; } main { padding-bottom: 5.5rem; } }
-        @media (min-width: 1024px) { .mobile-nav { display: none; } }
+  @media (min-width: 1024px) { .mobile-nav { display: none; } }
 
-        /* Dirección premium RevelatiO: contraste, capas y foco editorial. */
-        :root { --brand-night:#08152b; --brand-navy:#102746; --brand-ink:#18263b; --brand-paper:#f2eadb; --brand-panel:#fffdf8; --brand-gold:#d6aa45; --brand-gold-bright:#f4cf72; --brand-line:rgba(176,137,52,.34); }
-        body { background: radial-gradient(circle at 80% -10%, rgba(214,170,69,.18), transparent 28rem), linear-gradient(135deg,#e9dfce 0%,#f8f3ea 45%,#e5d8c2 100%) !important; }
-        .app-shell { background:transparent !important; }
-        header, .zona-clara, .bg-paper, .bg-panel { background-color:var(--brand-panel) !important; }
-        .zona-oscura, .bg-night, .bg-ink { background:linear-gradient(145deg,var(--brand-night),var(--brand-navy)) !important; }
-        .bg-panel, .bg-panel2 { box-shadow:0 14px 36px rgba(8,21,43,.10), 0 0 0 1px rgba(214,170,69,.12); }
-        .rounded-2xl, .rounded-3xl { border-color:var(--brand-line) !important; }
-        .ux-card { position:relative; overflow:hidden; box-shadow:0 14px 35px rgba(8,21,43,.12), 0 0 0 1px rgba(214,170,69,.11) !important; }
-        .ux-card::before, .bg-panel::before { content:''; position:absolute; width:180px; height:180px; top:-110px; right:-80px; border-radius:50%; background:rgba(214,170,69,.13); filter:blur(18px); pointer-events:none; }
-        .text-gold-400,.text-gold-500,.text-gold-600,.text-gold-700 { color:var(--brand-gold-bright) !important; }
-        .bg-gold-500 { background:linear-gradient(135deg,var(--brand-gold-bright),var(--brand-gold)) !important; }
-        button:hover, a:hover { filter:brightness(1.08); }
-        .nav-active { background:linear-gradient(90deg,rgba(214,170,69,.24),rgba(214,170,69,.06)) !important; box-shadow:inset 3px 0 var(--brand-gold-bright), 0 8px 20px rgba(0,0,0,.12); }
-        .libro-lectura-shell { background:radial-gradient(circle at 50% 0%,rgba(214,170,69,.16),transparent 35%),linear-gradient(100deg,rgba(214,170,69,.08),transparent 18%,transparent 82%,rgba(214,170,69,.08)) !important; box-shadow:0 20px 60px rgba(8,21,43,.12); }
-        @media (max-width: 1023px) { body { background:#f2eadb !important; } }
-        /* Legibilidad final: tinta real sobre marfil y oro reservado para acentos. */
-        main:not(.zona-oscura), main:not(.zona-oscura) p, main:not(.zona-oscura) span, main:not(.zona-oscura) label, main:not(.zona-oscura) button, main:not(.zona-oscura) a { color:#3b3022; }
-        main:not(.zona-oscura) .text-gray-400, main:not(.zona-oscura) .text-gray-500, main:not(.zona-oscura) .text-gray-600 { color:#675842 !important; }
-        main:not(.zona-oscura) .text-gold-50, main:not(.zona-oscura) .text-gold-100, main:not(.zona-oscura) .text-gold-200 { color:#735617 !important; }
-        main:not(.zona-oscura) .text-gold-300, main:not(.zona-oscura) .text-gold-400, main:not(.zona-oscura) .text-gold-500, main:not(.zona-oscura) .text-gold-600, main:not(.zona-oscura) .text-gold-700 { color:#8a681b !important; }
-        main:not(.zona-oscura) h1, main:not(.zona-oscura) h2, main:not(.zona-oscura) h3, main:not(.zona-oscura) h4 { color:#211a12 !important; }
-        main:not(.zona-oscura) input, main:not(.zona-oscura) select, main:not(.zona-oscura) textarea { color:#211a12 !important; background:#fffdf8 !important; }
-        main:not(.zona-oscura) .text-red-300, main:not(.zona-oscura) .text-red-400, main:not(.zona-oscura) .text-red-500 { color:#a63c3c !important; }
-        main:not(.zona-oscura) .bg-night, main:not(.zona-oscura) .bg-ink, main:not(.zona-oscura) .bg-night *, main:not(.zona-oscura) .bg-ink * { color:#fff8e8 !important; }
-  
-        /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
-        .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
-        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
-        .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
-        .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
-        .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
-        .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
-        .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
-        #versiculo-input, #versiculo-input:focus, #versiculo-input::placeholder { background:#fffaf0 !important; color:#2b2417 !important; -webkit-text-fill-color:#2b2417 !important; caret-color:#2b2417 !important; opacity:1 !important; border-color:#c89b3c !important; }
-        #versiculo-input::-webkit-inner-spin-button, #versiculo-input::-webkit-outer-spin-button { opacity:1 !important; }
+  /* Dirección premium RevelatiO: contraste, capas y foco editorial. */
+  :root { --brand-night:#08152b; --brand-navy:#102746; --brand-ink:#18263b; --brand-paper:#f2eadb; --brand-panel:#fffdf8; --brand-gold:#d6aa45; --brand-gold-bright:#f4cf72; --brand-line:rgba(176,137,52,.34); }
+  body { background: radial-gradient(circle at 80% -10%, rgba(214,170,69,.18), transparent 28rem), linear-gradient(135deg,#e9dfce 0%,#f8f3ea 45%,#e5d8c2 100%) !important; }
+  .app-shell { background:transparent !important; }
+  header, .zona-clara, .bg-paper, .bg-panel { background-color:var(--brand-panel) !important; }
+  .zona-oscura, .bg-night, .bg-ink { background:linear-gradient(145deg,var(--brand-night),var(--brand-navy)) !important; }
+  .bg-panel, .bg-panel2 { box-shadow:0 14px 36px rgba(8,21,43,.10), 0 0 0 1px rgba(214,170,69,.12); }
+  .rounded-2xl, .rounded-3xl { border-color:var(--brand-line) !important; }
+  .ux-card { position:relative; overflow:hidden; box-shadow:0 14px 35px rgba(8,21,43,.12), 0 0 0 1px rgba(214,170,69,.11) !important; }
+  .ux-card::before, .bg-panel::before { content:''; position:absolute; width:180px; height:180px; top:-110px; right:-80px; border-radius:50%; background:rgba(214,170,69,.13); filter:blur(18px); pointer-events:none; }
+  .text-gold-400,.text-gold-500,.text-gold-600,.text-gold-700 { color:var(--brand-gold-bright) !important; }
+  .bg-gold-500 { background:linear-gradient(135deg,var(--brand-gold-bright),var(--brand-gold)) !important; }
+  button:hover, a:hover { filter:brightness(1.08); }
+  .nav-active { background:linear-gradient(90deg,rgba(214,170,69,.24),rgba(214,170,69,.06)) !important; box-shadow:inset 3px 0 var(--brand-gold-bright), 0 8px 20px rgba(0,0,0,.12); }
+  .libro-lectura-shell { background:radial-gradient(circle at 50% 0%,rgba(214,170,69,.16),transparent 35%),linear-gradient(100deg,rgba(214,170,69,.08),transparent 18%,transparent 82%,rgba(214,170,69,.08)) !important; box-shadow:0 20px 60px rgba(8,21,43,.12); }
+  @media (max-width: 1023px) { body { background:#f2eadb !important; } }
+  /* Legibilidad final: tinta real sobre marfil y oro reservado para acentos. */
+  main:not(.zona-oscura), main:not(.zona-oscura) p, main:not(.zona-oscura) span, main:not(.zona-oscura) label, main:not(.zona-oscura) button, main:not(.zona-oscura) a { color:#3b3022; }
+  main:not(.zona-oscura) .text-gray-400, main:not(.zona-oscura) .text-gray-500, main:not(.zona-oscura) .text-gray-600 { color:#675842 !important; }
+  main:not(.zona-oscura) .text-gold-50, main:not(.zona-oscura) .text-gold-100, main:not(.zona-oscura) .text-gold-200 { color:#735617 !important; }
+  main:not(.zona-oscura) .text-gold-300, main:not(.zona-oscura) .text-gold-400, main:not(.zona-oscura) .text-gold-500, main:not(.zona-oscura) .text-gold-600, main:not(.zona-oscura) .text-gold-700 { color:#8a681b !important; }
+  main:not(.zona-oscura) h1, main:not(.zona-oscura) h2, main:not(.zona-oscura) h3, main:not(.zona-oscura) h4 { color:#211a12 !important; }
+  main:not(.zona-oscura) input, main:not(.zona-oscura) select, main:not(.zona-oscura) textarea { color:#211a12 !important; background:#fffdf8 !important; }
+  main:not(.zona-oscura) .text-red-300, main:not(.zona-oscura) .text-red-400, main:not(.zona-oscura) .text-red-500 { color:#a63c3c !important; }
+  main:not(.zona-oscura) .bg-night, main:not(.zona-oscura) .bg-ink { color:#fff8e8 !important; }
+  main:not(.zona-oscura) .bg-night *, main:not(.zona-oscura) .bg-ink * { color:#fff8e8 !important; }
+
+  /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
+  .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
+  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
+  .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
+  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
+  .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
+  .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
+  .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
+  /* El selector de versículo debe mostrar tinta oscura sobre crema. */
+  #versiculo-input, #versiculo-input:focus, #versiculo-input::placeholder {
+    background:#fffaf0 !important; color:#2b2417 !important; -webkit-text-fill-color:#2b2417 !important; caret-color:#2b2417 !important; opacity:1 !important; border-color:#c89b3c !important;
+  }
+  #versiculo-input::-webkit-inner-spin-button, #versiculo-input::-webkit-outer-spin-button { opacity:1 !important; }
   #leer-versiculo { background:#d6aa45 !important; border:1px solid #8a681b !important; color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; box-shadow:0 2px 0 rgba(70,45,8,.2); }
   #leer-versiculo:hover, #leer-versiculo:focus-visible { background:#f4cf72 !important; border-color:#6f510e !important; color:#211a12 !important; }
+  /* Contraste global del contenido sobre azul noche. */
+  main.bg-ink, main.bg-ink p, main.bg-ink span, main.bg-ink label, main.bg-ink button, main.bg-ink a, main.bg-ink li { color:#fff8e8 !important; }
+  main.bg-ink h1, main.bg-ink h2, main.bg-ink h3, main.bg-ink h4, main.bg-ink strong { color:#fffaf0 !important; }
+  main.bg-ink .text-gray-100, main.bg-ink .text-gray-200, main.bg-ink .text-gray-300, main.bg-ink .text-gray-400, main.bg-ink .text-gray-500, main.bg-ink .text-gray-600 { color:#f1e7d2 !important; }
+  main.bg-ink .text-gold-50, main.bg-ink .text-gold-100, main.bg-ink .text-gold-200, main.bg-ink .text-gold-300, main.bg-ink .text-gold-400, main.bg-ink .text-gold-500, main.bg-ink .text-gold-600, main.bg-ink .text-gold-700 { color:#f4cf72 !important; }
+  main.bg-ink .bg-panel, main.bg-ink .bg-panel2, main.bg-ink .bg-paper, main.bg-ink .zona-clara, main.bg-ink [class*="bg-white"] { color:#33281b !important; }
+  main.bg-ink .bg-panel *, main.bg-ink .bg-panel2 *, main.bg-ink .bg-paper *, main.bg-ink .zona-clara *, main.bg-ink [class*="bg-white"] * { color:#33281b !important; }
+  main.bg-ink .bg-panel .text-gold-50, main.bg-ink .bg-panel .text-gold-100, main.bg-ink .bg-panel .text-gold-200, main.bg-ink .bg-panel .text-gold-300, main.bg-ink .bg-panel .text-gold-400, main.bg-ink .bg-panel .text-gold-500, main.bg-ink .bg-panel2 .text-gold-400, main.bg-ink .bg-paper .text-gold-400 { color:#8a681b !important; }
+  /* Sistema final: azul profundo en toda la app y crema de alto contraste. */
   aside nav button.nav-active, aside nav button.nav-active span, aside nav button.nav-active svg,
   aside nav button.text-gray-400, aside nav button.text-gray-400 span { color:#fff4df !important; opacity:1 !important; }
   aside nav button.nav-active svg { stroke:#f4cf72 !important; }
@@ -238,6 +258,7 @@
   main .text-gold-50, main .text-gold-100, main .text-gold-200, main .text-gold-300, main .text-gold-400, main .text-gold-500, main .text-gold-600, main .text-gold-700 { color:#f4cf72 !important; }
   main .bg-panel, main .bg-panel2, main .bg-paper, main .zona-clara, main [class*="bg-white"] { background:#fffaf0 !important; color:#2b2117 !important; box-shadow:0 16px 38px rgba(0,0,0,.24),0 0 0 1px rgba(244,207,114,.25) !important; }
   main .bg-panel *, main .bg-panel2 *, main .bg-paper *, main .zona-clara *, main [class*="bg-white"] * { color:#3b3022 !important; }
+  main .bg-panel h1, main .bg-panel h2, main .bg-panel h3, main .bg-panel h4, main .bg-panel2 h1, main .bg-panel2 h2, main .bg-paper h1, main .bg-paper h2 { color:#211a12 !important; }
   main input, main select, main textarea { background:#fffaf0 !important; color:#211a12 !important; border-color:#b79552 !important; }
 </style>
   <style id="revelatio-contrast-qa">
@@ -271,6 +292,7 @@
     aside.zona-oscura nav button[aria-current="page"] span { color:#ffffff !important; }
   </style>
   <style id="qa-final-nav-text">
+    /* Regla final, después de todos los estilos: texto inactivo legible. */
     aside nav button.nav-active span:not([class]),
     aside nav button.text-gray-400 span:not([class]),
     aside nav button.text-gray-400 { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
@@ -657,7 +679,7 @@
                             <template x-for="tab in ['oracion','creditos','crecimiento','parejas']" :key="tab"><button @click="engagementTab = tab" :class="engagementTab === tab ? 'bg-gold-500 text-gray-950' : 'border border-line text-gray-400'" class="rounded-xl px-4 py-2.5 text-xs font-semibold" x-text="{oracion:'Muro de oración',creditos:'Créditos IA',crecimiento:'Crecimiento',parejas:'Parejas'}[tab]"></button></template>
                         </div>
                         <div x-show="engagementTab === 'oracion'" class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]">
-                            <div class="space-y-4"><div class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="text-xl font-serif text-gold-100">Muro de oración</h3><p class="text-xs text-gray-500">Acompaña con el botón “Estoy orando”.</p></div><input x-model="prayerSearch" type="search" placeholder="Buscar petición" class="rounded-xl border border-line bg-panel px-3 py-2 text-xs text-gray-900"></div><template x-for="prayer in filteredEngagementPrayers" :key="prayer.id"><article class="rounded-2xl border border-line bg-panel p-5"><div class="flex items-start justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-wider text-gold-600" x-text="prayer.category"></p><h4 class="mt-1 text-lg font-serif text-gray-900" x-text="prayer.title"></h4></div><span class="rounded-full bg-gold-500/10 px-2 py-1 text-[10px] text-gold-600" x-text="`${prayer.prayed} orando`"></span></div><p class="mt-3 text-sm leading-relaxed text-gray-700" x-text="prayer.request"></p><button @click="apoyarOracion(prayer)" :disabled="prayer._supported" class="mt-4 rounded-xl border border-gold-500/40 px-3 py-2 text-xs font-semibold text-gold-600 disabled:opacity-50" x-text="prayer._supported ? 'Estoy orando' : 'Estoy orando'"></button></article></template></div>
+                            <div class="space-y-4"><div class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="text-xl font-serif text-gold-100">Muro de oración</h3><p class="text-xs text-gray-500">Acompaña con el botón “Estoy orando���.</p></div><input x-model="prayerSearch" type="search" placeholder="Buscar petición" class="rounded-xl border border-line bg-panel px-3 py-2 text-xs text-gray-900"></div><template x-for="prayer in filteredEngagementPrayers" :key="prayer.id"><article class="rounded-2xl border border-line bg-panel p-5"><div class="flex items-start justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-wider text-gold-600" x-text="prayer.category"></p><h4 class="mt-1 text-lg font-serif text-gray-900" x-text="prayer.title"></h4></div><span class="rounded-full bg-gold-500/10 px-2 py-1 text-[10px] text-gold-600" x-text="`${prayer.prayed} orando`"></span></div><p class="mt-3 text-sm leading-relaxed text-gray-700" x-text="prayer.request"></p><button @click="apoyarOracion(prayer)" :disabled="prayer._supported" class="mt-4 rounded-xl border border-gold-500/40 px-3 py-2 text-xs font-semibold text-gold-600 disabled:opacity-50" x-text="prayer._supported ? 'Estoy orando' : 'Estoy orando'"></button></article></template></div>
                             <form @submit.prevent="publicarPeticion" class="rounded-2xl border border-line bg-panel p-5"><h3 class="text-lg font-serif text-gray-900">Compartir una petición</h3><p class="mt-1 text-xs leading-relaxed text-gray-600">Se publica de forma anónima en esta primera versión.</p><label class="mt-4 block text-xs font-semibold text-gray-700">Título<input x-model="prayerTitle" maxlength="80" required class="mt-1 w-full rounded-xl border border-line bg-white px-3 py-2.5 text-sm text-gray-900"></label><label class="mt-3 block text-xs font-semibold text-gray-700">Petición<textarea x-model="prayerRequest" maxlength="500" required rows="5" class="mt-1 w-full rounded-xl border border-line bg-white px-3 py-2.5 text-sm text-gray-900"></textarea></label><label class="mt-3 block text-xs font-semibold text-gray-700">Categoría<select x-model="prayerCategory" class="mt-1 w-full rounded-xl border border-line bg-white px-3 py-2.5 text-sm text-gray-900"><option>General</option><option>Familia</option><option>Salud</option><option>Perseverancia</option><option>Acción de gracias</option></select></label><button class="mt-4 w-full rounded-xl bg-gold-500 px-4 py-3 text-xs font-bold text-gray-950">Publicar petición</button><p x-show="prayerMessage" x-text="prayerMessage" class="mt-3 text-xs text-gold-600"></p></form>
                         </div>
                         <div x-show="engagementTab === 'creditos'" class="grid gap-5 md:grid-cols-2"><div class="rounded-2xl border border-line bg-panel p-6"><p class="text-xs font-bold uppercase tracking-wider text-gold-600">Saldo diario</p><p class="mt-3 text-4xl font-bold text-gray-900" x-text="`${Math.max(0, creditData.daily - creditData.used)} tokens`"></p><p class="mt-2 text-sm text-gray-600">Uso estimado: <span x-text="creditData.used"></span> de <span x-text="creditData.daily"></span>. El saldo real se validará en servidor al conectar RevelatiO IA.</p></div><div class="rounded-2xl border border-gold-500/25 bg-gold-500/10 p-6"><p class="text-xs font-bold uppercase tracking-wider text-gold-700">Economía transparente</p><p class="mt-3 text-sm leading-relaxed text-gray-800">La plataforma es gratuita. Las donaciones y paquetes de apoyo se mostrarán solo cuando Stripe esté configurado; no se activan cobros desde esta pantalla.</p></div></div>
@@ -879,7 +901,7 @@
                                                         </span>
                                                     </template>
                                                 </p>
-                                                <p class="text-[11px] text-gray-500 mt-2">El número en superíndice es el código Strong real de cada palabra. Toca cualquier palabra para ver su definici��n léxica completa (Brown-Driver-Briggs / Thayer).</p>
+                                                <p class="text-[11px] text-gray-500 mt-2">El número en superíndice es el código Strong real de cada palabra. Toca cualquier palabra para ver su definición léxica completa (Brown-Driver-Briggs / Thayer).</p>
 
                                                 <template x-if="original?.septuaginta">
                                                     <div class="mt-4 pt-4 border-t border-line/60">
@@ -1016,6 +1038,10 @@
                                     <span x-text="cargandoEstudio ? 'Analizando...' : 'Analizar'"></span>
                                 </button>
   </form>
+  <div class="mt-3 flex flex-wrap items-center justify-between gap-3" aria-live="polite">
+    <p class="text-[11px] text-gray-500">La perspectiva activa se conserva para tu siguiente consulta.</p>
+    <button type="button" @click="limpiarEstudio()" :disabled="cargandoEstudio" class="rounded-lg border border-line px-3 py-2 text-[11px] font-semibold text-gray-500 transition hover:border-gold-500/50 hover:text-gold-600 disabled:opacity-40">Limpiar y nueva consulta</button>
+  </div>
   <div class="mt-3 flex items-center justify-between gap-3 text-[11px] text-gray-500" aria-live="polite">
     <span>Consultas profundas disponibles hoy</span>
     <span class="font-semibold text-gold-600" x-text="cuotaIA.unlimited ? 'Acceso ilimitado' : `${Math.max(0, (cuotaIA.request_limit || 3) - (cuotaIA.requests_used || 0))} de ${cuotaIA.request_limit || 3}`"></span>
@@ -1167,7 +1193,7 @@
  <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><template x-for="stage in DISCIPULADO_ETAPAS" :key="stage.id"><button @click="discipuladoEtapa = discipuladoEtapa === stage.id ? 0 : stage.id" class="rounded-2xl border p-4 text-left transition" :class="discipuladoEtapa === stage.id ? 'border-gold-500 bg-gold-500/10' : 'border-line bg-panel hover:border-gold-500/40'"><div class="flex items-center gap-3"><span class="font-mono text-xs text-gold-500" x-text="stage.icon"></span><p class="text-sm font-semibold text-gold-100" x-text="stage.title"></p></div><p class="mt-2 text-xs leading-relaxed text-gray-500" x-text="stage.description"></p></button></template></div>
  <div class="grid gap-3 md:grid-cols-3"><div class="rounded-2xl border border-gold-500/25 bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Método</p><p class="mt-2 text-sm font-semibold text-gold-100">Texto · corazón · obediencia</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Cada lección termina en una respuesta concreta, no solo en información.</p></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Mentoría 1 a 1</p><p class="mt-2 text-sm font-semibold text-gold-100">Camina acompañado</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Comparte tu avance con un mentor de confianza cuando estés listo.</p><button @click="alert('La invitación de mentoría estará disponible al conectar tu cuenta.')" class="mt-3 text-xs font-bold text-gold-600">Preparar invitación</button></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Próximo paso</p><p class="mt-2 text-sm font-semibold text-gold-100" x-text="discipuladoFiltrados[0]?.title || 'Explora una etapa'"></p><p class="mt-1 text-xs text-gray-500">Abre una lección y completa su canvas de seis pasos.</p></div></div>
  <div class="grid gap-4 md:grid-cols-2"><template x-for="topic in discipuladoFiltrados" :key="topic.slug"><article class="rounded-2xl border border-line bg-panel p-5"><div class="flex items-center justify-between gap-3"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="`Tema ${topic.number} · Etapa ${topic.stageId}`"></span><span class="rounded-full px-2 py-1 text-[10px]" :class="discipuladoProgreso[topic.slug]?.status === 'completed' ? 'bg-green-100 text-green-800' : discipuladoProgreso[topic.slug]?.status === 'in_progress' ? 'bg-gold-100 text-gold-800' : 'bg-ink text-gray-500'" x-text="discipuladoProgreso[topic.slug]?.status === 'completed' ? 'Completado' : discipuladoProgreso[topic.slug]?.status === 'in_progress' ? 'En progreso' : 'No iniciado'"></span></div><h3 class="mt-3 font-serif text-xl text-gold-100" x-text="topic.title"></h3><p class="mt-1 text-xs text-cyan-700" x-text="`${topic.passage} · ${topic.greek}`"></p><p class="mt-3 text-sm leading-relaxed text-gray-500" x-text="topic.context"></p><button @click="abrirDiscipulado(topic)" class="mt-4 rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950">Abrir canvas</button></article></template></div>
- <article id="discipulado-canvas" x-show="discipuladoTema" x-cloak class="rounded-3xl border border-gold-500/30 bg-panel p-6 sm:p-8"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-[10px] uppercase tracking-wider text-gold-500" x-text="discipuladoTema && `Tema ${discipuladoTema.number} · ${discipuladoTema.passage}`"></p><h3 class="mt-2 font-serif text-3xl text-gold-100" x-text="discipuladoTema && discipuladoTema.title"></h3></div><button @click="discipuladoTema=null" class="text-xs text-gray-500">Cerrar</button></div><div class="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-6"><template x-for="step in ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre']" :key="step"><button @click="discipuladoPaso = ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1" class="rounded-lg px-2 py-2 text-[10px]" :class="discipuladoPaso === ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1 ? 'bg-gold-500 font-bold text-gray-950' : 'bg-ink text-gray-500'" x-text="step"></button></template></div><div class="mt-7"><div x-show="discipuladoPaso === 1"><h4 class="font-serif text-2xl text-gold-100">Devocional y oración de apertura</h4><p class="mt-4 font-serif text-lg italic leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.psalm"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.prayer"></p></div><div x-show="discipuladoPaso === 2"><h4 class="font-serif text-2xl text-gold-100">Fundamento bíblico exegético</h4><p class="mt-2 text-xs uppercase tracking-wider text-cyan-700" x-text="discipuladoTema && discipuladoTema.passage"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.context"></p><div class="mt-4 rounded-xl border border-gold-500/20 bg-ink p-4"><p class="font-griego text-lg text-gold-700" x-text="discipuladoTema && discipuladoTema.greek"></p><p class="mt-2 text-xs text-gray-500">El término original ilumina el movimiento del texto, pero nunca reemplaza su contexto literario e histórico.</p></div></div><div x-show="discipuladoPaso === 3"><h4 class="font-serif text-2xl text-gold-100">Cirugía del corazón</h4><div class="mt-4 space-y-3"><template x-for="question in (discipuladoTema ? discipuladoTema.questions : [])" :key="question"><p class="rounded-xl border border-line bg-ink p-4 text-sm text-gray-600" x-text="question"></p></template></div><textarea x-model="discipuladoNota" @input="guardarProgresoTema()" rows="7" placeholder="Escribe aquí tu confesión privada y tus compromisos..." class="mt-4 w-full rounded-xl border border-line bg-ink p-4 text-sm text-gray-700 focus:border-gold-500 focus:outline-none"></textarea><p class="mt-2 text-[11px] text-gray-500">Tu reflexión queda privada en este dispositivo.</p></div><div x-show="discipuladoPaso === 4"><h4 class="font-serif text-2xl text-gold-100">Quiz de evaluación</h4><div class="mt-4 space-y-5"><template x-for="(item,index) in (discipuladoTema ? discipuladoTema.quiz : [])" :key="index"><div class="rounded-xl border border-line p-4"><p class="text-sm font-semibold text-gray-700" x-text="`${index+1}. ${item.q}`"></p><div class="mt-3 flex flex-col gap-2"><template x-for="(option,optIndex) in item.options" :key="option"><button @click="responderQuiz(index,optIndex)" class="rounded-lg border px-3 py-2 text-left text-xs" :class="discipuladoQuiz[index] === optIndex ? (optIndex === item.correct ? 'border-green-500 bg-green-50 text-green-800' : 'border-red-400 bg-red-50 text-red-800') : 'border-line text-gray-600 hover:border-gold-500'" x-text="option"></button></template></div><p x-show="discipuladoQuiz[index] !== undefined" class="mt-3 text-xs leading-relaxed text-gray-500" x-text="item.explanation"></p></div></template></div></div><div x-show="discipuladoPaso === 5"><h4 class="font-serif text-2xl text-gold-100">Reforzamiento espiritual</h4><p class="mt-4 rounded-xl border border-gold-500/30 bg-gold-50 p-5 font-serif text-lg italic text-gray-700" x-text="discipuladoTema && discipuladoTema.verse"></p><label class="mt-4 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoMemorizado" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He memorizado el versículo de anclaje</label><div class="mt-4 rounded-xl border border-line bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-500">Acción práctica</p><p class="mt-2 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.action"></p><label class="mt-3 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoAccion" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He dado este paso esta semana</label></div></div><div x-show="discipuladoPaso === 6"><h4 class="font-serif text-2xl text-gold-100">Conclusión y consagración</h4><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.theology"></p><p class="mt-4 rounded-xl border-l-2 border-gold-500 bg-gold-50 p-5 font-serif text-lg italic leading-relaxed text-gray-700" x-text="discipuladoTema && discipuladoTema.prayer"></p><button @click="completarDiscipulado()" class="mt-5 rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-gray-950">Completar tema</button></div></div><div class="mt-7 flex justify-between border-t border-line pt-4"><button @click="discipuladoPaso = Math.max(1, discipuladoPaso-1)" class="rounded-lg border border-line px-4 py-2 text-xs text-gray-600">Anterior</button><button @click="discipuladoPaso = Math.min(6, discipuladoPaso+1)" class="rounded-lg bg-night px-4 py-2 text-xs font-bold text-gray-100">Siguiente paso</button></div></article>
+ <article id="discipulado-canvas" x-show="discipuladoTema" x-cloak class="rounded-3xl border border-gold-500/30 bg-panel p-6 sm:p-8"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-[10px] uppercase tracking-wider text-gold-500" x-text="discipuladoTema && `Tema ${discipuladoTema.number} · ${discipuladoTema.passage}`"></p><h3 class="mt-2 font-serif text-3xl text-gold-100" x-text="discipuladoTema && discipuladoTema.title"></h3></div><button @click="discipuladoTema=null" class="text-xs text-gray-500">Cerrar</button></div><div class="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-6"><template x-for="step in ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre']" :key="step"><button @click="discipuladoPaso = ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1" class="rounded-lg px-2 py-2 text-[10px]" :class="discipuladoPaso === ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1 ? 'bg-gold-500 font-bold text-gray-950' : 'bg-ink text-gray-500'" x-text="step"></button></template></div><div class="mt-7"><div x-show="discipuladoPaso === 1"><h4 class="font-serif text-2xl text-gold-100">Devocional y oración de apertura</h4><p class="mt-4 font-serif text-lg italic leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.psalm"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.prayer"></p></div><div x-show="discipuladoPaso === 2"><h4 class="font-serif text-2xl text-gold-100">Fundamento bíblico exeg��tico</h4><p class="mt-2 text-xs uppercase tracking-wider text-cyan-700" x-text="discipuladoTema && discipuladoTema.passage"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.context"></p><div class="mt-4 rounded-xl border border-gold-500/20 bg-ink p-4"><p class="font-griego text-lg text-gold-700" x-text="discipuladoTema && discipuladoTema.greek"></p><p class="mt-2 text-xs text-gray-500">El término original ilumina el movimiento del texto, pero nunca reemplaza su contexto literario e histórico.</p></div></div><div x-show="discipuladoPaso === 3"><h4 class="font-serif text-2xl text-gold-100">Cirugía del corazón</h4><div class="mt-4 space-y-3"><template x-for="question in (discipuladoTema ? discipuladoTema.questions : [])" :key="question"><p class="rounded-xl border border-line bg-ink p-4 text-sm text-gray-600" x-text="question"></p></template></div><textarea x-model="discipuladoNota" @input="guardarProgresoTema()" rows="7" placeholder="Escribe aquí tu confesión privada y tus compromisos..." class="mt-4 w-full rounded-xl border border-line bg-ink p-4 text-sm text-gray-700 focus:border-gold-500 focus:outline-none"></textarea><p class="mt-2 text-[11px] text-gray-500">Tu reflexión queda privada en este dispositivo.</p></div><div x-show="discipuladoPaso === 4"><h4 class="font-serif text-2xl text-gold-100">Quiz de evaluación</h4><div class="mt-4 space-y-5"><template x-for="(item,index) in (discipuladoTema ? discipuladoTema.quiz : [])" :key="index"><div class="rounded-xl border border-line p-4"><p class="text-sm font-semibold text-gray-700" x-text="`${index+1}. ${item.q}`"></p><div class="mt-3 flex flex-col gap-2"><template x-for="(option,optIndex) in item.options" :key="option"><button @click="responderQuiz(index,optIndex)" class="rounded-lg border px-3 py-2 text-left text-xs" :class="discipuladoQuiz[index] === optIndex ? (optIndex === item.correct ? 'border-green-500 bg-green-50 text-green-800' : 'border-red-400 bg-red-50 text-red-800') : 'border-line text-gray-600 hover:border-gold-500'" x-text="option"></button></template></div><p x-show="discipuladoQuiz[index] !== undefined" class="mt-3 text-xs leading-relaxed text-gray-500" x-text="item.explanation"></p></div></template></div></div><div x-show="discipuladoPaso === 5"><h4 class="font-serif text-2xl text-gold-100">Reforzamiento espiritual</h4><p class="mt-4 rounded-xl border border-gold-500/30 bg-gold-50 p-5 font-serif text-lg italic text-gray-700" x-text="discipuladoTema && discipuladoTema.verse"></p><label class="mt-4 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoMemorizado" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He memorizado el versículo de anclaje</label><div class="mt-4 rounded-xl border border-line bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-500">Acción práctica</p><p class="mt-2 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.action"></p><label class="mt-3 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoAccion" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He dado este paso esta semana</label></div></div><div x-show="discipuladoPaso === 6"><h4 class="font-serif text-2xl text-gold-100">Conclusión y consagración</h4><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.theology"></p><p class="mt-4 rounded-xl border-l-2 border-gold-500 bg-gold-50 p-5 font-serif text-lg italic leading-relaxed text-gray-700" x-text="discipuladoTema && discipuladoTema.prayer"></p><button @click="completarDiscipulado()" class="mt-5 rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-gray-950">Completar tema</button></div></div><div class="mt-7 flex justify-between border-t border-line pt-4"><button @click="discipuladoPaso = Math.max(1, discipuladoPaso-1)" class="rounded-lg border border-line px-4 py-2 text-xs text-gray-600">Anterior</button><button @click="discipuladoPaso = Math.min(6, discipuladoPaso+1)" class="rounded-lg bg-night px-4 py-2 text-xs font-bold text-gray-100">Siguiente paso</button></div></article>
 </section>
 
 <!-- ============ PLANES ============ -->
@@ -1263,7 +1289,7 @@
                                         Todos los planes
                                     </button>
 
-                                    <!-- 1) Devocional de apertura: invitaci��n a orar y leer, construido para este plan -->
+                                    <!-- 1) Devocional de apertura: invitación a orar y leer, construido para este plan -->
                                     <section class="brand-panel rounded-2xl border border-gold-500/40 bg-gradient-to-br from-gold-600/10 to-panel p-6">
                                         <div class="flex items-start gap-4">
                                             <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 rounded-xl object-contain border border-line bg-panel2 p-1 shrink-0">
@@ -1864,7 +1890,7 @@
                     categoria: 'Carácter',
                     duracion: 7,
                     imagen: '/brand/revelatio-logo.png',
-                    descripcion: 'Un camino práctico para responder con sabiduría frente al enojo, la impulsividad, la pantalla y la presión diaria.',
+                    descripcion: 'Un camino práctico para responder con sabiduría frente al enojo, la impulsividad, la pantalla y la presi��n diaria.',
                     dias: [
                         { titulo: 'Día 1 · Una mente sobria', pasajes: ['2 Timoteo 1:7', '1 Pedro 5:8-9'] },
                         { titulo: 'Día 2 · Lento para la ira', pasajes: ['Santiago 1:19-20', 'Proverbios 14:29'] },
@@ -2085,7 +2111,7 @@
         }
 
         const PLANES_EXTRA = [
-            ['Fundamentos de la fe','Fundamentos',14],['Evangelio de Juan','Biblia',21],['Romanos 12:2 y la mente renovada','Vida espiritual',14],['Oración perseverante','Vida espiritual',21],['Ayuno y dependencia','Vida espiritual',7],['Santidad práctica','Carácter',30],['Fruto del Espíritu','Carácter',9],['Humildad de Cristo','Carácter',14],['Sabiduría para decidir','Carácter',14],['Dominio propio','Car��cter',14],['Matrimonio conforme a la Escritura','Familia',21],['Crianza con gracia y verdad','Familia',14],['Familia que ora','Familia',7],['Sanidad del corazón','Vida espiritual',21],['Duelo y esperanza','Crisis',14],['Ansiedad y confianza en Dios','Crisis',14],['Pruebas y perseverancia','Crisis',14],['Consuelo en los Salmos','Crisis',7],['Consejería bíblica inicial','Pastoral',21],['Cuidado del rebaño','Pastoral',30],['Restauración del caído','Pastoral',14],['Predicación expositiva','Ministerios',30],['Enseñanza fiel','Ministerios',21],['Servicio cristiano','Ministerios',14],['Evangelización personal','Misión',14],['Hacer discípulos','Misión',30],['Misión en el trabajo','Misión',14],['Liderazgo servicial','Liderazgo',21],['Nehemías: liderazgo y visión','Liderazgo',21],['Integridad del líder','Liderazgo',14],['Mayordomía bíblica','Liderazgo',14],['Ética digital cristiana','Vida digital',14],['Tecnología y dominio propio','Vida digital',7],['Pureza en internet','Vida digital',14],['Descanso y límites','Vida digital',7],['Jóvenes firmes','Carácter',21],['Hombres de palabra','Carácter',21],['Mujeres de fe','Carácter',21],['Discipulado de nuevos creyentes','Fundamentos',30],['Doctrinas esenciales','Fundamentos',30],['La cruz de Cristo','Fundamentos',14],['Resurrección y esperanza','Fundamentos',14],['El Espíritu Santo','Fundamentos',21],['Hebreos: perseverar','Biblia',30],['Salmos para cada día','Biblia',30],['Proverbios: sabiduría diaria','Biblia',31],['Efesios: identidad en Cristo','Biblia',21],['Santiago: fe que obra','Biblia',14],['1 Pedro: firme en la prueba','Biblia',14]
+            ['Fundamentos de la fe','Fundamentos',14],['Evangelio de Juan','Biblia',21],['Romanos 12:2 y la mente renovada','Vida espiritual',14],['Oración perseverante','Vida espiritual',21],['Ayuno y dependencia','Vida espiritual',7],['Santidad práctica','Carácter',30],['Fruto del Espíritu','Carácter',9],['Humildad de Cristo','Carácter',14],['Sabiduría para decidir','Carácter',14],['Dominio propio','Carácter',14],['Matrimonio conforme a la Escritura','Familia',21],['Crianza con gracia y verdad','Familia',14],['Familia que ora','Familia',7],['Sanidad del corazón','Vida espiritual',21],['Duelo y esperanza','Crisis',14],['Ansiedad y confianza en Dios','Crisis',14],['Pruebas y perseverancia','Crisis',14],['Consuelo en los Salmos','Crisis',7],['Consejería bíblica inicial','Pastoral',21],['Cuidado del rebaño','Pastoral',30],['Restauración del caído','Pastoral',14],['Predicación expositiva','Ministerios',30],['Enseñanza fiel','Ministerios',21],['Servicio cristiano','Ministerios',14],['Evangelización personal','Misión',14],['Hacer discípulos','Misión',30],['Misión en el trabajo','Misión',14],['Liderazgo servicial','Liderazgo',21],['Nehemías: liderazgo y visión','Liderazgo',21],['Integridad del líder','Liderazgo',14],['Mayordomía bíblica','Liderazgo',14],['Ética digital cristiana','Vida digital',14],['Tecnología y dominio propio','Vida digital',7],['Pureza en internet','Vida digital',14],['Descanso y límites','Vida digital',7],['Jóvenes firmes','Carácter',21],['Hombres de palabra','Carácter',21],['Mujeres de fe','Carácter',21],['Discipulado de nuevos creyentes','Fundamentos',30],['Doctrinas esenciales','Fundamentos',30],['La cruz de Cristo','Fundamentos',14],['Resurrección y esperanza','Fundamentos',14],['El Espíritu Santo','Fundamentos',21],['Hebreos: perseverar','Biblia',30],['Salmos para cada día','Biblia',30],['Proverbios: sabiduría diaria','Biblia',31],['Efesios: identidad en Cristo','Biblia',21],['Santiago: fe que obra','Biblia',14],['1 Pedro: firme en la prueba','Biblia',14]
         ].map(([titulo,categoria,duracion], i) => ({ id: `plan-${i+2}`, titulo, categoria, duracion, descripcion: `Un recorrido bíblico de ${duracion} días en NBLA para crecer con verdad, práctica y perseverancia.`, miniatura: '/brand/cielo-efata-full.jpg', dias: Array.from({ length: duracion }, (_, d) => ({ titulo: `Día ${d + 1} · ${titulo}`, pasajes: ['Romanos 12:2'] })) }))
         const MINIATURAS_PLAN = {
   'Biblia': '/planes/biblia.png', 'Fundamentos': '/planes/fundamentos-fe.png', 'Vida espiritual': '/planes/vida-espiritual.png', 'Carácter': '/planes/caracter.png', 'Familia': '/planes/familia.png', 'Pastoral': '/planes/pastoral.png', 'Consuelo': '/planes/consuelo.png', 'Misión': '/planes/mision.png', 'Liderazgo': '/planes/liderazgo.png', 'Vida Digital': '/planes/vida-digital.png', 'Vida digital': '/planes/vida-digital.png', 'Crisis': '/planes/consuelo.png', 'Ministerios': '/planes/ministerios.png', 'Sabiduría': '/planes/sabiduria.png', 'Personajes': '/planes/biblia.png', 'Vida de Jesús': '/planes/vida-jesus.png', 'Doctrina': '/planes/doctrina.png', 'Nuevo en la fe': '/planes/nuevo-fe.png', 'Ansiedad': '/planes/ansiedad.png', 'Esperanza': '/planes/esperanza.png', 'Amor': '/planes/amor.png', 'Oración': '/planes/oracion.png', 'Perdón': '/planes/perdon.png', 'Identidad': '/planes/identidad.png', 'Descanso': '/planes/descanso.png'
@@ -2151,7 +2177,7 @@
                 creditData: window.REVELATIO_ENGAGEMENT.today,
                 engagementLoaded: true,
                 pilares: [
-                    { titulo: 'Exégesis histórica y gramatical', desc: 'Rigor académico sobre el texto en su contexto original.' },
+                    { titulo: 'Exégesis hist��rica y gramatical', desc: 'Rigor académico sobre el texto en su contexto original.' },
                     { titulo: 'Idiomas originales', desc: 'Análisis del hebreo y griego que sostienen la Palabra.' },
                     { titulo: 'Psicología cristiana', desc: 'Sanidad de la mente a la luz de las Escrituras.' },
                     { titulo: 'Neuroplasticidad', desc: 'Reconfigurar patrones de pensamiento mediante la verdad viva.' }
@@ -2313,6 +2339,7 @@
                     { id: 'diaadia', etiqueta: 'En tu día a día' },
   { id: 'revelatio', etiqueta: 'RevelatiO para ti' },
   { id: 'consejeriaPastoral', etiqueta: 'Consejería pastoral', descripcion: 'Acompañamiento bíblico, escucha y discernimiento para el cuidado integral.' },
+  { id: 'discipulado', etiqueta: 'Discipulado', descripcion: 'Creer, abandonar, practicar y enseñar como discípulo de Jesús.' },
   { id: 'predicacionExpositiva', etiqueta: 'Predicación expositiva', descripcion: 'Del texto al púlpito: estructura, intención y aplicación fiel.' },
   { id: 'liderazgoServidores', etiqueta: 'Liderazgo de servidores', descripcion: 'Autoridad espiritual, carácter y servicio según el modelo de Cristo.' },
   { id: 'formacionLideres', etiqueta: 'Formación de líderes', descripcion: 'Criterios bíblicos para reconocer, formar y acompañar líderes.' },
@@ -2696,14 +2723,14 @@
                 },
 
                 // Texto bíblico REAL (no generado por IA), instantáneo, con ocho versiones: siete traducciones servidas por Bolls y la línea española asociada a la Peshitta.
-                async obtenerPasajeReal(ref) {
-                    if (this.cachePasaje[ref]) return this.cachePasaje[ref];
-                    const response = await fetch('/api/pasaje', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ referencia: ref })
-                    });
-                    const result = await response.json();
+  async obtenerPasajeReal(ref) {
+  if (this.cachePasaje[ref]) return this.cachePasaje[ref];
+  const response = await fetch('/api/pasaje', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ referencia: ref })
+  });
+  const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
                     const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {}, versionesVersos: data.versionesVersos || {}, original: data.original || null };
@@ -2838,7 +2865,10 @@
   const hablar = () => {
     const voces = window.speechSynthesis.getVoices();
     const preferidas = ['Microsoft Sabina', 'Microsoft Dalia', 'Paulina', 'Monica', 'Samantha', 'Google español de Estados Unidos', 'Google español latinoamericano', 'Google español de México'];
-    const voz = preferidas.map(nombre => voces.find(v => v.name.toLowerCase().includes(nombre.toLowerCase()))).find(Boolean) || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang) && /female|mujer|sabina|paulina|monica|dalia/i.test(v.name)) || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang)) || voces.find(v => /^es/i.test(v.lang));
+    const voz = preferidas.map(nombre => voces.find(v => v.name.toLowerCase().includes(nombre.toLowerCase()))).find(Boolean)
+      || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang) && /female|mujer|sabina|paulina|monica|dalia/i.test(v.name))
+      || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang))
+      || voces.find(v => /^es/i.test(v.lang));
     const utterance = new SpeechSynthesisUtterance(this.textoActual);
     utterance.lang = voz?.lang || 'es-MX';
     if (voz) utterance.voice = voz;
@@ -2851,6 +2881,7 @@
     window.speechSynthesis.speak(utterance);
     this.bibliaAudioActivo = true;
   };
+  // Chromium carga las voces de forma asíncrona.
   if (window.speechSynthesis.getVoices().length) hablar();
   else { window.speechSynthesis.addEventListener('voiceschanged', hablar, { once: true }); setTimeout(hablar, 700); }
   },
@@ -2879,6 +2910,19 @@
                     this.busqueda = this.referenciaActiva;
                     this.irA('ia');
                     await this.ejecutarEstudio(this.referenciaActiva);
+                },
+                limpiarEstudio() {
+                    if (this.cargandoEstudio) return;
+                    this.busqueda = '';
+                    this.estudioRef = '';
+                    this.estudioListo = false;
+                    this.estudio = { comentario: '', original: '', aplicacion: '', objetivo: '', contexto: '', estructura: '', analisisGramatical: '', hermeneutica: '', exegesis: '', comparaciones: [], comentarios: [], predica: { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' } };
+                    this.lentes = {};
+                    this.lenteActiva = 'hermeneuticaNeurociencia';
+                    this.errorEstudio = false;
+                    this.mensajeEstudio = 'Escribe una palabra, un pasaje o un tema para comenzar un nuevo estudio.';
+                    this.iaVista = 'consulta';
+                    this.$nextTick(() => document.getElementById('ia-input')?.focus());
                 },
                 async iniciarDonacion() {
   if (this.donacionCargando) return;
@@ -3096,14 +3140,14 @@
                             blockquote{border-left:2px solid #C89B3C;margin:10px 0;padding:4px 14px;font-style:italic;color:#7C550E}
                             footer{margin-top:32px;padding-top:12px;border-top:1px solid #E3D8C2;font-size:10px;color:#9A8A6E}
                         
-        /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
-        .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
-        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
-        .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
-        .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
-        .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
-        .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
-        .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
+  /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
+  .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
+  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
+  .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
+  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
+  .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
+  .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
+  .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
 </style></head><body>
                         <div class="marca">RevelatiO</div><div class="sub">by Efata</div>
                         <h1>${esc(this.estudioRef)}</h1>
@@ -3723,6 +3767,7 @@
         }
   </script>
   <style id="qa-fixed-sidebar-contrast">
+    /* Sidebar fijo de escritorio: texto inactivo claro sobre tarjetas oscuras. */
     body aside button.w-full.flex.items-center.gap-3,
     body aside button.w-full.flex.items-center.gap-3 > span:first-of-type { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
     body aside button.w-full.flex.items-center.gap-3 > svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }

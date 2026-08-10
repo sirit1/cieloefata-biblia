@@ -6,7 +6,7 @@ import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 
 const ESQUEMA_LENTE = z.object({
   titulo: z.string().describe('Título breve y atractivo para esta lente aplicada a la consulta.'),
-  cuerpo: z.string().describe('Desarrollo en español claro y pastoral, 2 a 4 párrafos separados por salto de línea doble.'),
+  cuerpo: z.string().describe('Estudio amplio y profundo en español claro y pastoral, de 6 a 9 párrafos separados por salto de línea doble. Incluye observación del texto, interpretación desde la lente, referencias bíblicas verificables, límites de la lectura y aplicación concreta.'),
   destacado: z.string().describe('Una sola frase memorable que resuma la enseñanza clave.'),
 });
 
@@ -178,12 +178,12 @@ Genera el comentario siguiendo el esquema proporcionado.
 
 Reglas:
 - "titulo": un título breve y atractivo para esta lente aplicada a la consulta.
-- "cuerpo": el desarrollo, en español claro y pastoral. Usa 2 a 4 párrafos separados por un salto de línea doble. Incluye referencias bíblicas concretas cuando aporten. Si se te da un CONTEXTO REAL VERIFICADO más abajo, apóyate en ese griego/hebreo y en el número de Strong real en vez de inventarlo.
+- "cuerpo": redacta un estudio amplio, profundo y bien estructurado, en español claro y pastoral. Usa 6 a 9 párrafos separados por un salto de línea doble. Desarrolla: observación del texto, interpretación propia de la lente, referencias bíblicas verificables, conexión con la vida, límites y cautelas, y pasos concretos de obediencia. Si se te da un CONTEXTO REAL VERIFICADO más abajo, apóyate en ese griego/hebreo y en el número de Strong real en vez de inventarlo.
 - "destacado": una sola frase memorable que resuma la enseñanza clave (para resaltar en pantalla).
 - No inventes datos que no puedas sostener. Sé riguroso, cálido y edificante.
 - PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'rapido', reintentos: 1, maxOutputTokens: 3200 });
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'profundo', reintentos: 1, maxOutputTokens: 5200 });
     return res.status(200).json({
       success: true,
       data: {
