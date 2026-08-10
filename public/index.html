@@ -266,6 +266,16 @@
     aside.zona-oscura nav button[aria-current="page"],
     aside.zona-oscura nav button[aria-current="page"] span { color:#ffffff !important; }
   </style>
+  <style id="qa-final-nav-text">
+    aside nav button.nav-active span:not([class]),
+    aside nav button.text-gray-400 span:not([class]),
+    aside nav button.text-gray-400 { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
+    aside nav button.nav-active svg,
+    aside nav button.text-gray-400 svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
+    aside nav button[class*="text-gray-400"] { color:#fff4df !important; }
+    aside nav button[class*="text-gray-400"] > span:not([class]) { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
+    aside nav button[class*="text-gray-400"] > svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
+  </style>
   </head>
 
 <body class="h-full bg-ink antialiased" x-data="cieloApp()">
