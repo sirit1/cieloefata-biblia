@@ -44,6 +44,11 @@ const LENTES = {
     instruccion:
       'Integra dos pasos inseparables. Primero interpreta el pasaje con hermenéutica bíblica histórico-gramatical: género, contexto histórico-cultural, contexto inmediato y canónico, intención del autor y límites de interpretación. Después conecta esa lectura con la neurociencia actual: atención, memoria, emoción, hábitos, regulación del estrés y aprendizaje. Separa explícitamente el fundamento teológico de la explicación científica, cita referencias bíblicas concretas, no inventes estudios y no uses la neurociencia para “probar” la doctrina. Termina con una aplicación prudente para la renovación de la mente.',
   },
+  inteligenciaEmocional: {
+    titulo: 'Inteligencia emocional',
+    instruccion:
+      'Analiza cómo la consulta forma el reconocimiento, la regulación y la expresión responsable de las emociones delante de Dios. Distingue emoción de conducta, integra dominio propio, compasión, perdón y verdad bíblica, y ofrece prácticas concretas sin convertir la fe en una técnica psicológica.',
+  },
   psicologia: {
     titulo: 'Psicología cristiana',
     instruccion:
