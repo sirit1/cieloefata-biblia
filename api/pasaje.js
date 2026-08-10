@@ -79,9 +79,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método no permitido.' });
   }
 
-  const user = await authenticate(req);
-  if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
-
+  // La lectura bíblica es contenido público; no debe quedar bloqueada por una
+  // sesión ausente o vencida. Las funciones privadas siguen autenticándose.
   const referencia = typeof req.body?.referencia === 'string' ? req.body.referencia.trim() : '';
   if (!referencia || referencia.length > 60) {
     return res.status(400).json({ error: 'La referencia bíblica no es válida.' });

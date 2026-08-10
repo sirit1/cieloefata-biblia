@@ -236,6 +236,8 @@
     background:#fffaf0 !important; color:#2b2417 !important; -webkit-text-fill-color:#2b2417 !important; caret-color:#2b2417 !important; opacity:1 !important; border-color:#c89b3c !important;
   }
   #versiculo-input::-webkit-inner-spin-button, #versiculo-input::-webkit-outer-spin-button { opacity:1 !important; }
+  #leer-versiculo { background:#d6aa45 !important; border:1px solid #8a681b !important; color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; box-shadow:0 2px 0 rgba(70,45,8,.2); }
+  #leer-versiculo:hover, #leer-versiculo:focus-visible { background:#f4cf72 !important; border-color:#6f510e !important; color:#211a12 !important; }
   /* Contraste global del contenido sobre azul noche. */
   main.bg-ink, main.bg-ink p, main.bg-ink span, main.bg-ink label, main.bg-ink button, main.bg-ink a, main.bg-ink li { color:#fff8e8 !important; }
   main.bg-ink h1, main.bg-ink h2, main.bg-ink h3, main.bg-ink h4, main.bg-ink strong { color:#fffaf0 !important; }
@@ -751,7 +753,7 @@
                                             <label for="versiculo-input" class="block text-[10px] uppercase tracking-wider text-gold-400 font-semibold mb-2">Versículo</label>
                                             <div class="flex gap-2">
                                                 <input id="versiculo-input" type="number" min="1" x-model.number="versiculoSel" class="w-20 bg-ink border border-line rounded-lg px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500">
-                                                <button @click="leer()" class="flex-1 bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold py-2 rounded-lg text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer</button>
+                                                <button id="leer-versiculo" @click="leer()" class="flex-1 inline-flex items-center justify-center border border-gold-700 bg-gold-500 text-gray-950 font-bold py-2 rounded-lg text-sm hover:bg-gold-400 hover:border-gold-500 transition-all">Leer</button>
                                             </div>
                                         </div>
                                         <button @click="abrirLector()" class="w-full flex items-center justify-center gap-2 border border-gold-500/40 text-gold-200 font-semibold py-2.5 rounded-lg text-sm hover:bg-gold-600/10 transition-all">
@@ -2716,17 +2718,14 @@
                 },
 
                 // Texto bíblico REAL (no generado por IA), instantáneo, con ocho versiones: siete traducciones servidas por Bolls y la línea española asociada a la Peshitta.
-                async obtenerPasajeReal(ref) {
-                    if (this.cachePasaje[ref]) return this.cachePasaje[ref];
-                    const token = await this.getToken();
-                    if (!token) throw new Error('SESION');
-                    const response = await fetch('/api/pasaje', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-                        body: JSON.stringify({ referencia: ref })
-                    });
-                    if (response.status === 401) throw new Error('SESION');
-                    const result = await response.json();
+  async obtenerPasajeReal(ref) {
+  if (this.cachePasaje[ref]) return this.cachePasaje[ref];
+  const response = await fetch('/api/pasaje', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ referencia: ref })
+  });
+  const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
                     const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {}, versionesVersos: data.versionesVersos || {}, original: data.original || null };
