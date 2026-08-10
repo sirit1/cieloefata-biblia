@@ -854,7 +854,7 @@
                                         </div>
                                         <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
                                             <template x-for="v in versionesLista" :key="v.key">
-                                                <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
+                                                <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-100 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
                                             </template>
                                         </div>
                                     </div>
@@ -1083,7 +1083,7 @@
 <h3 class="text-lg font-serif text-gold-100" x-text="estudioRef"></h3>
   <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
   <template x-for="v in versionesEstudioLista" :key="v.key">
-                                            <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
+                                            <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-100 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
                                         </template>
                                     </div>
                                 </div>
@@ -1368,7 +1368,7 @@
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <template x-for="(dia, i) in planActivo.dias" :key="i">
                                                     <button @click="leerReferencia(dia.pasajes[0])" type="button"
-                                                        :title="'Día ' + (i + 1) + (diaCompleto(planActivo.id, i) ? ' · leído' : '')"
+                                                        :title="'Día ' + (i + 1) + (diaCompleto(planActivo.id, i) ? ' �� leído' : '')"
                                                         class="relative flex h-8 w-8 items-center justify-center rounded-full border text-[11px] font-semibold transition-all duration-300"
                                                         :class="diaCompleto(planActivo.id, i)
                                                             ? 'bg-gradient-to-br from-gold-500 to-gold-600 text-gray-950 border-gold-400 shadow-[0_0_0_3px_rgba(200,155,60,.18)]'
