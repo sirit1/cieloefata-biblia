@@ -1368,7 +1368,7 @@
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <template x-for="(dia, i) in planActivo.dias" :key="i">
                                                     <button @click="leerReferencia(dia.pasajes[0])" type="button"
-                                                        :title="'Día ' + (i + 1) + (diaCompleto(planActivo.id, i) ? ' ���� leído' : '')"
+                                                        :title="'Día ' + (i + 1) + (diaCompleto(planActivo.id, i) ? ' ���� le��do' : '')"
                                                         class="relative flex h-8 w-8 items-center justify-center rounded-full border text-[11px] font-semibold transition-all duration-300"
                                                         :class="diaCompleto(planActivo.id, i)
                                                             ? 'bg-gradient-to-br from-gold-500 to-gold-600 text-gray-950 border-gold-400 shadow-[0_0_0_3px_rgba(200,155,60,.18)]'
@@ -3817,6 +3817,29 @@
     body main .bg-panel button.bg-ink { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
     body main .bg-panel .text-gray-500, body main .bg-panel .text-gray-400,
     body main .bg-panel .text-gray-300 { color:#675842 !important; -webkit-text-fill-color:#675842 !important; }
+  </style>
+  <style id="strict-surface-contrast">
+    /* Azul noche: nunca usar la tinta marrón heredada. */
+    body:not(.zona-clara) header *, body:not(.zona-clara) aside *,
+    body:not(.zona-clara) .zona-oscura *, body:not(.zona-clara) [class*="bg-ink"] * {
+      color:#fff4df !important; -webkit-text-fill-color:#fff4df !important;
+    }
+    body:not(.zona-clara) header .text-gold-500, body:not(.zona-clara) header .text-gold-600,
+    body:not(.zona-clara) aside .text-gold-500, body:not(.zona-clara) aside .text-gold-600,
+    body:not(.zona-clara) .zona-oscura .text-gold-300,
+    body:not(.zona-clara) .zona-oscura .text-gold-400,
+    body:not(.zona-clara) .zona-oscura .text-gold-500,
+    body:not(.zona-clara) .zona-oscura .text-gold-600 {
+      color:#f4cf72 !important; -webkit-text-fill-color:#f4cf72 !important;
+    }
+    body main .bg-panel > div > .flex.flex-wrap.gap-2 button,
+    body main .bg-panel > div > .flex.flex-wrap.gap-2 button * {
+      color:#fff4df !important; -webkit-text-fill-color:#fff4df !important;
+    }
+    body main .bg-panel > div > .flex.flex-wrap.gap-2 button.bg-gold-500,
+    body main .bg-panel > div > .flex.flex-wrap.gap-2 button.bg-gold-500 * {
+      color:#211a12 !important; -webkit-text-fill-color:#211a12 !important;
+    }
   </style>
   </body>
   
