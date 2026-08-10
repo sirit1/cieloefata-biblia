@@ -174,7 +174,7 @@ export default async function handler(req, res) {
 
 TAREA (lente "${titulo}"): ${instruccion}
 
-Genera el comentario siguiendo el esquema proporcionado.
+Genera el comentario siguiendo el esquema proporcionado. La respuesta debe ser inequívocamente distinta según la lente "${titulo}": no repitas un comentario genérico ni respondas desde otra disciplina. Comienza el análisis nombrando el ángulo propio de ${titulo} y desarrolla solo sus preguntas, conceptos y aplicaciones.
 
 Reglas:
 - "titulo": un título breve y atractivo para esta lente aplicada a la consulta.
@@ -196,6 +196,15 @@ Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'pro
     });
   } catch (error) {
     console.error('Error en el motor de lentes:', error?.message);
-    return res.status(200).json({ success: true, data: { titulo: `${titulo}: ${consulta}`, cuerpo: `Esta lectura invita a observar ${consulta} con atención al contexto, al sentido del pasaje y a su cumplimiento en la vida del discípulo. Lee el texto completo, compara sus referencias y distingue entre lo que afirma la Escritura y la aplicación pastoral.\n\nVuelve al pasaje en oración y escribe una obediencia concreta para hoy. Esta respuesta de continuidad no sustituye el estudio bíblico ni la comunidad de fe.`, destacado: `La consulta "${consulta}" debe volver siempre al texto bíblico.`, autor: nombreAutor || null, esDominioPublico: esAutor ? esDominioPublico : null } });
+    return res.status(200).json({
+      success: true,
+      data: {
+        titulo: `${titulo} · ${consulta}`,
+        cuerpo: `La perspectiva de ${titulo} no pudo completar la generación automática, pero esta consulta sigue abierta para un estudio específico desde esta disciplina.\n\nVuelve al texto de ${consulta} y observa aquello que corresponde a ${titulo}: formula una pregunta propia de esta lente, contrástala con el contexto bíblico y escribe una respuesta concreta de obediencia. Esta respuesta de continuidad no sustituye el estudio bíblico ni la comunidad de fe.`,
+        destacado: `${titulo} pide volver a ${consulta} con una pregunta propia de esta disciplina.`,
+        autor: nombreAutor || null,
+        esDominioPublico: esAutor ? esDominioPublico : null,
+      },
+    });
   }
 }
