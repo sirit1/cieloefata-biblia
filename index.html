@@ -52,34 +52,7 @@
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        /* Paleta cálida apta para lectura (pergamino + oro + azul noche) */
-                        ink: '#F5EFE3',        /* fondo base: pergamino cálido */
-                        panel: '#FEFBF4',      /* superficie principal (tarjetas) */
-                        panel2: '#EFE7D6',     /* superficie secundaria */
-                        line: '#E3D8C2',       /* bordes suaves */
-                        night: '#1C2E4A',      /* azul noche del logo (header/sidebar) */
-                        night2: '#16243B',     /* azul noche más profundo */
-                        gold: {
-                            300: '#C89B3C',
-                            400: '#B8860B',
-                            500: '#9A6B12',
-                            600: '#7C550E'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-                        serif: ['Playfair Display', 'Georgia', 'serif']
-                    }
-                }
-            }
-        };
-    </script>
+    <link rel="stylesheet" href="/assets/tailwind.css">
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

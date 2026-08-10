@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "start": "next start",
-    "build": "next build",
+    "build:css": "tailwindcss -i ./styles/tailwind.input.css -o ./public/assets/tailwind.css --minify",
+    "build": "npm run build:css && next build",
     "check": "node --check lib/biblia.js && node --check api/config.js && node --check api/exegesis.js && node --check api/lente.js && node --check api/referencias.js && node --check api/pasaje.js && node --check api/lexico.js && node --check api/biblia.js"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "node": ">=20"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
     "@types/node": "26.2.0",
     "@types/react": "19.2.18",
     "typescript": "7.0.2"
