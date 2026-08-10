@@ -582,6 +582,9 @@
   <button @click="bibliaModoSantuario = !bibliaModoSantuario" :class="bibliaModoSantuario ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="inline-flex items-center gap-1.5 text-xs border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Activar modo santuario">
   <span aria-hidden="true">◉</span> <span x-text="bibliaModoSantuario ? 'Salir del santuario' : 'Modo santuario'"></span>
   </button>
+  <button @click="escucharTextoBiblico()" :class="bibliaAudioActivo ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="inline-flex items-center gap-1.5 text-xs border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" :aria-label="bibliaAudioActivo ? 'Detener lectura en voz alta' : 'Escuchar pasaje'">
+  <span aria-hidden="true">◖</span> <span x-text="bibliaAudioActivo ? 'Detener audio' : 'Escuchar' "></span>
+  </button>
   <button @click="bibliaTamanoTexto = bibliaTamanoTexto === 'grande' ? 'normal' : 'grande'" class="inline-flex items-center gap-1.5 text-xs text-gold-600 border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Cambiar tamaño del texto">A<sup>+</sup></button>
   <button @click="reiniciarLectura()" class="inline-flex items-center gap-1.5 text-xs text-gold-600 border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Volver a elegir libro, capítulo y versión">
   <span aria-hidden="true">↺</span> Nueva consulta
@@ -2135,6 +2138,7 @@
                 bibliaModoSantuario: false,
                 bibliaTamanoTexto: 'normal',
                 bibliaMostrarParalelo: false,
+                bibliaAudioActivo: false,
 
                 // lector "modo libro" (capítulo completo, resaltados, notas, progreso)
   lectorAbierto: false,
@@ -2724,7 +2728,21 @@
                         updated_at: new Date().toISOString()
                     }, { onConflict: 'user_id' });
                 },
+  escucharTextoBiblico() {
+  if (!('speechSynthesis' in window) || !this.textoActual) return;
+  if (this.bibliaAudioActivo) { window.speechSynthesis.cancel(); this.bibliaAudioActivo = false; return; }
+  const utterance = new SpeechSynthesisUtterance(this.textoActual);
+  utterance.lang = 'es-ES';
+  utterance.rate = 0.9;
+  utterance.onend = () => { this.bibliaAudioActivo = false; };
+  utterance.onerror = () => { this.bibliaAudioActivo = false; };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+  this.bibliaAudioActivo = true;
+  },
   reiniciarLectura() {
+  window.speechSynthesis?.cancel();
+  this.bibliaAudioActivo = false;
   this.referenciaActiva = '';
   this.versiones = {};
   this.versionesVersos = {};
