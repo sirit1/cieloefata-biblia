@@ -1234,6 +1234,7 @@
   </div>
 
 
+  <div x-show="planDiasCargando" class="rounded-xl border border-gold-500/25 bg-gold-500/10 px-4 py-3 text-xs text-gold-700">Cargando la ruta completa y el contenido devocional...</div><div x-show="planDiasError" x-cloak class="rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-xs text-red-700" x-text="planDiasError"></div>
   <!-- Lista de días -->
   <div class="space-y-3">
                                         <template x-for="(dia, i) in planActivo.dias" :key="i">
@@ -1262,8 +1263,9 @@
                                                         </div>
                                                     </template>
                                                 </div>
-                                                <p class="pl-9 mt-2 text-[11px] text-gray-500" x-text="dia.pasajes.length === 1 ? 'Puedes leer y marcar este capítulo por separado.' : 'Marca cada capítulo por separado; el hito se completa al terminar todas las lecturas del día.'"></p>
-                                            </div>
+  <p class="pl-9 mt-2 text-[11px] text-gray-500" x-text="dia.pasajes.length === 1 ? 'Puedes leer y marcar este capítulo por separado.' : 'Marca cada capítulo por separado; el hito se completa al terminar todas las lecturas del día.'"></p>
+  <div class="mt-4 ml-9 grid gap-3 md:grid-cols-2"><div class="rounded-xl border border-gold-500/20 bg-ink p-4 md:col-span-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Reflexión exegética</p><p class="mt-2 font-serif text-sm leading-relaxed text-gray-600" x-text="dia.reflexion || 'Contenido devocional disponible al cargar el plan.'"></p></div><div class="rounded-xl border border-line bg-ink p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="dia.versiculoClave || 'Versículo clave'"></p><p class="mt-2 font-serif text-sm italic leading-relaxed text-gray-600" x-text="dia.textoVersiculo"></p></div><div class="rounded-xl border border-line bg-ink p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Preguntas para el corazón</p><ul class="mt-2 space-y-1 text-xs leading-relaxed text-gray-500"><template x-for="pregunta in (dia.preguntas || [])" :key="pregunta"><li x-text="'• ' + pregunta"></li></template></ul></div><div class="rounded-xl border border-gold-500/20 bg-gold-500/5 p-4 md:col-span-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Oración de cierre</p><p class="mt-2 font-serif text-sm italic leading-relaxed text-gray-600" x-text="dia.oracion"></p></div></div>
+  </div>
                                         </template>
                                     </div>
 
@@ -2043,6 +2045,8 @@
                 planesCatalogo: ampliarPlanes(PLANES_CATALOGO),
   planesCatalogoCargando: false,
   planesCatalogoError: '',
+  planDiasCargando: false,
+  planDiasError: '',
                 DISCIPULADO_ETAPAS: window.DISCIPULADO_ETAPAS,
                 DISCIPULADO_TOPICS: window.DISCIPULADO_TOPICS,
                 discipuladoBusqueda: '', discipuladoEtapa: 0, discipuladoTema: null,
@@ -2253,8 +2257,9 @@
     if (error) throw error;
     if (Array.isArray(data) && data.length) {
       this.planesCatalogo = data.map(plan => ({
-        id: plan.slug,
-        titulo: plan.title,
+  id: plan.slug,
+  dbId: plan.id,
+  titulo: plan.title,
         descripcion: plan.description,
         duracion: plan.duration_days,
         categoria: plan.study_plan_categories?.title || 'General',
@@ -2268,6 +2273,34 @@
     this.planesCatalogoError = 'No se pudo actualizar el catálogo. Mostramos los planes disponibles.';
   } finally {
     this.planesCatalogoCargando = false;
+  }
+  },
+  async cargarDiasPlan(planId) {
+  const plan = this.planesCatalogo.find(item => item.id === planId);
+  if (!supabaseClient || !plan) return;
+  this.planDiasCargando = true;
+  this.planDiasError = '';
+  try {
+    const { data, error } = await supabaseClient.from('study_plan_days').select('id, day_number, day_title, devotional_reflection, scripture_references, key_verse_ref, key_verse_text, reflection_questions, closing_prayer').eq('plan_id', plan.dbId).order('day_number', { ascending: true });
+    if (error) throw error;
+    if (Array.isArray(data) && data.length) {
+      plan.dias = data.map(day => ({
+        id: day.id,
+        numero: day.day_number,
+        titulo: day.day_title,
+        pasajes: (Array.isArray(day.scripture_references) ? day.scripture_references : []).map(ref => ref.ref || ref.reference || String(ref)),
+        reflexion: day.devotional_reflection,
+        versiculoClave: day.key_verse_ref,
+        textoVersiculo: day.key_verse_text,
+        preguntas: Array.isArray(day.reflection_questions) ? day.reflection_questions : [],
+        oracion: day.closing_prayer
+      }));
+      this.planesCatalogo = [...this.planesCatalogo];
+    }
+  } catch (error) {
+    this.planDiasError = 'No se pudo cargar el contenido completo del plan.';
+  } finally {
+    this.planDiasCargando = false;
   }
   },
   async cargarDatosUsuario() {
@@ -3119,9 +3152,10 @@
                         this.planCierre = null; this.planCierreError = '';
                         this.devocional = null; this.devocionalError = '';
                     }
-                    this.planActivoId = id;
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    this.generarDevocional();
+  this.planActivoId = id;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  this.cargarDiasPlan(id);
+  this.generarDevocional();
                 },
                 volverACatalogo() {
                     this.planActivoId = null;
@@ -3250,15 +3284,23 @@
                         this.planCierreCargando = false;
                     }
                 },
-                guardarProgresoPlanes() {
-                    try { localStorage.setItem('revelatio-planes-progreso', JSON.stringify(this.progresoPlanes)); } catch (_e) {}
-                },
-                cargarProgresoPlanes() {
-                    try {
-                        const raw = localStorage.getItem('revelatio-planes-progreso');
-                        if (raw) this.progresoPlanes = JSON.parse(raw) || {};
-                    } catch (_e) { this.progresoPlanes = {}; }
-                },
+  async guardarProgresoPlanes() {
+  if (!supabaseClient || !this.isLoggedIn) return;
+  const entries = Object.entries(this.progresoPlanes);
+  await Promise.all(entries.map(async ([planSlug, progreso]) => {
+    const plan = this.planesCatalogo.find(item => item.id === planSlug);
+    if (!plan?.dbId) return;
+    const completed = Array.isArray(progreso) ? progreso : (progreso?.dias || []);
+    await supabaseClient.from('user_active_plans').upsert({ plan_id: plan.dbId, status: completed.length >= plan.duracion ? 'completed' : 'active', current_day: Math.min(completed.length + 1, plan.duracion), completed_days: completed, last_read_at: new Date().toISOString() }, { onConflict: 'user_id,plan_id' });
+  }));
+  },
+  async cargarProgresoPlanes() {
+  if (!supabaseClient || !this.isLoggedIn) return;
+  const { data } = await supabaseClient.from('user_active_plans').select('plan_id, completed_days, current_day, status, study_plans(slug)').in('status', ['active', 'completed']);
+  if (Array.isArray(data)) {
+    this.progresoPlanes = Object.fromEntries(data.filter(row => row.study_plans?.slug).map(row => [row.study_plans.slug, { dias: Array.isArray(row.completed_days) ? row.completed_days : [], capitulos: [] }]));
+  }
+  },
 
                 buscarGlobal() {
                     const q = this.consultaGlobal.trim();
