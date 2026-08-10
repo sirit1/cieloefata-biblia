@@ -3789,6 +3789,27 @@
     body aside button.w-full.flex.items-center.gap-3 > svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
     body aside button.w-full.flex.items-center.gap-3 > span.ml-auto { color:#302619 !important; -webkit-text-fill-color:#302619 !important; }
   </style>
-</body>
+  <style id="global-readable-contrast">
+    body, body main, body aside, body header, body footer, body nav,
+    body .bg-ink, body [class*="bg-ink"], body .zona-oscura { color:#fff4df !important; }
+    body main:not(.zona-clara) p, body main:not(.zona-clara) span,
+    body main:not(.zona-clara) label, body main:not(.zona-clara) li,
+    body main:not(.zona-clara) a, body main:not(.zona-clara) button,
+    body main:not(.zona-clara) small, body main:not(.zona-clara) div,
+    body aside p, body aside span, body aside label, body aside a,
+    body aside button, body header a, body header button {
+      color:#fff4df !important; -webkit-text-fill-color:#fff4df !important;
+    }
+    body aside svg, body header svg, body main:not(.zona-clara) svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
+    body main .bg-panel, body main .bg-panel2, body main .bg-paper,
+    body main .zona-clara, body main [class*="bg-white"], body main [class*="bg-cream"] { color:#2b2117 !important; }
+    body main .bg-panel *, body main .bg-panel2 *, body main .bg-paper *,
+    body main .zona-clara *, body main [class*="bg-white"] *, body main [class*="bg-cream"] * {
+      color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important;
+    }
+    body input, body select, body textarea { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
+    body button:disabled { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:.7 !important; }
+  </style>
+  </body>
   
 </html>
