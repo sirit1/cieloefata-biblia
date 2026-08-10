@@ -4,17 +4,30 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --env-file-if-exists=.env.development.local --env-file-if-exists=/vercel/share/.env.project server.js",
-    "start": "node --env-file-if-exists=.env.development.local --env-file-if-exists=/vercel/share/.env.project server.js",
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
     "check": "node --check lib/biblia.js && node --check api/config.js && node --check api/exegesis.js && node --check api/lente.js && node --check api/referencias.js && node --check api/pasaje.js && node --check api/lexico.js && node --check api/biblia.js"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.39",
+    "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.57.4",
+    "@tailwindcss/postcss": "^4.3.3",
     "ai": "^7.0.58",
-    "stripe": "^21.0.1"
+    "lucide-react": "^0.468.0",
+    "next": "^16.3.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "stripe": "^21.0.1",
+    "tailwindcss": "^4.3.3"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "26.2.0",
+    "@types/react": "19.2.18",
+    "typescript": "7.0.2"
   }
 }
