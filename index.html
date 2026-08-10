@@ -156,7 +156,16 @@
         @media (display-mode: standalone) {
             body { padding-top: env(safe-area-inset-top); }
         }
-  </style>
+  
+  /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
+  .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
+  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
+  .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
+  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
+  .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
+  .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
+  .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
+</style>
   <style>
   .libro-lectura-shell { background: linear-gradient(90deg, rgba(200,155,60,.05), transparent 12%, transparent 88%, rgba(200,155,60,.05)); border-radius: 1rem; padding: .25rem; transform-origin: center; }
   .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
@@ -200,6 +209,15 @@
   main:not(.zona-oscura) .text-red-300, main:not(.zona-oscura) .text-red-400, main:not(.zona-oscura) .text-red-500 { color:#a63c3c !important; }
   main:not(.zona-oscura) .bg-night, main:not(.zona-oscura) .bg-ink { color:#fff8e8 !important; }
   main:not(.zona-oscura) .bg-night *, main:not(.zona-oscura) .bg-ink * { color:#fff8e8 !important; }
+
+  /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
+  .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
+  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
+  .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
+  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
+  .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
+  .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
+  .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
 </style>
   </head>
 
@@ -3023,7 +3041,16 @@
                             p{margin:8px 0;font-size:13.5px}
                             blockquote{border-left:2px solid #C89B3C;margin:10px 0;padding:4px 14px;font-style:italic;color:#7C550E}
                             footer{margin-top:32px;padding-top:12px;border-top:1px solid #E3D8C2;font-size:10px;color:#9A8A6E}
-                        </style></head><body>
+                        
+  /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
+  .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
+  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
+  .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
+  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
+  .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
+  .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
+  .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
+</style></head><body>
                         <div class="marca">RevelatiO</div><div class="sub">by Efata</div>
                         <h1>${esc(this.estudioRef)}</h1>
                         ${this.textoActual ? `<div class="verso">"${esc(this.textoActual)}" <span style="font-size:11px;color:#9A6B12">(${esc(et)})</span></div>` : ''}
