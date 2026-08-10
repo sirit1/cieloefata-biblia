@@ -2276,9 +2276,10 @@
                     this.cargarCapitulosLeidos();
                     this.cargarUltimaPosicion();
                     try {
-                        const response = await fetch('/api/config');
-                        const config = await response.json();
-                        if (!response.ok) throw new Error(config.error || 'No se pudo cargar la configuración.');
+                        const response = await fetch('/api/config', { headers: { Accept: 'application/json' } });
+                        const contentType = response.headers.get('content-type') || '';
+                        const config = contentType.includes('application/json') ? await response.json() : {};
+                        if (!response.ok || !contentType.includes('application/json')) throw new Error(config.error || 'La configuración de autenticación no está disponible.');
                         supabaseClient = supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
                         const { data } = await supabaseClient.auth.getSession();
                         this.aplicarSesion(data.session);
