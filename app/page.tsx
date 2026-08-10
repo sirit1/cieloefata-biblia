@@ -1,5 +1,5 @@
-import RevelatioApp from '@/components/revelatio-app'
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return <RevelatioApp />
+  redirect('/index.html')
 }
