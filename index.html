@@ -2991,7 +2991,15 @@
                         };
                         this.lenteActiva = 'hermeneutica';
                         this.estudioListo = true;
-                        this.mensajeEstudio = 'Análisis completado. Explora las demás lentes cuando quieras.';
+                        this.mensajeEstudio = 'Análisis base listo. Estamos preparando las perspectivas para que cambies de lente sin esperas.';
+                        // Precarga en paralelo: la pantalla queda disponible de inmediato;
+                        // las perspectivas se completan en segundo plano y quedan listas al seleccionarlas.
+                        const precarga = this.LENTES_LISTA
+                            .filter((l) => l.id !== 'exegesis' && l.id !== 'autores')
+                            .map((l) => this.cargarLente(l.id));
+                        Promise.allSettled(precarga).then(() => {
+                            if (!this.cargandoEstudio && this.estudioListo) this.mensajeEstudio = 'Análisis completado. Las perspectivas disponibles están listas para explorar.';
+                        });
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
                         this.errorEstudio = true;

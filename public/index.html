@@ -238,7 +238,9 @@
   #versiculo-input::-webkit-inner-spin-button, #versiculo-input::-webkit-outer-spin-button { opacity:1 !important; }
   #leer-versiculo { background:#d6aa45 !important; border:1px solid #8a681b !important; color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; box-shadow:0 2px 0 rgba(70,45,8,.2); }
   #leer-versiculo:hover, #leer-versiculo:focus-visible { background:#f4cf72 !important; border-color:#6f510e !important; color:#211a12 !important; }
-  button.bg-ink, button.bg-ink span, button[class*="bg-ink"], button[class*="bg-ink"] span, button.rounded-full[class*="bg-"] { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
+  /* RevelatiO IA: botones oscuros necesitan tinta clara, incluso con clases text-* heredadas. */
+  button.bg-ink, button.bg-ink span, button[class*="bg-ink"], button[class*="bg-ink"] span,
+  button.rounded-full[class*="bg-"] { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
   button.bg-ink:hover, button[class*="bg-ink"]:hover, button.rounded-full[class*="bg-"]:hover { color:#ffffff !important; background:#173252 !important; }
   button.bg-gold-500, button.bg-gold-500 span, button[class*="bg-gold"] { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
   /* Contraste global del contenido sobre azul noche. */
@@ -2989,11 +2991,22 @@
                         };
                         this.lenteActiva = 'hermeneutica';
                         this.estudioListo = true;
-                        this.mensajeEstudio = 'Análisis completado. Explora las demás lentes cuando quieras.';
+                        this.mensajeEstudio = 'Análisis base listo. Estamos preparando las perspectivas para que cambies de lente sin esperas.';
+                        // Precarga en paralelo: la pantalla queda disponible de inmediato;
+                        // las perspectivas se completan en segundo plano y quedan listas al seleccionarlas.
+                        const precarga = this.LENTES_LISTA
+                            .filter((l) => l.id !== 'exegesis' && l.id !== 'autores')
+                            .map((l) => this.cargarLente(l.id));
+                        Promise.allSettled(precarga).then(() => {
+                            if (!this.cargandoEstudio && this.estudioListo) this.mensajeEstudio = 'Análisis completado. Las perspectivas disponibles están listas para explorar.';
+                        });
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
                         this.errorEstudio = true;
-                        this.mensajeEstudio = error.message || 'Error de conexión con el servidor.';
+                        const rawError = String(error?.message || '');
+                        this.mensajeEstudio = /expected pattern|pattern/i.test(rawError)
+                          ? 'La consulta debe ser una palabra, tema o referencia bíblica válida. Prueba de nuevo con “gracia”, “perdón” o “Juan 3:16”.'
+                          : rawError || 'No se pudo completar el estudio. Intenta de nuevo.';
                     } finally {
                         this.cargandoEstudio = false;
                     }
