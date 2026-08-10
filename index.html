@@ -336,11 +336,11 @@
         <div class="flex flex-1 min-h-0">
 
             <!-- Backdrop móvil -->
-            <div x-show="sidebarAbierta" x-cloak @click="sidebarAbierta = false" class="fixed inset-0 top-16 bg-black/60 z-30 lg:hidden"></div>
+            <div x-show="sidebarAbierta" x-cloak @click="sidebarAbierta = false" class="fixed inset-0 top-24 bg-night/70 z-30 lg:hidden" aria-hidden="true"></div>
 
             <!-- SIDEBAR -->
             <aside :class="sidebarAbierta ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-                class="zona-oscura fixed lg:static top-16 lg:top-0 bottom-0 left-0 w-72 border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto">
+                class="zona-oscura fixed lg:static top-24 lg:top-0 bottom-0 left-0 w-[min(18rem,calc(100vw-1rem))] border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto overscroll-contain">
                 <div class="brand-panel mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/30 bg-gradient-to-br from-gold-500/15 via-transparent to-transparent p-3.5 shadow-[inset_0_0_30px_rgba(200,155,60,.06)]">
                     <div class="flex items-center gap-3">
                         <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-10 w-10 object-contain shrink-0">
@@ -354,7 +354,7 @@
 
                 <nav class="p-4 pt-1 space-y-1" aria-label="Navegación principal">
                     <template x-for="item in navegacion" :key="item.id">
-                        <button @click="irA(item.id)"
+                        <button @click="sidebarAbierta = false; irA(item.id)"
                             :aria-current="vista === item.id ? 'page' : false"
                             :class="vista === item.id ? 'bg-gradient-to-r from-gold-500/25 to-transparent text-gold-300 border-gold-500/40' : 'text-gray-400 hover:text-gray-100 hover:bg-white/5 border-transparent'"
                             class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl border transition-all text-sm font-medium">
@@ -365,7 +365,7 @@
                     </template>
 
                     <div class="pt-4 mt-3 border-t border-line">
-                        <button @click="irA('ia')" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold text-sm shadow-lg shadow-gold-600/20 hover:from-gold-500 hover:to-gold-400 transition-all">
+                        <button @click="sidebarAbierta = false; irA('ia')" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold text-sm shadow-lg shadow-gold-600/20 hover:from-gold-500 hover:to-gold-400 transition-all">
                             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z"></path></svg>
                             Consultar RevelatiO IA
                         </button>
@@ -1086,6 +1086,7 @@
     <label><span class="sr-only">Filtrar por profundidad</span><select x-model="planesNivelFiltro" class="w-full rounded-xl border border-line bg-panel px-4 py-3 text-sm text-gray-700 focus:border-gold-500 focus:outline-none"><option value="Todos">Todos los niveles</option><option value="Principiante">Principiante</option><option value="Intermedio">Intermedio</option><option value="Profundo">Profundo</option></select></label>
   </div>
 
+  <div x-show="planesCatalogoCargando" class="rounded-xl border border-gold-500/25 bg-gold-500/10 px-4 py-3 text-xs text-gold-700">Actualizando el catálogo de planes...</div><div x-show="planesCatalogoError" x-cloak class="rounded-xl border border-line bg-panel px-4 py-3 text-xs text-gray-500" x-text="planesCatalogoError"></div>
   <!-- Filtro de categorías -->
   <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
                                 <template x-for="cat in categoriasDisponibles" :key="cat">
@@ -2040,6 +2041,8 @@
                 estudiosMarcados: cargarEstudioMarcadores(),
                 get estudiosFiltrados() { return buscarEstudiosMaestro(this.estudioBusqueda, this.estudioCategoria); },
                 planesCatalogo: ampliarPlanes(PLANES_CATALOGO),
+  planesCatalogoCargando: false,
+  planesCatalogoError: '',
                 DISCIPULADO_ETAPAS: window.DISCIPULADO_ETAPAS,
                 DISCIPULADO_TOPICS: window.DISCIPULADO_TOPICS,
                 discipuladoBusqueda: '', discipuladoEtapa: 0, discipuladoTema: null,
@@ -2233,15 +2236,42 @@
                     const estaba = this.isLoggedIn;
                     this.isLoggedIn = Boolean(session);
                     this.userEmail = session?.user?.email || '';
-                    if (this.isLoggedIn && !estaba) {
-                        this.cargarDatosUsuario();
+  if (this.isLoggedIn && !estaba) {
+  this.cargarDatosUsuario();
+  this.cargarCatalogoPlanes();
                     } else if (!this.isLoggedIn) {
                         this.favoritos = [];
                     }
                 },
 
-                async cargarDatosUsuario() {
-                    if (!supabaseClient) return;
+  async cargarCatalogoPlanes() {
+  if (!supabaseClient) return;
+  this.planesCatalogoCargando = true;
+  this.planesCatalogoError = '';
+  try {
+    const { data, error } = await supabaseClient.from('study_plans').select('id, slug, title, description, duration_days, difficulty_level, is_featured, study_plan_categories(title, slug)').order('is_featured', { ascending: false }).order('duration_days', { ascending: true });
+    if (error) throw error;
+    if (Array.isArray(data) && data.length) {
+      this.planesCatalogo = data.map(plan => ({
+        id: plan.slug,
+        titulo: plan.title,
+        descripcion: plan.description,
+        duracion: plan.duration_days,
+        categoria: plan.study_plan_categories?.title || 'General',
+        nivel: plan.difficulty_level ? plan.difficulty_level.charAt(0).toUpperCase() + plan.difficulty_level.slice(1) : 'Intermedio',
+        destacado: Boolean(plan.is_featured),
+        imagen: miniaturaPlan({ categoria: plan.study_plan_categories?.title || 'Biblia' }),
+        dias: []
+      }));
+    }
+  } catch (error) {
+    this.planesCatalogoError = 'No se pudo actualizar el catálogo. Mostramos los planes disponibles.';
+  } finally {
+    this.planesCatalogoCargando = false;
+  }
+  },
+  async cargarDatosUsuario() {
+  if (!supabaseClient) return;
                     try {
                         const [favRes, progRes] = await Promise.all([
                             supabaseClient.from('favoritos').select('referencia, texto, version').order('created_at', { ascending: false }),
@@ -2421,11 +2451,22 @@
                     if (this.cache[ref]) return this.cache[ref];
                     const token = await this.getToken();
                     if (!token) throw new Error('SESION');
-                    const response = await fetch('/api/exegesis', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-                        body: JSON.stringify({ consulta: ref })
-                    });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 45000);
+  let response;
+  try {
+    response = await fetch('/api/exegesis', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ consulta: ref }),
+      signal: controller.signal
+    });
+  } catch (error) {
+    if (error?.name === 'AbortError') throw new Error('La consulta tardó demasiado. Intenta con una referencia más breve.');
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
                     if (response.status === 401) throw new Error('SESION');
                     const result = await response.json();
                     if (result.usage) this.cuotaIA = result.usage;
@@ -2719,11 +2760,22 @@
                         if (!token) throw new Error('SESION');
                         const body = { consulta: this.busqueda, lente: id };
                         if (id === 'autores') body.autor = this.autorSel;
-                        const response = await fetch('/api/lente', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-                            body: JSON.stringify(body)
-                        });
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 30000);
+                        let response;
+                        try {
+                            response = await fetch('/api/lente', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                                body: JSON.stringify(body),
+                                signal: controller.signal
+                            });
+                        } catch (error) {
+                            if (error?.name === 'AbortError') throw new Error('Esta perspectiva tardó demasiado. Prueba otra lente.');
+                            throw error;
+                        } finally {
+                            clearTimeout(timeoutId);
+                        }
                         if (response.status === 401) throw new Error('SESION');
                         const result = await response.json();
                         if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo generar esta lente.');

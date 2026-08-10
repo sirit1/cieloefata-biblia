@@ -108,7 +108,7 @@ export default async function handler(req, res) {
       if (original) {
         const plano = originalComoTextoPlano(original);
         const codigos = strongsUnicos(original).slice(0, 12);
-        const definiciones = (await Promise.all(codigos.map((c) => obtenerDefinicionStrong(c).catch(() => null)))).filter(Boolean);
+        const definiciones = (await Promise.all(codigos.slice(0, 6).map((c) => obtenerDefinicionStrong(c).catch(() => null)))).filter(Boolean);
         const lineas = definiciones.map((d) => `${d.codigo}: ${d.lexema} (${d.transliteracion}) — ${d.definicionCorta || d.definicion.split('\n')[0]}`);
         contextoOriginal = `\n\nCONTEXTO REAL VERIFICADO (no inventes sobre esto, básate en él; viene de fuentes reales: ${original.etiqueta}, y el diccionario Brown-Driver-Briggs/Thayer):\nTexto original palabra por palabra con Strong's: ${plano}\nDefiniciones léxicas reales:\n${lineas.join('\n')}` + (original.septuaginta ? `\n\nSeptuaginta (LXX, griego, solo informativo — ${original.septuaginta.nota}): ${original.septuaginta.texto}` : '');
       }
