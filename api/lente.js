@@ -167,7 +167,7 @@ Reglas:
 - No inventes datos que no puedas sostener. Sé riguroso, cálido y edificante.
 - PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'profundo', reintentos: 1, maxOutputTokens: 5200 });
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'profundo', reintentos: 1, maxOutputTokens: 1800 });
     return res.status(200).json({
       success: true,
       data: {

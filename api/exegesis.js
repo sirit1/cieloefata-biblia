@@ -141,7 +141,7 @@ Reglas:
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_EXEGESIS, perfil: 'rapido', reintentos: 0, maxOutputTokens: 5200 });
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_EXEGESIS, perfil: 'rapido', reintentos: 0, maxOutputTokens: 2400 });
     return res.status(200).json({ success: true, data });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);

@@ -75,7 +75,7 @@ Reglas:
 - Prioriza SIEMPRE referencias ampliamente reconocidas y verificables en cualquier Biblia de estudio (ej. citas explícitas del NT al AT, pasajes paralelos de los evangelios sinópticos, promesas y su cumplimiento). No inventes citas ni conexiones forzadas: si dudas de una conexión, descártala.
 - PROHIBIDO LaTeX o notación matemática.
 
-Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_REFERENCIAS, maxOutputTokens: 3000 });
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_REFERENCIAS, maxOutputTokens: 900 });
     const referencias = Array.isArray(data.referencias)
       ? data.referencias
           .filter((r) => r && typeof r.ref === 'string' && r.ref.trim())

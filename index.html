@@ -2962,6 +2962,12 @@
                     this.errorEstudio = false;
                     this.busqueda = q;
                     this.estudioListo = false;
+                    this.estudioRef = '';
+                    this.versiones = {};
+                    this.versionesVersos = {};
+                    this.original = null;
+                    this.lentes = {};
+                    this.estudio = { comentario: '', original: '', aplicacion: '', objetivo: '', contexto: '', estructura: '', analisisGramatical: '', hermeneutica: '', exegesis: '', comparaciones: [], comentarios: [], predica: { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' } };
                     this.mensajeEstudio = 'Sintetizando análisis multiversión, idioma original y aplicación...';
                     try {
                         const data = await this.obtenerAnalisis(q);
