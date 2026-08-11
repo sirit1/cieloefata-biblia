@@ -162,12 +162,12 @@ Genera el comentario siguiendo el esquema proporcionado. La respuesta debe ser i
 
 Reglas:
 - "titulo": un título breve y atractivo para esta lente aplicada a la consulta.
-- "cuerpo": redacta un estudio amplio, profundo y bien estructurado, en español claro y pastoral. Usa 6 a 9 párrafos separados por un salto de línea doble. Desarrolla: observación del texto, interpretación propia de la lente, referencias bíblicas verificables, conexión con la vida, límites y cautelas, y pasos concretos de obediencia. Si se te da un CONTEXTO REAL VERIFICADO más abajo, apóyate en ese griego/hebreo y en el número de Strong real en vez de inventarlo.
+- "cuerpo": redacta un estudio amplio, profundo y bien estructurado, en español claro y pastoral. Usa 3 a 4 párrafos separados por un salto de línea doble. Desarrolla: observación del texto, interpretación propia de la lente, referencias bíblicas verificables, conexión con la vida, límites y cautelas, y pasos concretos de obediencia. Si se te da un CONTEXTO REAL VERIFICADO más abajo, apóyate en ese griego/hebreo y en el número de Strong real en vez de inventarlo.
 - "destacado": una sola frase memorable que resuma la enseñanza clave (para resaltar en pantalla).
 - No inventes datos que no puedas sostener. Sé riguroso, cálido y edificante.
 - PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'profundo', reintentos: 1, maxOutputTokens: 1800 });
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'profundo', reintentos: 1, maxOutputTokens: 1000 });
     return res.status(200).json({
       success: true,
       data: {

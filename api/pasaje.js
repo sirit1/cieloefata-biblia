@@ -41,13 +41,20 @@ const PESHITTA_LIBROS = {
 // decenas de segundos en despertar (cold start). Se limita cada llamada a
 // 6s para que un arranque en frío no bloquee el resto de versiones (que sí
 // responden rápido) ni haga esperar de más al lector.
+const cachePeshitta = new Map();
+const TTL_PESHITTA_MS = 6 * 60 * 60 * 1000;
+
 async function obtenerVersoPeshitta(query) {
+  const cacheada = cachePeshitta.get(query);
+  if (cacheada && Date.now() - cacheada.t < TTL_PESHITTA_MS) return cacheada.data;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 6000);
   try {
     const respuesta = await fetch(`https://peshitta.onrender.com/api/verse?ref=${query}&lang=es`, { signal: controller.signal });
     if (!respuesta.ok) return null;
-    return await respuesta.json();
+    const data = await respuesta.json();
+    cachePeshitta.set(query, { data, t: Date.now() });
+    return data;
   } catch (_e) {
     return null;
   } finally {
@@ -129,6 +136,7 @@ export default async function handler(req, res) {
       ? `${ref.libro} ${ref.capitulo}:${ref.versoInicio}${ref.versoFin && ref.versoFin !== ref.versoInicio ? `-${ref.versoFin}` : ''}`
       : `${ref.libro} ${ref.capitulo}`;
 
+    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=300, stale-while-revalidate=3600');
     return res.status(200).json({
       success: true,
       data: { referencia: referenciaNormalizada, versiones, versionesVersos, versionesLista, original }

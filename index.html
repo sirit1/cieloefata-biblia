@@ -61,7 +61,6 @@
 <script src="/lib/discipulado-maestro.js"></script>
 <script src="/lib/engagement.js?v=foundation-1"></script>
 
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
 
@@ -3193,9 +3192,21 @@
                     w.focus();
                     setTimeout(() => w.print(), 400);
                 },
-                descargarPDF() {
-                    const jspdf = window.jspdf;
-                    if (!jspdf || !jspdf.jsPDF) { this.imprimirEstudio(); return; }
+                async cargarJsPDF() {
+                    if (window.jspdf?.jsPDF) return window.jspdf;
+                    await new Promise((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                        script.onload = resolve;
+                        script.onerror = reject;
+                        document.head.appendChild(script);
+                    });
+                    return window.jspdf;
+                },
+                async descargarPDF() {
+                    let jspdf;
+                    try { jspdf = await this.cargarJsPDF(); } catch (_e) { this.imprimirEstudio(); return; }
+                    if (!jspdf?.jsPDF) { this.imprimirEstudio(); return; }
                     const doc = new jspdf.jsPDF({ unit: 'pt', format: 'a4' });
                     const M = 48, W = 595 - M * 2;
                     let y = M;
