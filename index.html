@@ -59,17 +59,17 @@
                 extend: {
                     colors: {
                         /* Paleta cálida apta para lectura (pergamino + oro + azul noche) */
-                        ink: '#F5EFE3',        /* fondo base: pergamino cálido */
-                        panel: '#FEFBF4',      /* superficie principal (tarjetas) */
-                        panel2: '#EFE7D6',     /* superficie secundaria */
-                        line: '#E3D8C2',       /* bordes suaves */
-                        night: '#1C2E4A',      /* azul noche del logo (header/sidebar) */
-                        night2: '#16243B',     /* azul noche más profundo */
+                        ink: '#F6F2E8',        /* fondo base: lino cálido */
+                        panel: '#FFFCF7',      /* superficie principal */
+                        panel2: '#E8E5D9',     /* superficie secundaria */
+                        line: '#D6D0BE',       /* bordes suaves */
+                        night: '#243744',      /* azul pizarra */
+                        night2: '#1B2B36',     /* azul pizarra profundo */
                         gold: {
-                            300: '#C89B3C',
-                            400: '#B8860B',
-                            500: '#9A6B12',
-                            600: '#7C550E'
+                            300: '#D9B65C',
+                            400: '#C89A3D',
+                            500: '#AA7724',
+                            600: '#865B18'
                         }
                     },
                     fontFamily: {
@@ -88,42 +88,42 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
 
         [x-cloak] { display: none !important; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #2B2417; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #293139; }
         .font-serif { font-family: 'Playfair Display', serif; }
         /* Playfair Display no tiene glifos griegos/hebreos (aparecen como recuadros vacíos).
            Noto Serif cubre griego politónico; Noto Serif Hebrew cubre hebreo con niqud. */
         .font-griego { font-family: 'Noto Serif', 'Playfair Display', serif; }
         .font-hebreo { font-family: 'Noto Serif Hebrew', 'Noto Serif', serif; }
         /* Texto de lectura cómodo */
-        .prose-lectura { color: #2B2417; line-height: 1.75; }
+        .prose-lectura { color: #293139; line-height: 1.75; }
 
         /* Sistema de marca editorial: firma visible, jerárquica y discreta. */
         .app-shell { position: relative; isolation: isolate; }
         .brand-signature { letter-spacing: .12em; }
         .brand-kicker { letter-spacing: .24em; }
-        .brand-rule { background: linear-gradient(90deg, rgba(200,155,60,.7), rgba(200,155,60,.12)); }
-        .brand-panel { box-shadow: 0 18px 45px rgba(28,46,74,.08); }
+        .brand-rule { background: linear-gradient(90deg, rgba(170,119,36,.72), rgba(170,119,36,.1)); }
+        .brand-panel { box-shadow: 0 18px 45px rgba(36,55,68,.1); }
 
         /* Resaltados del lector "modo libro" (tonos suaves sobre la página cálida) */
-        .hl-oro { background-color: rgba(200, 155, 60, .32); }
-        .hl-terracota { background-color: rgba(178, 90, 69, .26); }
-        .hl-salvia { background-color: rgba(122, 148, 104, .28); }
-        .hl-cielo { background-color: rgba(94, 120, 158, .24); }
+        .hl-oro { background-color: rgba(200, 154, 61, .32); }
+        .hl-terracota { background-color: rgba(184, 106, 75, .26); }
+        .hl-salvia { background-color: rgba(122, 143, 107, .28); }
+        .hl-cielo { background-color: rgba(93, 128, 149, .24); }
 
         /* ===== Remapeo de utilidades oscuras -> paleta cálida legible =====
            El diseño original asumía fondo oscuro. Sobre pergamino, el texto gris
            claro debe volverse tinta cálida oscura para máxima legibilidad. */
-        .text-gray-100 { color: #2B2417 !important; }
-        .text-gray-200 { color: #33291a !important; }
-        .text-gray-300 { color: #4A3E2A !important; }
-        .text-gray-400 { color: #6B5D45 !important; }
-        .text-gray-500 { color: #8A7A5E !important; }
-        .text-gray-600 { color: #9A8A6E !important; }
-        .text-gold-50  { color: #5A3E0A !important; }
+        .text-gray-100 { color: #293139 !important; }
+        .text-gray-200 { color: #38423F !important; }
+        .text-gray-300 { color: #4E5A54 !important; }
+        .text-gray-400 { color: #66736B !important; }
+        .text-gray-500 { color: #7B857C !important; }
+        .text-gray-600 { color: #8C948B !important; }
+        .text-gold-50  { color: #5D431A !important; }
 
         /* Zonas oscuras (header + sidebar + login): fondo azul noche, texto claro.
            Dentro de .zona-oscura restauramos claridad sobre el remapeo anterior. */
-        .zona-oscura { background: #1C2E4A; color: #EAE3D2; }
+        .zona-oscura { background: #243744; color: #F4EEDF; }
         .zona-oscura .text-gray-100 { color: #F4EEDF !important; }
         .zona-oscura .text-gray-200 { color: #E7DFCC !important; }
         .zona-oscura .text-gray-300 { color: #D8CEB7 !important; }
@@ -138,9 +138,9 @@
         .zona-oscura .text-gold-500 { color: #E7B52F !important; }
         .zona-oscura .text-gold-600 { color: #D9A321 !important; }
         .zona-oscura .text-gold-700 { color: #F4C64E !important; }
-        .zona-oscura .bg-panel { background: #16243B !important; }
-        .zona-oscura .bg-panel2 { background: #16243B !important; }
-        .zona-oscura .border-line { border-color: #2C3E5C !important; }
+        .zona-oscura .bg-panel { background: #1B2B36 !important; }
+        .zona-oscura .bg-panel2 { background: #1B2B36 !important; }
+        .zona-oscura .border-line { border-color: #3A505A !important; }
         .zona-oscura button.text-left { color: #FFF1C2 !important; }
         .zona-oscura button.text-left span { color: #FFF1C2 !important; }
         .zona-oscura button.text-left svg { color: #FFD76A !important; }
@@ -155,8 +155,8 @@
         .zona-oscura button:hover, .zona-oscura a:hover { color: #FFF8DF !important; }
         .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color: #2B2417 !important; background: #FEFBF4 !important; }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: #EFE7D6; }
-        ::-webkit-scrollbar-thumb { background: #C89B3C66; border-radius: 8px; border: 2px solid #EFE7D6; }
+        ::-webkit-scrollbar-track { background: #E8E5D9; }
+        ::-webkit-scrollbar-thumb { background: #C89A3D66; border-radius: 8px; border: 2px solid #E8E5D9; }
         ::-webkit-scrollbar-thumb:hover { background: #B8860B; }
 
         /* Ajustes táctiles y de lectura para teléfonos y tablets */
@@ -225,13 +225,13 @@
                     <div>
                         <label for="login-email" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Correo electrónico</label>
                         <input id="login-email" type="email" x-model="loginEmail" required autocomplete="email" placeholder="correo@ejemplo.com"
-                            style="color:#2B2417"
+                            style="color:#293139"
                             class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
                     </div>
                     <div>
                         <label for="login-pass" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Contraseña</label>
                         <input id="login-pass" type="password" x-model="loginPass" required autocomplete="current-password" placeholder="••••••••"
-                            style="color:#2B2417"
+                            style="color:#293139"
                             class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
                     </div>
 
@@ -303,7 +303,7 @@
                     <svg class="w-4 h-4 text-gray-500 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     <input id="busqueda-global" type="text" x-model="consultaGlobal" maxlength="300"
                         placeholder="Buscar un pasaje o tema (Ej: Juan 3:16, el perdón)..."
-                        style="color:#2B2417"
+                        style="color:#293139"
                         class="w-full bg-white border border-line rounded-full pl-10 pr-4 py-2.5 text-sm placeholder:text-gray-500/60 focus:outline-none focus:border-gold-500 transition-all">
                 </div>
             </form>
@@ -772,7 +772,7 @@
                                             <div x-show="verComentarios" x-collapse x-cloak class="p-4 border-t border-line text-gray-100">
                                                 <div class="flex flex-wrap items-center gap-3 mb-4">
                                                     <label for="biblia-autor" class="text-[11px] text-gray-300 uppercase tracking-wider">Comentarista</label>
-                                                    <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#2B2417" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                                    <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#293139" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
                                                         <template x-for="a in AUTORES_LISTA" :key="a.id">
                                                             <option :value="a.id" x-text="a.nombre"></option>
                                                         </template>
@@ -846,10 +846,10 @@
                             <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
   <p class="text-sm text-gray-500 mt-1">Un gabinete de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
-  <div class="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-5">
-    <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">Cómo trabaja RevelatiO IA</p>
-    <p class="mt-2 text-sm leading-relaxed text-[#334155]">Esta herramienta utiliza un LLM como asistente de investigación, no como autoridad doctrinal. La consulta se estructura según la lente que eliges y se limita a presentar el análisis solicitado: contexto histórico-gramatical, observaciones del hebreo o griego, referencias bíblicas, doctrina y aplicaciones pastorales. Cada respuesta debe volver al texto de la Escritura y ser discernida en comunidad.</p>
-    <p class="mt-3 text-sm leading-relaxed text-[#334155]">La arquitectura aplica el framework <strong class="font-semibold text-[#075985]">Ailock de XtraMetrik</strong> como capa de control y contención: alcance definido, instrucciones verificables y separación entre evidencia bíblica, interpretación y aplicación. RevelatiO está preparada para avanzar hacia una certificación de IA ética, limpia y auditable; esta preparación no constituye todavía una certificación oficial.</p>
+  <div class="mt-4 rounded-2xl border border-gold-500/20 bg-gold-500/10 p-5">
+    <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-600">Cómo trabaja RevelatiO IA</p>
+    <p class="mt-2 text-sm leading-relaxed text-[#3E4A45]">Esta herramienta utiliza un LLM como asistente de investigación, no como autoridad doctrinal. La consulta se estructura según la lente que eliges y se limita a presentar el análisis solicitado: contexto histórico-gramatical, observaciones del hebreo o griego, referencias bíblicas, doctrina y aplicaciones pastorales. Cada respuesta debe volver al texto de la Escritura y ser discernida en comunidad.</p>
+    <p class="mt-3 text-sm leading-relaxed text-[#3E4A45]">La arquitectura aplica el framework <strong class="font-semibold text-[#865B18]">Ailock de XtraMetrik</strong> como capa de control y contención: alcance definido, instrucciones verificables y separación entre evidencia bíblica, interpretación y aplicación. RevelatiO está preparada para avanzar hacia una certificación de IA ética, limpia y auditable; esta preparación no constituye todavía una certificación oficial.</p>
     <p class="mt-3 text-xs leading-relaxed text-gray-500">Al consultar encontrarás una ficha de estudio que comienza en el pasaje, considera su contexto, contrasta palabras clave y termina con preguntas de obediencia y vida. No es una respuesta rápida: es una invitación a leer, pensar, arrepentirse, convertirse y permanecer firme.</p>
   </div>
   </div>
@@ -948,7 +948,7 @@
                                 <!-- Selector de autor (solo lente 'autores') -->
                                 <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b border-line">
                                     <label for="autor-sel" class="text-xs text-gray-400 uppercase tracking-wider">Comentarista</label>
-                                    <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#2B2417" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                    <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#293139" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
                                         <template x-for="a in AUTORES_LISTA" :key="a.id">
                                             <option :value="a.id" x-text="a.nombre"></option>
                                         </template>
@@ -1015,11 +1015,11 @@
                     <!-- ============ DISCIPULADO ============ -->
   <section x-show="vista === 'discipulado'" class="space-y-6">
     <div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Camino bíblico</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Discipulado guiado por IA</h2><p class="text-sm text-gray-700 mt-2 max-w-2xl">Un camino personal para pasar de la convicción a una fe firme, con la NBLA como texto base y la Escritura como autoridad.</p></div>
-    <div class="rounded-2xl border border-cyan-700/30 bg-[#F1F7FA] p-5 shadow-[0_10px_30px_rgba(28,46,74,.08)]">
-      <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-800">Cómo trabaja el discipulado RevelatiO</p>
-      <p class="mt-2 text-sm leading-relaxed text-[#334155]">La IA te ayuda a ordenar un itinerario de lectura, oración, práctica y revisión. No reemplaza a un pastor, mentor ni a la comunidad: te prepara para caminar acompañado, obedecer lo aprendido y volver una y otra vez al texto bíblico.</p>
-      <p class="mt-3 text-sm leading-relaxed text-[#334155]">Encontrarás tres movimientos: confesar y arrepentirte, convertirte y alimentarte de la Palabra, y permanecer firme, sólido y constante en la fe. Cada etapa incluye un hito en NBLA para reconocer el avance sin convertir la vida espiritual en una simple métrica.</p>
-      <p class="mt-3 text-xs leading-relaxed text-[#475569]">Entra con honestidad. Escribe aquello en lo que deseas crecer y permite que RevelatiO te invite a un siguiente paso concreto: leer, orar, obedecer y compartir el camino con otros.</p>
+    <div class="rounded-2xl border border-gold-500/30 bg-panel2 p-5 shadow-[0_10px_30px_rgba(36,55,68,.08)]">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-600">Cómo trabaja el discipulado RevelatiO</p>
+      <p class="mt-2 text-sm leading-relaxed text-[#3E4A45]">La IA te ayuda a ordenar un itinerario de lectura, oración, práctica y revisión. No reemplaza a un pastor, mentor ni a la comunidad: te prepara para caminar acompañado, obedecer lo aprendido y volver una y otra vez al texto bíblico.</p>
+      <p class="mt-3 text-sm leading-relaxed text-[#3E4A45]">Encontrarás tres movimientos: confesar y arrepentirte, convertirte y alimentarte de la Palabra, y permanecer firme, sólido y constante en la fe. Cada etapa incluye un hito en NBLA para reconocer el avance sin convertir la vida espiritual en una simple métrica.</p>
+      <p class="mt-3 text-xs leading-relaxed text-[#637068]">Entra con honestidad. Escribe aquello en lo que deseas crecer y permite que RevelatiO te invite a un siguiente paso concreto: leer, orar, obedecer y compartir el camino con otros.</p>
     </div>
     <div class="bg-panel border border-gold-500/30 rounded-2xl p-6 space-y-4"><p class="text-sm text-gray-300">La IA organiza tu camino a partir de tus respuestas; no sustituye al pastor, mentor ni a la comunidad local.</p><div class="grid md:grid-cols-2 gap-4"><label class="text-xs text-gray-400">Objetivo<input x-model="discipuladoObjetivo" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm" placeholder="Crecer en oración, carácter o servicio"></label><label class="text-xs text-gray-400">Ritmo<select x-model="discipuladoRitmo" class="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm"><option>15 minutos al día</option><option>30 minutos al día</option><option>3 veces por semana</option></select></label></div><button @click="generarDiscipulado()" class="bg-gold-600 text-gray-950 font-bold rounded-lg px-4 py-2 text-sm">Crear mi camino gratuito</button></div>
     <div x-show="discipuladoPlan" x-cloak class="flex flex-wrap items-center gap-2 rounded-2xl border border-gold-500/30 bg-panel p-3">
@@ -1027,12 +1027,12 @@
     <button @click="copiarDiscipulado()" class="rounded-lg border border-line px-3 py-2 text-xs text-gray-300 hover:border-gold-500">Copiar</button>
     <button @click="compartirDiscipulado()" class="rounded-lg border border-line px-3 py-2 text-xs text-gray-300 hover:border-gold-500">Compartir</button>
     <button @click="imprimirDiscipulado()" class="rounded-lg border border-line px-3 py-2 text-xs text-gray-300 hover:border-gold-500">Imprimir</button>
-    <button @click="discipuladoNotasAbiertas = !discipuladoNotasAbiertas" class="ml-auto rounded-lg border border-cyan-700/40 px-3 py-2 text-xs text-cyan-800 hover:border-cyan-700">Notas laterales</button>
+    <button @click="discipuladoNotasAbiertas = !discipuladoNotasAbiertas" class="ml-auto rounded-lg border border-gold-500/40 px-3 py-2 text-xs text-gold-600 hover:border-gold-500">Notas laterales</button>
   </div>
   <div x-show="discipuladoPlan" x-cloak class="grid gap-4" :class="discipuladoNotasAbiertas ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'grid-cols-1'">
     <div class="grid md:grid-cols-3 gap-4">
-    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.descripcion"></p><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89B3C')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.hito"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89B3C')" class="h-5 w-5 rounded-full bg-[#C89B3C]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B25A45')" class="h-5 w-5 rounded-full bg-[#B25A45]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A9468')" class="h-5 w-5 rounded-full bg-[#7A9468]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
-    <aside x-show="discipuladoNotasAbiertas" x-cloak class="rounded-xl border border-cyan-700/30 bg-[#F1F7FA] p-4 lg:sticky lg:top-4 lg:h-fit"><div class="flex items-center justify-between"><h3 class="font-serif text-lg text-[#0f172a]">Mis notas</h3><span class="text-[10px] text-cyan-800">guardado automático</span></div><p class="mt-1 text-xs text-[#475569]">Escribe aquí tus respuestas, oraciones o próximos pasos.</p><template x-for="(etapa, index) in discipuladoEtapas" :key="'nota-' + index"><label class="mt-4 block text-xs font-semibold text-[#334155]" x-text="etapa.titulo"><textarea :value="discipuladoNotas[index] || ''" @input="actualizarNota(index, $event.target.value)" rows="3" class="mt-1 w-full rounded-lg border border-cyan-700/20 bg-white p-2 text-xs text-[#1e293b] outline-none focus:border-cyan-700"></textarea></label></template></aside>
+    <template x-for="(etapa, index) in discipuladoEtapas" :key="etapa.titulo"><article class="bg-panel border border-line rounded-xl p-5"><p class="text-xs uppercase tracking-wider text-gold-500">Etapa <span x-text="index + 1"></span></p><h3 class="font-serif text-lg text-gold-50 mt-1" x-text="etapa.titulo"></h3><p class="text-sm text-gray-400 mt-2" x-text="etapa.descripcion"></p><button @click="resaltarEtapa(index, etapaResaltados[index] ? null : '#C89A3D')" class="mt-4 w-full rounded-lg border border-gold-500/30 px-3 py-2 text-left text-xs text-gold-300" :style="etapaResaltados[index] ? `background:${etapaResaltados[index]}33; border-color:${etapaResaltados[index]}` : ''">Hito NBLA: <span x-text="etapa.hito"></span></button><div class="mt-3 flex gap-1.5"><button @click.stop="resaltarEtapa(index, '#C89A3D')" class="h-5 w-5 rounded-full bg-[#C89A3D]" aria-label="Resaltar en oro"></button><button @click.stop="resaltarEtapa(index, '#B86A4B')" class="h-5 w-5 rounded-full bg-[#B86A4B]" aria-label="Resaltar en terracota"></button><button @click.stop="resaltarEtapa(index, '#7A8F6B')" class="h-5 w-5 rounded-full bg-[#7A8F6B]" aria-label="Resaltar en salvia"></button><button @click.stop="resaltarEtapa(index, null)" class="ml-auto text-[10px] text-gray-500">Quitar</button></div></article></template></div>
+    <aside x-show="discipuladoNotasAbiertas" x-cloak class="rounded-xl border border-gold-500/30 bg-panel2 p-4 lg:sticky lg:top-4 lg:h-fit"><div class="flex items-center justify-between"><h3 class="font-serif text-lg text-[#293139]">Mis notas</h3><span class="text-[10px] text-gold-600">guardado automático</span></div><p class="mt-1 text-xs text-[#637068]">Escribe aquí tus respuestas, oraciones o próximos pasos.</p><template x-for="(etapa, index) in discipuladoEtapas" :key="'nota-' + index"><label class="mt-4 block text-xs font-semibold text-[#3E4A45]" x-text="etapa.titulo"><textarea :value="discipuladoNotas[index] || ''" @input="actualizarNota(index, $event.target.value)" rows="3" class="mt-1 w-full rounded-lg border border-gold-500/20 bg-white p-2 text-xs text-[#293139] outline-none focus:border-gold-500"></textarea></label></template></aside>
   </div>
   </section>
 
@@ -1984,10 +1984,10 @@
                 capitulosLeidos: {},
                 ultimaPosicionLector: null,
                 COLORES_RESALTADO: [
-                    { id: 'oro', nombre: 'Oro', muestra: '#C89B3C' },
-                    { id: 'terracota', nombre: 'Terracota', muestra: '#B25A45' },
-                    { id: 'salvia', nombre: 'Salvia', muestra: '#7A9468' },
-                    { id: 'cielo', nombre: 'Cielo', muestra: '#5E789E' }
+                    { id: 'oro', nombre: 'Oro', muestra: '#C89A3D' },
+                    { id: 'terracota', nombre: 'Terracota', muestra: '#B86A4B' },
+                    { id: 'salvia', nombre: 'Salvia', muestra: '#7A8F6B' },
+                    { id: 'cielo', nombre: 'Cielo', muestra: '#5D8095' }
                 ],
 
                 // Concordancia bíblica: búsqueda real de palabras/frases en el texto
@@ -2109,6 +2109,11 @@
                         const { data } = await supabaseClient.auth.getSession();
                         this.aplicarSesion(data.session);
                         supabaseClient.auth.onAuthStateChange((_e, session) => this.aplicarSesion(session));
+                        const estudioCompartido = new URLSearchParams(window.location.search).get('estudio')?.trim();
+                        if (data.session && estudioCompartido) {
+                            this.vista = 'ia';
+                            await this.ejecutarEstudio(estudioCompartido);
+                        }
                     } catch (error) {
                         this.loginError = error.message || 'La autenticación no está disponible.';
                     } finally {
@@ -2644,7 +2649,7 @@
                 },
   urlEstudioCompartido() {
   const url = new URL(window.location.href);
-  url.searchParams.set('estudio', encodeURIComponent(this.estudioRef || 'estudio-biblico'));
+  url.searchParams.set('estudio', this.estudioRef || 'estudio-biblico');
   url.searchParams.set('marca', 'revelatio-by-efata');
   return url.toString();
   },
@@ -2679,20 +2684,20 @@
                     const html = `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>RevelatiO · ${esc(this.estudioRef)}</title>
                         <style>
                             @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600&display=swap');
-                            body{font-family:'Plus Jakarta Sans',sans-serif;color:#2B2417;max-width:720px;margin:40px auto;padding:0 24px;line-height:1.65}
-                            .marca{font-family:'Playfair Display',serif;font-size:26px;color:#7C550E;letter-spacing:-.5px}
-                            .sub{font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:#9A6B12;margin-bottom:24px}
+                            body{font-family:'Plus Jakarta Sans',sans-serif;color:#293139;max-width:720px;margin:40px auto;padding:0 24px;line-height:1.65}
+                            .marca{font-family:'Playfair Display',serif;font-size:26px;color:#865B18;letter-spacing:-.5px}
+                            .sub{font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:#AA7724;margin-bottom:24px}
                             h1{font-family:'Playfair Display',serif;font-size:22px;margin:8px 0 4px}
-                            .verso{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;background:#F5EFE3;border-left:3px solid #C89B3C;padding:12px 16px;border-radius:6px;margin:16px 0}
-                            .orig{font-size:12px;color:#6B5D45;margin-bottom:8px}
-                            h2{font-family:'Playfair Display',serif;font-size:16px;color:#7C550E;margin:22px 0 6px;border-bottom:1px solid #E3D8C2;padding-bottom:4px}
+                            .verso{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;background:#F6F2E8;border-left:3px solid #C89A3D;padding:12px 16px;border-radius:6px;margin:16px 0}
+                            .orig{font-size:12px;color:#66736B;margin-bottom:8px}
+                            h2{font-family:'Playfair Display',serif;font-size:16px;color:#865B18;margin:22px 0 6px;border-bottom:1px solid #D6D0BE;padding-bottom:4px}
                             p{margin:8px 0;font-size:13.5px}
-                            blockquote{border-left:2px solid #C89B3C;margin:10px 0;padding:4px 14px;font-style:italic;color:#7C550E}
-                            footer{margin-top:32px;padding-top:12px;border-top:1px solid #E3D8C2;font-size:10px;color:#9A8A6E}
+                            blockquote{border-left:2px solid #C89A3D;margin:10px 0;padding:4px 14px;font-style:italic;color:#865B18}
+                            footer{margin-top:32px;padding-top:12px;border-top:1px solid #D6D0BE;font-size:10px;color:#8C948B}
                         </style></head><body>
                         <div class="marca">RevelatiO</div><div class="sub">by Efata</div>
                         <h1>${esc(this.estudioRef)}</h1>
-                        ${this.textoActual ? `<div class="verso">"${esc(this.textoActual)}" <span style="font-size:11px;color:#9A6B12">(${esc(et)})</span></div>` : ''}
+                        ${this.textoActual ? `<div class="verso">"${esc(this.textoActual)}" <span style="font-size:11px;color:#AA7724">(${esc(et)})</span></div>` : ''}
                         ${this.estudio.original ? `<div class="orig"><strong>Idioma original:</strong> ${esc(this.estudio.original)}</div>` : ''}
                         ${secciones}
                         <footer>RevelatiO by Efata · Estudio bíblico de libre distribución · Desarrollo: Xtrametrik · Dirección teológica: Cielo-Efata</footer>
