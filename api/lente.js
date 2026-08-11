@@ -130,7 +130,7 @@ export default async function handler(req, res) {
   const instruccion = esAutor
     ? esDominioPublico
       ? `Redacta un comentario bíblico sobre la consulta SIGUIENDO FIELMENTE la línea teológica, el énfasis y el estilo documentado de ${nombreAutor} (autor de obra ya de dominio público). No inventes citas textuales entrecomilladas como si fueran transcripción literal; expón la interpretación en la voz y perspectiva histórica conocida de este autor. Debe ser exegético, fiel a su tradición y edificante.`
-      : `Redacta un comentario bíblico sobre la consulta en la línea teológica y el énfasis AMPLIAMENTE DOCUMENTADO y públicamente conocido de ${nombreAutor} (autor con obra bajo derechos de autor vigentes). PROHIBIDO presentar frases como cita textual entrecomillada o atribuírsela como transcripci��n exacta de un libro suyo: solo describe su posición y enfoque conocidos (p. ej. su énfasis en la interpretación literal-histórica-gramatical si aplica), aclarando que es una síntesis de su línea, no una cita.`
+      : `Redacta un comentario bíblico sobre la consulta en la línea teológica y el énfasis AMPLIAMENTE DOCUMENTADO y públicamente conocido de ${nombreAutor} (autor con obra bajo derechos de autor vigentes). PROHIBIDO presentar frases como cita textual entrecomillada o atribuírsela como transcripción exacta de un libro suyo: solo describe su posición y enfoque conocidos (p. ej. su énfasis en la interpretación literal-histórica-gramatical si aplica), aclarando que es una síntesis de su línea, no una cita.`
     : LENTES[lente].instruccion;
 
   const titulo = esAutor ? `Comentario · ${nombreAutor}` : LENTES[lente].titulo;
