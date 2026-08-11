@@ -60,6 +60,7 @@
 <script src="/lib/estudios-maestro.js?v=master-20"></script>
 <script src="/lib/discipulado-maestro.js"></script>
 <script src="/lib/engagement.js?v=foundation-1"></script>
+<script src="/lib/offline-bible.js" defer></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
@@ -888,7 +889,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
+                                    <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
                                     <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#253036] rounded-2xl px-5 py-6' : ''"><p :class="bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl'" class="leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p><div x-show="bibliaMostrarParalelo" x-cloak class="mt-5 border-t border-line pt-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Paralelo · NVI</p><p class="mt-2 text-base leading-relaxed font-serif text-gray-400" x-text="versionesVersos.nvi ? versionesVersos.nvi.map(v => `${v.n} ${v.texto}`).join(' ') : 'Carga la versión NVI para comparar este pasaje.'"></p></div></div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
@@ -2393,6 +2394,9 @@
                 referenciasBiblia: {},
                 cachePasaje: {},
                 cacheLexico: {},
+                offlineDisponible: false,
+                offlineGuardando: false,
+                offlineCapitulos: 0,
 
                 // búsqueda global
                 consultaGlobal: '',
@@ -2749,6 +2753,12 @@
                 // Texto bíblico REAL (no generado por IA), instantáneo, con ocho versiones: siete traducciones servidas por Bolls y la línea española asociada a la Peshitta.
   async obtenerPasajeReal(ref) {
   if (this.cachePasaje[ref]) return this.cachePasaje[ref];
+  const key = `pasaje:${String(ref).trim().toLowerCase()}`;
+  try {
+    const local = await window.RevelatioOfflineBible?.get(key);
+    if (local) { this.offlineDisponible = true; return local; }
+  } catch (_e) { /* IndexedDB no disponible: continúa con red */ }
+  this.offlineDisponible = false;
   const response = await fetch('/api/pasaje', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -2760,6 +2770,28 @@
                     const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {}, versionesVersos: data.versionesVersos || {}, original: data.original || null };
                     this.cachePasaje[ref] = limpio;
                     return limpio;
+                },
+                async guardarPasajeOffline() {
+                    if (!this.referenciaActiva || this.offlineGuardando) return;
+                    this.offlineGuardando = true;
+                    try {
+                        if (!window.RevelatioOfflineBible) throw new Error('IndexedDB no disponible');
+                        const key = `pasaje:${this.referenciaActiva.toLowerCase()}`;
+                        const data = { referencia: this.referenciaActiva, versiones: this.versiones, versionesVersos: this.versionesVersos, original: this.original };
+                        await window.RevelatioOfflineBible.put(key, data);
+                        this.offlineDisponible = true;
+                        this.offlineCapitulos = await window.RevelatioOfflineBible?.count() || 0;
+                    } catch (_e) { this.errorPasaje = 'No fue posible guardar este capítulo en el dispositivo.'; }
+                    finally { this.offlineGuardando = false; }
+                },
+                async eliminarPasajeOffline() {
+                    if (!this.referenciaActiva) return;
+                    try {
+                        if (!window.RevelatioOfflineBible) throw new Error('IndexedDB no disponible');
+                        await window.RevelatioOfflineBible.remove(`pasaje:${this.referenciaActiva.toLowerCase()}`);
+                        this.offlineDisponible = false;
+                        this.offlineCapitulos = await window.RevelatioOfflineBible?.count() || 0;
+                    } catch (_e) { this.errorPasaje = 'No fue posible quitar la descarga local.'; }
                 },
 
                 get versionesLista() {
