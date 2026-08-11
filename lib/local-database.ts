@@ -2,16 +2,15 @@ export type Perspective = { name: string; description: string }
 export type Study = { id: number; title: string; block: string; duration: string; verse: string }
 
 export const perspectives: Perspective[] = [
-  { name: 'Teológica', description: 'Qué revela el pasaje sobre Dios, su carácter y su obra.' },
-  { name: 'Hermenéutica', description: 'Cómo leer el texto atendiendo al género, contexto y propósito.' },
-  { name: 'Exégesis', description: 'Observación histórica, literaria y de las palabras originales.' },
-  { name: 'Evangelística', description: 'El camino desde la convicción hasta una fe firme y vivida.' },
-  { name: 'Pastoral', description: 'Una lectura que acompaña, consuela y llama a obedecer.' },
-  { name: 'Neurociencia', description: 'Renovación de la mente, hábitos y plasticidad con prudencia.' },
-  { name: 'Devocional', description: 'Cómo llevar la verdad del texto a tu corazón hoy.' },
-  { name: 'Apologética', description: 'Preguntas difíciles y razones para una esperanza sólida.' },
-  { name: 'Psicología', description: 'Emociones, patrones y sanidad vistos a la luz de la Palabra.' },
-  { name: 'Discipulado', description: 'Prácticas concretas para mantenerse firme y constante.' },
+  { name: 'Teología', description: 'Qué revela el pasaje sobre Dios, su carácter, su obra y la doctrina implicada.' },
+  { name: 'Antropología bíblica', description: 'Imagen de Dios, dignidad, caída, cuerpo, alma y restauración en Cristo.' },
+  { name: 'Hermenéutica', description: 'Cómo leer el género, contexto, intención del autor y alcance de aplicación.' },
+  { name: 'Apologética', description: 'Razones bíblicas, objeciones, límites y una esperanza comunicada con mansedumbre.' },
+  { name: 'Exégesis bíblica', description: 'Texto, estructura, contexto histórico-literario, idiomas originales y referencias.' },
+  { name: 'Psicología cristiana', description: 'Emociones, patrones e identidad sometidos a la verdad de la Escritura.' },
+  { name: 'Neurociencia', description: 'Atención, memoria, hábitos y emoción distinguiendo evidencia de doctrina.' },
+  { name: 'Neuroplasticidad', description: 'Prácticas repetidas de verdad, hábitos y renovación de la mente.' },
+  { name: 'Inteligencia emocional', description: 'Reconocer, regular y expresar emociones con dominio propio, compasión y verdad.' },
 ]
 
 export const studies: Study[] = Array.from({ length: 20 }, (_, index) => ({
