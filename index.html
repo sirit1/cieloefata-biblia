@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full bg-ink">
+<html lang="es" class="h-full surface-dark">
 
 <head>
     <meta charset="UTF-8">
@@ -297,15 +297,50 @@
     aside.zona-oscura nav button[aria-current="page"] span { color:#ffffff !important; }
   </style>
   <style id="qa-final-nav-text">
-    /* Regla final, después de todos los estilos: texto inactivo legible. */
-    aside nav button.nav-active span:not([class]),
-    aside nav button.text-gray-400 span:not([class]),
-    aside nav button.text-gray-400 { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
-    aside nav button.nav-active svg,
-    aside nav button.text-gray-400 svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
-    aside nav button[class*="text-gray-400"] { color:#fff4df !important; }
-    aside nav button[class*="text-gray-400"] > span:not([class]) { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
-    aside nav button[class*="text-gray-400"] > svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
+    /* RevelatiO Premium: sistema cromático único y basado en superficies. */
+    :root {
+      --premium-night:#102A43;
+      --premium-ocean:#163D56;
+      --premium-paper:#F7F3EA;
+      --premium-panel:#FFFDF8;
+      --premium-sand:#E8DDC8;
+      --premium-copper:#B7793E;
+      --premium-copper-dark:#8A542C;
+      --premium-ink:#263238;
+      --premium-heading:#17324D;
+      --premium-muted:#52616B;
+      --premium-on-dark:#F8F4EA;
+      --premium-border:rgba(183,121,62,.34);
+      --premium-success:#356859;
+      --premium-error:#A94442;
+    }
+    html, body { background:var(--premium-night) !important; color:var(--premium-on-dark) !important; }
+    body { background:linear-gradient(145deg,var(--premium-night),var(--premium-ocean)) !important; }
+    .surface-dark, .zona-oscura, aside, header, .bg-ink, .bg-night { background:var(--premium-night) !important; color:var(--premium-on-dark) !important; }
+    .surface-paper, .zona-clara, .bg-panel, .bg-panel2, .bg-paper, [class*="bg-white"] { background:var(--premium-paper) !important; color:var(--premium-ink) !important; border-color:var(--premium-border) !important; }
+    .bg-panel *, .bg-panel2 *, .bg-paper *, .zona-clara *, [class*="bg-white"] * { color:var(--premium-ink) !important; -webkit-text-fill-color:var(--premium-ink) !important; }
+    .bg-panel h1, .bg-panel h2, .bg-panel h3, .bg-panel h4, .bg-panel2 h1, .bg-panel2 h2, .bg-panel2 h3, .bg-paper h1, .bg-paper h2, .bg-paper h3 { color:var(--premium-heading) !important; }
+    .text-gray-100, .text-gray-200, .text-gray-300 { color:var(--premium-ink) !important; }
+    .text-gray-400, .text-gray-500, .text-gray-600 { color:var(--premium-muted) !important; }
+    .text-gold-50, .text-gold-100, .text-gold-200, .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600, .text-gold-700 { color:var(--premium-copper-dark) !important; }
+    .zona-oscura *, aside *, header *, .bg-ink *, .bg-night * { color:var(--premium-on-dark) !important; -webkit-text-fill-color:var(--premium-on-dark) !important; }
+    .zona-oscura .text-gold-300, .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, aside svg, header svg { color:var(--premium-copper) !important; stroke:var(--premium-copper) !important; }
+    .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper { background:var(--premium-paper) !important; }
+    .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper * { color:var(--premium-ink) !important; -webkit-text-fill-color:var(--premium-ink) !important; }
+    aside nav button.nav-active { background:var(--premium-copper) !important; color:#1C2730 !important; box-shadow:inset 3px 0 var(--premium-copper-dark) !important; }
+    aside nav button.nav-active *, aside nav button.text-gray-400, aside nav button.text-gray-400 span { color:var(--premium-on-dark) !important; -webkit-text-fill-color:var(--premium-on-dark) !important; }
+    button.bg-gold-500, button[class*="bg-gold"], .bg-gold-500 { background:var(--premium-copper) !important; color:#1C2730 !important; border-color:var(--premium-copper-dark) !important; }
+    button.bg-gold-500 *, button[class*="bg-gold"] *, .bg-gold-500 * { color:#1C2730 !important; -webkit-text-fill-color:#1C2730 !important; }
+    button.bg-ink, button[class*="bg-ink"] { background:var(--premium-ocean) !important; color:var(--premium-on-dark) !important; }
+    button.bg-ink *, button[class*="bg-ink"] * { color:var(--premium-on-dark) !important; -webkit-text-fill-color:var(--premium-on-dark) !important; }
+    input, select, textarea { background:var(--premium-panel) !important; color:var(--premium-ink) !important; border-color:var(--premium-copper) !important; }
+    input::placeholder, textarea::placeholder { color:var(--premium-muted) !important; opacity:1 !important; }
+    :focus-visible { outline:3px solid var(--premium-copper) !important; outline-offset:3px; }
+    .libro-lectura-shell { background:var(--premium-panel) !important; color:var(--premium-ink) !important; box-shadow:0 16px 40px rgba(16,42,67,.12) !important; }
+    .libro-lectura-shell *, .prose-lectura { color:var(--premium-ink) !important; -webkit-text-fill-color:var(--premium-ink) !important; }
+    .border-line, .rounded-2xl, .rounded-3xl { border-color:var(--premium-border) !important; }
+    .ux-card { box-shadow:0 12px 30px rgba(16,42,67,.12) !important; }
+    button:hover, a:hover { filter:brightness(1.04); }
   </style>
   </head>
 
