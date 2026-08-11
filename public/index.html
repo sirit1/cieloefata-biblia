@@ -578,14 +578,14 @@
                             <div class="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-transparent"></div>
                             <div class="relative p-6 sm:p-9 max-w-2xl">
                                 <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
-                                <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Transformaos mediante la renovación de vuestra mente</h2>
+                                <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Estudia un mismo texto desde nueve lentes</h2>
                                 <blockquote class="mt-4 border-l-2 border-gold-500/50 pl-4">
                                     <p class="text-sm text-gray-300 italic leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
                                     <cite class="block text-xs text-gold-400 mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
                                 </blockquote>
                                 <div class="flex flex-wrap gap-3 mt-6">
-                                    <button @click="leerReferencia(versiculoDelDia.ref)" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Leer el pasaje del día</button>
-                                    <button @click="irA('ia')" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Consultar RevelatiO IA</button>
+                                    <button @click="irA('ia'); $nextTick(() => document.getElementById('ia-input')?.focus())" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Iniciar estudio con RevelatiO IA</button>
+                                    <button @click="leerReferencia(versiculoDelDia.ref)" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Ver texto y evidencia</button>
   <button x-show="mostrarInstalar" x-cloak @click="instalarApp()" class="inline-flex items-center gap-2 border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">
   <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-5 w-5 rounded-md object-contain">
   Instalar RevelatiO
@@ -625,8 +625,8 @@
   </div>
   </div>
 
-  <!-- Hito de lectura de la Biblia completa -->
-  <div class="bg-panel border border-gold-500/30 rounded-2xl p-5 sm:p-6">
+  <!-- Hito de lectura de la Biblia completa: oculto del primer nivel -->
+  <div x-show="false" class="bg-panel border border-gold-500/30 rounded-2xl p-5 sm:p-6">
     <div class="flex flex-wrap items-start justify-between gap-4">
       <div class="min-w-0">
         <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-300">Hito de lectura</p>
@@ -677,8 +677,8 @@
                             </div>
                         </div>
 
-                        <!-- Declaración de propósito -->
-                        <div class="rounded-3xl border border-line bg-panel2 p-6 sm:p-9">
+                        <!-- Declaración de propósito: no compite con el estudio en Inicio -->
+                        <div x-show="false" class="rounded-3xl border border-line bg-panel2 p-6 sm:p-9">
                             <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3">Declaración de propósito</p>
                             <h3 class="text-xl sm:text-2xl font-bold text-gold-50 font-serif text-balance">No una herramienta, una plataforma ministerial</h3>
                             <div class="mt-4 space-y-4 text-sm text-gray-400 leading-relaxed max-w-3xl">
@@ -1085,10 +1085,8 @@
   <div x-show="busqueda.trim()" class="mt-4 border-t border-line pt-4">
     <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-500">Consultar esta búsqueda desde una lente</p>
     <p class="mt-1 text-xs text-gray-500">La misma consulta se enviará a la disciplina que elijas y su respuesta aparecerá en el panel de abajo.</p>
-    <div class="mt-3 flex flex-wrap gap-2">
-      <template x-for="l in LENTES_LISTA" :key="l.id">
-        <button type="button" @click="activarLente(l.id)" class="rounded-full border px-3 py-2 text-xs transition-all" :class="lenteActiva === l.id ? 'border-gold-500 bg-gold-500 text-gray-950 font-bold' : 'border-line bg-ink text-gray-300 hover:border-gold-500/60 hover:text-gold-200'" x-text="l.etiqueta"></button>
-      </template>
+    <div class="mt-3 space-y-3">
+      <template x-for="grupo in GRUPOS_LENTES" :key="grupo.titulo"><div><p class="mb-1 text-[10px] uppercase tracking-wider text-gold-500" x-text="grupo.titulo"></p><div class="flex flex-wrap gap-2"><template x-for="l in LENTES_LISTA.filter(item => grupo.ids.includes(item.id))" :key="l.id"><button type="button" @click="activarLente(l.id)" class="rounded-full border px-3 py-2 text-xs transition-all" :class="lenteActiva === l.id ? 'border-gold-500 bg-gold-500 text-gray-950 font-bold' : 'border-line bg-ink text-gray-300 hover:border-gold-500/60 hover:text-gold-200'" x-text="l.etiqueta"></button></template></div></div></template>
     </div>
   </div>
   <p role="status" aria-live="polite" class="text-xs mt-3" :class="errorEstudio ? 'text-red-300' : 'text-gray-500'" x-text="mensajeEstudio"></p>
@@ -1165,13 +1163,9 @@
                                     <p class="text-xs font-semibold text-slate-800" x-text="`Perspectiva activa: ${(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'}`"></p>
                                     <p class="mt-1 text-[11px] leading-relaxed text-slate-700">La ficha conecta consulta, pasaje base, contexto, observaciones, interpretación, aplicación y pasos concretos desde la lente seleccionada.</p>
                                 </div>
-                                <p class="text-xs text-gray-500 mb-2.5 uppercase tracking-wider">Explora tu consulta desde cada disciplina, bajo la autoridad de la Escritura</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <template x-for="l in LENTES_LISTA" :key="l.id">
-                                        <button @click="activarLente(l.id)"
-                                            :class="lenteActiva === l.id ? 'bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold border-transparent' : 'bg-ink text-white border-line hover:border-gold-500/40 hover:text-gold-200'"
-                                            class="text-xs px-3.5 py-2 rounded-full border transition-all" x-text="l.etiqueta"></button>
-                                    </template>
+                                <p class="text-xs text-gray-500 mb-2.5 uppercase tracking-wider">Explora tu consulta por evidencia, persona y mente</p>
+                                <div class="space-y-3">
+                                    <template x-for="grupo in GRUPOS_LENTES" :key="grupo.titulo"><div><p class="mb-1 text-[10px] uppercase tracking-wider text-gold-500" x-text="grupo.titulo"></p><div class="flex flex-wrap gap-2"><template x-for="l in LENTES_LISTA.filter(item => grupo.ids.includes(item.id))" :key="l.id"><button @click="activarLente(l.id)" :class="lenteActiva === l.id ? 'bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold border-transparent' : 'bg-ink text-white border-line hover:border-gold-500/40 hover:text-gold-200'" class="text-xs px-3.5 py-2 rounded-full border transition-all" x-text="l.etiqueta"></button></template></div></div></template>
                                 </div>
                             </div>
 
@@ -2190,20 +2184,16 @@
                 sidebarAbierta: false,
                 navegacion: [
                     { id: 'inicio', label: 'Inicio', labelCorto: 'Inicio', icon: ICON.inicio },
-                    { id: 'biblia', label: 'Biblia', labelCorto: 'Biblia', icon: ICON.biblia },
                     { id: 'ia', label: 'RevelatiO IA', labelCorto: 'IA', icon: ICON.ia },
-                    { id: 'estudios', label: 'Estudios bíblicos', labelCorto: 'Estudios', icon: ICON.biblia },
-                    { id: 'comunidad', label: 'Comunidad', labelCorto: 'Comunidad', icon: ICON.planes },
-                    { id: 'discipulado', label: 'Discipulado', labelCorto: 'Discipulado', icon: ICON.planes },
-                                      { id: 'planes', label: 'Planes', labelCorto: 'Planes', icon: ICON.planes },
+                    { id: 'biblia', label: 'Biblia', labelCorto: 'Biblia', icon: ICON.biblia },
                     { id: 'biblioteca', label: 'Biblioteca', labelCorto: 'Biblioteca', icon: ICON.favoritos },
-                    { id: 'favoritos', label: 'Favoritos', labelCorto: 'Guardados', icon: ICON.favoritos }
+                    { id: 'planes', label: 'Planes', labelCorto: 'Planes', icon: ICON.planes }
                 ],
                 accesos: [
-                    { id: 'biblia', label: 'Leer la Biblia', desc: 'Varias versiones lado a lado', icon: ICON.biblia },
-                    { id: 'ia', label: 'RevelatiO IA', desc: 'Exégesis con inteligencia ética', icon: ICON.ia },
-                                      { id: 'planes', label: 'Planes de lectura', desc: 'El camino del evangelio', icon: ICON.planes },
-                    { id: 'comunidad', label: 'Comunidad', desc: 'Oración, crecimiento y acompañamiento', icon: ICON.planes }
+                    { id: 'ia', label: 'RevelatiO IA', desc: 'Nueve lentes sobre el mismo texto', icon: ICON.ia },
+                    { id: 'biblia', label: 'Texto y evidencia', desc: 'Versiones, Strong y referencias', icon: ICON.biblia },
+                    { id: 'biblioteca', label: 'Biblioteca local', desc: 'Capítulos guardados en este equipo', icon: ICON.favoritos },
+                    { id: 'planes', label: 'Continuar un plan', desc: 'Lectura guiada cuando la necesites', icon: ICON.planes }
                 ],
                 engagementModules: window.REVELATIO_ENGAGEMENT.modules,
                 engagementPrayers: window.REVELATIO_ENGAGEMENT.prayers,
@@ -2376,6 +2366,11 @@
                     { id: 'neurociencia', etiqueta: 'Neurociencia' },
                     { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad' },
                     { id: 'inteligenciaEmocional', etiqueta: 'Inteligencia emocional' }
+                ],
+                GRUPOS_LENTES: [
+                    { titulo: 'Texto', ids: ['exegesis', 'hermeneutica', 'teologia', 'apologetica'] },
+                    { titulo: 'Persona', ids: ['antropologia', 'psicologia', 'inteligenciaEmocional'] },
+                    { titulo: 'Mente', ids: ['neurociencia', 'neuroplasticidad'] }
                 ],
                 AUTORES_LISTA: [
                     { id: 'john-macarthur', nombre: 'John MacArthur' },
