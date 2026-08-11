@@ -2977,8 +2977,6 @@
                     this.cargandoEstudio = true;
                     this.errorEstudio = false;
                     this.busqueda = q;
-                    this.cargandoEstudio = true;
-                    this.errorEstudio = false;
                     this.estudioListo = false;
                     this.mensajeEstudio = 'Sintetizando análisis multiversión, idioma original y aplicación...';
                     try {
@@ -3023,15 +3021,7 @@
                         };
                         this.lenteActiva = 'exegesis';
                         this.estudioListo = true;
-                        this.mensajeEstudio = 'Análisis base listo. Estamos preparando las perspectivas para que cambies de lente sin esperas.';
-                        // Precarga en paralelo: la pantalla queda disponible de inmediato;
-                        // las perspectivas se completan en segundo plano y quedan listas al seleccionarlas.
-                        const precarga = this.LENTES_LISTA
-                            .filter((l) => l.id !== 'exegesis')
-                            .map((l) => this.cargarLente(l.id));
-                        Promise.allSettled(precarga).then(() => {
-                            if (!this.cargandoEstudio && this.estudioListo) this.mensajeEstudio = 'Análisis completado. Las perspectivas disponibles están listas para explorar.';
-                        });
+                        this.mensajeEstudio = 'Análisis base listo. Elige una perspectiva para cargarla cuando la necesites.';
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
                         this.errorEstudio = true;

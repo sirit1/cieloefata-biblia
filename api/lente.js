@@ -180,15 +180,6 @@ Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_LENTE, perfil: 'pro
     });
   } catch (error) {
     console.error('Error en el motor de lentes:', error?.message);
-    return res.status(200).json({
-      success: true,
-      data: {
-        titulo: `${titulo} · ${consulta}`,
-        cuerpo: `La perspectiva de ${titulo} no pudo completar la generación automática, pero esta consulta sigue abierta para un estudio específico desde esta disciplina.\n\nVuelve al texto de ${consulta} y observa aquello que corresponde a ${titulo}: formula una pregunta propia de esta lente, contrástala con el contexto bíblico y escribe una respuesta concreta de obediencia. Esta respuesta de continuidad no sustituye el estudio bíblico ni la comunidad de fe.`,
-        destacado: `${titulo} pide volver a ${consulta} con una pregunta propia de esta disciplina.`,
-        autor: nombreAutor || null,
-        esDominioPublico: esAutor ? esDominioPublico : null,
-      },
-    });
+    return res.status(502).json({ error: 'El proveedor de IA no pudo generar esta perspectiva. Intenta de nuevo más tarde.' });
   }
 }

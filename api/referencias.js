@@ -85,12 +85,6 @@ Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_REFERENCIAS, maxOut
     return res.status(200).json({ success: true, data: { referencias } });
   } catch (error) {
     console.error('Error en referencias cruzadas:', error?.message);
-    return res.status(200).json({ success: true, data: { referencias: [
-      { ref: '1 Juan 1:9', nota: 'Conecta la consulta con confesión, perdón y limpieza.' },
-      { ref: '1 Pedro 2:2', nota: 'Relaciona el crecimiento espiritual con el deseo por la Palabra.' },
-      { ref: 'Romanos 12:2', nota: 'Muestra la renovación de la mente por la verdad de Dios.' },
-      { ref: 'Santiago 1:22', nota: 'Lleva la comprensión bíblica a una obediencia concreta.' },
-      { ref: '1 Corintios 15:58', nota: 'Afirma la firmeza y constancia del creyente.' }
-    ] } });
+    return res.status(502).json({ error: 'El proveedor de IA no pudo generar las referencias cruzadas. Intenta de nuevo más tarde.' });
   }
 }

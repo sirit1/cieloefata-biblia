@@ -145,25 +145,6 @@ Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_EXEGESIS, perfil: '
     return res.status(200).json({ success: true, data });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);
-    const referencia = consulta.match(/[1-3]?\s?[A-Za-zÁÉÍÓÚáéíóúÑñ]+\s+\d+(?::\d+(?:-\d+)?)?/)?.[0] || consulta;
-    return res.status(200).json({       success: true,
-      usage: cuota,
-      data: {
-      referencia,
-      versiones: { rvr1960: '', nvi: '', ntv: '', lbla: '', pdt: '', btx3: '', rv2004: '', peshitta: '' },
-      idiomaOriginal: { termino: '', strong: '', analisis: 'El análisis del idioma original requiere una consulta disponible del motor IA.' },
-      comentarioMacArthur: 'La consulta queda preparada para una lectura expositiva: observa el contexto, distingue lo que el texto afirma y llévalo a una obediencia concreta.',
-      aplicacion: 'Vuelve al texto bíblico, reconoce delante de Dios lo que necesita ser corregido, aprende de la Palabra y permanece firme en la práctica.',
-      objetivo: `Comprender ${consulta} y convertirlo en una decisión concreta delante de Dios.`,
-      contexto: 'Lee el pasaje completo y considera su contexto histórico, literario y canónico antes de aplicar una conclusión.',
-      estructura: 'Observación del texto → interpretación responsable → aplicación obediente.',
-      analisisGramatical: 'La revisión detallada de términos y sintaxis estará disponible cuando el motor IA vuelva a aceptar solicitudes.',
-      hermeneutica: 'La interpretación debe respetar el género, el contexto original, la intención del autor y la unidad de toda la Escritura.',
-      exegesis: `Para estudiar ${consulta}, comienza leyendo el pasaje completo. Identifica quién habla, a quién, en qué situación y qué respuesta pide el texto.`,
-      hitos: [1,2,3,4].map((numero) => ({ numero, titulo: ['Leer','Observar','Discernir','Practicar'][numero - 1], lectura: referencia, hallazgo: 'Vuelve al texto y registra lo que realmente dice.', pregunta: '¿Qué está llamando Dios a obedecer?', practica: 'Escribe una acción concreta para hoy.' })),
-      comparaciones: [{ referencia: 'Romanos 12:2', relacion: 'Renovación de la mente', comentario: 'La verdad recibida debe transformar la vida.' }, { referencia: 'Santiago 1:22', relacion: 'Obediencia', comentario: 'La escucha bíblica se completa en la práctica.' }, { referencia: '1 Corintios 15:58', relacion: 'Firmeza', comentario: 'La perseverancia sostiene el camino de fe.' }],
-      comentarios: [{ autor: 'Texto bíblico', comentario: 'Lee el pasaje completo y respeta su contexto.' }, { autor: 'Doctrina', comentario: 'La enseñanza debe someterse a la Escritura.' }, { autor: 'Vida cristiana', comentario: 'La comprensión se prueba en obediencia y comunidad.' }],
-      predica: { titulo: `Una respuesta fiel ante ${consulta}`, texto: 'Del texto a la obediencia.', puntos: ['Leer con atención', 'Interpretar con humildad', 'Practicar con constancia'], aplicaciones: ['Ora por claridad', 'Comparte con la comunidad', 'Da un paso concreto'], cierre: 'Permanece firme en la verdad.' }
-    } });
+    return res.status(502).json({ error: 'El proveedor de IA no pudo completar el análisis. Intenta de nuevo más tarde.' });
   }
 }
