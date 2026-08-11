@@ -505,7 +505,7 @@
 
                 <nav class="p-4 pt-1 space-y-1" aria-label="Navegación principal">
                     <template x-for="item in navegacion" :key="item.id">
-                        <button @click="sidebarAbierta = false; irA(item.id)"
+                        <button @click="sidebarAbierta = false; item.id === 'biblioteca' ? abrirBiblioteca() : irA(item.id)"
                             :aria-current="vista === item.id ? 'page' : false"
                             :class="vista === item.id ? 'bg-gradient-to-r from-gold-500/25 to-transparent text-gold-300 border-gold-500/40' : 'text-gray-400 hover:text-gray-100 hover:bg-white/5 border-transparent'"
                             class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl border transition-all text-sm font-medium nav-active">
@@ -1503,6 +1503,13 @@
                     </section>
 
                     <!-- ============ FAVORITOS ============ -->
+                    <section x-show="vista === 'biblioteca'" class="space-y-6">
+                        <div class="flex items-end justify-between gap-4"><div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO · Biblioteca</p><h2 class="mt-1 text-2xl font-bold text-gold-50 font-serif">Lectura en este equipo</h2><p class="mt-1 text-sm text-gray-500">Capítulos guardados localmente y fuentes de estudio verificables.</p></div><button @click="cargarBibliotecaLocal()" class="rounded-lg border border-line px-3 py-2 text-xs text-gold-300 hover:border-gold-500">Actualizar</button></div>
+                        <div class="flex gap-2 rounded-xl border border-line bg-panel p-1"><button @click="bibliotecaPestana = 'capitulos'" :class="bibliotecaPestana === 'capitulos' ? 'bg-gold-500 text-gray-950 font-bold' : 'text-gray-500'" class="flex-1 rounded-lg px-3 py-2 text-xs">Capítulos descargados</button><button @click="bibliotecaPestana = 'comentarios'" :class="bibliotecaPestana === 'comentarios' ? 'bg-gold-500 text-gray-950 font-bold' : 'text-gray-500'" class="flex-1 rounded-lg px-3 py-2 text-xs">Comentarios bíblicos</button></div>
+                        <div x-show="bibliotecaPestana === 'capitulos'" class="space-y-3"><p x-show="bibliotecaCargando" class="text-sm text-gray-500">Leyendo la biblioteca local…</p><div x-show="!bibliotecaCargando && !bibliotecaCapitulos.length" class="rounded-2xl border border-dashed border-line bg-panel p-6 text-center"><p class="font-serif text-lg text-gold-50">Aún no hay capítulos descargados.</p><p class="mt-2 text-sm text-gray-500">Abre un pasaje en Biblia y usa “Guardar sin conexión”.</p><button @click="irA('biblia')" class="mt-4 rounded-lg bg-gold-500 px-4 py-2 text-xs font-bold text-gray-950">Ir a Biblia</button></div><template x-for="item in bibliotecaCapitulos" :key="item.key"><article class="flex items-center gap-3 rounded-2xl border border-line bg-panel p-4"><div class="min-w-0 flex-1"><p class="font-serif text-lg text-gold-50 truncate" x-text="item.data.referencia"></p><p class="mt-1 text-xs text-gray-500" x-text="`${Object.keys(item.data.versiones || {}).length} versiones · guardado en este equipo`"></p></div><button @click="abrirCapituloLocal(item)" class="rounded-lg border border-gold-500/40 px-3 py-2 text-xs text-gold-300">Leer</button><button @click="eliminarCapituloBiblioteca(item)" class="p-2 text-gray-500 hover:text-red-300" aria-label="Eliminar descarga">×</button></article></template></div>
+                        <div x-show="bibliotecaPestana === 'comentarios'" class="space-y-3"><div class="rounded-2xl border border-gold-500/25 bg-gold-500/10 p-4 text-sm text-gray-600">Los comentarios se instalarán solo desde fuentes con licencia o dominio público verificables. RevelatiO no presenta síntesis IA como texto original de un autor.</div><template x-for="comentario in comentariosCatalogo" :key="comentario.id"><article class="rounded-2xl border border-line bg-panel p-4"><div class="flex items-start justify-between gap-3"><div><h3 class="font-serif text-lg text-gold-50" x-text="comentario.nombre"></h3><p class="mt-1 text-xs text-gray-500" x-text="comentario.nota"></p></div><span class="rounded-full border border-line px-2 py-1 text-[10px] text-gray-500">Próximamente</span></div></article></template></div>
+                    </section>
+
                     <section x-show="vista === 'favoritos'" class="space-y-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif">Mis favoritos</h2>
@@ -2189,6 +2196,7 @@
                     { id: 'comunidad', label: 'Comunidad', labelCorto: 'Comunidad', icon: ICON.planes },
                     { id: 'discipulado', label: 'Discipulado', labelCorto: 'Discipulado', icon: ICON.planes },
                                       { id: 'planes', label: 'Planes', labelCorto: 'Planes', icon: ICON.planes },
+                    { id: 'biblioteca', label: 'Biblioteca', labelCorto: 'Biblioteca', icon: ICON.favoritos },
                     { id: 'favoritos', label: 'Favoritos', labelCorto: 'Guardados', icon: ICON.favoritos }
                 ],
                 accesos: [
@@ -2400,6 +2408,17 @@
 
                 // búsqueda global
                 consultaGlobal: '',
+
+                // biblioteca local
+                bibliotecaPestana: 'capitulos',
+                bibliotecaCapitulos: [],
+                bibliotecaCargando: false,
+                comentariosCatalogo: [
+                    { id: 'matthew-henry', nombre: 'Matthew Henry', estado: 'pendiente', nota: 'Dominio público: pendiente de incorporar una fuente verificable por pasaje.' },
+                    { id: 'juan-calvino', nombre: 'Juan Calvino', estado: 'pendiente', nota: 'Dominio público: pendiente de incorporar una fuente verificable por pasaje.' },
+                    { id: 'charles-spurgeon', nombre: 'Charles Spurgeon', estado: 'pendiente', nota: 'Dominio público: pendiente de incorporar una fuente verificable por pasaje.' },
+                    { id: 'juan-wesley', nombre: 'Juan Wesley', estado: 'pendiente', nota: 'Dominio público: pendiente de incorporar una fuente verificable por pasaje.' }
+                ],
 
                 // favoritos
                 favoritos: [],
@@ -3620,6 +3639,32 @@
                     this.irA('ia');
                     this.ejecutarEstudio(q);
                     this.consultaGlobal = '';
+                },
+
+                async abrirBiblioteca() {
+                    this.irA('biblioteca');
+                    await this.cargarBibliotecaLocal();
+                },
+                async cargarBibliotecaLocal() {
+                    this.bibliotecaCargando = true;
+                    try { this.bibliotecaCapitulos = await window.RevelatioOfflineBible?.list() || []; }
+                    catch (_e) { this.bibliotecaCapitulos = []; }
+                    finally { this.bibliotecaCargando = false; }
+                },
+                async abrirCapituloLocal(item) {
+                    const data = item?.data;
+                    if (!data?.referencia) return;
+                    this.versiones = data.versiones || {};
+                    this.versionesVersos = data.versionesVersos || {};
+                    this.original = data.original || null;
+                    this.referenciaActiva = data.referencia;
+                    this.versionSel = Object.keys(this.versiones)[0] || 'rvr1960';
+                    this.irA('biblia');
+                },
+                async eliminarCapituloBiblioteca(item) {
+                    if (!item?.key) return;
+                    await window.RevelatioOfflineBible?.remove(item.key);
+                    await this.cargarBibliotecaLocal();
                 },
 
                 // ===== Lector "modo libro" =====

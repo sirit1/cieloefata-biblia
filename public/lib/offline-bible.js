@@ -52,5 +52,14 @@
     });
   }
 
-  window.RevelatioOfflineBible = { get, put, remove, count };
+  async function list() {
+    const db = await open();
+    return new Promise((resolve, reject) => {
+      const request = db.transaction(STORE, 'readonly').objectStore(STORE).getAll();
+      request.onsuccess = () => resolve((request.result || []).sort((a, b) => b.savedAt - a.savedAt));
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  window.RevelatioOfflineBible = { get, put, remove, count, list };
 })();
