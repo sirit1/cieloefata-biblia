@@ -9,54 +9,16 @@ import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 // modelo "redacte" JSON en texto libre y lo parseemos a mano — eso era lo que
 // producía los cortes a mitad de cadena en respuestas largas.
 const ESQUEMA_EXEGESIS = z.object({
-  referencia: z.string().describe('Cita canónica normalizada, ej. "Juan 3:16". Si es un tema, el pasaje base más representativo.'),
-  versiones: z.object({
-    rvr1960: z.string(),
-    nvi: z.string(),
-    ntv: z.string(),
-    lbla: z.string(),
-    pdt: z.string(),
-    btx3: z.string(),
-    rv2004: z.string(),
-    peshitta: z.string(),
-  }).describe('Texto del pasaje en cada versión, solo si se puede confirmar con seguridad; si no, cadena vacía.'),
+  referencia: z.string().describe('Cita canónica normalizada o pasaje base representativo.'),
+  comentarioMacArthur: z.string().describe('Resumen exegético breve de 2 o 3 párrafos; no atribuyas citas textuales a autores.'),
+  aplicacion: z.string().describe('Una aplicación concreta, prudente y breve.'),
+  contexto: z.string().describe('Contexto histórico-literario breve.'),
+  exegesis: z.string().describe('Observación e interpretación breve del texto.'),
   idiomaOriginal: z.object({
     termino: z.string(),
     strong: z.string(),
     analisis: z.string(),
-  }).describe('Término griego/hebreo clave, número Strong y análisis morfológico/etimológico.'),
-  comentarioMacArthur: z.string().describe('Comentario exegético pastoral, riguroso y expositivo.'),
-  aplicacion: z.string().describe('Aplicación ministerial: confesión y arrepentimiento, conversión y estudio de la Palabra, y permanecer firmes en la fe.'),
-  objetivo: z.string().describe('Frase concreta de qué debe comprender y practicar el estudiante.'),
-  contexto: z.string().describe('Contexto histórico, literario y canónico del pasaje.'),
-  estructura: z.string().describe('Movimiento argumental y literario del pasaje por unidades.'),
-  analisisGramatical: z.string().describe('Términos clave, sintaxis, verbos, conectores y género literario.'),
-  hermeneutica: z.string().describe('Principios de interpretación, horizonte original y aplicación legítima hoy.'),
-  exegesis: z.string().describe('Explicación versículo por versículo: observación, interpretación y aplicación.'),
-  hitos: z.array(z.object({
-    numero: z.number(),
-    titulo: z.string(),
-    lectura: z.string(),
-    hallazgo: z.string(),
-    pregunta: z.string(),
-    practica: z.string(),
-  })).describe('Exactamente 4 hitos en secuencia pedagógica.'),
-  comparaciones: z.array(z.object({
-    referencia: z.string(),
-    relacion: z.string(),
-    comentario: z.string(),
-  })).describe('3 comparaciones con otros pasajes bíblicos.'),
-  comentarios: z.array(z.object({
-    autor: z.string().describe('"Texto bíblico", "Doctrina" o "Vida cristiana".'),
-    comentario: z.string(),
-  })).describe('3 comentarios breves: texto, doctrina y vida comunitaria.'),
-  predica: z.object({
-    titulo: z.string(),
-    texto: z.string(),
-    puntos: z.array(z.string()),
-    aplicaciones: z.array(z.string()),
-    cierre: z.string(),
-  }).describe('Bosquejo de enseñanza basado solamente en el estudio.'),
+  }).describe('Usa solo los datos de Strong suministrados; deja vacío si no hay datos.'),
 });
 
 const getSupabaseConfig = () => ({
@@ -120,29 +82,26 @@ export default async function handler(req, res) {
 
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
-Genera el análisis exegético completo siguiendo el esquema proporcionado.
+Genera un análisis base breve siguiendo el esquema proporcionado. Las perspectivas y expansiones se solicitan por separado.
 
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
-- "versiones": incluye siempre las ocho claves: rvr1960, nvi, ntv, lbla, pdt, btx3, rv2004 y peshitta. Escribe el texto solo si puedes confirmarlo con seguridad; si no, deja el campo vacío "". No inventes una traducción ni presentes una paráfrasis como texto bíblico.
 - "idiomaOriginal": término griego o hebreo clave, número Strong y un breve análisis morfológico/etimológico. Si se te da un CONTEXTO REAL VERIFICADO más abajo, tu término y número de Strong DEBEN salir de ahí, no de tu memoria.
 - "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo.
-- "objetivo": una frase concreta que describa qué debe comprender y practicar el estudiante.
 - "contexto": contexto histórico, literario y canónico del pasaje, distinguiendo hechos del texto de interpretación.
-- "estructura": presenta el movimiento argumental y literario del pasaje por unidades.
-- "analisisGramatical": analiza términos clave, sintaxis, verbos, conectores y género literario sin inventar datos.
-- "hermeneutica": explica principios de interpretación, horizonte original y aplicación legítima hoy.
 - "exegesis": desarrolla una explicación versículo por versículo, señalando observación, interpretación y aplicación.
-- "predica": crea un bosquejo de enseñanza basado solamente en el estudio: título, texto, puntos, aplicaciones y cierre.
-- "hitos": crea exactamente 4 hitos en secuencia pedagógica. Cada hito debe incluir una lectura o referencia bíblica verificable, un hallazgo, una pregunta de reflexión y una práctica concreta para avanzar.
-- "comparaciones": incluye 3 comparaciones con otros pasajes bíblicos. Explica la relación sin forzar equivalencias ni inventar citas.
-- "comentarios": incluye 3 comentarios breves: uno sobre el texto, uno sobre la doctrina y uno sobre la vida comunitaria. El campo autor debe decir "Texto bíblico", "Doctrina" o "Vida cristiana".
 - "aplicacion": aplicación ministerial que refleje el camino del evangelio: confesión y arrepentimiento (1 Juan 1:9), conversión y estudio de la Palabra (1 Pedro 2:2), y permanecer firmes y constantes en la fe (1 Corintios 15:58).
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_EXEGESIS, perfil: 'rapido', reintentos: 0, maxOutputTokens: 2400 });
-    return res.status(200).json({ success: true, data });
+Consulta: ${consulta}${contextoOriginal}`, { schema: ESQUEMA_EXEGESIS, reintentos: 1, maxOutputTokens: 1200 });
+    return res.status(200).json({ success: true, data: {
+      ...data,
+      versiones: { rvr1960: '', nvi: '', ntv: '', lbla: '', pdt: '', btx3: '', rv2004: '', peshitta: '' },
+      objetivo: '', estructura: '', analisisGramatical: '', hermeneutica: '',
+      hitos: [], comparaciones: [], comentarios: [],
+      predica: { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' },
+    } });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);
     return res.status(502).json({ error: 'El proveedor de IA no pudo completar el análisis. Intenta de nuevo más tarde.' });

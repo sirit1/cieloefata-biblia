@@ -37,14 +37,22 @@ export default function AdminPage() {
       return
     }
     setSending(true)
-    const response = await fetch('/api/admin/whatsapp/send', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ to: selected.whatsapp, body: `Hola ${selected.full_name}, somos Revelatio by Efata. ¿En qué podemos ayudarte?`, consent: selected.consent_whatsapp }),
-    })
-    const result = await response.json()
-    setNotice(response.ok ? `Mensaje enviado correctamente (${result.status || 'enviado'}).` : result.error || 'No se pudo enviar el mensaje.')
-    setSending(false)
+    try {
+      const { data } = await supabase.auth.getSession()
+      const token = data.session?.access_token
+      if (!token) throw new Error('Tu sesión venció. Inicia sesión de nuevo.')
+      const response = await fetch('/api/admin/whatsapp/send', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ to: selected.whatsapp, body: `Hola ${selected.full_name}, somos RevelatiO by Cielo-Efata. ¿En qué podemos ayudarte?`, consent: selected.consent_whatsapp }),
+      })
+      const result = await response.json()
+      setNotice(response.ok ? `Mensaje enviado correctamente (${result.status || 'enviado'}).` : result.error || 'No se pudo enviar el mensaje.')
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : 'No se pudo enviar el mensaje.')
+    } finally {
+      setSending(false)
+    }
   }
   async function addLead(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); const form = new FormData(event.currentTarget)
