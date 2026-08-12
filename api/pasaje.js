@@ -41,7 +41,7 @@ export default async function handler(req, res) {
   const peshittaLocal = buscarPeshitta(referencia);
   if (!ref) {
     if (!peshittaLocal.versos.length) return res.status(400).json({ error: 'No encontramos esa referencia o tema en la Peshitta.' });
-    return res.status(200).json({ success: true, data: { referencia: referencia, versiones: { peshitta: peshittaLocal.texto }, versionesVersos: { peshitta: peshittaLocal.versos }, original: null } });
+      return res.status(200).json({ success: true, data: { referencia, versiones: { peshitta: peshittaLocal.texto || '' }, versionesVersos: { peshitta: Array.isArray(peshittaLocal.versos) ? peshittaLocal.versos : [] }, versionesLista: peshittaLocal.texto ? [{ key: 'peshitta', etiqueta: 'Peshitta' }] : [], original: null } });
   }
 
   try {

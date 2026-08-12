@@ -2620,8 +2620,8 @@
                             pdt: this.limpiar(data.versiones?.pdt),
                             btx3: this.limpiar(data.versiones?.btx3),
                             rv2004: this.limpiar(data.versiones?.rv2004),
-                            peshitta: this.limpiar(data.versiones?.peshitta)
-                        },
+  peshitta: this.limpiar(data.versiones?.peshitta) || '',
+  },
                         comentario: this.limpiar(data.comentarioMacArthur),
                         original: [data.idiomaOriginal?.termino, data.idiomaOriginal?.strong, data.idiomaOriginal?.analisis].map(x => this.limpiar(x)).filter(Boolean).join(' · '),
                         aplicacion: this.limpiar(data.aplicacion),
@@ -2694,8 +2694,6 @@
                     };
                     const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta'];
                     const disponibles = Object.keys(this.versiones).filter(k => this.versiones[k]);
-                    // Peshitta debe permanecer visible aunque el servicio externo esté temporalmente dormido.
-                    if (!disponibles.includes('peshitta')) disponibles.push('peshitta');
                     return disponibles
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
                         .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
