@@ -64,7 +64,7 @@ const LENTES = {
   revelatio: {
     titulo: 'RevelatiO para ti',
     instruccion:
-      'Redacta una recomendación pastoral, cálida y personal, desde un punto de vista bíblico estricto, dirigida directamente al lector ("tú"). Que sea un consejo espiritual concreto y edificante según lo que revela la consulta, llamando al arrepentimiento genuino, a la fe y a la renovación de la mente. Firma implícitamente como la voz de RevelatiO. Máximo 2 párrafos, íntimo y directo.',
+      'Redacta un comentario pastoral, cálido y personal, dirigido directamente al lector ("tú"), según el tema concreto de la consulta. Explica cómo, a través del testimonio conjunto de la Biblia, Dios obra la restauración de la mente, el corazón, la identidad, las relaciones y la manera de vivir; conecta esa restauración con Cristo, el arrepentimiento genuino, la fe, la obediencia y la renovación de la mente. No escribas una frase genérica: aplica la restauración al tema consultado y cita referencias bíblicas pertinentes. Máximo 3 párrafos, íntimo, claro y directo.',
   },
   consejeriaPastoral: { titulo: 'Consejería pastoral', instruccion: 'Aplica el pasaje al acompañamiento pastoral: escucha, discernimiento, límites, restauración y cuidado integral. Distingue consejo bíblico de diagnóstico clínico y termina con preguntas para acompañar a una persona.' },
   discipulado: { titulo: 'Discipulado', instruccion: 'Construye un itinerario de discipulado basado en el texto: qué debe creer, abandonar, practicar y enseñar un discípulo. Incluye etapas, preguntas y referencias bíblicas.' },
