@@ -122,6 +122,14 @@ export default async function handler(req, res) {
       versionesLista.push({ key: 'peshitta', etiqueta: 'Peshitta · español' });
     }
 
+    const tieneStrong = original?.versos?.some((verso) => verso.tokens?.some((token) => token.strong));
+    if (tieneStrong) {
+      versionesLista.push({
+        key: 'interlineal',
+        etiqueta: `Interlineal · ${original.idioma === 'hebreo' ? 'Hebreo' : 'Griego'} + Strong`
+      });
+    }
+
     if (!versionesLista.length) {
       return res.status(502).json({ error: 'No fue posible obtener el texto bíblico en este momento. Intenta de nuevo.' });
     }
