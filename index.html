@@ -145,14 +145,33 @@
         .zona-oscura button.text-left span { color: #FFF1C2 !important; }
         .zona-oscura button.text-left svg { color: #FFD76A !important; }
         .zona-oscura button.text-left .text-gold-300 { color: #FFD76A !important; }
-        .zona-oscura, .zona-oscura * { color: #FFF1C2; }
-        .zona-oscura .text-gray-950, .zona-oscura .text-gray-900, .zona-oscura .text-gray-800, .zona-oscura .text-gray-700 { color: #FFF1C2 !important; }
-        .zona-oscura .text-gray-100, .zona-oscura .text-gray-200, .zona-oscura .text-gray-300, .zona-oscura .text-gray-400, .zona-oscura .text-gray-500, .zona-oscura .text-gray-600 { color: #FFF1C2 !important; }
+        /* Las zonas oscuras heredan color, pero no fuerzan el mismo tono a todos sus descendientes. */
+        .zona-oscura .text-gray-950, .zona-oscura .text-gray-900, .zona-oscura .text-gray-800, .zona-oscura .text-gray-700 { color: #F4EEDF !important; }
         .zona-oscura .text-gold-50, .zona-oscura .text-gold-100, .zona-oscura .text-gold-200 { color: #FFF1C2 !important; }
         .zona-oscura .text-gold-300, .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color: #FFD76A !important; }
-        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura a, .zona-oscura button, .zona-oscura svg { color: #FFF1C2 !important; }
-        .zona-oscura .text-gold-300, .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura svg { color: #FFD76A !important; }
         .zona-oscura button:hover, .zona-oscura a:hover { color: #FFF8DF !important; }
+
+        /* Superficies claras del lector: contraste estable, independiente de remapeos heredados. */
+        .lector-panel { background: #FEFBF4; color: #2B2417; border-color: #E3D8C2; }
+        .lector-panel__trigger { background: #F4EBDD; color: #2B2417; }
+        .lector-panel__trigger:hover { background: #EDE0CB; }
+        .lector-panel__title { color: #2B2417 !important; }
+        .lector-panel__eyebrow { color: #7C550E !important; }
+        .lector-panel__icon { color: #9A6B12 !important; }
+        .lector-panel__body { color: #4A3E2A; }
+        .lector-panel__body label { color: #6B5D45 !important; }
+        .lector-panel__body select { color: #2B2417 !important; background: #FFFFFF !important; }
+        .lector-panel__loading { color: #7C550E !important; }
+        .lector-panel__error { color: #A33D32 !important; }
+        .lector-panel__retry { color: #7C550E !important; border-color: #C89B3C; }
+        .lector-panel__retry:hover { background: #F4EBDD; }
+        .lector-panel__heading { color: #5A3E0A !important; }
+        .lector-panel__copy { color: #4A3E2A !important; }
+        .lector-panel__note { color: #6B5D45 !important; }
+        .lector-panel__reference { color: #7C550E !important; }
+        .lector-panel__reference:hover { color: #5A3E0A !important; background: #F4EBDD; }
+        .lector-panel__reference-note { color: #6B5D45 !important; }
+        .lector-panel__trigger:focus-visible, .lector-panel__retry:focus-visible, .lector-panel__reference:focus-visible, .lector-panel__body select:focus-visible { outline: 3px solid rgba(154,107,18,.45); outline-offset: 2px; }
         .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color: #2B2417 !important; background: #FEFBF4 !important; }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: #EFE7D6; }
@@ -760,11 +779,11 @@
                                         </div>
 
                                         <!-- Comentarios de autores -->
-                                        <div class="order-1 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
-                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
-                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
-                                                    <span class="text-[#FFF1C2]">Comentarios de autores</span>
+                                        <div class="lector-panel order-1 border rounded-xl overflow-hidden">
+                                            <button @click="toggleComentarios()" class="lector-panel__trigger w-full flex items-center justify-between gap-3 px-4 py-3 transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-sm font-semibold">
+                                                    <svg class="lector-panel__icon w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
+                                                    <span class="lector-panel__title">Comentarios de autores</span>
                                                     <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
@@ -806,8 +825,8 @@
                                         </div>
 
                                         <!-- Referencias cruzadas -->
-                                        <div class="order-2 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
+                                        <div class="lector-panel order-2 border rounded-xl overflow-hidden">
+                                            <button @click="toggleReferencias()" class="lector-panel__trigger w-full flex items-center justify-between gap-3 px-4 py-3 transition-colors text-left">
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
                                                     <span class="text-[#FFF1C2]">Referencias cruzadas</span>
