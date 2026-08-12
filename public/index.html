@@ -720,7 +720,28 @@
                                         </div>
                                     </div>
 
-                                    <p class="text-xl leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p>
+                                    <template x-if="versionSel === 'interlineal' && original">
+                                        <div class="flex-1 rounded-xl border border-line bg-ink/40 p-4" :dir="original.idioma === 'hebreo' ? 'rtl' : 'ltr'">
+                                            <p class="text-[11px] text-gold-500 font-sans mb-3" x-text="original.etiqueta"></p>
+                                            <div class="flex flex-wrap gap-x-2 gap-y-3 text-xl leading-relaxed" :class="original.idioma === 'hebreo' ? 'font-hebreo' : 'font-griego'">
+                                                <template x-for="(v, vi) in original.versos" :key="vi">
+                                                    <span class="inline-flex flex-wrap items-baseline gap-x-1.5">
+                                                        <sup class="text-[10px] font-sans text-gold-500" x-text="v.verso"></sup>
+                                                        <template x-for="(t, ti) in v.tokens" :key="ti">
+                                                            <span>
+                                                                <button x-show="t.strong" type="button" @click="consultarLexico(t.strong)" class="text-gold-50 hover:text-gold-300 hover:underline underline-offset-4 cursor-pointer" :title="`Consultar ${t.strong} en el léxico`">
+                                                                    <span x-text="t.palabra"></span><sup class="text-[9px] text-gold-500 font-sans ml-0.5" x-text="t.strong"></sup>
+                                                                </button>
+                                                                <span x-show="!t.strong" x-text="t.palabra"></span>
+                                                            </span>
+                                                        </template>
+                                                    </span>
+                                                </template>
+                                            </div>
+                                            <p class="text-[11px] text-gray-500 mt-4" dir="ltr">Interlineal real con numeración Strong. Selecciona cualquier palabra para consultar su entrada léxica.</p>
+                                        </div>
+                                    </template>
+                                    <p x-show="versionSel !== 'interlineal'" class="text-xl leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
                                         <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
@@ -1527,7 +1548,7 @@
                     { titulo: 'Día 2 · Considerad las aves', pasajes: ['Mateo 6:25-34'] },
                     { titulo: 'Día 3 · Dios es nuestro refugio', pasajes: ['Salmos 46'] },
                     { titulo: 'Día 4 · Echad vuestra ansiedad', pasajes: ['1 Pedro 5:6-7'] },
-                    { titulo: 'Día 5 · No temas', pasajes: ['Isaías 41:10'] },
+                    { titulo: 'Día 5 �� No temas', pasajes: ['Isaías 41:10'] },
                     { titulo: 'Día 6 · Mi paz os dejo', pasajes: ['Juan 14:27'] },
                     { titulo: 'Día 7 · En el día que temo', pasajes: ['Salmos 94:19', 'Salmos 55:22'] }
                 ]
@@ -2387,13 +2408,16 @@
                         rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
                         lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta'
                     };
-                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta'];
+                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta', 'interlineal'];
                     const disponibles = Object.keys(this.versiones).filter(k => this.versiones[k]);
                     // Peshitta debe permanecer visible aunque el servicio externo esté temporalmente dormido.
                     if (!disponibles.includes('peshitta')) disponibles.push('peshitta');
+                    // Solo se ofrece el interlineal si Bolls devolvió palabras con Strong reales.
+                    const tieneStrong = this.original?.versos?.some(v => v.tokens?.some(t => t.strong));
+                    if (tieneStrong) disponibles.push('interlineal');
                     return disponibles
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
-                        .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
+                        .map(k => ({ key: k, etiqueta: k === 'interlineal' ? `Interlineal · ${this.original.idioma === 'hebreo' ? 'Hebreo' : 'Griego'} + Strong` : etiquetas[k] || k.toUpperCase() }));
                 },
                 get textoActual() {
                     if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
@@ -2467,10 +2491,13 @@
                         this.versiones = data.versiones;
                         this.versionesVersos = data.versionesVersos || {};
                         this.referenciaActiva = data.referencia;
-                        if (!this.versiones[this.versionSel]) {
+                        this.original = data.original || null;
+                        if (this.versionSel === 'interlineal' && !this.original?.versos?.some(v => v.tokens?.some(t => t.strong))) {
+                            this.versionSel = 'rvr1960';
+                        }
+                        if (this.versionSel !== 'interlineal' && !this.versiones[this.versionSel]) {
                             this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
                         }
-                        this.original = data.original || null;
                         this.pasajesLeidos++;
                         this.guardarProgreso();
                         // Si hay paneles de estudio abiertos, cárgalos para el nuevo pasaje.
