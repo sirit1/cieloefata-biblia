@@ -7,8 +7,8 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#F5EFE3",
-  "theme_color": "#1C2E4A",
+  "background_color": "#F3F7F4",
+  "theme_color": "#163B3A",
   "icons": [
     { "src": "/brand/revelatio-logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "/brand/revelatio-logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }

@@ -8,7 +8,7 @@
     <meta name="keywords" content="RevelatiO, Efata, estudio bíblico, exégesis, Biblia, hebreo, griego, idiomas originales, neuroplasticidad, renovación de la mente, psicología cristiana, arrepentimiento, metanoia, salvación, Cielo-Efata, Xtrametrik">
     <meta name="author" content="Cielo-Efata · Xtrametrik">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#1C2E4A">
+    <meta name="theme-color" content="#163B3A">
     <link rel="canonical" href="https://revelatio.efata.app/">
     <link rel="icon" type="image/png" sizes="192x192" href="/brand/revelatio-logo.png">
     <link rel="apple-touch-icon" href="/brand/revelatio-logo.png">
@@ -58,18 +58,18 @@
             theme: {
                 extend: {
                     colors: {
-                        /* Paleta cálida apta para lectura (pergamino + oro + azul noche) */
-                        ink: '#F5EFE3',        /* fondo base: pergamino cálido */
-                        panel: '#FEFBF4',      /* superficie principal (tarjetas) */
-                        panel2: '#EFE7D6',     /* superficie secundaria */
-                        line: '#E3D8C2',       /* bordes suaves */
-                        night: '#1C2E4A',      /* azul noche del logo (header/sidebar) */
-                        night2: '#16243B',     /* azul noche más profundo */
+                        /* Paleta "Bosque de Revelación": confianza, contemplación y acción */
+                        ink: '#F3F7F4',        /* fondo niebla mineral */
+                        panel: '#FFFFFF',      /* superficie limpia para lectura */
+                        panel2: '#E6F0EC',     /* superficie salvia muy clara */
+                        line: '#C7D8D1',       /* bordes eucalipto */
+                        night: '#163B3A',      /* verde petróleo: confianza y profundidad */
+                        night2: '#0D2928',     /* verde abisal para navegación */
                         gold: {
-                            300: '#C89B3C',
-                            400: '#B8860B',
-                            500: '#9A6B12',
-                            600: '#7C550E'
+                            300: '#E5A84B',    /* ámbar-luz para acciones */
+                            400: '#D88A32',    /* terracota activa */
+                            500: '#B9652B',    /* terracota accesible */
+                            600: '#8F4522'     /* terracota profunda */
                         }
                     },
                     fontFamily: {
@@ -88,21 +88,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
 
         [x-cloak] { display: none !important; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #2B2417; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #18302E; }
         .font-serif { font-family: 'Playfair Display', serif; }
         /* Playfair Display no tiene glifos griegos/hebreos (aparecen como recuadros vacíos).
            Noto Serif cubre griego politónico; Noto Serif Hebrew cubre hebreo con niqud. */
         .font-griego { font-family: 'Noto Serif', 'Playfair Display', serif; }
         .font-hebreo { font-family: 'Noto Serif Hebrew', 'Noto Serif', serif; }
         /* Texto de lectura cómodo */
-        .prose-lectura { color: #2B2417; line-height: 1.75; }
+        .prose-lectura { color: #18302E; line-height: 1.75; }
 
         /* Sistema de marca editorial: firma visible, jerárquica y discreta. */
         .app-shell { position: relative; isolation: isolate; }
         .brand-signature { letter-spacing: .12em; }
         .brand-kicker { letter-spacing: .24em; }
         .brand-rule { background: linear-gradient(90deg, rgba(200,155,60,.7), rgba(200,155,60,.12)); }
-        .brand-panel { box-shadow: 0 18px 45px rgba(28,46,74,.08); }
+        .brand-panel { box-shadow: 0 18px 45px rgba(22,59,58,.10); }
 
         /* Resaltados del lector "modo libro" (tonos suaves sobre la página cálida) */
         .hl-oro { background-color: rgba(200, 155, 60, .32); }
@@ -113,7 +113,7 @@
         /* ===== Remapeo de utilidades oscuras -> paleta cálida legible =====
            El diseño original asumía fondo oscuro. Sobre pergamino, el texto gris
            claro debe volverse tinta cálida oscura para máxima legibilidad. */
-        .text-gray-100 { color: #2B2417 !important; }
+        .text-gray-100 { color: #18302E !important; }
         .text-gray-200 { color: #33291a !important; }
         .text-gray-300 { color: #4A3E2A !important; }
         .text-gray-400 { color: #6B5D45 !important; }
@@ -152,15 +152,15 @@
         .zona-oscura button:hover, .zona-oscura a:hover { color: #FFF8DF !important; }
 
         /* Superficies claras del lector: contraste estable, independiente de remapeos heredados. */
-        .lector-panel { background: #FEFBF4; color: #2B2417; border-color: #E3D8C2; }
-        .lector-panel__trigger { background: #F4EBDD; color: #2B2417; }
+        .lector-panel { background: #FEFBF4; color: #18302E; border-color: #E3D8C2; }
+        .lector-panel__trigger { background: #F4EBDD; color: #18302E; }
         .lector-panel__trigger:hover { background: #EDE0CB; }
-        .lector-panel__title { color: #2B2417 !important; }
+        .lector-panel__title { color: #18302E !important; }
         .lector-panel__eyebrow { color: #7C550E !important; }
         .lector-panel__icon { color: #9A6B12 !important; }
         .lector-panel__body { color: #4A3E2A; }
         .lector-panel__body label { color: #6B5D45 !important; }
-        .lector-panel__body select { color: #2B2417 !important; background: #FFFFFF !important; }
+        .lector-panel__body select { color: #18302E !important; background: #FFFFFF !important; }
         .lector-panel__loading { color: #7C550E !important; }
         .lector-panel__error { color: #A33D32 !important; }
         .lector-panel__retry { color: #7C550E !important; border-color: #C89B3C; }
@@ -172,7 +172,7 @@
         .lector-panel__reference:hover { color: #5A3E0A !important; background: #F4EBDD; }
         .lector-panel__reference-note { color: #6B5D45 !important; }
         .lector-panel__trigger:focus-visible, .lector-panel__retry:focus-visible, .lector-panel__reference:focus-visible, .lector-panel__body select:focus-visible { outline: 3px solid rgba(154,107,18,.45); outline-offset: 2px; }
-        .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color: #2B2417 !important; background: #FEFBF4 !important; }
+        .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color: #18302E !important; background: #FEFBF4 !important; }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: #EFE7D6; }
         ::-webkit-scrollbar-thumb { background: #C89B3C66; border-radius: 8px; border: 2px solid #EFE7D6; }
@@ -1034,7 +1034,7 @@
                     <!-- ============ DISCIPULADO ============ -->
   <section x-show="vista === 'discipulado'" class="space-y-6">
     <div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Camino bíblico</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Discipulado guiado por IA</h2><p class="text-sm text-gray-700 mt-2 max-w-2xl">Un camino personal para pasar de la convicción a una fe firme, con la NBLA como texto base y la Escritura como autoridad.</p></div>
-    <div class="rounded-2xl border border-cyan-700/30 bg-[#F1F7FA] p-5 shadow-[0_10px_30px_rgba(28,46,74,.08)]">
+    <div class="rounded-2xl border border-cyan-700/30 bg-[#F1F7FA] p-5 shadow-[0_10px_30px_rgba(22,59,58,.10)]">
       <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-800">Cómo trabaja el discipulado RevelatiO</p>
       <p class="mt-2 text-sm leading-relaxed text-[#334155]">La IA te ayuda a ordenar un itinerario de lectura, oración, práctica y revisión. No reemplaza a un pastor, mentor ni a la comunidad: te prepara para caminar acompañado, obedecer lo aprendido y volver una y otra vez al texto bíblico.</p>
       <p class="mt-3 text-sm leading-relaxed text-[#334155]">Encontrarás tres movimientos: confesar y arrepentirte, convertirte y alimentarte de la Palabra, y permanecer firme, sólido y constante en la fe. Cada etapa incluye un hito en NBLA para reconocer el avance sin convertir la vida espiritual en una simple métrica.</p>
