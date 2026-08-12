@@ -341,8 +341,13 @@
     .border-line, .rounded-2xl, .rounded-3xl { border-color:var(--premium-border) !important; }
     .ux-card { box-shadow:0 12px 30px rgba(16,42,67,.12) !important; }
     button:hover, a:hover { filter:brightness(1.04); }
+  /* QA contraste: conservar el diseño y asegurar legibilidad en navegación y lectura. */
+  aside button, aside button span, aside button svg { color: #fff4df !important; opacity: 1 !important; }
+  aside button.nav-active, aside button.nav-active span { color: #211a12 !important; }
+  .libro-lectura-shell, .libro-lectura-shell *, .prose-lectura, .prose-lectura * { color: #2b2417 !important; -webkit-text-fill-color: #2b2417 !important; }
+  .libro-lectura-shell .text-gold-500, .libro-lectura-shell .text-gold-600, .prose-lectura .text-gold-500, .prose-lectura .text-gold-600 { color: #8a681b !important; -webkit-text-fill-color: #8a681b !important; }
   </style>
-  </head>
+</head>
 
 <body class="h-full bg-ink antialiased" x-data="cieloApp()">
 
