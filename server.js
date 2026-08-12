@@ -43,7 +43,13 @@ const server = createServer(async (req, res) => {
   if (pathname.startsWith('/api/')) {
     const name = pathname.slice('/api/'.length).replace(/[^a-z0-9_-]/gi, '');
     try {
-      const mod = await import(join(__dirname, 'api', `${name}.js`));
+      const apiFile = join(__dirname, 'api', `${name}.js`);
+      try {
+        await readFile(apiFile);
+      } catch {
+        return res.status(404).json({ error: 'Ruta API no encontrada.' });
+      }
+      const mod = await import(apiFile);
       req.query = Object.fromEntries(parsed.searchParams.entries());
       if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
         req.body = await readBody(req);
@@ -65,7 +71,7 @@ const server = createServer(async (req, res) => {
       const types = {
         png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', svg: 'image/svg+xml',
         webp: 'image/webp', ico: 'image/x-icon', gif: 'image/gif',
-        css: 'text/css', js: 'text/javascript', json: 'application/json', html: 'text/html; charset=utf-8',
+        css: 'text/css', js: 'text/javascript', json: 'application/json', webmanifest: 'application/manifest+json', html: 'text/html; charset=utf-8',
         woff: 'font/woff', woff2: 'font/woff2', mp3: 'audio/mpeg'
       };
       res.setHeader('Content-Type', types[ext] || 'application/octet-stream');
@@ -79,6 +85,7 @@ const server = createServer(async (req, res) => {
   try {
     const html = await readFile(join(__dirname, 'index.html'));
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
     res.end(html);
   } catch {
     res.status(404).end('No encontrado');
