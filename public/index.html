@@ -66,14 +66,25 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
 
         [x-cloak] { display: none !important; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #26343A; }
+        :root {
+            --revelatio-night: #102A43;
+            --revelatio-night-deep: #0A1F33;
+            --revelatio-ivory: #FFF9EF;
+            --revelatio-ivory-soft: #F5EBDD;
+            --revelatio-copper: #B87333;
+            --revelatio-gold: #D6A84F;
+            --revelatio-ink: #243746;
+            --revelatio-muted: #5A6870;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--revelatio-ink); background: var(--revelatio-night); }
         .font-serif { font-family: 'Playfair Display', serif; }
         /* Playfair Display no tiene glifos griegos/hebreos (aparecen como recuadros vacíos).
            Noto Serif cubre griego politónico; Noto Serif Hebrew cubre hebreo con niqud. */
         .font-griego { font-family: 'Noto Serif', 'Playfair Display', serif; }
         .font-hebreo { font-family: 'Noto Serif Hebrew', 'Noto Serif', serif; }
         /* Texto de lectura cómodo */
-        .prose-lectura { color: #26343A; line-height: 1.75; }
+        .prose-lectura { color: var(--revelatio-ink) !important; line-height: 1.75; }
+        .prose-lectura, .prose-lectura * { -webkit-text-fill-color: var(--revelatio-ink); }
 
         /* Sistema de marca editorial: firma visible, jerárquica y discreta. */
         .app-shell { position: relative; isolation: isolate; }
@@ -91,17 +102,17 @@
         /* ===== Remapeo de utilidades oscuras -> paleta cálida legible =====
            El diseño original asumía fondo oscuro. Sobre pergamino, el texto gris
            claro debe volverse tinta cálida oscura para máxima legibilidad. */
-        .text-gray-100 { color: #26343A !important; }
-        .text-gray-200 { color: #35454A !important; }
-        .text-gray-300 { color: #4D5D60 !important; }
-        .text-gray-400 { color: #66716D !important; }
-        .text-gray-500 { color: #7A8278 !important; }
-        .text-gray-600 { color: #96988D !important; }
-        .text-gold-50  { color: #5E3422 !important; }
+        .text-gray-100 { color: var(--revelatio-ink) !important; }
+        .text-gray-200 { color: #334B5A !important; }
+        .text-gray-300 { color: var(--revelatio-muted) !important; }
+        .text-gray-400 { color: #68777D !important; }
+        .text-gray-500 { color: #78858A !important; }
+        .text-gray-600 { color: #68757A !important; }
+        .text-gold-50  { color: #70451F !important; }
 
         /* Zonas oscuras (header + sidebar + login): fondo azul noche, texto claro.
            Dentro de .zona-oscura restauramos claridad sobre el remapeo anterior. */
-        .zona-oscura { background: #12313A; color: #EAE3D2; }
+        .zona-oscura { background: var(--revelatio-night); color: var(--revelatio-ivory); }
         .zona-oscura .text-gray-100 { color: #F4EEDF !important; }
         .zona-oscura .text-gray-200 { color: #E7DFCC !important; }
         .zona-oscura .text-gray-300 { color: #D8CEB7 !important; }
@@ -1890,7 +1901,7 @@
                     { titulo: 'Día 2 · Perdonaos unos a otros', pasajes: ['Colosenses 3:12-13'] },
                     { titulo: 'Día 3 · Como Dios nos perdonó', pasajes: ['Efesios 4:31-32'] },
                     { titulo: 'Día 4 · Si tenéis algo contra alguien', pasajes: ['Marcos 11:25'] },
-                    { titulo: 'Día 5 · Perdonad y seréis perdonados', pasajes: ['Lucas 6:37'] },
+                    { titulo: 'D��a 5 · Perdonad y seréis perdonados', pasajes: ['Lucas 6:37'] },
                     { titulo: 'Día 6 · Misericordioso y clemente', pasajes: ['Salmos 103:8-12'] },
                     { titulo: 'Día 7 · José perdona a sus hermanos', pasajes: ['Génesis 45:1-15'] }
                 ]
