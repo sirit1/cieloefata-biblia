@@ -2373,7 +2373,7 @@
   },
   async cargarDiasPlan(planId) {
   const plan = this.planesCatalogo.find(item => item.id === planId);
-  if (!supabaseClient || !plan) return;
+  if (!plan || !plan.dbId || !supabaseClient) return;
   this.planDiasCargando = true;
   this.planDiasError = '';
   try {
@@ -3350,15 +3350,17 @@
                     }
                     return Math.round((this.diasCompletados(planId).length / plan.dias.length) * 100);
                 },
-                abrirPlan(id) {
+                async abrirPlan(id) {
+                    const plan = this.planesCatalogo.find(item => item.id === id);
+                    if (!plan) return;
                     if (id !== this.planActivoId) {
                         this.planCierre = null; this.planCierreError = '';
                         this.devocional = null; this.devocionalError = '';
                     }
-  this.planActivoId = id;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  this.cargarDiasPlan(id);
-  this.generarDevocional();
+                    this.planActivoId = id;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    await this.cargarDiasPlan(id);
+                    await this.generarDevocional();
                 },
                 volverACatalogo() {
                     this.planActivoId = null;
@@ -3423,6 +3425,10 @@
                     const plan = this.planActivo;
                     if (!plan || this.devocionalCargando) return;
                     if (this.devocional && this.devocional.planId === plan.id) return;
+                    if (!Array.isArray(plan.dias) || !plan.dias.length) {
+                        this.devocionalError = 'Este plan todavía no tiene lecturas disponibles.';
+                        return;
+                    }
                     this.devocionalCargando = true;
                     this.devocionalError = '';
                     try {
