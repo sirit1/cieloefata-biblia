@@ -8,7 +8,7 @@
     <meta name="keywords" content="RevelatiO, Efata, estudio bíblico, exégesis, Biblia, hebreo, griego, idiomas originales, neuroplasticidad, renovación de la mente, psicología cristiana, arrepentimiento, metanoia, salvación, Cielo-Efata, Xtrametrik">
     <meta name="author" content="Cielo-Efata · Xtrametrik">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#1C2E4A">
+    <meta name="theme-color" content="#163B3A">
     <link rel="canonical" href="https://revelatio.efata.app/">
     <link rel="icon" type="image/png" sizes="192x192" href="/brand/revelatio-logo.png">
     <link rel="apple-touch-icon" href="/brand/revelatio-logo.png">
@@ -58,18 +58,18 @@
             theme: {
                 extend: {
                     colors: {
-                        /* Paleta cálida apta para lectura (pergamino + oro + azul noche) */
-                        ink: '#F5EFE3',        /* fondo base: pergamino cálido */
-                        panel: '#FEFBF4',      /* superficie principal (tarjetas) */
-                        panel2: '#EFE7D6',     /* superficie secundaria */
-                        line: '#E3D8C2',       /* bordes suaves */
-                        night: '#1C2E4A',      /* azul noche del logo (header/sidebar) */
-                        night2: '#16243B',     /* azul noche más profundo */
+                        /* Paleta "Bosque de Revelación": confianza, contemplación y acción */
+                        ink: '#F3F7F4',        /* fondo niebla mineral */
+                        panel: '#FFFFFF',      /* superficie limpia para lectura */
+                        panel2: '#E6F0EC',     /* superficie salvia muy clara */
+                        line: '#C7D8D1',       /* bordes eucalipto */
+                        night: '#163B3A',      /* verde petróleo: confianza y profundidad */
+                        night2: '#0D2928',     /* verde abisal para navegación */
                         gold: {
-                            300: '#C89B3C',
-                            400: '#B8860B',
-                            500: '#9A6B12',
-                            600: '#7C550E'
+                            300: '#E5A84B',    /* ámbar-luz para acciones */
+                            400: '#D88A32',    /* terracota activa */
+                            500: '#B9652B',    /* terracota accesible */
+                            600: '#8F4522'     /* terracota profunda */
                         }
                     },
                     fontFamily: {
@@ -88,21 +88,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
 
         [x-cloak] { display: none !important; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #2B2417; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: #18302E; }
         .font-serif { font-family: 'Playfair Display', serif; }
         /* Playfair Display no tiene glifos griegos/hebreos (aparecen como recuadros vacíos).
            Noto Serif cubre griego politónico; Noto Serif Hebrew cubre hebreo con niqud. */
         .font-griego { font-family: 'Noto Serif', 'Playfair Display', serif; }
         .font-hebreo { font-family: 'Noto Serif Hebrew', 'Noto Serif', serif; }
         /* Texto de lectura cómodo */
-        .prose-lectura { color: #2B2417; line-height: 1.75; }
+        .prose-lectura { color: #18302E; line-height: 1.75; }
 
         /* Sistema de marca editorial: firma visible, jerárquica y discreta. */
         .app-shell { position: relative; isolation: isolate; }
         .brand-signature { letter-spacing: .12em; }
         .brand-kicker { letter-spacing: .24em; }
         .brand-rule { background: linear-gradient(90deg, rgba(200,155,60,.7), rgba(200,155,60,.12)); }
-        .brand-panel { box-shadow: 0 18px 45px rgba(28,46,74,.08); }
+        .brand-panel { box-shadow: 0 18px 45px rgba(22,59,58,.10); }
 
         /* Resaltados del lector "modo libro" (tonos suaves sobre la página cálida) */
         .hl-oro { background-color: rgba(200, 155, 60, .32); }
@@ -113,7 +113,7 @@
         /* ===== Remapeo de utilidades oscuras -> paleta cálida legible =====
            El diseño original asumía fondo oscuro. Sobre pergamino, el texto gris
            claro debe volverse tinta cálida oscura para máxima legibilidad. */
-        .text-gray-100 { color: #2B2417 !important; }
+        .text-gray-100 { color: #18302E !important; }
         .text-gray-200 { color: #33291a !important; }
         .text-gray-300 { color: #4A3E2A !important; }
         .text-gray-400 { color: #6B5D45 !important; }
@@ -145,15 +145,34 @@
         .zona-oscura button.text-left span { color: #FFF1C2 !important; }
         .zona-oscura button.text-left svg { color: #FFD76A !important; }
         .zona-oscura button.text-left .text-gold-300 { color: #FFD76A !important; }
-        .zona-oscura, .zona-oscura * { color: #FFF1C2; }
-        .zona-oscura .text-gray-950, .zona-oscura .text-gray-900, .zona-oscura .text-gray-800, .zona-oscura .text-gray-700 { color: #FFF1C2 !important; }
-        .zona-oscura .text-gray-100, .zona-oscura .text-gray-200, .zona-oscura .text-gray-300, .zona-oscura .text-gray-400, .zona-oscura .text-gray-500, .zona-oscura .text-gray-600 { color: #FFF1C2 !important; }
+        /* Las zonas oscuras heredan color, pero no fuerzan el mismo tono a todos sus descendientes. */
+        .zona-oscura .text-gray-950, .zona-oscura .text-gray-900, .zona-oscura .text-gray-800, .zona-oscura .text-gray-700 { color: #F4EEDF !important; }
         .zona-oscura .text-gold-50, .zona-oscura .text-gold-100, .zona-oscura .text-gold-200 { color: #FFF1C2 !important; }
         .zona-oscura .text-gold-300, .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color: #FFD76A !important; }
-        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura a, .zona-oscura button, .zona-oscura svg { color: #FFF1C2 !important; }
-        .zona-oscura .text-gold-300, .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura svg { color: #FFD76A !important; }
         .zona-oscura button:hover, .zona-oscura a:hover { color: #FFF8DF !important; }
-        .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color: #2B2417 !important; background: #FEFBF4 !important; }
+
+        /* Superficies claras del lector: contraste estable, independiente de remapeos heredados. */
+        .lector-panel { background: #FEFBF4; color: #18302E; border-color: #E3D8C2; }
+        .lector-panel__trigger { background: #F4EBDD; color: #18302E; }
+        .lector-panel__trigger:hover { background: #EDE0CB; }
+        .lector-panel__title { color: #18302E !important; }
+        .lector-panel__eyebrow { color: #7C550E !important; }
+        .lector-panel__icon { color: #9A6B12 !important; }
+        .lector-panel__body { color: #4A3E2A; }
+        .lector-panel__body label { color: #6B5D45 !important; }
+        .lector-panel__body select { color: #18302E !important; background: #FFFFFF !important; }
+        .lector-panel__loading { color: #7C550E !important; }
+        .lector-panel__error { color: #A33D32 !important; }
+        .lector-panel__retry { color: #7C550E !important; border-color: #C89B3C; }
+        .lector-panel__retry:hover { background: #F4EBDD; }
+        .lector-panel__heading { color: #5A3E0A !important; }
+        .lector-panel__copy { color: #4A3E2A !important; }
+        .lector-panel__note { color: #6B5D45 !important; }
+        .lector-panel__reference { color: #7C550E !important; }
+        .lector-panel__reference:hover { color: #5A3E0A !important; background: #F4EBDD; }
+        .lector-panel__reference-note { color: #6B5D45 !important; }
+        .lector-panel__trigger:focus-visible, .lector-panel__retry:focus-visible, .lector-panel__reference:focus-visible, .lector-panel__body select:focus-visible { outline: 3px solid rgba(154,107,18,.45); outline-offset: 2px; }
+        .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color: #18302E !important; background: #FEFBF4 !important; }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: #EFE7D6; }
         ::-webkit-scrollbar-thumb { background: #C89B3C66; border-radius: 8px; border: 2px solid #EFE7D6; }
@@ -701,7 +720,28 @@
                                         </div>
                                     </div>
 
-                                    <p class="text-xl leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p>
+                                    <template x-if="versionSel === 'interlineal' && original">
+                                        <div class="flex-1 rounded-xl border border-line bg-ink/40 p-4" :dir="original.idioma === 'hebreo' ? 'rtl' : 'ltr'">
+                                            <p class="text-[11px] text-gold-500 font-sans mb-3" x-text="original.etiqueta"></p>
+                                            <div class="flex flex-wrap gap-x-2 gap-y-3 text-xl leading-relaxed" :class="original.idioma === 'hebreo' ? 'font-hebreo' : 'font-griego'">
+                                                <template x-for="(v, vi) in original.versos" :key="vi">
+                                                    <span class="inline-flex flex-wrap items-baseline gap-x-1.5">
+                                                        <sup class="text-[10px] font-sans text-gold-500" x-text="v.verso"></sup>
+                                                        <template x-for="(t, ti) in v.tokens" :key="ti">
+                                                            <span>
+                                                                <button x-show="t.strong" type="button" @click="consultarLexico(t.strong)" class="text-gold-50 hover:text-gold-300 hover:underline underline-offset-4 cursor-pointer" :title="`Consultar ${t.strong} en el léxico`">
+                                                                    <span x-text="t.palabra"></span><sup class="text-[9px] text-gold-500 font-sans ml-0.5" x-text="t.strong"></sup>
+                                                                </button>
+                                                                <span x-show="!t.strong" x-text="t.palabra"></span>
+                                                            </span>
+                                                        </template>
+                                                    </span>
+                                                </template>
+                                            </div>
+                                            <p class="text-[11px] text-gray-500 mt-4" dir="ltr">Interlineal real con numeración Strong. Selecciona cualquier palabra para consultar su entrada léxica.</p>
+                                        </div>
+                                    </template>
+                                    <p x-show="versionSel !== 'interlineal'" class="text-xl leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
                                         <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
@@ -760,11 +800,11 @@
                                         </div>
 
                                         <!-- Comentarios de autores -->
-                                        <div class="order-1 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
-                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
-                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
-                                                    <span class="text-[#FFF1C2]">Comentarios de autores</span>
+                                        <div class="lector-panel order-1 border rounded-xl overflow-hidden">
+                                            <button @click="toggleComentarios()" class="lector-panel__trigger w-full flex items-center justify-between gap-3 px-4 py-3 transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-sm font-semibold">
+                                                    <svg class="lector-panel__icon w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
+                                                    <span class="lector-panel__title">Comentarios de autores</span>
                                                     <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
@@ -806,8 +846,8 @@
                                         </div>
 
                                         <!-- Referencias cruzadas -->
-                                        <div class="order-2 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
+                                        <div class="lector-panel order-2 border rounded-xl overflow-hidden">
+                                            <button @click="toggleReferencias()" class="lector-panel__trigger w-full flex items-center justify-between gap-3 px-4 py-3 transition-colors text-left">
                                                 <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
                                                     <span class="text-[#FFF1C2]">Referencias cruzadas</span>
@@ -1015,7 +1055,7 @@
                     <!-- ============ DISCIPULADO ============ -->
   <section x-show="vista === 'discipulado'" class="space-y-6">
     <div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Camino bíblico</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Discipulado guiado por IA</h2><p class="text-sm text-gray-700 mt-2 max-w-2xl">Un camino personal para pasar de la convicción a una fe firme, con la NBLA como texto base y la Escritura como autoridad.</p></div>
-    <div class="rounded-2xl border border-cyan-700/30 bg-[#F1F7FA] p-5 shadow-[0_10px_30px_rgba(28,46,74,.08)]">
+    <div class="rounded-2xl border border-cyan-700/30 bg-[#F1F7FA] p-5 shadow-[0_10px_30px_rgba(22,59,58,.10)]">
       <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-800">Cómo trabaja el discipulado RevelatiO</p>
       <p class="mt-2 text-sm leading-relaxed text-[#334155]">La IA te ayuda a ordenar un itinerario de lectura, oración, práctica y revisión. No reemplaza a un pastor, mentor ni a la comunidad: te prepara para caminar acompañado, obedecer lo aprendido y volver una y otra vez al texto bíblico.</p>
       <p class="mt-3 text-sm leading-relaxed text-[#334155]">Encontrarás tres movimientos: confesar y arrepentirte, convertirte y alimentarte de la Palabra, y permanecer firme, sólido y constante en la fe. Cada etapa incluye un hito en NBLA para reconocer el avance sin convertir la vida espiritual en una simple métrica.</p>
@@ -1508,7 +1548,7 @@
                     { titulo: 'Día 2 · Considerad las aves', pasajes: ['Mateo 6:25-34'] },
                     { titulo: 'Día 3 · Dios es nuestro refugio', pasajes: ['Salmos 46'] },
                     { titulo: 'Día 4 · Echad vuestra ansiedad', pasajes: ['1 Pedro 5:6-7'] },
-                    { titulo: 'Día 5 · No temas', pasajes: ['Isaías 41:10'] },
+                    { titulo: 'Día 5 �� No temas', pasajes: ['Isaías 41:10'] },
                     { titulo: 'Día 6 · Mi paz os dejo', pasajes: ['Juan 14:27'] },
                     { titulo: 'Día 7 · En el día que temo', pasajes: ['Salmos 94:19', 'Salmos 55:22'] }
                 ]
@@ -2368,13 +2408,16 @@
                         rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
                         lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta'
                     };
-                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta'];
+                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta', 'interlineal'];
                     const disponibles = Object.keys(this.versiones).filter(k => this.versiones[k]);
                     // Peshitta debe permanecer visible aunque el servicio externo esté temporalmente dormido.
                     if (!disponibles.includes('peshitta')) disponibles.push('peshitta');
+                    // Solo se ofrece el interlineal si Bolls devolvió palabras con Strong reales.
+                    const tieneStrong = this.original?.versos?.some(v => v.tokens?.some(t => t.strong));
+                    if (tieneStrong) disponibles.push('interlineal');
                     return disponibles
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
-                        .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
+                        .map(k => ({ key: k, etiqueta: k === 'interlineal' ? `Interlineal · ${this.original.idioma === 'hebreo' ? 'Hebreo' : 'Griego'} + Strong` : etiquetas[k] || k.toUpperCase() }));
                 },
                 get textoActual() {
                     if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
@@ -2448,10 +2491,13 @@
                         this.versiones = data.versiones;
                         this.versionesVersos = data.versionesVersos || {};
                         this.referenciaActiva = data.referencia;
-                        if (!this.versiones[this.versionSel]) {
+                        this.original = data.original || null;
+                        if (this.versionSel === 'interlineal' && !this.original?.versos?.some(v => v.tokens?.some(t => t.strong))) {
+                            this.versionSel = 'rvr1960';
+                        }
+                        if (this.versionSel !== 'interlineal' && !this.versiones[this.versionSel]) {
                             this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
                         }
-                        this.original = data.original || null;
                         this.pasajesLeidos++;
                         this.guardarProgreso();
                         // Si hay paneles de estudio abiertos, cárgalos para el nuevo pasaje.
