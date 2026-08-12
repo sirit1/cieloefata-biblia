@@ -123,7 +123,7 @@
 
         /* Zonas oscuras (header + sidebar + login): fondo azul noche, texto claro.
            Dentro de .zona-oscura restauramos claridad sobre el remapeo anterior. */
-        .zona-oscura { background: #1C2E4A; color: #EAE3D2; }
+        .zona-oscura { background: #163B3A; color: #E6F0EC; }
         .zona-oscura .text-gray-100 { color: #F4EEDF !important; }
         .zona-oscura .text-gray-200 { color: #E7DFCC !important; }
         .zona-oscura .text-gray-300 { color: #D8CEB7 !important; }
@@ -138,9 +138,9 @@
         .zona-oscura .text-gold-500 { color: #E7B52F !important; }
         .zona-oscura .text-gold-600 { color: #D9A321 !important; }
         .zona-oscura .text-gold-700 { color: #F4C64E !important; }
-        .zona-oscura .bg-panel { background: #16243B !important; }
-        .zona-oscura .bg-panel2 { background: #16243B !important; }
-        .zona-oscura .border-line { border-color: #2C3E5C !important; }
+        .zona-oscura .bg-panel { background: #0D2928 !important; }
+        .zona-oscura .bg-panel2 { background: #0D2928 !important; }
+        .zona-oscura .border-line { border-color: #315C59 !important; }
         .zona-oscura button.text-left { color: #FFF1C2 !important; }
         .zona-oscura button.text-left span { color: #FFF1C2 !important; }
         .zona-oscura button.text-left svg { color: #FFD76A !important; }
@@ -2376,10 +2376,18 @@
                             rv2004: this.limpiar(data.versiones?.rv2004),
                             peshitta: this.limpiar(data.versiones?.peshitta)
                         },
-                        comentario: this.limpiar(data.comentarioMacArthur),
-                        original: [data.idiomaOriginal?.termino, data.idiomaOriginal?.strong, data.idiomaOriginal?.analisis].map(x => this.limpiar(x)).filter(Boolean).join(' · '),
-                        aplicacion: this.limpiar(data.aplicacion)
-                    };
+  comentario: this.limpiar(data.comentarioMacArthur),
+  original: [data.idiomaOriginal?.termino, data.idiomaOriginal?.strong, data.idiomaOriginal?.analisis].map(x => this.limpiar(x)).filter(Boolean).join(' · '),
+  aplicacion: this.limpiar(data.aplicacion),
+  secciones: {
+    objetivo: this.limpiar(data.objetivo),
+    contextoHistoricoLiterario: this.limpiar(data.contextoHistoricoLiterario),
+    estructuraLiteraria: this.limpiar(data.estructuraLiteraria),
+    analisisGramatical: this.limpiar(data.analisisGramatical),
+    hermeneutica: this.limpiar(data.hermeneutica),
+    exegesisVersiculoVersiculo: this.limpiar(data.exegesisVersiculoVersiculo)
+  }
+  };
                     this.cache[ref] = limpio;
                     return limpio;
                 },
@@ -2579,14 +2587,26 @@
                         this.estudio = {
                             comentario: data.comentario || 'Comentario no disponible.',
                             original: data.original || '',
-                            aplicacion: data.aplicacion || ''
+                            aplicacion: data.aplicacion || '',
+                            secciones: data.secciones || {}
                         };
                         // Reinicia las lentes y siembra la exégesis (instantánea, ya la tenemos)
+                        const nombresSeccion = {
+                            objetivo: 'Objetivo del estudio',
+                            contextoHistoricoLiterario: 'Contexto histórico y literario',
+                            estructuraLiteraria: 'Estructura literaria',
+                            analisisGramatical: 'Análisis gramatical',
+                            hermeneutica: 'Hermenéutica',
+                            exegesisVersiculoVersiculo: 'Exégesis versículo a versículo'
+                        };
+                        const bloques = Object.entries(nombresSeccion)
+                            .map(([clave, titulo]) => this.estudio.secciones[clave] ? `${titulo}\n${this.estudio.secciones[clave]}` : '')
+                            .filter(Boolean);
                         this.lentes = {
                             exegesis: {
                                 estado: 'ready',
                                 titulo: 'Exégesis',
-                                cuerpo: this.estudio.comentario,
+                                cuerpo: [...bloques, this.estudio.comentario].filter(Boolean).join('\n\n'),
                                 destacado: this.estudio.aplicacion,
                                 autor: null
                             }

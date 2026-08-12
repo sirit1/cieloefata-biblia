@@ -62,19 +62,42 @@ export default async function handler(req, res) {
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
 Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"comentarioMacArthur":"","aplicacion":""}
+{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"objetivo":"","contextoHistoricoLiterario":"","estructuraLiteraria":"","analisisGramatical":"","hermeneutica":"","exegesisVersiculoVersiculo":"","comentarioMacArthur":"","aplicacion":""}
 
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
 - "versiones": incluye siempre las ocho claves: rvr1960, nvi, ntv, lbla, pdt, btx3, rv2004 y peshitta. Escribe el texto solo si puedes confirmarlo con seguridad; si no, deja el campo vacío "". No inventes una traducción ni presentes una paráfrasis como texto bíblico.
 - "idiomaOriginal": término griego o hebreo clave, número Strong y un breve análisis morfológico/etimológico. Si se te da un CONTEXTO REAL VERIFICADO más abajo, tu término y número de Strong DEBEN salir de ahí, no de tu memoria.
-- "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo.
+- "objetivo": propósito concreto del estudio y pregunta que debe responder.
+- "contextoHistoricoLiterario": autor, audiencia, situación, género y contexto histórico solo cuando sea razonablemente verificable.
+- "estructuraLiteraria": movimientos y argumento del pasaje.
+- "analisisGramatical": observaciones de sintaxis, términos y conexiones; usa el contexto Strong real si fue proporcionado.
+- "hermeneutica": interpretación responsable conectada con el conjunto de la Escritura.
+- "exegesisVersiculoVersiculo": recorrido por cada versículo o unidad disponible; si la consulta es temática, explica que se trata de un pasaje base.
+- "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo. Debe servir como respaldo si alguna sección no puede desarrollarse.
 - "aplicacion": aplicación ministerial que refleje el camino del evangelio: confesión y arrepentimiento (1 Juan 1:9), conversión y estudio de la Palabra (1 Pedro 2:2), y permanecer firmes y constantes en la fe (1 Corintios 15:58).
+- Completa todas las secciones con contenido útil. No dejes campos vacíos salvo que falten datos verificables de una traducción.
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
 
 Consulta: ${consulta}${contextoOriginal}`);
-    return res.status(200).json({ success: true, data });
+    const base = typeof data === 'object' && data ? data : {};
+    const textoRespaldo = String(base.comentarioMacArthur || base.aplicacion || '').trim();
+    const completar = (valor, etiqueta) => String(valor || '').trim() || (textoRespaldo ? `${etiqueta}: ${textoRespaldo}` : 'No se pudo desarrollar esta sección con los datos disponibles.');
+    const normalizado = {
+      referencia: base.referencia || consulta,
+      versiones: base.versiones || {},
+      idiomaOriginal: base.idiomaOriginal || {},
+      objetivo: completar(base.objetivo, 'Objetivo del estudio'),
+      contextoHistoricoLiterario: completar(base.contextoHistoricoLiterario, 'Contexto histórico y literario'),
+      estructuraLiteraria: completar(base.estructuraLiteraria, 'Estructura literaria'),
+      analisisGramatical: completar(base.analisisGramatical, 'Análisis gramatical'),
+      hermeneutica: completar(base.hermeneutica, 'Hermenéutica'),
+      exegesisVersiculoVersiculo: completar(base.exegesisVersiculoVersiculo, 'Exégesis versículo a versículo'),
+      comentarioMacArthur: base.comentarioMacArthur || '',
+      aplicacion: base.aplicacion || ''
+    };
+    return res.status(200).json({ success: true, data: normalizado });
   } catch (error) {
     console.error('Error en el motor exegético:', error?.message);
     if (error?.code === 'RATE_LIMIT') {
