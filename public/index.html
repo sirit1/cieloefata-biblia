@@ -350,6 +350,10 @@
                         <p class="text-sm text-gray-100 truncate" x-text="userEmail"></p>
                     </div>
                     <button @click="irA('favoritos'); menuUsuario=false" class="w-full text-left text-sm text-gray-300 hover:text-gold-300 hover:bg-ink rounded-lg px-3 py-2 transition-all">Mis favoritos</button>
+                    <a x-show="userEmail && userEmail.toLowerCase() === 'alejandro.sirit@gmail.com'" x-cloak href="/admin" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-gold-300 hover:bg-ink hover:text-gold-200 transition-all" aria-label="Abrir panel de administración">
+                        <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 4.8-3.4 7.8-8 9-4.6-1.2-8-4.2-8-9V7l8-4z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path></svg>
+                        Panel de administración
+                    </a>
                     <button @click="cerrarSesion()" class="w-full text-left text-sm text-red-300 hover:bg-red-950/40 rounded-lg px-3 py-2 transition-all">Cerrar sesión</button>
                 </div>
             </div>
@@ -2644,11 +2648,14 @@
     if (local) { this.offlineDisponible = true; return local; }
   } catch (_e) { /* IndexedDB no disponible: continúa con red */ }
   this.offlineDisponible = false;
+  const token = await this.getToken();
+  if (!token) throw new Error('SESION');
   const response = await fetch('/api/pasaje', {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
   body: JSON.stringify({ referencia: ref })
   });
+  if (response.status === 401) throw new Error('SESION');
   const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
