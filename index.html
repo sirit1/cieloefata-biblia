@@ -171,13 +171,13 @@
         aside nav button.nav-active, aside nav button.nav-active span, aside nav button[aria-current="page"], aside nav button[aria-current="page"] span { color: #ffffff !important; }
 
         /* Superficies claras: paneles, tarjetas, cuadros de texto y lector (invierten el contraste) */
-        .bg-panel, .bg-panel2, .bg-paper, .zona-clara, [class*="bg-white"], .libro-lectura-shell {
+        .bg-panel, .bg-panel2, .bg-paper, .zona-clara, .bg-white, .libro-lectura-shell {
             background: linear-gradient(145deg, var(--rv-panel), var(--rv-panel-soft)) !important;
             color: var(--rv-ink) !important;
             border-color: var(--rv-line) !important;
             box-shadow: 0 14px 36px rgba(8,21,43,.14), 0 0 0 1px rgba(214,170,69,.12);
         }
-        .bg-panel *, .bg-panel2 *, .bg-paper *, .zona-clara *, [class*="bg-white"] *, .libro-lectura-shell * {
+        .bg-panel *, .bg-panel2 *, .bg-paper *, .zona-clara *, .bg-white *, .libro-lectura-shell * {
             color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important;
         }
         .bg-panel h1, .bg-panel h2, .bg-panel h3, .bg-panel h4,
@@ -189,22 +189,25 @@
         .libro-lectura-shell .text-gold-500, .libro-lectura-shell .text-gold-600 { color: var(--rv-gold-on-cream) !important; -webkit-text-fill-color: var(--rv-gold-on-cream) !important; }
         .bg-panel .text-red-300, .bg-panel .text-red-400, .bg-panel .text-red-500 { color: #a63c3c !important; -webkit-text-fill-color: #a63c3c !important; }
 
-        /* Elementos oscuros embebidos dentro de un panel claro (deben seguir siendo claros) */
+        /* Elementos oscuros embebidos dentro de un panel claro (deben seguir siendo claros).
+           Usa selectores de clase exacta (.bg-ink), NUNCA [class*="bg-ink"]: esa forma también
+           captura por error variantes como "hover:bg-ink" o "bg-ink/50" en botones de texto
+           normales, forzando su color a crema sobre un panel claro (texto invisible). */
         .bg-panel .bg-ink, .bg-panel .bg-ink *, .bg-panel div.bg-ink, .bg-panel div.bg-ink *,
-        .bg-panel button.bg-ink, .bg-panel button.bg-ink *, .bg-panel button[class*="bg-ink"], .bg-panel button[class*="bg-ink"] * {
+        .bg-panel button.bg-ink, .bg-panel button.bg-ink * {
             color: var(--rv-cream) !important; -webkit-text-fill-color: var(--rv-cream) !important;
         }
         .bg-panel button.bg-gold-500, .bg-panel button.bg-gold-500 *, .bg-panel button.bg-gold-600, .bg-panel button.bg-gold-600 *,
         .bg-panel div.bg-ink button.bg-gold-600, .bg-panel div.bg-ink button.bg-gold-600 * { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
 
         /* Botones de acento (dorado = CTA, tinta oscura garantizada) */
-        button.bg-gold-500, button.bg-gold-600, button[class*="bg-gold"], a[class*="bg-gold"], .bg-gold-500 {
+        button.bg-gold-500, button.bg-gold-600, a.bg-gold-500, a.bg-gold-600, .bg-gold-500 {
             background: linear-gradient(135deg, #f4cf72, #d6aa45) !important; color: var(--rv-ink-heading) !important; border-color: var(--rv-gold-on-cream) !important;
         }
-        button.bg-gold-500 *, button.bg-gold-600 *, button[class*="bg-gold"] *, a[class*="bg-gold"] *, .bg-gold-500 * { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
-        button.bg-ink, button[class*="bg-ink"], a.bg-ink { color: var(--rv-cream) !important; }
-        button.bg-ink *, button[class*="bg-ink"] *, a.bg-ink * { color: var(--rv-cream) !important; -webkit-text-fill-color: var(--rv-cream) !important; }
-        button.bg-ink:hover, button[class*="bg-ink"]:hover { background: #173252 !important; color: #ffffff !important; }
+        button.bg-gold-500 *, button.bg-gold-600 *, a.bg-gold-500 *, a.bg-gold-600 *, .bg-gold-500 * { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
+        button.bg-ink, a.bg-ink { color: var(--rv-cream) !important; }
+        button.bg-ink *, a.bg-ink * { color: var(--rv-cream) !important; -webkit-text-fill-color: var(--rv-cream) !important; }
+        button.bg-ink:hover { background: #173252 !important; color: #ffffff !important; }
 
         /* Formularios */
         input, select, textarea { background: #fffdf8 !important; color: var(--rv-ink-heading) !important; border-color: #b79552 !important; }
