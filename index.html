@@ -396,6 +396,28 @@
   body .bg-panel button[class*="bg-gold"], body .bg-panel2 button[class*="bg-gold"], body .bg-paper button[class*="bg-gold"] { background:#C77C32 !important; color:#172B3A !important; -webkit-text-fill-color:#172B3A !important; }
   body .bg-panel button[class*="bg-gold"] span, body .bg-panel2 button[class*="bg-gold"] span, body .bg-paper button[class*="bg-gold"] span { color:#172B3A !important; -webkit-text-fill-color:#172B3A !important; }
   </style>
+  <style id="revelatio-new-palette">
+    /* Nueva paleta: grafito, petróleo, jade y marfil. Solo reglas visuales. */
+    :root { --new-graphite:#17212B; --new-petrol:#123A4A; --new-jade:#167D76; --new-jade-deep:#0E5B58; --new-ivory:#FFFDF7; --new-sand:#F2EBDD; --new-ink:#1A2A35; --new-muted:#52636D; --new-line:#9CC9BF; }
+    html, body { background:var(--new-graphite) !important; color:var(--new-ivory) !important; }
+    body { background:linear-gradient(135deg,var(--new-graphite),var(--new-petrol)) !important; }
+    header, aside, .zona-oscura, .surface-dark, .bg-ink, .bg-night, .bg-night2 { background:var(--new-graphite) !important; color:var(--new-ivory) !important; }
+    header *, aside *, .zona-oscura *, .bg-ink *, .bg-night * { color:var(--new-ivory) !important; -webkit-text-fill-color:var(--new-ivory) !important; }
+    .bg-panel, .bg-panel2, .bg-paper, .zona-clara, .surface-paper, [class*="bg-white"] { background:linear-gradient(145deg,var(--new-ivory),var(--new-sand)) !important; color:var(--new-ink) !important; border-color:var(--new-line) !important; }
+    .bg-panel *, .bg-panel2 *, .bg-paper *, .zona-clara *, .surface-paper *, [class*="bg-white"] * { color:var(--new-ink) !important; -webkit-text-fill-color:var(--new-ink) !important; }
+    .text-gray-100, .text-gray-200, .text-gray-300 { color:var(--new-ink) !important; }
+    .text-gray-400, .text-gray-500, .text-gray-600 { color:var(--new-muted) !important; }
+    .text-gold-50, .text-gold-100, .text-gold-200, .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600, .text-gold-700 { color:var(--new-jade-deep) !important; }
+    aside .text-gold-300, aside .text-gold-400, aside .text-gold-500, header .text-gold-300, header .text-gold-400, header .text-gold-500 { color:#8FE1D2 !important; }
+    button[class*="bg-gold"], .bg-gold-500, a[class*="bg-gold"] { background:var(--new-jade) !important; color:var(--new-ivory) !important; border-color:var(--new-jade-deep) !important; }
+    button[class*="bg-gold"] *, .bg-gold-500 *, a[class*="bg-gold"] * { color:var(--new-ivory) !important; -webkit-text-fill-color:var(--new-ivory) !important; }
+    button[class*="bg-ink"], button.bg-ink { background:var(--new-petrol) !important; color:var(--new-ivory) !important; }
+    button[class*="bg-ink"] *, button.bg-ink * { color:var(--new-ivory) !important; -webkit-text-fill-color:var(--new-ivory) !important; }
+    input, select, textarea { background:var(--new-ivory) !important; color:var(--new-ink) !important; border-color:var(--new-jade) !important; }
+    input::placeholder, textarea::placeholder { color:var(--new-muted) !important; opacity:1 !important; }
+    .prose-lectura, .prose-lectura * { color:var(--new-ink) !important; -webkit-text-fill-color:var(--new-ink) !important; }
+    :focus-visible { outline:3px solid #8FE1D2 !important; outline-offset:3px; }
+  </style>
 </head>
 
 <body class="h-full bg-ink antialiased" x-data="cieloApp()">
