@@ -52,34 +52,7 @@
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        /* Paleta "Bosque de Revelación": confianza, contemplación y acción */
-                        ink: '#F3F7F4',        /* fondo niebla mineral */
-                        panel: '#FFFFFF',      /* superficie limpia para lectura */
-                        panel2: '#E6F0EC',     /* superficie salvia muy clara */
-                        line: '#C7D8D1',       /* bordes eucalipto */
-                        night: '#163B3A',      /* verde petróleo: confianza y profundidad */
-                        night2: '#0D2928',     /* verde abisal para navegación */
-                        gold: {
-                            300: '#E5A84B',    /* ámbar-luz para acciones */
-                            400: '#D88A32',    /* terracota activa */
-                            500: '#B9652B',    /* terracota accesible */
-                            600: '#8F4522'     /* terracota profunda */
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-                        serif: ['Playfair Display', 'Georgia', 'serif']
-                    }
-                }
-            }
-        };
-    </script>
+    <link rel="stylesheet" href="/tailwind.css">
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
