@@ -741,7 +741,7 @@
                                             <p class="text-[11px] text-gray-500 mt-4" dir="ltr">Interlineal real con numeración Strong. Selecciona cualquier palabra para consultar su entrada léxica.</p>
                                         </div>
                                     </template>
-                                    <p x-show="versionSel !== 'interlineal'" class="text-xl leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p>
+                                    <div x-show="versionSel !== 'interlineal'" class="flex-1"><p class="text-xl leading-relaxed font-serif text-gold-50/90" x-text="textoActual"></p><a x-show="versionSel === 'peshitta'" x-cloak href="https://blobs.vusercontent.net/blob/Biblia%20Peshita-SY1zKvCA8u5tOjIOAQV90EDh1BD4Sc.pdf" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 text-xs text-gold-600 underline underline-offset-4 hover:text-gold-400">Consultar fuente PDF de la Peshitta</a></div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
                                         <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
@@ -2366,8 +2366,9 @@
                         .map(k => ({ key: k, etiqueta: k === 'interlineal' ? `Interlineal · ${this.original.idioma === 'hebreo' ? 'Hebreo' : 'Griego'} + Strong` : etiquetas[k] || k.toUpperCase() }));
                 },
                 get textoActual() {
-                    if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
-                    return this.versiones[this.versionSel] || this.versiones.rv1960 || Object.values(this.versiones)[0] || 'Texto no disponible para esta versión.';
+  if (this.versionSel === 'peshitta' && !this.versiones.peshitta) return 'La Peshitta no está disponible para esta referencia en la fuente de consulta. Puedes revisar la fuente autorizada en PDF.';
+  if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
+  return this.versiones[this.versionSel] || this.versiones.rv1960 || Object.values(this.versiones)[0] || 'Texto no disponible para esta versión.';
                 },
                 get versionesEstudioLista() {
                     const etiquetas = { rvr1960: 'RVR 1960', nvi: 'NVI', ntv: 'NTV', lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta' };
@@ -2498,7 +2499,7 @@
                 },
   abrirWhatsAppDonacion() {
   const mensaje = 'Hola, quiero apoyar RevelatiO y conocer la mejor vía para hacerlo. Gracias por este proyecto bíblico gratuito.';
-  const telefono = '34600000000';
+  const telefono = '573107860864';
   const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
   this.abrirDonaciones = false;
   window.open(url, '_blank', 'noopener,noreferrer');
