@@ -172,6 +172,11 @@
         .lector-panel__reference:hover { color: #5A3E0A !important; background: #F4EBDD; }
         .lector-panel__reference-note { color: #6B5D45 !important; }
         .lector-panel__trigger:focus-visible, .lector-panel__retry:focus-visible, .lector-panel__reference:focus-visible, .lector-panel__body select:focus-visible { outline: 3px solid rgba(154,107,18,.45); outline-offset: 2px; }
+        /* Menús y superficies oscuras fuera de .zona-oscura: texto siempre legible. */
+        .menu-compartir { background: #163B3A !important; color: #F4EEDF !important; border-color: #6F9B91 !important; }
+        .menu-compartir p, .menu-compartir button { color: #F4EEDF !important; }
+        .menu-compartir p { color: #FFD76A !important; }
+        .menu-compartir button:hover, .menu-compartir button:focus-visible { color: #FFFFFF !important; background: rgba(255,255,255,.14) !important; }
         .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color: #18302E !important; background: #FEFBF4 !important; }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: #EFE7D6; }
@@ -943,7 +948,7 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zm12 7a3 3 0 100-6 3 3 0 000 6z"></path></svg>
                                     <span x-text="compartido ? 'Compartido' : 'Compartir'"></span>
                                 </button>
-                                <div x-show="menuCompartir" x-cloak class="absolute z-50 left-0 top-full mt-2 w-64 rounded-xl border border-gold-500/30 bg-night p-2 shadow-2xl">
+                                <div x-show="menuCompartir" x-cloak class="menu-compartir absolute z-50 left-0 top-full mt-2 w-64 rounded-xl border border-gold-500/30 bg-night p-2 shadow-2xl">
                                     <p class="px-3 py-2 text-[10px] uppercase tracking-wider text-gold-400">Compartir estudio gratuito</p>
                                     <button @click="compartirRed('whatsapp')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-white/10 rounded-lg">WhatsApp</button>
                                     <button @click="compartirRed('facebook')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-white/10 rounded-lg">Facebook</button>
