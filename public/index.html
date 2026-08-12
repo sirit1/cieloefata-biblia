@@ -62,93 +62,54 @@
 <script src="/lib/engagement.js?v=foundation-1"></script>
 <script src="/lib/offline-bible.js" defer></script>
 
-    <style>
+    <style id="revelatio-theme">
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
 
         [x-cloak] { display: none !important; }
+
         :root {
-            --revelatio-night: #102A43;
-            --revelatio-night-deep: #0A1F33;
-            --revelatio-ivory: #FFF9EF;
-            --revelatio-ivory-soft: #F5EBDD;
-            --revelatio-copper: #B87333;
-            --revelatio-gold: #D6A84F;
-            --revelatio-ink: #243746;
-            --revelatio-muted: #5A6870;
+            --rv-bg-dark: #071a33;
+            --rv-bg-dark-2: #0b2443;
+            --rv-bg-dark-3: #06162c;
+            --rv-cream: #fff4df;
+            --rv-cream-heading: #fffaf0;
+            --rv-cream-muted: #cdbfa0;
+            --rv-gold-on-dark: #f4cf72;
+            --rv-panel: #fffaf0;
+            --rv-panel-soft: #f4efe5;
+            --rv-ink: #3b3022;
+            --rv-ink-heading: #211a12;
+            --rv-ink-muted: #675842;
+            --rv-gold-on-cream: #8a681b;
+            --rv-line: rgba(176,137,52,.34);
         }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--revelatio-ink); background: var(--revelatio-night); }
+
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .font-serif { font-family: 'Playfair Display', serif; }
         /* Playfair Display no tiene glifos griegos/hebreos (aparecen como recuadros vacíos).
            Noto Serif cubre griego politónico; Noto Serif Hebrew cubre hebreo con niqud. */
         .font-griego { font-family: 'Noto Serif', 'Playfair Display', serif; }
         .font-hebreo { font-family: 'Noto Serif Hebrew', 'Noto Serif', serif; }
-        /* Texto de lectura cómodo */
-        .prose-lectura { color: var(--revelatio-ink) !important; line-height: 1.75; }
-        .prose-lectura, .prose-lectura * { -webkit-text-fill-color: var(--revelatio-ink); }
 
-        /* Sistema de marca editorial: firma visible, jerárquica y discreta. */
+        /* Resaltados del lector "modo libro" */
+        .hl-oro { background-color: rgba(200, 155, 60, .32); }
+        .hl-terracota { background-color: rgba(178, 90, 69, .26); }
+        .hl-salvia { background-color: rgba(122, 148, 104, .28); }
+        .hl-cielo { background-color: rgba(94, 120, 158, .24); }
+
+        /* Marca editorial */
         .app-shell { position: relative; isolation: isolate; }
         .brand-signature { letter-spacing: .12em; }
         .brand-kicker { letter-spacing: .24em; }
         .brand-rule { background: linear-gradient(90deg, rgba(200,155,60,.7), rgba(200,155,60,.12)); }
         .brand-panel { box-shadow: 0 18px 45px rgba(28,46,74,.08); }
 
-        /* Resaltados del lector "modo libro" (tonos suaves sobre la página cálida) */
-        .hl-oro { background-color: rgba(200, 155, 60, .32); }
-        .hl-terracota { background-color: rgba(178, 90, 69, .26); }
-        .hl-salvia { background-color: rgba(122, 148, 104, .28); }
-        .hl-cielo { background-color: rgba(94, 120, 158, .24); }
-
-        /* ===== Remapeo de utilidades oscuras -> paleta cálida legible =====
-           El diseño original asumía fondo oscuro. Sobre pergamino, el texto gris
-           claro debe volverse tinta cálida oscura para máxima legibilidad. */
-        .text-gray-100 { color: var(--revelatio-ink) !important; }
-        .text-gray-200 { color: #334B5A !important; }
-        .text-gray-300 { color: var(--revelatio-muted) !important; }
-        .text-gray-400 { color: #68777D !important; }
-        .text-gray-500 { color: #78858A !important; }
-        .text-gray-600 { color: #68757A !important; }
-        .text-gold-50  { color: #70451F !important; }
-
-        /* Zonas oscuras (header + sidebar + login): fondo azul noche, texto claro.
-           Dentro de .zona-oscura restauramos claridad sobre el remapeo anterior. */
-        .zona-oscura { background: var(--revelatio-night); color: var(--revelatio-ivory); }
-        .zona-oscura .text-gray-100 { color: #F4EEDF !important; }
-        .zona-oscura .text-gray-200 { color: #E7DFCC !important; }
-        .zona-oscura .text-gray-300 { color: #D8CEB7 !important; }
-        .zona-oscura .text-gray-400 { color: #BEB49A !important; }
-        .zona-oscura .text-gray-500 { color: #A99E82 !important; }
-        .zona-oscura .text-gray-600 { color: #8F846A !important; }
-        .zona-oscura .text-gold-50  { color: #FFF4CF !important; }
-        .zona-oscura .text-gold-100 { color: #FFF1C2 !important; }
-        .zona-oscura .text-gold-200 { color: #FFE8A3 !important; }
-        .zona-oscura .text-gold-300 { color: #FFD76A !important; }
-        .zona-oscura .text-gold-400 { color: #F6C84C !important; }
-        .zona-oscura .text-gold-500 { color: #E7B52F !important; }
-        .zona-oscura .text-gold-600 { color: #D9A321 !important; }
-        .zona-oscura .text-gold-700 { color: #F4C64E !important; }
-        .zona-oscura .bg-panel { background: #0B242B !important; }
-        .zona-oscura .bg-panel2 { background: #0B242B !important; }
-        .zona-oscura .border-line { border-color: #2A5660 !important; }
-        .zona-oscura button.text-left { color: #FFF1C2 !important; }
-        .zona-oscura button.text-left span { color: #FFF1C2 !important; }
-        .zona-oscura button.text-left svg { color: #FFD76A !important; }
-        .zona-oscura button.text-left .text-gold-300 { color: #FFD76A !important; }
-        .zona-oscura, .zona-oscura * { color: #FFF1C2; }
-        .zona-oscura .text-gray-950, .zona-oscura .text-gray-900, .zona-oscura .text-gray-800, .zona-oscura .text-gray-700 { color: #FFF1C2 !important; }
-        .zona-oscura .text-gray-100, .zona-oscura .text-gray-200, .zona-oscura .text-gray-300, .zona-oscura .text-gray-400, .zona-oscura .text-gray-500, .zona-oscura .text-gray-600 { color: #FFF1C2 !important; }
-        .zona-oscura .text-gold-50, .zona-oscura .text-gold-100, .zona-oscura .text-gold-200 { color: #FFF1C2 !important; }
-        .zona-oscura .text-gold-300, .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color: #FFD76A !important; }
-        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura a, .zona-oscura button, .zona-oscura svg { color: #FFF1C2 !important; }
-        .zona-oscura .text-gold-300, .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura svg { color: #FFD76A !important; }
-        .zona-oscura button:hover, .zona-oscura a:hover { color: #FFF8DF !important; }
-        .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color: #26343A !important; background: #FFFCF6 !important; }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: #E3DACB; }
         ::-webkit-scrollbar-thumb { background: #B66A3C66; border-radius: 8px; border: 2px solid #E3DACB; }
         ::-webkit-scrollbar-thumb:hover { background: #92512F; }
 
-        /* Ajustes táctiles y de lectura para teléfonos y tablets */
+        /* Táctil y lectura responsive */
         button, a, input, select, textarea { touch-action: manipulation; }
         @media (max-width: 1023px) {
             main { -webkit-overflow-scrolling: touch; }
@@ -167,257 +128,92 @@
         @media (display-mode: standalone) {
             body { padding-top: env(safe-area-inset-top); }
         }
-  
-  /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
-  .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
-  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
-  .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
-  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
-  .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
-  .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
-  .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
-  /* El DOM real aplica nav-active a todos los botones; text-gray-400 no puede oscurecerlos. */
-  aside nav button.nav-active,
-  aside nav button.nav-active span,
-  aside nav button.nav-active svg,
-  aside nav button.text-gray-400,
-  aside nav button.text-gray-400 span { color:#fff4df !important; opacity:1 !important; }
-  aside nav button.nav-active svg { stroke:#f4cf72 !important; }
 
-  /* Paleta RevelatiO: azul petróleo, marfil y cobre. Solo color; estructura y contenido intactos. */
-  :root { --revelatio-petroleo:#12324A; --revelatio-marfil:#FBF5E9; --revelatio-cobre:#B9783A; --revelatio-tinta:#26343A; --revelatio-oro:#D6AA45; }
-  body { background-color:var(--revelatio-petroleo) !important; color:var(--revelatio-tinta); }
-  .bg-ink, .bg-night, .bg-night2 { background-color:var(--revelatio-petroleo) !important; }
-  .bg-panel, .bg-panel2, .bg-paper { background-color:var(--revelatio-marfil) !important; }
-  .bg-gold-300, .bg-gold-400, .bg-gold-500 { background-color:var(--revelatio-cobre) !important; }
-  .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600 { color:var(--revelatio-oro) !important; }
-  .border-gold-500, .border-gold-400 { border-color:color-mix(in srgb,var(--revelatio-cobre) 70%,transparent) !important; }
-  .text-gray-100, .text-gray-200, .text-gray-300 { color:var(--revelatio-tinta) !important; }
-  .zona-oscura, .zona-oscura * { color:#FBF5E9; }
-  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper { color:var(--revelatio-tinta); }
-</style>
-  <style>
-  .libro-lectura-shell { background: linear-gradient(90deg, rgba(200,155,60,.05), transparent 12%, transparent 88%, rgba(200,155,60,.05)); border-radius: 1rem; padding: .25rem; transform-origin: center; }
-  .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
-  @keyframes paso-hoja { 0% { opacity: .25; transform: perspective(1100px) rotateY(var(--pagina-inicio, -8deg)) translateX(var(--pagina-x, 18px)); filter: brightness(.9); } 55% { opacity: 1; transform: perspective(1100px) rotateY(2deg) translateX(0); filter: brightness(1.03); } 100% { opacity: 1; transform: perspective(1100px) rotateY(0) translateX(0); filter: brightness(1); } }
-  .lector-direccion-anterior .pagina-en-movimiento { --pagina-inicio: 8deg; --pagina-x: -18px; }
-  @media (prefers-reduced-motion: reduce) { .pagina-en-movimiento { animation: none; } }
+        /* Animación de paso de página */
+        .libro-lectura-shell { border-radius: 1rem; padding: .25rem; transform-origin: center; }
+        .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
+        @keyframes paso-hoja { 0% { opacity: .25; transform: perspective(1100px) rotateY(var(--pagina-inicio, -8deg)) translateX(var(--pagina-x, 18px)); filter: brightness(.9); } 55% { opacity: 1; transform: perspective(1100px) rotateY(2deg) translateX(0); filter: brightness(1.03); } 100% { opacity: 1; transform: perspective(1100px) rotateY(0) translateX(0); filter: brightness(1); } }
+        .lector-direccion-anterior .pagina-en-movimiento { --pagina-inicio: 8deg; --pagina-x: -18px; }
+        @media (prefers-reduced-motion: reduce) { .pagina-en-movimiento { animation: none; } }
         @media print { .libro-lectura-shell { background: none; } }
 
-        /* Contraste QA: la página crema usa tinta oscura, también en móvil. */
-        .libro-lectura-shell { background: #fffaf0 !important; color: #2b2417 !important; }
-        .libro-lectura-shell p, .libro-lectura-shell span, .libro-lectura-shell sup { color: #2b2417 !important; -webkit-text-fill-color: #2b2417 !important; }
-        .libro-lectura-shell .text-gold-500, .libro-lectura-shell .text-gold-600 { color: #8a681b !important; -webkit-text-fill-color: #8a681b !important; }
-        .prose-lectura { color: #2b2417 !important; -webkit-text-fill-color: #2b2417 !important; }
-
-        /* Renovación UX/UI: jerarquía editorial, superficies táctiles y foco visible. */
         .ux-card { box-shadow: 0 12px 32px rgba(28,46,74,.06); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
         .ux-card:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(28,46,74,.11); border-color: rgba(154,107,18,.42); }
-        .nav-active { box-shadow: inset 3px 0 0 #B66A3C; }
-        :focus-visible { outline: 3px solid rgba(200,155,60,.75); outline-offset: 3px; }
         .mobile-nav { padding-bottom: max(.5rem, env(safe-area-inset-bottom)); }
         @media (max-width: 1023px) { .mobile-nav { display: flex; } main { padding-bottom: 5.5rem; } }
-  @media (min-width: 1024px) { .mobile-nav { display: none; } }
+        @media (min-width: 1024px) { .mobile-nav { display: none; } }
+        :focus-visible { outline: 3px solid var(--rv-gold-on-dark); outline-offset: 3px; }
 
-  /* Dirección premium RevelatiO: contraste, capas y foco editorial. */
-  :root { --brand-night:#08152b; --brand-navy:#102746; --brand-ink:#18263b; --brand-paper:#f2eadb; --brand-panel:#fffdf8; --brand-gold:#d6aa45; --brand-gold-bright:#f4cf72; --brand-line:rgba(176,137,52,.34); }
-  body { background: radial-gradient(circle at 80% -10%, rgba(214,170,69,.18), transparent 28rem), linear-gradient(135deg,#e9dfce 0%,#f8f3ea 45%,#e5d8c2 100%) !important; }
-  .app-shell { background:transparent !important; }
-  header, .zona-clara, .bg-paper, .bg-panel { background-color:var(--brand-panel) !important; }
-  .zona-oscura, .bg-night, .bg-ink { background:linear-gradient(145deg,var(--brand-night),var(--brand-navy)) !important; }
-  .bg-panel, .bg-panel2 { box-shadow:0 14px 36px rgba(8,21,43,.10), 0 0 0 1px rgba(214,170,69,.12); }
-  .rounded-2xl, .rounded-3xl { border-color:var(--brand-line) !important; }
-  .ux-card { position:relative; overflow:hidden; box-shadow:0 14px 35px rgba(8,21,43,.12), 0 0 0 1px rgba(214,170,69,.11) !important; }
-  .ux-card::before, .bg-panel::before { content:''; position:absolute; width:180px; height:180px; top:-110px; right:-80px; border-radius:50%; background:rgba(214,170,69,.13); filter:blur(18px); pointer-events:none; }
-  .text-gold-400,.text-gold-500,.text-gold-600,.text-gold-700 { color:var(--brand-gold-bright) !important; }
-  .bg-gold-500 { background:linear-gradient(135deg,var(--brand-gold-bright),var(--brand-gold)) !important; }
-  button:hover, a:hover { filter:brightness(1.08); }
-  .nav-active { background:linear-gradient(90deg,rgba(214,170,69,.24),rgba(214,170,69,.06)) !important; box-shadow:inset 3px 0 var(--brand-gold-bright), 0 8px 20px rgba(0,0,0,.12); }
-  .libro-lectura-shell { background:radial-gradient(circle at 50% 0%,rgba(214,170,69,.16),transparent 35%),linear-gradient(100deg,rgba(214,170,69,.08),transparent 18%,transparent 82%,rgba(214,170,69,.08)) !important; box-shadow:0 20px 60px rgba(8,21,43,.12); }
-  @media (max-width: 1023px) { body { background:#f2eadb !important; } }
-  /* Legibilidad final: tinta real sobre marfil y oro reservado para acentos. */
-  main:not(.zona-oscura), main:not(.zona-oscura) p, main:not(.zona-oscura) span, main:not(.zona-oscura) label, main:not(.zona-oscura) button, main:not(.zona-oscura) a { color:#3b3022; }
-  main:not(.zona-oscura) .text-gray-400, main:not(.zona-oscura) .text-gray-500, main:not(.zona-oscura) .text-gray-600 { color:#675842 !important; }
-  main:not(.zona-oscura) .text-gold-50, main:not(.zona-oscura) .text-gold-100, main:not(.zona-oscura) .text-gold-200 { color:#735617 !important; }
-  main:not(.zona-oscura) .text-gold-300, main:not(.zona-oscura) .text-gold-400, main:not(.zona-oscura) .text-gold-500, main:not(.zona-oscura) .text-gold-600, main:not(.zona-oscura) .text-gold-700 { color:#8a681b !important; }
-  main:not(.zona-oscura) h1, main:not(.zona-oscura) h2, main:not(.zona-oscura) h3, main:not(.zona-oscura) h4 { color:#211a12 !important; }
-  main:not(.zona-oscura) input, main:not(.zona-oscura) select, main:not(.zona-oscura) textarea { color:#211a12 !important; background:#fffdf8 !important; }
-  main:not(.zona-oscura) .text-red-300, main:not(.zona-oscura) .text-red-400, main:not(.zona-oscura) .text-red-500 { color:#a63c3c !important; }
-  main:not(.zona-oscura) .bg-night, main:not(.zona-oscura) .bg-ink { color:#fff8e8 !important; }
-  main:not(.zona-oscura) .bg-night *, main:not(.zona-oscura) .bg-ink * { color:#fff8e8 !important; }
+        /* ===================== SISTEMA DE COLOR (única fuente de verdad) =====================
+           Fondo general: azul noche. Texto por defecto: crema. Los paneles claros
+           (bg-panel/bg-panel2/bg-paper/zona-clara) invierten a tinta oscura sobre marfil. */
 
-  /* Contraste de lectura: todo texto sobre fondo azul debe ser marfil, nunca marrón. */
-  .zona-oscura, .zona-oscura p, .zona-oscura span, .zona-oscura label, .zona-oscura li, .zona-oscura a, .zona-oscura button { color:#fff8e8 !important; }
-  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color:#fffaf0 !important; }
-  .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, .zona-oscura .text-gold-600, .zona-oscura .text-gold-700 { color:#f4cf72 !important; }
-  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper, .zona-oscura .zona-clara, .zona-oscura [class*="bg-white"] { color:#33281b !important; }
-  .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
-  .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
-  .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
-  /* El selector de versículo debe mostrar tinta oscura sobre crema. */
-  #versiculo-input, #versiculo-input:focus, #versiculo-input::placeholder {
-    background:#fffaf0 !important; color:#2b2417 !important; -webkit-text-fill-color:#2b2417 !important; caret-color:#2b2417 !important; opacity:1 !important; border-color:#c89b3c !important;
-  }
-  #versiculo-input::-webkit-inner-spin-button, #versiculo-input::-webkit-outer-spin-button { opacity:1 !important; }
-  #leer-versiculo { background:#d6aa45 !important; border:1px solid #8a681b !important; color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; box-shadow:0 2px 0 rgba(70,45,8,.2); }
-  #leer-versiculo:hover, #leer-versiculo:focus-visible { background:#f4cf72 !important; border-color:#6f510e !important; color:#211a12 !important; }
-  /* RevelatiO IA: botones oscuros necesitan tinta clara, incluso con clases text-* heredadas. */
-  button.bg-ink, button.bg-ink span, button[class*="bg-ink"], button[class*="bg-ink"] span,
-  button.rounded-full[class*="bg-"] { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
-  button.bg-ink:hover, button[class*="bg-ink"]:hover, button.rounded-full[class*="bg-"]:hover { color:#ffffff !important; background:#173252 !important; }
-  button.bg-gold-500, button.bg-gold-500 span, button[class*="bg-gold"] { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-  /* Contraste global del contenido sobre azul noche. */
-  main.bg-ink, main.bg-ink p, main.bg-ink span, main.bg-ink label, main.bg-ink button, main.bg-ink a, main.bg-ink li { color:#fff8e8 !important; }
-  main.bg-ink h1, main.bg-ink h2, main.bg-ink h3, main.bg-ink h4, main.bg-ink strong { color:#fffaf0 !important; }
-  main.bg-ink .text-gray-100, main.bg-ink .text-gray-200, main.bg-ink .text-gray-300, main.bg-ink .text-gray-400, main.bg-ink .text-gray-500, main.bg-ink .text-gray-600 { color:#f1e7d2 !important; }
-  main.bg-ink .text-gold-50, main.bg-ink .text-gold-100, main.bg-ink .text-gold-200, main.bg-ink .text-gold-300, main.bg-ink .text-gold-400, main.bg-ink .text-gold-500, main.bg-ink .text-gold-600, main.bg-ink .text-gold-700 { color:#f4cf72 !important; }
-  main.bg-ink .bg-panel, main.bg-ink .bg-panel2, main.bg-ink .bg-paper, main.bg-ink .zona-clara, main.bg-ink [class*="bg-white"] { color:#33281b !important; }
-  main.bg-ink .bg-panel *, main.bg-ink .bg-panel2 *, main.bg-ink .bg-paper *, main.bg-ink .zona-clara *, main.bg-ink [class*="bg-white"] * { color:#33281b !important; }
-  main.bg-ink .bg-panel .text-gold-50, main.bg-ink .bg-panel .text-gold-100, main.bg-ink .bg-panel .text-gold-200, main.bg-ink .bg-panel .text-gold-300, main.bg-ink .bg-panel .text-gold-400, main.bg-ink .bg-panel .text-gold-500, main.bg-ink .bg-panel2 .text-gold-400, main.bg-ink .bg-paper .text-gold-400 { color:#8a681b !important; }
-  /* Sistema final: azul profundo en toda la app y crema de alto contraste. */
-  aside nav button.nav-active, aside nav button.nav-active span, aside nav button.nav-active svg,
-  aside nav button.text-gray-400, aside nav button.text-gray-400 span { color:#fff4df !important; opacity:1 !important; }
-  aside nav button.nav-active svg { stroke:#f4cf72 !important; }
-  html, body { background:#071a33 !important; color:#fff4df !important; }
-  body { background:radial-gradient(circle at 82% 0%,rgba(214,170,69,.16),transparent 26rem),linear-gradient(145deg,#071a33 0%,#0b2443 52%,#06162c 100%) !important; }
-  #app, .app-shell, main { background:transparent !important; color:#fff4df !important; }
-  main p, main span, main label, main li, main a, main button, main small, main div { color:#fff4df; }
-  main h1, main h2, main h3, main h4, main h5, main strong { color:#fffaf0 !important; }
-  main .text-gold-50, main .text-gold-100, main .text-gold-200, main .text-gold-300, main .text-gold-400, main .text-gold-500, main .text-gold-600, main .text-gold-700 { color:#f4cf72 !important; }
-  main .bg-panel, main .bg-panel2, main .bg-paper, main .zona-clara, main [class*="bg-white"] { background:#fffaf0 !important; color:#2b2117 !important; box-shadow:0 16px 38px rgba(0,0,0,.24),0 0 0 1px rgba(244,207,114,.25) !important; }
-  main .bg-panel *, main .bg-panel2 *, main .bg-paper *, main .zona-clara *, main [class*="bg-white"] * { color:#3b3022 !important; }
-  main .bg-panel h1, main .bg-panel h2, main .bg-panel h3, main .bg-panel h4, main .bg-panel2 h1, main .bg-panel2 h2, main .bg-paper h1, main .bg-paper h2 { color:#211a12 !important; }
-  main input, main select, main textarea { background:#fffaf0 !important; color:#211a12 !important; border-color:#b79552 !important; }
-</style>
-  <style id="revelatio-contrast-qa">
-    html, body, #app { background:#071a33 !important; color:#fff4df !important; }
-    body, body p, body span, body label, body li, body a, body button, body small, body strong, body h1, body h2, body h3, body h4, body h5, body h6 { color:#fff4df !important; }
-    body .text-gray-100, body .text-gray-200, body .text-gray-300, body .text-gray-400, body .text-gray-500, body .text-gray-600, body .text-gray-700, body .text-gray-800, body .text-gray-900, body .text-gray-950 { color:#fff4df !important; }
-    body .text-gold-50, body .text-gold-100, body .text-gold-200 { color:#fff4df !important; }
-    body .text-gold-300, body .text-gold-400, body .text-gold-500, body .text-gold-600, body .text-gold-700 { color:#f4cf72 !important; }
-    aside, aside nav, aside header, header, .zona-oscura, .bg-ink { background:#0a1f3b !important; color:#fff4df !important; }
-    aside *, aside nav *, aside header *, header .zona-oscura *, .zona-oscura *, .bg-ink * { color:#fff4df !important; }
-    aside .text-gold-300, aside .text-gold-400, aside .text-gold-500, aside svg { color:#f4c95d !important; }
-    main { background:transparent !important; color:#fff4df !important; }
-    main h1, main h2, main h3, main h4, main h5 { color:#fffaf0 !important; }
-    main p, main span, main label, main li, main a, main button { color:#f8ead2; }
-    main .text-gray-400, main .text-gray-500, main .text-gray-600 { color:#e8d9bd !important; }
-    main .text-gold-300, main .text-gold-400, main .text-gold-500, main .text-gold-600 { color:#f4cf72 !important; }
-    main .bg-panel, main .bg-panel2, main .bg-paper, main .zona-clara, main [class*="bg-white"] { background:#fffaf0 !important; color:#302619 !important; }
-    main .bg-panel *, main .bg-panel2 *, main .bg-paper *, main .zona-clara *, main [class*="bg-white"] * { color:#302619 !important; }
-    main input, main select, main textarea { background:#fffaf0 !important; color:#211a12 !important; }
-    .zona-oscura .bg-panel, .zona-oscura .bg-panel2 { background:#fffaf0 !important; color:#302619 !important; }
-    .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 * { color:#302619 !important; }
-    .zona-oscura .bg-panel h1, .zona-oscura .bg-panel h2, .zona-oscura .bg-panel h3, .zona-oscura .bg-panel p, .zona-oscura .bg-panel label, .zona-oscura .bg-panel cite { color:#302619 !important; }
-    .zona-oscura .bg-panel .text-gold-100, .zona-oscura .bg-panel .text-gold-200, .zona-oscura .bg-panel .text-gold-300 { color:#8a681b !important; }
-    .zona-oscura .bg-panel input { background:#fffaf0 !important; color:#211a12 !important; }
-    /* Corrección definitiva del menú: los botones inactivos también deben ser crema. */
-    aside.zona-oscura nav button,
-    aside.zona-oscura nav button span,
-    aside.zona-oscura nav button svg { color:#fff4df !important; opacity:1 !important; }
-    aside.zona-oscura nav button svg { stroke:#f4cf72 !important; }
-    aside.zona-oscura nav button[aria-current="page"],
-    aside.zona-oscura nav button[aria-current="page"] span { color:#ffffff !important; }
-  </style>
-  <style id="qa-final-nav-text">
-    /* RevelatiO Premium: sistema cromático único y basado en superficies. */
-    :root {
-      --premium-night:#102A43;
-      --premium-ocean:#163D56;
-      --premium-paper:#F4EFE5;
-      --premium-panel:#FFFCF6;
-      --premium-sand:#E8DDC8;
-      --premium-copper:#B7793E;
-      --premium-copper-dark:#8A542C;
-      --premium-ink:#263238;
-      --premium-heading:#17324D;
-      --premium-muted:#52616B;
-      --premium-on-dark:#F8F4EA;
-      --premium-border:rgba(183,121,62,.34);
-      --premium-success:#356859;
-      --premium-error:#A94442;
-    }
-    html, body { background:var(--premium-night) !important; color:var(--premium-on-dark) !important; }
-    body { background:linear-gradient(145deg,var(--premium-night),var(--premium-ocean)) !important; }
-    .surface-dark, .zona-oscura, aside, header, .bg-ink, .bg-night { background:var(--premium-night) !important; color:var(--premium-on-dark) !important; }
-    .surface-paper, .zona-clara, .bg-panel, .bg-panel2, .bg-paper, [class*="bg-white"] { background:var(--premium-paper) !important; color:var(--premium-ink) !important; border-color:var(--premium-border) !important; }
-    .bg-panel *, .bg-panel2 *, .bg-paper *, .zona-clara *, [class*="bg-white"] * { color:var(--premium-ink) !important; -webkit-text-fill-color:var(--premium-ink) !important; }
-    .bg-panel h1, .bg-panel h2, .bg-panel h3, .bg-panel h4, .bg-panel2 h1, .bg-panel2 h2, .bg-panel2 h3, .bg-paper h1, .bg-paper h2, .bg-paper h3 { color:var(--premium-heading) !important; }
-    .text-gray-100, .text-gray-200, .text-gray-300 { color:var(--premium-ink) !important; }
-    .text-gray-400, .text-gray-500, .text-gray-600 { color:var(--premium-muted) !important; }
-    .text-gold-50, .text-gold-100, .text-gold-200, .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600, .text-gold-700 { color:var(--premium-copper-dark) !important; }
-    .zona-oscura *, aside *, header *, .bg-ink *, .bg-night * { color:var(--premium-on-dark) !important; -webkit-text-fill-color:var(--premium-on-dark) !important; }
-    .zona-oscura .text-gold-300, .zona-oscura .text-gold-400, .zona-oscura .text-gold-500, aside svg, header svg { color:var(--premium-copper) !important; stroke:var(--premium-copper) !important; }
-    .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper { background:var(--premium-paper) !important; }
-    .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper * { color:var(--premium-ink) !important; -webkit-text-fill-color:var(--premium-ink) !important; }
-    aside nav button.nav-active { background:var(--premium-copper) !important; color:#1C2730 !important; box-shadow:inset 3px 0 var(--premium-copper-dark) !important; }
-    aside nav button.nav-active *, aside nav button.text-gray-400, aside nav button.text-gray-400 span { color:var(--premium-on-dark) !important; -webkit-text-fill-color:var(--premium-on-dark) !important; }
-    button.bg-gold-500, button[class*="bg-gold"], .bg-gold-500 { background:var(--premium-copper) !important; color:#1C2730 !important; border-color:var(--premium-copper-dark) !important; }
-    button.bg-gold-500 *, button[class*="bg-gold"] *, .bg-gold-500 * { color:#1C2730 !important; -webkit-text-fill-color:#1C2730 !important; }
-    button.bg-ink, button[class*="bg-ink"] { background:var(--premium-ocean) !important; color:var(--premium-on-dark) !important; }
-    button.bg-ink *, button[class*="bg-ink"] * { color:var(--premium-on-dark) !important; -webkit-text-fill-color:var(--premium-on-dark) !important; }
-    input, select, textarea { background:var(--premium-panel) !important; color:var(--premium-ink) !important; border-color:var(--premium-copper) !important; }
-    input::placeholder, textarea::placeholder { color:var(--premium-muted) !important; opacity:1 !important; }
-    :focus-visible { outline:3px solid var(--premium-copper) !important; outline-offset:3px; }
-    .libro-lectura-shell { background:var(--premium-panel) !important; color:var(--premium-ink) !important; box-shadow:0 16px 40px rgba(16,42,67,.12) !important; }
-    .libro-lectura-shell *, .prose-lectura { color:var(--premium-ink) !important; -webkit-text-fill-color:var(--premium-ink) !important; }
-    .border-line, .rounded-2xl, .rounded-3xl { border-color:var(--premium-border) !important; }
-    .ux-card { box-shadow:0 12px 30px rgba(16,42,67,.12) !important; }
-    button:hover, a:hover { filter:brightness(1.04); }
-  /* QA contraste: conservar el diseño y asegurar legibilidad en navegación y lectura. */
-  aside button, aside button span, aside button svg { color: #fff4df !important; opacity: 1 !important; }
-  aside button.nav-active, aside button.nav-active span { color: #211a12 !important; }
-  .libro-lectura-shell, .libro-lectura-shell *, .prose-lectura, .prose-lectura * { color: #2b2417 !important; -webkit-text-fill-color: #2b2417 !important; }
-  .libro-lectura-shell .text-gold-500, .libro-lectura-shell .text-gold-600, .prose-lectura .text-gold-500, .prose-lectura .text-gold-600 { color: #8a681b !important; -webkit-text-fill-color: #8a681b !important; }
-  </style>
-  <style id="revelatio-premium-refinement">
-  /* Refinamiento visual: jerarquía, contraste y profundidad; sin cambios de estructura ni contenido. */
-  :root { --premium-surface:#FFF9EF; --premium-surface-soft:#F3E8D8; --premium-night:#0C263E; --premium-night-soft:#143B59; --premium-copper:#B87333; --premium-gold:#E0B45D; --premium-ink:#243746; --premium-muted:#D6E1E7; }
-  body { background:radial-gradient(circle at 86% 2%,rgba(224,180,93,.18),transparent 18rem),linear-gradient(135deg,var(--premium-night),#102F4B 52%,#081C30) !important; }
-  body header { background:rgba(12,38,62,.94) !important; border-bottom:1px solid rgba(224,180,93,.28) !important; box-shadow:0 10px 30px rgba(0,0,0,.16) !important; backdrop-filter:blur(12px); }
-  body aside { background:linear-gradient(180deg,#0D2943,#081F35) !important; border-right:1px solid rgba(224,180,93,.28) !important; }
-  body aside > *, body aside nav { background:transparent !important; }
-  body aside nav button { border:1px solid transparent !important; color:#F7EBD8 !important; transition:background .2s ease,transform .2s ease,box-shadow .2s ease; }
-  body aside nav button:hover { background:rgba(184,115,51,.22) !important; border-color:rgba(224,180,93,.35) !important; transform:translateX(2px); }
-  body aside nav button[aria-current="page"], body aside nav button.nav-active { background:linear-gradient(135deg,#C48747,#A9652F) !important; color:#FFF9EF !important; box-shadow:0 8px 20px rgba(184,115,51,.24) !important; }
-  body main { background:transparent !important; }
-  body main .bg-panel, body main .bg-panel2, body main .bg-paper, body main .zona-clara, body main [class*="bg-white"] { background:linear-gradient(145deg,var(--premium-surface),var(--premium-surface-soft)) !important; border:1px solid rgba(184,115,51,.34) !important; box-shadow:0 18px 42px rgba(0,0,0,.18),0 2px 0 rgba(255,255,255,.72) inset !important; }
-  body main .bg-panel *, body main .bg-panel2 *, body main .bg-paper *, body main .zona-clara *, body main [class*="bg-white"] * { color:var(--premium-ink) !important; -webkit-text-fill-color:var(--premium-ink) !important; }
-  body main button.bg-gold-300, body main button.bg-gold-400, body main button.bg-gold-500, body main a.bg-gold-300, body main a.bg-gold-400, body main a.bg-gold-500 { background:linear-gradient(135deg,#C48747,#A9652F) !important; color:#FFF9EF !important; border:1px solid rgba(255,249,239,.24) !important; box-shadow:0 6px 16px rgba(184,115,51,.22) !important; }
-  body main input, body main select, body main textarea { background:#FFFDF8 !important; color:var(--premium-ink) !important; border:1px solid #C9A76B !important; box-shadow:0 2px 8px rgba(12,38,62,.06) inset !important; }
-  body main input::placeholder, body main textarea::placeholder { color:#667985 !important; opacity:1 !important; }
-  body .libro-lectura-shell, body .libro-lectura-shell * { color:var(--premium-ink) !important; -webkit-text-fill-color:var(--premium-ink) !important; }
-  body .libro-lectura-shell { background:linear-gradient(145deg,var(--premium-surface),var(--premium-surface-soft)) !important; }
-  body :focus-visible { outline:3px solid var(--premium-gold) !important; outline-offset:3px; }
-  /* Contraste final: texto claro en controles oscuros y tinta profunda en superficies claras. */
-  body .bg-panel button, body .bg-panel2 button, body .bg-paper button { color:#FFF9EF !important; -webkit-text-fill-color:#FFF9EF !important; }
-  body .bg-panel button span, body .bg-panel2 button span, body .bg-paper button span { color:#FFF9EF !important; -webkit-text-fill-color:#FFF9EF !important; }
-  body .bg-panel button[class*="bg-ink"], body .bg-panel2 button[class*="bg-ink"], body .bg-paper button[class*="bg-ink"] { background:#123B59 !important; color:#FFF9EF !important; }
-  body .bg-panel button[class*="bg-gold"], body .bg-panel2 button[class*="bg-gold"], body .bg-paper button[class*="bg-gold"] { background:#C77C32 !important; color:#172B3A !important; -webkit-text-fill-color:#172B3A !important; }
-  body .bg-panel button[class*="bg-gold"] span, body .bg-panel2 button[class*="bg-gold"] span, body .bg-paper button[class*="bg-gold"] span { color:#172B3A !important; -webkit-text-fill-color:#172B3A !important; }
-  </style>
-  <style id="revelatio-new-palette">
-    /* Nueva paleta: grafito, petróleo, jade y marfil. Solo reglas visuales. */
-    :root { --new-graphite:#17212B; --new-petrol:#123A4A; --new-jade:#167D76; --new-jade-deep:#0E5B58; --new-ivory:#FFFDF7; --new-sand:#F2EBDD; --new-ink:#1A2A35; --new-muted:#52636D; --new-line:#9CC9BF; }
-    html, body { background:var(--new-graphite) !important; color:var(--new-ivory) !important; }
-    body { background:linear-gradient(135deg,var(--new-graphite),var(--new-petrol)) !important; }
-    header, aside, .zona-oscura, .surface-dark, .bg-ink, .bg-night, .bg-night2 { background:var(--new-graphite) !important; color:var(--new-ivory) !important; }
-    header *, aside *, .zona-oscura *, .bg-ink *, .bg-night * { color:var(--new-ivory) !important; -webkit-text-fill-color:var(--new-ivory) !important; }
-    .bg-panel, .bg-panel2, .bg-paper, .zona-clara, .surface-paper, [class*="bg-white"] { background:linear-gradient(145deg,var(--new-ivory),var(--new-sand)) !important; color:var(--new-ink) !important; border-color:var(--new-line) !important; }
-    .bg-panel *, .bg-panel2 *, .bg-paper *, .zona-clara *, .surface-paper *, [class*="bg-white"] * { color:var(--new-ink) !important; -webkit-text-fill-color:var(--new-ink) !important; }
-    .text-gray-100, .text-gray-200, .text-gray-300 { color:var(--new-ink) !important; }
-    .text-gray-400, .text-gray-500, .text-gray-600 { color:var(--new-muted) !important; }
-    .text-gold-50, .text-gold-100, .text-gold-200, .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600, .text-gold-700 { color:var(--new-jade-deep) !important; }
-    aside .text-gold-300, aside .text-gold-400, aside .text-gold-500, header .text-gold-300, header .text-gold-400, header .text-gold-500 { color:#8FE1D2 !important; }
-    button[class*="bg-gold"], .bg-gold-500, a[class*="bg-gold"] { background:var(--new-jade) !important; color:var(--new-ivory) !important; border-color:var(--new-jade-deep) !important; }
-    button[class*="bg-gold"] *, .bg-gold-500 *, a[class*="bg-gold"] * { color:var(--new-ivory) !important; -webkit-text-fill-color:var(--new-ivory) !important; }
-    button[class*="bg-ink"], button.bg-ink { background:var(--new-petrol) !important; color:var(--new-ivory) !important; }
-    button[class*="bg-ink"] *, button.bg-ink * { color:var(--new-ivory) !important; -webkit-text-fill-color:var(--new-ivory) !important; }
-    input, select, textarea { background:var(--new-ivory) !important; color:var(--new-ink) !important; border-color:var(--new-jade) !important; }
-    input::placeholder, textarea::placeholder { color:var(--new-muted) !important; opacity:1 !important; }
-    .prose-lectura, .prose-lectura * { color:var(--new-ink) !important; -webkit-text-fill-color:var(--new-ink) !important; }
-    :focus-visible { outline:3px solid #8FE1D2 !important; outline-offset:3px; }
-  </style>
+        html, body { background: linear-gradient(145deg, var(--rv-bg-dark) 0%, var(--rv-bg-dark-2) 55%, var(--rv-bg-dark-3) 100%) !important; color: var(--rv-cream) !important; }
+        #app, .app-shell, main { background: transparent !important; color: var(--rv-cream); }
+        header, aside, .zona-oscura, .bg-ink, .bg-night, .bg-night2 { background: linear-gradient(145deg, var(--rv-bg-dark), var(--rv-bg-dark-2)) !important; color: var(--rv-cream) !important; }
+
+        /* Texto por defecto sobre fondo oscuro */
+        main p, main span, main label, main li, main a, main button, main small, main div,
+        header, header *, aside, aside *, .zona-oscura, .zona-oscura *, .bg-ink, .bg-ink *, .bg-night, .bg-night * { color: var(--rv-cream); }
+        main h1, main h2, main h3, main h4, main h5, main strong,
+        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color: var(--rv-cream-heading) !important; }
+        .text-gray-100, .text-gray-200, .text-gray-300 { color: var(--rv-cream) !important; }
+        .text-gray-400, .text-gray-500, .text-gray-600 { color: var(--rv-cream-muted) !important; }
+        .text-gold-50, .text-gold-100, .text-gold-200, .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600, .text-gold-700 { color: var(--rv-gold-on-dark) !important; }
+        main svg, header svg, aside svg { color: var(--rv-gold-on-dark); stroke: var(--rv-gold-on-dark); }
+        .text-red-300, .text-red-400, .text-red-500 { color: #e57373 !important; }
+        .prose-lectura, .prose-lectura * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
+
+        /* Navegación lateral */
+        aside nav button { color: var(--rv-cream) !important; opacity: 1 !important; }
+        aside nav button svg { color: var(--rv-gold-on-dark) !important; stroke: var(--rv-gold-on-dark) !important; }
+        aside nav button.nav-active, aside nav button[aria-current="page"] { background: linear-gradient(90deg, rgba(214,170,69,.24), rgba(214,170,69,.06)) !important; box-shadow: inset 3px 0 var(--rv-gold-on-dark); }
+        aside nav button.nav-active, aside nav button.nav-active span, aside nav button[aria-current="page"], aside nav button[aria-current="page"] span { color: #ffffff !important; }
+
+        /* Superficies claras: paneles, tarjetas, cuadros de texto y lector (invierten el contraste) */
+        .bg-panel, .bg-panel2, .bg-paper, .zona-clara, [class*="bg-white"], .libro-lectura-shell {
+            background: linear-gradient(145deg, var(--rv-panel), var(--rv-panel-soft)) !important;
+            color: var(--rv-ink) !important;
+            border-color: var(--rv-line) !important;
+            box-shadow: 0 14px 36px rgba(8,21,43,.14), 0 0 0 1px rgba(214,170,69,.12);
+        }
+        .bg-panel *, .bg-panel2 *, .bg-paper *, .zona-clara *, [class*="bg-white"] *, .libro-lectura-shell * {
+            color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important;
+        }
+        .bg-panel h1, .bg-panel h2, .bg-panel h3, .bg-panel h4,
+        .bg-panel2 h1, .bg-panel2 h2, .bg-paper h1, .bg-paper h2, .zona-clara h1, .zona-clara h2 { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
+        .bg-panel .text-gray-300, .bg-panel .text-gray-400, .bg-panel .text-gray-500, .bg-panel .text-gray-600,
+        .bg-panel2 .text-gray-400, .bg-panel2 .text-gray-500, .bg-paper .text-gray-400 { color: var(--rv-ink-muted) !important; -webkit-text-fill-color: var(--rv-ink-muted) !important; }
+        .bg-panel .text-gold-100, .bg-panel .text-gold-200, .bg-panel .text-gold-300, .bg-panel .text-gold-400, .bg-panel .text-gold-500, .bg-panel .text-gold-600,
+        .bg-panel2 .text-gold-400, .bg-panel2 .text-gold-500, .bg-paper .text-gold-400, .bg-paper .text-gold-500,
+        .libro-lectura-shell .text-gold-500, .libro-lectura-shell .text-gold-600 { color: var(--rv-gold-on-cream) !important; -webkit-text-fill-color: var(--rv-gold-on-cream) !important; }
+        .bg-panel .text-red-300, .bg-panel .text-red-400, .bg-panel .text-red-500 { color: #a63c3c !important; -webkit-text-fill-color: #a63c3c !important; }
+
+        /* Elementos oscuros embebidos dentro de un panel claro (deben seguir siendo claros) */
+        .bg-panel .bg-ink, .bg-panel .bg-ink *, .bg-panel div.bg-ink, .bg-panel div.bg-ink *,
+        .bg-panel button.bg-ink, .bg-panel button.bg-ink *, .bg-panel button[class*="bg-ink"], .bg-panel button[class*="bg-ink"] * {
+            color: var(--rv-cream) !important; -webkit-text-fill-color: var(--rv-cream) !important;
+        }
+        .bg-panel button.bg-gold-500, .bg-panel button.bg-gold-500 *, .bg-panel button.bg-gold-600, .bg-panel button.bg-gold-600 *,
+        .bg-panel div.bg-ink button.bg-gold-600, .bg-panel div.bg-ink button.bg-gold-600 * { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
+
+        /* Botones de acento (dorado = CTA, tinta oscura garantizada) */
+        button.bg-gold-500, button.bg-gold-600, button[class*="bg-gold"], a[class*="bg-gold"], .bg-gold-500 {
+            background: linear-gradient(135deg, #f4cf72, #d6aa45) !important; color: var(--rv-ink-heading) !important; border-color: var(--rv-gold-on-cream) !important;
+        }
+        button.bg-gold-500 *, button.bg-gold-600 *, button[class*="bg-gold"] *, a[class*="bg-gold"] *, .bg-gold-500 * { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
+        button.bg-ink, button[class*="bg-ink"], a.bg-ink { color: var(--rv-cream) !important; }
+        button.bg-ink *, button[class*="bg-ink"] *, a.bg-ink * { color: var(--rv-cream) !important; -webkit-text-fill-color: var(--rv-cream) !important; }
+        button.bg-ink:hover, button[class*="bg-ink"]:hover { background: #173252 !important; color: #ffffff !important; }
+
+        /* Formularios */
+        input, select, textarea { background: #fffdf8 !important; color: var(--rv-ink-heading) !important; border-color: #b79552 !important; }
+        input::placeholder, textarea::placeholder { color: var(--rv-ink-muted) !important; opacity: 1 !important; }
+        #versiculo-input, #versiculo-input:focus { caret-color: var(--rv-ink-heading) !important; }
+        #login-card, #login-card * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
+        #login-card .text-red-300 { color: #991b1b !important; -webkit-text-fill-color: #991b1b !important; }
+    </style>
+
 </head>
 
 <body class="h-full bg-ink antialiased" x-data="cieloApp()">
@@ -3951,166 +3747,6 @@
             window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
         }
   </script>
-  <style id="qa-fixed-sidebar-contrast">
-    /* Sidebar fijo de escritorio: texto inactivo claro sobre tarjetas oscuras. */
-    body aside button.w-full.flex.items-center.gap-3,
-    body aside button.w-full.flex.items-center.gap-3 > span:first-of-type { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:1 !important; }
-    body aside button.w-full.flex.items-center.gap-3 > svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
-    body aside button.w-full.flex.items-center.gap-3 > span.ml-auto { color:#302619 !important; -webkit-text-fill-color:#302619 !important; }
-  </style>
-  <style id="global-readable-contrast">
-    body, body main, body aside, body header, body footer, body nav,
-    body .bg-ink, body [class*="bg-ink"], body .zona-oscura { color:#fff4df !important; }
-    body main:not(.zona-clara) p, body main:not(.zona-clara) span,
-    body main:not(.zona-clara) label, body main:not(.zona-clara) li,
-    body main:not(.zona-clara) a, body main:not(.zona-clara) button,
-    body main:not(.zona-clara) small, body main:not(.zona-clara) div,
-    body aside p, body aside span, body aside label, body aside a,
-    body aside button, body header a, body header button {
-      color:#fff4df !important; -webkit-text-fill-color:#fff4df !important;
-    }
-    body aside svg, body header svg, body main:not(.zona-clara) svg { color:#f4cf72 !important; stroke:#f4cf72 !important; }
-    body main .bg-panel, body main .bg-panel2, body main .bg-paper,
-    body main .zona-clara, body main [class*="bg-white"], body main [class*="bg-cream"] { color:#2b2117 !important; }
-    body main .bg-panel *, body main .bg-panel2 *, body main .bg-paper *,
-    body main .zona-clara *, body main [class*="bg-white"] *, body main [class*="bg-cream"] * {
-      color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important;
-    }
-    body input, body select, body textarea { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-    body button:disabled { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; opacity:.7 !important; }
-  </style>
-  <style id="ia-panel-contrast-fix">
-    /* La tarjeta de consulta es crema: tinta oscura y controles con contraste real. */
-    body main .bg-panel,
-    body main .bg-panel p,
-    body main .bg-panel span,
-    body main .bg-panel label,
-    body main .bg-panel button:not(.bg-ink),
-    body main .bg-panel a { color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important; }
-    body main .bg-panel h1, body main .bg-panel h2, body main .bg-panel h3,
-    body main .bg-panel h4, body main .bg-panel strong { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-    body main .bg-panel input,
-    body main .bg-panel textarea,
-    body main .bg-panel select { background:#fffdf8 !important; color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-    body main .bg-panel form > button[type="submit"],
-    body main .bg-panel button[class*="bg-gradient"],
-    body main .bg-panel button.bg-gold-500 { background:linear-gradient(135deg,#f4cf72,#d6aa45) !important; color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; border:1px solid #8a681b !important; }
-    body main .bg-panel button[class*="border-line"] { color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important; border-color:#8a7a5e !important; }
-    body main .bg-panel button.bg-ink { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
-    body main .bg-panel .text-gray-500, body main .bg-panel .text-gray-400,
-    body main .bg-panel .text-gray-300 { color:#675842 !important; -webkit-text-fill-color:#675842 !important; }
-  </style>
-  <style id="strict-surface-contrast">
-    /* Azul noche: nunca usar la tinta marrón heredada. */
-    body:not(.zona-clara) header *, body:not(.zona-clara) aside *,
-    body:not(.zona-clara) .zona-oscura *, body:not(.zona-clara) [class*="bg-ink"] * {
-      color:#fff4df !important; -webkit-text-fill-color:#fff4df !important;
-    }
-    body:not(.zona-clara) header .text-gold-500, body:not(.zona-clara) header .text-gold-600,
-    body:not(.zona-clara) aside .text-gold-500, body:not(.zona-clara) aside .text-gold-600,
-    body:not(.zona-clara) .zona-oscura .text-gold-300,
-    body:not(.zona-clara) .zona-oscura .text-gold-400,
-    body:not(.zona-clara) .zona-oscura .text-gold-500,
-    body:not(.zona-clara) .zona-oscura .text-gold-600 {
-      color:#f4cf72 !important; -webkit-text-fill-color:#f4cf72 !important;
-    }
-    body main .bg-panel > div > .flex.flex-wrap.gap-2 button,
-    body main .bg-panel > div > .flex.flex-wrap.gap-2 button * {
-      color:#fff4df !important; -webkit-text-fill-color:#fff4df !important;
-    }
-    body main .bg-panel > div > .flex.flex-wrap.gap-2 button.bg-gold-500,
-    body main .bg-panel > div > .flex.flex-wrap.gap-2 button.bg-gold-500 * {
-      color:#211a12 !important; -webkit-text-fill-color:#211a12 !important;
-    }
-  </style>
-  <style id="consultation-contrast-final">
-    /* Overrides finales para la tarjeta crema de consulta. */
-    body main form input#ia-input,
-    body main form input#ia-input::placeholder { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; opacity:1 !important; }
-    body main .bg-panel form button[type="submit"],
-    body main .bg-panel form button[type="submit"] *,
-    body main .bg-panel form button[type="submit"]:disabled,
-    body main .bg-panel form button[type="submit"]:disabled * { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; opacity:1 !important; }
-    body main .bg-panel > div[aria-live] p,
-    body main .bg-panel > div[aria-live] button,
-    body main .bg-panel > div[aria-live] button *,
-    body main .bg-panel > div[aria-live] + div,
-    body main .bg-panel > div[aria-live] + div *,
-    body main .bg-panel > p[role="status"],
-    body main .bg-panel > p[role="status"] * { color:#675842 !important; -webkit-text-fill-color:#675842 !important; opacity:1 !important; }
-    body main .bg-panel > div.border-t p.text-gold-500 { color:#8a681b !important; -webkit-text-fill-color:#8a681b !important; }
-    body main .bg-panel > div.border-t p.text-gray-500 { color:#675842 !important; -webkit-text-fill-color:#675842 !important; }
-  </style>
-  <style id="paper-text-contrast-final">
-    body main .bg-panel,
-    body main .bg-panel p, body main .bg-panel span, body main .bg-panel h1,
-    body main .bg-panel h2, body main .bg-panel h3, body main .bg-panel h4,
-    body main .bg-panel label, body main .bg-panel a, body main .bg-panel li,
-    body main .bg-panel small, body main .bg-panel strong, body main .bg-panel em,
-    body main .bg-panel [x-text] { color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important; opacity:1 !important; }
-    body main .bg-panel h1, body main .bg-panel h2, body main .bg-panel h3, body main .bg-panel h4,
-    body main .bg-panel .text-gold-100, body main .bg-panel .text-gold-200,
-    body main .bg-panel .text-gold-300 { color:#5b4318 !important; -webkit-text-fill-color:#5b4318 !important; }
-    body main .bg-panel .text-gold-400, body main .bg-panel .text-gold-500,
-    body main .bg-panel .text-gold-600 { color:#8a681b !important; -webkit-text-fill-color:#8a681b !important; }
-    body main .bg-panel input, body main .bg-panel textarea, body main .bg-panel select,
-    body main .bg-panel input::placeholder, body main .bg-panel textarea::placeholder { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; opacity:1 !important; }
-    body main .bg-panel button.bg-ink, body main .bg-panel button.bg-ink *,
-    body main .bg-panel .bg-ink, body main .bg-panel .bg-ink * { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
-    body main .bg-panel button.bg-gold-500, body main .bg-panel button.bg-gold-500 *,
-    body main .bg-panel button[class*="bg-gradient"], body main .bg-panel button[class*="bg-gradient"] * { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-  </style>
-  <style id="final-cream-contrast">
-    /* La tinta clara solo vive sobre azul; todos los paneles crema fuerzan tinta oscura. */
-    main .bg-panel,
-    main .bg-panel p, main .bg-panel span, main .bg-panel h1,
-    main .bg-panel h2, main .bg-panel h3, main .bg-panel h4,
-    main .bg-panel label, main .bg-panel a, main .bg-panel li,
-    main .bg-panel small, main .bg-panel strong, main .bg-panel em,
-    main .bg-panel [x-text] { color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important; opacity:1 !important; }
-    main .bg-panel .text-gold-50, main .bg-panel .text-gold-100,
-    main .bg-panel .text-gold-200, main .bg-panel .text-gold-300,
-    main .bg-panel .text-gold-400, main .bg-panel .text-gold-500,
-    main .bg-panel .text-gold-600, main .bg-panel .text-gray-100,
-    main .bg-panel .text-gray-200, main .bg-panel .text-gray-300,
-    main .bg-panel .text-gray-400, main .bg-panel .text-gray-500,
-    main .bg-panel .text-gray-600 { color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important; }
-    main .bg-panel input, main .bg-panel textarea, main .bg-panel select,
-    main .bg-panel input::placeholder, main .bg-panel textarea::placeholder { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; opacity:1 !important; }
-    main .bg-panel .bg-ink, main .bg-panel .bg-ink *,
-    main .bg-panel [class*="bg-gradient"] , main .bg-panel [class*="bg-gradient"] * { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
-    main .bg-panel .bg-gold-600, main .bg-panel .bg-gold-600 * { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-  </style>
-  <style id="qa-contrast-authoritative">
-    #login-card, #login-card * { color:#2b2117 !important; -webkit-text-fill-color:#2b2117 !important; }
-    #login-card input, #login-card input::placeholder { color:#2b2117 !important; -webkit-text-fill-color:#2b2117 !important; opacity:1 !important; }
-    #login-card button[type="submit"] { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-    #login-card .text-red-300 { color:#991b1b !important; -webkit-text-fill-color:#991b1b !important; }
-    main .bg-panel, main .bg-panel *, main .bg-panel2, main .bg-panel2 *, main .bg-paper, main .bg-paper *, main .zona-clara, main .zona-clara * { color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important; }
-    main .bg-panel input, main .bg-panel input::placeholder, main .bg-panel textarea, main .bg-panel textarea::placeholder, main .bg-panel select { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; opacity:1 !important; }
-    main .bg-panel .bg-ink, main .bg-panel .bg-ink *, main .bg-panel .bg-night, main .bg-panel .bg-night * { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
-    main .bg-panel button.bg-gold-500, main .bg-panel button.bg-gold-500 *, main .bg-panel button.bg-gold-600, main .bg-panel button.bg-gold-600 * { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-    .zona-oscura, .zona-oscura *, main.bg-ink, main.bg-ink > * { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
-    .zona-oscura .bg-panel, .zona-oscura .bg-panel *, .zona-oscura #login-card, .zona-oscura #login-card * { color:#2b2117 !important; -webkit-text-fill-color:#2b2117 !important; }
-    /* Todas las superficies crema, incluidas ventanas dinámicas y propósito, usan tinta oscura. */
-    body main .bg-panel2, body main .bg-panel2 *, body main .bg-paper, body main .bg-paper *, body main .zona-clara, body main .zona-clara * { color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important; opacity:1 !important; }
-    body main .bg-panel2 h1, body main .bg-panel2 h2, body main .bg-panel2 h3, body main .bg-panel2 h4,
-    body main .bg-paper h1, body main .bg-paper h2, body main .bg-paper h3, body main .bg-paper h4 { color:#5b4318 !important; -webkit-text-fill-color:#5b4318 !important; }
-    body main .bg-panel2 .text-gold-400, body main .bg-panel2 .text-gold-500, body main .bg-panel2 .text-gold-600,
-    body main .bg-paper .text-gold-400, body main .bg-paper .text-gold-500, body main .bg-paper .text-gold-600 { color:#8a681b !important; -webkit-text-fill-color:#8a681b !important; }
-    /* Excepciones explícitas: azul oscuro = texto claro; crema = tinta oscura. */
-    body main .bg-panel > div.bg-ink,
-    body main .bg-panel > div.bg-ink *,
-    body main .bg-panel div.bg-ink button,
-    body main .bg-panel div.bg-ink button * { color:#fff4df !important; -webkit-text-fill-color:#fff4df !important; }
-    body main .bg-panel div.bg-ink button.bg-gold-600,
-    body main .bg-panel div.bg-ink button.bg-gold-600 * { color:#211a12 !important; -webkit-text-fill-color:#211a12 !important; }
-    body main .bg-panel section[x-show*="estudioPestana === 'predica'"] p:first-child,
-    body main .bg-panel section[x-show*="estudioPestana === 'predica'"] p:first-child * { color:#8a681b !important; -webkit-text-fill-color:#8a681b !important; }
-    body main .bg-panel section[x-show*="estudioPestana === 'predica'"] h3,
-    body main .bg-panel section[x-show*="estudioPestana === 'predica'"] p,
-    body main .bg-panel section[x-show*="estudioPestana === 'predica'"] p:not(:first-child) * { color:#3b3022 !important; -webkit-text-fill-color:#3b3022 !important; }
-  </style>
   </body>
   
 </html>
