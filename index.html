@@ -320,7 +320,7 @@
                         <p class="text-sm text-gray-100 truncate" x-text="userEmail"></p>
                     </div>
                     <button @click="irA('favoritos'); menuUsuario=false" class="w-full text-left text-sm text-gray-300 hover:text-gold-300 hover:bg-ink rounded-lg px-3 py-2 transition-all">Mis favoritos</button>
-                    <a href="/admin.html" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-gold-300 hover:bg-ink hover:text-gold-200 transition-all" aria-label="Abrir panel de administración">
+                    <a x-show="userEmail.toLowerCase() === 'alejandro.sirit@gmail.com'" x-cloak href="/admin.html" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-gold-300 hover:bg-ink hover:text-gold-200 transition-all" aria-label="Abrir panel de administración">
                         <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 4.8-3.4 7.8-8 9-4.6-1.2-8-4.2-8-9V7l8-4z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path></svg>
                         Panel de administración
                     </a>
