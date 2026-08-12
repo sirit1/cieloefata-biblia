@@ -745,7 +745,18 @@
   <p class="text-[11px] text-gray-500 mt-4" dir="ltr">Interlineal real con numeración Strong. Selecciona cualquier palabra para consultar su entrada léxica.</p>
   </div>
   </template>
-                                    <div x-show="versionSel !== 'interlineal'" class="flex-1"><p class="text-xl leading-relaxed font-serif text-gold-50/90" x-text="textoActual"></p><a x-show="versionSel === 'peshitta'" x-cloak href="https://blobs.vusercontent.net/blob/Biblia%20Peshita-SY1zKvCA8u5tOjIOAQV90EDh1BD4Sc.pdf" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 text-xs text-gold-600 underline underline-offset-4 hover:text-gold-400">Consultar fuente PDF de la Peshitta</a></div>
+                                    <div x-show="versionSel !== 'interlineal'" class="flex-1">
+                                        <template x-if="versionSel === 'peshitta' && versiones.peshitta">
+                                            <p class="text-xl leading-relaxed font-serif text-gold-50/90" x-text="versiones.peshitta"></p>
+                                        </template>
+                                        <template x-if="versionSel === 'peshitta' && !versiones.peshitta">
+                                            <p class="text-xl leading-relaxed text-amber-600 italic">Cargando texto de la Peshitta o fuente no disponible para este versículo...</p>
+                                        </template>
+                                        <template x-if="versionSel !== 'peshitta'">
+                                            <p class="text-xl leading-relaxed font-serif text-gold-50/90" x-text="textoActual || 'Texto no disponible para esta versión.'"></p>
+                                        </template>
+                                        <a x-show="versionSel === 'peshitta'" x-cloak href="/biblia-peshitta.pdf" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 text-xs text-gold-600 underline underline-offset-4 hover:text-gold-400">Consultar fuente PDF local de la Peshitta</a>
+                                    </div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
                                         <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
@@ -935,7 +946,16 @@
                                         </template>
                                     </div>
                                 </div>
-                                <p class="text-lg leading-relaxed font-serif italic text-gold-50/90" x-text="textoActual"></p>
+                                <template x-if="versionSel === 'peshitta' && estudio.versiones?.peshitta">
+                                    <p class="text-lg leading-relaxed font-serif italic text-gold-50/90" x-text="estudio.versiones.peshitta"></p>
+                                </template>
+                                <template x-if="versionSel === 'peshitta' && !estudio.versiones?.peshitta">
+                                    <p class="text-lg leading-relaxed text-amber-600 italic">Cargando texto de la Peshitta o fuente no disponible para este versículo...</p>
+                                </template>
+                                <template x-if="versionSel !== 'peshitta'">
+                                    <p class="text-lg leading-relaxed font-serif italic text-gold-50/90" x-text="textoActual || 'Texto no disponible para esta versión.'"></p>
+                                </template>
+                                <a x-show="versionSel === 'peshitta'" x-cloak href="/biblia-peshitta.pdf" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex text-xs text-gold-600 underline underline-offset-4 hover:text-gold-400">Consultar fuente PDF local de la Peshitta</a>
                                 <p x-show="estudio.original" class="mt-4 pt-3 border-t border-line text-xs text-gray-400"><span class="text-gold-400 font-semibold uppercase tracking-wider text-[10px]">Idioma original</span> · <span x-text="estudio.original"></span></p>
                             </div>
 
