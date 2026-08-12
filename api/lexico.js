@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { obtenerDefinicionStrong } from '../lib/biblia.js';
+import { consultarDiccionario } from '../lib/diccionario.js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
 
 function limpiarTextoLexico(texto) {
@@ -61,7 +62,8 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: 'No se encontró una definición para ese término.' });
     }
     const resultado = await traducirDefinicion(definicion);
-    return res.status(200).json({ success: true, data: resultado });
+    const contexto = await consultarDiccionario(codigo);
+    return res.status(200).json({ success: true, data: { ...resultado, ...contexto } });
   } catch (error) {
     console.error('Error consultando el diccionario léxico:', error?.message);
     return res.status(502).json({ error: 'No fue posible consultar el diccionario en este momento.' });
