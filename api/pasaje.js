@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { parsearReferencia, obtenerCapitulo, extraerTexto, extraerVersos, obtenerOriginal, VERSIONES } from '../lib/biblia.js';
+import { buscarPeshitta } from '../lib/peshitta.js';
 
 // Texto bíblico REAL (no generado por IA): se sirve desde Bolls Bible
 // (bolls.life), una API pública gratuita y sin clave, para que la lectura
@@ -22,57 +23,6 @@ async function authenticate(req) {
   return error ? null : data.user;
 }
 
-// La fuente peshitta.onrender.com solo tiene el campo translation_es
-// (traducción al español) poblado para el Nuevo Testamento: en el Antiguo
-// Testamento devuelve vacío/null para prácticamente todos los versículos.
-// Por eso el catálogo se limita al NT — pedir libros del AT nunca produce
-// texto y solo desperdicia una llamada a un servicio externo lento.
-const PESHITTA_LIBROS = {
-  'Mateo': 'Matthew', 'Marcos': 'Mark', 'Lucas': 'Luke', 'Juan': 'John', 'Hechos': 'Acts',
-  'Romanos': 'Romans', '1 Corintios': '1 Corinthians', '2 Corintios': '2 Corinthians',
-  'Gálatas': 'Galatians', 'Efesios': 'Ephesians', 'Filipenses': 'Philippians', 'Colosenses': 'Colossians',
-  '1 Tesalonicenses': '1 Thessalonians', '2 Tesalonicenses': '2 Thessalonians', '1 Timoteo': '1 Timothy',
-  '2 Timoteo': '2 Timothy', 'Tito': 'Titus', 'Filemón': 'Philemon', 'Hebreos': 'Hebrews',
-  'Santiago': 'James', '1 Pedro': '1 Peter', '2 Pedro': '2 Peter', '1 Juan': '1 John',
-  '2 Juan': '2 John', '3 Juan': '3 John', 'Judas': 'Jude', 'Apocalipsis': 'Revelation'
-};
-
-// El servicio free de Render "duerme" si está inactivo y puede tardar
-// decenas de segundos en despertar (cold start). Se limita cada llamada a
-// 6s para que un arranque en frío no bloquee el resto de versiones (que sí
-// responden rápido) ni haga esperar de más al lector.
-async function obtenerVersoPeshitta(query) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 6000);
-  try {
-    const respuesta = await fetch(`https://peshitta.onrender.com/api/verse?ref=${query}&lang=es`, { signal: controller.signal });
-    if (!respuesta.ok) return null;
-    return await respuesta.json();
-  } catch (_e) {
-    return null;
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-async function obtenerPeshitta(ref) {
-  const libro = PESHITTA_LIBROS[ref.libro];
-  if (!libro) return { texto: '', versos: [] };
-  // Sin versículo puntual (lectura de capítulo completo): la API de Peshitta
-  // no expone un endpoint de capítulo, así que no se pueden recorrer decenas
-  // de versículos uno por uno sin arriesgar timeout. Se omite en ese caso;
-  // el resto de versiones sigue disponible para el lector.
-  if (!ref.versoInicio) return { texto: '', versos: [] };
-  const versos = [];
-  for (let numero = ref.versoInicio; numero <= (ref.versoFin || ref.versoInicio); numero += 1) {
-    const query = encodeURIComponent(`${libro} ${ref.capitulo}:${numero}`);
-    const dato = await obtenerVersoPeshitta(query);
-    if (dato?.translation_es) versos.push({ n: numero, texto: dato.translation_es });
-  }
-  const texto = versos.map((v) => v.texto).join(' ').trim();
-  return { texto, versos };
-}
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -83,17 +33,19 @@ export default async function handler(req, res) {
   if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
 
   const referencia = typeof req.body?.referencia === 'string' ? req.body.referencia.trim() : '';
-  if (!referencia || referencia.length > 60) {
-    return res.status(400).json({ error: 'La referencia bíblica no es válida.' });
+  if (!referencia || referencia.length > 120) {
+    return res.status(400).json({ error: 'La consulta no es válida.' });
   }
 
   const ref = parsearReferencia(referencia);
+  const peshittaLocal = buscarPeshitta(referencia);
   if (!ref) {
-    return res.status(400).json({ error: 'No se pudo interpretar esa referencia. Usa el formato "Libro capítulo:versículo".' });
+    if (!peshittaLocal.versos.length) return res.status(400).json({ error: 'No encontramos esa referencia o tema en la Peshitta.' });
+    return res.status(200).json({ success: true, data: { referencia: referencia, versiones: { peshitta: peshittaLocal.texto }, versionesVersos: { peshitta: peshittaLocal.versos }, original: null } });
   }
 
   try {
-    const [resultados, original, peshitta] = await Promise.all([
+    const [resultados, original] = await Promise.all([
       Promise.all(
         VERSIONES.map(async (v) => {
           const data = await obtenerCapitulo(v.bolls, ref.libroId, ref.capitulo);
@@ -102,8 +54,7 @@ export default async function handler(req, res) {
           return { ...v, texto, versos };
         })
       ),
-      obtenerOriginal(ref).catch(() => null),
-      obtenerPeshitta(ref).catch(() => ({ texto: '', versos: [] }))
+      obtenerOriginal(ref).catch(() => null)
     ]);
 
     const versiones = {};
@@ -116,10 +67,10 @@ export default async function handler(req, res) {
         versionesLista.push({ key: r.key, etiqueta: r.etiqueta });
       }
     }
-    if (peshitta.texto) {
-      versiones.peshitta = peshitta.texto;
-      versionesVersos.peshitta = peshitta.versos;
-      versionesLista.push({ key: 'peshitta', etiqueta: 'Peshitta · español' });
+    if (peshittaLocal.texto) {
+      versiones.peshitta = peshittaLocal.texto;
+      versionesVersos.peshitta = peshittaLocal.versos;
+      versionesLista.push({ key: 'peshitta', etiqueta: 'Peshitta · búsqueda local' });
     }
 
     const tieneStrong = original?.versos?.some((verso) => verso.tokens?.some((token) => token.strong));
