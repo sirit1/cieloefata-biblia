@@ -737,10 +737,14 @@
                                                         </template>
                                                     </span>
                                                 </template>
-                                            </div>
-                                            <p class="text-[11px] text-gray-500 mt-4" dir="ltr">Interlineal real con numeración Strong. Selecciona cualquier palabra para consultar su entrada léxica.</p>
-                                        </div>
-                                    </template>
+  </div>
+  <section x-show="versionesVersos.rvr1960?.length" class="mt-6 rounded-lg border border-gold-500/25 bg-panel/70 p-4" dir="ltr">
+  <p class="text-[10px] font-sans font-semibold uppercase tracking-[0.16em] text-gold-500">Traducción estricta al español · RVR 1960</p>
+  <template x-for="v in (versionesVersos.rvr1960 || [])" :key="`interlineal-es-${v.n}`"><p class="mt-2 text-base leading-relaxed font-serif text-gray-100"><sup class="mr-2 text-[10px] font-sans text-gold-600" x-text="v.n"></sup><span x-text="v.texto"></span></p></template>
+  </section>
+  <p class="text-[11px] text-gray-500 mt-4" dir="ltr">Interlineal real con numeración Strong. Selecciona cualquier palabra para consultar su entrada léxica.</p>
+  </div>
+  </template>
                                     <div x-show="versionSel !== 'interlineal'" class="flex-1"><p class="text-xl leading-relaxed font-serif text-gold-50/90" x-text="textoActual"></p><a x-show="versionSel === 'peshitta'" x-cloak href="https://blobs.vusercontent.net/blob/Biblia%20Peshita-SY1zKvCA8u5tOjIOAQV90EDh1BD4Sc.pdf" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 text-xs text-gold-600 underline underline-offset-4 hover:text-gold-400">Consultar fuente PDF de la Peshitta</a></div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
@@ -1281,10 +1285,14 @@
                                             <p class="mb-4"><sup class="text-[10px] font-sans font-bold text-gold-600 mr-2" x-text="v.verso"></sup>
                                                 <template x-for="(t, ti) in v.tokens" :key="ti"><span class="inline-block mr-2 mb-1"><button x-show="t.strong" type="button" @click="consultarLexico(t.strong)" class="text-gold-50 hover:text-gold-300 hover:underline underline-offset-4"><span x-text="t.palabra"></span><sup class="text-[9px] font-sans text-gold-600 ml-0.5" x-text="t.strong"></sup></button><span x-show="!t.strong" x-text="t.palabra"></span></span></template>
                                             </p>
-                                        </template>
-                                        <p class="text-[11px] font-sans text-gray-500" dir="ltr">Interlineal real con números Strong. Selecciona una palabra para consultar el léxico.</p>
-                                    </div>
-                                </template>
+  </template>
+  <section x-show="versionesVersos.rvr1960?.length" class="mt-6 rounded-lg border border-gold-500/25 bg-panel/70 p-4" dir="ltr">
+  <p class="text-[10px] font-sans font-semibold uppercase tracking-[0.16em] text-gold-500">Traducción estricta al español · RVR 1960</p>
+  <template x-for="v in (versionesVersos.rvr1960 || [])" :key="`lector-interlineal-es-${v.n}`"><p class="mt-2 text-base leading-relaxed font-serif text-gray-100"><sup class="mr-2 text-[10px] font-sans text-gold-600" x-text="v.n"></sup><span x-text="v.texto"></span></p></template>
+  </section>
+  <p class="text-[11px] font-sans text-gray-500" dir="ltr">Interlineal real con números Strong. Selecciona una palabra para consultar el léxico.</p>
+  </div>
+  </template>
                                 <p x-show="versionSel !== 'interlineal'" class="prose-lectura font-serif text-lg sm:text-xl">
                                     <template x-for="v in versosActuales" :key="v.n">
                                         <span @click="seleccionarVersiculoLector(v.n)"
