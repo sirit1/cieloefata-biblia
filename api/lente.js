@@ -41,6 +41,11 @@ const LENTES = {
     instruccion:
       'Aborda la consulta desde la psicología cristiana: emociones, heridas, patrones de pensamiento, identidad y sanidad interior, siempre sometida a la verdad bíblica (nunca psicología secular como autoridad final). Explica cómo la verdad del texto sana la mente y el corazón.',
   },
+  inteligenciaEmocional: {
+    titulo: 'Inteligencia emocional',
+    instruccion:
+      'Analiza la consulta desde la inteligencia emocional a la luz de la Escritura: identifica emociones, detonantes, respuestas impulsivas, autoconocimiento, dominio propio, empatía y relaciones. Distingue emoción de conducta y conecta cada aplicación con principios bíblicos concretos, sin convertir el análisis en diagnóstico clínico ni presentar psicología secular como autoridad final.',
+  },
   neurociencia: {
     titulo: 'Neurociencia',
     instruccion:
