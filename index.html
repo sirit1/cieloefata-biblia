@@ -172,7 +172,19 @@
   aside nav button.text-gray-400,
   aside nav button.text-gray-400 span { color:#fff4df !important; opacity:1 !important; }
   aside nav button.nav-active svg { stroke:#f4cf72 !important; }
-</style>
+
+  /* Paleta RevelatiO: azul petróleo, marfil y cobre. Solo color; estructura y contenido intactos. */
+  :root { --revelatio-petroleo:#12324A; --revelatio-marfil:#FBF5E9; --revelatio-cobre:#B9783A; --revelatio-tinta:#26343A; --revelatio-oro:#D6AA45; }
+  body { background-color:var(--revelatio-petroleo) !important; color:var(--revelatio-tinta); }
+  .bg-ink, .bg-night, .bg-night2 { background-color:var(--revelatio-petroleo) !important; }
+  .bg-panel, .bg-panel2, .bg-paper { background-color:var(--revelatio-marfil) !important; }
+  .bg-gold-300, .bg-gold-400, .bg-gold-500 { background-color:var(--revelatio-cobre) !important; }
+  .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600 { color:var(--revelatio-oro) !important; }
+  .border-gold-500, .border-gold-400 { border-color:color-mix(in srgb,var(--revelatio-cobre) 70%,transparent) !important; }
+  .text-gray-100, .text-gray-200, .text-gray-300 { color:var(--revelatio-tinta) !important; }
+  .zona-oscura, .zona-oscura * { color:#FBF5E9; }
+  .zona-oscura .bg-panel, .zona-oscura .bg-panel2, .zona-oscura .bg-paper { color:var(--revelatio-tinta); }
+  </style>
   <style>
   .libro-lectura-shell { background: linear-gradient(90deg, rgba(200,155,60,.05), transparent 12%, transparent 88%, rgba(200,155,60,.05)); border-radius: 1rem; padding: .25rem; transform-origin: center; }
   .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
@@ -1899,7 +1911,7 @@
                 descripcion: 'Amor, gozo, paz, paciencia, benignidad, bondad, fe, mansedumbre y templanza, uno por día.',
                 dias: [
                     { titulo: 'Día 1 · Amor', pasajes: ['Gálatas 5:22-23', '1 Corintios 13:4-7'] },
-                    { titulo: 'Día 2 · Gozo', pasajes: ['Nehemías 8:10', 'Filipenses 4:4'] },
+                    { titulo: 'D��a 2 · Gozo', pasajes: ['Nehemías 8:10', 'Filipenses 4:4'] },
                     { titulo: 'Día 3 · Paz', pasajes: ['Juan 14:27', 'Colosenses 3:15'] },
                     { titulo: 'Día 4 · Paciencia', pasajes: ['Romanos 12:12', 'Santiago 1:2-4'] },
                     { titulo: 'Día 5 · Benignidad', pasajes: ['Efesios 4:32'] },
