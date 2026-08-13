@@ -1427,7 +1427,7 @@
                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                     Consultando el diccionario...
                 </div>
-                <div x-show="errorLexico" class="text-sm text-red-300 py-2" x-text="errorLexico"></div>
+                <div x-show="errorLexico" class="block w-full rounded-lg border border-red-400/30 bg-red-950/20 px-4 py-3 text-sm leading-relaxed text-red-200" x-text="errorLexico"></div>
                 <div x-show="!cargandoLexico && lexicoDatos" class="mt-2 space-y-3">
                     <div class="rounded-xl border border-gold-500/40 bg-gold-500/10 p-4"><p class="text-[10px] font-bold uppercase tracking-[0.16em] text-gold-300">Traducción estricta al español</p><p class="mt-2 text-lg font-semibold text-gold-50" x-text="lexicoDatos?.traduccionEstricta || lexicoDatos?.lexema || 'Sin equivalente disponible.'"></p></div>
                     <p class="rounded-xl border border-gold-500/25 bg-night2/80 p-4 text-[15px] text-gold-50 leading-7 whitespace-pre-line" x-text="lexicoDatos?.definicionEs || lexicoDatos?.definicion || 'No hay explicación disponible.'"></p>
@@ -3264,14 +3264,15 @@
 
                 // ---------- Diccionario léxico (Strong's real) ----------
                 async consultarLexico(codigo) {
-                    if (!codigo) return;
-  this.lexicoCodigo = codigo;
+                    const codigoNormalizado = String(codigo || '').trim().toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2');
+                    if (!/^[GH]\d{1,4}$/.test(codigoNormalizado)) return;
+  this.lexicoCodigo = codigoNormalizado;
   this.lexicoAbierto = true;
   this.cargandoLexico = true;
                     this.errorLexico = '';
                     this.lexicoDatos = null;
-                    if (this.cacheLexico[codigo]) {
-                        this.lexicoDatos = this.cacheLexico[codigo];
+                    if (this.cacheLexico[codigoNormalizado]) {
+                        this.lexicoDatos = this.cacheLexico[codigoNormalizado];
                         this.cargandoLexico = false;
                         return;
                     }
@@ -3281,12 +3282,12 @@
                         const response = await fetch('/api/lexico', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-                            body: JSON.stringify({ codigo })
+                            body: JSON.stringify({ codigo: codigoNormalizado })
                         });
                         if (response.status === 401) throw new Error('SESION');
                         const result = await response.json();
                         if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo consultar el diccionario.');
-                        this.cacheLexico[codigo] = result.data;
+                        this.cacheLexico[codigoNormalizado] = result.data;
                         this.lexicoDatos = result.data;
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }

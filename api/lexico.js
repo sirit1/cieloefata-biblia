@@ -55,8 +55,8 @@ export default async function handler(req, res) {
   const cuota = await consumirCuota(req, user, 'lexico');
   if (!cuota.allowed) return cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
 
-  const codigo = typeof req.body?.codigo === 'string' ? req.body.codigo.trim() : '';
-  if (!/^[GH]\d{1,4}$/i.test(codigo)) {
+  const codigo = typeof req.body?.codigo === 'string' ? req.body.codigo.trim().toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2') : '';
+  if (!/^[GH]\d{1,4}$/.test(codigo)) {
     return res.status(400).json({ error: 'Código de Strong inválido.' });
   }
 
