@@ -141,6 +141,19 @@
         .biblia-header-premium { position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(20,35,48,.98), rgba(10,24,38,.96)); box-shadow: 0 18px 44px rgba(5,15,25,.2); }
         .biblia-header-premium::after { content: ''; position: absolute; inset: auto 0 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(244,207,114,.72), transparent); }
         .biblia-selection-popover { animation: selection-popover-in .18s ease-out; }
+ .plan-opening-premium { position: relative; overflow: hidden; }
+ .plan-opening-premium::before { content: ''; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, #f4cf72, #b98d2f, #f4cf72); opacity: .9; }
+ .plan-opening-premium h3, .plan-opening-premium .text-gold-100 { color: #fff8e9 !important; }
+ .plan-opening-premium .text-gray-400, .plan-opening-premium .text-gray-300 { color: #d8e2e5 !important; }
+ .plan-opening-premium .opening-reading p, .plan-opening-premium .opening-meditation p { color: #edf3f1 !important; }
+ .plan-opening-premium .opening-reading button { color: #f4cf72 !important; font-weight: 700; }
+ .plan-opening-premium .opening-application p { color: #40382d !important; }
+ .plan-opening-premium .opening-prayer p { color: #fff8e9 !important; }
+ .plan-opening-premium .plan-opening-head { position: relative; z-index: 1; }
+ .plan-opening-premium .opening-prayer, .plan-opening-premium .opening-reading, .plan-opening-premium .opening-meditation { transition: transform .2s ease, border-color .2s ease, background-color .2s ease; }
+ .plan-opening-premium .opening-prayer:hover, .plan-opening-premium .opening-reading:hover, .plan-opening-premium .opening-meditation:hover { transform: translateY(-2px); border-color: rgba(244,207,114,.6); background-color: #123452; }
+ .plan-opening-premium .opening-application { transition: transform .2s ease, box-shadow .2s ease; }
+ .plan-opening-premium .opening-application:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,.2); }
  .biblia-selection-popover { color: #f8f1e2 !important; }
  .biblia-selection-popover > div { color: #f8f1e2 !important; }
  .biblia-selection-popover .selection-action { border: 1px solid #dcbc60; border-radius: .55rem; padding: .42rem .65rem; font-size: .68rem; color: #fff8e9 !important; background: rgba(255,255,255,.08); transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
@@ -1246,9 +1259,9 @@
                                     </button>
 
                                     <!-- 1) Devocional de apertura: invitación a orar y leer, construido para este plan -->
-                                    <section class="brand-panel rounded-2xl border border-gold-500/40 bg-gradient-to-br from-gold-600/10 to-panel p-6">
-                                        <div class="flex items-start gap-4">
-                                            <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 rounded-xl object-contain border border-line bg-panel2 p-1 shrink-0">
+                                    <section class="plan-opening-premium rounded-2xl border border-gold-500/45 bg-[#071d33] p-6 text-[#fff8e9] shadow-[0_20px_60px_rgba(0,0,0,.22)]">
+                                        <div class="plan-opening-head flex items-start gap-4">
+                                            <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 rounded-2xl object-contain border border-gold-400/60 bg-[#f8f1e2] p-1.5 shadow-lg shrink-0">
                                             <div>
                                                 <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Comienza tu plan · Devocional de apertura</p>
                                                 <h3 class="mt-1 font-serif text-2xl text-gold-100">Antes de leer, ora</h3>
@@ -1268,22 +1281,22 @@
 
                                         <template x-if="devocional && !devocionalCargando">
                                             <div class="mt-5 space-y-4">
-                                                <div class="rounded-xl bg-ink p-4">
-                                                    <p class="text-[10px] uppercase tracking-wider text-gold-400">Oración para comenzar</p>
+                                                <div class="opening-prayer rounded-2xl border border-gold-400/25 bg-[#0d2a47] p-5 shadow-inner">
+                                                    <p class="text-[10px] uppercase tracking-[0.16em] text-[#f4cf72]">Oración para comenzar</p>
                                                     <p class="mt-2 text-sm leading-relaxed text-gray-300 italic" x-text="devocional.oracion"></p>
                                                 </div>
                                                 <div class="grid gap-4 md:grid-cols-3">
-                                                    <div class="rounded-xl bg-ink p-4">
-                                                        <p class="text-[10px] uppercase tracking-wider text-gold-400">Lectura inicial</p>
+                                                    <div class="opening-reading rounded-2xl border border-gold-400/20 bg-[#0b2540] p-5 shadow-inner">
+                                                        <p class="text-[10px] uppercase tracking-[0.16em] text-[#f4cf72]">Lectura inicial</p>
                                                         <button @click="leerReferencia(devocional.lecturaInicial)" class="mt-2 text-sm leading-relaxed text-gold-200 hover:text-gold-100 transition-colors text-left" x-text="devocional.lecturaInicial"></button>
                                                     </div>
-                                                    <div class="rounded-xl bg-ink p-4 md:col-span-2">
-                                                        <p class="text-[10px] uppercase tracking-wider text-gold-400">Meditación</p>
+                                                    <div class="opening-meditation rounded-2xl border border-gold-400/20 bg-[#0b2540] p-5 shadow-inner md:col-span-2">
+                                                        <p class="text-[10px] uppercase tracking-[0.16em] text-[#f4cf72]">Meditación</p>
                                                         <p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="devocional.meditacion"></p>
                                                     </div>
                                                 </div>
-                                                <div class="rounded-xl border border-gold-500/20 bg-panel p-4">
-                                                    <p class="text-[10px] uppercase tracking-wider text-gold-400">Para aplicar hoy</p>
+                                                <div class="opening-application rounded-2xl border border-[#d8b85d] bg-[#f8f1e2] p-5 text-[#30291f] shadow-[0_10px_30px_rgba(0,0,0,.12)]">
+                                                    <p class="text-[10px] uppercase tracking-[0.16em] text-[#8b650f]">Para aplicar hoy</p>
                                                     <p class="mt-2 text-sm leading-relaxed text-gray-300" x-text="devocional.aplicacion"></p>
                                                 </div>
                                                 <div class="border-t border-line pt-4">
@@ -3023,7 +3036,7 @@
   if (this.bibliaAudioActivo) { window.speechSynthesis.cancel(); this.bibliaAudioActivo = false; return; }
   const hablar = () => {
     const voces = window.speechSynthesis.getVoices();
-    const preferidas = ['Microsoft Sabina', 'Microsoft Dalia', 'Paulina', 'Monica', 'Samantha', 'Google español de Estados Unidos', 'Google español latinoamericano', 'Google español de México'];
+    const preferidas = ['Microsoft Sabina', 'Microsoft Dalia', 'Paulina', 'Monica', 'Samantha', 'Google español de Estados Unidos', 'Google español latinoamericano', 'Google espa��ol de México'];
     const voz = preferidas.map(nombre => voces.find(v => v.name.toLowerCase().includes(nombre.toLowerCase()))).find(Boolean)
       || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang) && /female|mujer|sabina|paulina|monica|dalia/i.test(v.name))
       || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang))
