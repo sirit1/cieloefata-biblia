@@ -2074,7 +2074,7 @@
   const imagenValida = plan.imagen && !plan.imagen.endsWith('/brand/revelatio-logo.png');
   return imagenValida ? plan.imagen : (MINIATURAS_PLAN[plan.categoria] || plan.miniatura || '/planes/biblia.png');
   };
-  const ampliarPlanes = (base) => [...base, ...PLANES_EXTRA].slice(0, 50).map(plan => ({ ...plan, imagen: miniaturaPlan(plan) }));
+  const ampliarPlanes = (base) => [...base, ...PLANES_EXTRA].map(plan => ({ ...plan, imagen: miniaturaPlan(plan) }));
 
         function cieloApp() {
             return {
@@ -2442,7 +2442,8 @@
     const { data, error } = await supabaseClient.from('study_plans').select('id, slug, title, description, duration_days, difficulty_level, is_featured, study_plan_categories(title, slug)').order('is_featured', { ascending: false }).order('duration_days', { ascending: true });
     if (error) throw error;
     if (Array.isArray(data) && data.length) {
-      this.planesCatalogo = data.map(plan => ({
+      const planesLocales = this.planesCatalogo.filter(plan => PLANES_EXTRA.some(extra => extra.id === plan.id));
+      const planesSupabase = data.map(plan => ({
   id: plan.slug,
   dbId: plan.id,
   titulo: plan.title,
@@ -2454,6 +2455,7 @@
         imagen: miniaturaPlan({ categoria: plan.study_plan_categories?.title || 'Biblia' }),
         dias: []
       }));
+      this.planesCatalogo = [...planesLocales, ...planesSupabase.filter(plan => !planesLocales.some(local => local.id === plan.id))];
     }
   } catch (error) {
     this.planesCatalogoError = 'No se pudo actualizar el catálogo. Mostramos los planes disponibles.';
