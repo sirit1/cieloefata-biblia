@@ -1304,7 +1304,7 @@
                                             <p class="text-[10px] uppercase tracking-wider text-gold-400 mb-2">Tu recorrido de lectura</p>
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <template x-for="(dia, i) in planActivo.dias" :key="i">
-                                                    <button @click="leerReferencia(dia.pasajes[0])" type="button"
+                                                    <button @click="planDiaSeleccionado = i; leerReferencia(dia.pasajes[0])" type="button"
                                                         :title="'Día ' + (i + 1) + (diaCompleto(planActivo.id, i) ? ' ✓ leído' : '')"
                                                         class="relative flex h-8 w-8 items-center justify-center rounded-full border text-[11px] font-semibold transition-all duration-300"
                                                         :class="diaCompleto(planActivo.id, i)
@@ -1318,7 +1318,8 @@
                                                 </template>
                                             </div>
                                         </div>
-                                        <div class="mt-4 flex flex-wrap gap-2">
+                                        <div class="mt-5 grid gap-3 sm:grid-cols-3"><div class="rounded-xl border border-line bg-ink/50 p-3"><p class="text-[10px] uppercase tracking-wider text-gray-500">Jornada actual</p><p class="mt-1 text-lg font-serif text-gold-100" x-text="`Día ${planDiaSeleccionado + 1}`"></p><p class="text-xs text-gray-500" x-text="planActivo?.dias?.[planDiaSeleccionado]?.titulo || 'Lectura pendiente'"></p></div><div class="rounded-xl border border-line bg-ink/50 p-3"><p class="text-[10px] uppercase tracking-wider text-gray-500">Racha</p><p class="mt-1 text-lg font-serif text-gold-100" x-text="`${diasCompletados(planActivo.id).length} días`"></p><p class="text-xs text-gray-500">Cada lectura cuenta</p></div><div class="rounded-xl border border-line bg-ink/50 p-3"><p class="text-[10px] uppercase tracking-wider text-gray-500">Siguiente hito</p><p class="mt-1 text-lg font-serif text-gold-100" x-text="planActivo?.duracion ? `${Math.min(100, Math.ceil((diasCompletados(planActivo.id).length + 1) / planActivo.duracion * 100))}%` : '—'"></p><p class="text-xs text-gray-500">Continúa hoy</p></div></div>
+<div class="mt-4 flex flex-wrap gap-2">
                                             <button @click="irAlSiguienteDia()" class="text-xs bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-4 py-2 rounded-lg hover:from-gold-500 hover:to-gold-400 transition-all" x-text="planProgreso(planActivo.id) === 100 ? 'Plan completado' : 'Leer día de hoy'"></button>
                                             <button x-show="diasCompletados(planActivo.id).length" @click="reiniciarPlan(planActivo.id)" class="text-xs bg-ink text-gray-400 border border-line px-4 py-2 rounded-lg hover:text-gold-300 hover:border-gold-500/30 transition-all">Reiniciar progreso</button>
   </div>
@@ -1326,7 +1327,9 @@
 
 
   <div x-show="planDiasCargando" class="rounded-xl border border-gold-500/25 bg-gold-500/10 px-4 py-3 text-xs text-gold-700">Cargando la ruta completa y el contenido devocional...</div><div x-show="planDiasError" x-cloak class="rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-xs text-red-700" x-text="planDiasError"></div>
-  <!-- Lista de días -->
+  <!-- Jornada del día, inspirada en apps bíblicas de alto engagement -->
+  <section class="rounded-2xl border border-gold-500/30 bg-[#fffdf8] p-5 text-[#30291f] shadow-sm"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8b650f]">Jornada del día</p><h3 class="mt-1 font-serif text-2xl text-[#30291f]" x-text="planActivo?.dias?.[planDiaSeleccionado]?.titulo || 'Tu siguiente lectura'"></h3><p class="mt-1 text-sm text-[#695e50]" x-text="`Día ${planDiaSeleccionado + 1} de ${planActivo?.duracion || 0} · Lee, medita y vive`"></p></div><button @click="toggleDia(planActivo.id, planDiaSeleccionado)" class="rounded-xl bg-[#09233b] px-4 py-2 text-xs font-bold text-[#f4cf72]" x-text="diaCompleto(planActivo.id, planDiaSeleccionado) ? 'Día completado' : 'Completar día'"></button></div><div class="mt-4 grid gap-3 md:grid-cols-2"><button @click="leerReferencia(planActivo?.dias?.[planDiaSeleccionado]?.pasajes?.[0])" class="rounded-xl border border-[#cdbd9f] bg-[#fffaf0] p-4 text-left hover:border-[#9f7b2d]"><p class="text-[10px] font-bold uppercase tracking-wider text-[#8b650f]">Pasaje del día</p><p class="mt-2 font-serif text-lg text-[#30291f]" x-text="planActivo?.dias?.[planDiaSeleccionado]?.pasajes?.join(' · ')"></p><p class="mt-1 text-xs text-[#695e50]">Abrir en Biblia para leer, copiar, resaltar y anotar</p></button><div class="rounded-xl border border-[#cdbd9f] bg-[#fffaf0] p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-[#8b650f]">Meditación</p><p class="mt-2 text-sm leading-6 text-[#40382d]" x-text="planActivo?.dias?.[planDiaSeleccionado]?.reflexion"></p></div></div><div class="mt-3 grid gap-3 md:grid-cols-3"><div class="rounded-xl bg-[#09233b] p-4 text-[#f8f1e2] md:col-span-2"><p class="text-[10px] font-bold uppercase tracking-wider text-[#f4cf72]">Recomendación para hoy</p><p class="mt-2 text-sm leading-6" x-text="planActivo?.dias?.[planDiaSeleccionado]?.recomendacion"></p><p class="mt-3 text-[10px] font-bold uppercase tracking-wider text-[#f4cf72]">Plan de acción</p><p class="mt-2 text-sm leading-6" x-text="planActivo?.dias?.[planDiaSeleccionado]?.accion"></p></div><div class="rounded-xl border border-[#cdbd9f] bg-[#fffaf0] p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-[#8b650f]">Oración</p><p class="mt-2 text-sm italic leading-6 text-[#40382d]" x-text="planActivo?.dias?.[planDiaSeleccionado]?.oracion"></p></div></div><div class="mt-4 flex flex-wrap gap-2"><template x-for="(dia, i) in planActivo?.dias || []" :key="'jump-' + i"><button @click="planDiaSeleccionado = i" class="h-8 min-w-8 rounded-full border px-2 text-[11px] font-bold" :class="i === planDiaSeleccionado ? 'border-[#09233b] bg-[#09233b] text-[#f4cf72]' : diaCompleto(planActivo.id, i) ? 'border-[#8b650f] bg-[#f4cf72] text-[#30291f]' : 'border-[#cdbd9f] bg-[#fffdf8] text-[#695e50]'" x-text="i + 1"></button></template></div></section>
+<!-- Lista de días -->
   <div class="space-y-3">
                                         <template x-for="(dia, i) in planActivo.dias" :key="i">
                                             <div class="bg-panel border rounded-xl p-4 transition-all"
@@ -2190,6 +2193,8 @@
 
   etapaResaltados: {},
   planActivoId: null,
+  planDiaSeleccionado: 0,
+  planRacha: 0,
   categoriaFiltro: 'Todos',
   planesBusqueda: '',
   planesDuracionFiltro: 'Todas',
