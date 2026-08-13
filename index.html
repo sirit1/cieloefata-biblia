@@ -251,7 +251,16 @@
                     </blockquote>
                 </div>
 
-                <form @submit.prevent="iniciarSesion()" class="space-y-4">
+                <form @submit.prevent="modoRegistro ? registrarse() : iniciarSesion()" class="space-y-4">
+                    <div x-show="modoRegistro" x-cloak>
+                        <label for="registro-nombre" class="block text-xs font-semibold text-slate-800 uppercase tracking-wider mb-1.5">Nombre completo</label>
+                        <input id="registro-nombre" type="text" x-model="registroNombre" :required="modoRegistro" autocomplete="name" placeholder="Tu nombre completo" style="color:#26343A" class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500 transition-all">
+                    </div>
+                    <div x-show="modoRegistro" x-cloak>
+                        <label for="registro-whatsapp" class="block text-xs font-semibold text-slate-800 uppercase tracking-wider mb-1.5">Número de WhatsApp</label>
+                        <input id="registro-whatsapp" type="tel" x-model="registroWhatsapp" :required="modoRegistro" autocomplete="tel" inputmode="tel" placeholder="+34 600 111 222" style="color:#26343A" class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500 transition-all">
+                        <p class="mt-1 text-[11px] text-slate-600">Usa el formato internacional, por ejemplo: +34600111222.</p>
+                    </div>
                     <div>
                         <label for="login-email" class="block text-xs font-semibold text-slate-800 uppercase tracking-wider mb-1.5">Correo electrónico</label>
                         <input id="login-email" type="email" x-model="loginEmail" required autocomplete="email" placeholder="correo@ejemplo.com"
@@ -273,9 +282,10 @@
                         <svg x-show="autenticando" class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
                         </svg>
-                        <span x-text="autenticando ? 'Verificando...' : 'Entrar'"></span>
+                        <span x-text="autenticando ? (modoRegistro ? 'Creando cuenta...' : 'Verificando...') : (modoRegistro ? 'Crear cuenta' : 'Entrar')"></span>
                     </button>
                 </form>
+                <button type="button" @click="modoRegistro = !modoRegistro; loginError = ''" class="w-full mt-3 text-xs font-semibold text-amber-800 hover:text-amber-600" x-text="modoRegistro ? 'Ya tengo una cuenta · Iniciar sesión' : 'Crear una cuenta nueva'"></button>
                 <p class="text-[11px] text-center text-slate-700 mt-4 leading-relaxed">Plataforma de libre distribución, completamente gratuita para la edificación del pueblo de Dios.<br>El acceso se otorga por invitación.</p>
                           </div>
             <div class="mt-5 space-y-1.5 text-center">
@@ -1920,7 +1930,7 @@
                 descripcion: 'La última semana de Jesús: de la entrada triunfal a la resurrección.',
                 dias: [
                     { titulo: 'Día 1 · Entrada triunfal', pasajes: ['Mateo 21:1-11'] },
-                    { titulo: 'Día 2 · La última cena', pasajes: ['Lucas 22:14-23'] },
+                    { titulo: 'Día 2 · La ��ltima cena', pasajes: ['Lucas 22:14-23'] },
                     { titulo: 'Día 3 · Getsemaní', pasajes: ['Mateo 26:36-46'] },
                     { titulo: 'Día 4 · Traicionado y juzgado', pasajes: ['Juan 18:1-14'] },
                     { titulo: 'Día 5 · La crucifixión', pasajes: ['Juan 19:16-30'] },
@@ -2037,9 +2047,12 @@
                 // sesión
                 sesionVerificada: false,
                 isLoggedIn: false,
-                autenticando: false,
-                loginEmail: '',
-                loginPass: '',
+autenticando: false,
+  loginEmail: '',
+  loginPass: '',
+  modoRegistro: false,
+  registroNombre: '',
+  registroWhatsapp: '',
   loginError: '',
   musicaLoginActiva: false,
   audioLogin: null,
@@ -2495,6 +2508,18 @@
   });
   this.audioLogin = ctx;
   this.musicaLoginActiva = true;
+  },
+
+  async registrarse() {
+  if (!supabaseClient || this.autenticando) return;
+  this.autenticando = true; this.loginError = '';
+  const nombre = this.registroNombre.trim().replace(/\s+/g, ' ');
+  const whatsapp = this.registroWhatsapp.replace(/[\s()-]/g, '');
+  if (nombre.length < 2 || !/^\+[1-9]\d{7,14}$/.test(whatsapp)) { this.loginError = 'Escribe tu nombre y un WhatsApp válido en formato internacional (+34600111222).'; this.autenticando = false; return; }
+  const { data, error } = await supabaseClient.auth.signUp({ email: this.loginEmail.trim().toLowerCase(), password: this.loginPass, options: { data: { full_name: nombre, whatsapp } } });
+  if (error) { this.loginError = 'No se pudo crear la cuenta. Revisa el correo, la contraseña y vuelve a intentarlo.'; this.autenticando = false; return; }
+  if (data.session) { await fetch('/api/profile', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ full_name: nombre, email: this.loginEmail.trim().toLowerCase(), whatsapp, consent_whatsapp: true }) }); }
+  this.loginError = 'Cuenta creada. Revisa tu correo para confirmarla antes de entrar.'; this.modoRegistro = false; this.autenticando = false;
   },
 
   async iniciarSesion() {
