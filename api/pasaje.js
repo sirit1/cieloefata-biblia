@@ -75,6 +75,8 @@ export default async function handler(req, res) {
 
     const tieneStrong = original?.versos?.some((verso) => verso.tokens?.some((token) => token.strong));
     if (tieneStrong) {
+      versiones.interlineal = original.versos.map((verso) => (verso.tokens || []).map((token) => `${token.palabra || token.texto || ''}${token.strong ? ` [${token.strong}]` : ''}`).join(' ')).join(' · ');
+      versionesVersos.interlineal = original.versos;
       versionesLista.push({
         key: 'interlineal',
         etiqueta: `Interlineal · ${original.idioma === 'hebreo' ? 'Hebreo' : 'Griego'} + Strong`

@@ -765,7 +765,7 @@
                                     </div>
 
                                     <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
-                                    <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><p :class="bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl'" class="leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p><div x-show="bibliaMostrarParalelo" x-cloak class="mt-5 border-t border-line pt-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Paralelo · NVI</p><p class="mt-2 text-base leading-relaxed font-serif text-gray-400" x-text="versionesVersos.nvi ? versionesVersos.nvi.map(v => `${v.n} ${v.texto}`).join(' ') : 'Carga la versión NVI para comparar este pasaje.'"></p></div></div>
+                                    <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva}:${verso.numero}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" :class="bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl'" class="leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p><div x-show="bibliaMostrarParalelo" x-cloak class="mt-5 border-t border-line pt-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Paralelo · NVI</p><p class="mt-2 text-base leading-relaxed font-serif text-gray-400" x-text="versionesVersos.nvi ? versionesVersos.nvi.map(v => `${v.n} ${v.texto}`).join(' ') : 'Carga la versión NVI para comparar este pasaje.'"></p></div></div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
                                         <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
@@ -2653,7 +2653,7 @@
   const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
-                    const limpio = { referencia: data.referencia || ref, versiones: data.versiones || {}, versionesVersos: data.versionesVersos || {}, original: data.original || null };
+                    const limpio = { referencia: data.referencia || ref, versiones: { ...(data.versiones || {}), ...(data.original?.versos?.length ? { interlineal: data.original.versos.map(v => (v.tokens || []).map(t => `${t.palabra || t.texto || ''}${t.strong ? ` [${t.strong}]` : ''}`).join(' ')).join(' · ') } : {}) }, versionesVersos: data.versionesVersos || {}, original: data.original || null };
                     this.cachePasaje[ref] = limpio;
                     return limpio;
                 },
@@ -2683,9 +2683,9 @@
                 get versionesLista() {
                     const etiquetas = {
                         rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
-                        lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta'
+                        lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta', interlineal: 'Interlineal · Original + Strong'
                     };
-                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta'];
+                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta', 'interlineal'];
                     const disponibles = Object.keys(this.versiones).filter(k => this.versiones[k]);
                     return disponibles
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
@@ -2696,7 +2696,7 @@
                     return this.versiones[this.versionSel] || this.versiones.rv1960 || Object.values(this.versiones)[0] || 'Texto no disponible para esta versión.';
                 },
                 get versionesEstudioLista() {
-                    const etiquetas = { rvr1960: 'RVR 1960', nvi: 'NVI', ntv: 'NTV', lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta' };
+                    const etiquetas = { rvr1960: 'RVR 1960', nvi: 'NVI', ntv: 'NTV', lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta', interlineal: 'Interlineal · Original + Strong' };
                     return Object.keys(etiquetas).map(key => ({ key, etiqueta: etiquetas[key] }));
                 },
 
