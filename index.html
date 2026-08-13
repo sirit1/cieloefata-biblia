@@ -252,6 +252,7 @@
                 </div>
 
                 <form @submit.prevent="modoRegistro ? registrarse() : iniciarSesion()" class="space-y-4">
+                    <div x-show="modoRegistro" x-cloak class="rounded-xl border border-amber-300/70 bg-amber-50 px-3 py-2 text-center text-xs font-semibold text-amber-900">Crear cuenta · correo electrónico + WhatsApp</div>
                     <div x-show="modoRegistro" x-cloak>
                         <label for="registro-nombre" class="block text-xs font-semibold text-slate-800 uppercase tracking-wider mb-1.5">Nombre completo</label>
                         <input id="registro-nombre" type="text" x-model="registroNombre" :required="modoRegistro" autocomplete="name" placeholder="Tu nombre completo" style="color:#26343A" class="w-full bg-white border border-line rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500 transition-all">
@@ -282,7 +283,7 @@
                         <svg x-show="autenticando" class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
                         </svg>
-                        <span x-text="autenticando ? (modoRegistro ? 'Creando cuenta...' : 'Verificando...') : (modoRegistro ? 'Crear cuenta' : 'Entrar')"></span>
+                        <span x-text="autenticando ? (modoRegistro ? 'Creando cuenta...' : 'Verificando...') : (modoRegistro ? 'Crear cuenta con WhatsApp' : 'Entrar')"></span>
                     </button>
                 </form>
                 <button type="button" @click="modoRegistro = !modoRegistro; loginError = ''" class="w-full mt-3 text-xs font-semibold text-amber-800 hover:text-amber-600" x-text="modoRegistro ? 'Ya tengo una cuenta · Iniciar sesión' : 'Crear una cuenta nueva'"></button>
@@ -2050,7 +2051,7 @@
 autenticando: false,
   loginEmail: '',
   loginPass: '',
-  modoRegistro: false,
+  modoRegistro: true,
   registroNombre: '',
   registroWhatsapp: '',
   loginError: '',
