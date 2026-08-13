@@ -2670,7 +2670,7 @@
                             pdt: this.limpiar(data.versiones?.pdt),
                             btx3: this.limpiar(data.versiones?.btx3),
                             rv2004: this.limpiar(data.versiones?.rv2004),
-  peshitta: this.limpiar(data.versiones?.peshitta) || '',
+  peshitta: this.limpiar(data.versiones?.peshitta ?? data.versiones?.peshittaTexto ?? data.peshitta ?? data.peshittaTexto) || '',
   },
                         comentario: this.limpiar(data.comentarioMacArthur),
                         original: [data.idiomaOriginal?.termino, data.idiomaOriginal?.strong, data.idiomaOriginal?.analisis].map(x => this.limpiar(x)).filter(Boolean).join(' · '),
@@ -2749,8 +2749,12 @@
                         .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
                 },
                 get textoActual() {
-                    if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
-                    return this.versiones[this.versionSel] || this.versiones.rv1960 || Object.values(this.versiones)[0] || 'Texto no disponible para esta versión.';
+  const etiqueta = this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel || 'Versión seleccionada';
+  const texto = this.versiones?.[this.versionSel];
+  if (typeof texto === 'string' && texto.trim()) return texto;
+  if (this.versionSel === 'peshitta') return `${etiqueta}: texto no disponible para este pasaje.`;
+  const fallback = this.versiones?.rv1960 || Object.values(this.versiones || {}).find(v => typeof v === 'string' && v.trim());
+  return fallback || `${etiqueta}: texto no disponible para esta consulta.`;
                 },
                 get versionesEstudioLista() {
                     const etiquetas = { rvr1960: 'RVR 1960', nvi: 'NVI', ntv: 'NTV', lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta', interlineal: 'Interlineal · Original + Strong' };
