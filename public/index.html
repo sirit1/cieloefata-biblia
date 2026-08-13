@@ -788,7 +788,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
+                                    <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="copiarVersiculo()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Copiar</button><button @click="compartirVersiculo()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Compartir</button><button @click="toggleResaltado()" :class="resaltados?.[referenciaActiva] ? 'bg-gold-500 text-gray-950' : 'text-gray-400'" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] hover:bg-gold-500/10" x-text="resaltados?.[referenciaActiva] ? 'Quitar resaltado' : 'Resaltar'"></button><button @click="abrirAnotacion()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Anotar</button><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
+                                    <div x-show="notaAbierta" x-cloak class="mb-4 rounded-xl border border-gold-500/30 bg-gold-500/5 p-4"><div class="flex items-center justify-between gap-3"><p class="text-xs font-semibold uppercase tracking-wider text-gold-400">Anotación privada</p><button @click="notaAbierta = false" class="text-xs text-gray-500 hover:text-gray-300">Cerrar</button></div><textarea x-model="anotacionTexto" rows="3" placeholder="Escribe una observación para este versículo..." class="mt-3 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-gray-100 focus:border-gold-500 focus:outline-none"></textarea><div class="mt-3 flex items-center justify-between gap-3"><span class="text-[11px] text-gray-500" x-text="bibliaHerramientaEstado"></span><button @click="guardarAnotacionActual()" class="rounded-lg bg-gold-500 px-3 py-2 text-xs font-bold text-gray-950">Guardar anotación</button></div></div>
+                                    <p x-show="bibliaHerramientaError" x-cloak class="mb-3 text-xs text-red-300" x-text="bibliaHerramientaError"></p>
                                     <div :class="bibliaModoSantuario ? 'santuario-reading bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="bibliaModoSantuario"><div class="santuario-ornament" aria-hidden="true">Lectura en quietud</div></template><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva}:${verso.numero}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" :class="bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl'" class="santuario-text leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p><div x-show="bibliaMostrarParalelo" x-cloak class="santuario-parallel mt-5 border-t border-line pt-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Paralelo · NVI</p><p class="mt-2 text-base leading-relaxed font-serif text-gray-400" x-text="versionesVersos.nvi ? versionesVersos.nvi.map(v => `${v.n} ${v.texto}`).join(' ') : 'Carga la versión NVI para comparar este pasaje.'"></p></div></div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
@@ -2202,6 +2204,10 @@
                 notaTexto: '',
                 resaltados: {},
                 notas: {},
+                anotacionTexto: '',
+                anotacionColor: '#F4CF72',
+                bibliaHerramientaEstado: '',
+                bibliaHerramientaError: '',
                 capitulosLeidos: {},
                 ultimaPosicionLector: null,
                 COLORES_RESALTADO: [
@@ -2828,6 +2834,17 @@
                         this.versiones = data.versiones;
                         this.versionesVersos = data.versionesVersos || {};
                         this.referenciaActiva = data.referencia;
+                        this.bibliaHerramientaError = '';
+                        this.bibliaHerramientaEstado = '';
+                        if (supabaseClient) {
+                            const { book_id, chapter, verse } = this.obtenerUbicacionVersiculo();
+                            const [highlightResult, noteResult] = await Promise.all([
+                                supabaseClient.from('user_verse_highlights').select('*').eq('book_id', book_id).eq('chapter', chapter).eq('verse', verse).maybeSingle(),
+                                supabaseClient.from('user_verse_notes').select('*').eq('book_id', book_id).eq('chapter', chapter).eq('verse', verse).maybeSingle()
+                            ]);
+                            if (highlightResult.data) this.resaltados[this.referenciaActiva] = highlightResult.data;
+                            if (noteResult.data) this.notas[this.referenciaActiva] = noteResult.data;
+                        }
                         if (!this.versiones[this.versionSel]) {
                             this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
                         }
@@ -3809,6 +3826,44 @@
                     await this.ejecutarEstudio(ref);
                 },
 
+                obtenerUbicacionVersiculo() {
+                    const indice = [...LIBROS_AT, ...LIBROS_NT].findIndex(libro => libro.n === this.libroSel?.n);
+                    return { book_id: indice + 1, chapter: Number(this.capituloSel) || 1, verse: Number(this.versiculoSel) || 1 };
+                },
+                textoParaCompartir() {
+                    return `${this.referenciaActiva || 'Pasaje bíblico'} · ${(this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel}\n\n${this.textoActual}`;
+                },
+                async copiarVersiculo() {
+                    try { await navigator.clipboard.writeText(this.textoParaCompartir()); this.bibliaHerramientaEstado = 'Versículo copiado'; } catch (_error) { this.bibliaHerramientaError = 'No se pudo copiar en este dispositivo.'; }
+                },
+                async compartirVersiculo() {
+                    try { if (navigator.share) await navigator.share({ title: this.referenciaActiva, text: this.textoParaCompartir() }); else await this.copiarVersiculo(); this.bibliaHerramientaEstado = 'Listo para compartir'; } catch (error) { if (error?.name !== 'AbortError') this.bibliaHerramientaError = 'No se pudo compartir este versículo.'; }
+                },
+                abrirAnotacion() {
+                    this.notaAbierta = true;
+                    this.bibliaHerramientaError = '';
+                    const key = this.referenciaActiva;
+                    this.anotacionTexto = this.notas?.[key]?.note_text || '';
+                },
+                async guardarAnotacionActual() {
+                    if (!supabaseClient || !this.referenciaActiva || !this.anotacionTexto.trim()) return;
+                    const { book_id, chapter, verse } = this.obtenerUbicacionVersiculo();
+                    this.bibliaHerramientaEstado = 'Guardando…'; this.bibliaHerramientaError = '';
+                    const payload = { book_id, chapter, verse, note_text: this.anotacionTexto.trim(), is_private: true, updated_at: new Date().toISOString() };
+                    const { data: existente } = await supabaseClient.from('user_verse_notes').select('id').eq('book_id', book_id).eq('chapter', chapter).eq('verse', verse).maybeSingle();
+                    const result = existente?.id ? await supabaseClient.from('user_verse_notes').update(payload).eq('id', existente.id) : await supabaseClient.from('user_verse_notes').insert(payload);
+                    if (result.error) { this.bibliaHerramientaError = 'No se pudo guardar la anotación.'; this.bibliaHerramientaEstado = ''; return; }
+                    this.notas[this.referenciaActiva] = { ...payload }; this.bibliaHerramientaEstado = 'Anotación guardada';
+                },
+                async toggleResaltado(color = '#F4CF72') {
+                    if (!supabaseClient || !this.referenciaActiva) return;
+                    const { book_id, chapter, verse } = this.obtenerUbicacionVersiculo();
+                    const existente = this.resaltados?.[this.referenciaActiva];
+                    if (existente) { await supabaseClient.from('user_verse_highlights').delete().eq('id', existente.id); delete this.resaltados[this.referenciaActiva]; this.bibliaHerramientaEstado = 'Resaltado quitado'; return; }
+                    const { data, error } = await supabaseClient.from('user_verse_highlights').insert({ version_id: this.versionSel, book_id, chapter, verse, color_hex: color }).select().single();
+                    if (error) { this.bibliaHerramientaError = 'No se pudo guardar el resaltado.'; return; }
+                    this.resaltados[this.referenciaActiva] = data; this.bibliaHerramientaEstado = 'Versículo resaltado';
+                },
                 esFavorito() {
                     const etiqueta = (this.versionesLista.find(v => v.key === this.versionSel)?.etiqueta) || this.versionSel;
                     return this.favoritos.some(f => f.ref === this.referenciaActiva && f.version === etiqueta);
