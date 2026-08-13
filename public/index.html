@@ -150,13 +150,19 @@
  @keyframes selection-popover-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
  @media (max-width: 640px) { .biblia-selection-popover { bottom: .75rem; } .selection-action { flex: 1 1 auto; } }
  .plan-day-journey { color: #30291f !important; }
- .plan-day-journey h3, .plan-day-journey p, .plan-day-journey button { color: #30291f !important; }
+ .plan-day-journey h3, .plan-day-journey p { color: #30291f !important; }
+ .plan-day-journey button { color: #30291f !important; }
+ .plan-day-journey > div:first-child > button { background: #09233b !important; color: #fff8e9 !important; border-color: #09233b !important; }
+ .plan-day-journey > div:first-child > button:hover { background: #123b5d !important; color: #f4cf72 !important; }
  .plan-day-journey .plan-day-label { color: #8b650f !important; }
  .plan-day-journey .plan-day-muted { color: #695e50 !important; }
  .plan-day-journey .plan-day-dark { color: #fff8e9 !important; }
  .plan-day-journey .plan-day-dark .plan-day-label { color: #f4cf72 !important; }
  .plan-day-journey .plan-day-dark p { color: #fff8e9 !important; }
+ .plan-day-journey .plan-day-dark .plan-day-label { color: #f4cf72 !important; }
  .plan-day-journey .plan-day-prayer { color: #40382d !important; }
+ .plan-day-journey .plan-day-dark button { color: #fff8e9 !important; }
+ .plan-day-journey .plan-day-dark button:hover { color: #172a36 !important; }
  .biblia-version-popover { backdrop-filter: blur(18px); background: #fbf6ec; box-shadow: 0 22px 50px rgba(3,12,20,.35); }
         .biblia-version-popover .text-gray-400, .biblia-version-popover .text-gray-500 { color: #695e50; }
         .biblia-version-popover input { color: #30291f; background: #fffdf8; border-color: #d5c5a7; }
