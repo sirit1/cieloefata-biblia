@@ -802,7 +802,7 @@
                                                         <span>
                                                             <template x-for="(t, ti) in v.tokens" :key="ti">
                                                                 <span>
-                                                                    <button x-show="t.strong" @click="consultarLexico(t.strong)" class="hover:text-gold-300 hover:underline underline-offset-4 cursor-pointer align-baseline">
+                                                                    <button x-show="t.strong" @mouseenter="strongHover = t.strong" @mouseleave="strongHover = ''" @click="consultarLexico(t.strong)" :aria-label="`Consultar ${t.strong}`" :class="strongHover === t.strong ? 'text-gold-300 underline decoration-gold-400 decoration-2 underline-offset-4' : 'hover:text-gold-300 hover:underline'" class="cursor-pointer align-baseline rounded px-0.5 transition-colors">
                                                                         <span x-text="t.palabra"></span><sup class="text-[10px] text-gold-500/80 font-sans ml-0.5" x-text="t.strong"></sup>
                                                                     </button>
                                                                     <span x-show="!t.strong" x-text="t.palabra"></span>
@@ -1429,7 +1429,10 @@
                     Consultando el diccionario...
                 </div>
                 <div x-show="errorLexico" class="text-sm text-red-300 py-2" x-text="errorLexico"></div>
-                <p x-show="!cargandoLexico && lexicoDatos" class="mt-2 rounded-xl border border-gold-500/25 bg-night2/80 p-4 text-[15px] text-gold-50 leading-7 whitespace-pre-line" x-text="lexicoDatos?.definicionEs || lexicoDatos?.definicion"></p>
+                <div x-show="!cargandoLexico && lexicoDatos" class="mt-2 space-y-3">
+                    <div class="rounded-xl border border-gold-500/40 bg-gold-500/10 p-4"><p class="text-[10px] font-bold uppercase tracking-[0.16em] text-gold-300">Traducción estricta al español</p><p class="mt-2 text-lg font-semibold text-gold-50" x-text="lexicoDatos?.traduccionEstricta || lexicoDatos?.lexema || 'Sin equivalente disponible.'"></p></div>
+                    <p class="rounded-xl border border-gold-500/25 bg-night2/80 p-4 text-[15px] text-gold-50 leading-7 whitespace-pre-line" x-text="lexicoDatos?.definicionEs || lexicoDatos?.definicion || 'No hay explicación disponible.'"></p>
+                </div>
                 <p class="mt-4 pt-3 border-t border-gold-500/20 text-[11px] text-gold-100 leading-relaxed">
                     Fuente léxica: Brown-Driver-Briggs (hebreo) / Thayer (griego), vinculada al número Strong. RevelatiO IA muestra aquí únicamente la explicación en español; el término original se conserva arriba.
                 </p>
@@ -2204,6 +2207,7 @@
                 // verificable con Strong's en la fuente de datos.
                 verOriginal: false,
                 lexicoAbierto: false,
+                strongHover: '',
                 lexicoDatos: null,
                 cargandoLexico: false,
                 errorLexico: '',

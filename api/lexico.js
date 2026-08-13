@@ -14,14 +14,15 @@ function limpiarTextoLexico(texto) {
 
 async function traducirDefinicion(definicion) {
   if (!hayMotorIA() || !definicion?.definicion) {
-    return { ...definicion, definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
+    return { ...definicion, traduccionEstricta: limpiarTextoLexico(definicion?.lexema) || 'Sin equivalente disponible.', definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
   }
   try {
-    const traduccion = await generarJSON(`Eres un lexicógrafo bíblico. Traduce esta entrada al español claro. Devuelve SOLO JSON válido con una única clave definicion_es. NO incluyas inglés ni etiquetas de campos, tampoco Original, Transliteration, Phonetic, Definition, Origin, TDNT, Part(s) of speech o Strong's. Escribe únicamente una explicación española breve del significado y uso.\n\nCódigo: ${definicion.codigo}\nLexema original: ${definicion.lexema}\nEntrada fuente: ${definicion.definicion}`, { reintentos: 2 });
+    const traduccion = await generarJSON(`Eres un lexicógrafo bíblico. Traduce esta entrada al español claro. Devuelve SOLO JSON válido con dos claves: traduccion_estricta y definicion_es. traduccion_estricta debe ser una lista breve de equivalentes españoles directos, separados por comas; definicion_es debe explicar el uso léxico en una frase. NO incluyas inglés ni etiquetas de campos, tampoco Original, Transliteration, Phonetic, Definition, Origin, TDNT, Part(s) of speech o Strong's. Escribe únicamente una explicación española breve del significado y uso.\n\nCódigo: ${definicion.codigo}\nLexema original: ${definicion.lexema}\nEntrada fuente: ${definicion.definicion}`, { reintentos: 2 });
     const definicionEs = limpiarTextoLexico(traduccion?.definicion_es);
-    return { ...definicion, definicionEs: definicionEs || 'No se pudo preparar la traducción al español en este momento.' };
+    const traduccionEstricta = limpiarTextoLexico(traduccion?.traduccion_estricta);
+    return { ...definicion, traduccionEstricta: traduccionEstricta || limpiarTextoLexico(definicion?.lexema) || 'Sin equivalente disponible.', definicionEs: definicionEs || 'No se pudo preparar la traducción al español en este momento.' };
   } catch (_) {
-    return { ...definicion, definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
+    return { ...definicion, traduccionEstricta: limpiarTextoLexico(definicion?.lexema) || 'Sin equivalente disponible.', definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
   }
 }
 
