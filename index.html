@@ -1432,7 +1432,7 @@
                     <div class="w-full rounded-xl border border-gold-500/40 bg-gold-500/10 p-4"><p class="text-[10px] font-bold uppercase tracking-[0.16em] text-gold-300">Traducción estricta al español</p><p class="mt-2 text-lg font-semibold text-gold-50" x-text="lexicoDatos?.traduccionEstricta || lexicoDatos?.lexema || 'Sin equivalente disponible.'"></p></div>
                     <p class="w-full rounded-xl border border-gold-500/25 bg-night2/80 p-4 text-[11px] text-gold-50 leading-relaxed whitespace-pre-line" x-text="lexicoDatos?.definicionEs || lexicoDatos?.definicion || 'No hay explicación disponible.'"></p>
                 </div>
-                <p class="mt-4 w-full border-t border-gold-500/20 pt-3 text-[8px] leading-relaxed text-gold-100/70">
+                <p class="mt-4 w-full border-t border-gold-500/20 pt-3 text-[8pt] leading-relaxed text-gold-100/70">
                     Fuente léxica: Brown-Driver-Briggs (hebreo) / Thayer (griego), vinculada al número Strong. RevelatiO IA muestra aquí únicamente la explicación en español; el término original se conserva arriba.
                 </p>
             </div>
@@ -2326,8 +2326,16 @@
                         const config = contentType.includes('application/json') ? await response.json() : {};
                         if (!response.ok || !contentType.includes('application/json')) throw new Error(config.error || 'La configuración de autenticación no está disponible.');
                         supabaseClient = supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
-                        const { data } = await supabaseClient.auth.getSession();
-                        this.aplicarSesion(data.session);
+                        try {
+                            const { data } = await supabaseClient.auth.getSession();
+                            this.aplicarSesion(data.session);
+                        } catch (_sessionError) {
+                            // Token de sesión corrupto en el almacenamiento local: se
+                            // limpia en vez de mostrar el error nativo del SDK y se
+                            // arranca como si fuera la primera visita (sin sesión).
+                            try { await supabaseClient.auth.signOut(); } catch (_e) {}
+                            this.aplicarSesion(null);
+                        }
                         supabaseClient.auth.onAuthStateChange((_e, session) => this.aplicarSesion(session));
                     } catch (error) {
                         this.loginError = error.message || 'La autenticación no está disponible.';
@@ -2579,8 +2587,18 @@
                 },
 
                 async getToken() {
-                    const { data } = await supabaseClient.auth.getSession();
-                    return data.session?.access_token || null;
+                    try {
+                        const { data } = await supabaseClient.auth.getSession();
+                        return data.session?.access_token || null;
+                    } catch (_error) {
+                        // Sesión corrupta en el almacenamiento local (token de Supabase
+                        // ilegible tras rotación de claves, actualización u otro fallo):
+                        // en vez de dejar que el error nativo del SDK ("The string did
+                        // not match the expected pattern.") llegue a la UI, se limpia
+                        // la sesión y se trata como si el usuario no estuviera logueado.
+                        try { await supabaseClient.auth.signOut(); } catch (_e) {}
+                        return null;
+                    }
                 },
 
                 async obtenerAnalisis(ref) {
