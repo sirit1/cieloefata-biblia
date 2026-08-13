@@ -5,7 +5,39 @@ import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnic
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
   anonKey: process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
 });
+
+function getCacheClient() {
+  const { url, serviceRoleKey } = getSupabaseConfig();
+  if (!url || !serviceRoleKey) return null;
+  return createClient(url, serviceRoleKey, { auth: { persistSession: false, autoRefreshToken: false } });
+}
+
+function buildCacheKey(consulta, lente, autorKey) {
+  return [consulta.trim().toLowerCase(), lente.trim().toLowerCase(), autorKey.trim().toLowerCase()].join('::');
+}
+
+async function readCachedLente(cacheKey) {
+  try {
+    const client = getCacheClient();
+    if (!client) return null;
+    const { data } = await client.from('ai_lente_cache').select('data').eq('cache_key', cacheKey).maybeSingle();
+    return data?.data || null;
+  } catch (_error) {
+    return null;
+  }
+}
+
+async function writeCachedLente(cacheKey, data) {
+  try {
+    const client = getCacheClient();
+    if (!client) return;
+    await client.from('ai_lente_cache').upsert({ cache_key: cacheKey, data, created_at: new Date().toISOString() });
+  } catch (_error) {
+    // La caché nunca debe bloquear una respuesta válida del motor IA.
+  }
+}
 
 async function authenticate(req) {
   const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
@@ -136,6 +168,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Autor no reconocido.' });
   }
 
+  const cacheKey = buildCacheKey(consulta, lente, autorKey);
+  const cachedData = await readCachedLente(cacheKey);
+  if (cachedData) {
+    return res.status(200).json({ success: true, data: cachedData, cached: true });
+  }
+
   const nombreAutor = esAutor ? AUTORES[autorKey] : '';
   const esDominioPublico = esAutor && AUTORES_DOMINIO_PUBLICO.has(autorKey);
   const instruccion = esAutor
@@ -180,16 +218,15 @@ Reglas:
 - PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text). Usa palabras y flechas simples como "->".
 
 Consulta: ${consulta}${contextoOriginal}`);
-    return res.status(200).json({
-      success: true,
-      data: {
-        titulo: data.titulo || titulo,
-        cuerpo: data.cuerpo || '',
-        destacado: data.destacado || '',
-        autor: nombreAutor || null,
-        esDominioPublico: esAutor ? esDominioPublico : null,
-      },
-    });
+    const responseData = {
+      titulo: data.titulo || titulo,
+      cuerpo: data.cuerpo || '',
+      destacado: data.destacado || '',
+      autor: nombreAutor || null,
+      esDominioPublico: esAutor ? esDominioPublico : null,
+    };
+    await writeCachedLente(cacheKey, responseData);
+    return res.status(200).json({ success: true, data: responseData, cached: false });
   } catch (error) {
     console.error('Error en el motor de lentes:', error?.message);
     if (error?.code === 'RATE_LIMIT') {
