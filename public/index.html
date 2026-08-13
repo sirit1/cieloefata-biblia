@@ -1355,7 +1355,7 @@
                                                     </template>
                                                 </div>
   <p class="pl-9 mt-2 text-[11px] text-gray-500" x-text="dia.pasajes.length === 1 ? 'Puedes leer y marcar este capítulo por separado.' : 'Marca cada capítulo por separado; el hito se completa al terminar todas las lecturas del día.'"></p>
-  <div class="mt-4 ml-9 grid gap-3 md:grid-cols-2"><div class="rounded-xl border border-gold-500/20 bg-ink p-4 md:col-span-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Reflexión exegética</p><p class="mt-2 font-serif text-sm leading-relaxed text-gray-600" x-text="dia.reflexion || 'Contenido devocional disponible al cargar el plan.'"></p></div><div class="rounded-xl border border-line bg-ink p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="dia.versiculoClave || 'Versículo clave'"></p><p class="mt-2 font-serif text-sm italic leading-relaxed text-gray-600" x-text="dia.textoVersiculo"></p></div><div class="rounded-xl border border-line bg-ink p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Preguntas para el corazón</p><ul class="mt-2 space-y-1 text-xs leading-relaxed text-gray-500"><template x-for="pregunta in (dia.preguntas || [])" :key="pregunta"><li x-text="'• ' + pregunta"></li></template></ul></div><div class="rounded-xl border border-gold-500/20 bg-gold-500/5 p-4 md:col-span-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Oración de cierre</p><p class="mt-2 font-serif text-sm italic leading-relaxed text-gray-600" x-text="dia.oracion"></p></div></div>
+  <div class="mt-4 ml-9 grid gap-3 md:grid-cols-2"><div class="rounded-xl border border-gold-500/20 bg-ink p-4 md:col-span-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Reflexión exegética</p><p class="mt-2 font-serif text-sm leading-relaxed text-gray-600" x-text="dia.reflexion || 'Contenido devocional disponible al cargar el plan.'"></p></div><div class="rounded-xl border border-line bg-ink p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="dia.versiculoClave || 'Versículo clave'"></p><p class="mt-2 font-serif text-sm italic leading-relaxed text-gray-600" x-text="dia.textoVersiculo"></p></div><div class="rounded-xl border border-line bg-ink p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Preguntas para el corazón</p><ul class="mt-2 space-y-1 text-xs leading-relaxed text-gray-500"><template x-for="pregunta in (dia.preguntas || [])" :key="pregunta"><li x-text="'• ' + pregunta"></li></template></ul></div><div class="rounded-xl border border-gold-500/20 bg-gold-500/5 p-4 md:col-span-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Recomendación para hoy</p><p class="mt-2 text-sm leading-relaxed text-gray-600" x-text="dia.recomendacion"></p><p class="mt-3 text-[10px] font-bold uppercase tracking-wider text-gold-500">Plan de acción</p><p class="mt-2 text-sm leading-relaxed text-gray-600" x-text="dia.accion"></p></div><div class="rounded-xl border border-gold-500/20 bg-gold-500/5 p-4 md:col-span-2"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Oración de cierre</p><p class="mt-2 font-serif text-sm italic leading-relaxed text-gray-600" x-text="dia.oracion"></p></div></div>
   </div>
                                         </template>
                                     </div>
@@ -2465,7 +2465,9 @@
   },
   async cargarDiasPlan(planId) {
   const plan = this.planesCatalogo.find(item => item.id === planId);
-  if (!plan || !plan.dbId || !supabaseClient) return;
+  if (!plan) return;
+  const enriquecer = (dia, i) => ({ ...dia, reflexion: dia.reflexion || this.reflexionLocalPlan(plan, dia, i), versiculoClave: dia.versiculoClave || dia.pasajes?.[0], textoVersiculo: dia.textoVersiculo || 'Lee el pasaje completo y observa qué revela sobre Dios, sobre tu corazón y sobre la respuesta que hoy puedes practicar.', preguntas: dia.preguntas?.length ? dia.preguntas : ['¿Qué verdad del pasaje necesito recibir hoy?', '¿Qué respuesta concreta puedo practicar antes de terminar el día?'], recomendacion: dia.recomendacion || this.recomendacionLocalPlan(plan, dia, i), accion: dia.accion || this.accionLocalPlan(plan, dia, i), oracion: dia.oracion || 'Señor, enséñame a vivir esta verdad con humildad, atención y obediencia. Amén.' });
+  if (!plan.dbId || !supabaseClient) { plan.dias = plan.dias.map(enriquecer); this.planesCatalogo = [...this.planesCatalogo]; return; }
   this.planDiasCargando = true;
   this.planDiasError = '';
   try {
@@ -2481,8 +2483,9 @@
         versiculoClave: day.key_verse_ref,
         textoVersiculo: day.key_verse_text,
         preguntas: Array.isArray(day.reflection_questions) ? day.reflection_questions : [],
-        oracion: day.closing_prayer
-      }));
+  oracion: day.closing_prayer
+  }));
+  plan.dias = plan.dias.map(enriquecer);
       this.planesCatalogo = [...this.planesCatalogo];
     }
   } catch (error) {
@@ -3565,6 +3568,9 @@
                     }
                     return Math.round((this.diasCompletados(planId).length / plan.dias.length) * 100);
                 },
+                reflexionLocalPlan(plan, dia, i) { const titulo = plan.titulo.toLowerCase(); if (titulo.includes('ego')) return 'La humildad bíblica no consiste en despreciarte, sino en dejar de vivir obligado a defender tu imagen. Hoy puedes descansar en que Dios ya te ve por completo.'; if (titulo.includes('humanidad')) return 'Cristo no te llama a dejar de ser humano, sino a entregarle tu humanidad entera. Tus límites, emociones y heridas pueden convertirse en lugares de encuentro con su gracia.'; if (titulo.includes('anestesiar')) return 'La distracción puede adormecer una herida, pero no la transforma. La renovación espiritual empieza cuando permaneces presente delante de Dios y permites que su verdad nombre lo que ocurre.'; return `La lectura de hoy, ${dia.pasajes?.join(' y ')}, te invita a pasar de la comprensión a una respuesta concreta.`; },
+                recomendacionLocalPlan(plan, dia, i) { const titulo = plan.titulo.toLowerCase(); if (titulo.includes('anestesiar')) return 'Cuando notes que buscas escapar, haz una pausa de cinco minutos: respira, escribe qué sientes y preséntalo a Dios antes de tomar el teléfono.'; if (titulo.includes('ego')) return 'Busca una conversación donde puedas escuchar sin justificarte. Agradece una corrección y no respondas defendiendo tu imagen.'; return 'Lleva esta verdad a una situación real de hoy. Elige una conversación, decisión o hábito donde puedas practicarla.'; },
+                accionLocalPlan(plan, dia, i) { return `Plan de acción · Día ${i + 1}: lee ${dia.pasajes?.join(', ')}, escribe una frase que te haya confrontado y practícala antes de dormir. Después marca el día como completado.`; },
                 async abrirPlan(id) {
                     const plan = this.planesCatalogo.find(item => item.id === id);
                     if (!plan) return;
