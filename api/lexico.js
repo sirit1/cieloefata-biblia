@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { obtenerDefinicionStrong } from '../lib/biblia.js';
+import { obtenerDefinicionStrong, DICCIONARIO_STRONG } from '../lib/biblia.js';
 import { consultarDiccionario } from '../lib/diccionario.js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
 import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
@@ -61,7 +61,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const definicion = await obtenerDefinicionStrong(codigo);
+    let definicion = await obtenerDefinicionStrong(codigo);
+    // Bolls devuelve las entradas hebreas con el prefijo H; este respaldo evita
+    // que una respuesta transitoria del proveedor rompa H7223, H834, etc.
+    if (!definicion) {
+      const respuesta = await fetch(`https://bolls.life/dictionary-definition/${DICCIONARIO_STRONG.bolls}/${encodeURIComponent(codigo)}/`);
+      const entradas = await respuesta.json();
+      const entrada = Array.isArray(entradas) ? entradas[0] : null;
+      if (entrada) definicion = { codigo, lexema: entrada.lexeme || entrada.topic || codigo, transliteracion: entrada.transliteration || '', pronunciacion: entrada.pronunciation || '', definicionCorta: entrada.short_definition || '', definicion: String(entrada.definition || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() };
+    }
     if (!definicion) {
       return res.status(404).json({ error: 'No se encontró una definición para ese término.' });
     }
