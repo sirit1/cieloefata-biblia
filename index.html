@@ -142,6 +142,11 @@
         .mobile-nav { padding-bottom: max(.5rem, env(safe-area-inset-bottom)); }
         @media (max-width: 1023px) { .mobile-nav { display: flex; } main { padding-bottom: 5.5rem; } }
         @media (min-width: 1024px) { .mobile-nav { display: none; } }
+        .install-trust-card { background: linear-gradient(145deg, #102f4b, #071d33); border: 1px solid rgba(244,207,114,.42); box-shadow: 0 24px 70px rgba(0,0,0,.32); }
+        .install-trust-icon { background: rgba(244,207,114,.14); color: #f4cf72; }
+        .install-cta { min-height: 44px; }
+        @media (max-width: 640px) { .install-trust-card { max-height: calc(100dvh - 2rem); overflow-y: auto; } }
+        @media (min-width: 641px) and (max-width: 1100px) { header { padding-inline: 1rem; } header form { max-width: 24rem; } }
         :focus-visible { outline: 3px solid var(--rv-gold-on-dark); outline-offset: 3px; }
 
         /* ===================== SISTEMA DE COLOR (única fuente de verdad) =====================
@@ -303,7 +308,20 @@
     <!-- ===================== APLICACIÓN ===================== -->
     <div x-show="sesionVerificada && isLoggedIn" x-cloak class="app-shell flex flex-col h-full">
 
-        <div x-show="abrirDonaciones" x-cloak class="fixed inset-0 z-[80] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="donaciones-title">
+        <div x-show="mostrarInstalarInfo" x-cloak class="fixed inset-0 z-[85] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="install-title">
+    <div @click.outside="mostrarInstalarInfo = false" class="install-trust-card w-full max-w-lg rounded-3xl p-6 sm:p-8 text-[#fff8e9]">
+      <div class="flex items-start justify-between gap-4">
+        <div class="flex items-center gap-3"><div class="install-trust-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"><svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 4.8-3.4 7.8-8 9-4.6-1.2-8-4.2-8-9V7l8-4z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></svg></div><div><p class="text-[10px] uppercase tracking-[.18em] text-[#f4cf72]">Instalación segura</p><h2 id="install-title" class="mt-1 font-serif text-2xl font-bold text-[#fff8e9]">Lleva RevelatiO contigo</h2></div></div>
+        <button @click="mostrarInstalarInfo = false" class="rounded-full p-2 text-[#d8e2e5] hover:bg-white/10" aria-label="Cerrar instalación">×</button>
+      </div>
+      <p class="mt-5 text-sm leading-6 text-[#edf3f1]">Instala RevelatiO desde tu navegador para abrirlo más rápido y continuar tu estudio bíblico desde el móvil o la tablet.</p>
+      <div class="mt-5 grid gap-3 sm:grid-cols-3"><div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs leading-5 text-[#d8e2e5]">Sin datos bancarios</div><div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs leading-5 text-[#d8e2e5]">Instalación desde tu navegador</div><div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs leading-5 text-[#d8e2e5]">Puedes quitarla cuando quieras</div></div>
+      <button @click="mostrarInstalarInfo = false; instalarApp()" class="install-cta mt-6 w-full rounded-2xl bg-[#f4cf72] px-5 py-3 text-sm font-bold text-[#172a36] hover:bg-[#ffe49a]">Descargar e instalar RevelatiO</button>
+      <p class="mt-3 text-center text-[11px] text-[#b8c8cc]">Tu cuenta y tus anotaciones permanecen protegidas por tu sesión.</p>
+    </div>
+  </div>
+
+  <div x-show="abrirDonaciones" x-cloak class="fixed inset-0 z-[80] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="donaciones-title">
             <div @click.outside="abrirDonaciones = false" class="w-full max-w-md rounded-2xl border border-gold-500/40 bg-panel p-6 shadow-2xl">
                 <div class="flex items-start justify-between gap-4"><div><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Apoyo voluntario</p><h2 id="donaciones-title" class="mt-1 font-serif text-2xl font-bold text-gold-50">Mantén RevelatiO gratuito</h2></div><button @click="abrirDonaciones = false" class="text-gray-400 hover:text-gray-100" aria-label="Cerrar">×</button></div>
                 <p class="mt-4 text-sm leading-relaxed text-gray-400">Todo el estudio bíblico y los planes son gratuitos. Si deseas apoyar la infraestructura, escríbenos por WhatsApp para recibir las opciones disponibles.</p>
@@ -340,8 +358,8 @@
                 </div>
             </form>
 
-            <button x-show="mostrarInstalar" x-cloak @click="instalarApp()"
-                class="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-gold-500/50 bg-gold-500/15 px-3 py-2 text-xs font-semibold text-gold-200 hover:bg-gold-500/25 transition-all"
+            <button x-show="mostrarInstalar" x-cloak @click="mostrarInstalarInfo = true"
+                class="install-cta shrink-0 inline-flex items-center gap-1.5 rounded-full border border-gold-500/50 bg-gold-500/15 px-3 py-2 text-xs font-semibold text-gold-200 hover:bg-gold-500/25 transition-all"
                 aria-label="Instalar RevelatiO como aplicación">
   <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-5 w-5 rounded-md object-contain">
   <span class="hidden sm:inline">Descargar app</span>
@@ -2059,9 +2077,10 @@ autenticando: false,
   audioLogin: null,
   userEmail: '',
                 menuUsuario: false,
-                abrirDonaciones: false,
-
-                // instalación PWA
+  abrirDonaciones: false,
+  mostrarInstalarInfo: false,
+  
+  // instalación PWA
                 promptInstalar: null,
                 mostrarInstalar: false,
                 esIOS: /iphone|ipad|ipod/i.test(navigator.userAgent),
@@ -3186,7 +3205,7 @@ autenticando: false,
                         ${this.textoActual ? `<div class="verso">"${esc(this.textoActual)}" <span style="font-size:11px;color:#7B4328">(${esc(et)})</span></div>` : ''}
                         ${this.estudio.original ? `<div class="orig"><strong>Idioma original:</strong> ${esc(this.estudio.original)}</div>` : ''}
                         ${secciones}
-                        <footer>RevelatiO by Efata · Estudio bíblico de libre distribución · Desarrollo: Xtrametrik · Dirección teológica: Cielo-Efata</footer>
+                        <footer>RevelatiO by Efata · Estudio bíblico de libre distribución · Desarrollo: Xtrametrik · Direcci��n teológica: Cielo-Efata</footer>
                         </body></html>`;
                     const w = window.open('', '_blank');
                     if (!w) return;
