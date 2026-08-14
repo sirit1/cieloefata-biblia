@@ -141,6 +141,7 @@ const AUTORES = {
 const AUTORES_DOMINIO_PUBLICO = new Set(['matthew-henry', 'juan-calvino', 'charles-spurgeon', 'juan-wesley', 'agustin-de-hipona', 'juan-crisostomo']);
 
 export default async function handler(req, res) {
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Método no permitido.' });

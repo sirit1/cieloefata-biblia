@@ -3042,8 +3042,10 @@ autenticando: false,
                             clearTimeout(timeoutId);
                         }
                         if (response.status === 401) throw new Error('SESION');
-                        const result = await response.json();
-                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo generar esta lente.');
+  const raw = await response.text();
+  let result;
+  try { result = raw ? JSON.parse(raw) : {}; } catch (_parseError) { throw new Error(response.ok ? 'La respuesta de RevelatiO no tiene un formato válido.' : 'El servicio de estudio no está disponible ahora. Intenta nuevamente.'); }
+  if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo generar esta lente.');
                         const d = result.data || {};
                         this.lentes[key] = {
                             estado: 'ready',
@@ -3264,7 +3266,9 @@ autenticando: false,
                             body: JSON.stringify({ consulta: this.referenciaActiva, lente: 'autores', autor: this.bibliaAutorSel })
                         });
                         if (response.status === 401) throw new Error('SESION');
-                        const result = await response.json();
+                        const raw = await response.text();
+                        let result;
+                        try { result = raw ? JSON.parse(raw) : {}; } catch (_parseError) { throw new Error(response.ok ? 'La respuesta del comentario no tiene un formato válido.' : 'El servicio de comentarios no está disponible ahora. Intenta nuevamente.'); }
                         if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo generar el comentario.');
                         const d = result.data || {};
                         this.comentariosBiblia[key] = {
