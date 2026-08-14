@@ -2618,7 +2618,7 @@
   const nombre = this.registroNombre.trim().replace(/\s+/g, ' ');
   const whatsapp = this.registroWhatsapp.replace(/[\s()-]/g, '');
   if (nombre.length < 2 || !/^\+[1-9]\d{7,14}$/.test(whatsapp)) { this.loginError = 'Escribe tu nombre y WhatsApp en formato internacional (+34600111222).'; this.autenticando = false; return; }
-  const { data, error } = await supabaseClient.auth.signUp({ email: this.loginEmail.trim().toLowerCase(), password: this.loginPass, options: { data: { full_name: nombre, whatsapp } } });
+  const { data, error } = await supabaseClient.auth.signUp({ email: this.loginEmail.trim().toLowerCase(), password: this.loginPass, options: { emailRedirectTo: 'https://revelatiobiblia.vercel.app', data: { full_name: nombre, whatsapp } } });
   if (error) { this.loginError = 'No se pudo crear la cuenta. Revisa el correo, la contraseña y vuelve a intentarlo.'; this.autenticando = false; return; }
   if (data.session) { await fetch('/api/profile', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ full_name: nombre, email: this.loginEmail, whatsapp, consent_whatsapp: this.registroConsentimiento }) }); }
   this.loginError = 'Cuenta creada. Revisa tu correo para confirmarla antes de entrar.'; this.modoRegistro = false; this.autenticando = false;
