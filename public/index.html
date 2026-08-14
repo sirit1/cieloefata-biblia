@@ -10,9 +10,8 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#12313A">
     <link rel="canonical" href="https://revelatio.efata.app/">
-    <link rel="icon" type="image/jpeg" href="/brand/revelatio-symbol.jpeg" aria-label="Símbolo cerebro y árbol de RevelatiO">
-    <link rel="apple-touch-icon" href="/brand/revelatio-symbol.jpeg">
-    <meta name="twitter:image:alt" content="Logo completo de RevelatiO by Efata">
+    <link rel="icon" type="image/png" sizes="192x192" href="/brand/revelatio-logo.png">
+    <link rel="apple-touch-icon" href="/brand/revelatio-logo.png">
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,14 +24,14 @@
     <meta property="og:site_name" content="RevelatiO by Efata">
     <meta property="og:title" content="RevelatiO by Efata | Inteligencia Exegética y Renovación de la Mente">
     <meta property="og:description" content="Plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Exégesis histórica y gramatical, idiomas originales, psicología cristiana y neuroplasticidad. Libre distribución y gratuita.">
-    <meta property="og:image" content="https://revelatiobiblia.vercel.app/brand/revelatio-logo-completo.jpeg">
+    <meta property="og:image" content="/brand/cielo-efata-full.jpg">
     <meta property="og:locale" content="es_ES">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="RevelatiO by Efata">
     <meta name="twitter:description" content="Inteligencia exegética, conversión y renovación de la mente. Estudio bíblico riguroso, gratuito y de libre distribución.">
-    <meta name="twitter:image" content="https://revelatiobiblia.vercel.app/brand/revelatio-logo-completo.jpeg">
+    <meta name="twitter:image" content="/brand/cielo-efata-full.jpg">
 
     <!-- Datos estructurados (SEO) -->
     <script type="application/ld+json">
@@ -69,13 +68,13 @@
         [x-cloak] { display: none !important; }
 
         :root {
-            --rv-bg-dark: #10182f;
-            --rv-bg-dark-2: #18233d;
-            --rv-bg-dark-3: #0b1226;
+            --rv-bg-dark: #071a33;
+            --rv-bg-dark-2: #0b2443;
+            --rv-bg-dark-3: #06162c;
             --rv-cream: #fff4df;
             --rv-cream-heading: #fffaf0;
             --rv-cream-muted: #cdbfa0;
-            --rv-gold-on-dark: #f4c95d;
+            --rv-gold-on-dark: #f4cf72;
             --rv-panel: #fffaf0;
             --rv-panel-soft: #f4efe5;
             --rv-ink: #3b3022;
@@ -281,6 +280,7 @@
         #login-card, #login-card * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
         #login-card .text-red-300 { color: #991b1b !important; -webkit-text-fill-color: #991b1b !important; }
     </style>
+
 </head>
 
 <body class="h-full bg-ink antialiased" x-data="cieloApp()">
@@ -288,7 +288,7 @@
     <!-- ===================== CARGA INICIAL ===================== -->
     <div x-show="!sesionVerificada" class="zona-oscura fixed inset-0 z-[70] flex items-center justify-center">
         <div class="flex flex-col items-center gap-5 text-center">
-            <img src="/brand/revelatio-symbol.jpeg" alt="Símbolo cerebro y árbol de RevelatiO" class="h-16 w-16 object-contain rounded-2xl">
+            <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-full max-w-sm h-48 object-contain rounded-2xl">
             <div class="flex items-center gap-2 text-gold-300 text-sm">
                 <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path>
@@ -301,13 +301,13 @@
     <!-- ===================== LOGIN (Solo invitados) ===================== -->
 <div x-show="sesionVerificada && !isLoggedIn" x-cloak class="zona-oscura fixed inset-0 z-[60] flex items-center justify-center p-4 overflow-hidden">
   <!-- Cerebro dorado como textura de fondo -->
-        <img src="/brand/revelatio-symbol.jpeg" alt="" aria-hidden="true"
-            class="pointer-events-none select-none absolute inset-0 w-full h-full object-contain opacity-15 blur-[1px]">
+        <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
+            class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-15 blur-[1px]">
         <div class="absolute inset-0 bg-gradient-to-b from-night/70 via-night/80 to-night"></div>
         <div class="relative w-full max-w-md">
             <div id="login-card" class="bg-panel border border-gold-500/30 rounded-3xl p-8 shadow-2xl">
                 <div class="text-center mb-7">
-                    <img src="/brand/revelatio-logo-completo.jpeg" alt="Logo completo de RevelatiO by Efata" class="w-full max-w-[220px] max-h-48 object-contain mx-auto">
+                    <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="w-full max-w-[240px] h-48 object-contain mx-auto">
                     <p class="text-[11px] text-slate-700 mt-2 leading-relaxed max-w-xs mx-auto">Inteligencia exegética, conversión y renovación de la mente.</p>
                     <blockquote class="mt-5 mx-auto max-w-sm border-y border-gold-500/30 py-3 px-2">
                         <p class="text-sm leading-relaxed text-slate-800 font-serif">“Transformaos por medio de la renovación de vuestro entendimiento.”</p>
@@ -352,7 +352,8 @@
                 <p class="text-[11px] text-center text-slate-700 mt-4 leading-relaxed">Plataforma de libre distribución, completamente gratuita para la edificación del pueblo de Dios.<br>El acceso se otorga por invitación.</p>
             </div>
             <div class="mt-5 space-y-1.5 text-center">
-                <p class="text-[10px] text-gray-500">Desarrollo y arquitectura de IA ética · XtraMetrik
+                <p class="text-[10px] text-gray-500">Desarrollo y arquitectura de IA ética
+                    <img src="/brand/xtrametrik-blue.jpg" alt="XtraMetrik · Strategy & Growth Businesses" class="h-7 w-auto max-w-[140px] object-contain rounded bg-white align-middle">
                 </p>
                 <p class="text-[10px] text-gray-500">Sello editorial y dirección teológica
                     <span class="font-semibold text-gold-300">Cielo-Efata</span>
@@ -364,14 +365,7 @@
     <!-- ===================== APLICACIÓN ===================== -->
     <div x-show="sesionVerificada && isLoggedIn" x-cloak class="app-shell flex flex-col h-full">
 
-        <div x-show="mostrarInstalarInfo" x-cloak class="fixed inset-0 z-[85] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="install-title">
-    <div @click.outside="mostrarInstalarInfo = false" class="w-full max-w-lg rounded-3xl border border-gold-400/50 bg-[#071d33] p-6 text-[#fff8e9] shadow-2xl sm:p-8">
-      <div class="flex items-start justify-between gap-4"><div class="flex items-center gap-3"><div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-300"><svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 4.8-3.4 7.8-8 9-4.6-1.2-8-4.2-8-9V7l8-4z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></svg></div><div><p class="text-[10px] uppercase tracking-[.18em] text-gold-300">Instalación segura</p><h2 id="install-title" class="mt-1 font-serif text-2xl font-bold">Lleva RevelatiO contigo</h2></div></div><button @click="mostrarInstalarInfo = false" class="rounded-full p-2 text-gray-300 hover:bg-white/10" aria-label="Cerrar instalación">×</button></div>
-      <p class="mt-5 text-sm leading-6 text-gray-200">Instala RevelatiO desde tu navegador para abrirlo más rápido desde el móvil o la tablet.</p><div class="mt-5 grid gap-3 sm:grid-cols-3"><div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs">Sin datos bancarios</div><div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs">Desde tu navegador</div><div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs">Puedes quitarla cuando quieras</div></div><button @click="mostrarInstalarInfo = false; instalarApp()" class="mt-6 min-h-11 w-full rounded-2xl bg-gold-300 px-5 py-3 text-sm font-bold text-gray-950 hover:bg-gold-200">Descargar e instalar RevelatiO</button><p class="mt-3 text-center text-[11px] text-gray-400">Tu cuenta y tus anotaciones permanecen protegidas por tu sesión.</p>
-    </div>
-  </div>
-
-  <div x-show="abrirDonaciones" x-cloak class="fixed inset-0 z-[80] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="donaciones-title">
+        <div x-show="abrirDonaciones" x-cloak class="fixed inset-0 z-[80] flex items-center justify-center bg-night/80 p-4" role="dialog" aria-modal="true" aria-labelledby="donaciones-title">
             <div @click.outside="abrirDonaciones = false" class="w-full max-w-md rounded-2xl border border-gold-500/40 bg-panel p-6 shadow-2xl">
                 <div class="flex items-start justify-between gap-4"><div><p class="text-[10px] uppercase tracking-[0.18em] text-gold-500">Apoyo voluntario</p><h2 id="donaciones-title" class="mt-1 font-serif text-2xl font-bold text-gold-50">Mantén RevelatiO gratuito</h2></div><button @click="abrirDonaciones = false" class="text-gray-400 hover:text-gray-100" aria-label="Cerrar">×</button></div>
                 <p class="mt-4 text-sm leading-relaxed text-gray-400">Todo el estudio bíblico y los planes son gratuitos. Si deseas apoyar la infraestructura, escríbenos por WhatsApp para recibir las opciones disponibles.</p>
@@ -387,7 +381,11 @@
             </button>
 
             <a href="#" @click.prevent="irA('inicio')" class="flex items-center gap-3 shrink-0" aria-label="RevelatiO by Efata, inicio">
-<img src="/brand/revelatio-wordmark.jpeg" alt="Wordmark horizontal REVELATIO" class="h-auto w-full max-w-[180px] object-contain shrink-0">
+<img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 sm:h-[4.5rem] sm:w-[4.5rem] lg:h-20 lg:w-20 object-contain shrink-0 drop-shadow-[0_0_12px_rgba(200,155,60,.3)]">
+  <div class="leading-tight">
+  <p class="text-xl sm:text-2xl font-bold text-gold-300 font-serif tracking-tight brand-signature">RevelatiO</p>
+  <p class="text-[10px] sm:text-[11px] text-gold-400/80 tracking-[0.22em] uppercase">by Efata</p>
+                </div>
                 <span class="hidden xl:block h-6 w-px bg-gold-500/30"></span>
                 <span class="hidden xl:block text-[9px] uppercase tracking-[0.18em] text-gray-400">Palabra · mente · vida</span>
             </a>
@@ -404,10 +402,10 @@
                 </div>
             </form>
 
-            <button x-show="mostrarInstalar" x-cloak @click="mostrarInstalarInfo = true"
+            <button x-show="mostrarInstalar" x-cloak @click="instalarApp()"
                 class="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-gold-500/50 bg-gold-500/15 px-3 py-2 text-xs font-semibold text-gold-200 hover:bg-gold-500/25 transition-all"
                 aria-label="Instalar RevelatiO como aplicación">
-  <img src="/brand/revelatio-symbol.jpeg" alt="" aria-hidden="true" class="h-8 w-8 rounded-md object-contain">
+  <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-5 w-5 rounded-md object-contain">
   <span class="hidden sm:inline">Descargar app</span>
                 <span class="sm:hidden">Instalar</span>
             </button>
@@ -444,7 +442,7 @@
                 class="zona-oscura fixed lg:static top-24 lg:top-0 bottom-0 left-0 w-[min(18rem,calc(100vw-1rem))] border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto overscroll-contain">
                 <div class="brand-panel mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/30 bg-gradient-to-br from-gold-500/15 via-transparent to-transparent p-3.5 shadow-[inset_0_0_30px_rgba(200,155,60,.06)]">
                     <div class="flex items-center gap-3">
-                        <img src="/brand/revelatio-symbol.jpeg" alt="Símbolo cerebro y árbol de RevelatiO" class="h-10 w-10 object-contain shrink-0">
+                        <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-10 w-10 object-contain shrink-0">
                         <div class="min-w-0 leading-tight">
                             <p class="font-serif text-base font-bold tracking-tight text-gold-200">RevelatiO</p>
                             <p class="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.22em] text-gold-400">by Efata</p>
@@ -490,15 +488,21 @@
                 <!-- Créditos -->
                 <div class="p-5 border-t border-line space-y-3 mt-3">
                     <div class="flex items-center gap-2.5 rounded-xl border border-gold-500/20 bg-gold-500/5 px-3 py-2.5">
-                        <img src="/brand/revelatio-symbol.jpeg" alt="" aria-hidden="true" class="h-8 w-8 object-contain">
+                        <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-8 w-8 object-contain">
                         <div class="leading-tight">
                             <p class="font-serif text-sm font-bold text-gold-200">RevelatiO</p>
                             <p class="text-[9px] uppercase tracking-[0.16em] text-gold-400">by Efata</p>
                         </div>
                     </div>
                     <div>
-<p class="text-[10px] text-gray-500">Editorial y dirección teológica: Cielo-Efata · Desarrollo tecnológico: XtraMetrik</p>
-  </div>
+                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Desarrollo e IA ética</p>
+                        <a href="https://www.xtrametrik.com" target="_blank" rel="noopener" class="inline-flex items-center gap-0.5 mt-0.5 hover:opacity-80 transition-opacity">
+                            <img src="/brand/xtrametrik-blue.jpg" alt="XtraMetrik · Strategy & Growth Businesses" class="h-8 w-auto max-w-[150px] object-contain rounded bg-white">
+                        </a>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Sello editorial y dirección teológica</p>
+                        <p class="text-sm font-semibold text-gold-300 mt-0.5 font-serif">Cielo-Efata</p>
                     </div>
                     <p class="text-[9px] text-gray-600 pt-1">Libre distribución · Gratuita · © 2026</p>
                 </div>
@@ -517,7 +521,8 @@
                     <section x-show="vista === 'inicio'" class="space-y-8">
                         <div class="zona-oscura brand-panel relative overflow-hidden rounded-3xl border border-gold-500/30 shadow-xl">
                             <!-- Imagen del cerebro como elemento distintivo (renovación de la mente) -->
-<img src="/brand/revelatio-logo-completo.jpeg" alt="Logo completo de RevelatiO by Efata" class="relative z-10 mb-5 h-auto w-full max-w-[280px] object-contain">
+                            <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
+                                class="pointer-events-none select-none absolute right-[-10%] top-1/2 -translate-y-1/2 w-[420px] max-w-[70%] opacity-30 sm:opacity-45 lg:opacity-60 object-contain">
                             <div class="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-transparent"></div>
                             <div class="relative p-6 sm:p-9 max-w-2xl">
                                 <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
@@ -529,8 +534,8 @@
                                 <div class="flex flex-wrap gap-3 mt-6">
                                     <button @click="irA('ia'); $nextTick(() => document.getElementById('ia-input')?.focus())" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Iniciar estudio con RevelatiO IA</button>
                                     <button @click="leerReferencia(versiculoDelDia.ref)" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Ver texto y evidencia</button>
-  <button x-show="mostrarInstalar" x-cloak @click="mostrarInstalarInfo = true" class="inline-flex items-center gap-2 border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">
-  <img src="/brand/revelatio-symbol.jpeg" alt="" aria-hidden="true" class="h-8 w-8 rounded-md object-contain">
+  <button x-show="mostrarInstalar" x-cloak @click="instalarApp()" class="inline-flex items-center gap-2 border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">
+  <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-5 w-5 rounded-md object-contain">
   Instalar RevelatiO
                                     </button>
                                 </div>
@@ -992,7 +997,8 @@
                     <!-- ============ REVELATIO IA ============ -->
                     <section x-show="vista === 'ia'" class="space-y-6">
                         <div>
-<div class="flex items-center gap-3"><img src="/brand/revelatio-symbol.jpeg" alt="Símbolo cerebro y árbol de RevelatiO IA" class="h-14 w-14 rounded-xl object-contain border border-gold-500/40"><div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2></div></div>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
   <p class="text-sm text-gray-500 mt-1">Un laboratorio de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
   <div class="mt-4 flex flex-wrap gap-2 rounded-2xl border border-line bg-panel p-2"><button @click="iaVista='consulta'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'consulta' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Consulta</button><button @click="iaVista='perspectivas'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'perspectivas' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Perspectivas</button><button @click="iaVista='cuaderno'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'cuaderno' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Cuaderno de estudio</button></div>
   <div x-show="!estudioListo" x-cloak class="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-5">
@@ -1140,7 +1146,7 @@
                                     <p x-show="lenteActiva === 'autores' && lenteEstado.autor" class="mt-5 pt-3 border-t border-line text-[10px] text-gray-300 leading-relaxed">
                                         Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span x-text="lenteEstado.autor" class="text-gold-500"></span>. No sustituye la lectura directa de su obra.
   </p>
-  <div class="mt-5 flex items-start gap-3 border-t border-line pt-4"><img src="/brand/revelatio-symbol.jpeg" alt="Símbolo cerebro y árbol de RevelatiO" class="h-14 w-14 rounded-lg object-contain border border-line bg-panel2 p-1"><div><p class="font-serif text-base text-gold-100">Una palabra viva para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs leading-relaxed text-gray-300">Que este estudio no termine en información: llévalo a la oración, deja que ilumine tus decisiones y permite que la Palabra produzca una respuesta concreta en tu vida.</p><p class="mt-2 text-[10px] uppercase tracking-wider text-gold-400">RevelatiO IA · Texto, corazón y obediencia</p></div></div>
+  <div class="mt-5 flex items-start gap-3 border-t border-line pt-4"><img src="/brand/revelatio-logo.png" alt="Logotipo de RevelatiO by Efata" class="h-14 w-20 rounded-lg object-contain border border-line bg-panel2 p-1"><div><p class="font-serif text-base text-gold-100">Una palabra viva para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs leading-relaxed text-gray-300">Que este estudio no termine en información: llévalo a la oración, deja que ilumine tus decisiones y permite que la Palabra produzca una respuesta concreta en tu vida.</p><p class="mt-2 text-[10px] uppercase tracking-wider text-gold-400">RevelatiO IA · Texto, corazón y obediencia</p></div></div>
   </div>
   </div>
   </div>
@@ -1255,7 +1261,7 @@
                                     <!-- 1) Devocional de apertura: invitación a orar y leer, construido para este plan -->
                                     <section class="plan-opening-premium rounded-2xl border border-gold-500/45 bg-[#071d33] p-6 text-[#fff8e9] shadow-[0_20px_60px_rgba(0,0,0,.22)]">
                                         <div class="plan-opening-head flex items-start gap-4">
-                                            <img src="/brand/revelatio-logo-completo.jpeg" alt="RevelatiO by Efata" class="h-16 w-16 rounded-2xl object-contain border border-gold-400/60 bg-[#f8f1e2] p-1.5 shadow-lg shrink-0">
+                                            <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 rounded-2xl object-contain border border-gold-400/60 bg-[#f8f1e2] p-1.5 shadow-lg shrink-0">
                                             <div>
                                                 <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Comienza tu plan · Devocional de apertura</p>
                                                 <h3 class="mt-1 font-serif text-2xl text-gold-100">Antes de leer, ora</h3>
@@ -1417,7 +1423,7 @@
 
                                                 <div class="brand-panel rounded-2xl border border-gold-500/40 bg-panel p-6">
                                                     <div class="flex items-start gap-4">
-                                                        <img src="/brand/revelatio-symbol.jpeg" alt="Símbolo cerebro y árbol de RevelatiO" class="h-14 w-14 rounded-xl object-contain border border-line bg-panel2 p-1">
+                                                        <img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-14 w-14 rounded-xl object-contain border border-line bg-panel2 p-1">
                                                         <div>
                                                             <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Panel de RevelatiO</p>
                                                             <p class="font-serif text-xl text-gold-100 mt-1">De RevelatiO para ti, <span x-text="nombreParaMarca()"></span></p>
@@ -1847,7 +1853,7 @@
                     { titulo: 'Día 1 · Eva, la madre de todos', pasajes: ['Génesis 3:1-15'] },
                     { titulo: 'Día 2 · Rut, la lealtad', pasajes: ['Rut 1:15-18'] },
                     { titulo: 'Día 3 · Débora, la jueza', pasajes: ['Jueces 4:1-16'] },
-                    { titulo: 'D��a 4 · Ana, la oración perseverante', pasajes: ['1 Samuel 1:9-20'] },
+                    { titulo: 'Día 4 · Ana, la oración perseverante', pasajes: ['1 Samuel 1:9-20'] },
                     { titulo: 'Día 5 · Ester, el valor', pasajes: ['Ester 4:12-17'] },
                     { titulo: 'Día 6 · María, la fe humilde', pasajes: ['Lucas 1:26-38'] },
                     { titulo: 'Día 7 · María de Betania, la devoción', pasajes: ['Juan 12:1-8'] }
@@ -1858,7 +1864,7 @@
                     titulo: 'Dominio propio en tiempos difíciles',
                     categoria: 'Carácter',
                     duracion: 7,
-                    imagen: '/brand/revelatio-logo-completo.jpeg',
+                    imagen: '/brand/revelatio-logo.png',
                     descripcion: 'Un camino práctico para responder con sabiduría frente al enojo, la impulsividad, la pantalla y la presión diaria.',
                     dias: [
                         { titulo: 'Día 1 · Una mente sobria', pasajes: ['2 Timoteo 1:7', '1 Pedro 5:8-9'] },
@@ -1875,7 +1881,7 @@
                     titulo: 'Cuando te sientes solo',
                     categoria: 'Consuelo',
                     duracion: 7,
-                    imagen: '/brand/revelatio-logo-completo.jpeg',
+                    imagen: '/brand/revelatio-logo.png',
                     descripcion: 'Para atravesar la soledad, la desconexión y la necesidad de pertenecer desde la presencia de Dios y la comunidad.',
                     dias: [
                         { titulo: 'Día 1 · Dios está contigo', pasajes: ['Isaías 41:10', 'Salmos 139:7-10'] },
@@ -1892,7 +1898,7 @@
                     titulo: 'Libre de la comparación',
                     categoria: 'Vida Digital',
                     duracion: 7,
-                    imagen: '/brand/revelatio-logo-completo.jpeg',
+                    imagen: '/brand/revelatio-logo.png',
                     descripcion: 'Siete días para recuperar la atención, dejar de medir tu vida con la de otros y volver a mirar a Dios.',
                     dias: [
                         { titulo: 'Día 1 · Una identidad recibida', pasajes: ['Efesios 1:3-6', 'Salmos 139:13-14'] },
@@ -1909,7 +1915,7 @@
                     titulo: 'Duelo y esperanza',
                     categoria: 'Consuelo',
                     duracion: 7,
-                    imagen: '/brand/revelatio-logo-completo.jpeg',
+                    imagen: '/brand/revelatio-logo.png',
                     descripcion: 'Un espacio de acompañamiento bíblico para nombrar la pérdida, llorar con honestidad y esperar sin negar el dolor.',
                     dias: [
                         { titulo: 'Día 1 · Hay tiempo para llorar', pasajes: ['Eclesiastés 3:1-4'] },
@@ -1926,7 +1932,7 @@
                     titulo: 'Relaciones que edifican',
                     categoria: 'Familia',
                     duracion: 7,
-                    imagen: '/brand/revelatio-logo-completo.jpeg',
+                    imagen: '/brand/revelatio-logo.png',
                     descripcion: 'Principios para escuchar, poner límites, reparar conflictos y amar sin perder la verdad.',
                     dias: [
                         { titulo: 'Día 1 · Hablar con verdad y amor', pasajes: ['Efesios 4:15'] },
@@ -1943,7 +1949,7 @@
                     titulo: 'Ansiedad: cuerpo, mente y fe',
                     categoria: 'Ansiedad',
                     duracion: 7,
-                    imagen: '/brand/revelatio-logo-completo.jpeg',
+                    imagen: '/brand/revelatio-logo.png',
                     descripcion: 'Una lectura bíblica prudente para reconocer la ansiedad, practicar atención y buscar apoyo sin culpa.',
                     dias: [
                         { titulo: 'Día 1 · Nombrar la carga', pasajes: ['Salmos 42:5', 'Salmos 62:8'] },
@@ -2090,12 +2096,12 @@
   { id: 'humanidad-rendida', titulo: 'Cómo rendir mi humanidad a Cristo', categoria: 'Entrega', duracion: 14, nivel: 'Profundo', descripcion: 'No se trata de negar tu humanidad, sino de entregarla: emociones, límites, heridas y deseos bajo el señorío compasivo de Cristo.', dias: [{ titulo: 'Cristo conoce tu humanidad', pasajes: ['Hebreos 4:15-16'] }, { titulo: 'Entregar el cansancio', pasajes: ['Mateo 11:28-30'] }, { titulo: 'Lamentar sin esconderse', pasajes: ['Salmos 13:1-6'] }, { titulo: 'Obedecer en lo pequeño', pasajes: ['Lucas 16:10'] }, { titulo: 'Morir al control', pasajes: ['Proverbios 3:5-6'] }, { titulo: 'Aceptar los límites', pasajes: ['2 Corintios 12:9-10'] }, { titulo: 'Perdonar desde la gracia', pasajes: ['Efesios 4:32'] }, { titulo: 'Recibir identidad', pasajes: ['Gálatas 2:20'] }, { titulo: 'Elegir la mansedumbre', pasajes: ['Mateo 5:5'] }, { titulo: 'Rendir los planes', pasajes: ['Santiago 4:13-15'] }, { titulo: 'Vivir reconciliado', pasajes: ['Romanos 12:18'] }, { titulo: 'Amar con verdad', pasajes: ['1 Corintios 13:4-7'] }, { titulo: 'Permanecer en Cristo', pasajes: ['Juan 15:4-5'] }, { titulo: 'Una vida entregada', pasajes: ['Romanos 12:1-2'] }] },
   { id: 'anestesiar-transformar', titulo: 'Anestesiar la mente vs. transformar tu espíritu', categoria: 'Mente renovada', duracion: 7, nivel: 'Profundo', descripcion: 'Distingue entre distraerte para no sentir y permitir que Dios renueve tu mente para vivir con verdad, presencia y esperanza.', dias: [{ titulo: 'La fuga no es descanso', pasajes: ['Jonás 1:1-3'] }, { titulo: 'Nombrar lo que sientes', pasajes: ['Salmos 62:8'] }, { titulo: 'Renovar la mente', pasajes: ['Romanos 12:2'] }, { titulo: 'Pensar con verdad', pasajes: ['Filipenses 4:8'] }, { titulo: 'Velar y orar', pasajes: ['Mateo 26:41'] }, { titulo: 'Elegir presencia', pasajes: ['Salmos 46:10'] }, { titulo: 'Transformación sostenida', pasajes: ['2 Corintios 3:18'] }] },
   ['Fundamentos de la fe','Fundamentos',14],['Evangelio de Juan','Biblia',21],['Romanos 12:2 y la mente renovada','Vida espiritual',14],['Oración perseverante','Vida espiritual',21],['Ayuno y dependencia','Vida espiritual',7],['Santidad práctica','Carácter',30],['Fruto del Espíritu','Carácter',9],['Humildad de Cristo','Carácter',14],['Sabiduría para decidir','Carácter',14],['Dominio propio','Carácter',14],['Matrimonio conforme a la Escritura','Familia',21],['Crianza con gracia y verdad','Familia',14],['Familia que ora','Familia',7],['Sanidad del corazón','Vida espiritual',21],['Duelo y esperanza','Crisis',14],['Ansiedad y confianza en Dios','Crisis',14],['Pruebas y perseverancia','Crisis',14],['Consuelo en los Salmos','Crisis',7],['Consejería bíblica inicial','Pastoral',21],['Cuidado del rebaño','Pastoral',30],['Restauración del caído','Pastoral',14],['Predicación expositiva','Ministerios',30],['Enseñanza fiel','Ministerios',21],['Servicio cristiano','Ministerios',14],['Evangelización personal','Misión',14],['Hacer discípulos','Misión',30],['Misión en el trabajo','Misión',14],['Liderazgo servicial','Liderazgo',21],['Nehemías: liderazgo y visión','Liderazgo',21],['Integridad del líder','Liderazgo',14],['Mayordomía bíblica','Liderazgo',14],['Ética digital cristiana','Vida digital',14],['Tecnología y dominio propio','Vida digital',7],['Pureza en internet','Vida digital',14],['Descanso y límites','Vida digital',7],['Jóvenes firmes','Carácter',21],['Hombres de palabra','Carácter',21],['Mujeres de fe','Carácter',21],['Discipulado de nuevos creyentes','Fundamentos',30],['Doctrinas esenciales','Fundamentos',30],['La cruz de Cristo','Fundamentos',14],['Resurrección y esperanza','Fundamentos',14],['El Espíritu Santo','Fundamentos',21],['Hebreos: perseverar','Biblia',30],['Salmos para cada día','Biblia',30],['Proverbios: sabiduría diaria','Biblia',31],['Efesios: identidad en Cristo','Biblia',21],['Santiago: fe que obra','Biblia',14],['1 Pedro: firme en la prueba','Biblia',14]
-        ].map((item, i) => { if (!Array.isArray(item)) return item; const [titulo, categoria, duracion] = item; return { id: `plan-${i+2}`, titulo, categoria, duracion, descripcion: `Un recorrido bíblico de ${duracion} días en NBLA para crecer con verdad, práctica y perseverancia.`, miniatura: '/brand/revelatio-symbol.jpeg', dias: Array.from({ length: duracion }, (_, d) => ({ titulo: `Día ${d + 1} · ${titulo}`, pasajes: ['Romanos 12:2'] })) }; })
+        ].map((item, i) => { if (!Array.isArray(item)) return item; const [titulo, categoria, duracion] = item; return { id: `plan-${i+2}`, titulo, categoria, duracion, descripcion: `Un recorrido bíblico de ${duracion} días en NBLA para crecer con verdad, práctica y perseverancia.`, miniatura: '/brand/cielo-efata-full.jpg', dias: Array.from({ length: duracion }, (_, d) => ({ titulo: `Día ${d + 1} · ${titulo}`, pasajes: ['Romanos 12:2'] })) }; })
         const MINIATURAS_PLAN = {
   'Biblia': '/planes/biblia.png', 'Fundamentos': '/planes/fundamentos-fe.png', 'Vida espiritual': '/planes/vida-espiritual.png', 'Carácter': '/planes/caracter.png', 'Familia': '/planes/familia.png', 'Pastoral': '/planes/pastoral.png', 'Consuelo': '/planes/consuelo.png', 'Misión': '/planes/mision.png', 'Liderazgo': '/planes/liderazgo.png', 'Vida Digital': '/planes/vida-digital.png', 'Vida digital': '/planes/vida-digital.png', 'Crisis': '/planes/consuelo.png', 'Ministerios': '/planes/ministerios.png', 'Sabiduría': '/planes/sabiduria.png', 'Personajes': '/planes/biblia.png', 'Vida de Jesús': '/planes/vida-jesus.png', 'Doctrina': '/planes/doctrina.png', 'Nuevo en la fe': '/planes/nuevo-fe.png', 'Ansiedad': '/planes/ansiedad.png', 'Esperanza': '/planes/esperanza.png', 'Amor': '/planes/amor.png', 'Oración': '/planes/oracion.png', 'Perdón': '/planes/perdon.png', 'Identidad': '/planes/identidad.png', 'Descanso': '/planes/descanso.png'
   };
   const miniaturaPlan = (plan) => {
-  const imagenValida = plan.imagen && !plan.imagen.endsWith('/brand/revelatio-logo-completo.jpeg');
+  const imagenValida = plan.imagen && !plan.imagen.endsWith('/brand/revelatio-logo.png');
   return imagenValida ? plan.imagen : (MINIATURAS_PLAN[plan.categoria] || plan.miniatura || '/planes/biblia.png');
   };
   const ampliarPlanes = (base) => [...base, ...PLANES_EXTRA].map(plan => ({ ...plan, imagen: miniaturaPlan(plan) }));
@@ -2117,10 +2123,9 @@
   audioLogin: null,
   userEmail: '',
                 menuUsuario: false,
-  abrirDonaciones: false,
-  mostrarInstalarInfo: false,
-  
-  // instalación PWA
+                abrirDonaciones: false,
+
+                // instalación PWA
                 promptInstalar: null,
                 mostrarInstalar: false,
                 esIOS: /iphone|ipad|ipod/i.test(navigator.userAgent),
