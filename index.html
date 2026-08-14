@@ -81,7 +81,7 @@
             --rv-ink-heading: #211a12;
             --rv-ink-muted: #675842;
             --rv-gold-on-cream: #8a681b;
-            --rv-line: rgba(176,137,52,.34);
+            --rv-line: var(--r-border);
         }
 
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -92,17 +92,17 @@
         .font-hebreo { font-family: 'Noto Serif Hebrew', 'Noto Serif', serif; }
 
         /* Resaltados del lector "modo libro" */
-        .hl-oro { background-color: rgba(200, 155, 60, .32); }
-        .hl-terracota { background-color: rgba(178, 90, 69, .26); }
-        .hl-salvia { background-color: rgba(122, 148, 104, .28); }
-        .hl-cielo { background-color: rgba(94, 120, 158, .24); }
+        .hl-oro { background-color: var(--r-border); }
+        .hl-terracota { background-color: var(--r-border); }
+        .hl-salvia { background-color: var(--r-border); }
+        .hl-cielo { background-color: var(--r-border); }
 
         /* Marca editorial */
         .app-shell { position: relative; isolation: isolate; }
         .brand-signature { letter-spacing: .12em; }
         .brand-kicker { letter-spacing: .24em; }
-        .brand-rule { background: linear-gradient(90deg, rgba(200,155,60,.7), rgba(200,155,60,.12)); }
-        .brand-panel { box-shadow: 0 18px 45px rgba(28,46,74,.08); }
+        .brand-rule { background: var(--r-primary), var(--r-border)); }
+        .brand-panel { box-shadow: 0 18px 45px var(--r-border); }
 
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: #E3DACB; }
@@ -137,8 +137,8 @@
         @media (prefers-reduced-motion: reduce) { .pagina-en-movimiento { animation: none; } }
         @media print { .libro-lectura-shell { background: none; } }
 
-        .ux-card { box-shadow: 0 12px 32px rgba(28,46,74,.06); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-        .ux-card:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(28,46,74,.11); border-color: rgba(154,107,18,.42); }
+        .ux-card { box-shadow: 0 12px 32px var(--r-border); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+        .ux-card:hover { transform: translateY(-2px); box-shadow: 0 18px 42px var(--r-border); border-color: var(--r-border); }
         .mobile-nav { padding-bottom: max(.5rem, env(safe-area-inset-bottom)); }
         @media (max-width: 1023px) { .mobile-nav { display: flex; } main { padding-bottom: 5.5rem; } }
         @media (min-width: 1024px) { .mobile-nav { display: none; } }
@@ -148,9 +148,9 @@
            Fondo general: azul noche. Texto por defecto: crema. Los paneles claros
            (bg-panel/bg-panel2/bg-paper/zona-clara) invierten a tinta oscura sobre marfil. */
 
-        html, body { background: linear-gradient(145deg, var(--rv-bg-dark) 0%, var(--rv-bg-dark-2) 55%, var(--rv-bg-dark-3) 100%) !important; color: var(--rv-cream) !important; }
+        html, body { background: var(--r-primary) 0%, var(--rv-bg-dark-2) 55%, var(--rv-bg-dark-3) 100%) !important; color: var(--rv-cream) !important; }
         #app, .app-shell, main { background: transparent !important; color: var(--rv-cream); }
-        header, aside, .zona-oscura, .bg-ink, .bg-night, .bg-night2 { background: linear-gradient(145deg, var(--rv-bg-dark), var(--rv-bg-dark-2)) !important; color: var(--rv-cream) !important; }
+        header, aside, .zona-oscura, .bg-ink, .bg-night, .bg-night2 { background: var(--r-primary), var(--rv-bg-dark-2)) !important; color: var(--rv-cream) !important; }
 
         /* Texto por defecto sobre fondo oscuro */
         main p, main span, main label, main li, main a, main button, main small, main div,
@@ -167,15 +167,15 @@
         /* Navegación lateral */
         aside nav button { color: var(--rv-cream) !important; opacity: 1 !important; }
         aside nav button svg { color: var(--rv-gold-on-dark) !important; stroke: var(--rv-gold-on-dark) !important; }
-        aside nav button.nav-active, aside nav button[aria-current="page"] { background: linear-gradient(90deg, rgba(214,170,69,.24), rgba(214,170,69,.06)) !important; box-shadow: inset 3px 0 var(--rv-gold-on-dark); }
-        aside nav button.nav-active, aside nav button.nav-active span, aside nav button[aria-current="page"], aside nav button[aria-current="page"] span { color: #ffffff !important; }
+        aside nav button.nav-active, aside nav button[aria-current="page"] { background: var(--r-primary), var(--r-border)) !important; box-shadow: inset 3px 0 var(--rv-gold-on-dark); }
+        aside nav button.nav-active, aside nav button.nav-active span, aside nav button[aria-current="page"], aside nav button[aria-current="page"] span { color: var(--r-surface) !important; }
 
         /* Superficies claras: paneles, tarjetas, cuadros de texto y lector (invierten el contraste) */
         .bg-panel, .bg-panel2, .bg-paper, .zona-clara, .bg-white, .libro-lectura-shell {
-            background: linear-gradient(145deg, var(--rv-panel), var(--rv-panel-soft)) !important;
+            background: var(--r-primary), var(--rv-panel-soft)) !important;
             color: var(--rv-ink) !important;
             border-color: var(--rv-line) !important;
-            box-shadow: 0 14px 36px rgba(8,21,43,.14), 0 0 0 1px rgba(214,170,69,.12);
+            box-shadow: 0 14px 36px var(--r-border), 0 0 0 1px var(--r-border);
         }
         .bg-panel *, .bg-panel2 *, .bg-paper *, .zona-clara *, .bg-white *, .libro-lectura-shell * {
             color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important;
@@ -202,15 +202,15 @@
 
         /* Botones de acento (dorado = CTA, tinta oscura garantizada) */
         button.bg-gold-500, button.bg-gold-600, a.bg-gold-500, a.bg-gold-600, .bg-gold-500 {
-            background: linear-gradient(135deg, #f4cf72, #d6aa45) !important; color: var(--rv-ink-heading) !important; border-color: var(--rv-gold-on-cream) !important;
+            background: var(--r-primary) !important; color: var(--rv-ink-heading) !important; border-color: var(--rv-gold-on-cream) !important;
         }
         button.bg-gold-500 *, button.bg-gold-600 *, a.bg-gold-500 *, a.bg-gold-600 *, .bg-gold-500 * { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
         button.bg-ink, a.bg-ink { color: var(--rv-cream) !important; }
         button.bg-ink *, a.bg-ink * { color: var(--rv-cream) !important; -webkit-text-fill-color: var(--rv-cream) !important; }
-        button.bg-ink:hover { background: #173252 !important; color: #ffffff !important; }
+        button.bg-ink:hover { background: #173252 !important; color: var(--r-surface) !important; }
 
         /* Formularios */
-        input, select, textarea { background: #fffdf8 !important; color: var(--rv-ink-heading) !important; border-color: #b79552 !important; }
+        input, select, textarea { background: var(--r-surface) !important; color: var(--rv-ink-heading) !important; border-color: #b79552 !important; }
         input::placeholder, textarea::placeholder { color: var(--rv-ink-muted) !important; opacity: 1 !important; }
         #versiculo-input, #versiculo-input:focus { caret-color: var(--rv-ink-heading) !important; }
         #login-card, #login-card * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
@@ -319,7 +319,7 @@
             </button>
 
             <a href="#" @click.prevent="irA('inicio')" class="flex items-center gap-3 shrink-0" aria-label="RevelatiO by Efata, inicio">
-<img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 sm:h-[4.5rem] sm:w-[4.5rem] lg:h-20 lg:w-20 object-contain shrink-0 drop-shadow-[0_0_12px_rgba(200,155,60,.3)]">
+<img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 sm:h-[4.5rem] sm:w-[4.5rem] lg:h-20 lg:w-20 object-contain shrink-0 drop-shadow-[0_0_12px_var(--r-border)]">
   <div class="leading-tight">
   <p class="text-xl sm:text-2xl font-bold text-gold-300 font-serif tracking-tight brand-signature">RevelatiO</p>
   <p class="text-[10px] sm:text-[11px] text-gold-400/80 tracking-[0.22em] uppercase">by Efata</p>
@@ -378,7 +378,7 @@
             <!-- SIDEBAR -->
             <aside :class="sidebarAbierta ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
                 class="zona-oscura fixed lg:static top-24 lg:top-0 bottom-0 left-0 w-[min(18rem,calc(100vw-1rem))] border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto overscroll-contain">
-                <div class="brand-panel mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/30 bg-gradient-to-br from-gold-500/15 via-transparent to-transparent p-3.5 shadow-[inset_0_0_30px_rgba(200,155,60,.06)]">
+                <div class="brand-panel mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/30 bg-gradient-to-br from-gold-500/15 via-transparent to-transparent p-3.5 shadow-[inset_0_0_30px_var(--r-border)]">
                     <div class="flex items-center gap-3">
                         <img src="/brand/revelatio-logo.png" alt="" aria-hidden="true" class="h-10 w-10 object-contain shrink-0">
                         <div class="min-w-0 leading-tight">
@@ -1159,7 +1159,7 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <template x-for="plan in planesFiltrados" :key="plan.id">
-                                    <button @click="abrirPlan(plan.id)" class="group relative isolate overflow-hidden text-left bg-panel border rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(0,0,0,.25)]"
+                                    <button @click="abrirPlan(plan.id)" class="group relative isolate overflow-hidden text-left bg-panel border rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_var(--r-border)]"
                                         :class="plan.destacado ? 'border-gold-500/50' : 'border-line hover:border-gold-500/40'">
                                         <span class="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-gold-400/80 to-transparent opacity-70 transition-all duration-300 group-hover:via-gold-300 group-hover:opacity-100"></span>
                                         <span class="pointer-events-none absolute -bottom-12 left-1/2 h-24 w-3/4 -translate-x-1/2 rounded-full bg-gold-500/10 blur-2xl opacity-60 transition-opacity duration-300 group-hover:opacity-100"></span>
@@ -1278,7 +1278,7 @@
                                                         :title="'Día ' + (i + 1) + (diaCompleto(planActivo.id, i) ? ' ✓ leído' : '')"
                                                         class="relative flex h-8 w-8 items-center justify-center rounded-full border text-[11px] font-semibold transition-all duration-300"
                                                         :class="diaCompleto(planActivo.id, i)
-                                                            ? 'bg-gradient-to-br from-gold-500 to-gold-600 text-gray-950 border-gold-400 shadow-[0_0_0_3px_rgba(200,155,60,.18)]'
+                                                            ? 'bg-gradient-to-br from-gold-500 to-gold-600 text-gray-950 border-gold-400 shadow-[0_0_0_3px_var(--r-border)]'
                                                             : 'bg-ink text-gray-500 border-line hover:border-gold-500/40 hover:text-gold-300'">
                                                         <template x-if="diaCompleto(planActivo.id, i)">
                                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>

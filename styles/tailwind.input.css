@@ -1,3 +1,13 @@
 @import "tailwindcss";
 @source "../index.html";
 @source "../public/admin.html";
+:root {
+  --r-bg: #F8F5EF;
+  --r-surface: #FFFDF9;
+  --r-text: #2F3A40;
+  --r-primary: #526D82;
+  --r-primary-dark: #40596B;
+  --r-border: #D9E1DD;
+  --r-accent: #B99A62;
+  --r-success: #A8BDAE;
+}
