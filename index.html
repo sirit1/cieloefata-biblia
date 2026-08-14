@@ -1901,7 +1901,7 @@
                         { titulo: 'Día 1 · Nombrar la carga', pasajes: ['Salmos 42:5', 'Salmos 62:8'] },
                         { titulo: 'Día 2 · Respirar y recordar', pasajes: ['Salmos 46:10', 'Isaías 26:3'] },
                         { titulo: 'Día 3 · No caminar solo', pasajes: ['Gálatas 6:2', 'Proverbios 12:25'] },
-                        { titulo: 'Día 4 · Pensar con verdad', pasajes: ['Filipenses 4:8'] },
+                        { titulo: 'Día 4 �� Pensar con verdad', pasajes: ['Filipenses 4:8'] },
                         { titulo: 'Día 5 · El cuidado de Dios', pasajes: ['Mateo 6:25-34'] },
                         { titulo: 'Día 6 · Pedir ayuda', pasajes: ['Marcos 2:1-5', 'Proverbios 15:22'] },
                         { titulo: 'Día 7 · Paz paso a paso', pasajes: ['Filipenses 4:6-9'] }
@@ -2432,6 +2432,10 @@ autenticando: false,
                             supabaseClient.from('favoritos').select('referencia, texto, version').order('created_at', { ascending: false }),
                             supabaseClient.from('progreso_lectura').select('referencia, libro, capitulo, version').maybeSingle()
                         ]);
+                        const { data: authData } = await supabaseClient.auth.getUser();
+                        const metadata = authData?.user?.user_metadata || {};
+                        if (metadata.revelatio_notas && typeof metadata.revelatio_notas === 'object') { this.notas = { ...this.notas, ...metadata.revelatio_notas }; this.guardarNotasLocal(); }
+                        if (metadata.revelatio_resaltados && typeof metadata.revelatio_resaltados === 'object') { this.resaltados = { ...this.resaltados, ...metadata.revelatio_resaltados }; this.guardarResaltadosLocal(); }
                         if (!favRes.error && favRes.data) {
                             this.favoritos = favRes.data.map(f => ({ ref: f.referencia, version: f.version, texto: f.texto }));
                         }
@@ -3631,7 +3635,15 @@ autenticando: false,
                     return versos;
                 },
                 claveCapitulo(libro = this.libroSel?.n, capitulo = this.capituloSel) {
-                    return libro ? `${libro}|${capitulo}` : '';
+                    if (libro) return `${libro}|${capitulo}`;
+                    const match = String(this.referenciaActiva || '').match(/^(.+?)\s+(\d+)(?::\d+)?$/);
+                    return match ? `${match[1]}|${match[2]}` : '';
+                },
+                async sincronizarAnotacionesUsuario() {
+                    if (!supabaseClient || !this.isLoggedIn) return;
+                    try {
+                        await supabaseClient.auth.updateUser({ data: { revelatio_notas: this.notas, revelatio_resaltados: this.resaltados } });
+                    } catch (_e) {}
                 },
                 async abrirLector(libro, capitulo) {
                     if (libro) {
@@ -3694,6 +3706,10 @@ autenticando: false,
                 },
                 guardarResaltados() {
                     try { localStorage.setItem('revelatio-resaltados', JSON.stringify(this.resaltados)); } catch (_e) {}
+                    this.sincronizarAnotacionesUsuario();
+                },
+                guardarResaltadosLocal() {
+                    try { localStorage.setItem('revelatio-resaltados', JSON.stringify(this.resaltados)); } catch (_e) {}
                 },
                 cargarResaltados() {
                     try {
@@ -3729,6 +3745,10 @@ autenticando: false,
                     this.notaAbierta = false;
                 },
                 guardarNotas() {
+                    try { localStorage.setItem('revelatio-notas', JSON.stringify(this.notas)); } catch (_e) {}
+                    this.sincronizarAnotacionesUsuario();
+                },
+                guardarNotasLocal() {
                     try { localStorage.setItem('revelatio-notas', JSON.stringify(this.notas)); } catch (_e) {}
                 },
                 cargarNotas() {
