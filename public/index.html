@@ -24,14 +24,14 @@
     <meta property="og:site_name" content="RevelatiO by Efata">
     <meta property="og:title" content="RevelatiO by Efata | Inteligencia Exegética y Renovación de la Mente">
     <meta property="og:description" content="Plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Exégesis histórica y gramatical, idiomas originales, psicología cristiana y neuroplasticidad. Libre distribución y gratuita.">
-    <meta property="og:image" content="/brand/cielo-efata-full.jpg">
+    <meta property="og:image" content="https://revelatiobiblia.vercel.app/brand/revelatio-logo-completo.jpeg">
     <meta property="og:locale" content="es_ES">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="RevelatiO by Efata">
     <meta name="twitter:description" content="Inteligencia exegética, conversión y renovación de la mente. Estudio bíblico riguroso, gratuito y de libre distribución.">
-    <meta name="twitter:image" content="/brand/cielo-efata-full.jpg">
+    <meta name="twitter:image" content="https://revelatiobiblia.vercel.app/brand/revelatio-logo-completo.jpeg">
 
     <!-- Datos estructurados (SEO) -->
     <script type="application/ld+json">
@@ -381,7 +381,7 @@
             </button>
 
             <a href="#" @click.prevent="irA('inicio')" class="flex items-center gap-3 shrink-0" aria-label="RevelatiO by Efata, inicio">
-<img src="/brand/revelatio-logo.png" alt="RevelatiO by Efata" class="h-16 w-16 sm:h-[4.5rem] sm:w-[4.5rem] lg:h-20 lg:w-20 object-contain shrink-0 drop-shadow-[0_0_12px_rgba(200,155,60,.3)]">
+<img src="/brand/revelatio-wordmark.jpeg" alt="Wordmark REVELATIO" class="h-auto w-full max-w-[130px] object-contain shrink-0 sm:max-w-[180px]">
   <div class="leading-tight">
   <p class="text-xl sm:text-2xl font-bold text-gold-300 font-serif tracking-tight brand-signature">RevelatiO</p>
   <p class="text-[10px] sm:text-[11px] text-gold-400/80 tracking-[0.22em] uppercase">by Efata</p>
@@ -494,16 +494,9 @@
                             <p class="text-[9px] uppercase tracking-[0.16em] text-gold-400">by Efata</p>
                         </div>
                     </div>
-                    <div>
-                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Desarrollo e IA ética</p>
-                        <a href="https://www.xtrametrik.com" target="_blank" rel="noopener" class="inline-flex items-center gap-0.5 mt-0.5 hover:opacity-80 transition-opacity">
-                            <img src="/brand/xtrametrik-blue.jpg" alt="XtraMetrik · Strategy & Growth Businesses" class="h-8 w-auto max-w-[150px] object-contain rounded bg-white">
-                        </a>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Sello editorial y dirección teológica</p>
-                        <p class="text-sm font-semibold text-gold-300 mt-0.5 font-serif">Cielo-Efata</p>
-                    </div>
+<div>
+  <p class="text-[10px] text-gray-600">Editorial y dirección teológica: Cielo-Efata · Desarrollo tecnológico: XtraMetrik</p>
+  </div>
                     <p class="text-[9px] text-gray-600 pt-1">Libre distribución · Gratuita · © 2026</p>
                 </div>
             </aside>
@@ -525,6 +518,7 @@
                                 class="pointer-events-none select-none absolute right-[-10%] top-1/2 -translate-y-1/2 w-[420px] max-w-[70%] opacity-30 sm:opacity-45 lg:opacity-60 object-contain">
                             <div class="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-transparent"></div>
                             <div class="relative p-6 sm:p-9 max-w-2xl">
+                                <img src="/brand/revelatio-logo-completo.jpeg" alt="Logo completo de RevelatiO by Efata" class="mb-4 h-auto w-full max-w-[200px] object-contain sm:max-w-[280px]">
                                 <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
                                 <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Estudia un mismo texto desde nueve lentes</h2>
                                 <blockquote class="mt-4 border-l-2 border-gold-500/50 pl-4">
@@ -997,8 +991,8 @@
                     <!-- ============ REVELATIO IA ============ -->
                     <section x-show="vista === 'ia'" class="space-y-6">
                         <div>
-                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
-                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
+                            <div class="flex items-center gap-3"><img src="/brand/revelatio-symbol.jpeg" alt="Símbolo de RevelatiO IA" class="h-14 w-14 object-contain"><div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
+                            <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2></div></div>
   <p class="text-sm text-gray-500 mt-1">Un laboratorio de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
   <div class="mt-4 flex flex-wrap gap-2 rounded-2xl border border-line bg-panel p-2"><button @click="iaVista='consulta'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'consulta' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Consulta</button><button @click="iaVista='perspectivas'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'perspectivas' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Perspectivas</button><button @click="iaVista='cuaderno'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'cuaderno' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Cuaderno de estudio</button></div>
   <div x-show="!estudioListo" x-cloak class="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-5">
