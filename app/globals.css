@@ -149,3 +149,13 @@ input,select,textarea { background:var(--s-panel); color:var(--s-ink); border-co
 .brand-panel img { display:none; }
 #login-card { background:var(--s-panel) !important; border-color:var(--s-line) !important; box-shadow:0 18px 45px rgba(37,52,62,.14) !important; }
 .zona-oscura > img[alt=""] { opacity:0 !important; }
+.welcome-hero, .welcome-hero * { color:var(--s-ink) !important; -webkit-text-fill-color:var(--s-ink) !important; }
+.welcome-hero .text-gold-200, .welcome-hero .text-gold-300, .welcome-hero .text-gold-400, .welcome-hero .text-gold-500 { color:var(--s-gold) !important; -webkit-text-fill-color:var(--s-gold) !important; }
+.welcome-hero button, .welcome-hero a { color:var(--s-ink) !important; -webkit-text-fill-color:var(--s-ink) !important; border-color:var(--s-gold) !important; }
+.welcome-hero > .relative { position:relative; z-index:2; }
+.welcome-hero > img { z-index:1; mix-blend-mode:screen; }
+.brand-panel > .flex > img { display:none; }
+.brand-panel { background:var(--s-night) !important; color:#FFFFFF !important; }
+.brand-panel * { color:#FFFFFF !important; }
+.revelatio-header { background:var(--s-panel) !important; color:var(--s-ink) !important; }
+.revelatio-header * { color:var(--s-ink) !important; }
