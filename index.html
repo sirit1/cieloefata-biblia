@@ -222,10 +222,6 @@
         #login-card, #login-card * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
         #login-card .text-red-300 { color: #991b1b !important; -webkit-text-fill-color: #991b1b !important; }
     </style>
-    <style id="revelatio-visual-system">
-      :root{--rv-bg-dark:#0b132b;--rv-bg-dark-2:#172554;--rv-bg-dark-3:#071126;--rv-cream:#f7f1e5;--rv-cream-heading:#fffaf0;--rv-cream-muted:#cfc5b2;--rv-panel:#fffdf8;--rv-panel-soft:#f0eadf;--rv-ink:#253047;--rv-ink-heading:#111a31;--rv-gold-on-dark:#e2bd67;--rv-gold-on-cream:#896719;--rv-line:rgba(137,103,25,.24)}
-      html{background:#0b132b} body{background:var(--rv-bg-dark);font-family:'Plus Jakarta Sans',sans-serif}.app-shell{background:var(--rv-panel-soft)}.zona-oscura,.bg-ink{background:linear-gradient(135deg,var(--rv-bg-dark-3),var(--rv-bg-dark) 58%,var(--rv-bg-dark-2))!important}.bg-panel{background:var(--rv-panel)!important}.text-gold-50,.text-gold-100{color:var(--rv-cream-heading)!important}.text-gold-200,.text-gold-300,.text-gold-400,.text-gold-500{color:var(--rv-gold-on-dark)!important}.text-gray-300,.text-gray-400{color:var(--rv-cream-muted)!important}.border-line{border-color:var(--rv-line)!important}.brand-panel{background:linear-gradient(135deg,#0a142c,#182b50)!important;border-color:rgba(226,189,103,.32)!important;box-shadow:0 22px 60px rgba(5,12,30,.22)}.brand-rule{background:linear-gradient(90deg,rgba(226,189,103,.75),rgba(226,189,103,.05))}.revelatio-sidebar{background:var(--rv-bg-dark-3)}.revelatio-header{background:rgba(255,253,248,.96);border-color:#e7dfd2}.revelatio-header h1{color:var(--rv-ink-heading)}.revelatio-nav.active{background:rgba(226,189,103,.16);box-shadow:inset 3px 0 var(--rv-gold-on-dark)}.install-trust-card{background:linear-gradient(145deg,#101e3e,#071126)!important;border-color:rgba(226,189,103,.42)!important}.gold-btn,.bg-gold-500{background:linear-gradient(135deg,#edcf82,#cfa24b)!important;color:#17213b!important}.gold-btn *,.bg-gold-500 *{color:#17213b!important}input,select,textarea{background:#fffdf8!important;border-color:#cdbb91!important;color:#253047!important}.shadow-xl,.shadow-2xl{box-shadow:0 18px 50px rgba(10,20,44,.16)!important}@media(max-width:700px){.revelatio-sidebar{background:var(--rv-bg-dark-3)}.revelatio-nav{min-height:44px}.revelatio-header{padding:16px 14px}.welcome-hero,.brand-panel{border-radius:22px}.revelatio-content{padding:18px 12px 32px}}
-    </style>
 </head>
 
 <body class="h-full bg-ink antialiased" x-data="cieloApp()">
@@ -450,12 +446,8 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Desarrollo e IA ética</p>
-<a href="https://www.xtrametrik.com" target="_blank" rel="noopener" class="inline-flex mt-0.5 text-[10px] text-gray-500 hover:text-gold-300 transition-colors">XtraMetrik</a>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-600 uppercase tracking-widest">Sello editorial y dirección teológica</p>
-                        <p class="text-sm font-semibold text-gold-300 mt-0.5 font-serif">Cielo-Efata</p>
+<p class="text-[10px] text-gray-500">Editorial y dirección teológica: Cielo-Efata · Desarrollo tecnológico: XtraMetrik</p>
+  </div>
                     </div>
                     <p class="text-[9px] text-gray-600 pt-1">Libre distribución · Gratuita · © 2026</p>
                 </div>
@@ -474,7 +466,7 @@
                     <section x-show="vista === 'inicio'" class="space-y-8">
                         <div class="zona-oscura brand-panel relative overflow-hidden rounded-3xl border border-gold-500/30 shadow-xl">
                             <!-- Imagen del cerebro como elemento distintivo (renovación de la mente) -->
-<img src="/brand/revelatio-logo-completo.jpeg" alt="Logo completo de RevelatiO by Efata" class="relative z-10 mb-5 h-auto w-full max-w-[220px] object-contain sm:max-w-[300px] lg:max-w-[360px]">
+<img src="/brand/revelatio-logo-completo.jpeg" alt="Logo completo de RevelatiO by Efata" class="relative z-10 mb-5 h-auto w-full max-w-[280px] object-contain">
                             <div class="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-transparent"></div>
                             <div class="relative p-6 sm:p-9 max-w-2xl">
                                 <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
@@ -948,7 +940,7 @@
                     <!-- ============ REVELATIO IA ============ -->
                     <section x-show="vista === 'ia'" class="space-y-6">
                         <div>
-<div class="flex items-center gap-3"><img src="/brand/revelatio-symbol.jpeg" alt="Símbolo cerebro y árbol de RevelatiO IA" class="h-10 w-10 rounded-xl object-cover border border-gold-500/40"><div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2></div></div>
+<div class="flex items-center gap-3"><img src="/brand/revelatio-symbol.jpeg" alt="Símbolo cerebro y árbol de RevelatiO IA" class="h-14 w-14 rounded-xl object-contain border border-gold-500/40"><div><p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p><h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2></div></div>
   <p class="text-sm text-gray-500 mt-1">Un laboratorio de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
   <div class="mt-4 flex flex-wrap gap-2 rounded-2xl border border-line bg-panel p-2"><button @click="iaVista='consulta'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'consulta' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Consulta</button><button @click="iaVista='perspectivas'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'perspectivas' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Perspectivas</button><button @click="iaVista='cuaderno'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'cuaderno' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Cuaderno de estudio</button></div>
   <div x-show="!estudioListo" x-cloak class="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-5">
@@ -1722,7 +1714,7 @@
                     { titulo: 'Día 1 · El himno del amor', pasajes: ['1 Corintios 13:1-13'] },
                     { titulo: 'Día 2 · Dios es amor', pasajes: ['1 Juan 4:7-12'] },
                     { titulo: 'Día 3 · Nadie tiene mayor amor', pasajes: ['Juan 15:12-13'] },
-                    { titulo: 'Día 4 · Mientras éramos pecadores', pasajes: ['Romanos 5:8'] },
+                    { titulo: 'Día 4 �� Mientras éramos pecadores', pasajes: ['Romanos 5:8'] },
                     { titulo: 'Día 5 · Amemos de hecho y verdad', pasajes: ['1 Juan 3:16-18'] },
                     { titulo: 'Día 6 · Fuerte como la muerte', pasajes: ['Cantares 8:6-7'] },
                     { titulo: 'Día 7 · Un nuevo mandamiento', pasajes: ['Juan 13:34-35'] }
