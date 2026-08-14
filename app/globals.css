@@ -120,3 +120,30 @@ td strong { color:var(--ink); font-size:12px; } td small { display:block; margin
 .revelatio-sidebar .is-active { color:#FFFDF9; }
 .welcome-hero { color:#263238; }
 .welcome-hero p, .welcome-hero blockquote { color:#40596B; }
+
+/* Santuario editorial premium */
+:root { --s-paper:#F4F1EA; --s-panel:#FFFEFB; --s-night:#2F4858; --s-navy:#2F4858; --s-gold:#B68A3A; --s-olive:#789781; --s-ink:#263238; --s-line:#D9E1DD; --s-muted:#6F8FA6; --s-error:#B86B63; }
+body { background:var(--s-paper); color:var(--s-ink); }
+.revelatio-app { background:var(--s-paper); color:var(--s-ink); }
+.revelatio-sidebar { background:var(--s-night); color:#FFFFFF; }
+.revelatio-sidebar * { color:#FFFFFF; }
+.revelatio-nav:hover, .revelatio-nav.active { background:rgba(182,138,58,.18); color:#FFFFFF; }
+.revelatio-header { background:var(--s-panel); color:var(--s-ink); border-color:var(--s-line); }
+.revelatio-header h1,.section-heading h2,.page-toolbar h2,.commentary-card h3,.canvas-header h3,.devotional-block h4,.plan-card h3 { color:var(--s-ink); }
+.revelatio-content { background:var(--s-paper); color:var(--s-ink); }
+.welcome-hero { background:var(--s-panel); color:var(--s-ink); border:1px solid var(--s-line); box-shadow:0 12px 32px rgba(37,52,62,.10); }
+.welcome-hero p,.welcome-hero blockquote { color:var(--s-ink); }
+.welcome-hero::after { opacity:.05; border-color:var(--s-gold); box-shadow:none; }
+.hero-verse,.quote-card,.sanctuary-player { background:var(--s-night); color:#FFFFFF; }
+.revelatio-card,.progress-card,.continue-card,.commentary-card,.version-card,.study-card,.plan-card,.prayer-card,.answer-card,.study-canvas,.workspace,.empty-panel { border:1px solid var(--s-line); border-radius:18px; background:var(--s-panel); box-shadow:0 12px 32px rgba(37,52,62,.10); }
+.continue-card:hover,.study-card:hover,.plan-card:hover,.prayer-card:hover { transform:translateY(-2px); box-shadow:0 14px 34px rgba(37,52,62,.12); border-color:var(--s-gold); }
+.gold,.kicker.gold,.gold-btn,.text-gold-300,.text-gold-400,.text-gold-500 { color:var(--s-gold); }
+.gold-btn { background:var(--s-night); color:#FFFFFF; border-color:var(--s-night); }
+.pill-btn.selected,.perspective.active,.author-chip,.study-block,.prayer-category { background:var(--s-paper); color:var(--s-ink); border-color:var(--s-gold); }
+.bible-tool-status { background:var(--s-panel); color:var(--s-ink); border-color:var(--s-line); }
+.bible-tool-status small,.tool-tab { color:var(--s-muted); }
+.tool-tab.active { color:var(--s-ink); border-bottom-color:var(--s-gold); }
+input,select,textarea { background:var(--s-panel); color:var(--s-ink); border-color:var(--s-line); }
+.status-dot { background:var(--s-olive); box-shadow:0 0 0 4px rgba(120,151,129,.18); }
+@media (max-width:700px) { .revelatio-app { background:var(--s-paper); } }
+.brand-panel img { display:none; }
