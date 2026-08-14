@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-:root { --night:#172b46; --ink:#24354b; --paper:#f6f8fb; --panel:#ffffff; --line:#e4eaf1; --gold:#c89b3c; --muted:#718096; --cyan:#2db4bf; }
+:root { --night:#14213D; --ink:#263238; --paper:#F7F3EA; --panel:#FFFFFF; --line:#DCE6F2; --gold:#B68A3A; --muted:#8FA69A; --cyan:#8FA69A; }
 * { box-sizing:border-box; }
 html, body { min-height:100%; }
 body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial, sans-serif; line-height:1.5; }
@@ -81,7 +81,7 @@ td strong { color:var(--ink); font-size:12px; } td small { display:block; margin
 @media (max-width:900px) { .admin-sidebar { width:205px; } .metric-grid { grid-template-columns:repeat(2,1fr); } }
 @media (max-width:700px) { .admin-shell { display:block; } .admin-sidebar { width:100%; padding:13px 14px; } .brand-lockup { padding-bottom:13px; } .sidebar-nav { grid-template-columns:repeat(4,1fr); } .admin-nav { justify-content:center; padding:9px 4px; font-size:10px; } .admin-nav span { display:none; } .sidebar-bottom { display:none; } .admin-topbar { padding:24px 20px; } .topbar-actions { align-self:flex-start; } .metric-grid { gap:9px; } .metric-card { min-height:122px; padding:13px; } .metric-card strong { font-size:22px; } .workspace-header, .filters { align-items:stretch; flex-direction:column; } .workspace-actions, .search-field, .filters select, .filter-button { width:100%; max-width:none; } .button-primary, .button-secondary { flex:1; } .admin-content { padding:20px 14px 35px; } .section-tabs { gap:14px; overflow:auto; } }
 
-:root { --s-paper:#faf8f5; --s-panel:#fffdfa; --s-night:#0b132b; --s-navy:#1c2541; --s-gold:#d4af37; --s-olive:#718355; --s-ink:#253047; --s-line:#ebe4d9; }
+:root { --s-paper:#F7F3EA; --s-panel:#FFFFFF; --s-night:#14213D; --s-navy:#14213D; --s-gold:#B68A3A; --s-olive:#8FA69A; --s-ink:#263238; --s-line:#DCE6F2; }
 .revelatio-app { min-height:100vh; display:flex; background:var(--s-paper); color:var(--s-ink); font-family:Arial,sans-serif; }
 .revelatio-app.dark-mode { --s-paper:#0b132b; --s-panel:#121d38; --s-ink:#f6f1e8; --s-line:#293657; }
 .revelatio-sidebar { width:245px; min-height:100vh; flex-shrink:0; display:flex; flex-direction:column; padding:27px 17px 20px; background:var(--s-night); color:#fff; }
