@@ -222,7 +222,10 @@
         #login-card, #login-card * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
         #login-card .text-red-300 { color: #991b1b !important; -webkit-text-fill-color: #991b1b !important; }
     </style>
-
+    <style id="revelatio-visual-system">
+      :root{--rv-bg-dark:#0b132b;--rv-bg-dark-2:#172554;--rv-bg-dark-3:#071126;--rv-cream:#f7f1e5;--rv-cream-heading:#fffaf0;--rv-cream-muted:#cfc5b2;--rv-panel:#fffdf8;--rv-panel-soft:#f0eadf;--rv-ink:#253047;--rv-ink-heading:#111a31;--rv-gold-on-dark:#e2bd67;--rv-gold-on-cream:#896719;--rv-line:rgba(137,103,25,.24)}
+      html{background:#0b132b} body{background:var(--rv-bg-dark);font-family:'Plus Jakarta Sans',sans-serif}.app-shell{background:var(--rv-panel-soft)}.zona-oscura,.bg-ink{background:linear-gradient(135deg,var(--rv-bg-dark-3),var(--rv-bg-dark) 58%,var(--rv-bg-dark-2))!important}.bg-panel{background:var(--rv-panel)!important}.text-gold-50,.text-gold-100{color:var(--rv-cream-heading)!important}.text-gold-200,.text-gold-300,.text-gold-400,.text-gold-500{color:var(--rv-gold-on-dark)!important}.text-gray-300,.text-gray-400{color:var(--rv-cream-muted)!important}.border-line{border-color:var(--rv-line)!important}.brand-panel{background:linear-gradient(135deg,#0a142c,#182b50)!important;border-color:rgba(226,189,103,.32)!important;box-shadow:0 22px 60px rgba(5,12,30,.22)}.brand-rule{background:linear-gradient(90deg,rgba(226,189,103,.75),rgba(226,189,103,.05))}.revelatio-sidebar{background:var(--rv-bg-dark-3)}.revelatio-header{background:rgba(255,253,248,.96);border-color:#e7dfd2}.revelatio-header h1{color:var(--rv-ink-heading)}.revelatio-nav.active{background:rgba(226,189,103,.16);box-shadow:inset 3px 0 var(--rv-gold-on-dark)}.install-trust-card{background:linear-gradient(145deg,#101e3e,#071126)!important;border-color:rgba(226,189,103,.42)!important}.gold-btn,.bg-gold-500{background:linear-gradient(135deg,#edcf82,#cfa24b)!important;color:#17213b!important}.gold-btn *,.bg-gold-500 *{color:#17213b!important}input,select,textarea{background:#fffdf8!important;border-color:#cdbb91!important;color:#253047!important}.shadow-xl,.shadow-2xl{box-shadow:0 18px 50px rgba(10,20,44,.16)!important}@media(max-width:700px){.revelatio-sidebar{background:var(--rv-bg-dark-3)}.revelatio-nav{min-height:44px}.revelatio-header{padding:16px 14px}.welcome-hero,.brand-panel{border-radius:22px}.revelatio-content{padding:18px 12px 32px}}
+    </style>
 </head>
 
 <body class="h-full bg-ink antialiased" x-data="cieloApp()">
@@ -1992,7 +1995,7 @@
                 descripcion: 'La comparación constante roba el gozo. Seis días para aprender el secreto del contentamiento bíblico.',
                 dias: [
                     { titulo: 'Día 1 · El secreto de Pablo', pasajes: ['Filipenses 4:11-13'] },
-                    { titulo: 'Día 2 · La envidia pudre los huesos', pasajes: ['Proverbios 14:30', 'Santiago 3:16'] },
+                    { titulo: 'Día 2 �� La envidia pudre los huesos', pasajes: ['Proverbios 14:30', 'Santiago 3:16'] },
                     { titulo: 'Día 3 · Caín y Abel: el fruto de comparar', pasajes: ['Génesis 4:3-8'] },
                     { titulo: 'Día 4 · Piadosa es fuente de gran ganancia', pasajes: ['1 Timoteo 6:6-10'] },
                     { titulo: 'Día 5 · Cada uno con su propia carga', pasajes: ['Gálatas 6:4-5'] },
