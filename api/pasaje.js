@@ -70,7 +70,7 @@ export default async function handler(req, res) {
     if (peshittaLocal.texto) {
       versiones.peshitta = peshittaLocal.texto;
       versionesVersos.peshitta = peshittaLocal.versos;
-      versionesLista.push({ key: 'peshitta', etiqueta: 'Peshitta · búsqueda local' });
+      versionesLista.push({ key: 'peshitta', etiqueta: 'Peshitta · edición adjunta verificada' });
     }
 
     const tieneStrong = original?.versos?.some((verso) => verso.tokens?.some((token) => token.strong));

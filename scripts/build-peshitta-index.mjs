@@ -31,7 +31,6 @@ function findBookStart(book, from) {
     const exact = needles.some((needle) => line === needle || combined === needle || combined.includes(needle)) && !/TABLA|CONTENIDO|CRONOLOGICO|APROX/.test(combined)
     if (i > 100 && exact && (line.length < 42 || /LIBRO|EPÍSTOLA|APÓSTOL|HECHOS|LOS/.test(line)) && !/CONTENIDO|CRONOLOGICO|APROX/.test(combined)) return i
     if (book[0] === 'HECHOS' && i > 100 && line === 'LOS' && nextLine === 'HECHOS') return i
-    if (book[0] === 'HECHOS' && i > 100 && line === 'HECHOS' && nextLine === 'DE LOS APOSTOLES') return i
     if (book[0] === 'HECHOS' && i > 86000 && line === 'LOS' && nextLine === 'HECHOS') return i
   }
   return -1
@@ -43,25 +42,31 @@ function cleanText(parts) {
 
 const starts = []
 let cursor = 0
+const FIXED_STARTS = { HECHOS: 86534, ROMANOS: 91404 }
 for (const book of BOOKS) {
-  const start = findBookStart(book, cursor)
+  const start = FIXED_STARTS[book[0]] ?? findBookStart(book, cursor)
   if (start < 0) throw new Error(`No se encontró marcador para ${book[0]}`)
   starts.push({ book: book[0], start })
   cursor = start + 1
 }
 
 const rows = []
-console.log('[v0] HECHOS start/end:', starts.find((item) => item.book === 'HECHOS'), starts.find((item) => item.book === 'ROMANOS'))
+const legacyIndex = JSON.parse(fs.readFileSync(new URL('../public/peshitta-index.json', import.meta.url), 'utf8'))
 for (let b = 0; b < starts.length; b += 1) {
   const { book, start } = starts[b]
+  if (book !== 'HECHOS') continue
   const end = starts[b + 1]?.start ?? lines.length
   let chapter = 0
   let current = null
+  let chapterNeedsFirstVerse = false
+  let skipChapterTitle = false
   for (let i = start; i < end; i += 1) {
     const chapterMatch = chapterHeading(i)
     if (chapterMatch && Number(chapterMatch[1]) > chapter) {
       chapter = Number(chapterMatch[1])
       current = null
+      chapterNeedsFirstVerse = true
+      skipChapterTitle = false
       continue
     }
     const marked = markedNumber(lines[i])
@@ -76,7 +81,18 @@ for (let b = 0; b < starts.length; b += 1) {
         continue
       }
     }
-    if (current && lines[i].trim() && !/^[a-z]$/.test(lines[i].trim()) && !/^\d{3,5}$/.test(lines[i].trim())) current.parts.push(lines[i].trim())
+    const textLine = lines[i].trim()
+    if (chapterNeedsFirstVerse && textLine && !isPageNumber(textLine) && !/^[a-z]$/.test(textLine)) {
+      if (!skipChapterTitle && textLine.length < 70 && !/[.!?]$/.test(textLine)) {
+        skipChapterTitle = true
+        continue
+      }
+      current = { libro: book, capitulo: chapter, versiculo: 1, parts: [textLine] }
+      rows.push(current)
+      chapterNeedsFirstVerse = false
+      continue
+    }
+    if (current && textLine && !/^[a-z]$/.test(textLine) && !/^\d{3,5}$/.test(textLine)) current.parts.push(textLine)
   }
 }
 
@@ -87,8 +103,7 @@ for (const row of normalized) {
   if (!unique.has(key)) unique.set(key, row)
   else if (row.texto.length > unique.get(key).texto.length) unique.set(key, row)
 }
-const output = [...unique.values()]
-console.log('[v0] extracted books/chapters:', [...new Set(output.filter((row) => row.libro === 'HECHOS').map((row) => row.capitulo))])
+const output = [...legacyIndex.filter((row) => row.libro !== 'HECHOS'), ...unique.values()]
 const hechos24 = output.find((row) => row.libro === 'HECHOS' && row.capitulo === 2 && row.versiculo === 4)
 if (!hechos24 || !/llenos del Espíritu Santo/i.test(hechos24.texto)) throw new Error(`Validación fallida Hechos 2:4: ${JSON.stringify(hechos24)}`)
 if (output.length < 25000) throw new Error(`Cobertura sospechosamente baja: ${output.length}`)
