@@ -776,7 +776,13 @@
                                     </div>
 
                                     <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
-                                    <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva}:${verso.numero}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" :class="bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl'" class="leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p><div x-show="bibliaMostrarParalelo" x-cloak class="mt-5 border-t border-line pt-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Paralelo · NVI</p><p class="mt-2 text-base leading-relaxed font-serif text-gray-400" x-text="versionesVersos.nvi ? versionesVersos.nvi.map(v => `${v.n} ${v.texto}`).join(' ') : 'Carga la versión NVI para comparar este pasaje.'"></p></div></div>
+                                    <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva}:${verso.numero}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" :class="bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl'" class="leading-relaxed font-serif text-gold-50/90 flex-1" x-text="textoActual"></p>  <div x-show="bibliaMostrarParalelo" x-cloak class="mt-6 rounded-2xl border border-gold-500/35 bg-slate-950/10 p-5 shadow-[0_12px_30px_rgba(20,30,45,0.16)] ring-1 ring-inset ring-white/30">
+  <div class="flex flex-wrap items-end justify-between gap-4 border-b border-gold-500/25 pb-4">
+  <div><p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-600">Segunda lectura · Comparación</p><h4 class="mt-1 text-2xl font-serif font-bold text-slate-800" x-text="versionesLista.find(v => v.key === versionParalelaSel)?.etiqueta || 'Versión paralela'"></h4><p class="mt-1 text-xs text-slate-500">Selecciona aquí una traducción independiente de la lectura principal.</p></div>
+  <div class="flex max-w-full flex-wrap gap-1 rounded-lg border border-slate-300 bg-white/75 p-1 shadow-sm">
+  <template x-for="v in versionesLista" :key="'parallel-' + v.key"><button @click="versionParalelaSel = v.key" :disabled="v.key === versionSel" :class="versionParalelaSel === v.key ? 'bg-slate-800 text-white font-bold shadow-sm' : 'text-slate-600 hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40'" class="rounded px-2.5 py-1 text-[10px] transition-all" x-text="v.etiqueta"></button></template>
+  </div></div>
+  <p class="mt-4 text-lg leading-relaxed font-serif text-slate-700" x-text="versiones[versionParalelaSel] || versionesVersos[versionParalelaSel]?.map(v => `${v.n} ${v.texto}`).join(' ') || 'Carga esta versión para comparar el pasaje.'"></p></div></div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
                                         <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
@@ -2199,8 +2205,9 @@ autenticando: false,
                 retornoLectura: null,
                 versiones: {},
                 versionesVersos: {},
-                versionSel: 'rvr1960',
-                cargandoPasaje: false,
+  versionSel: 'rvr1960',
+  versionParalelaSel: 'nvi',
+  cargandoPasaje: false,
                 errorPasaje: '',
                 pasajesLeidos: 0,
                 original: null,
@@ -2802,7 +2809,7 @@ autenticando: false,
                     }
                     await this.cargarPasaje(ref);
                 },
-                // Concordancia b��blica real: busca la palabra/frase en el texto completo
+                // Concordancia b����blica real: busca la palabra/frase en el texto completo
                 // de una versión vía Bolls (misma fuente del lector), no es una lista
                 // inventada por IA.
                 async buscarConcordancia() {
@@ -2845,10 +2852,13 @@ autenticando: false,
                         this.versiones = data.versiones;
                         this.versionesVersos = data.versionesVersos || {};
                         this.referenciaActiva = data.referencia;
-                        if (!this.versiones[this.versionSel]) {
-                            this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
-                        }
-                        this.original = data.original || null;
+  if (!this.versiones[this.versionSel]) {
+  this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+  }
+  if (!this.versiones[this.versionParalelaSel] || this.versionParalelaSel === this.versionSel) {
+  this.versionParalelaSel = this.versionesLista.find(v => v.key !== this.versionSel)?.key || this.versionesLista[1]?.key || this.versionSel;
+  }
+  this.original = data.original || null;
                         this.pasajesLeidos++;
                         this.guardarProgreso();
                         // Si hay paneles de estudio abiertos, cárgalos para el nuevo pasaje.
