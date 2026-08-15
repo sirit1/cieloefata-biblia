@@ -26,9 +26,32 @@ export default function AdminPage() {
   const [campaignSid, setCampaignSid] = useState('')
   const [notice, setNotice] = useState('')
   const [sending, setSending] = useState(false)
+  const [authState, setAuthState] = useState<'loading' | 'signed-out' | 'unauthorized' | 'authorized'>('loading')
   const inputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => { void loadLeads() }, [])
+  useEffect(() => {
+    let cancelled = false
+    async function verifyAdmin() {
+      const { data: { session } } = await supabase.auth.getSession()
+      const user = session?.user ?? null
+      if (cancelled) return
+      if (!user) {
+        setAuthState('signed-out')
+        return
+      }
+      const { data: admin } = await supabase.from('admin_allowlist').select('email').eq('email', user.email || '').maybeSingle()
+      if (cancelled) return
+      if (!admin) {
+        setAuthState('unauthorized')
+        return
+      }
+      setAuthState('authorized')
+      void loadLeads()
+    }
+    void verifyAdmin()
+    return () => { cancelled = true }
+  }, [supabase])
+
   async function loadLeads() {
     const { data, error } = await supabase.from('crm_contacts').select('id,full_name,email,whatsapp,status,source,consent_whatsapp,created_at').order('created_at', { ascending: false }).limit(100)
     if (error) setNotice('No se pudo cargar el CRM. Comprueba que tu usuario sea administrador.')
@@ -82,6 +105,15 @@ export default function AdminPage() {
   }
   const filtered = leads.filter(lead => (status === 'all' || lead.status === status) && `${lead.full_name} ${lead.email || ''} ${lead.whatsapp || ''}`.toLowerCase().includes(query.toLowerCase()))
   const optedIn = leads.filter(lead => lead.consent_whatsapp).length
+
+  if (authState !== 'authorized') {
+    const message = authState === 'loading'
+      ? 'Verificando sesión…'
+      : authState === 'signed-out'
+        ? 'Inicia sesión para acceder'
+        : 'No tienes permisos de administración'
+    return <main className="admin-shell" aria-live="polite"><section className="admin-main" style={{ display: 'grid', minHeight: '100vh', placeItems: 'center', padding: '2rem' }}><div className="empty-panel"><h1>{message}</h1></div></section></main>
+  }
 
   return <div className="admin-shell">
     <aside className="admin-sidebar">
