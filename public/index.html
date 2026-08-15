@@ -995,7 +995,12 @@
                     </section>
 
                     <!-- ============ REVELATIO IA ============ -->
-                    <section x-show="vista === 'ia'" class="space-y-6">
+                    <section x-show="vista === 'ia'" class="space-y-6" @mousedown="if (!$refs.selToolbarIa.contains($event.target)) seleccionMenu.visible = false" @mouseup="manejarSeleccionIA($event)" @touchend="manejarSeleccionIA($event)">
+                        <div x-ref="selToolbarIa" x-show="seleccionMenu.visible" x-cloak :style="`position:fixed; top:${seleccionMenu.top}px; left:${seleccionMenu.left}px; z-index:60;`" class="-translate-x-1/2 -translate-y-full flex items-center gap-1 rounded-lg border border-gold-500/40 bg-gray-950 px-1.5 py-1 shadow-lg">
+                            <button type="button" @mousedown.prevent @click="resaltarSeleccionIA()" class="rounded-md px-2.5 py-1.5 text-[11px] font-semibold text-gold-300 hover:bg-gold-500/15">Resaltar</button>
+                            <span class="h-4 w-px bg-line/60"></span>
+                            <button type="button" @mousedown.prevent @click="copiarSeleccionIA()" class="rounded-md px-2.5 py-1.5 text-[11px] font-semibold text-gold-300 hover:bg-gold-500/15" x-text="seleccionCopiada ? 'Copiado' : 'Copiar'"></button>
+                        </div>
                         <div>
                             <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
@@ -1009,7 +1014,7 @@
   </div>
   
   <section x-show="iaVista === 'perspectivas'" class="rounded-2xl border border-line bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Biblioteca de perspectivas</p><h3 class="mt-1 font-serif text-xl text-gold-100">Selecciona las lentes de lectura</h3><p class="mt-2 text-xs leading-relaxed text-gray-500">Primero escribe qué quieres estudiar, elige una lente y pulsa aplicar. La respuesta aparecerá en la vista de consulta.</p><form @submit.prevent="ejecutarEstudio(busqueda)" class="mt-4 flex flex-col gap-3 rounded-xl border border-gold-500/30 bg-ink/60 p-3 sm:flex-row"><label for="ia-perspectiva-input" class="sr-only">Consulta para aplicar a la perspectiva</label><input id="ia-perspectiva-input" type="text" x-model="busqueda" maxlength="300" required placeholder="Escribe un pasaje o tema para consultar..." class="min-w-0 flex-1 rounded-lg border border-line bg-panel px-3 py-2.5 text-sm text-gray-800 placeholder:text-gray-500 focus:border-gold-500 focus:outline-none"><button type="submit" :disabled="cargandoEstudio || !iaPerspectivasSeleccionadas.length" class="rounded-lg bg-gold-500 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-gray-950 transition hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-50"><span x-text="cargandoEstudio ? 'Aplicando...' : 'Aplicar perspectiva'"></span></button></form><div class="mt-2 flex flex-wrap items-center justify-between gap-2"><p class="text-[11px] text-gray-500">Lente seleccionada: <span class="font-semibold text-gold-700" x-text="LENTES_LISTA.find((l) => l.id === iaPerspectivasSeleccionadas[0])?.etiqueta || 'elige una lente'"></span></p><button type="button" @click="iaVista = 'consulta'; document.getElementById('ia-input')?.focus()" class="text-[11px] font-semibold text-gold-700 hover:text-gold-500">Ver consulta y respuesta</button></div><div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3"><template x-for="l in LENTES_LISTA" :key="l.id"><button @click="iaPerspectivasSeleccionadas = iaPerspectivasSeleccionadas.includes(l.id) ? iaPerspectivasSeleccionadas.filter(id => id !== l.id) : [...iaPerspectivasSeleccionadas, l.id]" class="rounded-xl border p-3 text-left text-xs transition" :class="iaPerspectivasSeleccionadas.includes(l.id) ? 'border-gold-500 bg-gold-500/10 text-gold-700' : 'border-line bg-ink text-gray-500'"><span class="font-semibold" x-text="l.etiqueta"></span><span class="mt-1 block text-[11px] opacity-75">Activar para comparar.</span></button></template></div></section>
-  <section x-show="iaVista === 'cuaderno' && estudioListo" class="rounded-2xl border border-gold-500/30 bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Cuaderno privado</p><h3 class="mt-1 font-serif text-xl text-gold-100">Anotar y concluir</h3><div class="mt-4 grid gap-4 md:grid-cols-2"><textarea x-model="iaAnotacionTexto" rows="5" placeholder="Fragmento o idea que quieres conservar..." class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea><textarea x-model="iaAnotacionNota" rows="5" placeholder="¿Qué debes creer, abandonar o practicar?" class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea></div><button @click="guardarFicha()" class="mt-3 rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950">Guardar ficha</button><p x-show="estudioGuardado" x-cloak class="mt-2 text-xs font-semibold text-emerald-700" role="status">Ficha guardada en este cuaderno.</p></section>
+  <section x-show="iaVista === 'cuaderno' && estudioListo" class="rounded-2xl border border-gold-500/30 bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Cuaderno privado</p><h3 class="mt-1 font-serif text-xl text-gold-100">Anotar y concluir</h3><div class="mt-4 grid gap-4 md:grid-cols-2"><textarea x-model="iaAnotacionTexto" rows="5" placeholder="Fragmento o idea que quieres conservar..." class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea><textarea x-model="iaAnotacionNota" rows="5" placeholder="¿Qué debes creer, abandonar o practicar?" class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea></div><button @click="guardarFicha()" class="mt-3 rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950">Guardar ficha</button><p x-show="estudioGuardado" x-cloak class="mt-2 text-xs font-semibold text-emerald-700" role="status">Ficha guardada en este cuaderno.</p><div class="mt-6 border-t border-line pt-4"><p class="text-[10px] font-semibold uppercase tracking-wider text-gold-500">Fichas guardadas</p><p x-show="!iaFichas.length" x-cloak class="mt-2 text-xs text-gray-500">Todavía no has guardado ninguna ficha.</p><ul x-show="iaFichas.length" x-cloak class="mt-3 space-y-3"><template x-for="(f, i) in iaFichas" :key="f.fecha + i"><li class="rounded-xl border border-line bg-ink/60 p-4"><div class="flex items-start justify-between gap-3"><div class="min-w-0"><p class="text-xs font-semibold text-gold-300" x-text="f.ref"></p><p class="mt-1 text-sm text-gray-700 whitespace-pre-line" x-text="f.texto"></p><p x-show="f.nota" class="mt-2 text-sm text-gray-500 whitespace-pre-line" x-text="f.nota"></p><p class="mt-2 text-[10px] text-gray-500" x-text="new Date(f.fecha).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short' })"></p></div><button @click="eliminarFicha(i)" class="shrink-0 text-[11px] font-semibold text-red-600 hover:text-red-500" :aria-label="'Eliminar ficha de ' + f.ref">Eliminar</button></div></li></template></ul></div></section>
   <div x-show="iaVista === 'consulta'" class="bg-panel border border-gold-500/30 rounded-2xl p-6">
                             <form @submit.prevent="ejecutarEstudio(busqueda)" class="flex flex-col sm:flex-row gap-3">
                                 <label for="ia-input" class="sr-only">Pasaje o tema bíblico</label>
@@ -2332,8 +2337,10 @@
                 iaPerspectivasSeleccionadas: ['teologia', 'exegesis'],
                 iaAnotacionTexto: '',
                 iaAnotacionNota: '',
-                iaFichas: [],
-                estudioGuardado: false,
+  iaFichas: [],
+  seleccionMenu: { visible: false, top: 0, left: 0 },
+  seleccionCopiada: false,
+  estudioGuardado: false,
                 cargandoEstudio: false,
                 cuotaIA: { requests_used: 0, request_limit: 3, resets_at: null },
                 errorEstudio: false,
@@ -2447,9 +2454,10 @@
                     const dia = Math.floor(Date.now() / 86400000) % VERSICULOS_DIA.length;
                     this.versiculoDelDia = VERSICULOS_DIA[dia];
                     this.cargarProgresoPlanes();
-                    this.cargarResaltados();
-                    this.cargarNotas();
-                    this.cargarCapitulosLeidos();
+  this.cargarResaltados();
+  this.cargarNotas();
+  this.cargarFichas();
+  this.cargarCapitulosLeidos();
                     this.cargarUltimaPosicion();
                     try {
                         const response = await fetch('/api/config', { headers: { Accept: 'application/json' } });
@@ -2557,8 +2565,9 @@
                         ]);
                         const { data: authData } = await supabaseClient.auth.getUser();
                         const metadata = authData?.user?.user_metadata || {};
-                        if (metadata.revelatio_notas && typeof metadata.revelatio_notas === 'object') { this.notas = { ...this.notas, ...metadata.revelatio_notas }; this.guardarNotasLocal(); }
-                        if (metadata.revelatio_resaltados && typeof metadata.revelatio_resaltados === 'object') { this.resaltados = { ...this.resaltados, ...metadata.revelatio_resaltados }; this.guardarResaltadosLocal(); }
+  if (metadata.revelatio_notas && typeof metadata.revelatio_notas === 'object') { this.notas = { ...this.notas, ...metadata.revelatio_notas }; this.guardarNotasLocal(); }
+  if (metadata.revelatio_resaltados && typeof metadata.revelatio_resaltados === 'object') { this.resaltados = { ...this.resaltados, ...metadata.revelatio_resaltados }; this.guardarResaltadosLocal(); }
+  if (Array.isArray(metadata.revelatio_fichas)) { this.iaFichas = metadata.revelatio_fichas; this.guardarFichasLocal(); }
                         if (!favRes.error && favRes.data) {
                             this.favoritos = favRes.data.map(f => ({ ref: f.referencia, version: f.version, texto: f.texto }));
                         }
@@ -3304,18 +3313,85 @@ itemsAnalisis() {
   return secciones.map(([t, v]) => ({ t, v: String(v || '').trim() })).filter((item) => item.v && !invalidos.has(item.v));
 },
 
-guardarFicha() {
+  guardarFicha() {
   const texto = String(this.iaAnotacionTexto || '').trim();
   const nota = String(this.iaAnotacionNota || '').trim();
   if (!texto && !nota) {
-    this.estudioGuardado = false;
-    return;
+  this.estudioGuardado = false;
+  return;
   }
   this.iaFichas.unshift({ ref: this.estudioRef || this.busqueda, perspectiva: this.lenteActiva, texto, nota, fecha: new Date().toISOString() });
   this.iaAnotacionTexto = '';
   this.iaAnotacionNota = '';
   this.estudioGuardado = true;
-},
+  this.guardarFichasLocal();
+  this.sincronizarAnotacionesUsuario();
+  },
+  eliminarFicha(i) {
+  this.iaFichas.splice(i, 1);
+  this.guardarFichasLocal();
+  this.sincronizarAnotacionesUsuario();
+  },
+  guardarFichasLocal() {
+  try { localStorage.setItem('revelatio-fichas', JSON.stringify(this.iaFichas)); } catch (_e) {}
+  },
+  cargarFichas() {
+  try {
+  const raw = localStorage.getItem('revelatio-fichas');
+  if (raw) this.iaFichas = JSON.parse(raw) || [];
+  } catch (_e) {}
+  },
+  manejarSeleccionIA(event) {
+  if (this.$refs.selToolbarIa && this.$refs.selToolbarIa.contains(event.target)) return;
+  const sel = window.getSelection();
+  const texto = sel ? sel.toString().trim() : '';
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed || !texto) {
+  this.seleccionMenu.visible = false;
+  return;
+  }
+  const range = sel.getRangeAt(0);
+  const contenedor = range.commonAncestorContainer;
+  const nodoContenedor = contenedor.nodeType === 1 ? contenedor : contenedor.parentElement;
+  if (!nodoContenedor || !event.currentTarget.contains(nodoContenedor)) {
+  this.seleccionMenu.visible = false;
+  return;
+  }
+  const rect = range.getBoundingClientRect();
+  if (!rect || (!rect.width && !rect.height)) {
+  this.seleccionMenu.visible = false;
+  return;
+  }
+  this.seleccionMenu = { visible: true, top: Math.max(rect.top - 8, 44), left: rect.left + rect.width / 2, rango: range.cloneRange(), texto };
+  },
+  resaltarSeleccionIA() {
+  const range = this.seleccionMenu.rango;
+  if (!range) { this.seleccionMenu.visible = false; return; }
+  const mark = document.createElement('mark');
+  mark.className = 'bg-gold-500/40 text-inherit rounded px-0.5';
+  try {
+  range.surroundContents(mark);
+  } catch (_e) {
+  try {
+  const frag = range.extractContents();
+  mark.appendChild(frag);
+  range.insertNode(mark);
+  } catch (_e2) { /* selección no editable en este punto */ }
+  }
+  window.getSelection()?.removeAllRanges();
+  this.seleccionMenu.visible = false;
+  },
+  async copiarSeleccionIA() {
+  const texto = this.seleccionMenu.texto || '';
+  if (!texto) { this.seleccionMenu.visible = false; return; }
+  try {
+  if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(texto);
+  else { const area = document.createElement('textarea'); area.value = texto; area.style.position = 'fixed'; area.style.opacity = '0'; document.body.appendChild(area); area.select(); document.execCommand('copy'); area.remove(); }
+  this.seleccionCopiada = true;
+  setTimeout(() => { this.seleccionCopiada = false; this.seleccionMenu.visible = false; }, 1200);
+  } catch (_e) {
+  this.seleccionMenu.visible = false;
+  }
+  },
 
 // ---------- Exportar estudio ----------
 seccionesListas() {
@@ -3901,10 +3977,10 @@ seccionesListas() {
                     const match = String(this.referenciaActiva || '').match(/^(.+?)\s+(\d+)(?::\d+)?$/);
                     return match ? `${match[1]}|${match[2]}` : '';
                 },
-                async sincronizarAnotacionesUsuario() {
-                    if (!supabaseClient || !this.isLoggedIn) return;
-                    try { await supabaseClient.auth.updateUser({ data: { revelatio_notas: this.notas, revelatio_resaltados: this.resaltados } }); } catch (_e) {}
-                },
+  async sincronizarAnotacionesUsuario() {
+  if (!supabaseClient || !this.isLoggedIn) return;
+  try { await supabaseClient.auth.updateUser({ data: { revelatio_notas: this.notas, revelatio_resaltados: this.resaltados, revelatio_fichas: this.iaFichas } }); } catch (_e) {}
+  },
                 async abrirLector(libro, capitulo) {
                     if (libro) {
                         this.testamento = LIBROS_NT.includes(libro) ? 'nt' : 'at';
