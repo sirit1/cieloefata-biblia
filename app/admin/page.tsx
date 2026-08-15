@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { BarChart3, Bell, ChevronRight, FileUp, Filter, LayoutDashboard, Mail, Megaphone, MessageCircle, MoreHorizontal, Plus, Search, Send, Settings2, Tags, Users, X } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
+
+export const dynamic = 'force-dynamic'
 
 type Tab = 'leads' | 'campaigns' | 'automation'
 type Lead = { id: string; full_name: string; email: string | null; whatsapp: string | null; status: string; source: string; consent_whatsapp: boolean; created_at: string }
@@ -14,7 +15,7 @@ const tabs: { id: Tab; label: string; icon: typeof Users }[] = [
 ]
 
 export default function AdminPage() {
-  const supabaseRef = useRef<ReturnType<typeof createClient> | null>(null)
+  const supabaseRef = useRef<any>(null)
   const [tab, setTab] = useState<Tab>('leads')
   const [leads, setLeads] = useState<Lead[]>([])
   const [query, setQuery] = useState('')
@@ -37,6 +38,7 @@ export default function AdminPage() {
     let timeoutId: number | undefined
 
     async function verifyAdmin() {
+      const { createClient } = await import('@/lib/supabase/client')
       const supabase = createClient()
       supabaseRef.current = supabase
       setLoading(true)
@@ -77,7 +79,7 @@ export default function AdminPage() {
       cancelled = true
       if (timeoutId !== undefined) window.clearTimeout(timeoutId)
     }
-  }, [])
+  }, [retryCount])
 
   async function loadLeads() {
     const supabase = supabaseRef.current
