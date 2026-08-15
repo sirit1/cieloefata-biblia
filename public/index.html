@@ -1005,7 +1005,7 @@
                             <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · Motor ético</p>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">RevelatiO IA</h2>
   <p class="text-sm text-gray-500 mt-1">Un laboratorio de estudio profundo: texto, contexto, idioma original, doctrina y aplicación pastoral. Investiga la Escritura con rigor antes de llevarla a la vida y al ministerio.</p>
-  <div class="mt-4 flex flex-wrap gap-2 rounded-2xl border border-line bg-panel p-2"><button @click="iaVista='consulta'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'consulta' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Consulta</button><button @click="iaVista='perspectivas'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'perspectivas' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Perspectivas</button><button @click="estudioListo ? iaVista='cuaderno' : iaVista='perspectivas'" :disabled="!estudioListo" class="rounded-xl px-4 py-2 text-xs disabled:cursor-not-allowed disabled:opacity-40" :class="iaVista === 'cuaderno' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'" :title="estudioListo ? 'Abrir cuaderno contextual' : 'Primero ejecuta una consulta'">Cuaderno de estudio</button></div>
+  <div class="mt-4 flex flex-wrap gap-2 rounded-2xl border border-line bg-panel p-2"><button @click="iaVista='consulta'" class="rounded-xl px-4 py-2 text-xs" :class="iaVista === 'consulta' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'">Consulta</button><button @click="estudioListo ? iaVista='cuaderno' : iaVista='consulta'" :disabled="!estudioListo" class="rounded-xl px-4 py-2 text-xs disabled:cursor-not-allowed disabled:opacity-40" :class="iaVista === 'cuaderno' ? 'bg-gold-500 font-bold text-gray-950' : 'text-gray-500'" :title="estudioListo ? 'Abrir cuaderno contextual' : 'Primero ejecuta una consulta'">Cuaderno de estudio</button></div>
   <div x-show="!estudioListo" x-cloak class="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-5">
   <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">Cómo trabaja RevelatiO IA</p>
   <p class="mt-2 text-sm leading-relaxed text-[#334155]">Esta herramienta utiliza un LLM como asistente de investigación, no como autoridad doctrinal. La consulta se estructura según la lente que eliges y vuelve al texto bíblico, su contexto y su aplicación pastoral.</p>
@@ -1013,7 +1013,6 @@
   </div>
   </div>
   
-  <section x-show="iaVista === 'perspectivas'" class="rounded-2xl border border-line bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Biblioteca de perspectivas</p><h3 class="mt-1 font-serif text-xl text-gold-100">Selecciona las lentes de lectura</h3><p class="mt-2 text-xs leading-relaxed text-gray-500">Primero escribe qué quieres estudiar, elige una lente y pulsa aplicar. La respuesta aparecerá en la vista de consulta.</p><form @submit.prevent="ejecutarEstudio(busqueda)" class="mt-4 flex flex-col gap-3 rounded-xl border border-gold-500/30 bg-ink/60 p-3 sm:flex-row"><label for="ia-perspectiva-input" class="sr-only">Consulta para aplicar a la perspectiva</label><input id="ia-perspectiva-input" type="text" x-model="busqueda" maxlength="300" required placeholder="Escribe un pasaje o tema para consultar..." class="min-w-0 flex-1 rounded-lg border border-line bg-panel px-3 py-2.5 text-sm text-gray-800 placeholder:text-gray-500 focus:border-gold-500 focus:outline-none"><button type="submit" :disabled="cargandoEstudio || !iaPerspectivasSeleccionadas.length" class="rounded-lg bg-gold-500 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-gray-950 transition hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-50"><span x-text="cargandoEstudio ? 'Aplicando...' : 'Aplicar perspectiva'"></span></button></form><div class="mt-2 flex flex-wrap items-center justify-between gap-2"><p class="text-[11px] text-gray-500">Lente seleccionada: <span class="font-semibold text-gold-700" x-text="LENTES_LISTA.find((l) => l.id === iaPerspectivasSeleccionadas[0])?.etiqueta || 'elige una lente'"></span></p><button type="button" @click="iaVista = 'consulta'; document.getElementById('ia-input')?.focus()" class="text-[11px] font-semibold text-gold-700 hover:text-gold-500">Ver consulta y respuesta</button></div><div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3"><template x-for="l in LENTES_LISTA" :key="l.id"><button @click="iaPerspectivasSeleccionadas = iaPerspectivasSeleccionadas.includes(l.id) ? iaPerspectivasSeleccionadas.filter(id => id !== l.id) : [...iaPerspectivasSeleccionadas, l.id]" class="rounded-xl border p-3 text-left text-xs transition" :class="iaPerspectivasSeleccionadas.includes(l.id) ? 'border-gold-500 bg-gold-500/10 text-gold-700' : 'border-line bg-ink text-gray-500'"><span class="font-semibold" x-text="l.etiqueta"></span><span class="mt-1 block text-[11px] opacity-75">Activar para comparar.</span></button></template></div></section>
   <section x-show="iaVista === 'cuaderno' && estudioListo" class="rounded-2xl border border-gold-500/30 bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Cuaderno privado</p><h3 class="mt-1 font-serif text-xl text-gold-100">Anotar y concluir</h3><div class="mt-4 grid gap-4 md:grid-cols-2"><textarea x-model="iaAnotacionTexto" rows="5" placeholder="Fragmento o idea que quieres conservar..." class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea><textarea x-model="iaAnotacionNota" rows="5" placeholder="¿Qué debes creer, abandonar o practicar?" class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea></div><button @click="guardarFicha()" class="mt-3 rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950">Guardar ficha</button><p x-show="estudioGuardado" x-cloak class="mt-2 text-xs font-semibold text-emerald-700" role="status">Ficha guardada en este cuaderno.</p><div class="mt-6 border-t border-line pt-4"><p class="text-[10px] font-semibold uppercase tracking-wider text-gold-500">Fichas guardadas</p><p x-show="!iaFichas.length" x-cloak class="mt-2 text-xs text-gray-500">Todavía no has guardado ninguna ficha.</p><ul x-show="iaFichas.length" x-cloak class="mt-3 space-y-3"><template x-for="(f, i) in iaFichas" :key="f.fecha + i"><li class="rounded-xl border border-line bg-ink/60 p-4"><div class="flex items-start justify-between gap-3"><div class="min-w-0"><p class="text-xs font-semibold text-gold-300" x-text="f.ref"></p><p class="mt-1 text-sm text-gray-700 whitespace-pre-line" x-text="f.texto"></p><p x-show="f.nota" class="mt-2 text-sm text-gray-500 whitespace-pre-line" x-text="f.nota"></p><p class="mt-2 text-[10px] text-gray-500" x-text="new Date(f.fecha).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short' })"></p></div><button @click="eliminarFicha(i)" class="shrink-0 text-[11px] font-semibold text-red-600 hover:text-red-500" :aria-label="'Eliminar ficha de ' + f.ref">Eliminar</button></div></li></template></ul></div></section>
   <div x-show="iaVista === 'consulta'" class="bg-panel border border-gold-500/30 rounded-2xl p-6">
                             <form @submit.prevent="ejecutarEstudio(busqueda)" class="flex flex-col sm:flex-row gap-3">
@@ -1036,9 +1035,12 @@
     <span class="font-semibold text-gold-600" x-text="cuotaIA.unlimited ? 'Acceso ilimitado' : `${Math.max(0, (cuotaIA.request_limit || 3) - (cuotaIA.requests_used || 0))} de ${cuotaIA.request_limit || 3}`"></span>
   </div>
   <p x-show="errorEstudio" x-cloak class="mt-3 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700" role="alert" x-text="mensajeEstudio"></p>
-  <div x-show="busqueda.trim()" class="mt-4 border-t border-line pt-4">
-    <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-500">Consultar esta búsqueda desde una lente</p>
-    <p class="mt-1 text-xs text-gray-500">La misma consulta se enviará a la disciplina que elijas y su respuesta aparecerá en el panel de abajo.</p>
+  <div class="mt-4 border-t border-line pt-4">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-500">Elige tu lente de estudio</p>
+      <p class="text-[11px] text-gray-500">Lente activa: <span class="font-semibold text-gold-600" x-text="LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta || 'Exégesis'"></span></p>
+    </div>
+    <p class="mt-1 text-xs text-gray-500" x-text="busqueda.trim() ? 'La misma consulta se enviará a la disciplina que elijas y su respuesta aparecerá en el panel de abajo.' : 'Selecciona una disciplina antes o después de escribir tu consulta; puedes cambiarla cuando quieras sin perder tu progreso.'"></p>
     <div class="mt-3 space-y-3">
       <template x-for="grupo in GRUPOS_LENTES" :key="grupo.titulo"><div><p class="mb-1 text-[10px] uppercase tracking-wider text-gold-500" x-text="grupo.titulo"></p><div class="flex flex-wrap gap-2"><template x-for="l in LENTES_LISTA.filter(item => grupo.ids.includes(item.id))" :key="l.id"><button type="button" @click="activarLente(l.id)" class="rounded-full border px-3 py-2 text-xs transition-all" :class="lenteActiva === l.id ? 'border-gold-500 bg-gold-500 text-gray-950 font-bold' : 'border-line bg-ink text-gray-300 hover:border-gold-500/60 hover:text-gold-200'" x-text="l.etiqueta"></button></template></div></div></template>
     </div>
@@ -2334,8 +2336,7 @@
   predicaEditable: { titulo: '', textoBase: '', ideaCentral: '', proposito: '', introduccion: '', puntos: ['', '', ''], aplicaciones: '', llamado: '', cierre: '' },
   predicaGenerada: false,
   iaVista: 'consulta',
-                iaPerspectivasSeleccionadas: ['teologia', 'exegesis'],
-                iaAnotacionTexto: '',
+  iaAnotacionTexto: '',
                 iaAnotacionNota: '',
   iaFichas: [],
   seleccionMenu: { visible: false, top: 0, left: 0 },
@@ -3226,13 +3227,8 @@ async activarLente(id) {
   const permitidas = this.LENTES_LISTA.map((l) => l.id);
   if (!permitidas.includes(id)) id = 'teologia';
   this.lenteActiva = id;
-  this.iaPerspectivasSeleccionadas = [id];
-  if (!this.busqueda.trim()) {
-    this.iaVista = 'perspectivas';
-    return;
-  }
   this.iaVista = 'consulta';
-  await this.cargarLente(id, true);
+  if (this.busqueda.trim()) await this.cargarLente(id, true);
   },
                 async cargarLente(id, forzar = false) {
                     const key = id === 'autores' ? `autores:${this.autorSel}` : id;
