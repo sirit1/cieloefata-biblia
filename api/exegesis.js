@@ -82,20 +82,18 @@ Reglas:
 
 Consulta: ${consulta}${contextoOriginal}`, { maxOutputTokens: 5000, reintentos: 1 });
     const base = typeof data === 'object' && data ? data : {};
-    const textoRespaldo = String(base.comentarioMacArthur || base.aplicacion || '').trim();
-    const completar = (valor, etiqueta) => String(valor || '').trim() || (textoRespaldo ? `${etiqueta}: ${textoRespaldo}` : 'No se pudo desarrollar esta sección con los datos disponibles.');
     const normalizado = {
       referencia: base.referencia || consulta,
       versiones: base.versiones || {},
       idiomaOriginal: base.idiomaOriginal || {},
-      objetivo: completar(base.objetivo, 'Objetivo del estudio'),
-      contextoHistoricoLiterario: completar(base.contextoHistoricoLiterario, 'Contexto histórico y literario'),
-      estructuraLiteraria: completar(base.estructuraLiteraria, 'Estructura literaria'),
-      analisisGramatical: completar(base.analisisGramatical, 'Análisis gramatical'),
-      hermeneutica: completar(base.hermeneutica, 'Hermenéutica'),
-      exegesisVersiculoVersiculo: completar(base.exegesisVersiculoVersiculo, 'Exégesis versículo a versículo'),
-      comentarioMacArthur: base.comentarioMacArthur || '',
-      aplicacion: base.aplicacion || ''
+      objetivo: String(base.objetivo || '').trim(),
+      contextoHistoricoLiterario: String(base.contextoHistoricoLiterario || '').trim(),
+      estructuraLiteraria: String(base.estructuraLiteraria || '').trim(),
+      analisisGramatical: String(base.analisisGramatical || '').trim(),
+      hermeneutica: String(base.hermeneutica || '').trim(),
+      exegesisVersiculoVersiculo: String(base.exegesisVersiculoVersiculo || '').trim(),
+      comentarioMacArthur: String(base.comentarioMacArthur || '').trim(),
+      aplicacion: String(base.aplicacion || '').trim()
     };
     return res.status(200).json({ success: true, data: normalizado });
   } catch (error) {
