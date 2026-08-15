@@ -26,7 +26,7 @@ export default function AdminPage() {
   const [campaignSid, setCampaignSid] = useState('')
   const [notice, setNotice] = useState('')
   const [sending, setSending] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [authState, setAuthState] = useState<'signed-out' | 'unauthorized' | 'authorized'>('signed-out')
   const [authError, setAuthError] = useState('')
   const [retryCount, setRetryCount] = useState(0)
@@ -39,14 +39,15 @@ export default function AdminPage() {
     async function verifyAdmin() {
       setLoading(true)
       setAuthError('')
+      timeoutId = window.setTimeout(() => {
+        if (!cancelled) {
+          setAuthError('No se pudo verificar la sesión después de 8 segundos.')
+          setLoading(false)
+        }
+      }, 8000)
+
       try {
-        const sessionResult = await Promise.race([
-          supabase.auth.getSession(),
-          new Promise<never>((_, reject) => {
-            timeoutId = window.setTimeout(() => reject(new Error('La verificación de sesión tardó demasiado.')), 8000)
-          }),
-        ])
-        const { data: { session } } = sessionResult
+        const { data: { session } } = await supabase.auth.getSession()
         const user = session?.user ?? null
         if (cancelled) return
         if (!user) {
