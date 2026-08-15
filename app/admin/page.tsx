@@ -26,31 +26,58 @@ export default function AdminPage() {
   const [campaignSid, setCampaignSid] = useState('')
   const [notice, setNotice] = useState('')
   const [sending, setSending] = useState(false)
-  const [authState, setAuthState] = useState<'loading' | 'signed-out' | 'unauthorized' | 'authorized'>('loading')
+  const [loading, setLoading] = useState(true)
+  const [authState, setAuthState] = useState<'signed-out' | 'unauthorized' | 'authorized'>('signed-out')
+  const [authError, setAuthError] = useState('')
+  const [retryCount, setRetryCount] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     let cancelled = false
+    let timeoutId: number | undefined
+
     async function verifyAdmin() {
-      const { data: { session } } = await supabase.auth.getSession()
-      const user = session?.user ?? null
-      if (cancelled) return
-      if (!user) {
-        setAuthState('signed-out')
-        return
+      setLoading(true)
+      setAuthError('')
+      try {
+        const sessionResult = await Promise.race([
+          supabase.auth.getSession(),
+          new Promise<never>((_, reject) => {
+            timeoutId = window.setTimeout(() => reject(new Error('La verificación de sesión tardó demasiado.')), 8000)
+          }),
+        ])
+        const { data: { session } } = sessionResult
+        const user = session?.user ?? null
+        if (cancelled) return
+        if (!user) {
+          setAuthState('signed-out')
+          return
+        }
+        const { data: admin, error } = await supabase.from('admin_allowlist').select('email').eq('email', user.email || '').maybeSingle()
+        if (error) throw error
+        if (cancelled) return
+        if (!admin) {
+          setAuthState('unauthorized')
+          return
+        }
+        setAuthState('authorized')
+        void loadLeads()
+      } catch (error) {
+        if (!cancelled) {
+          setAuthError(error instanceof Error ? error.message : 'No se pudo verificar la sesión.')
+        }
+      } finally {
+        if (timeoutId !== undefined) window.clearTimeout(timeoutId)
+        if (!cancelled) setLoading(false)
       }
-      const { data: admin } = await supabase.from('admin_allowlist').select('email').eq('email', user.email || '').maybeSingle()
-      if (cancelled) return
-      if (!admin) {
-        setAuthState('unauthorized')
-        return
-      }
-      setAuthState('authorized')
-      void loadLeads()
     }
+
     void verifyAdmin()
-    return () => { cancelled = true }
-  }, [supabase])
+    return () => {
+      cancelled = true
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId)
+    }
+  }, [supabase, retryCount])
 
   async function loadLeads() {
     const { data, error } = await supabase.from('crm_contacts').select('id,full_name,email,whatsapp,status,source,consent_whatsapp,created_at').order('created_at', { ascending: false }).limit(100)
@@ -106,13 +133,15 @@ export default function AdminPage() {
   const filtered = leads.filter(lead => (status === 'all' || lead.status === status) && `${lead.full_name} ${lead.email || ''} ${lead.whatsapp || ''}`.toLowerCase().includes(query.toLowerCase()))
   const optedIn = leads.filter(lead => lead.consent_whatsapp).length
 
-  if (authState !== 'authorized') {
-    const message = authState === 'loading'
+  if (loading || authError || authState !== 'authorized') {
+    const message = loading
       ? 'Verificando sesión…'
-      : authState === 'signed-out'
-        ? 'Inicia sesión para acceder'
-        : 'No tienes permisos de administración'
-    return <main className="admin-shell" aria-live="polite"><section className="admin-main" style={{ display: 'grid', minHeight: '100vh', placeItems: 'center', padding: '2rem' }}><div className="empty-panel"><h1>{message}</h1></div></section></main>
+      : authError
+        ? authError
+        : authState === 'signed-out'
+          ? 'Inicia sesión para acceder al panel'
+          : 'No tienes permisos de administración'
+    return <main className="admin-shell" aria-live="polite"><section className="admin-main" style={{ display: 'grid', minHeight: '100vh', placeItems: 'center', padding: '2rem' }}><div className="empty-panel"><h1>{message}</h1>{authError && <button className="button-primary" type="button" onClick={() => setRetryCount((count) => count + 1)}>Reintentar</button>}</div></section></main>
   }
 
   return <div className="admin-shell">
