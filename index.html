@@ -945,7 +945,7 @@
   </div>
   </div>
   
-  <section x-show="iaVista === 'perspectivas'" class="rounded-2xl border border-line bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Biblioteca de perspectivas</p><h3 class="mt-1 font-serif text-xl text-gold-100">Selecciona las lentes de lectura</h3><p class="mt-2 text-xs leading-relaxed text-gray-500">Cada lente ayuda a formular mejores preguntas; ninguna sustituye la autoridad del texto bíblico ni el discernimiento comunitario.</p><div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3"><template x-for="l in LENTES_LISTA" :key="l.id"><button @click="iaPerspectivasSeleccionadas = iaPerspectivasSeleccionadas.includes(l.id) ? iaPerspectivasSeleccionadas.filter(id => id !== l.id) : [...iaPerspectivasSeleccionadas, l.id]" class="rounded-xl border p-3 text-left text-xs transition" :class="iaPerspectivasSeleccionadas.includes(l.id) ? 'border-gold-500 bg-gold-500/10 text-gold-700' : 'border-line bg-ink text-gray-500'"><span class="font-semibold" x-text="l.etiqueta"></span><span class="mt-1 block text-[11px] opacity-75">Activar para comparar.</span></button></template></div></section>
+  <section x-show="iaVista === 'perspectivas'" class="rounded-2xl border border-line bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Biblioteca de perspectivas</p><h3 class="mt-1 font-serif text-xl text-gold-100">Selecciona una lente de lectura</h3><p class="mt-2 text-xs leading-relaxed text-gray-500">Selecciona una sola lente por consulta para mantener separados sus términos y conceptos. Al cambiarla, se ejecuta una nueva consulta con esa perspectiva.</p><div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3"><template x-for="l in LENTES_LISTA" :key="l.id"><button type="button" @click="iaPerspectivasSeleccionadas = [l.id]; activarLente(l.id)" class="rounded-xl border p-3 text-left text-xs transition" :class="iaPerspectivasSeleccionadas[0] === l.id ? 'border-gold-500 bg-gold-500/10 text-gold-700' : 'border-line bg-ink text-gray-500'"><span class="font-semibold" x-text="l.etiqueta"></span><span class="mt-1 block text-[11px] opacity-75" x-text="iaPerspectivasSeleccionadas[0] === l.id ? 'Lente activa para esta consulta.' : 'Seleccionar como lente única.'"></span></button></template></div></section>
   <section x-show="iaVista === 'cuaderno'" class="rounded-2xl border border-gold-500/30 bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Cuaderno privado</p><h3 class="mt-1 font-serif text-xl text-gold-100">Anotar y concluir</h3><div class="mt-4 grid gap-4 md:grid-cols-2"><textarea x-model="iaAnotacionTexto" rows="5" placeholder="Fragmento o idea que quieres conservar..." class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea><textarea x-model="iaAnotacionNota" rows="5" placeholder="¿Qué debes creer, abandonar o practicar?" class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea></div><button @click="iaFichas.unshift({ref: estudioRef, texto: iaAnotacionTexto, nota: iaAnotacionNota})" class="mt-3 rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950">Guardar ficha</button></section>
   <div x-show="iaVista === 'consulta'" class="bg-panel border border-gold-500/30 rounded-2xl p-6">
                             <form @submit.prevent="ejecutarEstudio(busqueda)" class="flex flex-col sm:flex-row gap-3">
@@ -1901,7 +1901,7 @@
                         { titulo: 'Día 1 · Nombrar la carga', pasajes: ['Salmos 42:5', 'Salmos 62:8'] },
                         { titulo: 'Día 2 · Respirar y recordar', pasajes: ['Salmos 46:10', 'Isaías 26:3'] },
                         { titulo: 'Día 3 · No caminar solo', pasajes: ['Gálatas 6:2', 'Proverbios 12:25'] },
-                        { titulo: 'Día 4 �� Pensar con verdad', pasajes: ['Filipenses 4:8'] },
+                        { titulo: 'Día 4 ���� Pensar con verdad', pasajes: ['Filipenses 4:8'] },
                         { titulo: 'Día 5 · El cuidado de Dios', pasajes: ['Mateo 6:25-34'] },
                         { titulo: 'Día 6 · Pedir ayuda', pasajes: ['Marcos 2:1-5', 'Proverbios 15:22'] },
                         { titulo: 'Día 7 · Paz paso a paso', pasajes: ['Filipenses 4:6-9'] }
@@ -3014,10 +3014,10 @@ autenticando: false,
                 activarLente(id) {
                     const permitidas = this.LENTES_LISTA.map((l) => l.id);
                     if (!permitidas.includes(id)) id = 'teologia';
+                    const cambio = this.lenteActiva !== id;
                     this.lenteActiva = id;
-                    const key = id === 'autores' ? `autores:${this.autorSel}` : id;
-                    const actual = this.lentes[key];
-                    if (!actual || actual.estado === 'error') this.cargarLente(id);
+                    this.iaPerspectivasSeleccionadas = [id];
+                    if (this.busqueda && (cambio || !this.lentes[id] || this.lentes[id].estado === 'error')) this.cargarLente(id, true);
                 },
                 async cargarLente(id, forzar = false) {
                     const key = id === 'autores' ? `autores:${this.autorSel}` : id;
