@@ -3012,14 +3012,18 @@ autenticando: false,
                 parrafosDe(texto) {
                     return String(texto || '').split(/\n\n+/).map(s => s.trim()).filter(Boolean);
                 },
-                activarLente(id) {
-                    const permitidas = this.LENTES_LISTA.map((l) => l.id);
-                    if (!permitidas.includes(id)) id = 'teologia';
-                    const cambio = this.lenteActiva !== id;
-                    this.lenteActiva = id;
-                    this.iaPerspectivasSeleccionadas = [id];
-                    if (this.busqueda && (cambio || !this.lentes[id] || this.lentes[id].estado === 'error')) this.cargarLente(id, true);
-                },
+async activarLente(id) {
+  const permitidas = this.LENTES_LISTA.map((l) => l.id);
+  if (!permitidas.includes(id)) id = 'teologia';
+  this.lenteActiva = id;
+  this.iaPerspectivasSeleccionadas = [id];
+  if (!this.busqueda.trim()) {
+    this.iaVista = 'perspectivas';
+    return;
+  }
+  this.iaVista = 'consulta';
+  await this.cargarLente(id, true);
+  },
                 async cargarLente(id, forzar = false) {
                     const key = id === 'autores' ? `autores:${this.autorSel}` : id;
                     if (!forzar && this.lentes[key] && (this.lentes[key].estado === 'ready' || this.lentes[key].estado === 'loading')) return;
