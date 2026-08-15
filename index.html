@@ -1005,8 +1005,28 @@
                                 <p x-show="estudio.original" class="mt-4 pt-3 border-t border-line text-xs text-gray-400"><span class="text-gold-400 font-semibold uppercase tracking-wider text-[10px]">Idioma original</span> · <span x-text="estudio.original"></span></p>
                                 <p x-show="estudio.validacionCruzada === 'discrepancia'" class="mt-2 text-[11px] text-gold-400">Detectamos una discrepancia en este dato entre dos lecturas de la IA; se muestra la lectura más completa. Verifica el número de Strong en el diccionario léxico.</p>
                             </div>
-                            <div class="order-3 rounded-2xl border border-gold-500/30 bg-ink/80 p-4 shadow-lg shadow-black/10"><div class="flex flex-wrap items-end justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-400">Herramientas de estudio</p><h3 class="mt-1 text-base font-semibold text-[#FFF1C2]">Explora este pasaje desde varias consultas</h3><p class="mt-1 max-w-2xl text-xs leading-relaxed text-gray-400">Elige una herramienta para cambiar el tipo de lectura. Cada consulta trabaja de forma independiente.</p></div><span class="rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold-300">4 opciones</span></div><div class="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-4"><template x-for="tab in [{id:'analisis',label:'Análisis',hint:'Comprender el texto'}, {id:'comparacion',label:'Comparativo',hint:'Leer versiones'}, {id:'autores',label:'Comentarios',hint:'Consultar autores'}, {id:'predica',label:'Predicar',hint:'Construir mensaje'}]" :key="tab.id"><button type="button" @click="estudioPestana = tab.id; if (tab.id === 'predica') completarPredica()" class="group rounded-xl border px-3 py-3 text-left transition-all" :class="estudioPestana === tab.id ? 'border-gold-400 bg-gold-500 text-gray-950 shadow-md' : 'border-line/80 bg-night/70 text-gray-300 hover:border-gold-500/60 hover:bg-night'" :aria-current="estudioPestana === tab.id ? 'page' : undefined"><span class="block text-sm font-bold" x-text="tab.label"></span><span class="mt-1 block text-[10px] leading-relaxed opacity-75" x-text="tab.hint"></span></button></template></div></div>
-                            <section x-show="estudioPestana === 'analisis'" class="order-6 space-y-4"><div x-show="itemsAnalisis().length" class="grid items-start gap-4 md:grid-cols-2"><template x-for="item in itemsAnalisis()" :key="item.t"><article class="rounded-xl border border-line bg-panel p-5"><h3 class="font-serif text-lg text-slate-800" x-text="item.t"></h3><p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-slate-700" x-text="item.v"></p></article></template></div><div x-show="!itemsAnalisis().length" class="rounded-xl border border-red-300/70 bg-red-50/90 p-5"><p class="text-sm font-semibold leading-relaxed text-red-700">No hay devoluciones verificables para las secciones de análisis de esta consulta. No se muestran tarjetas vacías ni contenido inferido.</p></div></section>
+                            <div class="order-3 rounded-2xl border border-gold-500/30 bg-ink/80 p-4 shadow-lg shadow-black/10"><div class="flex flex-wrap items-end justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-400">Herramientas de estudio</p><h3 class="mt-1 text-base font-semibold text-[#FFF1C2]">Explora este pasaje desde varias consultas</h3><p class="mt-1 max-w-2xl text-xs leading-relaxed text-gray-400">Elige una herramienta para cambiar el tipo de lectura. Cada consulta trabaja de forma independiente.</p></div><span class="rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold-300">3 opciones</span></div><div class="mt-4 grid grid-cols-3 gap-2"><template x-for="tab in [{id:'referencias',label:'Referencias cruzadas',hint:'Pasajes relacionados'}, {id:'comparacion',label:'Comparativo',hint:'Leer versiones'}, {id:'autores',label:'Comentarios',hint:'Consultar autores'}]" :key="tab.id"><button type="button" @click="estudioPestana = tab.id; if (tab.id === 'referencias' && referenciasEstudioEstado.estado !== 'ready') cargarReferenciasEstudio()" class="group rounded-xl border px-3 py-3 text-left transition-all" :class="estudioPestana === tab.id ? 'border-gold-400 bg-gold-500 text-gray-950 shadow-md' : 'border-line/80 bg-night/70 text-gray-300 hover:border-gold-500/60 hover:bg-night'" :aria-current="estudioPestana === tab.id ? 'page' : undefined"><span class="block text-sm font-bold" x-text="tab.label"></span><span class="mt-1 block text-[10px] leading-relaxed opacity-75" x-text="tab.hint"></span></button></template></div></div>
+                            <section x-show="estudioPestana === 'referencias'" class="order-4 space-y-4 rounded-xl border border-line bg-panel p-5">
+                                <div x-show="referenciasEstudioEstado.estado === 'loading'" class="flex items-center gap-2 text-amber-800 text-sm py-4 justify-center">
+                                    <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
+                                    Buscando pasajes relacionados...
+                                </div>
+                                <div x-show="referenciasEstudioEstado.estado === 'error'" class="text-center py-4">
+                                    <p class="text-sm text-red-700" x-text="referenciasEstudioEstado.mensaje"></p>
+                                    <button @click="cargarReferenciasEstudio(true)" class="mt-2 text-xs text-amber-800 border border-line px-3 py-1.5 rounded-lg hover:bg-gold-500/10">Reintentar</button>
+                                </div>
+                                <div x-show="referenciasEstudioEstado.estado === 'ready' && referenciasEstudioEstado.referencias?.length" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <template x-for="(r, i) in referenciasEstudioEstado.referencias" :key="i">
+                                        <button @click="leerReferencia(r.ref)" class="text-left bg-ink/5 hover:bg-gold-500/10 border border-line hover:border-gold-500/40 rounded-lg px-3 py-2.5 transition-all group">
+                                            <span class="block text-sm font-semibold text-amber-800 group-hover:text-amber-700" x-text="r.ref"></span>
+                                            <span class="block text-xs text-slate-500 mt-0.5 leading-snug" x-text="r.nota"></span>
+                                        </button>
+                                    </template>
+                                </div>
+                                <div x-show="referenciasEstudioEstado.estado === 'ready' && !referenciasEstudioEstado.referencias?.length" class="text-center py-4">
+                                    <p class="text-sm text-slate-500">No hay referencias cruzadas verificables para esta consulta.</p>
+                                </div>
+                            </section>
                             <section x-show="estudioPestana === 'comparacion'" class="order-4 space-y-4">
                                 <div class="rounded-xl border border-line bg-panel p-5"><p class="text-xs font-bold uppercase tracking-wider text-amber-800">Escoge las versiones</p><p class="mt-1 text-sm text-slate-600">Selecciona las traducciones que quieres leer lado a lado.</p><div class="mt-4 flex flex-wrap gap-2"><template x-for="v in versionesLista" :key="'cmp-' + v.key"><label class="flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs" :class="versionesComparar.includes(v.key) ? 'border-gold-500 bg-gold-500/10 font-bold' : 'border-line'"><input type="checkbox" :value="v.key" x-model="versionesComparar" class="accent-amber-600"><span x-text="v.etiqueta"></span></label></template></div><button @click="versionesComparar = versionesComparar.length ? versionesComparar : [versionSel]" class="mt-4 rounded-lg bg-gold-500 px-4 py-2 text-xs font-bold text-gray-950">Comparar seleccionadas</button></div>
                                 <div class="grid gap-3 md:grid-cols-2"><template x-for="key in versionesComparar" :key="'card-' + key"><article class="rounded-xl border border-line bg-panel p-5"><div class="flex items-center justify-between gap-2"><h3 class="font-semibold text-slate-800" x-text="versionesLista.find(v => v.key === key)?.etiqueta || key"></h3><span x-show="key === versionSel" class="rounded-full bg-gold-500/20 px-2 py-1 text-[10px] text-amber-800">Principal</span></div><p class="mt-3 font-serif text-lg leading-relaxed text-slate-700" x-text="versiones[key] || 'Esta versión no está disponible para el pasaje.'"></p></article></template></div>
@@ -1015,7 +1035,6 @@
                                 <div class="rounded-xl border border-line bg-panel p-5"><p class="text-xs font-bold uppercase tracking-wider text-amber-800">Escoge los autores</p><div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4"><template x-for="a in AUTORES_LISTA" :key="'sel-' + a.id"><label class="flex cursor-pointer items-center gap-2 rounded-lg border border-line px-3 py-2 text-xs"><input type="checkbox" :value="a.id" x-model="autoresComparar" class="accent-amber-600"><span x-text="a.nombre"></span></label></template></div><button @click="cargarAutoresSeleccionados()" class="mt-4 rounded-lg bg-gold-500 px-4 py-2 text-xs font-bold text-gray-950">Cargar comentarios seleccionados</button><p class="mt-2 text-[11px] text-slate-500">RevelatiO genera una síntesis propia; no reproduce textos protegidos.</p></div>
                                 <div class="grid gap-3 md:grid-cols-2"><template x-for="id in autoresComparar" :key="'author-card-' + id"><article class="rounded-xl border border-line bg-panel p-5"><p class="text-xs uppercase tracking-wider text-amber-800" x-text="AUTORES_LISTA.find(a => a.id === id)?.nombre"></p><template x-if="lentes['autores:' + id]?.estado === 'loading'"><p class="mt-3 text-sm text-slate-500">Preparando comentario…</p></template><template x-if="lentes['autores:' + id]?.estado === 'ready'"><div><p class="mt-3 text-sm leading-relaxed text-slate-700" x-text="lentes['autores:' + id].cuerpo"></p><p class="mt-3 border-t border-line pt-3 text-[10px] text-slate-500">Síntesis de RevelatiO IA sobre la línea teológica públicamente conocida del autor.</p></div></template><template x-if="!lentes['autores:' + id] || lentes['autores:' + id]?.estado === 'error'"><p class="mt-3 text-sm text-slate-500">Pulsa el botón para cargar este comentario.</p></template></article></template></div>
                             </section>
-                            <section x-show="estudioPestana === 'predica'" class="order-4 space-y-4 rounded-2xl border border-gold-500/30 bg-panel p-6"><div><p class="text-xs uppercase tracking-wider text-amber-800">Constructor de prédica</p><p class="mt-1 text-sm text-slate-600">Organiza el estudio en una enseñanza clara, fiel al texto y aplicable a la iglesia.</p></div><div class="grid gap-3 md:grid-cols-2"><label class="text-xs font-semibold text-slate-700">Título<input x-model="predicaEditable.titulo" class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm"></label><label class="text-xs font-semibold text-slate-700">Texto base<input x-model="predicaEditable.textoBase" class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm" :placeholder="estudioRef"></label><label class="text-xs font-semibold text-slate-700">Idea central<textarea x-model="predicaEditable.ideaCentral" rows="2" class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm"></textarea></label><label class="text-xs font-semibold text-slate-700">Propósito<textarea x-model="predicaEditable.proposito" rows="2" class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm"></textarea></label><label class="text-xs font-semibold text-slate-700 md:col-span-2">Introducción<textarea x-model="predicaEditable.introduccion" rows="3" class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm"></textarea></label></div><div><p class="text-xs font-semibold text-slate-700">Bosquejo</p><div class="mt-2 grid gap-2 md:grid-cols-3"><template x-for="(punto, i) in predicaEditable.puntos" :key="i"><input x-model="predicaEditable.puntos[i]" class="rounded-lg border border-line px-3 py-2 text-sm" :placeholder="'Punto ' + (i + 1)"></template></div></div><div class="grid gap-3 md:grid-cols-2"><label class="text-xs font-semibold text-slate-700">Aplicaciones<textarea x-model="predicaEditable.aplicaciones" rows="3" class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm"></textarea></label><label class="text-xs font-semibold text-slate-700">Llamado<textarea x-model="predicaEditable.llamado" rows="3" class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm"></textarea></label><label class="text-xs font-semibold text-slate-700 md:col-span-2">Cierre<textarea x-model="predicaEditable.cierre" rows="2" class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm"></textarea></label><label class="text-xs font-semibold text-slate-700 md:col-span-2">Apuntes del predicador<textarea x-model="predicaEditable.notas" rows="5" placeholder="Añade aquí ilustraciones, observaciones, aplicaciones pastorales y notas personales." class="mt-1 w-full rounded-lg border border-line px-3 py-2 text-sm"></textarea></label></div><button @click="completarPredica()" class="rounded-lg bg-gold-500 px-4 py-2 text-xs font-bold text-gray-950">Completar con este estudio</button></section>
 
                             <!-- Barra de exportar -->
                             <div class="order-5 flex flex-wrap items-center gap-2">
@@ -2232,7 +2251,7 @@ autenticando: false,
                 estudio: { comentario: '', original: '', aplicacion: '', objetivo: '', contexto: '', estructura: '', analisisGramatical: '', hermeneutica: '', exegesis: '', comparaciones: [], comentarios: [], predica: { titulo: '', texto: '', puntos: [], aplicaciones: [], cierre: '' } },
                 estudioNotas: {},
                 estudioResaltados: {},
-  estudioPestana: 'analisis',
+  estudioPestana: 'referencias',
   versionesComparar: [],
   autoresComparar: ['matthew-henry'],
   predicaEditable: { titulo: '', textoBase: '', ideaCentral: '', proposito: '', introduccion: '', puntos: ['', '', ''], aplicaciones: '', llamado: '', cierre: '', notas: '' },
@@ -2521,7 +2540,7 @@ autenticando: false,
   this.autenticando = true; this.loginError = '';
   const nombre = this.registroNombre.trim().replace(/\s+/g, ' ');
   const whatsapp = this.registroWhatsapp.replace(/[\s()-]/g, '');
-  if (nombre.length < 2 || !/^\+[1-9]\d{7,14}$/.test(whatsapp)) { this.loginError = 'Escribe tu nombre y un WhatsApp válido en formato internacional (+34600111222).'; this.autenticando = false; return; }
+  if (nombre.length < 2 || !/^\+[1-9]\d{7,14}$/.test(whatsapp)) { this.loginError = 'Escribe tu nombre y un WhatsApp v��lido en formato internacional (+34600111222).'; this.autenticando = false; return; }
   const { data, error } = await supabaseClient.auth.signUp({ email: this.loginEmail.trim().toLowerCase(), password: this.loginPass, options: { emailRedirectTo: 'https://revelatiobiblia.vercel.app', data: { full_name: nombre, whatsapp } } });
   if (error) { this.loginError = 'No se pudo crear la cuenta. Revisa el correo, la contraseña y vuelve a intentarlo.'; this.autenticando = false; return; }
   if (data.session) { await fetch('/api/profile', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ full_name: nombre, email: this.loginEmail.trim().toLowerCase(), whatsapp, consent_whatsapp: true }) }); }
@@ -2988,7 +3007,9 @@ autenticando: false,
                             },
                         };
                         this.lenteActiva = 'exegesis';
+                        this.estudioPestana = 'referencias';
                         this.estudioListo = true;
+                        this.cargarReferenciasEstudio(true);
                         this.mensajeEstudio = 'Análisis base listo. Elige una perspectiva para cargarla cuando la necesites.';
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
@@ -3345,6 +3366,35 @@ async activarLente(id) {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                             body: JSON.stringify({ consulta: this.referenciaActiva })
+                        });
+                        if (response.status === 401) throw new Error('SESION');
+                        const result = await response.json();
+                        if (!response.ok || !result.success) throw new Error(result.error || 'No se pudieron obtener las referencias.');
+                        this.referenciasBiblia[key] = {
+                            estado: 'ready',
+                            referencias: (result.data?.referencias || []).map(r => ({ ref: this.limpiar(r.ref), nota: this.limpiar(r.nota) }))
+                        };
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.referenciasBiblia[key] = { estado: 'error', mensaje: error.message || 'Error de conexión.' };
+                    }
+                },
+                get referenciasEstudioEstado() {
+                    return this.estudioRef ? (this.referenciasBiblia[this.estudioRef] || { estado: 'idle' }) : { estado: 'idle' };
+                },
+                async cargarReferenciasEstudio(forzar = false) {
+                    if (!this.estudioRef) return;
+                    const key = this.estudioRef;
+                    const actual = this.referenciasBiblia[key];
+                    if (!forzar && actual && (actual.estado === 'ready' || actual.estado === 'loading')) return;
+                    this.referenciasBiblia[key] = { estado: 'loading' };
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const response = await fetch('/api/referencias', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ consulta: key })
                         });
                         if (response.status === 401) throw new Error('SESION');
                         const result = await response.json();
