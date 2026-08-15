@@ -80,7 +80,7 @@ Reglas:
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
 - Escribe en español claro. PROHIBIDO usar LaTeX o notación matemática (nada de \\rightarrow, $...$, \\text, símbolos de fórmula). Usa palabras y flechas simples como "->".
 
-Consulta: ${consulta}${contextoOriginal}`);
+Consulta: ${consulta}${contextoOriginal}`, { maxOutputTokens: 5000, reintentos: 1 });
     const base = typeof data === 'object' && data ? data : {};
     const textoRespaldo = String(base.comentarioMacArthur || base.aplicacion || '').trim();
     const completar = (valor, etiqueta) => String(valor || '').trim() || (textoRespaldo ? `${etiqueta}: ${textoRespaldo}` : 'No se pudo desarrollar esta sección con los datos disponibles.');
