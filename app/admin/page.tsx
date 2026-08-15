@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BarChart3, Bell, ChevronRight, FileUp, Filter, LayoutDashboard, Mail, Megaphone, MessageCircle, MoreHorizontal, Plus, Search, Send, Settings2, Tags, Users, X } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
@@ -14,7 +14,7 @@ const tabs: { id: Tab; label: string; icon: typeof Users }[] = [
 ]
 
 export default function AdminPage() {
-  const supabase = useMemo(() => createClient(), [])
+  const supabaseRef = useRef<ReturnType<typeof createClient> | null>(null)
   const [tab, setTab] = useState<Tab>('leads')
   const [leads, setLeads] = useState<Lead[]>([])
   const [query, setQuery] = useState('')
@@ -37,6 +37,8 @@ export default function AdminPage() {
     let timeoutId: number | undefined
 
     async function verifyAdmin() {
+      const supabase = createClient()
+      supabaseRef.current = supabase
       setLoading(true)
       setAuthError('')
       try {
@@ -75,9 +77,11 @@ export default function AdminPage() {
       cancelled = true
       if (timeoutId !== undefined) window.clearTimeout(timeoutId)
     }
-  }, [supabase, retryCount])
+  }, [])
 
   async function loadLeads() {
+    const supabase = supabaseRef.current
+    if (!supabase) return
     const { data, error } = await supabase.from('crm_contacts').select('id,full_name,email,whatsapp,status,source,consent_whatsapp,created_at').order('created_at', { ascending: false }).limit(100)
     if (error) setNotice('No se pudo cargar el CRM. Comprueba que tu usuario sea administrador.')
     setLeads((data as Lead[]) || [])
@@ -89,6 +93,8 @@ export default function AdminPage() {
     }
     setSending(true)
     try {
+      const supabase = supabaseRef.current
+      if (!supabase) throw new Error('La sesión aún no está disponible.')
       const { data } = await supabase.auth.getSession()
       const token = data.session?.access_token
       if (!token) throw new Error('Tu sesión venció. Inicia sesión de nuevo.')
@@ -112,6 +118,8 @@ export default function AdminPage() {
     if (!campaignSid.trim()) { setNotice('Para leads externos necesitas un Content SID de Twilio aprobado.'); return }
     setSending(true)
     try {
+      const supabase = supabaseRef.current
+      if (!supabase) throw new Error('La sesión aún no está disponible.')
       const { data } = await supabase.auth.getSession()
       const response = await fetch('/api/admin/whatsapp/campaign', { method: 'POST', headers: { 'content-type': 'application/json', Authorization: `Bearer ${data.session?.access_token || ''}` }, body: JSON.stringify({ contentSid: campaignSid.trim(), body: campaignBody, recipients: recipients.map((lead) => ({ id: lead.id, name: lead.full_name, whatsapp: lead.whatsapp })) }) })
       const result = await response.json()
@@ -121,6 +129,8 @@ export default function AdminPage() {
   }
   async function addLead(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); const form = new FormData(event.currentTarget)
+    const supabase = supabaseRef.current
+    if (!supabase) { setNotice('La sesión aún no está disponible.'); return }
     const { error } = await supabase.from('crm_contacts').insert({ full_name: String(form.get('full_name')), email: String(form.get('email') || '') || null, whatsapp: String(form.get('whatsapp') || '') || null, consent_whatsapp: form.get('consent_whatsapp') === 'on' })
     setNotice(error ? 'No se pudo crear el lead.' : 'Lead creado correctamente.'); if (!error) { setShowComposer(false); void loadLeads() }
   }
