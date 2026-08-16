@@ -197,6 +197,7 @@
         .bg-panel button.bg-ink, .bg-panel button.bg-ink * {
             color: var(--rv-cream) !important; -webkit-text-fill-color: var(--rv-cream) !important;
         }
+        .bg-panel .flex.flex-wrap.gap-1 button:not(.bg-gold-600), .bg-panel2 .flex.flex-wrap.gap-1 button:not(.bg-gold-600) { color: #334155 !important; -webkit-text-fill-color: #334155 !important; background: rgba(255,255,255,.92) !important; }
         .bg-panel button.bg-gold-500, .bg-panel button.bg-gold-500 *, .bg-panel button.bg-gold-600, .bg-panel button.bg-gold-600 *,
         .bg-panel div.bg-ink button.bg-gold-600, .bg-panel div.bg-ink button.bg-gold-600 * { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
 
@@ -770,7 +771,7 @@
                                         </div>
                                         <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
                                             <template x-for="v in versionesLista" :key="v.key">
-                                                <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-100 hover:text-white'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
+<button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold shadow-sm' : 'bg-white/90 text-slate-700 hover:bg-gold-50 hover:text-slate-950'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
                                             </template>
                                         </div>
                                     </div>
