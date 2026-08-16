@@ -1841,7 +1841,7 @@
                 {
                     id: 'dominio-propio',
                     titulo: 'Dominio propio en tiempos difíciles',
-                    categoria: 'Car��cter',
+                    categoria: 'Car���cter',
                     duracion: 7,
                     imagen: '/brand/revelatio-logo-full-new.jpeg',
                     descripcion: 'Un camino práctico para responder con sabiduría frente al enojo, la impulsividad, la pantalla y la presión diaria.',
@@ -3752,11 +3752,11 @@ async activarLente(id) {
 
                 // ===== Lector "modo libro" =====
                 get versosActuales() {
-                    const versos = this.versionesVersos[this.versionSel] || this.versionesVersos[Object.keys(this.versionesVersos)[0]] || [];
+                    const versos = this.versionesVersos[this.versionSel] || (this.versionSel === 'interlineal' ? this.versionesVersos.original : null) || this.versionesVersos[Object.keys(this.versionesVersos)[0]] || [];
                     return (Array.isArray(versos) ? versos : []).map((verso, indice) => ({
                         ...verso,
                         n: Number(verso.n ?? verso.numero ?? verso.versiculo ?? indice + 1),
-                        texto: verso.texto ?? verso.text ?? ''
+                        texto: verso.texto ?? verso.text ?? (Array.isArray(verso.tokens) ? verso.tokens.map(token => `${token.palabra || token.texto || ''}${token.strong ? ` [${token.strong}]` : ''}`).join(' ') : '')
                     })).filter(verso => verso.texto);
                 },
                 claveCapitulo(libro = this.libroSel?.n, capitulo = this.capituloSel) {
