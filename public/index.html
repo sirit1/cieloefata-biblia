@@ -1841,7 +1841,7 @@
                 {
                     id: 'dominio-propio',
                     titulo: 'Dominio propio en tiempos difíciles',
-                    categoria: 'Car���cter',
+                    categoria: 'Car����cter',
                     duracion: 7,
                     imagen: '/brand/revelatio-logo-full-new.jpeg',
                     descripcion: 'Un camino práctico para responder con sabiduría frente al enojo, la impulsividad, la pantalla y la presión diaria.',
@@ -2779,11 +2779,11 @@ autenticando: false,
                 },
 
                 get versionesLista() {
-                    const etiquetas = {
-                        rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
-                        lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta', interlineal: 'Interlineal · Original + Strong'
-                    };
-                    const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta', 'interlineal'];
+const etiquetas = {
+  rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
+  lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta', septuaginta: 'Septuaginta · LXX', interlineal: 'Interlineal · Original + Strong'
+  };
+  const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta', 'septuaginta', 'interlineal'];
                     const disponibles = Object.keys(this.versiones).filter(k => this.versiones[k]);
                     return disponibles
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
@@ -2862,8 +2862,11 @@ autenticando: false,
                     this.errorPasaje = '';
                     try {
                         const data = await this.obtenerPasajeReal(ref);
-                        this.versiones = data.versiones;
+                        this.versiones = { ...(data.versiones || {}) };
                         this.versionesVersos = data.versionesVersos || {};
+                        if (data.original?.septuaginta?.texto && data.referencia?.esAT !== false) {
+                            this.versiones.septuaginta = data.original.septuaginta.texto;
+                        }
                         this.referenciaActiva = data.referencia;
   if (!this.versiones[this.versionSel]) {
   this.versionSel = this.versionesLista[0]?.key || 'rvr1960';

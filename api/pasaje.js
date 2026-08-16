@@ -73,6 +73,15 @@ export default async function handler(req, res) {
       versionesLista.push({ key: 'peshitta', etiqueta: 'Peshitta · edición adjunta verificada' });
     }
 
+    if (ref.esAT && original?.septuaginta?.texto) {
+      versiones.septuaginta = original.septuaginta.texto;
+      versionesVersos.septuaginta = original.septuaginta.texto.split(/(?=\d+\s)/).filter(Boolean).map((texto, indice) => {
+        const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/);
+        return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() };
+      });
+      versionesLista.push({ key: 'septuaginta', etiqueta: 'Septuaginta · LXX' });
+    }
+
     const tieneStrong = original?.versos?.some((verso) => verso.tokens?.some((token) => token.strong));
     if (tieneStrong) {
       versiones.interlineal = original.versos.map((verso) => (verso.tokens || []).map((token) => `${token.palabra || token.texto || ''}${token.strong ? ` [${token.strong}]` : ''}`).join(' ')).join(' · ');
