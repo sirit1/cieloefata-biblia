@@ -2706,9 +2706,19 @@ bibliotecaPestana: 'inicio',
                     this.versiculoSel = 1;
                 },
 
+                aplanarTexto(valor) {
+                    if (valor == null) return '';
+                    if (typeof valor === 'string') return valor;
+                    if (typeof valor === 'number' || typeof valor === 'boolean') return String(valor);
+                    if (Array.isArray(valor)) return valor.map(v => this.aplanarTexto(v)).filter(Boolean).join('\n\n');
+                    if (typeof valor === 'object') return Object.values(valor).map(v => this.aplanarTexto(v)).filter(Boolean).join('\n\n');
+                    return String(valor);
+                },
                 limpiar(texto) {
                     if (!texto) return '';
-                    return String(texto)
+                    // Blindaje: si el motor IA (o una respuesta ya cacheada) devolvió un
+                    // objeto/array en vez de texto plano, lo aplanamos en vez de mostrar "[object Object]".
+                    return this.aplanarTexto(texto)
                         .replace(/\$+/g, '')
                         .replace(/\\(rightarrow|to|Rightarrow)/g, '->')
                         .replace(/\\text\{([^}]*)\}/g, '$1')

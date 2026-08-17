@@ -14,6 +14,22 @@ function getCacheClient() {
   return createClient(url, serviceRoleKey, { auth: { persistSession: false, autoRefreshToken: false } });
 }
 
+// El motor IA usa un JSON libre (sin schema estricto) y ocasionalmente
+// devuelve "cuerpo"/"titulo"/"destacado" como objeto anidado en vez de
+// texto plano (p. ej. {introduccion:"...", desarrollo:"..."}). Esta función
+// aplana cualquier forma inesperada a un string legible para evitar que la
+// interfaz muestre literalmente "[object Object]".
+function aplanarTexto(valor) {
+  if (valor == null) return '';
+  if (typeof valor === 'string') return valor;
+  if (typeof valor === 'number' || typeof valor === 'boolean') return String(valor);
+  if (Array.isArray(valor)) return valor.map(aplanarTexto).filter(Boolean).join('\n\n');
+  if (typeof valor === 'object') {
+    return Object.values(valor).map(aplanarTexto).filter(Boolean).join('\n\n');
+  }
+  return String(valor);
+}
+
 function buildCacheKey(consulta, lente, autorKey) {
   return [consulta.trim().toLowerCase(), lente.trim().toLowerCase(), autorKey.trim().toLowerCase()].join('::');
 }
@@ -220,9 +236,9 @@ Reglas:
 
 Consulta: ${consulta}${contextoOriginal}`);
     const responseData = {
-      titulo: data.titulo || titulo,
-      cuerpo: data.cuerpo || '',
-      destacado: data.destacado || '',
+      titulo: aplanarTexto(data.titulo) || titulo,
+      cuerpo: aplanarTexto(data.cuerpo),
+      destacado: aplanarTexto(data.destacado),
       autor: nombreAutor || null,
       esDominioPublico: esAutor ? esDominioPublico : null,
     };
