@@ -2393,7 +2393,10 @@ iaFichas: [],
                 bibliaAutorSel: 'john-macarthur',
                 comentariosBiblia: {},
                 referenciasBiblia: {},
-                cachePasaje: {},
+                // Caché offline-first de capítulos: memoria (instantánea en la sesión)
+                // respaldada por localStorage (instantánea entre recargas/sesiones).
+                chapterCache: {},
+                CHAPTER_CACHE_LIMIT: 40,
                 cacheLexico: {},
                 offlineDisponible: false,
                 offlineGuardando: false,
@@ -2814,10 +2817,42 @@ bibliotecaPestana: 'inicio',
                     return limpio;
                 },
 
+                // ---------- Caché offline-first de capítulos (memoria + localStorage) ----------
+  claveCapituloCache(ref) {
+  return String(ref || '').trim().toLowerCase();
+  },
+  leerCapituloCache(claveCap) {
+  if (this.chapterCache[claveCap]) return this.chapterCache[claveCap];
+  try {
+  const bruto = localStorage.getItem(`rv_cap:${claveCap}`);
+  if (bruto) {
+  const datos = JSON.parse(bruto);
+  this.chapterCache[claveCap] = datos; // promueve a memoria para el siguiente hit
+  return datos;
+  }
+  } catch (_e) { /* localStorage no disponible o corrupto: se ignora y sigue a red */ }
+  return null;
+  },
+  guardarCapituloCache(claveCap, datos) {
+  this.chapterCache[claveCap] = datos;
+  try {
+  localStorage.setItem(`rv_cap:${claveCap}`, JSON.stringify(datos));
+  const idx = JSON.parse(localStorage.getItem('rv_cap_idx') || '[]').filter(k => k !== claveCap);
+  idx.push(claveCap);
+  while (idx.length > this.CHAPTER_CACHE_LIMIT) {
+  const vieja = idx.shift();
+  localStorage.removeItem(`rv_cap:${vieja}`);
+  }
+  localStorage.setItem('rv_cap_idx', JSON.stringify(idx));
+  } catch (_e) { /* cuota de localStorage excedida: la caché sigue viva solo en memoria */ }
+  },
+
                 // Texto bíblico REAL (no generado por IA), instantáneo, con ocho versiones: siete traducciones servidas por Bolls y la línea española asociada a la Peshitta.
   async obtenerPasajeReal(ref) {
-  if (this.cachePasaje[ref]) return this.cachePasaje[ref];
-  const key = `pasaje:${String(ref).trim().toLowerCase()}`;
+  const claveCap = this.claveCapituloCache(ref);
+  const enCache = this.leerCapituloCache(claveCap);
+  if (enCache) return enCache;
+  const key = `pasaje:${claveCap}`;
   try {
     const local = await window.RevelatioOfflineBible?.get(key);
     if (local) { this.offlineDisponible = true; return local; }
@@ -2835,7 +2870,7 @@ bibliotecaPestana: 'inicio',
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
                     const limpio = { referencia: data.referencia || ref, versiones: { ...(data.versiones || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto } : {}), ...(data.original?.versos?.length ? { interlineal: data.original.versos.map(v => (v.tokens || []).map(t => `${t.palabra || t.texto || ''}${t.strong ? ` [${t.strong}]` : ''}`).join(' ')).join(' · ') } : {}) }, versionesVersos: { ...(data.versionesVersos || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto.split(/(?=\d+\s)/).filter(Boolean).map((texto, indice) => { const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/); return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() }; }) } : {}) }, versionesLista: (data.versionesLista || []).map(v => v.key === 'peshitta' ? { ...v, etiqueta: 'Biblia Peshitta' } : v), original: data.original || null }; window.__revelatioPassageData = limpio;
-this.cachePasaje[ref] = limpio;
+this.guardarCapituloCache(claveCap, limpio);
   this.versionesListaAPI = limpio.versionesLista || [];
   return limpio;
                 },
@@ -2942,26 +2977,54 @@ const etiquetas = {
                 irAResultadoConcordancia(r) {
                     if (r.ref) this.leerReferencia(r.ref);
                 },
+                // Aplica los datos ya resueltos de un pasaje al estado del lector.
+                // Compartido por el camino instantáneo (caché) y el camino de red.
+                aplicarDatosPasaje(data) {
+                    this.versiones = { ...(data.versiones || {}) };
+                    this.versionesVersos = data.versionesVersos || {};
+                    if (data.original?.septuaginta?.texto && data.referencia?.esAT !== false) {
+                        this.versiones.septuaginta = data.original.septuaginta.texto;
+                    }
+                    this.referenciaActiva = data.referencia;
+                    if (!this.versiones[this.versionSel]) {
+                        this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+                    }
+                    if (!this.versiones[this.versionParalelaSel] || this.versionParalelaSel === this.versionSel) {
+                        this.versionParalelaSel = this.versionesLista.find(v => v.key !== this.versionSel)?.key || this.versionesLista[1]?.key || this.versionSel;
+                    }
+                    this.original = data.original || null;
+                    this.pasajesLeidos++;
+                    this.guardarProgreso();
+                },
+                // Vuelve al inicio del área de lectura sin el salto brusco de un
+                // scrollTo instantáneo: el capítulo nuevo entra siempre desde arriba.
+                scrollLectorArriba() {
+                    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' });
+                },
                 async cargarPasaje(ref) {
+                    const claveCap = this.claveCapituloCache(ref);
+                    const enCache = this.leerCapituloCache(claveCap);
+
+                    // Optimistic UI: si el capítulo ya está en memoria o localStorage,
+                    // se renderiza al instante (0 ms), sin loader ni parpadeo.
+                    if (enCache) {
+                        this.errorPasaje = '';
+                        this.aplicarDatosPasaje(enCache);
+                        this.scrollLectorArriba();
+                        if (this.verComentarios) this.cargarComentario();
+                        if (this.verReferencias) {
+                            setTimeout(() => this.cargarReferencias(), 1400);
+                        }
+                        return;
+                    }
+
+                    // Cache miss: micro-loader mientras se resuelve desde IndexedDB/red.
                     this.cargandoPasaje = true;
                     this.errorPasaje = '';
                     try {
                         const data = await this.obtenerPasajeReal(ref);
-                        this.versiones = { ...(data.versiones || {}) };
-                        this.versionesVersos = data.versionesVersos || {};
-                        if (data.original?.septuaginta?.texto && data.referencia?.esAT !== false) {
-                            this.versiones.septuaginta = data.original.septuaginta.texto;
-                        }
-                        this.referenciaActiva = data.referencia;
-  if (!this.versiones[this.versionSel]) {
-  this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
-  }
-  if (!this.versiones[this.versionParalelaSel] || this.versionParalelaSel === this.versionSel) {
-  this.versionParalelaSel = this.versionesLista.find(v => v.key !== this.versionSel)?.key || this.versionesLista[1]?.key || this.versionSel;
-  }
-  this.original = data.original || null;
-                        this.pasajesLeidos++;
-                        this.guardarProgreso();
+                        this.aplicarDatosPasaje(data);
+                        this.scrollLectorArriba();
                         // Si hay paneles de estudio abiertos, cárgalos para el nuevo pasaje.
                         // Se escalonan (no en paralelo) porque ambos golpean la misma cuota
                         // gratuita de IA: lanzarlos juntos dispara falsos "muchas consultas"
