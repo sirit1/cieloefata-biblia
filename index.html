@@ -963,43 +963,8 @@
   
   <section x-show="iaVista === 'perspectivas'" class="rounded-2xl border border-line bg-panel p-5"><p class="text-[10px] uppercase tracking-wider text-gold-500">Biblioteca de perspectivas</p><h3 class="mt-1 font-serif text-xl text-gold-100">Selecciona una lente de lectura</h3><p class="mt-2 text-xs leading-relaxed text-gray-500">Primero escribe qué quieres estudiar, elige una lente y pulsa aplicar. La respuesta aparecerá en la vista de consulta.</p><form @submit.prevent="ejecutarEstudio(busqueda)" class="mt-4 flex flex-col gap-3 rounded-xl border border-gold-500/30 bg-ink/60 p-3 sm:flex-row"><label for="ia-perspectiva-input" class="sr-only">Consulta para aplicar a la perspectiva</label><input id="ia-perspectiva-input" type="text" x-model="busqueda" maxlength="300" required placeholder="Escribe un pasaje o tema para consultar..." class="min-w-0 flex-1 rounded-lg border border-line bg-panel px-3 py-2.5 text-sm text-gray-800 placeholder:text-gray-500 focus:border-gold-500 focus:outline-none"><button type="submit" :disabled="cargandoEstudio || !iaPerspectivasSeleccionadas.length" class="rounded-lg bg-gold-500 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-gray-950 transition hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-50"><span x-text="cargandoEstudio ? 'Aplicando...' : 'Aplicar perspectiva'"></span></button></form><div class="mt-2 flex flex-wrap items-center justify-between gap-2"><p class="text-[11px] text-gray-500">Lente seleccionada: <span class="font-semibold text-gold-700" x-text="LENTES_LISTA.find((l) => l.id === iaPerspectivasSeleccionadas[0])?.etiqueta || 'elige una lente'"></span></p><button type="button" @click="iaVista = 'consulta'; document.getElementById('ia-input')?.focus()" class="text-[11px] font-semibold text-gold-700 hover:text-gold-500">Ver consulta y respuesta</button></div><div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3"><template x-for="l in LENTES_LISTA" :key="l.id"><button type="button" @click="iaPerspectivasSeleccionadas = [l.id]; activarLente(l.id)" class="rounded-xl border p-3 text-left text-xs transition" :class="iaPerspectivasSeleccionadas[0] === l.id ? 'border-gold-500 bg-gold-500/10 text-gold-700' : 'border-line bg-ink text-gray-500'"><span class="font-semibold" x-text="l.etiqueta"></span><span class="mt-1 block text-[11px] opacity-75" x-text="iaPerspectivasSeleccionadas[0] === l.id ? 'Lente activa para esta consulta.' : 'Seleccionar como lente única.'"></span></button></template></div></section>
   <section x-show="iaVista === 'cuaderno'" class="space-y-4"><div class="rounded-2xl border border-gold-500/30 bg-panel p-5"><div class="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4"><div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Biblioteca premium</p><p class="mt-1 text-sm text-gray-500">Organiza tus recorridos, conserva el contexto y retoma cada estudio.</p></div><div class="flex gap-2"><button @click="cuadernoVista = 'biblioteca'" class="rounded-lg px-3 py-2 text-xs" :class="cuadernoVista === 'biblioteca' ? 'bg-gold-500 font-bold text-gray-950' : 'border border-line text-gray-500'">Biblioteca</button><button @click="cuadernoVista = 'editor'" class="rounded-lg px-3 py-2 text-xs" :class="cuadernoVista === 'editor' ? 'bg-gold-500 font-bold text-gray-950' : 'border border-line text-gray-500'">Nuevo estudio</button></div></div><div x-show="cuadernoVista === 'editor'" class="mb-5 grid gap-3 rounded-xl border border-gold-500/20 bg-ink/30 p-4 sm:grid-cols-3"><label class="text-xs text-gray-500">Título<input x-model="cuadernoTitulo" type="text" placeholder="Ej. La fe que persevera" class="mt-1 w-full rounded-lg border border-line bg-panel px-3 py-2 text-sm text-gray-800"></label><label class="text-xs text-gray-500">Etiqueta<input x-model="cuadernoEtiqueta" type="text" placeholder="Ej. Discipulado" class="mt-1 w-full rounded-lg border border-line bg-panel px-3 py-2 text-sm text-gray-800"></label><label class="text-xs text-gray-500">Estado<select x-model="cuadernoFiltro" class="mt-1 w-full rounded-lg border border-line bg-panel px-3 py-2 text-sm text-gray-800"><option value="todas">En progreso</option><option value="completadas">Completado</option></select></label></div><div class="rounded-2xl border border-gold-500/30 bg-panel p-5"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-[10px] uppercase tracking-wider text-gold-500">Cuaderno privado</p><h3 class="mt-1 font-serif text-xl text-gold-100">Anotar y concluir</h3><p class="mt-2 text-xs leading-relaxed text-gray-500">Tus fichas se conservan en este dispositivo y aparecen aquí al volver al cuaderno.</p></div><span class="rounded-full border border-line px-3 py-1 text-xs text-gray-500" x-text="`${fichasVisibles.length} fichas`"></span></div><div class="mt-4 grid gap-4 md:grid-cols-2"><textarea x-model="iaAnotacionTexto" rows="5" placeholder="Fragmento o idea que quieres conservar..." class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea><textarea x-model="iaAnotacionNota" rows="5" placeholder="¿Qué debes creer, abandonar o practicar?" class="rounded-xl border border-line bg-ink p-3 text-sm text-gray-700"></textarea></div><div class="mt-3 flex flex-wrap items-center gap-3"><button @click="guardarFicha()" class="rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950" x-text="fichaEditandoId ? 'Actualizar ficha' : 'Guardar ficha'"></button><button x-show="fichaEditandoId" @click="cancelarEdicionFicha()" class="rounded-xl border border-line px-4 py-2.5 text-xs text-gray-500">Cancelar</button><p x-show="estudioGuardado" x-cloak class="text-xs font-semibold text-emerald-700" role="status">Ficha guardada.</p></div></div><div class="rounded-2xl border border-line bg-panel p-5"><div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><p class="text-[10px] uppercase tracking-wider text-gold-500">Archivo del cuaderno</p><h4 class="mt-1 font-serif text-lg text-gold-100">Tus anotaciones anteriores</h4></div><div class="flex flex-wrap gap-2"><input x-model="cuadernoBusqueda" type="search" placeholder="Buscar estudio..." class="w-full rounded-lg border border-line bg-ink px-3 py-2 text-xs text-gray-200 sm:w-52"><select x-model="cuadernoFiltro" class="rounded-lg border border-line bg-ink px-2 py-2 text-xs text-gray-200"><option value="todas">Todos</option><option value="favoritas">Favoritos</option><option value="progreso">En progreso</option><option value="completadas">Completados</option></select><select x-model="cuadernoOrden" class="rounded-lg border border-line bg-ink px-2 py-2 text-xs text-gray-200"><option value="recientes">Más recientes</option><option value="antiguas">Más antiguas</option><option value="referencia">Por referencia</option></select></div></div><div x-show="!fichasVisibles.length" class="mt-4 rounded-xl border border-dashed border-line p-6 text-center text-sm text-gray-500">No hay fichas que coincidan. Guarda una anotación y aparecerá aquí.</div><div class="mt-4 grid gap-3 lg:grid-cols-2"><template x-for="ficha in fichasVisibles" :key="ficha.id"><article class="rounded-xl border border-line bg-ink/40 p-4"><div class="flex items-start justify-between gap-3"><div><p class="text-[10px] uppercase tracking-wider text-gold-500" x-text="ficha.ref || 'Sin referencia'"></p><p class="mt-1 text-[11px] text-gray-500" x-text="formatearFechaFicha(ficha.fecha)"></p></div><span class="rounded-full border border-line px-2 py-1 text-[10px] text-gray-500" x-text="ficha.perspectiva || 'Estudio'"></span></div><p x-show="ficha.texto" class="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-gray-300" x-text="ficha.texto"></p><p x-show="ficha.nota" class="mt-3 border-l-2 border-gold-500/60 pl-3 text-sm leading-relaxed text-gray-400" x-text="ficha.nota"></p><div class="mt-4 flex flex-wrap gap-3 border-t border-line pt-3"><button @click="alternarFavorita(ficha)" class="text-xs" :class="ficha.favorita ? 'text-gold-400 font-bold' : 'text-gray-500'" x-text="ficha.favorita ? 'Favorito' : 'Favoritar'"></button><button @click="marcarCompletada(ficha)" class="text-xs text-gold-300" x-text="ficha.estado === 'completado' ? 'Reabrir' : 'Completar'"></button><button @click="editarFicha(ficha)" class="text-xs text-gold-300">Editar</button><button @click="duplicarFicha(ficha)" class="text-xs text-gold-300">Duplicar</button><button @click="copiarFicha(ficha)" class="text-xs text-gold-300">Copiar</button><button @click="abrirFicha(ficha)" class="text-xs text-gold-300">Continuar</button><button @click="eliminarFicha(ficha)" class="text-xs text-red-300">Eliminar</button></div></article></template></div></div></section>
-  <div x-show="iaVista === 'consulta'" class="rv-omni-card p-4 sm:p-6">
-    <!-- Omnibar central estilo consola IA -->
-    <form @submit.prevent="ejecutarEstudio(busqueda)" class="rv-omni">
-      <label for="ia-input" class="sr-only">Pasaje o tema bíblico</label>
-      <div class="rv-omni-wrap">
-        <input id="ia-input" type="text" x-model="busqueda" maxlength="300" required
-               placeholder="Pregunta a RevelatiO IA: un pasaje, un tema, una duda…"
-               class="rv-omni-input">
-        <button type="submit" :disabled="cargandoEstudio" aria-label="Analizar consulta" class="rv-omni-send">
-          <svg x-show="!cargandoEstudio" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
-          <svg x-show="cargandoEstudio" x-cloak class="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"/></svg>
-        </button>
-      </div>
-    </form>
-
-    <!-- Carrusel de lentes (chips compactos) -->
-    <div class="rv-omni" style="margin-top:.75rem">
-      <div class="rv-chips">
-        <template x-for="l in LENTES_LISTA" :key="l.id">
-          <button type="button" @click="activarLente(l.id)" class="rv-chip" :class="lenteActiva === l.id && 'is-active'" x-text="l.etiqueta"></button>
-        </template>
-      </div>
-    </div>
-
-    <!-- Meta / acciones compactas -->
-    <div class="rv-omni rv-ia-meta flex flex-wrap items-center justify-between gap-3 text-[11px]" style="margin-top:.75rem" aria-live="polite">
-      <span>Consultas profundas hoy: <span class="rv-ia-count" x-text="cuotaIA.unlimited ? 'ilimitadas' : `${Math.max(0, (cuotaIA.request_limit || 3) - (cuotaIA.requests_used || 0))} de ${cuotaIA.request_limit || 3}`"></span></span>
-      <div class="flex items-center gap-2">
-        <button x-show="estudioListo" type="button" @click="iaVista = 'cuaderno'" class="rv-ia-action rounded-lg border px-2.5 py-1.5 font-semibold transition">Cuaderno</button>
-        <button type="button" @click="limpiarEstudio()" :disabled="cargandoEstudio" class="rv-ia-action rounded-lg border px-2.5 py-1.5 font-semibold transition disabled:opacity-40">Limpiar</button>
-      </div>
-    </div>
-    <p x-show="errorEstudio" x-cloak class="rv-omni rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700" style="margin-top:.75rem" role="alert" x-text="mensajeEstudio"></p>
-  </div>
-  
   <!-- Estado inicial (Alfa y Omega) -->
-                        <div x-show="!estudioListo && !cargandoEstudio" class="zona-oscura relative overflow-hidden rounded-2xl border border-gold-500/25 min-h-[16rem] flex items-center justify-center text-center p-8">
+                        <div x-show="!estudioListo && !cargandoEstudio" class="zona-oscura relative overflow-hidden rounded-2xl border border-gold-500/25 flex items-center justify-center text-center p-8" style="min-height:16rem">
                             <img src="/brand/alfa-omega.jpg" alt="" aria-hidden="true" class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-40">
                             <div class="absolute inset-0 bg-gradient-to-t from-night via-night/60 to-transparent"></div>
                             <div class="relative max-w-md">
@@ -1009,26 +974,21 @@
                             </div>
                         </div>
 
-                        <!-- Skeleton loader (velocidad percibida durante la generación) -->
-                        <div x-show="cargandoEstudio" x-cloak class="rv-omni-card p-6" role="status" aria-live="polite" aria-busy="true">
-                            <div class="flex items-center gap-2 text-sm text-gold-600">
+                        <!-- Skeleton loader (velocidad percibida durante la generación, mientras no hay texto aún) -->
+                        <div x-show="isGenerating" x-cloak class="rv-ia-response" role="status" aria-live="polite" aria-busy="true">
+                            <div class="flex items-center gap-2 text-sm" style="color:#92400e">
                                 <svg class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"/></svg>
-                                <span>Procesando exégesis en tiempo real…</span>
+                                <span>RevelatiO IA está redactando la respuesta…</span>
                             </div>
-                            <div class="mt-5 flex flex-col gap-3">
-                                <div class="rv-skel-line" style="height:1.25rem;width:40%"></div>
+                            <div class="mt-4 flex flex-col gap-3">
                                 <div class="rv-skel-line" style="width:100%"></div>
-                                <div class="rv-skel-line" style="width:92%"></div>
-                                <div class="rv-skel-line" style="width:83%"></div>
-                                <div class="rv-skel-line" style="width:75%"></div>
-                                <div class="rv-skel-line" style="width:33%;margin-top:.5rem"></div>
-                                <div class="rv-skel-line" style="width:100%"></div>
-                                <div class="rv-skel-line" style="width:66%"></div>
+                                <div class="rv-skel-line" style="width:88%"></div>
+                                <div class="rv-skel-line" style="width:64%"></div>
                             </div>
                         </div>
 
                         <!-- Resultado -->
-                        <div x-show="(estudioListo || lenteEstado.estado === 'ready' || lenteEstado.estado === 'loading' || lenteEstado.estado === 'error') && !cargandoEstudio" x-cloak class="flex flex-col gap-5">
+                        <div x-show="(estudioListo || lenteEstado.estado === 'ready' || lenteEstado.estado === 'loading' || lenteEstado.estado === 'error') && !isGenerating" x-cloak class="flex flex-col gap-5">
                             <!-- Pasaje + versiones -->
                             <div class="order-2 bg-panel border border-gold-500/30 rounded-2xl p-6">
                                 <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-line">
@@ -1107,14 +1067,14 @@
                             </div>
 
                             <!-- Panel compacto de la lente activa -->
-                            <div class="order-1 bg-panel border border-cyan-500/35 rounded-2xl p-6 min-h-[13rem] shadow-lg shadow-cyan-950/5">
-                                <div class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-line pb-3">
-                                    <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-700">Respuesta de la lente activa</p>
-                                    <p class="text-sm font-semibold text-slate-800" x-text="(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p>
+                            <div class="order-1 rv-ia-response" style="min-height:13rem">
+                                <div class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b pb-3" style="border-color:#e7e5e4">
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.16em]" style="color:#92400e">Respuesta de la lente activa</p>
+                                    <p class="text-sm font-semibold" style="color:#292524" x-text="(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p>
                                 </div>
                                 <!-- Selector de autor (solo lente 'autores') -->
-                                <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b border-line">
-                                    <label for="autor-sel" class="text-xs text-gray-400 uppercase tracking-wider">Comentarista</label>
+                                <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b" style="border-color:#e7e5e4">
+                                    <label for="autor-sel" class="text-xs uppercase tracking-wider" style="color:#78716c">Comentarista</label>
                                     <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#26343A" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
                                         <template x-for="a in AUTORES_LISTA" :key="a.id">
                                             <option :value="a.id" x-text="a.nombre"></option>
@@ -1123,42 +1083,69 @@
                                 </div>
 
                                 <!-- Cargando -->
-                                <div x-show="lenteEstado.estado === 'loading'" class="flex items-center gap-2 text-gold-300 text-sm py-8 justify-center">
+                                <div x-show="lenteEstado.estado === 'loading'" class="flex items-center gap-2 text-sm py-8 justify-center" style="color:#92400e">
                                     <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                                     <span x-text="'RevelatiO IA está iluminando esta lente...'"></span>
                                 </div>
 
                                 <!-- Error -->
                                 <div x-show="lenteEstado.estado === 'error'" class="text-center py-8">
-                                    <p class="text-sm text-red-300" x-text="lenteEstado.mensaje || 'No fue posible generar esta perspectiva.'"></p>
-                                    <button @click="cargarLente(lenteActiva, true)" class="mt-3 text-xs text-gold-300 border border-gold-500/30 px-4 py-2 rounded-lg hover:bg-gold-600/15">Reintentar</button>
+                                    <p class="text-sm text-red-600" x-text="lenteEstado.mensaje || 'No fue posible generar esta perspectiva.'"></p>
+                                    <button @click="cargarLente(lenteActiva, true)" class="mt-3 text-xs border px-4 py-2 rounded-lg transition" style="color:#92400e;border-color:#fcd34d" onmouseover="this.style.background='#fef3c7'" onmouseout="this.style.background='transparent'">Reintentar</button>
                                 </div>
 
                                 <!-- Contenido -->
                                 <div x-show="lenteEstado.estado === 'ready'">
-                                    <div class="mb-4 rounded-lg border border-cyan-500/25 bg-cyan-950/10 px-3 py-2"><p class="text-[10px] uppercase tracking-wider text-cyan-700">Consulta analizada</p><p class="mt-1 text-sm font-semibold text-[#334155]" x-text="busqueda"></p></div>
-                                    <h4 class="text-lg font-serif text-gold-100 mb-4" x-text="lenteEstado.titulo"></h4>
+                                    <div class="mb-4 rounded-lg px-3 py-2" style="border:1px solid #fcd34d;background:#fefaf0"><p class="text-[10px] uppercase tracking-wider" style="color:#92400e">Consulta analizada</p><p class="mt-1 text-sm font-semibold" style="color:#292524" x-text="busqueda"></p></div>
+                                    <h4 class="text-lg font-serif mb-4" style="color:#1c1917" x-text="lenteEstado.titulo"></h4>
                                     <div class="space-y-3">
                                         <template x-for="(p, i) in parrafosDe(lenteEstado.cuerpo)" :key="i">
-                                            <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
+                                            <p class="text-sm leading-relaxed" style="color:#44403c" x-text="p"></p>
                                         </template>
                                     </div>
-                                    <blockquote x-show="lenteEstado.destacado" class="mt-5 border-l-2 border-gold-500/60 pl-4 py-1">
-                                        <p class="text-sm text-gold-200 italic font-serif" x-text="lenteEstado.destacado"></p>
+                                    <blockquote x-show="lenteEstado.destacado" class="mt-5 pl-4 py-1" style="border-left:2px solid #d97706">
+                                        <p class="text-sm italic font-serif" style="color:#92400e" x-text="lenteEstado.destacado"></p>
                                     </blockquote>
-                                    <p x-show="lenteActiva === 'autores' && lenteEstado.autor" class="mt-5 pt-3 border-t border-line text-[10px] text-gray-300 leading-relaxed">
-                                        Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span x-text="lenteEstado.autor" class="text-gold-500"></span>. No sustituye la lectura directa de su obra.
+                                    <p x-show="lenteActiva === 'autores' && lenteEstado.autor" class="mt-5 pt-3 border-t text-[10px] leading-relaxed" style="border-color:#e7e5e4;color:#78716c">
+                                        Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span x-text="lenteEstado.autor" style="color:#92400e"></span>. No sustituye la lectura directa de su obra.
   </p>
-  <div class="mt-5 flex items-start gap-3 border-t border-line pt-4"><img src="/brand/revelatio-logo-full-new.jpeg" alt="Logotipo de RevelatiO by Efata" class="h-14 w-20 rounded-lg object-contain border border-line bg-panel2 p-1"><div><p class="font-serif text-base text-gold-100">Una palabra viva para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs leading-relaxed text-gray-300">Que este estudio no termine en información: llévalo a la oración, deja que ilumine tus decisiones y permite que la Palabra produzca una respuesta concreta en tu vida.</p><p class="mt-2 text-[10px] uppercase tracking-wider text-gold-400">RevelatiO IA · Texto, corazón y obediencia</p></div></div>
+  <div class="mt-5 flex items-start gap-3 pt-4 border-t" style="border-color:#e7e5e4"><img src="/brand/revelatio-logo-full-new.jpeg" alt="Logotipo de RevelatiO by Efata" class="h-14 w-20 rounded-lg object-contain border p-1" style="border-color:#e7e5e4;background:#fff"><div><p class="font-serif text-base" style="color:#1c1917">Una palabra viva para ti, <span x-text="nombreParaMarca()"></span></p><p class="mt-1 text-xs leading-relaxed" style="color:#57534e">Que este estudio no termine en información: llévalo a la oración, deja que ilumine tus decisiones y permite que la Palabra produzca una respuesta concreta en tu vida.</p><p class="mt-2 text-[10px] uppercase tracking-wider" style="color:#b45309">RevelatiO IA · Texto, corazón y obediencia</p></div></div>
   </div>
   </div>
+  </div>
+
+  <!-- Composer inferior tipo chat: chips de lentes + omnibar pill, sticky sobre el área de la IA -->
+  <div x-show="iaVista === 'consulta'" class="rv-ia-composer">
+    <div class="rv-chips" style="margin-bottom:.6rem">
+      <template x-for="l in LENTES_LISTA" :key="l.id">
+        <button type="button" @click="activarLente(l.id)" class="rv-chip" :class="lenteActiva === l.id && 'is-active'" x-text="l.etiqueta"></button>
+      </template>
+    </div>
+    <form @submit.prevent="ejecutarEstudio(busqueda)" class="rv-pill-wrap">
+      <label for="ia-input" class="sr-only">Pasaje o tema bíblico</label>
+      <input id="ia-input" type="text" x-model="busqueda" maxlength="300" required
+             placeholder="Pregunta a RevelatiO IA: un pasaje, un tema, una duda…"
+             class="rv-pill-input">
+      <button type="submit" :disabled="cargandoEstudio" aria-label="Enviar consulta" class="rv-pill-send">
+        <svg x-show="!cargandoEstudio" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+        <svg x-show="cargandoEstudio" x-cloak class="animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"/></svg>
+      </button>
+    </form>
+    <div class="rv-ia-meta flex flex-wrap items-center justify-between gap-3 text-[11px]" style="margin-top:.5rem" aria-live="polite">
+      <span>Consultas profundas hoy: <span class="rv-ia-count" x-text="cuotaIA.unlimited ? 'ilimitadas' : `${Math.max(0, (cuotaIA.request_limit || 3) - (cuotaIA.requests_used || 0))} de ${cuotaIA.request_limit || 3}`"></span></span>
+      <div class="flex items-center gap-2">
+        <button x-show="estudioListo" type="button" @click="iaVista = 'cuaderno'" class="rv-ia-action rounded-lg border px-2.5 py-1.5 font-semibold transition">Cuaderno</button>
+        <button type="button" @click="limpiarEstudio()" :disabled="cargandoEstudio" class="rv-ia-action rounded-lg border px-2.5 py-1.5 font-semibold transition disabled:opacity-40">Limpiar</button>
+      </div>
+    </div>
+    <p x-show="errorEstudio" x-cloak class="rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700" style="margin-top:.5rem" role="alert" x-text="mensajeEstudio"></p>
   </div>
   </section>
   
-
-
-                    <!-- ============ DISCIPULADO MAESTRO ============ -->
-<section x-show="vista === 'discipulado'" class="space-y-6">
+  
+  
+  <!-- ============ DISCIPULADO MAESTRO ============ -->
+  <section x-show="vista === 'discipulado'" class="space-y-6">
  <div class="zona-oscura rounded-3xl border border-gold-500/30 bg-night p-6 shadow-xl sm:p-8"><div class="flex flex-wrap items-start justify-between gap-4"><div><p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-400">RevelatiO by Efata · Camino de formación</p><h2 class="mt-2 font-serif text-3xl text-gold-50">Discipulado bíblico profundo</h2><p class="mt-3 max-w-3xl text-sm leading-relaxed text-gray-300">Seis pasos para pasar de la convicción a la obediencia: devocional, exégesis, cirugía del corazón, evaluación, práctica y consagración.</p></div><div class="rounded-2xl border border-gold-500/30 bg-gold-500/10 px-5 py-4 text-center"><p class="text-[10px] uppercase tracking-wider text-gold-300">Progreso maestro</p><p class="mt-1 text-3xl font-bold text-gold-100" x-text="`${Math.round((discipuladoCompletados / DISCIPULADO_TOPICS.length) * 100)}%`"></p><p class="text-xs text-gray-400" x-text="`${discipuladoCompletados} de ${DISCIPULADO_TOPICS.length} temas`"></p></div></div><div class="mt-5 flex flex-col gap-3 sm:flex-row"><label class="sr-only" for="buscar-discipulado">Buscar tema</label><input id="buscar-discipulado" x-model="discipuladoBusqueda" type="search" placeholder="Buscar tema, pasaje o término original..." class="min-w-0 flex-1 rounded-xl border border-gold-500/30 bg-ink px-4 py-3 text-sm text-gray-100 focus:border-gold-400 focus:outline-none"><select x-model.number="discipuladoEtapa" class="rounded-xl border border-gold-500/30 bg-ink px-4 py-3 text-sm text-gray-700"><option value="0">Todas las etapas</option><template x-for="stage in DISCIPULADO_ETAPAS" :key="stage.id"><option :value="stage.id" x-text="`Etapa ${stage.id} · ${stage.title}`"></option></template></select></div></div>
  <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><template x-for="stage in DISCIPULADO_ETAPAS" :key="stage.id"><button @click="discipuladoEtapa = discipuladoEtapa === stage.id ? 0 : stage.id" class="rounded-2xl border p-4 text-left transition" :class="discipuladoEtapa === stage.id ? 'border-gold-500 bg-gold-500/10' : 'border-line bg-panel hover:border-gold-500/40'"><div class="flex items-center gap-3"><span class="font-mono text-xs text-gold-500" x-text="stage.icon"></span><p class="text-sm font-semibold text-gold-100" x-text="stage.title"></p></div><p class="mt-2 text-xs leading-relaxed text-gray-500" x-text="stage.description"></p></button></template></div>
  <div class="grid gap-3 md:grid-cols-3"><div class="rounded-2xl border border-gold-500/25 bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Método</p><p class="mt-2 text-sm font-semibold text-gold-100">Texto · corazón �� obediencia</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Cada lección termina en una respuesta concreta, no solo en información.</p></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Mentoría 1 a 1</p><p class="mt-2 text-sm font-semibold text-gold-100">Camina acompañado</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Comparte tu avance con un mentor de confianza cuando estés listo.</p><button @click="alert('La invitación de mentoría estará disponible al conectar tu cuenta.')" class="mt-3 text-xs font-bold text-gold-600">Preparar invitación</button></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Próximo paso</p><p class="mt-2 text-sm font-semibold text-gold-100" x-text="discipuladoFiltrados[0]?.title || 'Explora una etapa'"></p><p class="mt-1 text-xs text-gray-500">Abre una lección y completa su canvas de seis pasos.</p></div></div>
@@ -2360,6 +2347,7 @@ iaFichas: [],
   cuadernoAutoguardado: true,
   estudioGuardado: false,
                 cargandoEstudio: false,
+                isGenerating: false,
                 cuotaIA: { requests_used: 0, request_limit: 3, resets_at: null },
                 errorEstudio: false,
                 estudioListo: false,
@@ -3075,6 +3063,7 @@ const etiquetas = {
                     const q = String(consulta || '').trim();
                     if (!q || this.cargandoEstudio) return;
                     this.cargandoEstudio = true;
+                    this.isGenerating = true;
                     this.errorEstudio = false;
                     this.busqueda = q;
                     this.estudioListo = false;
@@ -3143,6 +3132,7 @@ const etiquetas = {
                           : rawError || 'No se pudo completar el estudio. Intenta de nuevo.';
                     } finally {
                         this.cargandoEstudio = false;
+                        this.isGenerating = false;
                     }
                 },
 
@@ -4169,6 +4159,17 @@ guardarFicha() {
     .rv-ia-action:hover{color:#292524 !important;background:#f5f5f4 !important;border-color:#a8a29e !important}
     .rv-skel-line{height:1rem;border-radius:.375rem;background:#e7e5e4;animation:rv-skel 1.5s ease-in-out infinite}
     @keyframes rv-skel{0%,100%{opacity:1}50%{opacity:.4}}
+    /* Composer inferior tipo chat (sticky dentro del área de RevelatiO IA) */
+    .rv-ia-composer{position:sticky;bottom:1rem;z-index:20;max-width:48rem;margin:1.5rem auto 0;padding-top:.5rem}
+    .rv-pill-wrap{position:relative}
+    .rv-pill-input{width:100%;border-radius:9999px;border:1px solid #d6d3d1;background:#fff;padding:.9rem 3.75rem .9rem 1.5rem;font-size:1rem;color:#292524;box-shadow:0 4px 16px rgba(0,0,0,.08);transition:border-color .15s,box-shadow .15s}
+    .rv-pill-input::placeholder{color:#a8a29e}
+    .rv-pill-input:focus{outline:none;border-color:#fbbf24;box-shadow:0 0 0 3px rgba(251,191,36,.28)}
+    .rv-pill-send{position:absolute;right:.4rem;top:50%;transform:translateY(-50%);display:grid;place-items:center;height:2.5rem;width:2.5rem;border-radius:9999px;background:#1c1917;color:#fff;border:0;cursor:pointer;transition:background .15s}
+    .rv-pill-send:hover{background:#292524}
+    .rv-pill-send:disabled{opacity:.5;cursor:not-allowed}
+    /* Contenedor claro para la respuesta generada por la IA */
+    .rv-ia-response{background:#FBFBFA;border-radius:1rem;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #e7e5e4;color:#292524}
     .rv-verse-surface{cursor:pointer;transition:background-color .18s ease}.rv-verse-surface:hover{background:#f7ec7330}.rv-action-sheet{position:fixed;z-index:10001;left:0;right:0;bottom:0;width:100%;max-height:82vh;display:flex;flex-direction:column;padding:12px 16px 18px;border-top:1px solid #e7e5e4;border-radius:22px 22px 0 0;background:#FBFBFA;color:#292524;box-shadow:0 -10px 35px rgba(0,0,0,.08);font:14px Arial,sans-serif;transform:translateY(0);transition:max-height .28s ease;animation:rv-sheet-up .26s cubic-bezier(.22,1,.36,1)}@keyframes rv-sheet-up{from{transform:translateY(100%)}to{transform:translateY(0)}}.rv-action-sheet.rv-expanded{max-height:92vh;height:90vh}.rv-action-sheet[hidden]{display:none}.rv-action-sheet__grip{width:42px;height:5px;margin:2px auto 10px;border-radius:999px;background:#d6d3d1;cursor:grab}.rv-action-sheet__carousel{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 4px;scrollbar-width:none}.rv-action-sheet__carousel::-webkit-scrollbar{display:none}.rv-action-sheet__swatches{display:flex;gap:8px;margin:10px 2px 0}.rv-swatch{width:26px;height:26px;border-radius:50%;border:1px solid #d6d3d1;cursor:pointer;transition:transform .12s}.rv-swatch:hover{transform:scale(1.08)}.rv-swatch[data-c="amarillo"]{background:#FEF08A}.rv-swatch[data-c="lila"]{background:#E9D5FF}.rv-swatch[data-c="celeste"]{background:#BAE6FD}.rv-action-sheet__footer{margin-top:12px;text-align:center;color:#a8a29e;font:600 11px Arial,sans-serif;cursor:pointer;user-select:none}.rv-action-sheet__footer:hover{color:#78716c}.rv-action-sheet__expanded{display:none;flex:1;overflow-y:auto;margin-top:14px;border-top:1px solid #e7e5e4;padding-top:14px}.rv-action-sheet.rv-expanded .rv-action-sheet__expanded{display:block}.rv-action-sheet.rv-expanded .rv-action-sheet__footer{display:none}.rv-xref-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}.rv-xref-badge{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:#292524;color:#fbfbfa;font:700 12px Arial,sans-serif}.rv-xref-title{font:700 14px Arial,sans-serif;color:#1c1917}.rv-xref-card{background:#fff;border:1px solid #e7e5e4;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}.rv-xref-card h5{margin:0 0 6px;font:700 13px Arial,sans-serif;color:#1c1917}.rv-xref-card p{margin:0;font:14px/1.5 Georgia,serif;color:#3f3f46}.rv-xref-card__actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.rv-xref-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid #7dd3fc;border-radius:999px;background:rgba(240,249,255,.5);color:#075985;font:600 11px Arial,sans-serif;cursor:pointer}.rv-xref-pill:hover{background:#e0f2fe}.rv-xref-empty{color:#78716c;font-size:13px;padding:10px 0}.rv-xref-tabs{display:flex;gap:6px;margin:4px 0 14px;flex-wrap:wrap}.rv-xref-tab{padding:6px 12px;border:1px solid #e7e5e4;border-radius:999px;background:#fff;color:#57534e;font:600 11px Arial,sans-serif;cursor:pointer}.rv-xref-tab.active{background:#292524;color:#fbfbfa;border-color:#292524}.rv-action-sheet__head{display:flex;align-items:center;justify-content:space-between;gap:12px}.rv-action-sheet__ref{flex:1;text-align:center;color:#57534e;font:800 12px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}.rv-action-sheet__text{margin:8px 2px 2px;color:#1c1917!important;font:16px/1.5 Georgia,serif}.rv-action-sheet__ref{color:#705317!important}.rv-action-sheet__note{color:#5e4c39!important}.rv-verse-surface.rv-highlight{background:linear-gradient(transparent 55%,#e8c45a99 55%);color:#2d241a!important}.rv-verse-surface.rv-highlight.rv-oro{background:linear-gradient(transparent 55%,#e8c45a99 55%)}.rv-action-sheet__toggle{border:0;background:transparent;color:#78716c;cursor:pointer;font-size:20px;line-height:1;padding:2px 6px}.rv-action-sheet__toggle:hover{color:#292524}.rv-action-sheet__action{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:72px;min-height:56px;padding:9px 12px;border:1px solid #e7e5e4;border-radius:14px;background:#fff;color:#44403c;cursor:pointer;font:600 11px Arial,sans-serif;transition:background .16s,color .16s}.rv-action-sheet__action:hover{background:#f5f5f4;color:#0c0a09}.rv-action-sheet__note{margin-top:12px;color:#57534e;font-size:12px}@media(max-width:520px){.rv-action-sheet{padding:10px 12px 16px}}.rv-selection-toolbar { position:fixed; z-index:9999; display:flex; align-items:center; gap:2px; padding:5px 7px; border-radius:12px; background:linear-gradient(#716e69,#4b4946); color:#fff; box-shadow:0 14px 30px #17130f44; font:500 12px Arial,sans-serif; animation:rv-toolbar-in .16s ease-out; }
     body .rv-selection-toolbar, body .rv-selection-detail, body .rv-selection-handle { display:none !important; }
  .rv-selection-toolbar button { display:inline-flex; align-items:center; gap:5px; min-height:28px; padding:4px 9px; border:0; border-radius:7px; background:transparent; color:#fff; cursor:pointer; }
