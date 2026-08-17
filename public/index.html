@@ -1469,36 +1469,37 @@
             </main>
 
             <!-- Modal generador de tarjeta para compartir versículo -->
-            <div x-show="showShareModal" x-cloak x-transition.opacity
-                 class="fixed inset-0 z-[10050] flex items-center justify-center p-4 bg-night/50 backdrop-blur-md"
+            <div x-show="showShareModal" x-cloak x-transition.opacity class="rv-share-overlay"
                  @click.self="showShareModal = false" role="dialog" aria-modal="true" aria-label="Compartir versículo">
-                <div class="w-full max-w-md" @keydown.escape.window="showShareModal = false">
-                    <div class="flex items-center justify-between mb-4">
-                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-stone-100/80">Compartir versículo</p>
-                        <button @click="showShareModal = false" class="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20" aria-label="Cerrar">&times;</button>
+                <div class="rv-share-dialog" @keydown.escape.window="showShareModal = false">
+                    <div class="rv-share-bar">
+                        <p class="rv-share-bar__title">Compartir versículo</p>
+                        <button type="button" @click="showShareModal = false" class="rv-share-bar__close" aria-label="Cerrar">&times;</button>
                     </div>
 
                     <!-- Tarjeta previsualizable (objetivo de html2canvas) -->
-                    <div id="share-card-capture"
-                         class="relative overflow-hidden rounded-3xl border border-stone-200 bg-gradient-to-br from-[#FBFBFA] to-[#F3F4F1] px-8 py-12 shadow-2xl">
-                        <div class="mx-auto mb-6 h-px w-12 bg-gold-500/50"></div>
-                        <p class="text-center font-serif text-2xl leading-relaxed text-stone-800 text-pretty"
-                           x-text="'“' + (shareCard.texto || '') + '”'"></p>
-                        <div class="mt-8 flex flex-col items-center gap-1">
-                            <p class="text-sm font-bold uppercase tracking-[0.14em] text-gold-600"
+                    <div id="share-card-capture" class="rv-share-card">
+                        <span class="rv-share-card__watermark" aria-hidden="true">&rdquo;</span>
+                        <div class="rv-share-card__rule"></div>
+                        <p class="rv-share-card__text" x-text="'“' + (shareCard.texto || '') + '”'"></p>
+                        <div class="rv-share-card__foot">
+                            <p class="rv-share-card__ref"
                                x-text="(shareCard.referencia || '') + (shareCard.version ? '  ·  ' + shareCard.version : '')"></p>
-                            <p class="mt-3 text-[10px] uppercase tracking-[0.22em] text-stone-400">RevelatiO by Efata</p>
+                            <p class="rv-share-card__brand">RevelatiO by Efata</p>
                         </div>
                     </div>
 
-                    <button @click="descargarTarjetaVersiculo()" :disabled="shareDescargando"
-                            class="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-stone-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800 disabled:cursor-wait disabled:opacity-70">
-                        <svg x-show="!shareDescargando" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
-                        <svg x-show="shareDescargando" x-cloak class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"/></svg>
-                        <span x-text="shareDescargando ? 'Generando imagen…' : 'Descargar para Instagram / WhatsApp'"></span>
-                    </button>
-                    <p x-show="!shareError" class="mt-2 text-center text-[11px] text-stone-100/60">Se guardará como imagen en tu dispositivo.</p>
-                    <p x-show="shareError" x-cloak class="mt-2 text-center text-[11px] text-red-300" x-text="shareError"></p>
+                    <div class="rv-share-actions">
+                        <button type="button" @click="descargarTarjetaVersiculo()" :disabled="shareDescargando"
+                                class="rv-share-btn rv-share-btn--primary">
+                            <svg x-show="!shareDescargando" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+                            <svg x-show="shareDescargando" x-cloak class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"/></svg>
+                            <span x-text="shareDescargando ? 'Generando imagen…' : 'Descargar tarjeta'"></span>
+                        </button>
+                        <button type="button" @click="showShareModal = false" class="rv-share-btn rv-share-btn--ghost">Cerrar</button>
+                    </div>
+                    <p x-show="!shareError" class="rv-share-hint">Se guardará como imagen en tu dispositivo.</p>
+                    <p x-show="shareError" x-cloak class="rv-share-hint rv-share-hint--error" x-text="shareError"></p>
                 </div>
             </div>
         </div>
@@ -4237,6 +4238,43 @@ guardarFicha() {
        aquí forzamos legibilidad oscura dentro del panel claro de respuesta con igual especificidad */
     main .rv-ia-response h1, main .rv-ia-response h2, main .rv-ia-response h3,
     main .rv-ia-response h4, main .rv-ia-response h5, main .rv-ia-response strong{color:#1c1917 !important;-webkit-text-fill-color:#1c1917 !important}
+
+    /* ---------- Modo Compartir Imagen (tarjeta viral del versículo) ----------
+       El build de Tailwind está purgado: z-[10050], bg-night/50, los gradientes
+       from-[#hex] y varios paddings NO existen como utilidades. Todo el modal y la
+       tarjeta se estilan aquí para que el overlay realmente se superponga. */
+    .rv-share-overlay{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(28,25,23,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow-y:auto}
+    .rv-share-dialog{width:100%;max-width:23rem;margin:auto}
+    .rv-share-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem}
+    .rv-share-bar__title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:rgba(245,245,244,.85)}
+    .rv-share-bar__close{display:grid;place-items:center;height:2rem;width:2rem;border-radius:9999px;border:0;cursor:pointer;background:rgba(255,255,255,.12);color:#fff;font-size:1.25rem;line-height:1}
+    .rv-share-bar__close:hover{background:rgba(255,255,255,.22)}
+    /* Lienzo 4:5 (retrato para Stories/feed). aspect-ratio con padding-top para
+       máxima compatibilidad al rasterizar con html2canvas. */
+    .rv-share-card{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;
+      aspect-ratio:4/5;border-radius:1.25rem;border:1px solid #e7e5e4;
+      background:linear-gradient(135deg,#FBFBFA 0%,#EAEBE8 100%);
+      padding:2rem 1.75rem;box-shadow:0 25px 50px -12px rgba(0,0,0,.45)}
+    .rv-share-card__rule{width:3rem;height:1px;margin:0 auto 1.5rem;background:rgba(180,131,50,.55)}
+    .rv-share-card__text{margin:0;text-align:center;font-family:var(--rv-font-serif,Georgia,serif);
+      font-size:1.5rem;line-height:1.6;color:#1c1917;text-wrap:pretty}
+    .rv-share-card__foot{margin-top:2rem;display:flex;flex-direction:column;align-items:center;gap:.25rem}
+    .rv-share-card__ref{margin:0;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#a97c2f}
+    .rv-share-card__brand{margin:.75rem 0 0;font-size:.6rem;text-transform:uppercase;letter-spacing:.22em;color:#a8a29e}
+    /* Marca de agua sutil, detrás del texto */
+    .rv-share-card__watermark{position:absolute;right:-1.5rem;bottom:-2rem;font-family:var(--rv-font-serif,Georgia,serif);
+      font-size:6rem;line-height:1;color:rgba(28,25,23,.04);pointer-events:none;user-select:none}
+    .rv-share-actions{margin-top:1.1rem;display:flex;flex-direction:column;gap:.6rem}
+    .rv-share-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;
+      border-radius:.75rem;padding:.85rem 1.5rem;font-size:.9rem;font-weight:600;border:0;cursor:pointer;transition:background .15s,opacity .15s}
+    .rv-share-btn--primary{background:#1c1917;color:#fff}
+    .rv-share-btn--primary:hover{background:#292524}
+    .rv-share-btn--primary:disabled{cursor:wait;opacity:.7}
+    .rv-share-btn--ghost{background:transparent;color:rgba(245,245,244,.75);border:1px solid rgba(255,255,255,.22)}
+    .rv-share-btn--ghost:hover{background:rgba(255,255,255,.1);color:#fff}
+    .rv-share-hint{margin:.5rem 0 0;text-align:center;font-size:.69rem;color:rgba(245,245,244,.6)}
+    .rv-share-hint--error{color:#fca5a5}
+    @media (max-width:420px){.rv-share-card__text{font-size:1.25rem}.rv-share-card{padding:1.5rem 1.25rem}}
     .rv-verse-surface{cursor:pointer;transition:background-color .18s ease}.rv-verse-surface:hover{background:#f7ec7330}.rv-action-sheet{position:fixed;z-index:10001;left:0;right:0;bottom:0;width:100%;max-height:82vh;display:flex;flex-direction:column;padding:12px 16px 18px;border-top:1px solid #e7e5e4;border-radius:22px 22px 0 0;background:#FBFBFA;color:#292524;box-shadow:0 -10px 35px rgba(0,0,0,.08);font:14px Arial,sans-serif;transform:translateY(0);transition:max-height .28s ease;animation:rv-sheet-up .26s cubic-bezier(.22,1,.36,1)}@keyframes rv-sheet-up{from{transform:translateY(100%)}to{transform:translateY(0)}}.rv-action-sheet.rv-expanded{max-height:92vh;height:90vh}.rv-action-sheet[hidden]{display:none}.rv-action-sheet__grip{width:42px;height:5px;margin:2px auto 10px;border-radius:999px;background:#d6d3d1;cursor:grab}.rv-action-sheet__carousel{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 4px;scrollbar-width:none}.rv-action-sheet__carousel::-webkit-scrollbar{display:none}.rv-action-sheet__swatches{display:flex;gap:8px;margin:10px 2px 0}.rv-swatch{width:26px;height:26px;border-radius:50%;border:1px solid #d6d3d1;cursor:pointer;transition:transform .12s}.rv-swatch:hover{transform:scale(1.08)}.rv-swatch[data-c="amarillo"]{background:#FEF08A}.rv-swatch[data-c="lila"]{background:#E9D5FF}.rv-swatch[data-c="celeste"]{background:#BAE6FD}.rv-action-sheet__footer{margin-top:12px;text-align:center;color:#a8a29e;font:600 11px Arial,sans-serif;cursor:pointer;user-select:none}.rv-action-sheet__footer:hover{color:#78716c}.rv-action-sheet__expanded{display:none;flex:1;overflow-y:auto;margin-top:14px;border-top:1px solid #e7e5e4;padding-top:14px}.rv-action-sheet.rv-expanded .rv-action-sheet__expanded{display:block}.rv-action-sheet.rv-expanded .rv-action-sheet__footer{display:none}.rv-xref-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}.rv-xref-badge{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:#292524;color:#fbfbfa;font:700 12px Arial,sans-serif}.rv-xref-title{font:700 14px Arial,sans-serif;color:#1c1917}.rv-xref-card{background:#fff;border:1px solid #e7e5e4;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}.rv-xref-card h5{margin:0 0 6px;font:700 13px Arial,sans-serif;color:#1c1917}.rv-xref-card p{margin:0;font:14px/1.5 Georgia,serif;color:#3f3f46}.rv-xref-card__actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.rv-xref-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid #7dd3fc;border-radius:999px;background:rgba(240,249,255,.5);color:#075985;font:600 11px Arial,sans-serif;cursor:pointer}.rv-xref-pill:hover{background:#e0f2fe}.rv-xref-empty{color:#78716c;font-size:13px;padding:10px 0}.rv-xref-tabs{display:flex;gap:6px;margin:4px 0 14px;flex-wrap:wrap}.rv-xref-tab{padding:6px 12px;border:1px solid #e7e5e4;border-radius:999px;background:#fff;color:#57534e;font:600 11px Arial,sans-serif;cursor:pointer}.rv-xref-tab.active{background:#292524;color:#fbfbfa;border-color:#292524}.rv-action-sheet__head{display:flex;align-items:center;justify-content:space-between;gap:12px}.rv-action-sheet__ref{flex:1;text-align:center;color:#57534e;font:800 12px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}.rv-action-sheet__text{margin:8px 2px 2px;color:#1c1917!important;font:16px/1.5 Georgia,serif}.rv-action-sheet__ref{color:#705317!important}.rv-action-sheet__note{color:#5e4c39!important}.rv-verse-surface.rv-highlight{background:linear-gradient(transparent 55%,#e8c45a99 55%);color:#2d241a!important}.rv-verse-surface.rv-highlight.rv-oro{background:linear-gradient(transparent 55%,#e8c45a99 55%)}.rv-action-sheet__toggle{border:0;background:transparent;color:#78716c;cursor:pointer;font-size:20px;line-height:1;padding:2px 6px}.rv-action-sheet__toggle:hover{color:#292524}.rv-action-sheet__action{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:72px;min-height:56px;padding:9px 12px;border:1px solid #e7e5e4;border-radius:14px;background:#fff;color:#44403c;cursor:pointer;font:600 11px Arial,sans-serif;transition:background .16s,color .16s}.rv-action-sheet__action:hover{background:#f5f5f4;color:#0c0a09}.rv-action-sheet__note{margin-top:12px;color:#57534e;font-size:12px}@media(max-width:520px){.rv-action-sheet{padding:10px 12px 16px}}.rv-selection-toolbar { position:fixed; z-index:9999; display:flex; align-items:center; gap:2px; padding:5px 7px; border-radius:12px; background:linear-gradient(#716e69,#4b4946); color:#fff; box-shadow:0 14px 30px #17130f44; font:500 12px Arial,sans-serif; animation:rv-toolbar-in .16s ease-out; }
     body .rv-selection-toolbar, body .rv-selection-detail, body .rv-selection-handle { display:none !important; }
  .rv-selection-toolbar button { display:inline-flex; align-items:center; gap:5px; min-height:28px; padding:4px 9px; border:0; border-radius:7px; background:transparent; color:#fff; cursor:pointer; }
