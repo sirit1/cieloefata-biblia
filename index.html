@@ -2215,8 +2215,9 @@ autenticando: false,
                 versiculoSel: 1,
                 referenciaActiva: '',
                 retornoLectura: null,
-                versiones: {},
-                versionesVersos: {},
+versiones: {},
+  versionesListaAPI: [],
+  versionesVersos: {},
   versionSel: 'rvr1960',
   versionParalelaSel: 'nvi',
   cargandoPasaje: false,
@@ -2757,9 +2758,10 @@ bibliotecaPestana: 'inicio',
   const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
-                    const limpio = { referencia: data.referencia || ref, versiones: { ...(data.versiones || {}), ...(data.original?.versos?.length ? { interlineal: data.original.versos.map(v => (v.tokens || []).map(t => `${t.palabra || t.texto || ''}${t.strong ? ` [${t.strong}]` : ''}`).join(' ')).join(' · ') } : {}) }, versionesVersos: data.versionesVersos || {}, original: data.original || null }; window.__revelatioPassageData = limpio;
-                    this.cachePasaje[ref] = limpio;
-                    return limpio;
+                    const limpio = { referencia: data.referencia || ref, versiones: { ...(data.versiones || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto } : {}), ...(data.original?.versos?.length ? { interlineal: data.original.versos.map(v => (v.tokens || []).map(t => `${t.palabra || t.texto || ''}${t.strong ? ` [${t.strong}]` : ''}`).join(' ')).join(' · ') } : {}) }, versionesVersos: { ...(data.versionesVersos || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto.split(/(?=\d+\s)/).filter(Boolean).map((texto, indice) => { const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/); return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() }; }) } : {}) }, versionesLista: data.versionesLista || [], original: data.original || null }; window.__revelatioPassageData = limpio;
+this.cachePasaje[ref] = limpio;
+  this.versionesListaAPI = limpio.versionesLista || [];
+  return limpio;
                 },
                 async guardarPasajeOffline() {
                     if (!this.referenciaActiva || this.offlineGuardando) return;
@@ -2790,10 +2792,11 @@ const etiquetas = {
   lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta', septuaginta: 'Septuaginta · LXX', interlineal: 'Interlineal · Original + Strong'
   };
   const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta', 'septuaginta', 'interlineal'];
-                    const disponibles = Object.keys(this.versiones).filter(k => this.versiones[k]);
+                    const catalogo = Array.isArray(this.versionesListaAPI) ? this.versionesListaAPI : [];
+                    const disponibles = [...new Set([...Object.keys(this.versiones).filter(k => this.versiones[k]), ...catalogo.map(v => v.key).filter(k => this.versiones[k])])];
                     return disponibles
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
-                        .map(k => ({ key: k, etiqueta: etiquetas[k] || k.toUpperCase() }));
+                        .map(k => ({ key: k, etiqueta: catalogo.find(v => v.key === k)?.etiqueta || etiquetas[k] || k.toUpperCase() }));
                 },
                 get textoActual() {
                     if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
