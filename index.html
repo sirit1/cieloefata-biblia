@@ -750,9 +750,18 @@
                                 </template>
 
                                 <template x-if="cargandoPasaje">
-                                    <div class="flex-1 flex items-center justify-center gap-2 text-gold-300 text-sm">
-                                        <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
-                                        Cargando pasaje...
+                                    <div class="flex-1 flex flex-col gap-8 py-2" role="status" aria-live="polite" aria-busy="true">
+                                        <span class="sr-only">Cargando pasaje…</span>
+                                        <div class="h-5 w-40 rounded bg-stone-200 animate-pulse"></div>
+                                        <template x-for="grupo in 3" :key="grupo">
+                                            <div class="space-y-3">
+                                                <div class="h-4 w-full rounded bg-stone-200 animate-pulse"></div>
+                                                <div class="h-4 w-5/6 rounded bg-stone-200 animate-pulse"></div>
+                                                <div class="h-4 w-11/12 rounded bg-stone-200 animate-pulse"></div>
+                                                <div class="h-4 w-4/5 rounded bg-stone-200 animate-pulse"></div>
+                                                <div class="h-4 w-2/3 rounded bg-stone-200 animate-pulse"></div>
+                                            </div>
+                                        </template>
                                     </div>
                                 </template>
 
@@ -4067,7 +4076,13 @@ guardarFicha() {
       if(e.target.closest('[data-verse-expand]')||e.target.closest('[data-verse-grip]')){verseSheet.classList.contains('rv-expanded')?verseSheet.classList.remove('rv-expanded'):expandirSheet();return;}
       const tab=e.target.closest('[data-xref-tab]');if(tab){activarPestana(tab.dataset.xrefTab);return;}
       const abrir=e.target.closest('[data-xref-open]');if(abrir){window.dispatchEvent(new CustomEvent('revelatio:open-search',{detail:{text:abrir.dataset.xrefOpen}}));closeVerseSheet();return;}
-      const swatchBtn=e.target.closest('[data-swatch]');if(swatchBtn){const cls=swatchBtn.dataset.swatch;const ref=verseSheetData?.reference;const node=ref?document.querySelector(`.rv-verse-surface[data-reference="${CSS.escape(ref)}"]`):null;let store={};try{store=JSON.parse(localStorage.getItem('revelatio-highlights')||'{}');}catch{}if(node){node.classList.remove('rv-highlight','rv-oro','rv-cielo','rv-terracota','rv-salvia','rv-lila');if(cls){node.classList.add('rv-highlight',cls);store[ref]=cls;}else{delete store[ref];}}try{localStorage.setItem('revelatio-highlights',JSON.stringify(store));}catch{}const note=verseSheet.querySelector('[data-verse-note]');if(note)note.textContent=cls?'Resaltado guardado en este dispositivo.':'Resaltado eliminado.';return;}
+      const swatchBtn=e.target.closest('[data-swatch]');if(swatchBtn){const cls=swatchBtn.dataset.swatch;const ref=verseSheetData?.reference;const node=ref?document.querySelector(`.rv-verse-surface[data-reference="${CSS.escape(ref)}"]`):null;
+        // Optimistic UI: pintamos el versículo de inmediato en este frame.
+        if(node){node.classList.remove('rv-highlight','rv-oro','rv-cielo','rv-terracota','rv-salvia','rv-lila');if(cls)node.classList.add('rv-highlight',cls);}
+        const note=verseSheet.querySelector('[data-verse-note]');if(note)note.textContent=cls?'Resaltado guardado en este dispositivo.':'Resaltado eliminado.';
+        // Persistencia diferida: ocurre tras el repintado, sin bloquear la interacción.
+        queueMicrotask(()=>{let store={};try{store=JSON.parse(localStorage.getItem('revelatio-highlights')||'{}');}catch{}if(cls)store[ref]=cls;else delete store[ref];try{localStorage.setItem('revelatio-highlights',JSON.stringify(store));}catch{}});
+        return;}
       const act=e.target.closest('[data-verse-action]')?.dataset.verseAction;if(act==='highlight'){const sw=verseSheet.querySelector('[data-verse-swatches]');if(sw)sw.hidden=!sw.hidden;}
       if(act==='interlinear'){activarPestana('strong');return;}
       if(act==='commentary'||act==='comentarios'){activarPestana('comentarios');return;}
