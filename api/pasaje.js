@@ -70,7 +70,7 @@ export default async function handler(req, res) {
     if (peshittaLocal.texto) {
       versiones.peshitta = peshittaLocal.texto;
       versionesVersos.peshitta = peshittaLocal.versos;
-      versionesLista.push({ key: 'peshitta', etiqueta: 'Peshitta · edición adjunta verificada' });
+      versionesLista.push({ key: 'peshitta', etiqueta: 'Biblia Peshitta' });
     }
 
     if (ref.esAT && original?.septuaginta?.texto) {

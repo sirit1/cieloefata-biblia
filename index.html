@@ -2758,7 +2758,7 @@ bibliotecaPestana: 'inicio',
   const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
-                    const limpio = { referencia: data.referencia || ref, versiones: { ...(data.versiones || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto } : {}), ...(data.original?.versos?.length ? { interlineal: data.original.versos.map(v => (v.tokens || []).map(t => `${t.palabra || t.texto || ''}${t.strong ? ` [${t.strong}]` : ''}`).join(' ')).join(' · ') } : {}) }, versionesVersos: { ...(data.versionesVersos || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto.split(/(?=\d+\s)/).filter(Boolean).map((texto, indice) => { const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/); return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() }; }) } : {}) }, versionesLista: data.versionesLista || [], original: data.original || null }; window.__revelatioPassageData = limpio;
+                    const limpio = { referencia: data.referencia || ref, versiones: { ...(data.versiones || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto } : {}), ...(data.original?.versos?.length ? { interlineal: data.original.versos.map(v => (v.tokens || []).map(t => `${t.palabra || t.texto || ''}${t.strong ? ` [${t.strong}]` : ''}`).join(' ')).join(' · ') } : {}) }, versionesVersos: { ...(data.versionesVersos || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto.split(/(?=\d+\s)/).filter(Boolean).map((texto, indice) => { const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/); return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() }; }) } : {}) }, versionesLista: (data.versionesLista || []).map(v => v.key === 'peshitta' ? { ...v, etiqueta: 'Biblia Peshitta' } : v), original: data.original || null }; window.__revelatioPassageData = limpio;
 this.cachePasaje[ref] = limpio;
   this.versionesListaAPI = limpio.versionesLista || [];
   return limpio;
@@ -2769,7 +2769,7 @@ this.cachePasaje[ref] = limpio;
                     try {
                         if (!window.RevelatioOfflineBible) throw new Error('IndexedDB no disponible');
                         const key = `pasaje:${this.referenciaActiva.toLowerCase()}`;
-                        const data = { referencia: this.referenciaActiva, versiones: this.versiones, versionesVersos: this.versionesVersos, original: this.original };
+                        const data = { referencia: this.referenciaActiva, versiones: this.versiones, versionesVersos: this.versionesVersos, versionesLista: this.versionesLista, original: this.original };
                         await window.RevelatioOfflineBible.put(key, data);
                         this.offlineDisponible = true;
                         this.offlineCapitulos = await window.RevelatioOfflineBible?.count() || 0;
@@ -2796,7 +2796,7 @@ const etiquetas = {
                     const disponibles = [...new Set([...Object.keys(this.versiones).filter(k => this.versiones[k]), ...catalogo.map(v => v.key).filter(k => this.versiones[k])])];
                     return disponibles
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
-                        .map(k => ({ key: k, etiqueta: catalogo.find(v => v.key === k)?.etiqueta || etiquetas[k] || k.toUpperCase() }));
+                        .map(k => ({ key: k, etiqueta: k === 'peshitta' ? 'Biblia Peshitta' : (catalogo.find(v => v.key === k)?.etiqueta || etiquetas[k] || k.toUpperCase()) }));
                 },
                 get textoActual() {
                     if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
