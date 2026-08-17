@@ -1482,12 +1482,14 @@
                         </div>
                     </div>
 
-                    <button @click="descargarTarjetaVersiculo()"
-                            class="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-stone-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800">
-                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
-                        Descargar para Instagram / WhatsApp
+                    <button @click="descargarTarjetaVersiculo()" :disabled="shareDescargando"
+                            class="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-stone-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800 disabled:cursor-wait disabled:opacity-70">
+                        <svg x-show="!shareDescargando" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+                        <svg x-show="shareDescargando" x-cloak class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"/></svg>
+                        <span x-text="shareDescargando ? 'Generando imagen…' : 'Descargar para Instagram / WhatsApp'"></span>
                     </button>
-                    <p class="mt-2 text-center text-[11px] text-stone-100/60">Se guardará como imagen en tu dispositivo.</p>
+                    <p x-show="!shareError" class="mt-2 text-center text-[11px] text-stone-100/60">Se guardará como imagen en tu dispositivo.</p>
+                    <p x-show="shareError" x-cloak class="mt-2 text-center text-[11px] text-red-300" x-text="shareError"></p>
                 </div>
             </div>
         </div>
@@ -3810,7 +3812,35 @@ guardarFicha() {
 
                 abrirBusquedaRevelatio(texto) { this.revelatioBusquedaTexto = String(texto || '').trim(); this.revelatioBusquedaPregunta = ''; this.revelatioBusquedaRespuesta = ''; this.revelatioBusquedaError = ''; this.revelatioBusquedaAbierta = true; this.$nextTick(() => document.querySelector('[x-model="revelatioBusquedaPregunta"]')?.focus()); },
                 async cargarHtml2Canvas() { if (window.html2canvas) return window.html2canvas; await new Promise((resolve, reject) => { const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'; s.onload = resolve; s.onerror = reject; document.head.appendChild(s); }); return window.html2canvas; },
-                async descargarTarjetaVersiculo() { const nodo = document.getElementById('share-card-capture'); if (!nodo) return; try { const html2canvas = await this.cargarHtml2Canvas(); const lienzo = await html2canvas(nodo, { scale: 3, backgroundColor: null, useCORS: true }); const enlace = document.createElement('a'); const nombre = (this.shareCard.referencia || 'versiculo').replace(/[^a-z0-9]+/gi, '-').toLowerCase(); enlace.download = `revelatio-${nombre}.png`; enlace.href = lienzo.toDataURL('image/png'); enlace.click(); } catch (error) { console.warn('[v0] descarga tarjeta falló', error); } },
+                shareDescargando: false,
+                shareError: '',
+                async descargarTarjetaVersiculo() {
+                    const nodo = document.getElementById('share-card-capture');
+                    if (!nodo || this.shareDescargando) return;
+                    this.shareDescargando = true;
+                    this.shareError = '';
+                    try {
+                        const html2canvas = await this.cargarHtml2Canvas();
+                        const lienzo = await html2canvas(nodo, { scale: 3, backgroundColor: '#FBFBFA', useCORS: true });
+                        const nombre = (this.shareCard.referencia || 'versiculo').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+                        const dataUrl = lienzo.toDataURL('image/png');
+                        // El <a download> debe estar anclado al DOM antes del click: en Chrome/Firefox/Safari
+                        // reales (no en motores de test permisivos) un enlace desconectado ignora el click programático.
+                        const enlace = document.createElement('a');
+                        enlace.download = `revelatio-${nombre}.png`;
+                        enlace.href = dataUrl;
+                        enlace.style.position = 'fixed';
+                        enlace.style.opacity = '0';
+                        document.body.appendChild(enlace);
+                        enlace.click();
+                        enlace.remove();
+                    } catch (error) {
+                        console.warn('[v0] descarga tarjeta falló', error);
+                        this.shareError = 'No se pudo generar la imagen. Inténtalo de nuevo.';
+                    } finally {
+                        this.shareDescargando = false;
+                    }
+                },
   cerrarBusquedaRevelatio() { this.revelatioBusquedaAbierta = false; this.revelatioBusquedaCargando = false; },
   async buscarDesdeSeleccion() { const pregunta=this.revelatioBusquedaPregunta.trim(); const texto=this.revelatioBusquedaTexto.trim(); if(!pregunta||!texto||this.revelatioBusquedaCargando)return; this.revelatioBusquedaCargando=true; this.revelatioBusquedaError=''; this.revelatioBusquedaRespuesta=''; try { const token=await this.getToken(); if(!token)throw new Error('Tu sesión no está activa. Inicia sesión para consultar RevelatiO IA.'); const res=await fetch('/api/exegesis',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({consulta:`Texto seleccionado: ${texto}\n\nPregunta: ${pregunta}`})}); const data=await res.json(); if(res.status===401)throw new Error('Tu sesión ha caducado. Vuelve a iniciar sesión para consultar RevelatiO IA.'); if(!res.ok)throw new Error(data.error||'No fue posible completar la búsqueda.'); const d=data.data||data; this.revelatioBusquedaRespuesta=d.comentarioMacArthur||d.hermeneutica||d.exegesisVersiculoVersiculo||d.aplicacion||'RevelatiO IA no devolvió una explicación para esta consulta.'; } catch(e) { this.revelatioBusquedaError=e.message||'No fue posible completar la búsqueda.'; } finally { this.revelatioBusquedaCargando=false; } },
   buscarGlobal() {
