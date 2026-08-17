@@ -314,7 +314,7 @@
         </div>
 
         <!-- HEADER GLOBAL -->
-        <header class="zona-oscura shrink-0 min-h-20 lg:min-h-24 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40 shadow-lg shadow-night/10">
+        <header class="zona-oscura shrink-0 min-h-20 lg:min-h-24 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40 shadow-lg shadow-night/10 transition-all duration-300 ease-in-out overflow-hidden" :class="{ '-translate-y-full max-h-0 min-h-0 py-0 border-0 opacity-0': !sanctuaryShowNav, 'translate-y-0 max-h-40 opacity-100': sanctuaryShowNav }">
             <button @click="sidebarAbierta = !sidebarAbierta" class="lg:hidden text-gray-300 hover:text-gold-300 p-1" aria-label="Abrir menú">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
@@ -448,7 +448,7 @@
             </aside>
 
             <!-- CONTENIDO -->
-            <main class="relative flex-1 min-w-0 overflow-y-auto bg-ink">
+            <main class="relative flex-1 min-w-0 overflow-y-auto bg-ink" @scroll="sanctuaryShowNav = ($event.target.scrollTop < sanctuaryLastScroll || $event.target.scrollTop < 50); sanctuaryLastScroll = $event.target.scrollTop">
                 <div class="relative z-10 max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
                     <div class="mb-5 flex items-center gap-3 text-[10px] font-semibold uppercase text-gold-500/75 brand-kicker">
                         <span class="h-px w-10 brand-rule"></span>
@@ -1905,7 +1905,7 @@
                         { titulo: 'Día 1 · Hay tiempo para llorar', pasajes: ['Eclesiastés 3:1-4'] },
                         { titulo: 'Día 2 · Dios cercano al quebrantado', pasajes: ['Salmos 34:18'] },
                         { titulo: 'Día 3 · Jesús lloró', pasajes: ['Juan 11:32-36'] },
-                        { titulo: 'Día 4 ���� Esperanza en la resurrección', pasajes: ['1 Tesalonicenses 4:13-18'] },
+                        { titulo: 'Día 4 ������ Esperanza en la resurrección', pasajes: ['1 Tesalonicenses 4:13-18'] },
                         { titulo: 'Día 5 · Fuerzas para hoy', pasajes: ['2 Corintios 4:16-18'] },
                         { titulo: 'Día 6 · Consolar a otros', pasajes: ['2 Corintios 1:3-5'] },
                         { titulo: 'Día 7 · Todas las cosas nuevas', pasajes: ['Apocalipsis 21:1-5'] }
@@ -2284,6 +2284,8 @@ iaFichas: [],
   cuadernoBusqueda: '',
   cuadernoOrden: 'recientes',
   fichaEditandoId: null,
+  sanctuaryShowNav: true,
+  sanctuaryLastScroll: 0,
   cuadernoVista: 'biblioteca',
   cuadernoFiltro: 'todas',
   cuadernoEtiqueta: '',
