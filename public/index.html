@@ -1118,7 +1118,7 @@
   <div x-show="iaVista === 'consulta'" class="rv-ia-composer">
     <div class="rv-chips" style="margin-bottom:.6rem">
       <template x-for="l in LENTES_LISTA" :key="l.id">
-        <button type="button" @click="activarLente(l.id)" class="rv-chip" :class="lenteActiva === l.id && 'is-active'" x-text="l.etiqueta"></button>
+        <button type="button" @click="activarLente(l.id)" class="rv-chip" :class="lenteActiva === l.id && 'is-active'" :title="l.etiqueta" x-text="l.corta || l.etiqueta"></button>
       </template>
     </div>
     <form @submit.prevent="ejecutarEstudio(busqueda)" class="rv-pill-wrap">
@@ -2357,14 +2357,17 @@ iaFichas: [],
                 // lentes multi-disciplina de RevelatiO IA
                 LENTES_LISTA: [
                     { id: 'teologia', etiqueta: 'Teología' },
-                    { id: 'antropologia', etiqueta: 'Antropología' },
-                    { id: 'hermeneutica', etiqueta: 'Hermenéutica' },
+                    { id: 'antropologia', etiqueta: 'Antropología', corta: 'Antropol.' },
+                    { id: 'hermeneutica', etiqueta: 'Hermenéutica', corta: 'Hermenéut.' },
                     { id: 'apologetica', etiqueta: 'Apologética' },
                     { id: 'exegesis', etiqueta: 'Exégesis' },
                     { id: 'psicologia', etiqueta: 'Psicología' },
-                    { id: 'neurociencia', etiqueta: 'Neurociencia' },
-                    { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad' },
-                    { id: 'inteligenciaEmocional', etiqueta: 'Inteligencia emocional' }
+                    { id: 'neurociencia', etiqueta: 'Neurociencia', corta: 'Neurocien.' },
+                    // `corta` solo se usa en la fila de chips del composer, donde el ancho
+                    // es limitado. El resto de la UI (biblioteca de perspectivas, cabecera
+                    // de la respuesta) sigue mostrando `etiqueta` completa.
+                    { id: 'neuroplasticidad', etiqueta: 'Neuroplasticidad', corta: 'Neuroplast.' },
+                    { id: 'inteligenciaEmocional', etiqueta: 'Inteligencia emocional', corta: 'Int. emocional' }
                 ],
                 GRUPOS_LENTES: [
                     { titulo: 'Texto', ids: ['exegesis', 'hermeneutica', 'teologia', 'apologetica'] },
@@ -4212,9 +4215,11 @@ guardarFicha() {
     .rv-omni-send{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);display:grid;place-items:center;height:2.75rem;width:2.75rem;border-radius:.75rem;background:#1c1917;color:#fff;border:0;cursor:pointer;transition:background .15s}
     .rv-omni-send:hover{background:#292524}
     .rv-omni-send:disabled{opacity:.5;cursor:not-allowed}
-    .rv-chips{display:flex;gap:.5rem;overflow-x:auto;padding:.25rem 0;scrollbar-width:none;-ms-overflow-style:none}
-    .rv-chips::-webkit-scrollbar{display:none}
-    .rv-chip{flex:0 0 auto;white-space:nowrap;border-radius:9999px;padding:.375rem .875rem;font-size:.75rem;font-weight:500;border:1px solid transparent;background:#f5f5f4;color:#57534e;cursor:pointer;transition:background .15s,color .15s}
+  /* Las 9 lentes deben caber en una sola línea sin recortes: chips compactos y,
+     si el ancho aprieta, se reparten en varias filas en vez de desbordar. */
+  .rv-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem;padding:.25rem 0;scrollbar-width:none;-ms-overflow-style:none}
+  .rv-chips::-webkit-scrollbar{display:none}
+  .rv-chip{flex:0 0 auto;white-space:nowrap;border-radius:9999px;padding:.3rem .45rem;font-size:.7rem;line-height:1.15;font-weight:500;border:1px solid transparent;background:#f5f5f4;color:#57534e;cursor:pointer;transition:background .15s,color .15s}
     .rv-chip:hover{background:#e7e5e4}
     .rv-chip.is-active{background:#fef3c7;color:#78350f;border-color:#fcd34d}
     .rv-ia-meta{color:#57534e !important;-webkit-text-fill-color:#57534e !important}
