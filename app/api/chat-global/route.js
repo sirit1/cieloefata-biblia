@@ -1,24 +1,43 @@
-import legacyHandler from '../../../api/chat-global.js'
+import { streamText } from 'ai'
+import { SYSTEM_PROMPT } from '../../../lib/prompts/revelatio-system-prompt.js'
 
-export const runtime = 'nodejs'
-
-function createResponse() {
-  const headers = new Headers()
-  let status = 200
-  let payload = null
-  return {
-    setHeader(name, value) { headers.set(name, String(value)) },
-    status(code) { status = code; return this },
-    json(value) { payload = value; return this },
-    toResponse() { return Response.json(payload ?? {}, { status, headers }) },
-  }
-}
+export const runtime = 'edge'
 
 export async function POST(request) {
-  const response = createResponse()
   const body = await request.json().catch(() => ({}))
-  await legacyHandler({ method: 'POST', body, headers: Object.fromEntries(request.headers.entries()) }, response)
-  return response.toResponse()
+  const { message, context = {}, history = [] } = body || {}
+  const cleanMessage = String(message || '').trim().slice(0, 4000)
+
+  if (!cleanMessage) {
+    return Response.json({ error: 'Escribe una pregunta para continuar.' }, { status: 400 })
+  }
+
+  const contextLine = [context.reference, context.module, context.version]
+    .filter(Boolean)
+    .join(' · ')
+  const transcript = Array.isArray(history)
+    ? history
+        .slice(-8)
+        .map(item => `${item.role === 'user' ? 'Usuario' : 'RevelatiO IA'}: ${String(item.content || '').slice(0, 1800)}`)
+        .join('\n')
+    : ''
+
+  try {
+    const result = streamText({
+      model: 'openai/gpt-5.6-sol',
+      system: SYSTEM_PROMPT,
+      prompt: `${contextLine ? `Contexto activo: ${contextLine}\n` : ''}${transcript ? `Conversación previa:\n${transcript}\n` : ''}Usuario: ${cleanMessage}`,
+      maxOutputTokens: 900,
+    })
+
+    return result.toTextStreamResponse()
+  } catch (error) {
+    console.error('[v0] Error en chat global (streaming):', error)
+    return Response.json(
+      { error: 'No pude responder ahora. Inténtalo de nuevo en un momento.' },
+      { status: 500 },
+    )
+  }
 }
 
 export async function OPTIONS() {
