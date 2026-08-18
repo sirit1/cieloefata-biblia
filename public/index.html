@@ -1542,8 +1542,9 @@
         </div>
 
         <!-- Drawer lateral: Recursos de Estudio Histórico (8 fuentes reales de dominio público) -->
-        <div x-show="showResourceDrawer" x-cloak x-transition.opacity class="fixed inset-0 z-[120] bg-stone-900/40 backdrop-blur-xs" role="dialog" aria-modal="true" aria-label="Recursos de estudio histórico" @click.self="showResourceDrawer = false" @keydown.escape.window="showResourceDrawer = false">
-            <div class="fixed inset-y-0 right-0 z-[120] flex w-full max-w-lg flex-col overflow-y-auto border-l border-stone-200 bg-[#FBFBFA] p-6 shadow-2xl transition-transform duration-300">
+        <div x-show="showResourceDrawer" x-cloak x-transition.opacity class="fixed inset-0 z-[120] bg-stone-900/40 backdrop-blur-xs" @click="showResourceDrawer = false" @keydown.escape.window="showResourceDrawer = false"></div>
+        <div x-show="showResourceDrawer" x-cloak class="fixed inset-y-0 right-0 z-[120] flex w-full max-w-lg" role="dialog" aria-modal="true" aria-label="Recursos de estudio histórico">
+            <div x-show="showResourceDrawer" x-cloak x-transition:enter="transition-transform duration-300 ease-out" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition-transform duration-200 ease-in" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" class="flex w-full flex-col overflow-y-auto border-l border-stone-200 bg-[#FBFBFA] p-6 shadow-2xl" @click.stop>
                 <div class="flex items-start justify-between gap-4 border-b border-stone-200 pb-4">
                     <div class="min-w-0">
                         <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-700">Recursos de Estudio Histórico</p>
@@ -1601,6 +1602,7 @@
                     RevelatiO IA · Conectar con Metanoia y Neuroplasticidad
                 </button>
             </div>
+        </div>
         </div>
 
         <!-- Modal: lector "modo libro" (capítulo completo, página a página) -->
