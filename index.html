@@ -517,7 +517,7 @@
       </header>
       <div class="space-y-6 font-serif leading-[2.1] text-stone-200" :style="`font-size: ${(fontSize || 20)}px;`">
         <template x-for="v in versosActuales" :key="'zen-' + v.n">
-          <p :id="'zen-verse-' + v.n" @click="seleccionarVersiculoLector(v.n); abrirHojaVersiculoLector(v.n)" :class="currentReadingVerseId === v.n ? 'bg-amber-900/30 ring-1 ring-amber-500/50 rounded-xl px-4 py-2 text-amber-50' : 'hover:text-amber-100 cursor-pointer transition-colors px-2 rounded-lg'" class="transition-all duration-200">
+          <p :id="'zen-verse-' + v.n" @click="selectVerse(v); selectedVerse && (seleccionarVersiculoLector(v.n), abrirHojaVersiculoLector(v.n))" :class="currentReadingVerseId === v.n ? 'bg-amber-900/30 ring-1 ring-amber-500/50 rounded-xl px-4 py-2 text-amber-50' : 'hover:text-amber-100 cursor-pointer transition-colors px-2 rounded-lg'" class="transition-all duration-200">
             <sup class="text-xs font-mono font-bold text-amber-400/70 mr-2 select-none" x-text="v.n"></sup><span x-text="v.texto"></span>
           </p>
         </template>
@@ -1806,7 +1806,7 @@
                         <template x-if="!cargandoPasaje">
                             <div class="libro-lectura-shell" :class="animandoPagina ? 'pagina-en-movimiento' : ''"><p class="prose-lectura font-serif text-lg sm:text-xl">
                                 <template x-for="v in versosActuales" :key="v.n">
-                                    <span :id="'verse-' + v.n" @click="!interlinearActive && (seleccionarVersiculoLector(v.n), abrirHojaVersiculoLector(v.n))"
+                                    <span :id="'verse-' + v.n" @click="!interlinearActive && (selectVerse(v), seleccionarVersiculoLector(v.n), abrirHojaVersiculoLector(v.n))"
                                         :data-reference="`${libroSel?.n || ''} ${capituloSel}:${v.n}`"
                                         :class="[colorVersiculo(v.n) ? `hl-${colorVersiculo(v.n)}` : '', versiculoLectorSel === v.n ? 'ring-2 ring-gold-500/70' : '', currentReadingVerseId === v.n ? 'bg-amber-100/80 ring-1 ring-amber-400/80 shadow-xs rounded-xl p-2 transition-all duration-300' : '', (highlightFilter !== 'all' && colorVersiculo(v.n) !== highlightFilter) ? 'opacity-30' : '', !interlinearActive ? 'cursor-pointer' : '']"
                                         class="transition-all duration-300 hover:bg-gold-500/10 rounded px-0.5">
@@ -2705,6 +2705,10 @@ versiones: {},
                     { id: 'exegesis', etiqueta: 'Exégesis & Griego', consulta: 'Romanos 12:2 y la renovación de la mente' },
                     { id: 'oracion', etiqueta: 'Oración Guiada', consulta: 'una oración para entregar mis preocupaciones a Dios' }
                 ],
+  selectedVerse: null,
+  activeCardText: '',
+  activeCardRef: '',
+  activeCardVersion: '',
   showShareModal: false,
   toastMessage: '',
   toastTimer: null,
@@ -3690,6 +3694,16 @@ const etiquetas = {
   this.journalStep = 1;
   this.journalDraft = { pensamiento: '', verdad: '', accion: '' };
   },
+  selectVerse(v) {
+  if (!v) return;
+  const verseNumber = v.verse ?? v.n ?? v.numero;
+  if (this.selectedVerse && String(this.selectedVerse.verse ?? this.selectedVerse.n ?? this.selectedVerse.numero) === String(verseNumber)) { this.selectedVerse = null; return; }
+  this.selectedVerse = { ...v, verse: verseNumber, text: v.text ?? v.texto ?? '' };
+  this.activeCardText = this.selectedVerse.text;
+  this.activeCardRef = `${this.libroSel?.n || this.libroActual || this.referenciaActiva || 'Pasaje'} ${this.capituloSel || ''}:${verseNumber}`.trim();
+  this.activeCardVersion = this.versionSel || 'RVR 1960';
+  },
+  setHighlight(color) { this.resaltarVersiculo(this.selectedVerse?.verse, color); },
   createVerseCard(numeroVersiculo) {
   const referencia = numeroVersiculo && this.libroSel ? `${this.libroSel.n} ${this.capituloSel}:${numeroVersiculo}` : (this.referenciaActiva || this.estudioRef || 'RevelatiO by Efata');
   const texto = numeroVersiculo ? this.textoDeVersiculo(numeroVersiculo) : (this.textoActual || this.estudio.comentario || this.busqueda || 'La Palabra transforma la mente.');
@@ -5442,6 +5456,31 @@ guardarFicha() {
         <p class="mt-1" x-text="outlineData.pregunta"></p>
       </div>
     </template>
+  </div>
+
+  <!-- VerseActionSheet: acciones rápidas del versículo seleccionado -->
+  <div x-show="selectedVerse" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-3" class="fixed bottom-0 inset-x-0 z-[10001] px-3 pb-3 sm:pb-5" @click.outside="selectedVerse = null" role="toolbar" aria-label="Acciones rápidas del versículo">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-1.5 rounded-2xl border border-stone-700 bg-stone-950/95 px-3 py-2.5 shadow-2xl backdrop-blur-md">
+      <span class="hidden max-w-40 truncate px-2 text-[11px] font-serif text-amber-200/80 sm:block" x-text="activeCardRef"></span>
+      <button @click="selectedVerse = null" class="rounded-lg px-2 py-1 text-xs text-stone-400 transition-colors hover:bg-stone-800 hover:text-white">✕ Deseleccionar</button>
+      <div x-data="{ highlightDropdown: false }" class="relative">
+        <button @click="highlightDropdown = !highlightDropdown" class="flex items-center gap-1 rounded-xl bg-stone-800 px-2.5 py-1.5 text-amber-300 transition-colors hover:bg-stone-700">🎨 Resaltar</button>
+        <div x-show="highlightDropdown" x-cloak @click.outside="highlightDropdown = false" class="absolute bottom-full left-0 z-50 mb-2 flex items-center gap-1 rounded-xl border border-stone-700 bg-stone-900 p-1.5 shadow-xl">
+          <button @click="setHighlight('promesa'); highlightDropdown = false" class="h-6 w-6 rounded-full border border-amber-200 bg-amber-400" title="Promesa Divina" aria-label="Promesa Divina"></button>
+          <button @click="setHighlight('mandamiento'); highlightDropdown = false" class="h-6 w-6 rounded-full border border-sky-200 bg-sky-400" title="Mandamiento" aria-label="Mandamiento"></button>
+          <button @click="setHighlight('metanoia'); highlightDropdown = false" class="h-6 w-6 rounded-full border border-emerald-200 bg-emerald-400" title="Metanoia" aria-label="Metanoia"></button>
+          <button @click="setHighlight('advertencia'); highlightDropdown = false" class="h-6 w-6 rounded-full border border-rose-200 bg-rose-400" title="Advertencia" aria-label="Advertencia"></button>
+          <button @click="setHighlight(null); highlightDropdown = false" class="px-1.5 text-[10px] text-stone-400 hover:text-white">Quitar</button>
+        </div>
+      </div>
+      <button @click="openJournal(selectedVerse.verse)" class="flex items-center gap-1 rounded-xl bg-stone-800 px-2.5 py-1.5 text-stone-200 transition-colors hover:bg-stone-700 hover:text-white">Nota</button>
+      <button @click="journalDraft.verdad = selectedVerse.text + ' (' + activeCardRef + ')'; journalOpen = true; journalStep = 1; selectedVerse = null" class="flex items-center gap-1 rounded-xl border border-emerald-700/60 bg-emerald-950/80 px-2.5 py-1.5 text-emerald-300 transition-colors hover:bg-emerald-900">Metanoia</button>
+      <button @click="shareCard = { ...shareCard, texto: activeCardText, referencia: activeCardRef, version: activeCardVersion }; showShareModal = true; selectedVerse = null" class="flex items-center gap-1 rounded-xl border border-amber-700/60 bg-amber-950/80 px-2.5 py-1.5 text-amber-300 transition-colors hover:bg-amber-900">Tarjeta</button>
+      <button @click="abrirComparador(selectedVerse.verse); selectedVerse = null" class="flex items-center gap-1 rounded-xl bg-stone-800 px-2.5 py-1.5 text-stone-200 transition-colors hover:bg-stone-700 hover:text-white">Comparar</button>
+      <button @click="generarBosquejo(selectedVerse.verse); selectedVerse = null" class="flex items-center gap-1 rounded-xl bg-stone-800 px-2.5 py-1.5 text-stone-200 transition-colors hover:bg-stone-700 hover:text-white">Bosquejo</button>
+      <button @click="startSingleVerseAudio(selectedVerse); selectedVerse = null" class="flex items-center gap-1 rounded-xl bg-stone-800 px-2.5 py-1.5 text-stone-200 transition-colors hover:bg-stone-700 hover:text-white">Escuchar</button>
+      <button @click="omnibarQuery = 'Analiza en profundidad la raíz exegética y el impacto de Metanoia de: ' + activeCardRef; askRevelatioIA(); selectedVerse = null" class="ml-auto flex items-center gap-1 rounded-xl bg-amber-600 px-3.5 py-1.5 text-white shadow-md transition-colors hover:bg-amber-700">Profundizar con IA</button>
+    </div>
   </div>
 
   <!-- Chat global omnipresente de RevelatiO IA -->
