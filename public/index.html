@@ -134,6 +134,9 @@
         }
 
         /* Animación de paso de página */
+        .rv-zen-sanctuary { overflow-y: auto; }
+        .rv-zen-controls { opacity: .18; transition: opacity .25s ease; }
+        .rv-zen-controls:hover, .rv-zen-controls:focus-within { opacity: 1; }
         .rv-reader-container { width: 100%; max-width: 32rem; margin-inline: auto; padding: 2.5rem 1rem; background: #FAF8F5; border: 1px solid rgba(231,229,228,.7); border-radius: 1.5rem; box-shadow: 0 1px 2px rgba(8,21,43,.06); }
         @media (min-width: 768px) { .rv-reader-container { max-width: 48rem; padding-inline: 2rem; } }
         @media (min-width: 1024px) { .rv-reader-container { max-width: 56rem; padding-inline: 3rem; margin-block: 1.5rem; } }
@@ -491,8 +494,46 @@
 
             <button x-show="zenMode" x-cloak x-transition.opacity.duration.300ms @click="zenMode = false; bibliaModoSantuario = false; sanctuaryShowNav = true" class="fixed right-4 top-4 z-50 rounded-full border border-gold-500/40 bg-night/70 px-3 py-2 text-xs text-gold-200 shadow-lg backdrop-blur" aria-label="Salir del Santuario">✕ Salir del Santuario</button>
             <!-- CONTENIDO -->
-            <main class="relative flex-1 min-w-0 overflow-y-auto bg-ink" @scroll="sanctuaryShowNav = ($event.target.scrollTop < sanctuaryLastScroll || $event.target.scrollTop < 50); sanctuaryLastScroll = $event.target.scrollTop">
-                <div :class="zenMode ? 'max-w-2xl mx-auto py-12 px-6' : 'max-w-6xl mx-auto p-4 sm:p-6 lg:p-8'" class="relative z-10 transition-all duration-300">
+  <!-- SANTUARIO ZEN: lienzo aislado, sin fugas de la interfaz de estudio -->
+  <section x-show="zenMode" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-[.98]" x-transition:enter-end="opacity-100 scale-100" class="rv-zen-sanctuary min-h-screen w-full bg-[#161412] text-[#F3EFE6] py-12 px-6 sm:px-12 flex flex-col items-center justify-start selection:bg-amber-500/30" @keydown.escape.window="zenMode = false; bibliaModoSantuario = false; sanctuaryShowNav = true" aria-label="Modo Santuario de lectura">
+    <div class="rv-zen-controls fixed top-6 inset-x-0 max-w-xl mx-auto z-50 px-4">
+      <div class="bg-stone-900/90 backdrop-blur-md border border-amber-500/30 rounded-full px-5 py-2.5 shadow-2xl flex items-center justify-between gap-4 text-xs text-stone-300">
+        <span class="font-serif font-semibold text-amber-300 tracking-wide whitespace-nowrap" x-text="libroSel ? libroSel.n + ' ' + capituloSel : 'RevelatiO'"></span>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button @click="fontSize = Math.max(16, (fontSize || 20) - 2)" class="hover:text-amber-300 px-1 font-bold text-sm" aria-label="Reducir tamaño de letra">A-</button>
+          <button @click="fontSize = Math.min(28, (fontSize || 20) + 2)" class="hover:text-amber-300 px-1 font-bold text-base" aria-label="Aumentar tamaño de letra">A+</button>
+          <span class="w-px h-3.5 bg-stone-700"></span>
+          <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'text-amber-400 font-semibold' : 'text-stone-400 hover:text-stone-200'" class="flex items-center gap-1 whitespace-nowrap" aria-label="Música contemplativa"><span aria-hidden="true">♫</span> <span class="hidden sm:inline" x-text="soundscapeActive ? 'Música: ON' : 'Música: OFF'"></span></button>
+          <span class="w-px h-3.5 bg-stone-700"></span>
+          <button @click="zenMode = false; bibliaModoSantuario = false; sanctuaryShowNav = true" class="text-stone-300 hover:text-white bg-stone-800 hover:bg-stone-700 px-3 py-1 rounded-full font-medium transition-colors whitespace-nowrap">Salir</button>
+        </div>
+      </div>
+    </div>
+    <main class="w-full max-w-2xl lg:max-w-3xl mx-auto pt-16 pb-24">
+      <header class="text-center mb-12 space-y-2">
+        <p class="text-[11px] font-mono tracking-[0.3em] uppercase text-amber-400/80">REVELATIO · PALABRA VIVA</p>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-amber-100 tracking-tight" x-text="libroSel ? libroSel.n + ' ' + capituloSel : 'RevelatiO'" ></h1>
+        <div class="w-16 h-0.5 bg-amber-500/40 mx-auto mt-4"></div>
+      </header>
+      <div class="space-y-6 font-serif leading-[2.1] text-stone-200" :style="`font-size: ${(fontSize || 20)}px;`">
+        <template x-for="v in versosActuales" :key="'zen-' + v.n">
+          <p :id="'zen-verse-' + v.n" @click="seleccionarVersiculoLector(v.n); abrirHojaVersiculoLector(v.n)" :class="currentReadingVerseId === v.n ? 'bg-amber-900/30 ring-1 ring-amber-500/50 rounded-xl px-4 py-2 text-amber-50' : 'hover:text-amber-100 cursor-pointer transition-colors px-2 rounded-lg'" class="transition-all duration-200">
+            <sup class="text-xs font-mono font-bold text-amber-400/70 mr-2 select-none" x-text="v.n"></sup><span x-text="v.texto"></span>
+          </p>
+        </template>
+      </div>
+      <footer class="mt-16 pt-10 border-t border-stone-800 text-center space-y-4">
+        <p class="text-sm font-serif italic text-stone-400 max-w-md mx-auto">«Medita en estas cosas; permanece en ellas, para que tu aprovechamiento sea manifiesto a todos.»</p>
+        <div class="flex items-center justify-center gap-3 pt-2 flex-wrap">
+          <button @click="abrirPausaSagrada()" class="px-4 py-2 bg-amber-600/90 hover:bg-amber-600 text-white rounded-xl text-xs font-medium transition-all shadow-lg shadow-amber-950/40">Iniciar Pausa Sagrada</button>
+          <button @click="zenMode = false; bibliaModoSantuario = false; sanctuaryShowNav = true" class="px-4 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-xl text-xs font-medium transition-colors">Volver al Estudio General</button>
+        </div>
+      </footer>
+    </main>
+  </section>
+
+  <main x-show="!zenMode" x-cloak class="relative flex-1 min-w-0 overflow-y-auto bg-ink" @scroll="sanctuaryShowNav = ($event.target.scrollTop < sanctuaryLastScroll || $event.target.scrollTop < 50); sanctuaryLastScroll = $event.target.scrollTop">
+  <div :class="zenMode ? 'max-w-2xl mx-auto py-12 px-6' : 'max-w-6xl mx-auto p-4 sm:p-6 lg:p-8'" class="relative z-10 transition-all duration-300">
                     <div class="mb-5 flex items-center gap-3 text-[10px] font-semibold uppercase text-gold-500/75 brand-kicker">
                         <span class="h-px w-10 brand-rule"></span>
                         <span>RevelatiO <span class="text-gold-400/70">·</span> by Efata</span>
@@ -2655,6 +2696,7 @@ versiones: {},
                     { id: 'holy_presence', name: 'Colchón de Gracia (Pads & Guitarra)', url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=spiritual-worship-peace-10336.mp3' }
                 ],
                 playbackSpeed: 1.0,
+                fontSize: 20,
                 audioSource: 'chapter',
                 omniIntenciones: [
                     { id: 'ansiedad', etiqueta: 'Ansiedad & Paz', consulta: 'la ansiedad y la paz de Dios' },
