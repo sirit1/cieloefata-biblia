@@ -314,7 +314,7 @@
         </div>
 
         <!-- HEADER GLOBAL -->
-        <header class="zona-oscura shrink-0 min-h-20 lg:min-h-24 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40 shadow-lg shadow-night/10 transition-all duration-300 ease-in-out overflow-hidden" :class="{ '-translate-y-full max-h-0 min-h-0 py-0 border-0 opacity-0': !sanctuaryShowNav, 'translate-y-0 max-h-40 opacity-100': sanctuaryShowNav }">
+        <header x-show="!zenMode" x-transition.opacity.duration.300ms class="zona-oscura shrink-0 min-h-20 lg:min-h-24 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40 shadow-lg shadow-night/10 transition-all duration-300 ease-in-out overflow-hidden" :class="{ '-translate-y-full max-h-0 min-h-0 py-0 border-0 opacity-0': !sanctuaryShowNav, 'translate-y-0 max-h-40 opacity-100': sanctuaryShowNav }">
             <button @click="sidebarAbierta = !sidebarAbierta" class="lg:hidden text-gray-300 hover:text-gold-300 p-1" aria-label="Abrir menú">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
@@ -377,8 +377,8 @@
             <div x-show="sidebarAbierta" x-cloak @click="sidebarAbierta = false" class="fixed inset-0 top-24 bg-night/70 z-30 lg:hidden" aria-hidden="true"></div>
 
             <!-- SIDEBAR -->
-            <aside :class="sidebarAbierta ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-                class="zona-oscura fixed lg:static top-24 lg:top-0 bottom-0 left-0 w-[min(18rem,calc(100vw-1rem))] border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto overscroll-contain">
+<aside x-show="!zenMode" x-transition.opacity.duration.300ms :class="sidebarAbierta ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+  class="zona-oscura fixed lg:static top-24 lg:top-0 bottom-0 left-0 w-[min(18rem,calc(100vw-1rem))] border-r border-line flex flex-col justify-between z-30 transition-transform duration-200 overflow-y-auto overscroll-contain">
                 <div class="brand-panel mx-4 mt-4 mb-3 rounded-2xl border border-gold-500/30 bg-gradient-to-br from-gold-500/15 via-transparent to-transparent p-3.5 shadow-[inset_0_0_30px_rgba(200,155,60,.06)]">
                     <div class="flex items-center gap-3">
                         <img src="/brand/revelatio-logo-full-new.jpeg" alt="" aria-hidden="true" class="h-10 w-10 object-contain shrink-0">
@@ -447,9 +447,10 @@
                 </div>
             </aside>
 
+            <button x-show="zenMode" x-cloak x-transition.opacity.duration.300ms @click="zenMode = false; bibliaModoSantuario = false; sanctuaryShowNav = true" class="fixed right-4 top-4 z-50 rounded-full border border-gold-500/40 bg-night/70 px-3 py-2 text-xs text-gold-200 shadow-lg backdrop-blur" aria-label="Salir del Santuario">✕ Salir del Santuario</button>
             <!-- CONTENIDO -->
             <main class="relative flex-1 min-w-0 overflow-y-auto bg-ink" @scroll="sanctuaryShowNav = ($event.target.scrollTop < sanctuaryLastScroll || $event.target.scrollTop < 50); sanctuaryLastScroll = $event.target.scrollTop">
-                <div class="relative z-10 max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+                <div :class="zenMode ? 'max-w-2xl mx-auto py-12 px-6' : 'max-w-6xl mx-auto p-4 sm:p-6 lg:p-8'" class="relative z-10 transition-all duration-300">
                     <div class="mb-5 flex items-center gap-3 text-[10px] font-semibold uppercase text-gold-500/75 brand-kicker">
                         <span class="h-px w-10 brand-rule"></span>
                         <span>RevelatiO <span class="text-gold-400/70">·</span> by Efata</span>
@@ -629,7 +630,7 @@
                             </div>
                             <div class="flex items-center gap-2">
   <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en varias versiones reales, con texto original y Strong's</p>
-  <button @click="bibliaModoSantuario = !bibliaModoSantuario" :class="bibliaModoSantuario ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="inline-flex items-center gap-1.5 text-xs border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Activar modo santuario">
+  <button @click="zenMode = !zenMode; bibliaModoSantuario = zenMode; sanctuaryShowNav = !zenMode" :class="zenMode ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="inline-flex items-center gap-1.5 text-xs border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Activar modo santuario">
   <span aria-hidden="true">◉</span> <span x-text="bibliaModoSantuario ? 'Salir del santuario' : 'Modo santuario'"></span>
   </button>
   <button @click="escucharTextoBiblico()" :class="bibliaAudioActivo ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="inline-flex items-center gap-1.5 text-xs border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" :aria-label="bibliaAudioActivo ? 'Detener lectura en voz alta' : 'Escuchar pasaje'">
@@ -827,7 +828,7 @@
       <button type="button" @click="seleccionarOmniTab('oracion')" :class="omniTab === 'oracion' ? 'bg-gold-500 text-gray-950 font-bold' : 'text-gray-500 hover:bg-black/5'" class="shrink-0 rounded-lg px-3 py-2 text-xs transition-colors" role="tab">Oración &amp; Práctica</button>
     </div>
     <div class="mt-5 min-h-[140px]">
-      <div x-show="omniTab === 'palabra'" class="space-y-3"><p class="text-sm leading-relaxed text-gray-700" x-text="estudio.comentario || estudio.aplicacion || 'La lectura base del pasaje aparecerá aquí.'"></p><p x-show="estudio.original" class="text-xs text-gray-500"><span class="font-semibold text-gold-600">Idioma original:</span> <span x-text="estudio.original"></span></p></div>
+      <div x-show="omniTab === 'palabra'" class="space-y-3"><p class="text-sm leading-relaxed text-gray-700 whitespace-pre-wrap"><span x-text="estudioStreamingTexto || estudio.comentario || estudio.aplicacion || 'La lectura base del pasaje aparecerá aquí.'"></span><span x-show="estudioStreamingActivo" class="inline-block w-1.5 h-4 bg-amber-600 animate-pulse ml-0.5 align-middle" aria-hidden="true"></span></p><p x-show="estudio.original" class="text-xs text-gray-500"><span class="font-semibold text-gold-600">Idioma original:</span> <span x-text="estudio.original"></span></p></div>
       <div x-show="omniTab !== 'palabra' && lenteEstado.estado === 'loading'" class="flex items-center gap-2 py-10 text-sm text-gray-500"><svg class="h-4 w-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>Generando esta perspectiva…</div>
       <div x-show="omniTab !== 'palabra' && lenteEstado.estado === 'error'" class="py-8 text-center"><p class="text-sm text-red-600" x-text="lenteEstado.mensaje || 'No se pudo generar esta perspectiva.'"></p><button type="button" @click="seleccionarOmniTab(omniTab)" class="mt-3 text-xs font-semibold text-gold-600">Reintentar</button></div>
       <div x-show="omniTab !== 'palabra' && lenteEstado.estado === 'ready'" class="space-y-3"><template x-for="(p, i) in parrafosDe(lenteEstado.cuerpo)" :key="i"><p class="text-sm leading-relaxed text-gray-700" x-text="p"></p></template><blockquote x-show="lenteEstado.destacado" class="border-l-2 border-gold-500 py-1 pl-4"><p class="font-serif text-sm italic text-gold-700" x-text="lenteEstado.destacado"></p></blockquote></div>
@@ -1176,7 +1177,7 @@
  <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><template x-for="stage in DISCIPULADO_ETAPAS" :key="stage.id"><button @click="discipuladoEtapa = discipuladoEtapa === stage.id ? 0 : stage.id" class="rounded-2xl border p-4 text-left transition" :class="discipuladoEtapa === stage.id ? 'border-gold-500 bg-gold-500/10' : 'border-line bg-panel hover:border-gold-500/40'"><div class="flex items-center gap-3"><span class="font-mono text-xs text-gold-500" x-text="stage.icon"></span><p class="text-sm font-semibold text-gold-100" x-text="stage.title"></p></div><p class="mt-2 text-xs leading-relaxed text-gray-500" x-text="stage.description"></p></button></template></div>
  <div class="grid gap-3 md:grid-cols-3"><div class="rounded-2xl border border-gold-500/25 bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Método</p><p class="mt-2 text-sm font-semibold text-gold-100">Texto · corazón �� obediencia</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Cada lección termina en una respuesta concreta, no solo en información.</p></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Mentoría 1 a 1</p><p class="mt-2 text-sm font-semibold text-gold-100">Camina acompañado</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Comparte tu avance con un mentor de confianza cuando estés listo.</p><button @click="alert('La invitación de mentoría estará disponible al conectar tu cuenta.')" class="mt-3 text-xs font-bold text-gold-600">Preparar invitación</button></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Próximo paso</p><p class="mt-2 text-sm font-semibold text-gold-100" x-text="discipuladoFiltrados[0]?.title || 'Explora una etapa'"></p><p class="mt-1 text-xs text-gray-500">Abre una lección y completa su canvas de seis pasos.</p></div></div>
  <div class="grid gap-4 md:grid-cols-2"><template x-for="topic in discipuladoFiltrados" :key="topic.slug"><article class="rounded-2xl border border-line bg-panel p-5"><div class="flex items-center justify-between gap-3"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="`Tema ${topic.number} · Etapa ${topic.stageId}`"></span><span class="rounded-full px-2 py-1 text-[10px]" :class="discipuladoProgreso[topic.slug]?.status === 'completed' ? 'bg-green-100 text-green-800' : discipuladoProgreso[topic.slug]?.status === 'in_progress' ? 'bg-gold-100 text-gold-800' : 'bg-ink text-gray-500'" x-text="discipuladoProgreso[topic.slug]?.status === 'completed' ? 'Completado' : discipuladoProgreso[topic.slug]?.status === 'in_progress' ? 'En progreso' : 'No iniciado'"></span></div><h3 class="mt-3 font-serif text-xl text-gold-100" x-text="topic.title"></h3><p class="mt-1 text-xs text-cyan-700" x-text="`${topic.passage} · ${topic.greek}`"></p><p class="mt-3 text-sm leading-relaxed text-gray-500" x-text="topic.context"></p><button @click="abrirDiscipulado(topic)" class="mt-4 rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950">Abrir canvas</button></article></template></div>
- <article id="discipulado-canvas" x-show="discipuladoTema" x-cloak class="rounded-3xl border border-gold-500/30 bg-panel p-6 sm:p-8"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-[10px] uppercase tracking-wider text-gold-500" x-text="discipuladoTema && `Tema ${discipuladoTema.number} · ${discipuladoTema.passage}`"></p><h3 class="mt-2 font-serif text-3xl text-gold-100" x-text="discipuladoTema && discipuladoTema.title"></h3></div><button @click="discipuladoTema=null" class="text-xs text-gray-500">Cerrar</button></div><div class="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-6"><template x-for="step in ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre']" :key="step"><button @click="discipuladoPaso = ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1" class="rounded-lg px-2 py-2 text-[10px]" :class="discipuladoPaso === ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1 ? 'bg-gold-500 font-bold text-gray-950' : 'bg-ink text-gray-500'" x-text="step"></button></template></div><div class="mt-7"><div x-show="discipuladoPaso === 1"><h4 class="font-serif text-2xl text-gold-100">Devocional y oración de apertura</h4><p class="mt-4 font-serif text-lg italic leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.psalm"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.prayer"></p></div><div x-show="discipuladoPaso === 2"><h4 class="font-serif text-2xl text-gold-100">Fundamento bíblico exegético</h4><p class="mt-2 text-xs uppercase tracking-wider text-cyan-700" x-text="discipuladoTema && discipuladoTema.passage"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.context"></p><div class="mt-4 rounded-xl border border-gold-500/20 bg-ink p-4"><p class="font-griego text-lg text-gold-700" x-text="discipuladoTema && discipuladoTema.greek"></p><p class="mt-2 text-xs text-gray-500">El término original ilumina el movimiento del texto, pero nunca reemplaza su contexto literario e histórico.</p></div></div><div x-show="discipuladoPaso === 3"><h4 class="font-serif text-2xl text-gold-100">Cirugía del corazón</h4><div class="mt-4 space-y-3"><template x-for="question in (discipuladoTema ? discipuladoTema.questions : [])" :key="question"><p class="rounded-xl border border-line bg-ink p-4 text-sm text-gray-600" x-text="question"></p></template></div><textarea x-model="discipuladoNota" @input="guardarProgresoTema()" rows="7" placeholder="Escribe aquí tu confesión privada y tus compromisos..." class="mt-4 w-full rounded-xl border border-line bg-ink p-4 text-sm text-gray-700 focus:border-gold-500 focus:outline-none"></textarea><p class="mt-2 text-[11px] text-gray-500">Tu reflexión queda privada en este dispositivo.</p></div><div x-show="discipuladoPaso === 4"><h4 class="font-serif text-2xl text-gold-100">Quiz de evaluación</h4><div class="mt-4 space-y-5"><template x-for="(item,index) in (discipuladoTema ? discipuladoTema.quiz : [])" :key="index"><div class="rounded-xl border border-line p-4"><p class="text-sm font-semibold text-gray-700" x-text="`${index+1}. ${item.q}`"></p><div class="mt-3 flex flex-col gap-2"><template x-for="(option,optIndex) in item.options" :key="option"><button @click="responderQuiz(index,optIndex)" class="rounded-lg border px-3 py-2 text-left text-xs" :class="discipuladoQuiz[index] === optIndex ? (optIndex === item.correct ? 'border-green-500 bg-green-50 text-green-800' : 'border-red-400 bg-red-50 text-red-800') : 'border-line text-gray-600 hover:border-gold-500'" x-text="option"></button></template></div><p x-show="discipuladoQuiz[index] !== undefined" class="mt-3 text-xs leading-relaxed text-gray-500" x-text="item.explanation"></p></div></template></div></div><div x-show="discipuladoPaso === 5"><h4 class="font-serif text-2xl text-gold-100">Reforzamiento espiritual</h4><p class="mt-4 rounded-xl border border-gold-500/30 bg-gold-50 p-5 font-serif text-lg italic text-gray-700" x-text="discipuladoTema && discipuladoTema.verse"></p><label class="mt-4 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoMemorizado" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He memorizado el versículo de anclaje</label><div class="mt-4 rounded-xl border border-line bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-500">Acción práctica</p><p class="mt-2 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.action"></p><label class="mt-3 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoAccion" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He dado este paso esta semana</label></div></div><div x-show="discipuladoPaso === 6"><h4 class="font-serif text-2xl text-gold-100">Conclusi��n y consagración</h4><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.theology"></p><p class="mt-4 rounded-xl border-l-2 border-gold-500 bg-gold-50 p-5 font-serif text-lg italic leading-relaxed text-gray-700" x-text="discipuladoTema && discipuladoTema.prayer"></p><button @click="completarDiscipulado()" class="mt-5 rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-gray-950">Completar tema</button></div></div><div class="mt-7 flex justify-between border-t border-line pt-4"><button @click="discipuladoPaso = Math.max(1, discipuladoPaso-1)" class="rounded-lg border border-line px-4 py-2 text-xs text-gray-600">Anterior</button><button @click="discipuladoPaso = Math.min(6, discipuladoPaso+1)" class="rounded-lg bg-night px-4 py-2 text-xs font-bold text-gray-100">Siguiente paso</button></div></article>
+ <article id="discipulado-canvas" x-show="discipuladoTema" x-cloak class="rounded-3xl border border-gold-500/30 bg-panel p-6 sm:p-8"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-[10px] uppercase tracking-wider text-gold-500" x-text="discipuladoTema && `Tema ${discipuladoTema.number} · ${discipuladoTema.passage}`"></p><h3 class="mt-2 font-serif text-3xl text-gold-100" x-text="discipuladoTema && discipuladoTema.title"></h3></div><button @click="discipuladoTema=null" class="text-xs text-gray-500">Cerrar</button></div><div class="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-6"><template x-for="step in ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre']" :key="step"><button @click="discipuladoPaso = ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1" class="rounded-lg px-2 py-2 text-[10px]" :class="discipuladoPaso === ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1 ? 'bg-gold-500 font-bold text-gray-950' : 'bg-ink text-gray-500'" x-text="step"></button></template></div><div class="mt-7"><div x-show="discipuladoPaso === 1"><h4 class="font-serif text-2xl text-gold-100">Devocional y oración de apertura</h4><p class="mt-4 font-serif text-lg italic leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.psalm"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.prayer"></p></div><div x-show="discipuladoPaso === 2"><h4 class="font-serif text-2xl text-gold-100">Fundamento bíblico exegético</h4><p class="mt-2 text-xs uppercase tracking-wider text-cyan-700" x-text="discipuladoTema && discipuladoTema.passage"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.context"></p><div class="mt-4 rounded-xl border border-gold-500/20 bg-ink p-4"><p class="font-griego text-lg text-gold-700" x-text="discipuladoTema && discipuladoTema.greek"></p><p class="mt-2 text-xs text-gray-500">El término original ilumina el movimiento del texto, pero nunca reemplaza su contexto literario e histórico.</p></div></div><div x-show="discipuladoPaso === 3"><h4 class="font-serif text-2xl text-gold-100">Cirugía del corazón</h4><div class="mt-4 space-y-3"><template x-for="question in (discipuladoTema ? discipuladoTema.questions : [])" :key="question"><p class="rounded-xl border border-line bg-ink p-4 text-sm text-gray-600" x-text="question"></p></template></div><textarea x-model="discipuladoNota" @input="guardarProgresoTema()" rows="7" placeholder="Escribe aquí tu confesión privada y tus compromisos..." class="mt-4 w-full rounded-xl border border-line bg-ink p-4 text-sm text-gray-700 focus:border-gold-500 focus:outline-none"></textarea><p class="mt-2 text-[11px] text-gray-500">Tu reflexión queda privada en este dispositivo.</p></div><div x-show="discipuladoPaso === 4"><h4 class="font-serif text-2xl text-gold-100">Quiz de evaluación</h4><div class="mt-4 space-y-5"><template x-for="(item,index) in (discipuladoTema ? discipuladoTema.quiz : [])" :key="index"><div class="rounded-xl border border-line p-4"><p class="text-sm font-semibold text-gray-700" x-text="`${index+1}. ${item.q}`"></p><div class="mt-3 flex flex-col gap-2"><template x-for="(option,optIndex) in item.options" :key="option"><button @click="responderQuiz(index,optIndex)" class="rounded-lg border px-3 py-2 text-left text-xs" :class="discipuladoQuiz[index] === optIndex ? (optIndex === item.correct ? 'border-green-500 bg-green-50 text-green-800' : 'border-red-400 bg-red-50 text-red-800') : 'border-line text-gray-600 hover:border-gold-500'" x-text="option"></button></template></div><p x-show="discipuladoQuiz[index] !== undefined" class="mt-3 text-xs leading-relaxed text-gray-500" x-text="item.explanation"></p></div></template></div></div><div x-show="discipuladoPaso === 5"><h4 class="font-serif text-2xl text-gold-100">Reforzamiento espiritual</h4><p class="mt-4 rounded-xl border border-gold-500/30 bg-gold-50 p-5 font-serif text-lg italic text-gray-700" x-text="discipuladoTema && discipuladoTema.verse"></p><label class="mt-4 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoMemorizado" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He memorizado el versículo de anclaje</label><div class="mt-4 rounded-xl border border-line bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-500">Acción práctica</p><p class="mt-2 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.action"></p><label class="mt-3 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoAccion" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He dado este paso esta semana</label></div></div><div x-show="discipuladoPaso === 6"><h4 class="font-serif text-2xl text-gold-100">Conclusi����n y consagración</h4><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.theology"></p><p class="mt-4 rounded-xl border-l-2 border-gold-500 bg-gold-50 p-5 font-serif text-lg italic leading-relaxed text-gray-700" x-text="discipuladoTema && discipuladoTema.prayer"></p><button @click="completarDiscipulado()" class="mt-5 rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-gray-950">Completar tema</button></div></div><div class="mt-7 flex justify-between border-t border-line pt-4"><button @click="discipuladoPaso = Math.max(1, discipuladoPaso-1)" class="rounded-lg border border-line px-4 py-2 text-xs text-gray-600">Anterior</button><button @click="discipuladoPaso = Math.min(6, discipuladoPaso+1)" class="rounded-lg bg-night px-4 py-2 text-xs font-bold text-gray-100">Siguiente paso</button></div></article>
 </section>
 
 <!-- ============ PLANES ============ -->
@@ -1549,7 +1550,7 @@
 
   <div x-show="lexicoAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 sm:p-6" role="dialog" aria-modal="true" aria-label="Diccionario Strong" @click.self="lexicoAbierto = false" @keydown.escape.window="lexicoAbierto = false">
             <div class="flex w-full max-w-lg max-h-[min(680px,calc(100vh-2rem))] flex-col overflow-y-auto rounded-2xl border border-gold-500/50 bg-ink p-5 shadow-2xl shadow-black/50 sm:p-6">
-                <div class="flex w-full items-start justify-between gap-4 border-b border-line pb-4"><div class="min-w-0"><p class="text-[10px] uppercase tracking-[0.18em] text-gold-400">Diccionario bíblico Strong</p><h3 class="mt-1 text-xl font-serif text-gold-50" x-text="lexicoDatos?.codigo || lexicoCodigo || 'Consulta léxica'"></h3></div><button @click="lexicoAbierto = false" class="shrink-0 rounded-lg p-2 text-gray-400 hover:bg-night2 hover:text-white" aria-label="Cerrar"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 18L6 6"></path></svg></button></div>
+                <div class="flex w-full items-start justify-between gap-4 border-b border-line pb-4"><div class="min-w-0"><p class="text-[10px] uppercase tracking-[0.18em] text-gold-400">Diccionario bíblico Strong</p><h3 class="mt-1 text-xl font-serif text-gold-50" x-text="lexicoDatos?.codigo || 'Consulta léxica'"></h3></div><button @click="lexicoAbierto = false" class="shrink-0 rounded-lg p-2 text-gray-400 hover:bg-night2 hover:text-white" aria-label="Cerrar"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 18L6 6"></path></svg></button></div>
                 <div x-show="cargandoLexico" class="flex w-full items-center gap-2 text-[#FFD76A] text-sm py-4 justify-center">
                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                     Consultando el diccionario...
@@ -2378,8 +2379,12 @@ versiones: {},
                 errorPasaje: '',
                 pasajesLeidos: 0,
                 original: null,
-                bibliaModoSantuario: false,
-                bibliaTamanoTexto: 'normal',
+  bibliaModoSantuario: false,
+  zenMode: false,
+  estudioStreamingTexto: '',
+  estudioStreamingActivo: false,
+  estudioStreamingTimer: null,
+  bibliaTamanoTexto: 'normal',
                 bibliaMostrarParalelo: false,
                 bibliaAudioActivo: false,
 
@@ -2573,6 +2578,18 @@ bibliotecaPestana: 'inicio',
                 // caché de análisis por referencia
                 cache: {},
 
+                guardarUltimaLectura() {
+                    if (!this.referenciaActiva) return;
+                    try { localStorage.setItem('revelatio_last_read', JSON.stringify({ book: this.libroSel?.n || '', chapter: this.capituloSel || '', version: this.versionSel || 'rv1960', reference: this.referenciaActiva })); } catch (_e) {}
+                },
+                async restaurarUltimaLectura() {
+                    try {
+                        const guardada = JSON.parse(localStorage.getItem('revelatio_last_read') || 'null');
+                        if (!guardada?.reference) return;
+                        this.versionSel = guardada.version || 'rv1960';
+                        await this.leerReferencia(guardada.reference);
+                    } catch (_e) {}
+                },
                 async   init() {
                     document.addEventListener('revelatio:open-resources', (event) => {
                         this.abrirRecursosDrawer(event.detail?.reference || '');
@@ -2618,6 +2635,7 @@ bibliotecaPestana: 'inicio',
                         this.loginError = error.message || 'La autenticación no está disponible.';
                     } finally {
                         this.sesionVerificada = true;
+                        this.restaurarUltimaLectura();
                     }
                 },
 
@@ -3148,6 +3166,7 @@ const etiquetas = {
                         this.versiones.septuaginta = data.original.septuaginta.texto;
                     }
                     this.referenciaActiva = data.referencia;
+                    this.guardarUltimaLectura();
                     if (!this.versiones[this.versionSel]) {
                         this.versionSel = this.versionesLista[0]?.key || 'rv1960';
                     }
@@ -3284,6 +3303,22 @@ const etiquetas = {
                     this.abrirDonaciones = false;
                 },
 
+  typewriterEffect(fullText) {
+    clearInterval(this.estudioStreamingTimer);
+    const texto = String(fullText || '');
+    this.estudioStreamingTexto = '';
+    this.estudioStreamingActivo = Boolean(texto);
+    if (!texto) return;
+    const palabras = texto.split(/(\s+)/);
+    let indice = 0;
+    this.estudioStreamingTimer = setInterval(() => {
+      this.estudioStreamingTexto += palabras[indice++] || '';
+      if (indice >= palabras.length) {
+        clearInterval(this.estudioStreamingTimer);
+        this.estudioStreamingActivo = false;
+      }
+    }, 15);
+  },
   async ejecutarEstudio(consulta) {
                     const q = String(consulta || '').trim();
                     if (!q || this.cargandoEstudio) return;
@@ -3349,6 +3384,7 @@ const etiquetas = {
                         this.lenteActiva = 'exegesis';
                         this.estudioPestana = 'referencias';
                         this.estudioListo = true;
+                        this.typewriterEffect(this.estudio.exegesis || this.estudio.comentario || this.estudio.aplicacion);
                         this.cargarReferenciasEstudio(true);
                         this.mensajeEstudio = 'Análisis base listo. Elige una perspectiva para cargarla cuando la necesites.';
                     } catch (error) {
