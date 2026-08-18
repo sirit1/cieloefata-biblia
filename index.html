@@ -1631,8 +1631,8 @@
                         <button type="button" @click="loadResourceData()" class="mt-3 text-xs font-semibold text-gold-600 hover:text-gold-500">Reintentar</button>
                     </div>
                     <div x-show="!resourceLoading && !resourceError && resourceContent && !resourceContent.items" class="rounded-2xl border border-line bg-white p-5">
-                        <p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="resourceContent?.autor"></p>
-                        <p class="mt-1 text-[10px] text-gray-400" x-text="resourceContent?.tipo"></p>
+<p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="resourceContent?.autor"></p>
+<p class="mt-1 text-[10px] text-gray-400" x-text="resourceContent?.tipo"></p><p x-show="resourceSource" class="mt-2 inline-flex rounded-full border border-gold-500/25 bg-gold-500/10 px-2 py-1 text-[10px] text-gold-700" x-text="resourceSource"></p>
                         <p class="mt-4 font-serif text-base leading-relaxed whitespace-pre-line" x-text="resourceContent?.texto"></p>
                         <p class="mt-4 border-t border-line pt-3 text-[10px] leading-relaxed text-gray-400" x-text="resourceContent?.nota"></p>
                     </div>
@@ -2453,6 +2453,7 @@ versiones: {},
                 resourceLoading: false,
                 resourceContent: null,
                 resourceError: '',
+                resourceSource: '',
                 resourceReference: '',
                 crossReferenceItems: [],
                 crossReferenceLoading: false,
@@ -4043,8 +4044,10 @@ guardarFicha() {
                     this.resourceLoading = true;
                     this.resourceContent = null;
                     this.resourceError = '';
+                    this.resourceSource = '';
                     const ref = this.resourceReference || this.referenciaActiva || '';
                     const tipo = this.activeResourceTab;
+                    if (tipo !== 'commentaries' && tipo !== 'dictionaries') return;
                     const clave = tipo === 'commentaries' ? this.selectedCommentary : this.selectedDictionary;
                     const match = ref.match(/^(.+?)\s+(\d+):(\d+)/);
                     const slug = match ? `${match[1].trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '_')}_${match[2]}_${match[3]}` : '';
@@ -4052,7 +4055,7 @@ guardarFicha() {
                     if (slug) {
                         try {
                             const res = await fetch(`/data/${tipo}/${clave}/${slug}.json`);
-                            if (res.ok) { this.resourceContent = await res.json(); this.resourceLoading = false; return; }
+                            if (res.ok) { this.resourceContent = await res.json(); this.resourceSource = 'Maestro local verificado'; this.resourceLoading = false; return; }
                         } catch (_) { /* sin archivo local: sigue a la resolución dinámica universal */ }
                     }
                     // 2) Resolución dinámica universal para cualquiera de los 66 libros: Strong
@@ -4065,8 +4068,10 @@ guardarFicha() {
                         const json = await resp.json();
                         if (!resp.ok) throw new Error(json?.error || 'ERROR');
                         this.resourceContent = json.data;
+                        this.resourceSource = tipo === 'dictionaries' && clave === 'strong' ? 'Texto original real · Bolls / Strong' : 'Síntesis IA anclada al texto original real';
                     } catch (error) {
                         if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.resourceSource = 'Fuente no disponible';
                         this.resourceError = error.message === 'ERROR' || !error.message ? 'No fue posible generar este recurso. Intenta nuevamente.' : error.message;
                     } finally {
                         this.resourceLoading = false;
