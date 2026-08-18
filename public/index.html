@@ -134,7 +134,9 @@
         }
 
         /* Animación de paso de página */
-        .libro-lectura-shell { border-radius: 1rem; padding: .25rem; transform-origin: center; }
+        .libro-lectura-shell { border-radius: 1rem; padding: .25rem; transform-origin: center; min-height: min(62vh, 44rem); }
+        .libro-lectura-shell .prose-lectura { max-width: 46rem; margin-inline: auto; padding: clamp(1.25rem, 4vw, 3rem) clamp(1rem, 5vw, 3.5rem); font-size: clamp(1.08rem, 1.4vw, 1.28rem); line-height: 1.95; letter-spacing: .005em; }
+        .libro-lectura-shell .prose-lectura > span { display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
         .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
         @keyframes paso-hoja { 0% { opacity: .25; transform: perspective(1100px) rotateY(var(--pagina-inicio, -8deg)) translateX(var(--pagina-x, 18px)); filter: brightness(.9); } 55% { opacity: 1; transform: perspective(1100px) rotateY(2deg) translateX(0); filter: brightness(1.03); } 100% { opacity: 1; transform: perspective(1100px) rotateY(0) translateX(0); filter: brightness(1); } }
         .lector-direccion-anterior .pagina-en-movimiento { --pagina-inicio: 8deg; --pagina-x: -18px; }
@@ -157,6 +159,12 @@
             body.rv-print-outline #rv-outline-print-area { display: block !important; position: static; }
         }
         #rv-outline-print-area { display: none; }
+        /* Los overlays editoriales son superficies claras aunque vivan bajo el shell oscuro. */
+        .rv-light-modal, .rv-light-modal * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
+        .rv-light-modal h1, .rv-light-modal h2, .rv-light-modal h3, .rv-light-modal h4 { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
+        .rv-light-modal .text-amber-600, .rv-light-modal .text-amber-700, .rv-light-modal .text-amber-800, .rv-light-modal .text-gold-600 { color: var(--rv-gold-on-cream) !important; -webkit-text-fill-color: var(--rv-gold-on-cream) !important; }
+        .rv-light-modal .text-stone-500, .rv-light-modal .text-stone-600, .rv-light-modal .text-stone-700 { color: var(--rv-ink-muted) !important; -webkit-text-fill-color: var(--rv-ink-muted) !important; }
+        .rv-toast { position: fixed; left: 50%; bottom: 1.5rem; z-index: 120; transform: translateX(-50%); border: 1px solid rgba(214,170,69,.45); border-radius: .85rem; background: #211a12; color: #fff4df !important; padding: .7rem 1rem; box-shadow: 0 16px 40px rgba(0,0,0,.25); font-size: .78rem; font-weight: 700; }
 
         .ux-card { box-shadow: 0 12px 32px rgba(28,46,74,.06); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
         .ux-card:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(28,46,74,.11); border-color: rgba(154,107,18,.42); }
@@ -1742,7 +1750,7 @@
                 <span class="text-[10px] font-semibold uppercase tracking-wider text-gold-500/70 mr-1">Filtrar:</span>
                 <button type="button" @click="highlightFilter = 'all'" :class="highlightFilter === 'all' ? 'bg-gold-500/20 text-gold-100 border-gold-500/50' : 'text-gold-400 border-line hover:border-gold-500/40'" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold transition-all">Todos</button>
                 <template x-for="c in COLORES_RESALTADO" :key="c.id">
-                    <button type="button" @click="highlightFilter = highlightFilter === c.id ? 'all' : c.id" :class="highlightFilter === c.id ? 'ring-1 ring-gold-300' : 'opacity-80 hover:opacity-100'" :style="`background:${c.muestra}22;border-color:${c.muestra}`" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold text-gold-100 transition-all" x-text="(c.id === 'promesa' ? '🟡 ' : c.id === 'mandamiento' ? '🔵 ' : c.id === 'metanoia' ? '🟢 ' : '🔴 ') + c.nombre.split(' / ')[0]"></button>
+                    <button type="button" @click="highlightFilter = highlightFilter === c.id ? 'all' : c.id" :class="highlightFilter === c.id ? 'ring-1 ring-gold-300' : 'opacity-80 hover:opacity-100'" :style="`background:${c.muestra}22;border-color:${c.muestra}`" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold text-gold-100 transition-all" x-text="(c.id === 'promesa' ? '🟡 ' : c.id === 'mandamiento' ? '�� ' : c.id === 'metanoia' ? '🟢 ' : '🔴 ') + c.nombre.split(' / ')[0]"></button>
                 </template>
             </div>
             <div class="bg-panel border border-line rounded-3xl shadow-xl p-6 sm:p-10">
@@ -2625,7 +2633,7 @@ versiones: {},
                 audioVerseActive: 0,
                 currentReadingVerseId: null,
                 soundscapeActive: false,
-                soundscapeVolume: 0.15,
+                soundscapeVolume: 0.035,
                 playbackSpeed: 1.0,
                 audioSource: 'chapter',
                 omniIntenciones: [
@@ -2635,8 +2643,10 @@ versiones: {},
                     { id: 'exegesis', etiqueta: 'Exégesis & Griego', consulta: 'Romanos 12:2 y la renovación de la mente' },
                     { id: 'oracion', etiqueta: 'Oración Guiada', consulta: 'una oración para entregar mis preocupaciones a Dios' }
                 ],
-                showShareModal: false,
-                shareCard: { texto: '', referencia: '', version: '', termino: 'μετάνοια', strong: 'G3341', formato: '9:16' },
+  showShareModal: false,
+  toastMessage: '',
+  toastTimer: null,
+  shareCard: { texto: '', referencia: '', version: '', termino: 'μετάνοια', strong: 'G3341', formato: '9:16' },
                 journalOpen: false,
                 journalTab: 'nuevo',
                 journalStep: 1,
@@ -3780,8 +3790,8 @@ const etiquetas = {
   toggleSoundscape() { const app = Alpine.$data(document.body); app.soundscapeActive = !app.soundscapeActive; if (app.soundscapeActive) this.startSoundscape(); else this.stopSoundscape(); },
   startSoundscape() {
     const app = Alpine.$data(document.body); this.stopSoundscape(); if (!window.AudioContext) return;
-    const ctx = new AudioContext(); const gain = ctx.createGain(); gain.gain.value = Number(app.soundscapeVolume) || 0.15;
-    const filter = ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 800;
+    const ctx = new AudioContext(); const gain = ctx.createGain(); const targetVolume = Math.min(0.07, Math.max(0.01, Number(app.soundscapeVolume) || 0.035)); gain.gain.setValueAtTime(0.0001, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(targetVolume, ctx.currentTime + 2.5);
+    const filter = ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 620;
     const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = 432;
     const osc2 = ctx.createOscillator(); osc2.type = 'sine'; osc2.frequency.value = 216;
     osc.connect(filter); osc2.connect(filter); filter.connect(gain); gain.connect(ctx.destination); osc.start(); osc2.start();
@@ -4393,11 +4403,12 @@ guardarFicha() {
                         }, 650);
                     },
                     cerrarBosquejo() { this.outlineModalOpen = false; clearTimeout(this._outlineTimeoutId); this._outlineTimeoutId = null; },
-                    copiarBosquejo() {
-                        const o = this.outlineData; if (!o) return;
-                        const md = `# ${o.titulo}\n\n**Texto base:** ${o.referencia}${o.texto ? ' — "' + o.texto + '"' : ''}\n\n**Proposición Central:** ${o.proposicion}\n\n## I. ${o.puntos[0].titulo}\n${o.puntos[0].cuerpo}\n\n## II. ${o.puntos[1].titulo}\n${o.puntos[1].cuerpo}\n\n## III. ${o.puntos[2].titulo}\n${o.puntos[2].cuerpo}\n\n**Pregunta clave para grupos pequeños / discipulado:**\n${o.pregunta}\n`;
-                        navigator.clipboard?.writeText(md);
-                    },
+  mostrarToast(mensaje) { clearTimeout(this.toastTimer); this.toastMessage = mensaje; this.toastTimer = setTimeout(() => { this.toastMessage = ''; }, 2200); },
+  async copiarBosquejo() {
+  const o = this.outlineData; if (!o) return;
+  const md = `# ${o.titulo}\n\n**Texto base:** ${o.referencia}${o.texto ? ' — "' + o.texto + '"' : ''}\n\n**Proposición Central:** ${o.proposicion}\n\n## I. ${o.puntos[0].titulo}\n${o.puntos[0].cuerpo}\n\n## II. ${o.puntos[1].titulo}\n${o.puntos[1].cuerpo}\n\n## III. ${o.puntos[2].titulo}\n${o.puntos[2].cuerpo}\n\n**Pregunta clave para grupos pequeños / discipulado:**\n${o.pregunta}\n`;
+  try { await navigator.clipboard?.writeText(md); this.mostrarToast('Esquema copiado al portapapeles.'); } catch (_e) { this.mostrarToast('No se pudo copiar el esquema.'); }
+  },
                     imprimirBosquejo() {
                         document.body.classList.add('rv-print-outline');
                         const cleanup = () => document.body.classList.remove('rv-print-outline');
@@ -5172,7 +5183,7 @@ guardarFicha() {
   <!-- Quick Peek: vista previa rápida de referencia cruzada TSK -->
   <div x-show="crossRefModalOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vista previa rápida de referencia cruzada">
     <button @click="cerrarCrossRefModal()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar vista previa"></button>
-    <div class="relative max-w-md mx-auto bg-stone-50 border border-stone-300 rounded-2xl p-5 shadow-2xl z-50 w-full">
+    <div class="rv-light-modal relative max-w-md mx-auto bg-stone-50 border border-stone-300 rounded-2xl p-5 shadow-2xl z-50 w-full">
       <div class="flex items-start justify-between gap-3">
         <div>
           <p class="text-[10px] font-bold uppercase tracking-wider text-gold-600">Vista previa rápida</p>
@@ -5191,7 +5202,7 @@ guardarFicha() {
   <!-- Word Sheet: motor interlineal palabra por palabra -->
   <div x-show="wordSheetOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-end sm:items-center justify-center" role="dialog" aria-modal="true" aria-label="Análisis interlineal de la palabra">
     <button @click="cerrarPalabra()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar análisis interlineal"></button>
-    <div class="relative w-full sm:max-w-md bg-[#FAF8F5] border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-50">
+    <div class="rv-light-modal relative w-full sm:max-w-md bg-[#FAF8F5] border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-50">
       <div class="mx-auto mb-4 h-1 w-10 rounded-full bg-stone-300 sm:hidden"></div>
       <div class="flex items-start justify-between gap-3">
         <p class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Motor Interlineal</p>
@@ -5308,7 +5319,7 @@ guardarFicha() {
   <!-- Constructor de Bosquejos Homiléticos -->
   <div x-show="outlineModalOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Constructor de bosquejos homiléticos">
     <button @click="cerrarBosquejo()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar bosquejo"></button>
-    <div class="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FAF8F5] border border-amber-500/30 rounded-3xl p-6 shadow-2xl z-50 sm:p-8">
+    <div class="rv-light-modal relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FAF8F5] border border-amber-500/30 rounded-3xl p-6 shadow-2xl z-50 sm:p-8">
       <div class="flex items-start justify-between gap-3">
         <p class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Bosquejo de Enseñanza</p>
         <button @click="cerrarBosquejo()" class="text-stone-400 hover:text-stone-700" aria-label="Cerrar">×</button>
@@ -5413,6 +5424,7 @@ guardarFicha() {
     </div>
   </div>
   <div x-show="!isPlayingAudio && referenciaActiva" x-cloak class="fixed bottom-5 left-1/2 z-30 -translate-x-1/2"><button @click="speechService.playPassage('verse')" class="rounded-full border border-amber-400/60 bg-stone-900 px-4 py-2 text-xs font-bold text-amber-100 shadow-xl hover:bg-black">Escuchar pasaje</button></div>
+  <div x-show="toastMessage" x-cloak x-transition class="rv-toast" role="status" aria-live="polite" x-text="toastMessage"></div>
   </body>
   
 </html>
