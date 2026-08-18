@@ -354,8 +354,8 @@
             </button>
 
 
-            <div class="hidden md:flex items-center gap-2 rounded-full border border-gold-500/25 bg-gold-500/10 px-3 py-2 text-[11px] font-semibold text-gold-300" title="Racha de renovación"><span aria-hidden="true">Racha</span><span x-text="`${metanoiaStreak} días de renovación`"></span></div>
-            <button type="button" @click="openJournal()" class="shrink-0 rounded-full border border-line px-3 py-2 text-xs font-semibold text-gray-300 hover:border-gold-500/50 hover:text-gold-300" aria-label="Abrir Diario de Metanoia">Registrar metanoia</button>
+            <span class="hidden md:inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200/80 rounded-full text-xs font-semibold text-amber-900" title="Racha de renovación" role="status">🔥 <span x-text="metanoiaStreak"></span> días de renovación</span>
+            <button type="button" @click="openJournal()" class="shrink-0 rounded-full border border-line px-3 py-2 text-xs font-semibold text-gray-300 hover:border-gold-500/50 hover:text-gold-300" aria-label="Abrir Diario de Metanoia">🌱 Registrar Metanoia</button>
             <!-- Usuario -->
             <div class="relative shrink-0" @click.outside="menuUsuario = false">
                 <button @click="menuUsuario = !menuUsuario" class="flex items-center gap-2 pl-1 pr-2 py-1 rounded-full border border-line hover:border-gold-500/50 transition-all" aria-label="Menú de usuario">
@@ -1511,7 +1511,12 @@
                   <div x-show="journalStep===3"><label class="mb-2 block text-sm font-semibold text-gray-800">Protocolo de acción y fe</label><textarea x-model="journalDraft.accion" rows="4" class="w-full rounded-xl border border-line bg-white p-3 text-sm text-gray-800" placeholder="Una decisión concreta de obediencia para hoy..."></textarea></div>
                   <div class="flex justify-between"><button @click="journalStep=Math.max(1,journalStep-1)" :disabled="journalStep===1" class="rounded-lg border border-line px-4 py-2 text-xs text-gray-600 disabled:opacity-40">Anterior</button><button x-show="journalStep<3" @click="journalStep++" class="rounded-lg bg-gold-500 px-4 py-2 text-xs font-bold text-gray-950">Siguiente</button><button x-show="journalStep===3" @click="saveMetanoia()" class="rounded-lg bg-gold-600 px-4 py-2 text-xs font-bold text-gray-950">Guardar metanoia</button></div>
                 </div>
-                <div x-show="journalTab==='diario'" class="max-h-[55vh] space-y-3 overflow-y-auto p-5"><template x-if="!journalEntries.length"><p class="py-10 text-center text-sm text-gray-500">Todavía no hay entradas. Tu primera observación puede comenzar hoy.</p></template><template x-for="entry in journalEntries" :key="entry.id"><article class="rounded-xl border border-line bg-white p-4"><div class="flex justify-between text-[10px] uppercase tracking-wider text-gold-700"><span x-text="entry.fecha"></span><span x-text="entry.referencia"></span></div><p class="mt-3 text-xs font-bold uppercase text-gray-500">Pensamiento</p><p class="text-sm text-gray-800" x-text="entry.pensamiento"></p><p class="mt-3 text-xs font-bold uppercase text-gray-500">Verdad</p><p class="font-serif text-sm text-gray-800" x-text="entry.verdad"></p><p class="mt-3 text-xs font-bold uppercase text-gray-500">Acción</p><p class="text-sm text-gray-800" x-text="entry.accion"></p></article></template></div>
+                <div x-show="journalTab==='diario'" class="max-h-[55vh] space-y-3 overflow-y-auto p-5">
+                  <input type="search" x-model="journalFiltro" placeholder="Filtrar por referencia o palabra clave…" class="w-full rounded-xl border border-line bg-white px-3 py-2 text-sm text-gray-800" aria-label="Filtrar entradas del Diario de Metanoia">
+                  <template x-if="!journalEntries.length"><p class="py-10 text-center text-sm text-gray-500">Todavía no hay entradas. Tu primera observación puede comenzar hoy.</p></template>
+                  <template x-if="journalEntries.length && !journalEntriesFiltradas.length"><p class="py-10 text-center text-sm text-gray-500">Ninguna entrada coincide con tu búsqueda.</p></template>
+                  <template x-for="entry in journalEntriesFiltradas" :key="entry.id"><article class="rounded-xl border border-line bg-white p-4"><div class="flex justify-between text-[10px] uppercase tracking-wider text-gold-700"><span x-text="entry.fecha"></span><span x-text="entry.referencia"></span></div><p class="mt-3 text-xs font-bold uppercase text-gray-500">Pensamiento</p><p class="text-sm text-gray-800" x-text="entry.pensamiento"></p><p class="mt-3 text-xs font-bold uppercase text-gray-500">Verdad</p><p class="font-serif text-sm text-gray-800" x-text="entry.verdad"></p><p class="mt-3 text-xs font-bold uppercase text-gray-500">Acción</p><p class="text-sm text-gray-800" x-text="entry.accion"></p></article></template>
+                </div>
               </div>
             </div>
 
@@ -1744,6 +1749,8 @@
                         <svg class="w-4 h-4" :fill="esFavoritoVersiculo(versiculoLectorSel) ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"></path></svg>
                         Favorito
                     </button>
+                    <button @click="openJournal(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">🌱 Registrar Metanoia</button>
+                    <button @click="createVerseCard(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">🖼️ Crear Tarjeta</button>
                     <button @click="profundizarVersiculoLector(versiculoLectorSel)" class="text-xs bg-gold-600/20 text-gold-200 border border-gold-500/40 px-3 py-1.5 rounded-lg hover:bg-gold-600/30 transition-all ml-auto">Profundizar con RevelatiO IA</button>
                     <button @click="versiculoLectorSel = null" class="text-gray-500 hover:text-gray-200 p-1" aria-label="Cerrar selección">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
@@ -2530,6 +2537,8 @@ versiones: {},
                 journalStep: 1,
                 journalDraft: { pensamiento: '', verdad: '', accion: '' },
                 journalEntries: [],
+                journalFiltro: '',
+                _journalReferenciaActiva: '',
                 metanoiaStreak: 0,
                 streakDate: '',
                 estudioRef: '',
@@ -3483,9 +3492,20 @@ const etiquetas = {
   const today = new Date().toISOString().slice(0, 10); if (this.streakDate === today) return;
   const previous = new Date(Date.now() - 86400000).toISOString().slice(0, 10); this.metanoiaStreak = this.streakDate === previous ? this.metanoiaStreak + 1 : 1; this.streakDate = today; localStorage.setItem('revelatio_streak', JSON.stringify({ count: this.metanoiaStreak, date: today }));
   },
-  openJournal() { this.loadMetanoiaData(); this.journalOpen = true; this.journalTab = 'nuevo'; this.journalStep = 1; this.journalDraft = { pensamiento: '', verdad: this.referenciaActiva ? `${this.referenciaActiva}: ${this.textoActual || ''}` : '', accion: '' }; },
-  saveMetanoia() { if (!this.journalDraft.pensamiento.trim() || !this.journalDraft.verdad.trim() || !this.journalDraft.accion.trim()) return; const entry = { id: Date.now(), fecha: new Date().toLocaleDateString('es-ES'), referencia: this.referenciaActiva || '', ...this.journalDraft }; this.journalEntries.unshift(entry); localStorage.setItem('revelatio_journal', JSON.stringify(this.journalEntries)); this.markRenewal(); this.journalTab = 'diario'; this.journalStep = 1; this.journalDraft = { pensamiento: '', verdad: '', accion: '' }; },
-  createVerseCard() { this.shareCard = { texto: this.textoActual || this.estudio.comentario || this.busqueda || 'La Palabra transforma la mente.', referencia: this.referenciaActiva || this.estudioRef || 'RevelatiO by Efata', version: this.versionSel || 'NBLA', termino: this.lexicoDatos?.termino || 'μετάνοια', strong: this.lexicoDatos?.codigo || 'G3341', formato: '9:16' }; this.showShareModal = true; },
+  openJournal(numeroVersiculo) {
+  this.loadMetanoiaData(); this.journalOpen = true; this.journalTab = 'nuevo'; this.journalStep = 1;
+  const referencia = numeroVersiculo && this.libroSel ? `${this.libroSel.n} ${this.capituloSel}:${numeroVersiculo}` : (this.referenciaActiva || '');
+  const texto = numeroVersiculo ? this.textoDeVersiculo(numeroVersiculo) : (this.textoActual || '');
+  this.journalDraft = { pensamiento: '', verdad: referencia ? `${referencia}: ${texto}` : '', accion: '' };
+  this._journalReferenciaActiva = referencia;
+  },
+  saveMetanoia() { if (!this.journalDraft.pensamiento.trim() || !this.journalDraft.verdad.trim() || !this.journalDraft.accion.trim()) return; const entry = { id: Date.now(), fecha: new Date().toLocaleDateString('es-ES'), referencia: this._journalReferenciaActiva || this.referenciaActiva || '', ...this.journalDraft }; this.journalEntries.unshift(entry); localStorage.setItem('revelatio_journal', JSON.stringify(this.journalEntries)); this.markRenewal(); this.journalTab = 'diario'; this.journalStep = 1; this.journalDraft = { pensamiento: '', verdad: '', accion: '' }; },
+  createVerseCard(numeroVersiculo) {
+  const referencia = numeroVersiculo && this.libroSel ? `${this.libroSel.n} ${this.capituloSel}:${numeroVersiculo}` : (this.referenciaActiva || this.estudioRef || 'RevelatiO by Efata');
+  const texto = numeroVersiculo ? this.textoDeVersiculo(numeroVersiculo) : (this.textoActual || this.estudio.comentario || this.busqueda || 'La Palabra transforma la mente.');
+  this.shareCard = { texto: texto || 'La Palabra transforma la mente.', referencia, version: this.versionSel || 'NBLA', termino: this.lexicoDatos?.termino || 'μετάνοια', strong: this.lexicoDatos?.codigo || 'G3341', formato: '9:16' };
+  this.showShareModal = true;
+  },
   copyCardImage() { const text = `“${this.shareCard.texto}”\n${this.shareCard.referencia} · ${this.shareCard.version}`; navigator.clipboard?.writeText(text); },
   shareCardWhatsApp() { const text = encodeURIComponent(`“${this.shareCard.texto}”\n${this.shareCard.referencia} · RevelatiO by Efata`); window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener'); },
   openGlobalChat() {
@@ -4484,9 +4504,13 @@ guardarFicha() {
                 seleccionarVersiculoLector(n) {
                     this.versiculoLectorSel = this.versiculoLectorSel === n ? null : n;
                 },
-                textoDeVersiculo(n) {
-                    return (this.versosActuales.find(v => v.n === n) || {}).texto || '';
-                },
+  textoDeVersiculo(n) {
+  return (this.versosActuales.find(v => v.n === n) || {}).texto || '';
+  },
+  get journalEntriesFiltradas() {
+  const q = (this.journalFiltro || '').trim().toLowerCase(); if (!q) return this.journalEntries;
+  return this.journalEntries.filter(e => [e.referencia, e.pensamiento, e.verdad, e.accion].join(' ').toLowerCase().includes(q));
+  },
 
                 // Resaltados (localStorage: son anotaciones personales de lectura,
                 // no datos de cuenta que deban sincronizarse en el servidor)
