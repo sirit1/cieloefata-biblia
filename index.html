@@ -1611,7 +1611,19 @@
                     <button type="button" @click="activeResourceTab = 'dictionaries'; loadResourceData()" :class="activeResourceTab === 'dictionaries' ? 'bg-white shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Diccionarios Léxicos (4)</button><button type="button" @click="activeResourceTab = 'crossrefs'; cargarReferenciasCruzadas(resourceReference)" :class="activeResourceTab === 'crossrefs' ? 'bg-white shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Referencias Cruzadas</button>
                 </div>
 
-                <div x-show="activeResourceTab === 'crossrefs'" class="mt-4 space-y-3"><p class="text-xs leading-relaxed text-gray-500">Matriz de referencias teológicas paralelas para leer la Escritura con la Escritura.</p><div x-show="crossReferenceLoading" class="py-8 text-center text-xs text-gray-500">Consultando matriz TSK…</div><template x-for="item in crossReferenceItems" :key="item.reference"><button type="button" @click="abrirReferenciaCruzada(item)" class="w-full rounded-xl border border-line bg-white p-4 text-left transition hover:border-gold-400 hover:bg-gold-500/5"><div class="flex items-center justify-between gap-3"><span class="font-serif text-sm font-semibold text-gold-700" x-text="item.reference"></span><span class="text-[10px] uppercase tracking-wider text-gray-400">Vista previa</span></div><p class="mt-2 line-clamp-2 text-xs leading-relaxed text-gray-600" x-text="item.text"></p></button></template><div x-show="crossReferencePreview" x-cloak class="rounded-2xl border border-gold-400/50 bg-[#F8F1E2] p-5"><div class="flex items-start justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-wider text-gold-600">Lectura rápida</p><h4 class="mt-1 font-serif text-lg text-slate-800" x-text="crossReferencePreview?.reference"></h4></div><button @click="crossReferencePreview = null" class="text-gray-500" aria-label="Cerrar vista previa">×</button></div><p class="mt-3 font-serif text-base leading-relaxed text-slate-700" x-text="crossReferencePreview?.text"></p><p class="mt-3 text-[10px] text-gray-500">La posición del capítulo principal se conserva.</p></div></div>
+                <div x-show="activeResourceTab === 'crossrefs'" class="mt-4 space-y-3">
+                    <p class="text-xs leading-relaxed text-gray-500">Matriz de referencias teológicas paralelas (TSK) para leer la Escritura con la Escritura.</p>
+                    <div x-show="crossReferenceLoading" class="py-8 text-center text-xs text-gray-500">Consultando matriz TSK…</div>
+                    <template x-for="item in crossReferenceItems" :key="item.reference">
+                        <div class="rounded-xl border border-line bg-white p-4 transition hover:border-gold-400/60">
+                            <div class="flex items-start justify-between gap-3">
+                                <span class="font-serif text-sm font-bold text-gold-700" x-text="item.reference"></span>
+                                <button type="button" @click="vistaPreviaReferencia(item)" class="shrink-0 whitespace-nowrap rounded-full border border-gold-500/30 bg-gold-500/10 px-2.5 py-1 text-[10px] font-semibold text-gold-700 hover:bg-gold-500/20">👁️ Vista Previa</button>
+                            </div>
+                            <p class="mt-2 text-xs leading-relaxed text-gray-600" x-text="item.description || 'Conexión canónica paralela.'"></p>
+                        </div>
+                    </template>
+                </div>
 
                 <div class="mt-4 flex flex-wrap gap-2">
                     <template x-if="activeResourceTab === 'commentaries'">
@@ -1698,8 +1710,15 @@
             </div>
 
             <div class="flex-1 overflow-y-auto">
-                <div class="max-w-2xl mx-auto px-4 sm:px-10 py-6 sm:py-12">
-                    <div class="bg-panel border border-line rounded-3xl shadow-xl p-6 sm:p-10">
+            <div class="max-w-2xl mx-auto px-4 sm:px-10 py-6 sm:py-12">
+            <div class="mb-4 flex flex-wrap items-center gap-1.5" role="group" aria-label="Filtrar lectura por categoría de resaltado">
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-gold-500/70 mr-1">Filtrar:</span>
+                <button type="button" @click="highlightFilter = 'all'" :class="highlightFilter === 'all' ? 'bg-gold-500/20 text-gold-100 border-gold-500/50' : 'text-gold-400 border-line hover:border-gold-500/40'" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold transition-all">Todos</button>
+                <template x-for="c in COLORES_RESALTADO" :key="c.id">
+                    <button type="button" @click="highlightFilter = highlightFilter === c.id ? 'all' : c.id" :class="highlightFilter === c.id ? 'ring-1 ring-gold-300' : 'opacity-80 hover:opacity-100'" :style="`background:${c.muestra}22;border-color:${c.muestra}`" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold text-gold-100 transition-all" x-text="(c.id === 'promesa' ? '🟡 ' : c.id === 'mandamiento' ? '🔵 ' : c.id === 'metanoia' ? '🟢 ' : '🔴 ') + c.nombre.split(' / ')[0]"></button>
+                </template>
+            </div>
+            <div class="bg-panel border border-line rounded-3xl shadow-xl p-6 sm:p-10">
                         <div x-show="cargandoPasaje" class="flex items-center justify-center gap-2 text-gold-500 text-sm py-16">
                             <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                             Cargando capítulo...
@@ -1709,8 +1728,8 @@
                                 <template x-for="v in versosActuales" :key="v.n">
                                     <span :id="'verse-' + v.n" @click="seleccionarVersiculoLector(v.n); abrirHojaVersiculoLector(v.n)"
                                         :data-reference="`${libroSel?.n || ''} ${capituloSel}:${v.n}`"
-                                        :class="[colorVersiculo(v.n) ? `hl-${colorVersiculo(v.n)}` : '', versiculoLectorSel === v.n ? 'ring-2 ring-gold-500/70' : '', currentReadingVerseId === v.n ? 'bg-amber-100/80 ring-1 ring-amber-400/80 shadow-xs rounded-xl p-2 transition-all duration-300' : '']"
-                                        class="cursor-pointer transition-colors hover:bg-gold-500/10 rounded px-0.5">
+                                        :class="[colorVersiculo(v.n) ? `hl-${colorVersiculo(v.n)}` : '', versiculoLectorSel === v.n ? 'ring-2 ring-gold-500/70' : '', currentReadingVerseId === v.n ? 'bg-amber-100/80 ring-1 ring-amber-400/80 shadow-xs rounded-xl p-2 transition-all duration-300' : '', (highlightFilter !== 'all' && colorVersiculo(v.n) !== highlightFilter) ? 'opacity-30' : '']"
+                                        class="cursor-pointer transition-all duration-300 hover:bg-gold-500/10 rounded px-0.5">
                                         <sup class="text-[10px] font-sans font-bold text-gold-600 mr-0.5" x-text="v.n"></sup><span x-text="v.texto + ' '"></span><svg x-show="notaDeVersiculo(v.n)" class="w-3 h-3 inline-block -translate-y-1.5 text-gold-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle></svg>
                                     </span>
                                 </template>
@@ -2466,17 +2485,26 @@ versiones: {},
                 crossReferenceItems: [],
                 crossReferenceLoading: false,
                 crossReferencePreview: null,
+                activeCrossReference: null,
+                crossRefModalOpen: false,
+                highlightFilter: 'all',
                 TSK_REFERENCIAS: {
                     '2 corintios 4:4': [
-                        { reference: 'Juan 12:40', text: 'Cegó los ojos de ellos, y endureció su corazón; para que no vean con los ojos, ni entiendan con el corazón.' },
-                        { reference: 'Efesios 2:2', text: 'En los cuales anduvisteis en otro tiempo, siguiendo la corriente de este mundo.' },
-                        { reference: 'Colosenses 1:15', text: 'Él es la imagen del Dios invisible, el primogénito de toda creación.' },
-                        { reference: '2 Corintios 3:14', text: 'El entendimiento de ellos se embotó; porque hasta el día de hoy permanece el mismo velo.' }
+                        { reference: 'Juan 12:40', text: 'Cegó los ojos de ellos, y endureció su corazón; para que no vean con los ojos, ni entiendan con el corazón.', description: 'La misma ceguera espiritual profetizada por Isaías y confirmada en el rechazo a Cristo.' },
+                        { reference: 'Efesios 2:2', text: 'En los cuales anduvisteis en otro tiempo, siguiendo la corriente de este mundo.', description: 'El "dios de este siglo" opera bajo el mismo príncipe que domina el sistema del mundo.' },
+                        { reference: 'Colosenses 1:15', text: 'Él es la imagen del Dios invisible, el primogénito de toda creación.', description: 'Contraste directo: Cristo es la verdadera imagen que el velo de incredulidad oculta.' },
+                        { reference: '2 Corintios 3:14', text: 'El entendimiento de ellos se embotó; porque hasta el día de hoy permanece el mismo velo.', description: 'El mismo velo de Moisés reaparece como metáfora de la ceguera del entendimiento.' }
                     ],
                     'romanos 12:2': [
-                        { reference: 'Efesios 4:23', text: 'Y renovaos en el espíritu de vuestra mente.' },
-                        { reference: '2 Corintios 3:18', text: 'Somos transformados de gloria en gloria en la misma imagen.' },
-                        { reference: 'Filipenses 4:8', text: 'Todo lo verdadero, todo lo honorable y todo lo digno de alabanza, en esto pensad.' }
+                        { reference: 'Efesios 4:23', text: 'Y renovaos en el espíritu de vuestra mente.', description: 'Paralelo directo de metanoia: renovación activa y continua del entendimiento.' },
+                        { reference: '2 Corintios 3:18', text: 'Somos transformados de gloria en gloria en la misma imagen.', description: 'La transformación progresiva como fruto visible de la mente renovada.' },
+                        { reference: 'Filipenses 4:8', text: 'Todo lo verdadero, todo lo honorable y todo lo digno de alabanza, en esto pensad.', description: 'Instrucción práctica sobre qué pensamientos alimentan la renovación mental.' }
+                    ],
+                    'efesios 3:1': [
+                        { reference: 'Hechos 28:16', text: 'Y cuando llegamos a Roma, el centurión entregó los presos al prefecto militar; pero a Pablo se le permitió vivir aparte, con un soldado que le custodiase.', description: 'El contexto histórico exacto de la prisión romana desde donde Pablo escribe.' },
+                        { reference: 'Filipenses 1:13', text: 'De tal manera que mis prisiones se han hecho notorias en Cristo en todo el pretorio, y a todos los demás.', description: 'Cadenas en Cristo y testimonio pretoriano: el mismo cautiverio usado como plataforma de anuncio del evangelio.' },
+                        { reference: '2 Timoteo 1:8', text: 'Por tanto, no te avergüences de dar testimonio de nuestro Señor, ni de mí, preso suyo.', description: 'Pablo enseña a Timoteo a no avergonzarse del mismo cautiverio que ahora describe como "prisionero de Cristo Jesús".' },
+                        { reference: 'Efesios 4:1', text: 'Yo pues, preso en el Señor, os ruego que andéis como es digno de la vocación con que fuisteis llamados.', description: 'La misma condición de "preso en el Señor" se convierte en base de la exhortación ética posterior.' }
                     ]
                 },
                 RECURSOS_COMENTARIOS: [
@@ -4067,8 +4095,19 @@ guardarFicha() {
     { reference: 'Hebreos 4:12', text: 'La palabra de Dios es viva y eficaz, y más cortante que toda espada de dos filos.' }
   ]; this.crossReferenceLoading = false;
   },
-  vistaPreviaReferencia(item) { this.crossReferencePreview = item; },
-  abrirReferenciaCruzada(item) { this.resourceReference = item.reference; this.vistaPreviaReferencia(item); },
+                    vistaPreviaReferencia(item) { this.crossReferencePreview = item; this.activeCrossReference = item; this.crossRefModalOpen = true; },
+                    cerrarCrossRefModal() { this.crossRefModalOpen = false; this.activeCrossReference = null; },
+                    abrirReferenciaCruzada(item) { this.vistaPreviaReferencia(item); },
+                    irACapituloDesdeReferencia(item) {
+                        const m = /^(.+?)\s+(\d+):(\d+)$/.exec(String(item?.reference || '').trim());
+                        if (!m) return;
+                        const nombre = m[1].trim(); const capitulo = Number(m[2]);
+                        const libro = LIBROS_AT.find(l => l.n === nombre) || LIBROS_NT.find(l => l.n === nombre);
+                        if (!libro) return;
+                        this.cerrarCrossRefModal();
+                        this.showResourceDrawer = false;
+                        this.abrirLector(libro, capitulo);
+                    },
   // ---------- Drawer de Recursos de Estudio Histórico (8 fuentes reales) ----------
   abrirRecursosDrawer(referencia) {
                     this.resourceReference = referencia || this.referenciaActiva || '';
@@ -4820,6 +4859,25 @@ guardarFicha() {
     const restoreUserActions=async()=>{try{const user=(await supabaseClient?.auth?.getUser?.())?.data?.user;if(!user)return;const {data}=await supabaseClient.from('user_bible_actions').select('action_type,reference,version,metadata').eq('user_id',user.id);const highlights=(data||[]).filter(x=>x.action_type==='highlight'&&x.metadata?.active!==false).map(x=>x.reference);document.querySelectorAll('.rv-verse-surface').forEach(node=>{if(highlights.includes(node.dataset.reference))node.classList.add('rv-highlight','rv-oro')});}catch(error){console.warn('[v0] action restore failed',error)}};supabaseClient?.auth?.onAuthStateChange?.((event)=>{if(event==='SIGNED_IN'||event==='INITIAL_SESSION')setTimeout(restoreUserActions,250)});window.addEventListener('revelatio:open-search',event=>{const app=document.querySelector('[x-data]');if(app?._x_dataStack?.[0])app._x_dataStack[0].abrirBusquedaRevelatio(event.detail?.text||'')});window.addEventListener('revelatio:open-share',event=>{const app=document.querySelector('[x-data]');const state=app?._x_dataStack?.[0];if(!state)return;const d=event.detail||{};state.shareCard={texto:d.texto||'',referencia:d.referencia||'',version:d.version||''};state.showShareModal=true});
   })();
   </script>
+
+  <!-- Quick Peek: vista previa rápida de referencia cruzada TSK -->
+  <div x-show="crossRefModalOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vista previa rápida de referencia cruzada">
+    <button @click="cerrarCrossRefModal()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar vista previa"></button>
+    <div class="relative max-w-md mx-auto bg-stone-50 border border-stone-300 rounded-2xl p-5 shadow-2xl z-50 w-full">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-gold-600">Vista previa rápida</p>
+          <h4 class="mt-1 font-serif text-xl font-bold text-stone-900" x-text="activeCrossReference?.reference"></h4>
+        </div>
+      </div>
+      <p class="mt-3 font-serif text-base leading-relaxed text-stone-700" x-text="activeCrossReference?.text"></p>
+      <p x-show="activeCrossReference?.description" class="mt-3 rounded-lg bg-gold-500/10 px-3 py-2 text-xs leading-relaxed text-gold-800" x-text="activeCrossReference?.description"></p>
+      <div class="mt-5 flex items-center justify-end gap-2">
+        <button @click="cerrarCrossRefModal()" class="rounded-lg border border-stone-300 px-3 py-2 text-xs font-semibold text-stone-600 hover:bg-stone-100">Cerrar</button>
+        <button @click="irACapituloDesdeReferencia(activeCrossReference)" class="rounded-lg bg-gold-600 px-3 py-2 text-xs font-bold text-stone-950 hover:bg-gold-500">Ir al capítulo completo</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Chat global omnipresente de RevelatiO IA -->
   <button @click="openGlobalChat()" aria-label="Abrir RevelatiO IA" class="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 rounded-full border border-amber-500/30 bg-stone-900 px-4 py-3 text-amber-100 shadow-2xl transition-all hover:scale-105 hover:bg-black">
