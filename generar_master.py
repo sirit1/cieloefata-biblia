@@ -31,7 +31,7 @@ for libro, capitulos in data_json.items():
                 'texto_peshitta': '', # Vacío por ahora
                 'idioma_original': '',# Aquí cruzaremos el Hebreo/Griego
                 'traduccion_literal': '',
-                'comentario_macarthur': ''
+                'comentario_expositivo': ''
             })
 
 # 3. Convertir a DataFrame de Pandas

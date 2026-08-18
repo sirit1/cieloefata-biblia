@@ -62,7 +62,7 @@ export default async function handler(req, res) {
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
 Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"objetivo":"","contextoHistoricoLiterario":"","estructuraLiteraria":"","analisisGramatical":"","hermeneutica":"","exegesisVersiculoVersiculo":"","comentarioMacArthur":"","aplicacion":""}
+{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"objetivo":"","contextoHistoricoLiterario":"","estructuraLiteraria":"","analisisGramatical":"","hermeneutica":"","exegesisVersiculoVersiculo":"","comentarioExpositivo":"","aplicacion":""}
 
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
@@ -74,7 +74,7 @@ Reglas:
 - "analisisGramatical": observaciones de sintaxis, términos y conexiones; usa el contexto Strong real si fue proporcionado.
 - "hermeneutica": interpretación responsable conectada con el conjunto de la Escritura.
 - "exegesisVersiculoVersiculo": recorrido por cada versículo o unidad disponible; si la consulta es temática, explica que se trata de un pasaje base.
-- "comentarioMacArthur": comentario exegético pastoral, riguroso y expositivo. Debe servir como respaldo si alguna sección no puede desarrollarse.
+- "comentarioExpositivo": comentario exegético pastoral, riguroso y expositivo, redactado con tu propia voz (no imites ni atribuyas el estilo a ningún autor con derechos de autor vigentes). Debe servir como respaldo si alguna sección no puede desarrollarse.
 - "aplicacion": aplicación ministerial que refleje el camino del evangelio: confesión y arrepentimiento (1 Juan 1:9), conversión y estudio de la Palabra (1 Pedro 2:2), y permanecer firmes y constantes en la fe (1 Corintios 15:58).
 - Completa todas las secciones con contenido útil. No dejes campos vacíos salvo que falten datos verificables de una traducción.
 - No inventes citas: si no puedes confirmar un texto exacto, deja ese campo vacío y explícalo en el comentario.
@@ -92,7 +92,7 @@ Consulta: ${consulta}${contextoOriginal}`, { maxOutputTokens: 5000, reintentos: 
       analisisGramatical: String(base.analisisGramatical || '').trim(),
       hermeneutica: String(base.hermeneutica || '').trim(),
       exegesisVersiculoVersiculo: String(base.exegesisVersiculoVersiculo || '').trim(),
-      comentarioMacArthur: String(base.comentarioMacArthur || '').trim(),
+      comentarioExpositivo: String(base.comentarioExpositivo || '').trim(),
       aplicacion: String(base.aplicacion || '').trim()
     };
     return res.status(200).json({ success: true, data: normalizado });

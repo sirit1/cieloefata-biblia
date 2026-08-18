@@ -134,27 +134,20 @@ const LENTES = {
   dueloCrisis: { titulo: 'Duelo y crisis', instruccion: 'Aplica el pasaje a la presencia pastoral en duelo y crisis: lamentación, esperanza, oración, comunidad y próximos pasos. No prometas resultados que la Escritura no promete.' },
 };
 
-// Autores/comentaristas reconocidos (obra mayormente de dominio público o
-// posición teológica ampliamente documentada). La síntesis la elabora
-// RevelatiO IA siguiendo la línea conocida de cada autor; se muestra una
-// nota de transparencia en la interfaz.
+// Comentaristas reconocidos, todos de obra 100% de dominio público (murieron
+// hace más de 70 años): se descartó deliberadamente a cualquier autor con
+// derechos de autor vigentes (p. ej. John MacArthur) para no atribuirle
+// contenido generado por IA. La síntesis la elabora RevelatiO IA siguiendo
+// la línea documentada de cada autor; se muestra una nota de transparencia
+// en la interfaz.
 const AUTORES = {
+  'jamieson-fausset-brown': 'Jamieson-Fausset-Brown',
   'matthew-henry': 'Matthew Henry',
-  'juan-calvino': 'Juan Calvino',
+  'albert-barnes': 'Albert Barnes',
   'charles-spurgeon': 'Charles Spurgeon',
-  'juan-wesley': 'Juan Wesley',
-  'john-macarthur': 'John MacArthur',
-  'william-barclay': 'William Barclay',
-  'agustin-de-hipona': 'Agustín de Hipona',
-  'juan-crisostomo': 'Juan Crisóstomo',
 };
 
-// Autores cuya obra es de dominio público (murieron hace más de 70 años):
-// se puede exponer su interpretación histórica documentada con mayor detalle.
-// MacArthur y Barclay son autores con obra bajo derechos de autor vigentes:
-// jamás se debe presentar como cita textual entrecomillada, solo como línea
-// teológica conocida y públicamente documentada (predicaciones, entrevistas).
-const AUTORES_DOMINIO_PUBLICO = new Set(['matthew-henry', 'juan-calvino', 'charles-spurgeon', 'juan-wesley', 'agustin-de-hipona', 'juan-crisostomo']);
+const AUTORES_DOMINIO_PUBLICO = new Set(Object.keys(AUTORES));
 
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -194,9 +187,7 @@ export default async function handler(req, res) {
   const nombreAutor = esAutor ? AUTORES[autorKey] : '';
   const esDominioPublico = esAutor && AUTORES_DOMINIO_PUBLICO.has(autorKey);
   const instruccion = esAutor
-    ? esDominioPublico
-      ? `Redacta un comentario bíblico sobre la consulta SIGUIENDO FIELMENTE la línea teológica, el énfasis y el estilo documentado de ${nombreAutor} (autor de obra ya de dominio público). No inventes citas textuales entrecomilladas como si fueran transcripción literal; expón la interpretación en la voz y perspectiva histórica conocida de este autor. Debe ser exegético, fiel a su tradición y edificante.`
-      : `Redacta un comentario bíblico sobre la consulta en la línea teológica y el énfasis AMPLIAMENTE DOCUMENTADO y públicamente conocido de ${nombreAutor} (autor con obra bajo derechos de autor vigentes). PROHIBIDO presentar frases como cita textual entrecomillada o atribuírsela como transcripci��n exacta de un libro suyo: solo describe su posición y enfoque conocidos (p. ej. su énfasis en la interpretación literal-histórica-gramatical si aplica), aclarando que es una síntesis de su línea, no una cita.`
+    ? `Redacta un comentario bíblico sobre la consulta SIGUIENDO FIELMENTE la línea teológica, el énfasis y el estilo documentado de ${nombreAutor} (autor de obra ya de dominio público). No inventes citas textuales entrecomilladas como si fueran transcripción literal; expón la interpretación en la voz y perspectiva histórica conocida de este autor. Debe ser exegético, fiel a su tradición y edificante.`
     : LENTES[lente].instruccion;
 
   const titulo = esAutor ? `Comentario · ${nombreAutor}` : LENTES[lente].titulo;
