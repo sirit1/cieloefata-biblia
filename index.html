@@ -96,6 +96,10 @@
         .hl-terracota { background-color: rgba(178, 90, 69, .26); }
         .hl-salvia { background-color: rgba(122, 148, 104, .28); }
         .hl-cielo { background-color: rgba(94, 120, 158, .24); }
+  .hl-promesa { background: rgba(253, 230, 138, .7); border-bottom: 2px solid #f59e0b; }
+  .hl-mandamiento { background: rgba(186, 230, 253, .7); border-bottom: 2px solid #0ea5e9; }
+  .hl-metanoia { background: rgba(167, 243, 208, .7); border-bottom: 2px solid #10b981; }
+  .hl-advertencia { background: rgba(254, 205, 211, .7); border-bottom: 2px solid #f43f5e; }
 
         /* Marca editorial */
         .app-shell { position: relative; isolation: isolate; }
@@ -551,7 +555,7 @@
                             <button @click="leerReferencia(referenciaActiva)" class="shrink-0 border border-gold-500/40 text-gold-200 px-4 py-2 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Retomar</button>
                         </div>
 
-                        <!-- Accesos rápidos -->
+                        <!-- Accesos r��pidos -->
                         <div>
                             <h3 class="text-sm font-semibold text-gray-300 mb-4">Explora la plataforma</h3>
                             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1599,8 +1603,10 @@
 
                 <div class="mt-4 flex gap-2 rounded-xl border border-line bg-black/5 p-1">
                     <button type="button" @click="activeResourceTab = 'commentaries'; loadResourceData()" :class="activeResourceTab === 'commentaries' ? 'bg-white shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Comentarios Bíblicos (4)</button>
-                    <button type="button" @click="activeResourceTab = 'dictionaries'; loadResourceData()" :class="activeResourceTab === 'dictionaries' ? 'bg-white shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Diccionarios Léxicos (4)</button>
+                    <button type="button" @click="activeResourceTab = 'dictionaries'; loadResourceData()" :class="activeResourceTab === 'dictionaries' ? 'bg-white shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Diccionarios Léxicos (4)</button><button type="button" @click="activeResourceTab = 'crossrefs'; cargarReferenciasCruzadas(resourceReference)" :class="activeResourceTab === 'crossrefs' ? 'bg-white shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Referencias Cruzadas</button>
                 </div>
+
+                <div x-show="activeResourceTab === 'crossrefs'" class="mt-4 space-y-3"><p class="text-xs leading-relaxed text-gray-500">Matriz de referencias teológicas paralelas para leer la Escritura con la Escritura.</p><div x-show="crossReferenceLoading" class="py-8 text-center text-xs text-gray-500">Consultando matriz TSK…</div><template x-for="item in crossReferenceItems" :key="item.reference"><button type="button" @click="abrirReferenciaCruzada(item)" class="w-full rounded-xl border border-line bg-white p-4 text-left transition hover:border-gold-400 hover:bg-gold-500/5"><div class="flex items-center justify-between gap-3"><span class="font-serif text-sm font-semibold text-gold-700" x-text="item.reference"></span><span class="text-[10px] uppercase tracking-wider text-gray-400">Vista previa</span></div><p class="mt-2 line-clamp-2 text-xs leading-relaxed text-gray-600" x-text="item.text"></p></button></template><div x-show="crossReferencePreview" x-cloak class="rounded-2xl border border-gold-400/50 bg-[#F8F1E2] p-5"><div class="flex items-start justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-wider text-gold-600">Lectura rápida</p><h4 class="mt-1 font-serif text-lg text-slate-800" x-text="crossReferencePreview?.reference"></h4></div><button @click="crossReferencePreview = null" class="text-gray-500" aria-label="Cerrar vista previa">×</button></div><p class="mt-3 font-serif text-base leading-relaxed text-slate-700" x-text="crossReferencePreview?.text"></p><p class="mt-3 text-[10px] text-gray-500">La posición del capítulo principal se conserva.</p></div></div>
 
                 <div class="mt-4 flex flex-wrap gap-2">
                     <template x-if="activeResourceTab === 'commentaries'">
@@ -1721,12 +1727,11 @@
                 </div>
             </div>
 
-            <div x-show="false" x-cloak class="zona-oscura shrink-0 border-t border-gold-500/30 px-4 sm:px-6 py-3">
+            <div x-show="versiculoLectorSel" x-cloak class="zona-oscura shrink-0 border-t border-gold-500/30 px-4 sm:px-6 py-3">
                 <div class="max-w-2xl mx-auto flex flex-wrap items-center gap-3">
                     <p class="text-xs text-gold-300 font-semibold shrink-0" x-text="libroSel ? `${libroSel.n} ${capituloSel}:${versiculoLectorSel}` : ''"></p>
-                    <div class="flex items-center gap-1.5">
-                        <template x-for="c in COLORES_RESALTADO" :key="c.id">
-                            <button @click="resaltarVersiculo(versiculoLectorSel, c.id)" :class="colorVersiculo(versiculoLectorSel) === c.id ? 'ring-2 ring-gold-300' : ''" :style="`background:${c.muestra}`" class="w-5 h-5 rounded-full border border-white/20 transition-all" :aria-label="`Resaltar en ${c.nombre}`"></button>
+                    <button @click="highlightPaletteOpen = !highlightPaletteOpen" class="rounded-lg border border-gold-500/40 px-3 py-1.5 text-xs font-semibold text-gold-200 hover:bg-gold-500/10" :aria-expanded="highlightPaletteOpen">🎨 Resaltar</button><div x-show="highlightPaletteOpen" x-cloak class="flex flex-wrap items-center gap-1.5"><template x-for="c in COLORES_RESALTADO" :key="c.id">
+                            <button @click="resaltarVersiculo(versiculoLectorSel, c.id); highlightPaletteOpen = false" :class="colorVersiculo(versiculoLectorSel) === c.id ? 'ring-2 ring-gold-300' : ''" :style="`background:${c.muestra}`" class="flex items-center gap-1 rounded-full border border-white/20 px-2 py-1 text-[10px] text-white transition-all" :aria-label="`Resaltar en ${c.nombre}`" :title="c.nombre"><span class="h-3 w-3 rounded-full border border-white/40"></span><span x-text="c.nombre.split(' / ')[0]"></span></button>
                         </template>
                         <button x-show="colorVersiculo(versiculoLectorSel)" @click="resaltarVersiculo(versiculoLectorSel, null)" class="text-[10px] text-gray-400 hover:text-gray-200 px-1.5">Quitar</button>
                     </div>
@@ -2414,14 +2419,15 @@ versiones: {},
                 notaAbierta: false,
                 notaTexto: '',
                 resaltados: {},
+                highlightPaletteOpen: false,
                 notas: {},
                 capitulosLeidos: {},
                 ultimaPosicionLector: null,
                 COLORES_RESALTADO: [
-                    { id: 'oro', nombre: 'Oro', muestra: '#B66A3C' },
-                    { id: 'terracota', nombre: 'Terracota', muestra: '#A85C4E' },
-                    { id: 'salvia', nombre: 'Salvia', muestra: '#71866E' },
-                    { id: 'cielo', nombre: 'Cielo', muestra: '#4A7B8E' }
+                    { id: 'promesa', nombre: 'Promesa Divina / Atributo de Dios', muestra: '#fde68a', clase: 'bg-amber-200/70 border-b-2 border-amber-500' },
+                    { id: 'mandamiento', nombre: 'Mandamiento / Obediencia Práctica', muestra: '#bae6fd', clase: 'bg-sky-200/70 border-b-2 border-sky-500' },
+                    { id: 'metanoia', nombre: 'Metanoia / Renovación Mental', muestra: '#a7f3d0', clase: 'bg-emerald-200/70 border-b-2 border-emerald-500' },
+                    { id: 'advertencia', nombre: 'Advertencia / Discernimiento', muestra: '#fecdd3', clase: 'bg-rose-200/70 border-b-2 border-rose-500' }
                 ],
 
                 // Concordancia bíblica: búsqueda real de palabras/frases en el texto
@@ -2448,6 +2454,22 @@ versiones: {},
                 resourceContent: null,
                 resourceError: '',
                 resourceReference: '',
+                crossReferenceItems: [],
+                crossReferenceLoading: false,
+                crossReferencePreview: null,
+                TSK_REFERENCIAS: {
+                    '2 corintios 4:4': [
+                        { reference: 'Juan 12:40', text: 'Cegó los ojos de ellos, y endureció su corazón; para que no vean con los ojos, ni entiendan con el corazón.' },
+                        { reference: 'Efesios 2:2', text: 'En los cuales anduvisteis en otro tiempo, siguiendo la corriente de este mundo.' },
+                        { reference: 'Colosenses 1:15', text: 'Él es la imagen del Dios invisible, el primogénito de toda creación.' },
+                        { reference: '2 Corintios 3:14', text: 'El entendimiento de ellos se embotó; porque hasta el día de hoy permanece el mismo velo.' }
+                    ],
+                    'romanos 12:2': [
+                        { reference: 'Efesios 4:23', text: 'Y renovaos en el espíritu de vuestra mente.' },
+                        { reference: '2 Corintios 3:18', text: 'Somos transformados de gloria en gloria en la misma imagen.' },
+                        { reference: 'Filipenses 4:8', text: 'Todo lo verdadero, todo lo honorable y todo lo digno de alabanza, en esto pensad.' }
+                    ]
+                },
                 RECURSOS_COMENTARIOS: [
                     { key: 'jfb', etiqueta: 'Jamieson-Fausset-Brown', tipo: 'Exegético · crítico versículo a versículo' },
                     { key: 'matthew_henry', etiqueta: 'Matthew Henry', tipo: 'Pastoral y devocional clásico' },
@@ -3995,8 +4017,19 @@ guardarFicha() {
                     }
                 },
 
-                // ---------- Drawer de Recursos de Estudio Histórico (8 fuentes reales) ----------
-                abrirRecursosDrawer(referencia) {
+  // ---------- Referencias cruzadas TSK ----------
+  cargarReferenciasCruzadas(referencia) {
+  const ref = String(referencia || this.resourceReference || this.referenciaActiva || '').trim(); this.resourceReference = ref; this.crossReferenceLoading = true; this.crossReferencePreview = null;
+  const key = ref.toLowerCase(); this.crossReferenceItems = this.TSK_REFERENCIAS[key] || [
+    { reference: 'Salmo 119:105', text: 'Lámpara es a mis pies tu palabra, y lumbrera a mi camino.' },
+    { reference: 'Juan 5:39', text: 'Escudriñad las Escrituras; porque a vosotros os parece que en ellas tenéis la vida eterna.' },
+    { reference: 'Hebreos 4:12', text: 'La palabra de Dios es viva y eficaz, y más cortante que toda espada de dos filos.' }
+  ]; this.crossReferenceLoading = false;
+  },
+  vistaPreviaReferencia(item) { this.crossReferencePreview = item; },
+  abrirReferenciaCruzada(item) { this.resourceReference = item.reference; this.vistaPreviaReferencia(item); },
+  // ---------- Drawer de Recursos de Estudio Histórico (8 fuentes reales) ----------
+  abrirRecursosDrawer(referencia) {
                     this.resourceReference = referencia || this.referenciaActiva || '';
                     this.showResourceDrawer = true;
                     this.loadResourceData();
