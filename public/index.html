@@ -2500,7 +2500,9 @@ versiones: {},
 
                 // ---------- Motor Interlineal palabra-por-palabra ----------
                 interlinearActive: false,
-                selectedWordData: null,
+                interlinearLoading: false,
+                selectedWordData: { original: '', transliteration: '', strong: '', morphology: '', meaning: '', metanoia: '', griego: '', translit: '', fonetica: '', morfologia: '', sentido: '' },
+                wordModalOpen: false,
                 wordSheetOpen: false,
                 // Datos morfológicos curados y verificables (Strong's + gramática griega real).
                 // Solo se incluyen palabras de versículos ya estudiados en profundidad en la app;
@@ -4286,11 +4288,29 @@ guardarFicha() {
                             return { texto: tok, data: mapa.get(limpio) || null, esEspacio: false };
                         });
                     },
-                    abrirPalabra(data) {
-                        this.selectedWordData = data || { griego: '—', translit: '—', fonetica: '—', strong: '—', morfologia: 'Sin clasificar', sentido: 'Análisis interlineal detallado no disponible aún para este término. Explora el Léxico Strong general en el panel de Recursos para un estudio verificado.' };
-                        this.closeAllOverlays('wordSheetOpen'); this.wordSheetOpen = true;
+                    async openInterlinearWord(word, verseContext = {}) {
+                        const raw = String(word || '').trim();
+                        const normalized = this.normalizarPalabra(raw);
+                        this.interlinearLoading = true;
+                        this.wordModalOpen = true;
+                        this.wordSheetOpen = true;
+                        this.selectedWordData = { original: raw, transliteration: 'Resolviendo transliteración…', strong: '—', morphology: 'Analizando morfología…', meaning: 'Buscando entrada léxica y contexto del versículo…', metanoia: 'Preparando una aplicación práctica para la renovación de la mente.', griego: '…', translit: '…', fonetica: '…', morfologia: '…', sentido: '…' };
+                        const entradas = this.INTERLINEAL_DATA[this.claveVersiculoInterlineal(verseContext.n || verseContext.verse || verseContext.numero)] || [];
+                        const local = entradas.find(e => this.normalizarPalabra(e.palabra) === normalized);
+                        const semantic = {
+                          hermanos: { original: 'ἀδελφοί', transliteration: 'adelphoi · a-del-foí', strong: 'G80', morphology: 'Sustantivo · Masculino Plural · Vocativo', meaning: 'Hermanos y hermanas unidos por una relación espiritual y comunitaria; el término apela a una familia de fe responsable.', metanoia: 'La renovación mental abandona el aislamiento y aprende a recibir corrección, cuidar al otro y caminar en comunidad.' },
+                          divisiones: { original: 'διχοστασίαι', transliteration: 'dichostasiai · dee-khos-tas-ee-ai', strong: 'G1370', morphology: 'Sustantivo · Femenino Plural · Acusativo', meaning: 'Rupturas, facciones o separaciones que fragmentan la comunión y desvían a los creyentes de la enseñanza recibida.', metanoia: 'Discierne las voces que producen fractura: la mente renovada busca la verdad, la paz y la obediencia antes que la disputa.' },
+                          doctrina: { original: 'διδαχή', transliteration: 'didachē · dee-da-khay', strong: 'G1322', morphology: 'Sustantivo · Femenino Singular · Acusativo', meaning: 'Enseñanza recibida y transmitida; en el contexto bíblico incluye contenido doctrinal y formación práctica.', metanoia: 'No acumules información sin obediencia: deja que la enseñanza de Cristo reordene tus decisiones.' },
+                          verdad: { original: 'ἀλήθεια', transliteration: 'alētheia · a-lē-thei-a', strong: 'G225', morphology: 'Sustantivo · Femenino Singular', meaning: 'Verdad manifiesta, aquello que no está oculto y corresponde fielmente a la realidad de Dios.', metanoia: 'La verdad libera al pensamiento de la ilusión y lo vuelve capaz de responder con integridad.' }
+                        };
+                        const found = local ? { original: local.griego, transliteration: `${local.translit} · ${local.fonetica}`, strong: local.strong, morphology: local.morfologia, meaning: local.sentido, metanoia: `La palabra «${raw}» invita a dejar que la verdad de Dios transforme la manera de pensar y actuar.` } : semantic[normalized];
+                        const resolved = found || { original: raw, transliteration: 'Entrada contextual pendiente', strong: '—', morphology: 'Palabra española · clasificación contextual', meaning: `La palabra «${raw}» se está leyendo dentro de ${verseContext.reference || 'este versículo'}. Consulta el contexto completo para confirmar su lema original y matiz exegético.`, metanoia: `Pregunta qué pensamiento produce «${raw}» y qué respuesta obediente puede nacer de la Palabra.` };
+                        await new Promise(resolve => setTimeout(resolve, 280));
+                        this.selectedWordData = { ...resolved, griego: resolved.original, translit: resolved.transliteration, fonetica: '', morfologia: resolved.morphology, sentido: resolved.meaning };
+                        this.interlinearLoading = false;
                     },
-                    cerrarPalabra() { this.wordSheetOpen = false; this.selectedWordData = null; },
+                    abrirPalabra(data, verseContext = {}) { return this.openInterlinearWord(data?.palabra || data?.word || data?.texto || data, verseContext).catch(() => { this.interlinearLoading = false; }); },
+                    cerrarPalabra() { this.wordModalOpen = false; this.wordSheetOpen = false; this.interlinearLoading = false; },
 
                     // ---------- Comparador sinóptico multiversión ----------
                     abrirComparador(numeroVersiculo) { this.compareVerseNumero = numeroVersiculo; this.closeAllOverlays('compareModalOpen'); this.compareModalOpen = true; },
@@ -5183,15 +5203,20 @@ guardarFicha() {
     </div>
   </div>
 
-  <!-- Word Sheet: motor interlineal palabra por palabra -->
-  <div x-show="wordSheetOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-end sm:items-center justify-center" role="dialog" aria-modal="true" aria-label="Análisis interlineal de la palabra">
-    <button @click="cerrarPalabra()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar análisis interlineal"></button>
-    <div class="rv-light-modal relative w-full sm:max-w-md bg-[#FAF8F5] border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-50">
-      <div class="mx-auto mb-4 h-1 w-10 rounded-full bg-stone-300 sm:hidden"></div>
-      <div class="flex items-start justify-between gap-3">
-        <p class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Motor Interlineal</p>
-        <button @click="cerrarPalabra()" class="text-stone-400 hover:text-stone-700" aria-label="Cerrar">×</button>
+  <!-- Modal: motor interlineal morfológico dinámico -->
+  <div x-show="wordModalOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" @click.self="cerrarPalabra()" role="dialog" aria-modal="true" aria-label="Análisis interlineal de la palabra">
+    <div class="rv-light-modal relative w-full max-w-lg bg-[#FAF8F5] border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl text-stone-900">
+      <button @click="cerrarPalabra()" class="absolute top-5 right-5 text-stone-400 hover:text-stone-700 w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-200/60 transition-colors" aria-label="Cerrar análisis interlineal">×</button>
+      <div class="flex items-center gap-2 mb-4"><span class="text-[11px] font-mono uppercase tracking-widest text-amber-900 font-bold bg-amber-100/90 border border-amber-300 px-3 py-1 rounded-full">Motor interlineal morfológico</span></div>
+      <div x-show="interlinearLoading" class="space-y-4 animate-pulse py-4" aria-live="polite"><div class="h-10 bg-stone-200 rounded-xl w-1/2"></div><div class="h-5 bg-stone-200 rounded w-1/3"></div><div class="h-20 bg-stone-200 rounded-2xl w-full"></div></div>
+      <div x-show="!interlinearLoading" class="space-y-5">
+        <div class="border-b border-stone-200 pb-4"><div class="text-3xl sm:text-4xl font-serif font-bold text-amber-950 tracking-wide" x-text="selectedWordData.original"></div><div class="text-sm font-sans text-stone-600 mt-1 italic" x-text="selectedWordData.transliteration"></div><div class="flex items-center gap-2 mt-3 flex-wrap"><span class="text-xs font-mono font-bold text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-md" x-text="selectedWordData.strong"></span><span class="text-xs font-sans font-medium text-stone-700 bg-stone-200/70 border border-stone-300 px-2.5 py-0.5 rounded-md" x-text="selectedWordData.morphology"></span></div></div>
+        <div><h5 class="text-xs uppercase font-bold tracking-wider text-stone-500 mb-1">Definición &amp; léxico</h5><p class="text-sm sm:text-base text-stone-800 leading-relaxed" x-text="selectedWordData.meaning"></p></div>
+        <div class="bg-amber-50/90 border border-amber-200/90 rounded-2xl p-4"><div class="flex items-center gap-1.5 text-xs font-bold text-amber-950 uppercase tracking-wider mb-1"><span>Insight de metanoia</span></div><p class="text-xs sm:text-sm text-stone-800 leading-relaxed font-sans" x-text="selectedWordData.metanoia"></p></div>
+        <div class="flex items-center justify-end gap-2 pt-2"><button @click="journalForm.truth = selectedWordData.original + ' (' + selectedWordData.strong + '): ' + selectedWordData.meaning; journalOpen = true; cerrarPalabra();" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm transition-colors">Llevar al Diario</button></div>
       </div>
+    </div>
+  </div>
       <p class="mt-2 font-serif text-4xl text-stone-900" x-text="selectedWordData?.griego"></p>
       <p class="mt-1 text-sm text-stone-500"><em x-text="selectedWordData?.translit"></em> <span x-text="'(' + selectedWordData?.fonetica + ')'"></span></p>
       <div class="mt-3 flex flex-wrap items-center gap-2">
