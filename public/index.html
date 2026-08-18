@@ -628,7 +628,7 @@
                                 <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Biblia</h2>
                             </div>
                             <div class="flex items-center gap-2">
-  <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en ocho versiones y consulta la tradición Peshitta</p>
+  <p class="text-xs text-gray-500 hidden sm:block">Lee la Palabra en varias versiones reales, con texto original y Strong's</p>
   <button @click="bibliaModoSantuario = !bibliaModoSantuario" :class="bibliaModoSantuario ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="inline-flex items-center gap-1.5 text-xs border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Activar modo santuario">
   <span aria-hidden="true">◉</span> <span x-text="bibliaModoSantuario ? 'Salir del santuario' : 'Modo santuario'"></span>
   </button>
@@ -779,8 +779,8 @@
                                             <h3 class="text-lg font-serif text-gold-100 mt-1" x-text="referenciaActiva"></h3>
                                         </div>
                                         <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
-                                            <template x-for="v in versionesLista" :key="v.key">
-<button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold shadow-sm' : 'bg-white/90 text-slate-700 hover:bg-gold-50 hover:text-slate-950'" class="text-[10px] px-2.5 py-1 rounded transition-all" x-text="v.etiqueta"></button>
+                                            <template x-for="v in versionesPrincipales" :key="v.key">
+<button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100 text-amber-950 font-semibold border border-amber-300/80' : 'text-stone-400 hover:text-stone-100 border border-transparent'" class="rounded-lg px-3 py-1 text-xs transition-colors" x-text="v.etiqueta"></button>
                                             </template>
                                         </div>
                                     </div>
@@ -1560,8 +1560,8 @@
             </div>
 
             <div class="shrink-0 border-b border-line px-4 sm:px-6 py-2 flex items-center gap-1.5 overflow-x-auto bg-panel2">
-                <template x-for="v in versionesLista" :key="v.key">
-                    <button @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-gold-600 text-gray-950 font-bold' : 'text-gray-400 hover:text-gold-200'" class="text-[10px] px-2.5 py-1 rounded-md whitespace-nowrap transition-all shrink-0" x-text="v.etiqueta"></button>
+                <template x-for="v in versionesPrincipales" :key="v.key">
+                    <button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100 text-amber-950 font-semibold border border-amber-300/80' : 'text-stone-600 hover:text-stone-900 border border-transparent'" class="rounded-lg px-3 py-1 text-xs whitespace-nowrap transition-colors shrink-0" x-text="v.etiqueta"></button>
                 </template>
             </div>
 
@@ -2270,7 +2270,7 @@ autenticando: false,
 versiones: {},
   versionesListaAPI: [],
   versionesVersos: {},
-  versionSel: 'rvr1960',
+  versionSel: 'rv1960',
   versionParalelaSel: 'nvi',
   cargandoPasaje: false,
                 errorPasaje: '',
@@ -2793,14 +2793,13 @@ bibliotecaPestana: 'inicio',
                     const limpio = {
                         referencia: this.limpiar(data.referencia) || ref,
                         versiones: {
-                            rvr1960: this.limpiar(data.versiones?.rvr1960),
+                            rv1960: this.limpiar(data.versiones?.rv1960),
                             nvi: this.limpiar(data.versiones?.nvi),
                             ntv: this.limpiar(data.versiones?.ntv),
                             lbla: this.limpiar(data.versiones?.lbla),
                             pdt: this.limpiar(data.versiones?.pdt),
                             btx3: this.limpiar(data.versiones?.btx3),
                             rv2004: this.limpiar(data.versiones?.rv2004),
-  peshitta: this.limpiar(data.versiones?.peshitta) || '',
   },
                         comentario: this.limpiar(data.comentarioMacArthur),
                         original: [data.idiomaOriginal?.termino, data.idiomaOriginal?.strong, data.idiomaOriginal?.analisis].map(x => this.limpiar(x)).filter(Boolean).join(' · '),
@@ -2850,7 +2849,7 @@ bibliotecaPestana: 'inicio',
   } catch (_e) { /* cuota de localStorage excedida: la caché sigue viva solo en memoria */ }
   },
 
-                // Texto bíblico REAL (no generado por IA), instantáneo, con ocho versiones: siete traducciones servidas por Bolls y la línea española asociada a la Peshitta.
+                // Texto bíblico REAL (no generado por IA), instantáneo: traducciones servidas por Bolls, más idioma original y Septuaginta cuando aplica.
   async obtenerPasajeReal(ref) {
   const claveCap = this.claveCapituloCache(ref);
   const enCache = this.leerCapituloCache(claveCap);
@@ -2872,7 +2871,9 @@ bibliotecaPestana: 'inicio',
   const result = await response.json();
                     if (!response.ok || !result.success) throw new Error(result.error || 'No se pudo cargar el pasaje.');
                     const data = result.data || {};
-                    const limpio = { referencia: data.referencia || ref, versiones: { ...(data.versiones || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto } : {}), ...(data.original?.versos?.length ? { interlineal: data.original.versos.map(v => (v.tokens || []).map(t => `${t.palabra || t.texto || ''}${t.strong ? ` [${t.strong}]` : ''}`).join(' ')).join(' · ') } : {}) }, versionesVersos: { ...(data.versionesVersos || {}), ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto.split(/(?=\d+\s)/).filter(Boolean).map((texto, indice) => { const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/); return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() }; }) } : {}) }, versionesLista: (data.versionesLista || []).map(v => v.key === 'peshitta' ? { ...v, etiqueta: 'Biblia Peshitta' } : v), original: data.original || null }; window.__revelatioPassageData = limpio;
+                    const { peshitta: _peshittaTexto, ...versionesSinPeshitta } = data.versiones || {};
+                    const { peshitta: _peshittaVersos, ...versionesVersosSinPeshitta } = data.versionesVersos || {};
+                    const limpio = { referencia: data.referencia || ref, versiones: { ...versionesSinPeshitta, ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto } : {}), ...(data.original?.versos?.length ? { interlineal: data.original.versos.map(v => (v.tokens || []).map(t => `${t.palabra || t.texto || ''}${t.strong ? ` [${t.strong}]` : ''}`).join(' ')).join(' · ') } : {}) }, versionesVersos: { ...versionesVersosSinPeshitta, ...(data.original?.septuaginta?.texto ? { septuaginta: data.original.septuaginta.texto.split(/(?=\d+\s)/).filter(Boolean).map((texto, indice) => { const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/); return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() }; }) } : {}) }, versionesLista: (data.versionesLista || []).filter(v => v.key !== 'peshitta'), original: data.original || null }; window.__revelatioPassageData = limpio;
 this.guardarCapituloCache(claveCap, limpio);
   this.versionesListaAPI = limpio.versionesLista || [];
   return limpio;
@@ -2902,22 +2903,32 @@ this.guardarCapituloCache(claveCap, limpio);
 
                 get versionesLista() {
 const etiquetas = {
-  rv1960: 'RVR 1960', rvr1960: 'RVR 1960', nbla: 'NBLA', nvi: 'NVI', ntv: 'NTV',
-  lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta', septuaginta: 'Septuaginta · LXX', interlineal: 'Interlineal · Original + Strong'
+  rv1960: 'RVR 1960', nvi: 'NVI', ntv: 'NTV',
+  lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', septuaginta: 'Septuaginta · LXX', interlineal: 'Interlineal · Original + Strong'
   };
-  const orden = ['rv1960', 'rvr1960', 'nvi', 'ntv', 'lbla', 'nbla', 'pdt', 'btx3', 'rv2004', 'peshitta', 'septuaginta', 'interlineal'];
+  const orden = ['rv1960', 'nvi', 'ntv', 'lbla', 'pdt', 'btx3', 'rv2004', 'septuaginta', 'interlineal'];
                     const catalogo = Array.isArray(this.versionesListaAPI) ? this.versionesListaAPI : [];
-                    const disponibles = [...new Set([...Object.keys(this.versiones).filter(k => this.versiones[k]), ...catalogo.map(v => v.key).filter(k => this.versiones[k])])];
+                    const disponibles = [...new Set([...Object.keys(this.versiones).filter(k => this.versiones[k]), ...catalogo.map(v => v.key).filter(k => this.versiones[k])])].filter(k => k !== 'peshitta');
                     return disponibles
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
-                        .map(k => ({ key: k, etiqueta: k === 'peshitta' ? 'Biblia Peshitta' : (catalogo.find(v => v.key === k)?.etiqueta || etiquetas[k] || k.toUpperCase()) }));
+                        .map(k => ({ key: k, etiqueta: catalogo.find(v => v.key === k)?.etiqueta || etiquetas[k] || k.toUpperCase() }));
+                },
+                // Selector superior fijo del lector: siempre estas cuatro pestañas,
+                // independientemente de qué versiones haya devuelto la API para el pasaje actual.
+                get versionesPrincipales() {
+                    return [
+                        { key: 'rv1960', etiqueta: 'RVR 1960' },
+                        { key: 'rv2004', etiqueta: 'Gómez 2004' },
+                        { key: 'lbla', etiqueta: 'LBLA' },
+                        { key: 'interlineal', etiqueta: 'Interlineal · Griego/Hebreo + Strong' }
+                    ];
                 },
                 get textoActual() {
                     if (this.versionSel && !this.versiones[this.versionSel]) return `${this.versionesEstudioLista.find(v => v.key === this.versionSel)?.etiqueta || this.versionSel}: texto no disponible para esta consulta.`;
                     return this.versiones[this.versionSel] || this.versiones.rv1960 || Object.values(this.versiones)[0] || 'Texto no disponible para esta versión.';
                 },
                 get versionesEstudioLista() {
-                    const etiquetas = { rvr1960: 'RVR 1960', nvi: 'NVI', ntv: 'NTV', lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', peshitta: 'Peshitta', interlineal: 'Interlineal · Original + Strong' };
+                    const etiquetas = { rv1960: 'RVR 1960', nvi: 'NVI', ntv: 'NTV', lbla: 'LBLA', pdt: 'PDT', btx3: 'Biblia Textual', rv2004: 'RVR Gómez 2004', interlineal: 'Interlineal · Original + Strong' };
                     return Object.keys(etiquetas).map(key => ({ key, etiqueta: etiquetas[key] }));
                 },
 
@@ -2990,7 +3001,7 @@ const etiquetas = {
                     }
                     this.referenciaActiva = data.referencia;
                     if (!this.versiones[this.versionSel]) {
-                        this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+                        this.versionSel = this.versionesLista[0]?.key || 'rv1960';
                     }
                     if (!this.versiones[this.versionParalelaSel] || this.versionParalelaSel === this.versionSel) {
                         this.versionParalelaSel = this.versionesLista.find(v => v.key !== this.versionSel)?.key || this.versionesLista[1]?.key || this.versionSel;
@@ -3143,7 +3154,7 @@ const etiquetas = {
                     try {
                         const data = await this.obtenerAnalisis(q);
                         this.versiones = data.versiones;
-  this.versionSel = this.versionesLista[0]?.key || 'rvr1960';
+  this.versionSel = this.versionesLista[0]?.key || 'rv1960';
   this.versionesComparar = this.versionesLista.slice(0, 2).map(v => v.key);
   this.autoresComparar = ['matthew-henry'];
   this.predicaEditable = { titulo: '', textoBase: '', ideaCentral: '', proposito: '', introduccion: '', puntos: ['', '', ''], aplicaciones: '', llamado: '', cierre: '', notas: '' };
@@ -3947,7 +3958,7 @@ guardarFicha() {
                     this.versionesVersos = data.versionesVersos || {};
                     this.original = data.original || null;
                     this.referenciaActiva = data.referencia;
-                    this.versionSel = Object.keys(this.versiones)[0] || 'rvr1960';
+                    this.versionSel = Object.keys(this.versiones)[0] || 'rv1960';
                     this.irA('biblia');
                 },
                 async eliminarCapituloBiblioteca(item) {
