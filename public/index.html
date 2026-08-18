@@ -241,7 +241,7 @@
 
 </head>
 
-<body class="h-full bg-ink antialiased" x-data="cieloApp()">
+<body class="h-full bg-ink antialiased" x-data="cieloApp()" x-effect="document.documentElement.classList.toggle('overflow-hidden', anyOverlayOpen); document.body.classList.toggle('overflow-hidden', anyOverlayOpen)">
 
     <!-- ===================== CARGA INICIAL ===================== -->
     <div x-show="!sesionVerificada" class="zona-oscura fixed inset-0 z-[70] flex items-center justify-center">
@@ -444,7 +444,7 @@
                 <div class="mx-4 mt-3 rounded-2xl border border-gold-500/30 bg-gold-500/10 p-4">
                     <p class="text-[10px] uppercase tracking-[0.18em] text-gold-400">RevelatiO es gratis</p>
                     <p class="mt-1 text-xs leading-relaxed text-gray-300">Apoya la infraestructura y la difusión de este estudio bíblico sin bloquear ningún contenido.</p>
-                    <button @click="abrirDonaciones = true" class="mt-3 w-full rounded-lg bg-gold-500 px-3 py-2 text-xs font-bold text-gray-950 hover:bg-gold-400 transition-colors">Apoyar voluntariamente</button>
+                    <button @click="closeAllOverlays('abrirDonaciones'); abrirDonaciones = true" class="mt-3 w-full rounded-lg bg-gold-500 px-3 py-2 text-xs font-bold text-gray-950 hover:bg-gold-400 transition-colors">Apoyar voluntariamente</button>
                 </div>
 
                 <!-- Créditos -->
@@ -2773,6 +2773,12 @@ bibliotecaPestana: 'inicio',
                     });
                     this.mostrarInstalar = !this.appInstalada && this.esIOS;
 
+                    // QA: cierre jerárquico con Escape — cierra solo el overlay superior activo (LIFO).
+                    window.addEventListener('keydown', (event) => {
+                        if (event.key !== 'Escape' && event.key !== 'Esc') return;
+                        this.closeTopmostOverlay();
+                    });
+
                     const dia = Math.floor(Date.now() / 86400000) % VERSICULOS_DIA.length;
                     this.versiculoDelDia = VERSICULOS_DIA[dia];
                     this.cargarProgresoPlanes();
@@ -3589,7 +3595,7 @@ const etiquetas = {
   const previous = new Date(Date.now() - 86400000).toISOString().slice(0, 10); this.metanoiaStreak = this.streakDate === previous ? this.metanoiaStreak + 1 : 1; this.streakDate = today; localStorage.setItem('revelatio_streak', JSON.stringify({ count: this.metanoiaStreak, date: today }));
   },
   openJournal(numeroVersiculo) {
-  this.loadMetanoiaData(); this.journalOpen = true; this.journalTab = 'nuevo'; this.journalStep = 1;
+  this.loadMetanoiaData(); this.closeAllOverlays('journalOpen'); this.journalOpen = true; this.journalTab = 'nuevo'; this.journalStep = 1;
   const referencia = numeroVersiculo && this.libroSel ? `${this.libroSel.n} ${this.capituloSel}:${numeroVersiculo}` : (this.referenciaActiva || '');
   const texto = numeroVersiculo ? this.textoDeVersiculo(numeroVersiculo) : (this.textoActual || '');
   this.journalDraft = { pensamiento: '', verdad: referencia ? `${referencia}: ${texto}` : '', accion: '' };
@@ -3600,16 +3606,52 @@ const etiquetas = {
   const referencia = numeroVersiculo && this.libroSel ? `${this.libroSel.n} ${this.capituloSel}:${numeroVersiculo}` : (this.referenciaActiva || this.estudioRef || 'RevelatiO by Efata');
   const texto = numeroVersiculo ? this.textoDeVersiculo(numeroVersiculo) : (this.textoActual || this.estudio.comentario || this.busqueda || 'La Palabra transforma la mente.');
   this.shareCard = { texto: texto || 'La Palabra transforma la mente.', referencia, version: this.versionSel || 'NBLA', termino: this.lexicoDatos?.termino || 'μετάνοια', strong: this.lexicoDatos?.codigo || 'G3341', formato: '9:16' };
-  this.showShareModal = true;
+  this.closeAllOverlays('showShareModal'); this.showShareModal = true;
   },
   copyCardImage() { const text = `“${this.shareCard.texto}”\n${this.shareCard.referencia} · ${this.shareCard.version}`; navigator.clipboard?.writeText(text); },
   shareCardWhatsApp() { const text = encodeURIComponent(`“${this.shareCard.texto}”\n${this.shareCard.referencia} · RevelatiO by Efata`); window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener'); },
-  openGlobalChat() {
-  this.globalChatOpen = true;
+                    openGlobalChat() {
+                    this.closeAllOverlays('globalChatOpen'); this.globalChatOpen = true;
   this.globalChatDisclaimerSeen = true;
   this.$nextTick(() => this.$refs.globalChatInput?.focus());
   },
-  closeGlobalChat() { this.globalChatOpen = false; },
+                    closeGlobalChat() { this.globalChatOpen = false; },
+
+                    // ---------- QA: blindaje de estado — exclusividad de overlays y cierre jerárquico ----------
+                    // Lista única de fuente de verdad para todos los modales/drawers/bottom-sheets "mayores" de la app.
+                    // Cualquier flag aquí listado se cierra automáticamente al abrir otro, evitando superposición caótica.
+                    get _overlayKeys() {
+                        // Solo modales/drawers "mayores" a pantalla completa o bloqueantes.
+                        // Los popovers pequeños (menuCompartir, highlightPaletteOpen, menuUsuario) se manejan
+                        // por separado con @click.outside y no bloquean scroll ni compiten por el foco visual.
+                        return ['notaAbierta', 'wordSheetOpen', 'compareModalOpen', 'sacredPauseOpen', 'outlineModalOpen', 'showResourceDrawer', 'crossRefModalOpen', 'lexicoAbierto', 'globalChatOpen', 'showShareModal', 'journalOpen', 'revelatioBusquedaAbierta', 'abrirDonaciones'];
+                    },
+                    get anyOverlayOpen() {
+                        return this._overlayKeys.some(k => this[k]) || this.lectorAbierto || this.sidebarAbierta;
+                    },
+                    // Cierra todos los overlays mayores excepto (opcionalmente) el que se está abriendo ahora mismo.
+                    closeAllOverlays(exceptKey = null) {
+                        this._overlayKeys.forEach((k) => {
+                            if (k === exceptKey) return;
+                            if (!this[k]) return;
+                            if (k === 'sacredPauseOpen') { this.cerrarPausaSagrada(); return; }
+                            this[k] = false;
+                        });
+                    },
+                    // Abre un overlay exclusivo, cerrando cualquier otro que estuviera activo primero.
+                    openOverlay(key) {
+                        this.closeAllOverlays(key);
+                        this[key] = true;
+                    },
+                    // Escape: cierra jerárquicamente — primero la hoja de acciones de versículo (más "superficial"),
+                    // luego cualquier overlay mayor activo, y por último el sidebar móvil.
+                    closeTopmostOverlay() {
+                        if (this.versiculoLectorSel !== null && this.versiculoLectorSel !== undefined) { this.versiculoLectorSel = null; return; }
+                        const activo = this._overlayKeys.find((k) => this[k]);
+                        if (activo) { if (activo === 'sacredPauseOpen') this.cerrarPausaSagrada(); else this[activo] = false; return; }
+                        if (this.sidebarAbierta) { this.sidebarAbierta = false; return; }
+                        if (this.menuUsuario) { this.menuUsuario = false; return; }
+                    },
   async sendGlobalChat(message = this.globalChatInput) {
   const clean = String(message || '').trim();
   if (!clean || this.globalChatLoading) return;
@@ -3740,7 +3782,7 @@ const etiquetas = {
     ? (this.estudio.comentario || this.estudio.aplicacion || this.textoActual || '')
     : (this.lenteEstado.destacado || this.lenteEstado.cuerpo || '');
   this.shareCard = { texto: String(texto).slice(0, 420), referencia: this.estudioRef || this.busqueda, version: this.versionSel || 'RevelatiO IA', termino: this.lexicoDatos?.termino || 'μετάνοια', strong: this.lexicoDatos?.codigo || 'G3341', formato: '9:16' };
-  this.showShareModal = true;
+  this.closeAllOverlays('showShareModal'); this.showShareModal = true;
   },
   async activarLente(id) {
   const permitidas = this.LENTES_LISTA.map((l) => l.id);
@@ -4150,7 +4192,7 @@ guardarFicha() {
                     const codigoNormalizado = String(codigo || '').trim().toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2');
                     if (!/^[GH]\d{1,4}$/.test(codigoNormalizado)) return;
   this.lexicoCodigo = codigoNormalizado;
-  this.lexicoAbierto = true;
+  this.closeAllOverlays('lexicoAbierto'); this.lexicoAbierto = true;
   this.cargandoLexico = true;
                     this.errorLexico = '';
                     this.lexicoDatos = null;
@@ -4204,12 +4246,12 @@ guardarFicha() {
                     },
                     abrirPalabra(data) {
                         this.selectedWordData = data || { griego: '—', translit: '—', fonetica: '—', strong: '—', morfologia: 'Sin clasificar', sentido: 'Análisis interlineal detallado no disponible aún para este término. Explora el Léxico Strong general en el panel de Recursos para un estudio verificado.' };
-                        this.wordSheetOpen = true;
+                        this.closeAllOverlays('wordSheetOpen'); this.wordSheetOpen = true;
                     },
                     cerrarPalabra() { this.wordSheetOpen = false; this.selectedWordData = null; },
 
                     // ---------- Comparador sinóptico multiversión ----------
-                    abrirComparador(numeroVersiculo) { this.compareVerseNumero = numeroVersiculo; this.compareModalOpen = true; },
+                    abrirComparador(numeroVersiculo) { this.compareVerseNumero = numeroVersiculo; this.closeAllOverlays('compareModalOpen'); this.compareModalOpen = true; },
                     cerrarComparador() { this.compareModalOpen = false; },
                     toggleCompareVersion(key) {
                         if (this.compareVersions.includes(key)) { if (this.compareVersions.length > 1) this.compareVersions = this.compareVersions.filter(k => k !== key); }
@@ -4237,7 +4279,7 @@ guardarFicha() {
                         this._pauseTerm = terminos[terminos.length - 1] || terminos[0] || null;
                         this.pausePhase = 0;
                         this.pauseTimer = 180;
-                        this.sacredPauseOpen = true;
+                        this.closeAllOverlays('sacredPauseOpen'); this.sacredPauseOpen = true;
                         this._iniciarCicloRespiracion();
                         this._pauseTimerId = setInterval(() => {
                             if (this.pauseTimer > 0) this.pauseTimer--;
@@ -4271,6 +4313,9 @@ guardarFicha() {
                             osc.type = 'sine'; osc.frequency.value = 528; osc.connect(gain); gain.connect(ctx.destination);
                             gain.gain.setValueAtTime(0.15, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.5);
                             osc.start(); osc.stop(ctx.currentTime + 2.5);
+                            // QA: cierra el AudioContext tras el fade-out para evitar fugas de memoria (contextos huérfanos).
+                            osc.onended = () => { try { osc.disconnect(); gain.disconnect(); ctx.close(); } catch (_e) {} };
+                            setTimeout(() => { try { ctx.close(); } catch (_e) {} }, 3000);
                         } catch (_) {}
                     },
 
@@ -4315,7 +4360,7 @@ guardarFicha() {
                         window.addEventListener('afterprint', cleanup, { once: true });
                         setTimeout(() => window.print(), 50);
                     },
-                    vistaPreviaReferencia(item) { this.crossReferencePreview = item; this.activeCrossReference = item; this.crossRefModalOpen = true; },
+                    vistaPreviaReferencia(item) { this.crossReferencePreview = item; this.activeCrossReference = item; this.closeAllOverlays('crossRefModalOpen'); this.crossRefModalOpen = true; },
                     cerrarCrossRefModal() { this.crossRefModalOpen = false; this.activeCrossReference = null; },
                     abrirReferenciaCruzada(item) { this.vistaPreviaReferencia(item); },
                     irACapituloDesdeReferencia(item) {
@@ -4331,7 +4376,7 @@ guardarFicha() {
   // ---------- Drawer de Recursos de Estudio Histórico (8 fuentes reales) ----------
   abrirRecursosDrawer(referencia) {
                     this.resourceReference = referencia || this.referenciaActiva || '';
-                    this.showResourceDrawer = true;
+                    this.closeAllOverlays('showResourceDrawer'); this.showResourceDrawer = true;
                     this.loadResourceData();
                 },
                 seleccionarRecurso(tipo, clave) {
@@ -4630,7 +4675,7 @@ guardarFicha() {
   }
   },
 
-                abrirBusquedaRevelatio(texto) { this.revelatioBusquedaTexto = String(texto || '').trim(); this.revelatioBusquedaPregunta = ''; this.revelatioBusquedaRespuesta = ''; this.revelatioBusquedaError = ''; this.revelatioBusquedaAbierta = true; this.$nextTick(() => document.querySelector('[x-model="revelatioBusquedaPregunta"]')?.focus()); },
+                abrirBusquedaRevelatio(texto) { this.revelatioBusquedaTexto = String(texto || '').trim(); this.revelatioBusquedaPregunta = ''; this.revelatioBusquedaRespuesta = ''; this.revelatioBusquedaError = ''; this.closeAllOverlays('revelatioBusquedaAbierta'); this.revelatioBusquedaAbierta = true; this.$nextTick(() => document.querySelector('[x-model="revelatioBusquedaPregunta"]')?.focus()); },
                 async cargarHtml2Canvas() { if (window.html2canvas) return window.html2canvas; await new Promise((resolve, reject) => { const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'; s.onload = resolve; s.onerror = reject; document.head.appendChild(s); }); return window.html2canvas; },
                 shareDescargando: false,
                 shareError: '',
@@ -4807,7 +4852,7 @@ guardarFicha() {
                 abrirNotaVersiculo(n) {
                     this.versiculoNotaSel = n;
                     this.notaTexto = this.notaDeVersiculo(n);
-                    this.notaAbierta = true;
+                    this.closeAllOverlays('notaAbierta'); this.notaAbierta = true;
                 },
                 guardarNotaVersiculo() {
                     const clave = this.claveCapitulo();
@@ -5100,7 +5145,7 @@ guardarFicha() {
   </div>
 
   <!-- Word Sheet: motor interlineal palabra por palabra -->
-  <div x-show="wordSheetOpen" x-cloak x-transition class="fixed inset-0 z-50 flex items-end sm:items-center justify-center" role="dialog" aria-modal="true" aria-label="Análisis interlineal de la palabra">
+  <div x-show="wordSheetOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-end sm:items-center justify-center" role="dialog" aria-modal="true" aria-label="Análisis interlineal de la palabra">
     <button @click="cerrarPalabra()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar análisis interlineal"></button>
     <div class="relative w-full sm:max-w-md bg-[#FAF8F5] border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-50">
       <div class="mx-auto mb-4 h-1 w-10 rounded-full bg-stone-300 sm:hidden"></div>
@@ -5119,7 +5164,7 @@ guardarFicha() {
   </div>
 
   <!-- Comparador sinóptico multiversión -->
-  <div x-show="compareModalOpen" x-cloak x-transition class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Comparador de versiones bíblicas">
+  <div x-show="compareModalOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Comparador de versiones bíblicas">
     <button @click="cerrarComparador()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar comparador"></button>
     <div class="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FAF8F5] border border-stone-200 rounded-3xl p-6 shadow-2xl z-50">
       <div class="flex items-start justify-between gap-3">
@@ -5150,7 +5195,7 @@ guardarFicha() {
   </div>
 
   <!-- Pausa Sagrada: Lectio Divina & coherencia cardíaca -->
-  <div x-show="sacredPauseOpen" x-cloak x-transition.opacity class="fixed inset-0 z-[200] flex flex-col bg-[#1C1917] text-[#F5F0E6]" role="dialog" aria-modal="true" aria-label="Pausa Sagrada">
+  <div x-show="sacredPauseOpen" x-cloak x-transition.opacity class="fixed inset-0 z-[120] flex flex-col bg-[#1C1917] text-[#F5F0E6]" role="dialog" aria-modal="true" aria-label="Pausa Sagrada">
     <div class="flex items-center justify-between px-5 py-4 sm:px-8">
       <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">Pausa Sagrada</span>
       <div class="flex items-center gap-3">
@@ -5217,7 +5262,7 @@ guardarFicha() {
   </div>
 
   <!-- Constructor de Bosquejos Homiléticos -->
-  <div x-show="outlineModalOpen" x-cloak x-transition class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Constructor de bosquejos homiléticos">
+  <div x-show="outlineModalOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Constructor de bosquejos homiléticos">
     <button @click="cerrarBosquejo()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar bosquejo"></button>
     <div class="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FAF8F5] border border-amber-500/30 rounded-3xl p-6 shadow-2xl z-50 sm:p-8">
       <div class="flex items-start justify-between gap-3">
