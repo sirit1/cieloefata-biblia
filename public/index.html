@@ -778,9 +778,12 @@
                                             <p class="text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-500/70">RevelatiO by Efata · Lectura</p>
                                             <h3 class="text-lg font-serif text-gold-100 mt-1" x-text="referenciaActiva"></h3>
                                         </div>
-                                        <div class="flex flex-wrap gap-1 bg-ink p-1 rounded-lg border border-line">
-                                            <template x-for="v in versionesPrincipales" :key="v.key">
-<button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100 text-amber-950 font-semibold border border-amber-300/80' : 'text-stone-400 hover:text-stone-100 border border-transparent'" class="rounded-lg px-3 py-1 text-xs transition-colors" x-text="v.etiqueta"></button>
+                                        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 px-1 rounded-lg border border-line bg-ink">
+                                            <template x-for="(v, vi) in versionesPrincipales" :key="v.key">
+                                                <div class="flex items-center gap-2 shrink-0">
+                                                    <div x-show="v.key === 'interlineal' && vi > 0" class="h-4 w-px bg-stone-600/70"></div>
+<button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-xs' : 'text-stone-400 hover:text-stone-100 hover:bg-white/5 font-medium border border-transparent'" class="whitespace-nowrap rounded-lg px-3.5 py-1.5 text-xs transition-all duration-200" x-text="v.etiqueta"></button>
+                                                </div>
                                             </template>
                                         </div>
                                     </div>
@@ -1559,9 +1562,12 @@
                 </div>
             </div>
 
-            <div class="shrink-0 border-b border-line px-4 sm:px-6 py-2 flex items-center gap-1.5 overflow-x-auto bg-panel2">
-                <template x-for="v in versionesPrincipales" :key="v.key">
-                    <button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100 text-amber-950 font-semibold border border-amber-300/80' : 'text-stone-600 hover:text-stone-900 border border-transparent'" class="rounded-lg px-3 py-1 text-xs whitespace-nowrap transition-colors shrink-0" x-text="v.etiqueta"></button>
+            <div class="shrink-0 flex items-center gap-2 overflow-x-auto no-scrollbar py-2 px-4 sm:px-6 border-b border-stone-200/60 bg-[#FBFBFA]/80 backdrop-blur-md">
+                <template x-for="(v, vi) in versionesPrincipales" :key="v.key">
+                    <div class="flex items-center gap-2 shrink-0">
+                        <div x-show="v.key === 'interlineal' && vi > 0" class="h-4 w-px bg-stone-300/70"></div>
+                        <button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-xs' : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/80 font-medium border border-transparent'" class="whitespace-nowrap rounded-lg px-3.5 py-1.5 text-xs transition-all duration-200" x-text="v.etiqueta"></button>
+                    </div>
                 </template>
             </div>
 
@@ -2913,13 +2919,17 @@ const etiquetas = {
                         .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
                         .map(k => ({ key: k, etiqueta: catalogo.find(v => v.key === k)?.etiqueta || etiquetas[k] || k.toUpperCase() }));
                 },
-                // Selector superior fijo del lector: siempre estas cuatro pestañas,
+                // Selector superior fijo del lector: siempre estas cinco pestañas,
                 // independientemente de qué versiones haya devuelto la API para el pasaje actual.
+                // Nota: no existe un texto real "NBLA" (2005) en la fuente bíblica conectada (Bolls);
+                // se usa LBLA (La Biblia de las Américas, 1997), que sí es un texto verificable de la misma familia,
+                // para no etiquetar contenido con una versión que no es.
                 get versionesPrincipales() {
                     return [
                         { key: 'rv1960', etiqueta: 'RVR 1960' },
-                        { key: 'rv2004', etiqueta: 'Gómez 2004' },
+                        { key: 'rv2004', etiqueta: 'RVR 2004' },
                         { key: 'lbla', etiqueta: 'LBLA' },
+                        { key: 'nvi', etiqueta: 'NVI' },
                         { key: 'interlineal', etiqueta: 'Interlineal · Griego/Hebreo + Strong' }
                     ];
                 },
