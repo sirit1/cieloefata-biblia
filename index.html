@@ -902,7 +902,7 @@
                                                     <button @click="cargarComentario(true)" class="mt-2 text-xs text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/15">Reintentar</button>
                                                 </div>
                                                 <div x-show="comentarioEstado.estado === 'ready'">
-                                                    <h5 class="text-base font-serif text-gold-100 mb-3" x-text="comentarioEstado.titulo"></h5>
+                                                    <div class="mb-3 flex items-center justify-between gap-3"><h5 class="text-base font-serif text-gold-100" x-text="comentarioEstado.titulo"></h5><button type="button" @click="speechService.speak(comentarioEstado.cuerpo)" class="shrink-0 rounded-lg border border-gold-500/30 px-2.5 py-1.5 text-[11px] text-gold-200 hover:bg-gold-600/15" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
                                                     <div class="space-y-2.5">
                                                         <template x-for="(p, i) in parrafosDe(comentarioEstado.cuerpo)" :key="i">
                                                             <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
@@ -1093,7 +1093,7 @@
                             <div class="order-1 rv-ia-response" style="min-height:13rem">
                                 <div class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b pb-3" style="border-color:#e7e5e4">
                                     <p class="text-[10px] font-bold uppercase tracking-[0.16em]" style="color:#92400e">Respuesta de la lente activa</p>
-                                    <p class="text-sm font-semibold" style="color:#292524" x-text="(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p>
+                                    <div class="flex items-center gap-2"><p class="text-sm font-semibold" style="color:#292524" x-text="(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p><button type="button" @click="speechService.speak(lenteEstado.cuerpo || estudio.comentario || estudio.aplicacion)" class="rounded-lg border border-amber-300 px-2.5 py-1.5 text-[11px] font-semibold text-amber-800 hover:bg-amber-50" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
                                 </div>
                                 <!-- Selector de autor (solo lente 'autores') -->
                                 <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b" style="border-color:#e7e5e4">
@@ -2448,6 +2448,14 @@ versiones: {},
                 busqueda: '',
                 omniTab: 'palabra',
                 omniAudioActivo: false,
+                globalChatOpen: false,
+                globalChatLoading: false,
+                globalChatInput: '',
+                globalChatMessages: [],
+                globalChatDisclaimerSeen: false,
+                isPlayingAudio: false,
+                currentAudioText: '',
+                audioUtterance: null,
                 omniIntenciones: [
                     { id: 'ansiedad', etiqueta: 'Ansiedad & Paz', consulta: 'la ansiedad y la paz de Dios' },
                     { id: 'decisiones', etiqueta: 'Decisiones', consulta: 'cómo tomar decisiones conforme a la voluntad de Dios' },
@@ -3364,6 +3372,53 @@ const etiquetas = {
                 },
   parrafosDe(texto) {
   return String(texto || '').split(/\n\n+/).map(s => s.trim()).filter(Boolean);
+  },
+  currentChatContext() {
+  return { reference: this.referenciaActiva || this.estudioRef || '', module: this.vista || '', version: this.versionSel || '' };
+  },
+  openGlobalChat() {
+  this.globalChatOpen = true;
+  this.globalChatDisclaimerSeen = true;
+  this.$nextTick(() => this.$refs.globalChatInput?.focus());
+  },
+  closeGlobalChat() { this.globalChatOpen = false; },
+  async sendGlobalChat(message = this.globalChatInput) {
+  const clean = String(message || '').trim();
+  if (!clean || this.globalChatLoading) return;
+  this.globalChatMessages.push({ role: 'user', content: clean });
+  this.globalChatInput = '';
+  this.globalChatLoading = true;
+  this.$nextTick(() => { const box = this.$refs.globalChatMessages; if (box) box.scrollTop = box.scrollHeight; });
+  try {
+    const res = await fetch('/api/chat-global', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: clean, context: this.currentChatContext(), history: this.globalChatMessages }) });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'No se pudo responder');
+    this.globalChatMessages.push({ role: 'assistant', content: data.text });
+  } catch (error) {
+    this.globalChatMessages.push({ role: 'assistant', content: error.message || 'No pude responder ahora.' });
+  } finally {
+    this.globalChatLoading = false;
+    this.$nextTick(() => { const box = this.$refs.globalChatMessages; if (box) box.scrollTop = box.scrollHeight; });
+  }
+  },
+  speechService: {
+  pickVoice() {
+    const voices = window.speechSynthesis?.getVoices?.() || [];
+    const latin = voices.filter(v => /^(es-MX|es-US|es-419|es-CO|es-AR|es-CL|es-PE)/i.test(v.lang) || /Jorge|Raul|Raúl|Alonso|Google español|Microsoft/i.test(v.name));
+    return latin.find(v => /Jorge|Raul|Raúl|Alonso/i.test(v.name)) || latin[0] || voices.find(v => /^es/i.test(v.lang)) || null;
+  },
+  speak(text) {
+    if (!text || !('speechSynthesis' in window)) return;
+    const app = Alpine.$data(document.body);
+    if (app.isPlayingAudio) { window.speechSynthesis.cancel(); app.isPlayingAudio = false; app.currentAudioText = ''; return; }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(String(text).slice(0, 5000));
+    utterance.lang = 'es-MX'; utterance.rate = 0.95; utterance.pitch = 0.98; utterance.voice = this.pickVoice();
+    utterance.onend = () => { app.isPlayingAudio = false; app.currentAudioText = ''; };
+    app.audioUtterance = utterance; app.isPlayingAudio = true; app.currentAudioText = String(text).slice(0, 120);
+    window.speechSynthesis.speak(utterance);
+  },
+  stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.currentAudioText = ''; }
   },
   async seleccionarOmniTab(tab) {
   this.omniTab = tab;
@@ -4576,6 +4631,39 @@ guardarFicha() {
     const restoreUserActions=async()=>{try{const user=(await supabaseClient?.auth?.getUser?.())?.data?.user;if(!user)return;const {data}=await supabaseClient.from('user_bible_actions').select('action_type,reference,version,metadata').eq('user_id',user.id);const highlights=(data||[]).filter(x=>x.action_type==='highlight'&&x.metadata?.active!==false).map(x=>x.reference);document.querySelectorAll('.rv-verse-surface').forEach(node=>{if(highlights.includes(node.dataset.reference))node.classList.add('rv-highlight','rv-oro')});}catch(error){console.warn('[v0] action restore failed',error)}};supabaseClient?.auth?.onAuthStateChange?.((event)=>{if(event==='SIGNED_IN'||event==='INITIAL_SESSION')setTimeout(restoreUserActions,250)});window.addEventListener('revelatio:open-search',event=>{const app=document.querySelector('[x-data]');if(app?._x_dataStack?.[0])app._x_dataStack[0].abrirBusquedaRevelatio(event.detail?.text||'')});window.addEventListener('revelatio:open-share',event=>{const app=document.querySelector('[x-data]');const state=app?._x_dataStack?.[0];if(!state)return;const d=event.detail||{};state.shareCard={texto:d.texto||'',referencia:d.referencia||'',version:d.version||''};state.showShareModal=true});
   })();
   </script>
+
+  <!-- Chat global omnipresente de RevelatiO IA -->
+  <button @click="openGlobalChat()" aria-label="Abrir RevelatiO IA" class="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 rounded-full border border-amber-500/30 bg-stone-900 px-4 py-3 text-amber-100 shadow-2xl transition-all hover:scale-105 hover:bg-black">
+    <span aria-hidden="true" class="text-base">✦</span><span class="font-sans text-xs font-bold tracking-wide">RevelatiO IA</span>
+    <span x-show="referenciaActiva || estudioRef" x-cloak class="rounded-full bg-amber-900/60 px-2 py-0.5 text-[10px] text-amber-300" x-text="referenciaActiva || estudioRef"></span>
+  </button>
+
+  <div x-show="globalChatOpen" x-cloak class="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="RevelatiO IA Guía de Estudio">
+    <button @click="closeGlobalChat()" class="absolute inset-0 bg-stone-950/35 backdrop-blur-sm" aria-label="Cerrar chat"></button>
+    <aside class="absolute inset-y-0 right-0 flex w-full max-w-lg flex-col bg-[#FBFBFA] shadow-2xl">
+      <header class="flex items-center justify-between border-b border-stone-200 px-5 py-4">
+        <div><p class="font-serif text-lg font-bold text-stone-900">RevelatiO IA · Guía de Estudio</p><p class="mt-0.5 text-[11px] text-stone-500" x-text="(referenciaActiva || estudioRef) ? 'Contexto activo: ' + (referenciaActiva || estudioRef) : 'Estudio conversacional' "></p></div>
+        <button @click="closeGlobalChat()" class="rounded-full p-2 text-stone-500 hover:bg-stone-100 hover:text-stone-900" aria-label="Minimizar chat">×</button>
+      </header>
+      <div x-ref="globalChatMessages" class="flex-1 overflow-y-auto px-5 py-5">
+        <div class="mb-4 rounded-2xl border border-amber-200/80 bg-amber-50/80 p-4 text-xs leading-relaxed text-amber-950/90 shadow-sm">
+          <div class="mb-1 flex items-center gap-2 font-bold text-amber-900"><span aria-hidden="true">✦</span><span>Propósito y Marco Doctrinal</span></div>
+          <p>RevelatiO IA es un asistente de estudio exegético y renovación del entendimiento (Ro. 12:2). No sustituye la soberanía del Espíritu Santo, la autoridad infalible de las Escrituras, ni el cuidado pastoral en tu comunidad de fe local.</p>
+        </div>
+        <div x-show="!globalChatMessages.length" class="rounded-2xl border border-stone-200 bg-white p-4 text-sm leading-relaxed text-stone-600">¿Qué te gustaría estudiar hoy? Puedo ayudarte a observar el texto, comprender su contexto y convertirlo en una práctica de fe.</div>
+        <template x-for="(message, index) in globalChatMessages" :key="index">
+          <div class="mb-3 flex" :class="message.role === 'user' ? 'justify-end' : 'justify-start'"><div class="max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-relaxed" :class="message.role === 'user' ? 'bg-stone-900 text-amber-50' : 'border border-stone-200 bg-white text-stone-700'"><p class="whitespace-pre-wrap" x-text="message.content"></p><button x-show="message.role === 'assistant'" @click="speechService.speak(message.content)" class="mt-2 text-[11px] font-semibold text-amber-700 hover:text-amber-900" :aria-label="isPlayingAudio ? 'Detener audio' : 'Escuchar respuesta'" x-text="isPlayingAudio && currentAudioText === message.content.slice(0, 120) ? 'Detener audio' : 'Escuchar' "></button></div></div>
+        </template>
+        <div x-show="globalChatLoading" class="flex items-center gap-2 text-xs text-stone-500"><span class="inline-block h-2 w-2 animate-pulse rounded-full bg-amber-500"></span>RevelatiO IA está pensando…</div>
+      </div>
+      <div class="border-t border-stone-200 bg-[#FBFBFA] px-5 pb-5 pt-3">
+        <div class="mb-3 flex gap-2 overflow-x-auto"><button type="button" @click="globalChatInput = '¿Qué enseña este pasaje sobre la renovación de la mente?'; $nextTick(() => $refs.globalChatInput?.focus())" class="shrink-0 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-[11px] font-semibold text-amber-800">Renovación</button><button type="button" @click="globalChatInput = 'Ayúdame a aplicar este texto hoy'; $nextTick(() => $refs.globalChatInput?.focus())" class="shrink-0 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-[11px] font-semibold text-amber-800">Aplicación</button><button type="button" @click="globalChatInput = '¿Cuál es el contexto histórico de este pasaje?'; $nextTick(() => $refs.globalChatInput?.focus())" class="shrink-0 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-[11px] font-semibold text-amber-800">Contexto</button></div>
+        <form @submit.prevent="sendGlobalChat()" class="flex items-end gap-2"><textarea x-ref="globalChatInput" x-model="globalChatInput" rows="2" maxlength="4000" placeholder="Escribe tu pregunta…" class="min-h-12 flex-1 resize-none rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-800 outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-200" @keydown.enter="if (!event.shiftKey && !event.nativeEvent?.isComposing && event.keyCode !== 229) { event.preventDefault(); sendGlobalChat(); }"></textarea><button type="submit" :disabled="globalChatLoading || !globalChatInput.trim()" class="rounded-2xl bg-stone-900 px-4 py-3 text-sm font-bold text-amber-100 transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-40" aria-label="Enviar pregunta">Enviar</button></form>
+      </div>
+    </aside>
+  </div>
+
+  <div x-show="isPlayingAudio" x-cloak class="fixed bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-full border border-amber-300 bg-stone-900 px-4 py-2 text-xs text-amber-100 shadow-xl"><span class="h-2 w-2 animate-pulse rounded-full bg-amber-400"></span><span class="max-w-52 truncate" x-text="currentAudioText"></span><button @click="speechService.stop()" class="font-bold text-amber-300 hover:text-amber-100">Detener</button></div>
   </body>
   
 </html>
