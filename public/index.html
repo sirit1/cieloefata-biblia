@@ -790,7 +790,7 @@
                                     </div>
 
                                     <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
-                                    <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva || libroActual || 'Proverbios'}:${verso.numero || verso.n || 1}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :data-strong="token.strong || ''" :data-word="token.palabra || token.texto || ''" :data-translation="token.traduccion || token.espanol || token.significado || ''" :data-comment="token.comentario || token.comentarioExpositivo || ''" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left rv-interlinear-token"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" @click="window.dispatchEvent(new CustomEvent('revelatio:verse-tap',{detail:{reference: referenciaActiva, version: versionSel, text: textoActual}}))" :data-reference="referenciaActiva" :data-version="versionSel" :class="bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl'" class="leading-relaxed font-serif text-gold-50/90 flex-1 rv-verse-surface" x-text="textoActual"></p>  <div x-show="bibliaMostrarParalelo" x-cloak class="mt-6 rounded-2xl border border-gold-500/35 bg-slate-950/10 p-5 shadow-[0_12px_30px_rgba(20,30,45,0.16)] ring-1 ring-inset ring-white/30">
+                                    <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva || libroActual || 'Proverbios'}:${verso.numero || verso.n || 1}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :data-strong="token.strong || ''" :data-word="token.palabra || token.texto || ''" :data-translation="token.traduccion || token.espanol || token.significado || ''" :data-comment="token.comentario || token.comentarioExpositivo || ''" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left rv-interlinear-token"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" @click="window.dispatchEvent(new CustomEvent('revelatio:verse-tap',{detail:{reference: referenciaActiva, version: versionSel, text: textoActual}}))" :data-reference="referenciaActiva" :data-version="versionSel" data-audio-verse="0" :class="[bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl', audioVerseActive === 0 && isPlayingAudio ? 'rv-audio-active' : '']" class="leading-relaxed font-serif text-gold-50/90 flex-1 rv-verse-surface" x-text="textoActual"></p>  <div x-show="bibliaMostrarParalelo" x-cloak class="mt-6 rounded-2xl border border-gold-500/35 bg-slate-950/10 p-5 shadow-[0_12px_30px_rgba(20,30,45,0.16)] ring-1 ring-inset ring-white/30">
   <div class="flex flex-wrap items-end justify-between gap-4 border-b border-gold-500/25 pb-4">
   <div><p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-600">Segunda lectura · Comparación</p><h4 class="mt-1 text-2xl font-serif font-bold text-slate-800" x-text="versionesLista.find(v => v.key === versionParalelaSel)?.etiqueta || 'Versión paralela'"></h4><p class="mt-1 text-xs text-slate-500">Selecciona aquí una traducción independiente de la lectura principal.</p></div>
   <div class="flex max-w-full flex-wrap gap-1 rounded-lg border border-slate-300 bg-white/75 p-1 shadow-sm">
@@ -2462,6 +2462,14 @@ versiones: {},
                 isPlayingAudio: false,
                 currentAudioText: '',
                 audioUtterance: null,
+                audioQueue: [],
+                audioIndex: 0,
+                audioPaused: false,
+                audioRate: 0.95,
+                audioAmbience: 'silencio',
+                ambienceContext: null,
+                ambienceNodes: [],
+                audioVerseActive: 0,
                 omniIntenciones: [
                     { id: 'ansiedad', etiqueta: 'Ansiedad & Paz', consulta: 'la ansiedad y la paz de Dios' },
                     { id: 'decisiones', etiqueta: 'Decisiones', consulta: 'cómo tomar decisiones conforme a la voluntad de Dios' },
@@ -3447,15 +3455,41 @@ const etiquetas = {
   speak(text) {
     if (!text || !('speechSynthesis' in window)) return;
     const app = Alpine.$data(document.body);
-    if (app.isPlayingAudio) { window.speechSynthesis.cancel(); app.isPlayingAudio = false; app.currentAudioText = ''; return; }
+    if (app.isPlayingAudio) { this.stop(); return; }
+    app.audioQueue = [{ n: 1, texto: String(text) }]; app.audioIndex = 0; app.audioVerseActive = 0;
+    this.playCurrent();
+  },
+  playPassage() {
+    const app = Alpine.$data(document.body);
+    const versos = app.versionesVersos?.[app.versionSel] || app.original?.versos || [];
+    app.audioQueue = versos.length ? versos.map((v, i) => ({ n: v.n || v.numero || i + 1, texto: v.texto || v.text || '' })).filter(v => v.texto) : [{ n: 1, texto: app.textoActual || '' }];
+    if (!app.audioQueue.length) return;
+    app.audioIndex = 0; app.audioPaused = false; app.audioVerseActive = 0;
+    this.playAmbience(app.audioAmbience);
+    this.playCurrent();
+  },
+  playCurrent() {
+    const app = Alpine.$data(document.body); const item = app.audioQueue?.[app.audioIndex];
+    if (!item || !('speechSynthesis' in window)) return this.stop();
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(String(text).slice(0, 5000));
-    utterance.lang = 'es-MX'; utterance.rate = 0.95; utterance.pitch = 0.98; utterance.voice = this.pickVoice();
-    utterance.onend = () => { app.isPlayingAudio = false; app.currentAudioText = ''; };
-    app.audioUtterance = utterance; app.isPlayingAudio = true; app.currentAudioText = String(text).slice(0, 120);
+    const utterance = new SpeechSynthesisUtterance(String(item.texto).slice(0, 5000));
+    utterance.lang = 'es-MX'; utterance.rate = Number(app.audioRate) || 0.95; utterance.pitch = 0.98; utterance.voice = this.pickVoice();
+    utterance.onend = () => { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; app.audioVerseActive = app.audioIndex; this.playCurrent(); } else { app.isPlayingAudio = false; app.currentAudioText = ''; this.stopAmbience(); } };
+    app.audioUtterance = utterance; app.isPlayingAudio = true; app.audioPaused = false; app.audioVerseActive = app.audioIndex; app.currentAudioText = String(item.texto).slice(0, 120);
+    app.$nextTick(() => document.querySelector(`[data-audio-verse="${app.audioVerseActive}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
     window.speechSynthesis.speak(utterance);
   },
-  stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.currentAudioText = ''; }
+  togglePause() { const app = Alpine.$data(document.body); if (!app.isPlayingAudio) return this.playPassage(); if (app.audioPaused) { window.speechSynthesis.resume(); app.audioPaused = false; } else { window.speechSynthesis.pause(); app.audioPaused = true; } },
+  next() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.min(app.audioQueue.length - 1, app.audioIndex + 1); this.playCurrent(); },
+  previous() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.max(0, app.audioIndex - 1); this.playCurrent(); },
+  playAmbience(kind) {
+    const app = Alpine.$data(document.body); this.stopAmbience(); app.audioAmbience = kind; if (kind === 'silencio' || !window.AudioContext) return;
+    const ctx = new AudioContext(); const gain = ctx.createGain(); gain.gain.value = kind === 'lluvia' ? 0.025 : 0.012; gain.connect(ctx.destination);
+    const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); const data = buffer.getChannelData(0); for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    const source = ctx.createBufferSource(); source.buffer = buffer; source.loop = true; source.connect(gain); source.start(); app.ambienceContext = ctx; app.ambienceNodes = [source, gain];
+  },
+  stopAmbience() { const app = Alpine.$data(document.body); app.ambienceNodes?.forEach(n => n.stop?.()); app.ambienceContext?.close?.(); app.ambienceNodes = []; app.ambienceContext = null; },
+  stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.audioPaused = false; app.currentAudioText = ''; this.stopAmbience(); }
   },
   async seleccionarOmniTab(tab) {
   this.omniTab = tab;
@@ -3475,14 +3509,8 @@ const etiquetas = {
     ? (this.estudio.comentario || this.estudio.aplicacion || this.textoActual || '')
     : (this.lenteEstado.cuerpo || this.lenteEstado.destacado || '');
   if (!texto || !('speechSynthesis' in window)) return;
-  if (this.omniAudioActivo) { window.speechSynthesis.cancel(); this.omniAudioActivo = false; return; }
-  const utterance = new SpeechSynthesisUtterance(texto);
-  utterance.lang = 'es-ES';
-  utterance.rate = 0.92;
-  utterance.onend = () => { this.omniAudioActivo = false; };
   this.omniAudioActivo = true;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
+  this.speechService.speak(texto);
   },
   generarTarjetaOmni() {
   const texto = this.omniTab === 'palabra'
@@ -3721,6 +3749,7 @@ guardarFicha() {
   .zona-oscura .bg-panel *, .zona-oscura .bg-panel2 *, .zona-oscura .bg-paper *, .zona-oscura .zona-clara *, .zona-oscura [class*="bg-white"] * { color:#33281b !important; }
   .zona-oscura .bg-panel .text-gold-400, .zona-oscura .bg-panel .text-gold-500, .zona-oscura .bg-panel2 .text-gold-400, .zona-oscura .bg-panel2 .text-gold-500 { color:#8a681b !important; }
   .zona-oscura input, .zona-oscura select, .zona-oscura textarea { color:#211a12 !important; }
+  .rv-audio-active { background: rgba(245, 197, 76, .18); box-shadow: 0 0 0 6px rgba(245, 197, 76, .07); border-radius: .75rem; transition: background .3s, box-shadow .3s; }
 </style></head><body>
                         <div class="marca">RevelatiO</div><div class="sub">by Efata</div>
                         <h1>${esc(this.estudioRef)}</h1>
@@ -4700,7 +4729,8 @@ guardarFicha() {
     </aside>
   </div>
 
-  <div x-show="isPlayingAudio" x-cloak class="fixed bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-full border border-amber-300 bg-stone-900 px-4 py-2 text-xs text-amber-100 shadow-xl"><span class="h-2 w-2 animate-pulse rounded-full bg-amber-400"></span><span class="max-w-52 truncate" x-text="currentAudioText"></span><button @click="speechService.stop()" class="font-bold text-amber-300 hover:text-amber-100">Detener</button></div>
+  <div x-show="isPlayingAudio" x-cloak class="fixed inset-x-3 bottom-4 z-40 mx-auto flex max-w-2xl flex-wrap items-center gap-2 rounded-2xl border border-amber-300/60 bg-stone-900/95 px-3 py-2.5 text-xs text-amber-100 shadow-2xl backdrop-blur sm:inset-x-auto sm:bottom-5 sm:flex-nowrap sm:rounded-full sm:px-4"><button @click="speechService.previous()" class="rounded-full px-2 py-1 text-amber-300 hover:bg-white/10" aria-label="Versículo anterior">‹</button><button @click="speechService.togglePause()" class="rounded-full bg-amber-100 px-3 py-1.5 font-bold text-stone-900" x-text="audioPaused ? 'Continuar' : 'Pausa'"></button><button @click="speechService.next()" class="rounded-full px-2 py-1 text-amber-300 hover:bg-white/10" aria-label="Versículo siguiente">›</button><span class="h-2 w-2 animate-pulse rounded-full bg-amber-400"></span><span class="min-w-0 flex-1 truncate" x-text="currentAudioText"></span><label class="flex items-center gap-1 text-[10px] text-amber-200">Velocidad<select x-model="audioRate" @change="speechService.playCurrent()" class="rounded bg-stone-800 px-1 py-1 text-amber-100"><option value="0.8">0.8x</option><option value="0.95">1x</option><option value="1.15">1.15x</option><option value="1.35">1.35x</option></select></label><label class="flex items-center gap-1 text-[10px] text-amber-200">Ambiente<select x-model="audioAmbience" @change="speechService.playAmbience(audioAmbience)" class="rounded bg-stone-800 px-1 py-1 text-amber-100"><option value="silencio">Silencio</option><option value="lluvia">Lluvia</option><option value="viento">Viento suave</option></select></label><button @click="speechService.stop()" class="rounded-full px-2 py-1 font-bold text-amber-300 hover:bg-white/10">Cerrar</button></div>
+  <div x-show="!isPlayingAudio && referenciaActiva" x-cloak class="fixed bottom-5 left-1/2 z-30 -translate-x-1/2"><button @click="speechService.playPassage()" class="rounded-full border border-amber-400/60 bg-stone-900 px-4 py-2 text-xs font-bold text-amber-100 shadow-xl hover:bg-black">Escuchar pasaje</button></div>
   </body>
   
 </html>
