@@ -1728,7 +1728,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
-                    <button @click="speechService.playPassage('chapter')" class="hidden sm:inline-flex items-center gap-1.5 text-xs border border-gold-500/40 text-gold-200 px-3 py-1.5 rounded-lg hover:bg-gold-500/10 transition-all font-semibold" x-text="isPlayingAudio && audioSource === 'chapter' ? 'Narrando…' : 'Narrar capítulo'"></button>
+                    <button @click="startChapterAudio()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-all"><span aria-hidden="true">🔊</span> <span x-text="isPlayingAudio && audioSource === 'chapter' ? 'Narrando…' : 'Escuchar Capítulo'"></span></button>
                     <button @click="interlinearActive = !interlinearActive" :class="interlinearActive ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold" aria-pressed="interlinearActive">🔤 Interlineal<span x-text="interlinearActive ? ' ON' : ' OFF'"></span></button>
                     <button @click="abrirPausaSagrada()" class="inline-flex items-center gap-1.5 text-xs border border-amber-500/30 text-gold-200 px-3 py-1.5 rounded-lg hover:bg-amber-500/10 transition-all font-semibold" aria-label="Iniciar Pausa Sagrada">🕊️ Pausa Sagrada</button>
                     <button @click="toggleCapituloLeido()" :class="capituloEstaLeido ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="hidden sm:inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold">
@@ -2626,7 +2626,14 @@ versiones: {},
                 globalChatInput: '',
                 globalChatMessages: [],
                 globalChatDisclaimerSeen: false,
+                availableVoices: [],
+                selectedVoiceUri: localStorage.getItem('revelatio_voice') || '',
+                speechRate: 0.90,
+                speechPitch: 0.95,
                 isPlayingAudio: false,
+                isAudioPaused: false,
+                currentReadingVerseIndex: 0,
+                audioMode: 'chapter',
                 currentAudioText: '',
                 audioUtterance: null,
                 audioQueue: [],
@@ -2791,6 +2798,10 @@ bibliotecaPestana: 'inicio',
                 },
                 async   init() {
                     this.loadMetanoiaData();
+                    const loadVoices = () => { const voices = window.speechSynthesis?.getVoices?.() || []; this.availableVoices = voices.filter(v => /^es/i.test(v.lang)); if (!this.selectedVoiceUri && this.availableVoices.length) { const premium = this.availableVoices.find(v => /Natural|Google|Jorge|Paulina|Mónica|Diego|Microsoft/i.test(v.name)); this.selectedVoiceUri = premium?.voiceURI || this.availableVoices[0].voiceURI; } };
+                    loadVoices();
+                    if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = loadVoices;
+                    this.$watch('selectedVoiceUri', value => { try { localStorage.setItem('revelatio_voice', value || ''); } catch (_) {} });
                     document.addEventListener('revelatio:open-resources', (event) => {
                         this.abrirRecursosDrawer(event.detail?.reference || '');
                     });
@@ -2838,7 +2849,7 @@ bibliotecaPestana: 'inicio',
                         }
                         supabaseClient.auth.onAuthStateChange((_e, session) => this.aplicarSesion(session));
                     } catch (error) {
-                        this.loginError = error.message || 'La autenticación no está disponible.';
+                        this.loginError = error.message || 'La autenticaci��n no está disponible.';
                     } finally {
                         this.sesionVerificada = true;
                         this.restaurarUltimaLectura();
@@ -3757,8 +3768,10 @@ const etiquetas = {
     app.audioQueue = [{ n: 1, texto: String(text) }]; app.audioIndex = 0; app.audioVerseActive = 0;
     this.playCurrent();
   },
+  startChapterAudio() { this.playPassage('chapter'); },
+  startSingleVerseAudio(verse) { const app = Alpine.$data(document.body); const item = verse || app.versosActuales?.[app.audioIndex]; if (!item) return; app.audioMode = 'verse'; app.audioSource = 'verse'; app.audioQueue = [{ n: item.n || item.numero || item.verse || 1, texto: item.texto || item.text || '' }]; app.audioIndex = 0; this.playCurrent(); },
   playPassage(source) {
-    const app = Alpine.$data(document.body);
+  const app = Alpine.$data(document.body); app.audioMode = source === 'verse' ? 'verse' : 'chapter';
     app.audioSource = source || 'chapter';
     const versos = app.lectorAbierto && app.versosActuales?.length ? app.versosActuales : (app.versionesVersos?.[app.versionSel] || app.original?.versos || []);
     app.audioQueue = versos.length ? versos.map((v, i) => ({ n: v.n || v.numero || i + 1, texto: v.texto || v.text || '' })).filter(v => v.texto) : [{ n: 1, texto: app.textoActual || '' }];
@@ -3773,13 +3786,13 @@ const etiquetas = {
   window.speechSynthesis.cancel();
   this.duckSoundscape(true);
   const utterance = new SpeechSynthesisUtterance(String(item.texto).slice(0, 5000));
-    utterance.lang = 'es-MX'; utterance.rate = Number(app.playbackSpeed || app.audioRate) || 0.95; utterance.pitch = 0.98; utterance.voice = this.pickVoice();
+    utterance.lang = 'es-MX'; utterance.rate = Number(app.speechRate || app.playbackSpeed || app.audioRate) || 0.90; utterance.pitch = Number(app.speechPitch) || 0.95; utterance.voice = app.availableVoices.find(v => v.voiceURI === app.selectedVoiceUri) || this.pickVoice();
     utterance.onend = () => { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; app.audioVerseActive = app.audioIndex; this.playCurrent(); } else { app.isPlayingAudio = false; app.currentAudioText = ''; app.currentReadingVerseId = null; this.duckSoundscape(false); } };
-    app.audioUtterance = utterance; app.isPlayingAudio = true; app.audioPaused = false; app.audioVerseActive = app.audioIndex; app.currentReadingVerseId = item.n; app.currentAudioText = String(item.texto).slice(0, 120);
+    app.audioUtterance = utterance; app.isPlayingAudio = true; app.audioPaused = false; app.isAudioPaused = false; app.audioVerseActive = app.audioIndex; app.currentReadingVerseIndex = Number(item.n) || app.audioIndex; app.currentReadingVerseId = item.n; app.currentAudioText = String(item.texto).slice(0, 120);
     app.$nextTick(() => document.getElementById('verse-' + item.n)?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
     window.speechSynthesis.speak(utterance);
   },
-  togglePause() { const app = Alpine.$data(document.body); if (!app.isPlayingAudio) return this.playPassage(app.audioSource); if (app.audioPaused) { window.speechSynthesis.resume(); app.audioPaused = false; } else { window.speechSynthesis.pause(); app.audioPaused = true; } },
+  togglePause() { const app = Alpine.$data(document.body); if (!app.isPlayingAudio) return this.playPassage(app.audioSource); if (app.audioPaused) { window.speechSynthesis.resume(); app.audioPaused = false; app.isAudioPaused = false; } else { window.speechSynthesis.pause(); app.audioPaused = true; app.isAudioPaused = true; } },
   next() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.min(app.audioQueue.length - 1, app.audioIndex + 1); this.playCurrent(); },
   previous() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.max(0, app.audioIndex - 1); this.playCurrent(); },
   cyclePlaybackSpeed() { const app = Alpine.$data(document.body); const steps = [0.9, 1.0, 1.2]; const idx = steps.indexOf(Number(app.playbackSpeed)); app.playbackSpeed = steps[(idx + 1) % steps.length]; app.audioRate = app.playbackSpeed; if (app.isPlayingAudio) this.playCurrent(); },
@@ -5433,12 +5446,13 @@ guardarFicha() {
     <div class="flex items-center gap-1.5 shrink-0">
       <button @click="speechService.cyclePlaybackSpeed()" class="rounded-full border border-stone-600 px-2 py-1 text-[10px] font-semibold text-stone-200 hover:bg-white/10" x-text="playbackSpeed.toFixed(1) + 'x'"></button>
       <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'bg-amber-600 text-white' : 'bg-stone-800 text-stone-300'" class="rounded-xl border border-stone-600 px-3 py-1.5 text-[10px] font-medium transition-all" x-text="'🎵 ' + (soundscapeActive ? 'Música: ON' : 'Música: OFF')" aria-label="Música instrumental de fondo"></button>
+  <select x-model="selectedVoiceUri" class="max-w-36 rounded-lg border border-stone-600 bg-stone-800 px-1.5 py-1 text-[10px] text-stone-200" aria-label="Seleccionar voz en español"><option value="">Voz automática</option><template x-for="voice in availableVoices" :key="voice.voiceURI"><option :value="voice.voiceURI" x-text="voice.name + ' · ' + voice.lang"></option></template></select>
   <select x-show="soundscapeActive" x-model="selectedSoundtrack" @change="speechService.changeSoundtrack(selectedSoundtrack)" class="max-w-28 rounded-lg border border-stone-600 bg-stone-800 px-1.5 py-1 text-[10px] text-stone-200" aria-label="Seleccionar música instrumental"><template x-for="track in soundtracks" :key="track.id"><option :value="track.id" x-text="track.name.split(' &')[0]"></option></template></select>
   <input x-show="soundscapeActive" type="range" min="0" max="0.5" step="0.02" x-model="soundscapeVolume" @input="if(ambientAudio) ambientAudio.volume = Number(soundscapeVolume)" class="h-1 w-16 accent-amber-500" aria-label="Volumen de música">
       <button @click="speechService.stop()" class="rounded-full border border-stone-600 px-2 py-1 text-[10px] font-bold text-stone-300 hover:bg-white/10" aria-label="Cerrar reproductor">✕</button>
     </div>
   </div>
-  <div x-show="!isPlayingAudio && referenciaActiva" x-cloak class="fixed bottom-5 left-1/2 z-30 -translate-x-1/2"><button @click="speechService.playPassage('verse')" class="rounded-full border border-amber-400/60 bg-stone-900 px-4 py-2 text-xs font-bold text-amber-100 shadow-xl hover:bg-black">Escuchar pasaje</button></div>
+  <div x-show="!isPlayingAudio && referenciaActiva" x-cloak class="fixed bottom-5 left-1/2 z-30 -translate-x-1/2"><button @click="startChapterAudio()" class="rounded-full border border-amber-400/60 bg-stone-900 px-4 py-2 text-xs font-bold text-amber-100 shadow-xl hover:bg-black">🔊 Escuchar pasaje completo con música de fondo</button></div>
   <div x-show="toastMessage" x-cloak x-transition class="rv-toast" role="status" aria-live="polite" x-text="toastMessage"></div>
   </body>
   
