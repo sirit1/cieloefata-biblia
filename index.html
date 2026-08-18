@@ -134,7 +134,9 @@
         }
 
         /* Animación de paso de página */
-        .libro-lectura-shell { border-radius: 1rem; padding: .25rem; transform-origin: center; }
+        .libro-lectura-shell { border-radius: 1rem; padding: .25rem; transform-origin: center; min-height: min(62vh, 44rem); }
+        .libro-lectura-shell .prose-lectura { max-width: 46rem; margin-inline: auto; padding: clamp(1.25rem, 4vw, 3rem) clamp(1rem, 5vw, 3.5rem); font-size: clamp(1.08rem, 1.4vw, 1.28rem); line-height: 1.95; letter-spacing: .005em; }
+        .libro-lectura-shell .prose-lectura > span { display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
         .pagina-en-movimiento { animation: paso-hoja .48s cubic-bezier(.22,.72,.22,1); }
         @keyframes paso-hoja { 0% { opacity: .25; transform: perspective(1100px) rotateY(var(--pagina-inicio, -8deg)) translateX(var(--pagina-x, 18px)); filter: brightness(.9); } 55% { opacity: 1; transform: perspective(1100px) rotateY(2deg) translateX(0); filter: brightness(1.03); } 100% { opacity: 1; transform: perspective(1100px) rotateY(0) translateX(0); filter: brightness(1); } }
         .lector-direccion-anterior .pagina-en-movimiento { --pagina-inicio: 8deg; --pagina-x: -18px; }
@@ -157,6 +159,12 @@
             body.rv-print-outline #rv-outline-print-area { display: block !important; position: static; }
         }
         #rv-outline-print-area { display: none; }
+        /* Los overlays editoriales son superficies claras aunque vivan bajo el shell oscuro. */
+        .rv-light-modal, .rv-light-modal * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
+        .rv-light-modal h1, .rv-light-modal h2, .rv-light-modal h3, .rv-light-modal h4 { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
+        .rv-light-modal .text-amber-600, .rv-light-modal .text-amber-700, .rv-light-modal .text-amber-800, .rv-light-modal .text-gold-600 { color: var(--rv-gold-on-cream) !important; -webkit-text-fill-color: var(--rv-gold-on-cream) !important; }
+        .rv-light-modal .text-stone-500, .rv-light-modal .text-stone-600, .rv-light-modal .text-stone-700 { color: var(--rv-ink-muted) !important; -webkit-text-fill-color: var(--rv-ink-muted) !important; }
+        .rv-toast { position: fixed; left: 50%; bottom: 1.5rem; z-index: 120; transform: translateX(-50%); border: 1px solid rgba(214,170,69,.45); border-radius: .85rem; background: #211a12; color: #fff4df !important; padding: .7rem 1rem; box-shadow: 0 16px 40px rgba(0,0,0,.25); font-size: .78rem; font-weight: 700; }
 
         .ux-card { box-shadow: 0 12px 32px rgba(28,46,74,.06); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
         .ux-card:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(28,46,74,.11); border-color: rgba(154,107,18,.42); }
@@ -1742,7 +1750,7 @@
                 <span class="text-[10px] font-semibold uppercase tracking-wider text-gold-500/70 mr-1">Filtrar:</span>
                 <button type="button" @click="highlightFilter = 'all'" :class="highlightFilter === 'all' ? 'bg-gold-500/20 text-gold-100 border-gold-500/50' : 'text-gold-400 border-line hover:border-gold-500/40'" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold transition-all">Todos</button>
                 <template x-for="c in COLORES_RESALTADO" :key="c.id">
-                    <button type="button" @click="highlightFilter = highlightFilter === c.id ? 'all' : c.id" :class="highlightFilter === c.id ? 'ring-1 ring-gold-300' : 'opacity-80 hover:opacity-100'" :style="`background:${c.muestra}22;border-color:${c.muestra}`" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold text-gold-100 transition-all" x-text="(c.id === 'promesa' ? '🟡 ' : c.id === 'mandamiento' ? '🔵 ' : c.id === 'metanoia' ? '🟢 ' : '🔴 ') + c.nombre.split(' / ')[0]"></button>
+                    <button type="button" @click="highlightFilter = highlightFilter === c.id ? 'all' : c.id" :class="highlightFilter === c.id ? 'ring-1 ring-gold-300' : 'opacity-80 hover:opacity-100'" :style="`background:${c.muestra}22;border-color:${c.muestra}`" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold text-gold-100 transition-all" x-text="(c.id === 'promesa' ? '🟡 ' : c.id === 'mandamiento' ? '�� ' : c.id === 'metanoia' ? '🟢 ' : '🔴 ') + c.nombre.split(' / ')[0]"></button>
                 </template>
             </div>
             <div class="bg-panel border border-line rounded-3xl shadow-xl p-6 sm:p-10">
@@ -2625,7 +2633,14 @@ versiones: {},
                 audioVerseActive: 0,
                 currentReadingVerseId: null,
                 soundscapeActive: false,
-                soundscapeVolume: 0.15,
+                soundscapeVolume: 0.18,
+                selectedSoundtrack: 'piano_worship',
+                ambientAudio: null,
+                soundtracks: [
+                    { id: 'piano_worship', name: 'Piano de Adoración & Reposo', url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-piano-worship-ambient-110997.mp3' },
+                    { id: 'peace_strings', name: 'Cuerdas de Paz & Quietud', url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=peaceful-contemplative-ambient-piano-and-strings-10874.mp3' },
+                    { id: 'holy_presence', name: 'Colchón de Gracia (Pads & Guitarra)', url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=spiritual-worship-peace-10336.mp3' }
+                ],
                 playbackSpeed: 1.0,
                 audioSource: 'chapter',
                 omniIntenciones: [
@@ -2635,8 +2650,10 @@ versiones: {},
                     { id: 'exegesis', etiqueta: 'Exégesis & Griego', consulta: 'Romanos 12:2 y la renovación de la mente' },
                     { id: 'oracion', etiqueta: 'Oración Guiada', consulta: 'una oración para entregar mis preocupaciones a Dios' }
                 ],
-                showShareModal: false,
-                shareCard: { texto: '', referencia: '', version: '', termino: 'μετάνοια', strong: 'G3341', formato: '9:16' },
+  showShareModal: false,
+  toastMessage: '',
+  toastTimer: null,
+  shareCard: { texto: '', referencia: '', version: '', termino: 'μετάνοια', strong: 'G3341', formato: '9:16' },
                 journalOpen: false,
                 journalTab: 'nuevo',
                 journalStep: 1,
@@ -2955,28 +2972,9 @@ bibliotecaPestana: 'inicio',
                 },
 
   activarMusicaLogin() {
-  if (this.audioLogin) {
-  this.audioLogin.state === 'running' ? this.audioLogin.suspend() : this.audioLogin.resume();
-  this.musicaLoginActiva = this.audioLogin.state === 'running';
-  return;
-  }
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) return;
-  const ctx = new AudioContextClass();
-  const master = ctx.createGain();
-  master.gain.value = 0.035;
-  master.connect(ctx.destination);
-  [261.63, 329.63, 392.00].forEach((frecuencia, indice) => {
-  const oscilador = ctx.createOscillator();
-  const ganancia = ctx.createGain();
-  oscilador.type = 'sine';
-  oscilador.frequency.value = frecuencia;
-  ganancia.gain.value = indice === 0 ? 0.32 : 0.18;
-  oscilador.connect(ganancia).connect(master);
-  oscilador.start();
-  });
-  this.audioLogin = ctx;
-  this.musicaLoginActiva = true;
+  this.soundscapeActive = !this.soundscapeActive;
+  this.musicaLoginActiva = this.soundscapeActive;
+  if (this.soundscapeActive) this.speechService.startSoundscape(); else this.speechService.stopSoundscape();
   },
 
   async registrarse() {
@@ -3749,6 +3747,7 @@ const etiquetas = {
     const app = Alpine.$data(document.body);
     if (app.isPlayingAudio) { this.stop(); return; }
     app.audioSource = 'ai_response';
+    this.duckSoundscape(true);
     app.audioQueue = [{ n: 1, texto: String(text) }]; app.audioIndex = 0; app.audioVerseActive = 0;
     this.playCurrent();
   },
@@ -3765,10 +3764,11 @@ const etiquetas = {
   playCurrent() {
     const app = Alpine.$data(document.body); const item = app.audioQueue?.[app.audioIndex];
     if (!item || !('speechSynthesis' in window)) return this.stop();
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(String(item.texto).slice(0, 5000));
+  window.speechSynthesis.cancel();
+  this.duckSoundscape(true);
+  const utterance = new SpeechSynthesisUtterance(String(item.texto).slice(0, 5000));
     utterance.lang = 'es-MX'; utterance.rate = Number(app.playbackSpeed || app.audioRate) || 0.95; utterance.pitch = 0.98; utterance.voice = this.pickVoice();
-    utterance.onend = () => { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; app.audioVerseActive = app.audioIndex; this.playCurrent(); } else { app.isPlayingAudio = false; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); } };
+    utterance.onend = () => { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; app.audioVerseActive = app.audioIndex; this.playCurrent(); } else { app.isPlayingAudio = false; app.currentAudioText = ''; app.currentReadingVerseId = null; this.duckSoundscape(false); } };
     app.audioUtterance = utterance; app.isPlayingAudio = true; app.audioPaused = false; app.audioVerseActive = app.audioIndex; app.currentReadingVerseId = item.n; app.currentAudioText = String(item.texto).slice(0, 120);
     app.$nextTick(() => document.getElementById('verse-' + item.n)?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
     window.speechSynthesis.speak(utterance);
@@ -3779,21 +3779,18 @@ const etiquetas = {
   cyclePlaybackSpeed() { const app = Alpine.$data(document.body); const steps = [0.9, 1.0, 1.2]; const idx = steps.indexOf(Number(app.playbackSpeed)); app.playbackSpeed = steps[(idx + 1) % steps.length]; app.audioRate = app.playbackSpeed; if (app.isPlayingAudio) this.playCurrent(); },
   toggleSoundscape() { const app = Alpine.$data(document.body); app.soundscapeActive = !app.soundscapeActive; if (app.soundscapeActive) this.startSoundscape(); else this.stopSoundscape(); },
   startSoundscape() {
-    const app = Alpine.$data(document.body); this.stopSoundscape(); if (!window.AudioContext) return;
-    const ctx = new AudioContext(); const gain = ctx.createGain(); gain.gain.value = Number(app.soundscapeVolume) || 0.15;
-    const filter = ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 800;
-    const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = 432;
-    const osc2 = ctx.createOscillator(); osc2.type = 'sine'; osc2.frequency.value = 216;
-    osc.connect(filter); osc2.connect(filter); filter.connect(gain); gain.connect(ctx.destination); osc.start(); osc2.start();
-    app.ambienceContext = ctx; app.ambienceNodes = [osc, osc2, filter, gain];
+  const app = Alpine.$data(document.body); const track = app.soundtracks.find(t => t.id === app.selectedSoundtrack) || app.soundtracks[0];
+  if (!track) return;
+  if (app.ambientAudio && app.ambientAudio.src === track.url) { app.ambientAudio.volume = Number(app.soundscapeVolume) || 0.18; app.ambientAudio.play().catch(() => {}); return; }
+  this.stopSoundscape(true);
+  const audio = new Audio(track.url); audio.loop = true; audio.preload = 'auto'; audio.volume = 0.001;
+  audio.addEventListener('error', () => { app.soundscapeActive = false; app.ambientAudio = null; app.mostrarToast?.('No se pudo cargar la pista instrumental.'); }, { once: true });
+  app.ambientAudio = audio; audio.play().then(() => { const target = Math.min(.5, Math.max(.01, Number(app.soundscapeVolume) || .18)); const timer = setInterval(() => { audio.volume = Math.min(target, audio.volume + .02); if (audio.volume >= target) clearInterval(timer); }, 80); }).catch(() => { app.soundscapeActive = false; app.ambientAudio = null; });
   },
-  stopSoundscape() { const app = Alpine.$data(document.body); app.ambienceNodes?.forEach(n => n.stop?.()); app.ambienceContext?.close?.(); app.ambienceNodes = []; app.ambienceContext = null; },
-  playAmbience(kind) {
-    const app = Alpine.$data(document.body); this.stopSoundscape(); app.audioAmbience = kind; if (kind === 'silencio' || !window.AudioContext) return;
-    const ctx = new AudioContext(); const gain = ctx.createGain(); gain.gain.value = kind === 'lluvia' ? 0.025 : 0.012; gain.connect(ctx.destination);
-    const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); const data = buffer.getChannelData(0); for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-    const source = ctx.createBufferSource(); source.buffer = buffer; source.loop = true; source.connect(gain); source.start(); app.ambienceContext = ctx; app.ambienceNodes = [source, gain];
-  },
+  changeSoundtrack(trackId) { const app = Alpine.$data(document.body); app.selectedSoundtrack = trackId; if (app.soundscapeActive) this.startSoundscape(); },
+  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio) return; const target = ducked ? Math.min(.05, Number(app.soundscapeVolume) * .1) : Number(app.soundscapeVolume) || .18; app.ambientAudio.volume = Math.max(0, Math.min(.5, target)); },
+  stopSoundscape(immediate = false) { const app = Alpine.$data(document.body); const audio = app.ambientAudio; if (!audio) return; if (immediate) { audio.pause(); audio.currentTime = 0; app.ambientAudio = null; return; } const start = audio.volume; const timer = setInterval(() => { audio.volume = Math.max(0, audio.volume - .03); if (audio.volume <= .001) { clearInterval(timer); audio.pause(); audio.currentTime = 0; app.ambientAudio = null; } }, 70); },
+  playAmbience(kind) { const app = Alpine.$data(document.body); if (kind === 'silencio') { app.soundscapeActive = false; this.stopSoundscape(); return; } const match = app.soundtracks.find(t => t.id === kind) || app.soundtracks[0]; app.selectedSoundtrack = match.id; app.soundscapeActive = true; this.startSoundscape(); },
   stopAmbience() { this.stopSoundscape(); },
   stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.audioPaused = false; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); }
   },
@@ -4348,16 +4345,8 @@ guardarFicha() {
                         return `${m}:${String(s).padStart(2, '0')}`;
                     },
                     _sonarCampana() {
-                        try {
-                            const Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return;
-                            const ctx = new Ctx(); const osc = ctx.createOscillator(); const gain = ctx.createGain();
-                            osc.type = 'sine'; osc.frequency.value = 528; osc.connect(gain); gain.connect(ctx.destination);
-                            gain.gain.setValueAtTime(0.15, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.5);
-                            osc.start(); osc.stop(ctx.currentTime + 2.5);
-                            // QA: cierra el AudioContext tras el fade-out para evitar fugas de memoria (contextos huérfanos).
-                            osc.onended = () => { try { osc.disconnect(); gain.disconnect(); ctx.close(); } catch (_e) {} };
-                            setTimeout(() => { try { ctx.close(); } catch (_e) {} }, 3000);
-                        } catch (_) {}
+                        // La pausa sagrada no genera pitidos sintéticos; la música instrumental real permanece opcional.
+                        if (this.soundscapeActive && this.ambientAudio?.paused) this.speechService.startSoundscape();
                     },
 
                     // ---------- Constructor de Bosquejos Homiléticos ----------
@@ -4393,11 +4382,12 @@ guardarFicha() {
                         }, 650);
                     },
                     cerrarBosquejo() { this.outlineModalOpen = false; clearTimeout(this._outlineTimeoutId); this._outlineTimeoutId = null; },
-                    copiarBosquejo() {
-                        const o = this.outlineData; if (!o) return;
-                        const md = `# ${o.titulo}\n\n**Texto base:** ${o.referencia}${o.texto ? ' — "' + o.texto + '"' : ''}\n\n**Proposición Central:** ${o.proposicion}\n\n## I. ${o.puntos[0].titulo}\n${o.puntos[0].cuerpo}\n\n## II. ${o.puntos[1].titulo}\n${o.puntos[1].cuerpo}\n\n## III. ${o.puntos[2].titulo}\n${o.puntos[2].cuerpo}\n\n**Pregunta clave para grupos pequeños / discipulado:**\n${o.pregunta}\n`;
-                        navigator.clipboard?.writeText(md);
-                    },
+  mostrarToast(mensaje) { clearTimeout(this.toastTimer); this.toastMessage = mensaje; this.toastTimer = setTimeout(() => { this.toastMessage = ''; }, 2200); },
+  async copiarBosquejo() {
+  const o = this.outlineData; if (!o) return;
+  const md = `# ${o.titulo}\n\n**Texto base:** ${o.referencia}${o.texto ? ' — "' + o.texto + '"' : ''}\n\n**Proposición Central:** ${o.proposicion}\n\n## I. ${o.puntos[0].titulo}\n${o.puntos[0].cuerpo}\n\n## II. ${o.puntos[1].titulo}\n${o.puntos[1].cuerpo}\n\n## III. ${o.puntos[2].titulo}\n${o.puntos[2].cuerpo}\n\n**Pregunta clave para grupos pequeños / discipulado:**\n${o.pregunta}\n`;
+  try { await navigator.clipboard?.writeText(md); this.mostrarToast('Esquema copiado al portapapeles.'); } catch (_e) { this.mostrarToast('No se pudo copiar el esquema.'); }
+  },
                     imprimirBosquejo() {
                         document.body.classList.add('rv-print-outline');
                         const cleanup = () => document.body.classList.remove('rv-print-outline');
@@ -4820,8 +4810,9 @@ guardarFicha() {
                     this.lectorAbierto = true;
                     await this.cargarCapituloLector();
                 },
-                cerrarLector() {
-                    document.body.classList.remove('lector-abierto-open');
+  cerrarLector() {
+  this.soundscapeActive = false; this.speechService.stopSoundscape();
+  document.body.classList.remove('lector-abierto-open');
                     document.querySelectorAll('.rv-selection-toolbar, .rv-action-sheet').forEach(node => node.remove());
                     this.lectorAbierto = false;
                     this.versiculoLectorSel = null;
@@ -5172,7 +5163,7 @@ guardarFicha() {
   <!-- Quick Peek: vista previa rápida de referencia cruzada TSK -->
   <div x-show="crossRefModalOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vista previa rápida de referencia cruzada">
     <button @click="cerrarCrossRefModal()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar vista previa"></button>
-    <div class="relative max-w-md mx-auto bg-stone-50 border border-stone-300 rounded-2xl p-5 shadow-2xl z-50 w-full">
+    <div class="rv-light-modal relative max-w-md mx-auto bg-stone-50 border border-stone-300 rounded-2xl p-5 shadow-2xl z-50 w-full">
       <div class="flex items-start justify-between gap-3">
         <div>
           <p class="text-[10px] font-bold uppercase tracking-wider text-gold-600">Vista previa rápida</p>
@@ -5191,7 +5182,7 @@ guardarFicha() {
   <!-- Word Sheet: motor interlineal palabra por palabra -->
   <div x-show="wordSheetOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-end sm:items-center justify-center" role="dialog" aria-modal="true" aria-label="Análisis interlineal de la palabra">
     <button @click="cerrarPalabra()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar análisis interlineal"></button>
-    <div class="relative w-full sm:max-w-md bg-[#FAF8F5] border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-50">
+    <div class="rv-light-modal relative w-full sm:max-w-md bg-[#FAF8F5] border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-50">
       <div class="mx-auto mb-4 h-1 w-10 rounded-full bg-stone-300 sm:hidden"></div>
       <div class="flex items-start justify-between gap-3">
         <p class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Motor Interlineal</p>
@@ -5244,7 +5235,11 @@ guardarFicha() {
       <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">Pausa Sagrada</span>
       <div class="flex items-center gap-3">
         <span class="font-mono text-xs text-amber-200/70" x-text="pauseTimerFormato"></span>
-        <button @click="cerrarPausaSagrada()" class="rounded-full p-1.5 text-amber-200/60 hover:bg-white/10 hover:text-amber-100" aria-label="Cerrar Pausa Sagrada">
+        <div class="flex items-center gap-2">
+          <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'bg-amber-600 text-white' : 'bg-white/10 text-amber-100/70'" class="rounded-xl border border-amber-300/30 px-3 py-1.5 text-[10px] font-semibold" x-text="soundscapeActive ? 'Música: ON' : 'Música: OFF'" aria-label="Activar música instrumental"></button>
+          <select x-show="soundscapeActive" x-model="selectedSoundtrack" @change="speechService.changeSoundtrack(selectedSoundtrack)" class="max-w-32 rounded-lg border border-amber-300/30 bg-stone-900 px-1.5 py-1 text-[10px] text-amber-50" aria-label="Seleccionar pista"><template x-for="track in soundtracks" :key="'pause-' + track.id"><option :value="track.id" x-text="track.name.split(' &')[0]"></option></template></select>
+          <input x-show="soundscapeActive" type="range" min="0" max="0.5" step="0.02" x-model="soundscapeVolume" @input="if(ambientAudio) ambientAudio.volume = Number(soundscapeVolume)" class="h-1 w-16 accent-amber-500" aria-label="Volumen de música">
+          <button @click="cerrarPausaSagrada()" class="rounded-full p-1.5 text-amber-200/60 hover:bg-white/10 hover:text-amber-100" aria-label="Cerrar Pausa Sagrada">
           <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
         </button>
       </div>
@@ -5308,7 +5303,7 @@ guardarFicha() {
   <!-- Constructor de Bosquejos Homiléticos -->
   <div x-show="outlineModalOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Constructor de bosquejos homiléticos">
     <button @click="cerrarBosquejo()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar bosquejo"></button>
-    <div class="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FAF8F5] border border-amber-500/30 rounded-3xl p-6 shadow-2xl z-50 sm:p-8">
+    <div class="rv-light-modal relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FAF8F5] border border-amber-500/30 rounded-3xl p-6 shadow-2xl z-50 sm:p-8">
       <div class="flex items-start justify-between gap-3">
         <p class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Bosquejo de Enseñanza</p>
         <button @click="cerrarBosquejo()" class="text-stone-400 hover:text-stone-700" aria-label="Cerrar">×</button>
@@ -5408,11 +5403,14 @@ guardarFicha() {
     </div>
     <div class="flex items-center gap-1.5 shrink-0">
       <button @click="speechService.cyclePlaybackSpeed()" class="rounded-full border border-stone-600 px-2 py-1 text-[10px] font-semibold text-stone-200 hover:bg-white/10" x-text="playbackSpeed.toFixed(1) + 'x'"></button>
-      <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'text-amber-300' : 'text-stone-400'" class="rounded-full border border-stone-600 px-2 py-1 text-[10px] hover:bg-white/10" x-text="'🎵 ' + (soundscapeActive ? 'ON' : 'OFF')" aria-label="Sonido de fondo"></button>
+      <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'bg-amber-600 text-white' : 'bg-stone-800 text-stone-300'" class="rounded-xl border border-stone-600 px-3 py-1.5 text-[10px] font-medium transition-all" x-text="'🎵 ' + (soundscapeActive ? 'Música: ON' : 'Música: OFF')" aria-label="Música instrumental de fondo"></button>
+  <select x-show="soundscapeActive" x-model="selectedSoundtrack" @change="speechService.changeSoundtrack(selectedSoundtrack)" class="max-w-28 rounded-lg border border-stone-600 bg-stone-800 px-1.5 py-1 text-[10px] text-stone-200" aria-label="Seleccionar música instrumental"><template x-for="track in soundtracks" :key="track.id"><option :value="track.id" x-text="track.name.split(' &')[0]"></option></template></select>
+  <input x-show="soundscapeActive" type="range" min="0" max="0.5" step="0.02" x-model="soundscapeVolume" @input="if(ambientAudio) ambientAudio.volume = Number(soundscapeVolume)" class="h-1 w-16 accent-amber-500" aria-label="Volumen de música">
       <button @click="speechService.stop()" class="rounded-full border border-stone-600 px-2 py-1 text-[10px] font-bold text-stone-300 hover:bg-white/10" aria-label="Cerrar reproductor">✕</button>
     </div>
   </div>
   <div x-show="!isPlayingAudio && referenciaActiva" x-cloak class="fixed bottom-5 left-1/2 z-30 -translate-x-1/2"><button @click="speechService.playPassage('verse')" class="rounded-full border border-amber-400/60 bg-stone-900 px-4 py-2 text-xs font-bold text-amber-100 shadow-xl hover:bg-black">Escuchar pasaje</button></div>
+  <div x-show="toastMessage" x-cloak x-transition class="rv-toast" role="status" aria-live="polite" x-text="toastMessage"></div>
   </body>
   
 </html>
