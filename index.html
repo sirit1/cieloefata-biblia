@@ -814,7 +814,28 @@
                                         </button>
                                     </div>
 
-                                    <!-- Herramientas de estudio del pasaje (estilo bibliatodo) -->
+                                    <!-- Omnibar expandido: cuatro perspectivas de una misma consulta -->
+  <section x-show="estudioListo" x-cloak class="order-3 rounded-2xl border border-gold-500/30 bg-panel p-5 shadow-lg shadow-black/5">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">RevelatiO IA</p><h3 class="mt-1 text-lg font-serif">Una consulta. Cuatro perspectivas.</h3><p class="mt-1 text-xs text-gray-500">Explora el texto, su raíz histórica, la renovación de la mente y una práctica para hoy.</p></div>
+      <span class="rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-[10px] font-semibold text-gold-600">Romanos 12:2</span>
+    </div>
+    <div class="mt-5 flex gap-2 overflow-x-auto border-b border-line pb-2" role="tablist" aria-label="Perspectivas de estudio">
+      <button type="button" @click="seleccionarOmniTab('palabra')" :class="omniTab === 'palabra' ? 'bg-gold-500 text-gray-950 font-bold' : 'text-gray-500 hover:bg-black/5'" class="shrink-0 rounded-lg px-3 py-2 text-xs transition-colors" role="tab">La Palabra</button>
+      <button type="button" @click="seleccionarOmniTab('raiz')" :class="omniTab === 'raiz' ? 'bg-gold-500 text-gray-950 font-bold' : 'text-gray-500 hover:bg-black/5'" class="shrink-0 rounded-lg px-3 py-2 text-xs transition-colors" role="tab">Raíz Histórica</button>
+      <button type="button" @click="seleccionarOmniTab('metanoia')" :class="omniTab === 'metanoia' ? 'bg-gold-500 text-gray-950 font-bold' : 'text-gray-500 hover:bg-black/5'" class="shrink-0 rounded-lg px-3 py-2 text-xs transition-colors" role="tab">Metanoia &amp; Mente</button>
+      <button type="button" @click="seleccionarOmniTab('oracion')" :class="omniTab === 'oracion' ? 'bg-gold-500 text-gray-950 font-bold' : 'text-gray-500 hover:bg-black/5'" class="shrink-0 rounded-lg px-3 py-2 text-xs transition-colors" role="tab">Oración &amp; Práctica</button>
+    </div>
+    <div class="mt-5 min-h-[140px]">
+      <div x-show="omniTab === 'palabra'" class="space-y-3"><p class="text-sm leading-relaxed text-gray-700" x-text="estudio.comentario || estudio.aplicacion || 'La lectura base del pasaje aparecerá aquí.'"></p><p x-show="estudio.original" class="text-xs text-gray-500"><span class="font-semibold text-gold-600">Idioma original:</span> <span x-text="estudio.original"></span></p></div>
+      <div x-show="omniTab !== 'palabra' && lenteEstado.estado === 'loading'" class="flex items-center gap-2 py-10 text-sm text-gray-500"><svg class="h-4 w-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>Generando esta perspectiva…</div>
+      <div x-show="omniTab !== 'palabra' && lenteEstado.estado === 'error'" class="py-8 text-center"><p class="text-sm text-red-600" x-text="lenteEstado.mensaje || 'No se pudo generar esta perspectiva.'"></p><button type="button" @click="seleccionarOmniTab(omniTab)" class="mt-3 text-xs font-semibold text-gold-600">Reintentar</button></div>
+      <div x-show="omniTab !== 'palabra' && lenteEstado.estado === 'ready'" class="space-y-3"><template x-for="(p, i) in parrafosDe(lenteEstado.cuerpo)" :key="i"><p class="text-sm leading-relaxed text-gray-700" x-text="p"></p></template><blockquote x-show="lenteEstado.destacado" class="border-l-2 border-gold-500 py-1 pl-4"><p class="font-serif text-sm italic text-gold-700" x-text="lenteEstado.destacado"></p></blockquote></div>
+    </div>
+    <div class="mt-5 flex flex-wrap gap-2 border-t border-line pt-4"><button type="button" @click="generarTarjetaOmni()" class="rounded-lg border border-gold-500/40 px-3 py-2 text-xs font-semibold text-gold-600 hover:bg-gold-500/10">Generar Tarjeta para Compartir</button><button type="button" @click="escucharReflexion()" class="rounded-lg border border-line px-3 py-2 text-xs font-semibold text-gray-600 hover:bg-black/5"><span x-text="omniAudioActivo ? 'Detener reflexión' : 'Escuchar Reflexión'"></span></button><button type="button" @click="copiarEstudio()" class="rounded-lg border border-line px-3 py-2 text-xs font-semibold text-gray-600 hover:bg-black/5">Copiar estudio</button><button type="button" @click="imprimirEstudio()" class="rounded-lg border border-line px-3 py-2 text-xs font-semibold text-gray-600 hover:bg-black/5">Imprimir / PDF</button></div>
+  </section>
+
+  <!-- Herramientas de estudio del pasaje (estilo bibliatodo) -->
                                     <div class="mt-5 flex flex-col gap-3">
                                         <!-- Texto original: griego/hebreo con Strong's + diccionario léxico real -->
                                         <div class="order-3 border border-line rounded-xl overflow-hidden" x-show="original">
@@ -1123,7 +1144,10 @@
         <button type="button" @click="activarLente(l.id)" class="rv-chip" :class="lenteActiva === l.id && 'is-active'" :title="l.etiqueta" x-text="l.corta || l.etiqueta"></button>
       </template>
     </div>
-    <form @submit.prevent="ejecutarEstudio(busqueda)" class="rv-pill-wrap">
+    <div class="mb-3 flex gap-2 overflow-x-auto pb-1" aria-label="Intenciones rápidas">
+    <template x-for="intencion in omniIntenciones" :key="intencion.id"><button type="button" @click="ejecutarIntencion(intencion.consulta)" class="shrink-0 rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1.5 text-[11px] font-semibold text-gold-700 transition hover:bg-gold-500/20" x-text="intencion.etiqueta"></button></template>
+  </div>
+  <form @submit.prevent="ejecutarEstudio(busqueda)" class="rv-pill-wrap">
       <label for="ia-input" class="sr-only">Pasaje o tema bíblico</label>
       <input id="ia-input" type="text" x-model="busqueda" maxlength="300" required
              placeholder="Pregunta a RevelatiO IA: un pasaje, un tema, una duda…"
@@ -2422,6 +2446,15 @@ versiones: {},
 
                 // estudio / IA
                 busqueda: '',
+                omniTab: 'palabra',
+                omniAudioActivo: false,
+                omniIntenciones: [
+                    { id: 'ansiedad', etiqueta: 'Ansiedad & Paz', consulta: 'la ansiedad y la paz de Dios' },
+                    { id: 'decisiones', etiqueta: 'Decisiones', consulta: 'cómo tomar decisiones conforme a la voluntad de Dios' },
+                    { id: 'identidad', etiqueta: 'Identidad', consulta: 'mi identidad en Cristo' },
+                    { id: 'exegesis', etiqueta: 'Exégesis & Griego', consulta: 'Romanos 12:2 y la renovación de la mente' },
+                    { id: 'oracion', etiqueta: 'Oración Guiada', consulta: 'una oración para entregar mis preocupaciones a Dios' }
+                ],
                 showShareModal: false,
                 shareCard: { texto: '', referencia: '', version: '' },
                 estudioRef: '',
@@ -3247,8 +3280,11 @@ const etiquetas = {
                     if (!q || this.cargandoEstudio) return;
                     this.cargandoEstudio = true;
                     this.isGenerating = true;
-                    this.errorEstudio = false;
-                    this.busqueda = q;
+  this.errorEstudio = false;
+  this.omniTab = 'palabra';
+  this.omniAudioActivo = false;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  this.busqueda = q;
                     this.estudioListo = false;
                     this.estudioRef = '';
                     this.versiones = {};
@@ -3326,10 +3362,44 @@ const etiquetas = {
                 get lenteEstado() {
                     return this.lentes[this.lenteKey] || { estado: 'idle' };
                 },
-                parrafosDe(texto) {
-                    return String(texto || '').split(/\n\n+/).map(s => s.trim()).filter(Boolean);
-                },
-async activarLente(id) {
+  parrafosDe(texto) {
+  return String(texto || '').split(/\n\n+/).map(s => s.trim()).filter(Boolean);
+  },
+  async seleccionarOmniTab(tab) {
+  this.omniTab = tab;
+  if (tab === 'palabra') return;
+  const lente = { raiz: 'raizHistorica', metanoia: 'metanoiaMente', oracion: 'oracionPractica' }[tab];
+  if (!lente || !this.busqueda.trim()) return;
+  this.lenteActiva = lente;
+  await this.cargarLente(lente);
+  },
+  ejecutarIntencion(consulta) {
+  this.busqueda = consulta;
+  this.omniTab = 'palabra';
+  this.ejecutarEstudio(consulta);
+  },
+  async escucharReflexion() {
+  const texto = this.omniTab === 'palabra'
+    ? (this.estudio.comentario || this.estudio.aplicacion || this.textoActual || '')
+    : (this.lenteEstado.cuerpo || this.lenteEstado.destacado || '');
+  if (!texto || !('speechSynthesis' in window)) return;
+  if (this.omniAudioActivo) { window.speechSynthesis.cancel(); this.omniAudioActivo = false; return; }
+  const utterance = new SpeechSynthesisUtterance(texto);
+  utterance.lang = 'es-ES';
+  utterance.rate = 0.92;
+  utterance.onend = () => { this.omniAudioActivo = false; };
+  this.omniAudioActivo = true;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+  },
+  generarTarjetaOmni() {
+  const texto = this.omniTab === 'palabra'
+    ? (this.estudio.comentario || this.estudio.aplicacion || this.textoActual || '')
+    : (this.lenteEstado.destacado || this.lenteEstado.cuerpo || '');
+  this.shareCard = { texto: String(texto).slice(0, 420), referencia: this.estudioRef || this.busqueda, version: this.versionSel || 'RevelatiO IA' };
+  this.showShareModal = true;
+  },
+  async activarLente(id) {
   const permitidas = this.LENTES_LISTA.map((l) => l.id);
   if (!permitidas.includes(id)) id = 'teologia';
   this.lenteActiva = id;
@@ -3471,6 +3541,12 @@ guardarFicha() {
                         } else if (this.lentes[l.id]?.estado === 'ready') {
                             const e = this.lentes[l.id];
                             out.push({ titulo: e.titulo || l.etiqueta, cuerpo: e.cuerpo, destacado: e.destacado });
+                        }
+                    }
+                    for (const id of ['raizHistorica', 'metanoiaMente', 'oracionPractica']) {
+                        if (this.lentes[id]?.estado === 'ready') {
+                            const e = this.lentes[id];
+                            out.push({ titulo: e.titulo || id, cuerpo: e.cuerpo, destacado: e.destacado });
                         }
                     }
                     return out;

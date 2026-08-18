@@ -132,6 +132,18 @@ const LENTES = {
   eticaMinisterial: { titulo: 'Ética ministerial', instruccion: 'Examina integridad, poder, dinero, sexualidad, confidencialidad, transparencia y rendición de cuentas a la luz del texto y de la responsabilidad de quienes sirven.' },
   juventud: { titulo: 'Ministerio con jóvenes', instruccion: 'Traduce la enseñanza a acompañamiento de adolescentes y jóvenes: identidad, presión cultural, pertenencia, hábitos digitales, vocación y comunidad, sin trivializar el texto.' },
   dueloCrisis: { titulo: 'Duelo y crisis', instruccion: 'Aplica el pasaje a la presencia pastoral en duelo y crisis: lamentación, esperanza, oración, comunidad y próximos pasos. No prometas resultados que la Escritura no promete.' },
+  raizHistorica: {
+    titulo: 'Raíz Histórica',
+    instruccion: 'Analiza la consulta desde el testimonio histórico de la iglesia y la exégesis clásica. Expón contexto, palabras clave, referencias cruzadas y cómo la lectura de comentaristas de dominio público ilumina el pasaje. No inventes citas textuales: presenta una síntesis transparente y distingue la Escritura de la interpretación histórica.',
+  },
+  metanoiaMente: {
+    titulo: 'Metanoia & Mente',
+    instruccion: 'Conecta la consulta con la metanoia y la renovación de la mente. Integra psicología cristiana y neuroplasticidad con prudencia: identifica pensamientos, emociones, hábitos y prácticas concretas, separando claramente lo que afirma la Escritura de lo que la ciencia puede explicar. Termina con un paso pequeño y practicable.',
+  },
+  oracionPractica: {
+    titulo: 'Oración & Práctica',
+    instruccion: 'Convierte la consulta en una respuesta vivida delante de Dios. Explica una aplicación concreta para hoy, propone una oración breve y específica, y ofrece una práctica sencilla para sostenerla durante la semana. Mantén el foco en Cristo, obediencia, comunidad y esperanza, sin frases genéricas.',
+  },
 };
 
 // Comentaristas reconocidos, todos de obra 100% de dominio público (murieron
