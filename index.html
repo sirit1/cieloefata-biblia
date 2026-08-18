@@ -1692,6 +1692,7 @@
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
                     <button @click="speechService.playPassage('chapter')" class="hidden sm:inline-flex items-center gap-1.5 text-xs border border-gold-500/40 text-gold-200 px-3 py-1.5 rounded-lg hover:bg-gold-500/10 transition-all font-semibold" x-text="isPlayingAudio && audioSource === 'chapter' ? 'Narrando…' : 'Narrar capítulo'"></button>
+                    <button @click="interlinearActive = !interlinearActive" :class="interlinearActive ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold" aria-pressed="interlinearActive">🔤 Interlineal<span x-text="interlinearActive ? ' ON' : ' OFF'"></span></button>
                     <button @click="toggleCapituloLeido()" :class="capituloEstaLeido ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="hidden sm:inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
                         <span x-text="capituloEstaLeido ? 'Leído' : 'Marcar leído'"></span>
@@ -1726,11 +1727,11 @@
                         <template x-if="!cargandoPasaje">
                             <div class="libro-lectura-shell" :class="animandoPagina ? 'pagina-en-movimiento' : ''"><p class="prose-lectura font-serif text-lg sm:text-xl">
                                 <template x-for="v in versosActuales" :key="v.n">
-                                    <span :id="'verse-' + v.n" @click="seleccionarVersiculoLector(v.n); abrirHojaVersiculoLector(v.n)"
+                                    <span :id="'verse-' + v.n" @click="!interlinearActive && (seleccionarVersiculoLector(v.n), abrirHojaVersiculoLector(v.n))"
                                         :data-reference="`${libroSel?.n || ''} ${capituloSel}:${v.n}`"
-                                        :class="[colorVersiculo(v.n) ? `hl-${colorVersiculo(v.n)}` : '', versiculoLectorSel === v.n ? 'ring-2 ring-gold-500/70' : '', currentReadingVerseId === v.n ? 'bg-amber-100/80 ring-1 ring-amber-400/80 shadow-xs rounded-xl p-2 transition-all duration-300' : '', (highlightFilter !== 'all' && colorVersiculo(v.n) !== highlightFilter) ? 'opacity-30' : '']"
-                                        class="cursor-pointer transition-all duration-300 hover:bg-gold-500/10 rounded px-0.5">
-                                        <sup class="text-[10px] font-sans font-bold text-gold-600 mr-0.5" x-text="v.n"></sup><span x-text="v.texto + ' '"></span><svg x-show="notaDeVersiculo(v.n)" class="w-3 h-3 inline-block -translate-y-1.5 text-gold-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle></svg>
+                                        :class="[colorVersiculo(v.n) ? `hl-${colorVersiculo(v.n)}` : '', versiculoLectorSel === v.n ? 'ring-2 ring-gold-500/70' : '', currentReadingVerseId === v.n ? 'bg-amber-100/80 ring-1 ring-amber-400/80 shadow-xs rounded-xl p-2 transition-all duration-300' : '', (highlightFilter !== 'all' && colorVersiculo(v.n) !== highlightFilter) ? 'opacity-30' : '', !interlinearActive ? 'cursor-pointer' : '']"
+                                        class="transition-all duration-300 hover:bg-gold-500/10 rounded px-0.5">
+                                        <sup class="text-[10px] font-sans font-bold text-gold-600 mr-0.5" x-text="v.n"></sup><template x-if="!interlinearActive"><span x-text="v.texto + ' '"></span></template><template x-if="interlinearActive"><span><template x-for="(tok, ti) in palabrasVersiculo(v)" :key="v.n + '-' + ti"><span x-text="tok.texto" @click.stop="!tok.esEspacio && abrirPalabra(tok.data)" :class="!tok.esEspacio ? 'border-b border-amber-400/50 hover:bg-amber-100/60 cursor-pointer rounded px-0.5 transition-colors' + (tok.data ? ' font-semibold text-amber-800' : '') : ''"></span></template> </span></template><svg x-show="notaDeVersiculo(v.n)" class="w-3 h-3 inline-block -translate-y-1.5 text-gold-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle></svg>
                                     </span>
                                 </template>
                             </p></div>
@@ -1770,6 +1771,7 @@
                     </button>
                     <button @click="openJournal(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">🌱 Registrar Metanoia</button>
                     <button @click="createVerseCard(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">🖼️ Crear Tarjeta</button>
+                    <button @click="abrirComparador(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">⚖️ Comparar Versiones</button>
                     <button @click="profundizarVersiculoLector(versiculoLectorSel)" class="text-xs bg-gold-600/20 text-gold-200 border border-gold-500/40 px-3 py-1.5 rounded-lg hover:bg-gold-600/30 transition-all ml-auto">Profundizar con RevelatiO IA</button>
                     <button @click="versiculoLectorSel = null" class="text-gray-500 hover:text-gray-200 p-1" aria-label="Cerrar selección">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
@@ -2456,6 +2458,38 @@ versiones: {},
                     { id: 'metanoia', nombre: 'Metanoia / Renovación Mental', muestra: '#a7f3d0', clase: 'bg-emerald-200/70 border-b-2 border-emerald-500' },
                     { id: 'advertencia', nombre: 'Advertencia / Discernimiento', muestra: '#fecdd3', clase: 'bg-rose-200/70 border-b-2 border-rose-500' }
                 ],
+
+                // ---------- Motor Interlineal palabra-por-palabra ----------
+                interlinearActive: false,
+                selectedWordData: null,
+                wordSheetOpen: false,
+                // Datos morfológicos curados y verificables (Strong's + gramática griega real).
+                // Solo se incluyen palabras de versículos ya estudiados en profundidad en la app;
+                // el resto de palabras del texto español no tienen alineación palabra-por-palabra
+                // verificable con la fuente de datos, así que no se fabrica morfología para ellas.
+                INTERLINEAL_DATA: {
+                    'efesios 3:1': [
+                        { palabra: 'Pablo', griego: 'Παῦλος', translit: 'Paulos', fonetica: 'páv-los', strong: 'G3972', morfologia: 'Sustantivo · Masculino Singular · Nominativo', sentido: 'Nombre propio del apóstol; se presenta a sí mismo como remitente y garante personal de la carta.' },
+                        { palabra: 'prisionero', griego: 'δέσμιος', translit: 'desmios', fonetica: 'dés-mee-os', strong: 'G1198', morfologia: 'Sustantivo · Masculino Singular · Nominativo', sentido: 'Literalmente "atado con cadenas". Pablo redefine su cautiverio romano no como derrota sino como identidad misional: está encadenado "de Cristo Jesús", no del imperio.' },
+                        { palabra: 'Cristo', griego: 'Χριστοῦ', translit: 'Christou', fonetica: 'jris-tú', strong: 'G5547', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'Genitivo de posesión: Pablo pertenece a Cristo; su prisión tiene un dueño distinto al César.' },
+                        { palabra: 'Jesús', griego: 'Ἰησοῦ', translit: 'Iesou', fonetica: 'ie-sú', strong: 'G2424', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'Nombre personal del Mesías; junto a "Cristo" ancla la identidad de Pablo en la persona histórica de Jesús.' },
+                        { palabra: 'gentiles', griego: 'ἐθνῶν', translit: 'ethnon', fonetica: 'eth-nón', strong: 'G1484', morfologia: 'Sustantivo · Neutro Plural · Genitivo', sentido: 'Designa a los no-judíos; el sufrimiento de Pablo tiene un propósito vicario: es "por vosotros" los gentiles.' }
+                    ],
+                    'romanos 12:2': [
+                        { palabra: 'transformaos', griego: 'μεταμορφοῦσθε', translit: 'metamorphousthe', fonetica: 'me-ta-mor-fús-the', strong: 'G3339', morfologia: 'Verbo · Presente Pasivo Imperativo', sentido: 'Voz pasiva: la transformación no se autoproduce, se recibe; presente: es un proceso continuo, no un evento único.' },
+                        { palabra: 'renovación', griego: 'ἀνακαινώσει', translit: 'anakainosei', fonetica: 'a-na-kai-nó-sei', strong: 'G342', morfologia: 'Sustantivo · Femenino Singular · Dativo', sentido: 'Raíz "kainos" (nuevo en calidad, no solo en tiempo); describe una renovación cualitativa, no una simple repetición.' },
+                        { palabra: 'entendimiento', griego: 'νοός', translit: 'noos', fonetica: 'no-ós', strong: 'G3563', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'La mente como facultad de percepción y juicio moral; el cambio de conducta exige primero un cambio en esta facultad.' }
+                    ],
+                    '2 corintios 4:4': [
+                        { palabra: 'cegó', griego: 'ἐτύφλωσεν', translit: 'etyphlosen', fonetica: 'e-tý-flo-sen', strong: 'G5186', morfologia: 'Verbo · Aoristo Activo Indicativo', sentido: 'Acción puntual y completada en el pasado; describe un acto deliberado de cegamiento, no una condición accidental.' },
+                        { palabra: 'entendimientos', griego: 'νοήματα', translit: 'noemata', fonetica: 'no-é-ma-ta', strong: 'G3540', morfologia: 'Sustantivo · Neutro Plural · Acusativo', sentido: 'Los pensamientos o razonamientos como objeto directo del cegamiento; no es la vista física sino la capacidad de razonar la que queda velada.' }
+                    ]
+                },
+
+                // ---------- Comparador sinóptico multiversión ----------
+                compareModalOpen: false,
+                compareVerseNumero: null,
+                compareVersions: ['rv1960', 'nvi', 'lbla'],
 
                 // Concordancia bíblica: búsqueda real de palabras/frases en el texto
                 concordanciaQuery: '',
@@ -4121,6 +4155,42 @@ guardarFicha() {
     { reference: 'Hebreos 4:12', text: 'La palabra de Dios es viva y eficaz, y más cortante que toda espada de dos filos.' }
   ]; this.crossReferenceLoading = false;
   },
+                    // ---------- Motor Interlineal palabra-por-palabra ----------
+                    normalizarPalabra(w) { return String(w || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-záéíóúñü]/gi, ''); },
+                    claveVersiculoInterlineal(n) { return `${(this.libroSel?.n || '').toLowerCase()} ${this.capituloSel}:${n}`; },
+                    palabrasVersiculo(v) {
+                        const entradas = this.INTERLINEAL_DATA[this.claveVersiculoInterlineal(v.n)] || [];
+                        const mapa = new Map(entradas.map(e => [this.normalizarPalabra(e.palabra), e]));
+                        const tokens = String(v.texto || '').split(/(\s+)/);
+                        return tokens.map(tok => {
+                            if (/^\s+$/.test(tok) || !tok) return { texto: tok, data: null, esEspacio: true };
+                            const limpio = this.normalizarPalabra(tok);
+                            return { texto: tok, data: mapa.get(limpio) || null, esEspacio: false };
+                        });
+                    },
+                    abrirPalabra(data) {
+                        this.selectedWordData = data || { griego: '—', translit: '—', fonetica: '—', strong: '—', morfologia: 'Sin clasificar', sentido: 'Análisis interlineal detallado no disponible aún para este término. Explora el Léxico Strong general en el panel de Recursos para un estudio verificado.' };
+                        this.wordSheetOpen = true;
+                    },
+                    cerrarPalabra() { this.wordSheetOpen = false; this.selectedWordData = null; },
+
+                    // ---------- Comparador sinóptico multiversión ----------
+                    abrirComparador(numeroVersiculo) { this.compareVerseNumero = numeroVersiculo; this.compareModalOpen = true; },
+                    cerrarComparador() { this.compareModalOpen = false; },
+                    toggleCompareVersion(key) {
+                        if (this.compareVersions.includes(key)) { if (this.compareVersions.length > 1) this.compareVersions = this.compareVersions.filter(k => k !== key); }
+                        else if (this.compareVersions.length < 5) this.compareVersions = [...this.compareVersions, key];
+                    },
+                    textoComparador(key) {
+                        const versos = this.versionesVersos?.[key] || [];
+                        const v = versos.find(x => Number(x.n ?? x.numero) === Number(this.compareVerseNumero));
+                        return v?.texto || v?.text || 'No disponible para esta versión en este pasaje.';
+                    },
+                    copiarComparador() {
+                        const ref = this.libroSel ? `${this.libroSel.n} ${this.capituloSel}:${this.compareVerseNumero}` : '';
+                        const bloque = [ref, ...this.compareVersions.map(k => `${this.versionesEstudioLista.find(v => v.key === k)?.etiqueta || k}: ${this.textoComparador(k)}`)].join('\n');
+                        navigator.clipboard?.writeText(bloque);
+                    },
                     vistaPreviaReferencia(item) { this.crossReferencePreview = item; this.activeCrossReference = item; this.crossRefModalOpen = true; },
                     cerrarCrossRefModal() { this.crossRefModalOpen = false; this.activeCrossReference = null; },
                     abrirReferenciaCruzada(item) { this.vistaPreviaReferencia(item); },
@@ -4901,6 +4971,56 @@ guardarFicha() {
       <div class="mt-5 flex items-center justify-end gap-2">
         <button @click="cerrarCrossRefModal()" class="rounded-lg border border-stone-300 px-3 py-2 text-xs font-semibold text-stone-600 hover:bg-stone-100">Cerrar</button>
         <button @click="irACapituloDesdeReferencia(activeCrossReference)" class="rounded-lg bg-gold-600 px-3 py-2 text-xs font-bold text-stone-950 hover:bg-gold-500">Ir al capítulo completo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Word Sheet: motor interlineal palabra por palabra -->
+  <div x-show="wordSheetOpen" x-cloak x-transition class="fixed inset-0 z-50 flex items-end sm:items-center justify-center" role="dialog" aria-modal="true" aria-label="Análisis interlineal de la palabra">
+    <button @click="cerrarPalabra()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar análisis interlineal"></button>
+    <div class="relative w-full sm:max-w-md bg-[#FAF8F5] border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-50">
+      <div class="mx-auto mb-4 h-1 w-10 rounded-full bg-stone-300 sm:hidden"></div>
+      <div class="flex items-start justify-between gap-3">
+        <p class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Motor Interlineal</p>
+        <button @click="cerrarPalabra()" class="text-stone-400 hover:text-stone-700" aria-label="Cerrar">×</button>
+      </div>
+      <p class="mt-2 font-serif text-4xl text-stone-900" x-text="selectedWordData?.griego"></p>
+      <p class="mt-1 text-sm text-stone-500"><em x-text="selectedWordData?.translit"></em> <span x-text="'(' + selectedWordData?.fonetica + ')'"></span></p>
+      <div class="mt-3 flex flex-wrap items-center gap-2">
+        <span class="rounded-full bg-amber-100 border border-amber-300/70 px-2.5 py-1 text-[11px] font-bold text-amber-800" x-text="selectedWordData?.strong"></span>
+        <span class="rounded-full bg-stone-100 border border-stone-300/70 px-2.5 py-1 text-[11px] font-semibold text-stone-600" x-text="selectedWordData?.morfologia"></span>
+      </div>
+      <p class="mt-4 text-sm leading-relaxed text-stone-700" x-text="selectedWordData?.sentido"></p>
+    </div>
+  </div>
+
+  <!-- Comparador sinóptico multiversión -->
+  <div x-show="compareModalOpen" x-cloak x-transition class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Comparador de versiones bíblicas">
+    <button @click="cerrarComparador()" class="absolute inset-0 bg-stone-950/40 backdrop-blur-sm" aria-label="Cerrar comparador"></button>
+    <div class="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FAF8F5] border border-stone-200 rounded-3xl p-6 shadow-2xl z-50">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Comparador Sinóptico</p>
+          <h4 class="mt-1 font-serif text-xl font-bold text-stone-900" x-text="(libroSel?.n || '') + ' ' + capituloSel + ':' + compareVerseNumero"></h4>
+        </div>
+        <button @click="cerrarComparador()" class="text-stone-400 hover:text-stone-700" aria-label="Cerrar">×</button>
+      </div>
+      <div class="mt-4 flex flex-wrap items-center gap-1.5" role="group" aria-label="Seleccionar versiones a comparar">
+        <template x-for="v in versionesEstudioLista.filter(x => x.key !== 'interlineal')" :key="v.key">
+          <button type="button" @click="toggleCompareVersion(v.key)" :class="compareVersions.includes(v.key) ? 'bg-amber-100 text-amber-900 border-amber-400' : 'text-stone-500 border-stone-300 hover:border-amber-400/60'" class="rounded-full border px-2.5 py-1 text-[11px] font-semibold transition-all" x-text="v.etiqueta"></button>
+        </template>
+      </div>
+      <div class="mt-4 grid gap-3 sm:grid-cols-1">
+        <template x-for="key in compareVersions" :key="key">
+          <div class="rounded-xl border border-stone-200 bg-white p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider text-amber-700" x-text="versionesEstudioLista.find(v => v.key === key)?.etiqueta || key"></p>
+            <p class="mt-2 font-serif text-base leading-relaxed text-stone-800" x-text="textoComparador(key)"></p>
+          </div>
+        </template>
+      </div>
+      <div class="mt-5 flex items-center justify-end gap-2">
+        <button @click="copiarComparador()" class="rounded-lg border border-stone-300 px-3 py-2 text-xs font-semibold text-stone-600 hover:bg-stone-100">📋 Copiar Cuadro Comparativo</button>
+        <button @click="cerrarComparador()" class="rounded-lg bg-gold-600 px-3 py-2 text-xs font-bold text-stone-950 hover:bg-gold-500">Cerrar</button>
       </div>
     </div>
   </div>
