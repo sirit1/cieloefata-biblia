@@ -1544,60 +1544,68 @@
         <!-- Drawer lateral: Recursos de Estudio Histórico (8 fuentes reales de dominio público) -->
         <div x-show="showResourceDrawer" x-cloak x-transition.opacity class="fixed inset-0 z-[120] bg-stone-900/40 backdrop-blur-xs" @click="showResourceDrawer = false" @keydown.escape.window="showResourceDrawer = false"></div>
         <div x-show="showResourceDrawer" x-cloak class="fixed inset-y-0 right-0 z-[120] flex w-full max-w-lg" role="dialog" aria-modal="true" aria-label="Recursos de estudio histórico">
-            <div x-show="showResourceDrawer" x-cloak x-transition:enter="transition-transform duration-300 ease-out" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition-transform duration-200 ease-in" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" class="flex w-full flex-col overflow-y-auto border-l border-stone-200 bg-[#FBFBFA] p-6 shadow-2xl" @click.stop>
-                <div class="flex items-start justify-between gap-4 border-b border-stone-200 pb-4">
+            <div x-show="showResourceDrawer" x-cloak x-transition:enter="transition-transform duration-300 ease-out" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition-transform duration-200 ease-in" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" class="bg-panel flex w-full flex-col overflow-y-auto border-l border-line p-6 shadow-2xl" @click.stop>
+                <div class="flex items-start justify-between gap-4 border-b border-line pb-4">
                     <div class="min-w-0">
-                        <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-700">Recursos de Estudio Histórico</p>
-                        <h3 class="mt-1 truncate font-serif text-xl text-stone-900" x-text="resourceReference || 'Selecciona un versículo'"></h3>
+                        <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-gold-500">Recursos de Estudio Histórico</p>
+                        <h3 class="mt-1 truncate font-serif text-xl" x-text="resourceReference || 'Selecciona un versículo'"></h3>
                     </div>
-                    <button @click="showResourceDrawer = false" class="shrink-0 rounded-lg p-2 text-stone-500 hover:bg-stone-100 hover:text-stone-900" aria-label="Cerrar">
+                    <button @click="showResourceDrawer = false" class="shrink-0 rounded-lg p-2 text-gray-500 hover:bg-black/5 hover:text-gray-950" aria-label="Cerrar">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
                     </button>
                 </div>
 
-                <div class="mt-4 flex gap-2 rounded-xl border border-stone-200 bg-stone-100/70 p-1">
-                    <button type="button" @click="activeResourceTab = 'commentaries'; loadResourceData()" :class="activeResourceTab === 'commentaries' ? 'bg-white text-stone-900 shadow-xs font-semibold' : 'text-stone-500 hover:text-stone-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Comentarios Bíblicos (4)</button>
-                    <button type="button" @click="activeResourceTab = 'dictionaries'; loadResourceData()" :class="activeResourceTab === 'dictionaries' ? 'bg-white text-stone-900 shadow-xs font-semibold' : 'text-stone-500 hover:text-stone-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Diccionarios Léxicos (4)</button>
+                <div class="mt-4 flex gap-2 rounded-xl border border-line bg-black/5 p-1">
+                    <button type="button" @click="activeResourceTab = 'commentaries'; loadResourceData()" :class="activeResourceTab === 'commentaries' ? 'bg-white shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Comentarios Bíblicos (4)</button>
+                    <button type="button" @click="activeResourceTab = 'dictionaries'; loadResourceData()" :class="activeResourceTab === 'dictionaries' ? 'bg-white shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'" class="flex-1 rounded-lg px-3 py-2 text-xs transition-all">Diccionarios Léxicos (4)</button>
                 </div>
 
                 <div class="mt-4 flex flex-wrap gap-2">
                     <template x-if="activeResourceTab === 'commentaries'">
                         <template x-for="fuente in RECURSOS_COMENTARIOS" :key="fuente.key">
-                            <button type="button" @click="seleccionarRecurso('commentaries', fuente.key)" :class="selectedCommentary === fuente.key ? 'bg-amber-100/90 text-amber-950 font-semibold border-amber-300/80' : 'text-stone-600 hover:bg-stone-100 border-transparent'" class="rounded-lg border px-3 py-1.5 text-xs transition-all" x-text="fuente.etiqueta"></button>
+                            <button type="button" @click="seleccionarRecurso('commentaries', fuente.key)" :class="selectedCommentary === fuente.key ? 'bg-gold-500/15 text-gold-600 font-semibold border-gold-500/40' : 'text-gray-500 hover:bg-black/5 border-transparent'" class="rounded-lg border px-3 py-1.5 text-xs transition-all" x-text="fuente.etiqueta"></button>
                         </template>
                     </template>
                     <template x-if="activeResourceTab === 'dictionaries'">
                         <template x-for="fuente in RECURSOS_DICCIONARIOS" :key="fuente.key">
-                            <button type="button" @click="seleccionarRecurso('dictionaries', fuente.key)" :class="selectedDictionary === fuente.key ? 'bg-amber-100/90 text-amber-950 font-semibold border-amber-300/80' : 'text-stone-600 hover:bg-stone-100 border-transparent'" class="rounded-lg border px-3 py-1.5 text-xs transition-all" x-text="fuente.etiqueta"></button>
+                            <button type="button" @click="seleccionarRecurso('dictionaries', fuente.key)" :class="selectedDictionary === fuente.key ? 'bg-gold-500/15 text-gold-600 font-semibold border-gold-500/40' : 'text-gray-500 hover:bg-black/5 border-transparent'" class="rounded-lg border px-3 py-1.5 text-xs transition-all" x-text="fuente.etiqueta"></button>
                         </template>
                     </template>
                 </div>
 
                 <div class="mt-5 flex-1">
-                    <div x-show="resourceLoading" class="flex items-center gap-2 py-10 justify-center text-stone-500 text-sm">
+                    <div x-show="resourceLoading" class="flex items-center gap-2 py-10 justify-center text-gray-500 text-sm">
                         <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                         Consultando la fuente...
                     </div>
-                    <div x-show="!resourceLoading && resourceContent && !resourceContent.items" class="rounded-2xl border border-stone-200 bg-white p-5">
-                        <p class="text-[10px] font-bold uppercase tracking-wider text-amber-700" x-text="resourceContent?.autor"></p>
-                        <p class="mt-1 text-[10px] text-stone-400" x-text="resourceContent?.tipo"></p>
-                        <p class="mt-4 font-serif text-base leading-relaxed text-stone-800 whitespace-pre-line" x-text="resourceContent?.texto"></p>
-                        <p class="mt-4 border-t border-stone-100 pt-3 text-[10px] leading-relaxed text-stone-400" x-text="resourceContent?.nota"></p>
+                    <div x-show="!resourceLoading && resourceError" class="rounded-2xl border border-red-300/60 bg-white p-5">
+                        <p class="text-sm text-red-500" x-text="resourceError"></p>
+                        <button type="button" @click="loadResourceData()" class="mt-3 text-xs font-semibold text-gold-600 hover:text-gold-500">Reintentar</button>
                     </div>
-                    <div x-show="!resourceLoading && resourceContent?.items" class="space-y-3">
-                        <p class="text-[10px] font-bold uppercase tracking-wider text-amber-700" x-text="resourceContent?.autor"></p>
+                    <div x-show="!resourceLoading && !resourceError && resourceContent && !resourceContent.items" class="rounded-2xl border border-line bg-white p-5">
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="resourceContent?.autor"></p>
+                        <p class="mt-1 text-[10px] text-gray-400" x-text="resourceContent?.tipo"></p>
+                        <p class="mt-4 font-serif text-base leading-relaxed whitespace-pre-line" x-text="resourceContent?.texto"></p>
+                        <p class="mt-4 border-t border-line pt-3 text-[10px] leading-relaxed text-gray-400" x-text="resourceContent?.nota"></p>
+                    </div>
+                    <div x-show="!resourceLoading && !resourceError && resourceContent?.items" class="space-y-3">
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="resourceContent?.autor"></p>
+                        <template x-if="resourceContent && !resourceContent.items?.length">
+                            <p class="text-xs text-gray-400">No se encontró texto original disponible para este pasaje.</p>
+                        </template>
                         <template x-for="item in (resourceContent?.items || [])" :key="item.codigo">
-                            <div class="rounded-2xl border border-stone-200 bg-white p-5">
-                                <p class="font-serif text-sm text-amber-800" x-text="item.codigo"></p>
-                                <p class="mt-1 text-base font-semibold text-stone-900" x-text="item.traduccionEstricta || item.lexema || 'Sin equivalente disponible.'"></p>
-                                <p class="mt-2 text-xs leading-relaxed text-stone-600 whitespace-pre-line" x-text="item.definicionEs || item.definicion || ''"></p>
+                            <div class="rounded-2xl border border-line bg-white p-5">
+                                <p class="font-serif text-sm text-gold-600" x-text="item.codigo"></p>
+                                <p class="mt-1 text-base font-semibold" x-text="item.lexema || 'Sin equivalente disponible.'"></p>
+                                <p class="mt-1 text-xs text-gray-400" x-text="item.transliteracion"></p>
+                                <p class="mt-2 text-xs leading-relaxed text-gray-600 whitespace-pre-line" x-text="item.definicionCorta || item.definicion || ''"></p>
                             </div>
                         </template>
-                        <p class="border-t border-stone-100 pt-3 text-[10px] leading-relaxed text-stone-400" x-text="resourceContent?.nota"></p>
+                        <p class="border-t border-line pt-3 text-[10px] leading-relaxed text-gray-400" x-text="resourceContent?.nota"></p>
                     </div>
                 </div>
 
-                <button type="button" @click="enviarRecursoAOmnibar()" :disabled="!resourceContent?.texto" class="mt-5 flex items-center justify-center gap-2 rounded-xl border border-amber-300/70 bg-amber-50 px-4 py-3 text-xs font-semibold text-amber-900 transition-all hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-40">
+                <button type="button" @click="enviarRecursoAOmnibar()" :disabled="!resourceContent?.texto" class="mt-5 flex items-center justify-center gap-2 rounded-xl border border-gold-500/40 bg-gold-500/10 px-4 py-3 text-xs font-semibold text-gold-600 transition-all hover:bg-gold-500/20 disabled:cursor-not-allowed disabled:opacity-40">
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l1.8 4.8L18 9l-4.2 1.2L12 15l-1.8-4.8L6 9l4.2-1.2L12 3z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19 15l.9 2.4L22 18l-2.1.6L19 21l-.9-2.4L16 18l2.1-.6L19 15z"></path></svg>
                     RevelatiO IA · Conectar con Metanoia y Neuroplasticidad
                 </button>
@@ -2392,6 +2400,7 @@ versiones: {},
                 selectedDictionary: 'strong',
                 resourceLoading: false,
                 resourceContent: null,
+                resourceError: '',
                 resourceReference: '',
                 RECURSOS_COMENTARIOS: [
                     { key: 'jfb', etiqueta: 'Jamieson-Fausset-Brown', tipo: 'Exegético · crítico versículo a versículo' },
@@ -3769,6 +3778,7 @@ guardarFicha() {
                 async loadResourceData() {
                     this.resourceLoading = true;
                     this.resourceContent = null;
+                    this.resourceError = '';
                     const ref = this.resourceReference || this.referenciaActiva || '';
                     const tipo = this.activeResourceTab;
                     const clave = tipo === 'commentaries' ? this.selectedCommentary : this.selectedDictionary;
@@ -3779,50 +3789,24 @@ guardarFicha() {
                         try {
                             const res = await fetch(`/data/${tipo}/${clave}/${slug}.json`);
                             if (res.ok) { this.resourceContent = await res.json(); this.resourceLoading = false; return; }
-                        } catch (_) { /* sin archivo local: sigue a la muestra real de Efesios 3:1 */ }
+                        } catch (_) { /* sin archivo local: sigue a la resolución dinámica universal */ }
                     }
-                    // 2) Strong: dato léxico real (Brown-Driver-Briggs / Thayer) vía /api/lexico, no simulado.
-                    if (tipo === 'dictionaries' && clave === 'strong') {
-                        try {
-                            const token = await this.getToken();
-                            if (!token) throw new Error('SESION');
-                            const codigos = /efesios\s*3\s*:\s*1\b/i.test(ref) ? ['G3972', 'G1198'] : ['G3972'];
-                            const entradas = await Promise.all(codigos.map(async codigo => {
-                                const resp = await fetch('/api/lexico', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ codigo }) });
-                                const json = await resp.json();
-                                return { codigo, ...(json.data || {}) };
-                            }));
-                            this.resourceContent = { autor: 'Concordancia Strong', tipo: 'Griego / hebreo con códigos', nota: 'Dato léxico real (Brown-Driver-Briggs / Thayer), vinculado al número Strong.', items: entradas };
-                            this.resourceLoading = false;
-                            return;
-                        } catch (error) {
-                            if (error.message === 'SESION') { await this.cerrarSesion(); return; }
-                        }
+                    // 2) Resolución dinámica universal para cualquiera de los 66 libros: Strong
+                    // devuelve dato léxico real; comentarios/diccionarios se sintetizan con IA
+                    // anclada al texto original real de ESTE pasaje (ver api/recursos.js).
+                    try {
+                        const token = await this.getToken();
+                        if (!token) throw new Error('SESION');
+                        const resp = await fetch('/api/recursos', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ referencia: ref, tipo, clave }) });
+                        const json = await resp.json();
+                        if (!resp.ok) throw new Error(json?.error || 'ERROR');
+                        this.resourceContent = json.data;
+                    } catch (error) {
+                        if (error.message === 'SESION') { await this.cerrarSesion(); return; }
+                        this.resourceError = error.message === 'ERROR' || !error.message ? 'No fue posible generar este recurso. Intenta nuevamente.' : error.message;
+                    } finally {
+                        this.resourceLoading = false;
                     }
-                    // 3) Muestra histórica real y verificada para Efesios 3:1, con aviso honesto en otros pasajes.
-                    this.resourceContent = this.muestraRecurso(tipo, clave, ref);
-                    this.resourceLoading = false;
-                },
-                muestraRecurso(tipo, clave, ref) {
-                    const esEfesios3_1 = /efesios\s*3\s*:\s*1\b/i.test(ref || '');
-                    const COMENTARIOS_MUESTRA = {
-                        jfb: { autor: 'Jamieson-Fausset-Brown', tipo: 'Exegético · crítico versículo a versículo', nota: 'Traducción al español del texto original en inglés (1882, dominio público).', texto: 'Pablo llama a Cristo "Cristo Jesús" —y no solo "Jesús"— señalando que su condición de "prisionero" nace de su fidelidad a esa persona: fueron los celos de los judíos ante su predicación a los gentiles los que lo llevaron a la cárcel. Sus propias cadenas resultaban "provechosas" para los gentiles (cf. Ef. 3:13; 2 Ti. 2:10). Aquí Pablo se interrumpe a sí mismo con "por esta causa" y no completa la frase hasta el versículo 14, donde retoma el hilo: por esta causa —porque sé que este llamado de Dios a vosotros gentiles os hace coherederos con los judíos— doblo mis rodillas ante el Padre.' },
-                        matthew_henry: { autor: 'Matthew Henry', tipo: 'Pastoral y devocional clásico', nota: 'Traducción al español del texto original en inglés (1710, dominio público).', texto: 'Por haber predicado la doctrina de la verdad, el apóstol era prisionero, pero prisionero de Jesucristo: objeto de especial protección y cuidado divino mientras sufría por él. Todas las generosas ofertas del evangelio y las gozosas nuevas que contiene proceden de la rica gracia de Dios; es el gran medio por el cual el Espíritu obra la gracia en las almas de los hombres. El "misterio" es ese propósito secreto de salvación por medio de Cristo, no mostrado con igual claridad a las generaciones anteriores como ahora a los apóstoles del Nuevo Testamento: que Dios llamaría también a los gentiles a la salvación por la fe en Cristo.' },
-                        barnes: { autor: 'Albert Barnes', tipo: 'Notas expositivas y gramaticales', nota: 'Traducción al español del texto original en inglés (1834, dominio público).', texto: '"Por esta causa": a causa de haber predicado esta doctrina, que el evangelio debía proclamarse a los gentiles. "Yo, Pablo, el prisionero de Jesucristo": un prisionero al servicio del Señor Jesús, hecho prisionero en su causa; no por delito, deuda, ni cautiverio de guerra, sino cautivo al servicio del Redentor. Esto prueba que, al escribir esto, Pablo estaba en prisión —sin duda en Roma—. "Por vosotros los gentiles": hecho prisionero en beneficio de ellos, porque sostenía que el evangelio debía predicarse también a los gentiles.' },
-                        spurgeon: { autor: 'C. H. Spurgeon', tipo: 'Homilético', nota: 'Aviso de fuente.', texto: 'El Tesoro de David, la obra exegética más conocida de Spurgeon, cubre únicamente el libro de los Salmos: no existe allí una entrada versículo a versículo sobre Efesios. Para no atribuirle a Spurgeon palabras que no escribió sobre este pasaje, esta pestaña mostrará una cita verificada de sus sermones reales solo cuando exista una para el texto consultado. Puedes explorar esta misma fuente con cualquier Salmo, donde sí hay comentario histórico real disponible.' }
-                    };
-                    const DICCIONARIOS_MUESTRA = {
-                        easton: { autor: 'Diccionario Bíblico Easton', tipo: 'Arqueología, cultura y lugares', nota: 'Traducción al español del texto original en inglés (1897, dominio público).', texto: 'Pablo (antes Saulo) nació hacia la misma época que nuestro Señor, en Tarso de Cilicia, ciudad de gran riqueza comercial y sede de una universidad célebre. Saulo era su nombre hebreo doméstico; Pablo, el nombre para su uso en el mundo gentil. Hijo de un fariseo de la tribu de Benjamín y ciudadano romano de nacimiento, aprendió el oficio de fabricar tiendas de campaña y estudió la ley a los pies de Gamaliel en Jerusalén. Tras su conversión en el camino a Damasco, se convirtió en el apóstol de los gentiles; esta misma epístola nació durante su prisión en Roma.' },
-                        hitchcock: { autor: 'Diccionario de Nombres de Hitchcock', tipo: 'Significado etimológico', nota: 'Traducción al español del texto original en inglés (1869, dominio público).', texto: '"Pablo": pequeño, menor. Nombre de origen latino que el apóstol usó, junto a su nombre hebreo Saulo, desde su ministerio entre los gentiles. El significado se enlaza con su propia confesión, unos versículos más adelante en esta misma carta: "yo soy el más pequeño de todos los santos" (Ef. 3:8).' },
-                        trench: { autor: 'Sinónimos del Nuevo Testamento de Trench', tipo: 'Filología y matices léxicos del NT', nota: 'Aviso de fuente.', texto: 'La obra de Trench estudia pares o grupos de palabras griegas con matices doctrinales propios (por ejemplo, ἀγάπη frente a φιλέω, o ἐκκλησία). Para el vocabulario de Efesios 3:1 no existe una entrada aplicable en su obra; se mostrará aquí automáticamente cuando el pasaje consultado contenga uno de los grupos sinonímicos que Trench documentó.' }
-                    };
-                    const fuente = tipo === 'commentaries' ? COMENTARIOS_MUESTRA[clave] : DICCIONARIOS_MUESTRA[clave];
-                    if (!fuente) return { autor: '', texto: 'Recurso no disponible.' };
-                    const esAvisoDeFuente = fuente.nota === 'Aviso de fuente.';
-                    if (!esEfesios3_1 && !esAvisoDeFuente) {
-                        return { ...fuente, texto: `Aún no tenemos una cita verificada de ${fuente.autor} para "${ref || 'este pasaje'}". Prueba con Efesios 3:1 para ver esta fuente en funcionamiento con contenido histórico real.` };
-                    }
-                    return fuente;
                 },
                 enviarRecursoAOmnibar() {
                     if (!this.resourceContent?.texto) return;
