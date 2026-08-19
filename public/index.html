@@ -202,6 +202,12 @@
         @media (min-width: 1024px) { .mobile-nav { display: none; } }
         :focus-visible { outline: 3px solid var(--rv-gold-on-dark); outline-offset: 3px; }
 
+        /* Blindaje contra texto amarillo o deslavado en tarjetas claras */
+        .cross-refs-card, [class*="bg-white"], .study-card, .accordion-header { color: #1c1917 !important; }
+        .cross-refs-card h4, .cross-refs-card .ref-title { color: #78350f !important; font-weight: 700 !important; }
+        .cross-refs-card p, .cross-refs-card .ref-desc { color: #334155 !important; }
+        .disclaimer-text { color: #57534e !important; }
+
         /* ===================== SISTEMA DE COLOR (única fuente de verdad) =====================
            Fondo general: azul noche. Texto por defecto: crema. Los paneles claros
            (bg-panel/bg-panel2/bg-paper/zona-clara) invierten a tinta oscura sobre marfil. */
@@ -977,13 +983,13 @@
   <!-- Herramientas de estudio del pasaje (estilo bibliatodo) -->
                                     <div class="mt-5 flex flex-col gap-3">
                                         <!-- Texto original: griego/hebreo con Strong's + diccionario léxico real -->
-                                        <div class="order-3 border border-line rounded-xl overflow-hidden" x-show="original">
-                                            <button @click="verOriginal = !verOriginal" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
-                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
-                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20l-5-10-5 10m1.5-4h7"></path></svg>
-                                                    <span class="text-[#FFF1C2]" x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
+                                        <div class="order-3 study-card border border-stone-200 rounded-xl overflow-hidden bg-white" x-show="original">
+                                            <button @click="verOriginal = !verOriginal" class="accordion-header w-full flex items-center justify-between gap-3 rounded-xl bg-stone-100/80 hover:bg-stone-200/70 border border-stone-200 px-4 py-3 transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-stone-900 font-bold text-sm tracking-wide">
+                                                    <svg class="w-4 h-4 text-amber-900" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20l-5-10-5 10m1.5-4h7"></path></svg>
+                                                    <span class="text-stone-900" x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
                                                 </span>
-                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verOriginal ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                                <svg class="w-4 h-4 text-stone-700 transition-transform" :class="verOriginal ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
                                             <div x-show="verOriginal" x-collapse x-cloak class="p-4 border-t border-line">
                                                 <p class="text-[11px] text-gray-500 mb-3" x-text="original?.etiqueta"></p>
@@ -1047,9 +1053,9 @@
                                                             <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
                                                         </template>
                                                     </div>
-                                                    <p class="mt-4 pt-3 border-t border-line text-[10px] text-gray-300 leading-relaxed">
+                                                    <p class="disclaimer-text mt-4 pt-3 border-t border-stone-200 text-stone-600 text-xs font-medium italic leading-normal">
                                                         <template x-if="comentarioEstado.esDominioPublico === false">
-                                                            <span>Síntesis de RevelatiO IA sobre la línea teológica <strong class="text-gold-500">públicamente conocida</strong> de <span class="text-gold-500" x-text="comentarioEstado.autor"></span> (autor con obra bajo derechos de autor vigentes). No es una cita textual de sus libros.</span>
+                                                            <span>Síntesis de RevelatiO IA sobre la línea teológica <strong class="text-stone-900 font-bold not-italic">públicamente conocida</strong> de <span class="text-gold-500" x-text="comentarioEstado.autor"></span> (autor con obra bajo derechos de autor vigentes). No es una cita textual de sus libros.</span>
                                                         </template>
                                                         <template x-if="comentarioEstado.esDominioPublico !== false">
                                                             <span>Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span class="text-gold-500" x-text="comentarioEstado.autor"></span>. No sustituye la lectura directa de su obra.</span>
@@ -1060,15 +1066,15 @@
                                         </div>
 
                                         <!-- Referencias cruzadas -->
-                                        <div class="order-2 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
-                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
-                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
-                                                    <span class="text-[#FFF1C2]">Referencias cruzadas</span>
-                                                    <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
-                                                </span>
-                                                <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
-                                            </button>
+<div class="order-2 cross-refs-card border border-stone-200 rounded-xl overflow-hidden bg-white">
+  <button @click="toggleReferencias()" class="accordion-header w-full flex items-center justify-between gap-3 rounded-xl bg-stone-100/80 hover:bg-stone-200/70 border border-stone-200 px-4 py-3 transition-colors text-left">
+  <span class="flex items-center gap-2 text-stone-900 font-bold text-xs tracking-wider uppercase">
+  <svg class="w-4 h-4 text-stone-700" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
+  <span class="text-stone-900">Referencias cruzadas</span>
+  <span class="hidden sm:inline text-amber-950 font-black text-[11px] tracking-widest">RevelatiO by Efata</span>
+  </span>
+  <svg class="w-4 h-4 text-stone-700 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+  </button>
                                             <div x-show="verReferencias" x-collapse x-cloak class="p-4 border-t border-line">
                                                 <div x-show="referenciasEstado.estado === 'loading'" class="flex items-center gap-2 text-[#FFD76A] text-sm py-4 justify-center">
                                                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
@@ -1080,9 +1086,9 @@
                                                 </div>
                                                 <div x-show="referenciasEstado.estado === 'ready'" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                                     <template x-for="(r, i) in referenciasEstado.referencias" :key="i">
-                                                        <button @click="leerReferencia(r.ref)" class="text-left bg-ink/50 hover:bg-gold-600/15 border border-line hover:border-gold-500/40 rounded-lg px-3 py-2.5 transition-all group">
-                                                            <span class="block text-sm font-semibold text-gold-300 group-hover:text-gold-200" x-text="r.ref"></span>
-                                                            <span class="block text-xs text-gray-400 mt-0.5 leading-snug" x-text="r.nota"></span>
+<button @click="leerReferencia(r.ref)" class="cross-refs-card text-left bg-white hover:bg-amber-50/50 border border-stone-200/90 hover:border-amber-700/50 rounded-xl p-3.5 shadow-sm transition-all cursor-pointer group">
+  <span class="ref-title block text-amber-950 font-bold text-sm tracking-tight group-hover:text-amber-900" x-text="r.ref"></span>
+  <span class="ref-desc block text-stone-700 text-xs font-normal leading-relaxed mt-1" x-text="r.nota"></span>
                                                         </button>
                                                     </template>
                                                 </div>
