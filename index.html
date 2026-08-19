@@ -212,7 +212,7 @@
         .text-red-300, .text-red-400, .text-red-500 { color: #e57373 !important; }
         .prose-lectura, .prose-lectura * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
 
-        /* Navegación lateral */
+        /* Navegaci��n lateral */
         aside nav button { color: var(--rv-cream) !important; opacity: 1 !important; }
         aside nav button svg { color: var(--rv-gold-on-dark) !important; stroke: var(--rv-gold-on-dark) !important; }
         aside nav button.nav-active, aside nav button[aria-current="page"] { background: linear-gradient(90deg, rgba(214,170,69,.24), rgba(214,170,69,.06)) !important; box-shadow: inset 3px 0 var(--rv-gold-on-dark); }
@@ -4440,9 +4440,9 @@ guardarFicha() {
                           verdad: { original: 'ἀλήθεια', transliteration: 'alētheia · a-lē-thei-a', strong: 'G225', morphology: 'Sustantivo · Femenino Singular', meaning: 'Verdad manifiesta, aquello que no está oculto y corresponde fielmente a la realidad de Dios.', metanoia: 'La verdad libera al pensamiento de la ilusión y lo vuelve capaz de responder con integridad.' }
                         };
                         const found = local ? { original: local.griego, transliteration: `${local.translit} · ${local.fonetica}`, strong: local.strong, morphology: local.morfologia, meaning: local.sentido, metanoia: `La palabra «${raw}» invita a dejar que la verdad de Dios transforme la manera de pensar y actuar.` } : semantic[normalized];
-                        const resolved = found || { original: raw, transliteration: 'Entrada contextual pendiente', strong: '—', morphology: 'Palabra española · clasificación contextual', meaning: `La palabra «${raw}» se está leyendo dentro de ${verseContext.reference || 'este versículo'}. Consulta el contexto completo para confirmar su lema original y matiz exegético.`, metanoia: `Pregunta qué pensamiento produce «${raw}» y qué respuesta obediente puede nacer de la Palabra.` };
+                        const resolved = found || { original: raw || 'Término seleccionado', transliteration: 'Transliteración contextual pendiente · pronunciación aproximada en español', strong: 'Concordancia pendiente', morphology: 'Término bíblico · análisis contextual', meaning: `La palabra «${raw || 'seleccionada'}» se está leyendo dentro de ${verseContext.reference || 'este versículo'}. El lema, la forma y el matiz se confirman consultando el contexto original; no se inventa una entrada léxica.`, metanoia: `Pregunta qué pensamiento produce «${raw || 'este término'}» y qué respuesta obediente puede nacer de la Palabra.` };
                         await new Promise(resolve => setTimeout(resolve, 280));
-                        this.selectedWordData = { ...resolved, griego: resolved.original, translit: resolved.transliteration, fonetica: '', morfologia: resolved.morphology, sentido: resolved.meaning };
+                        this.selectedWordData = { ...resolved, griego: resolved.original, translit: resolved.transliteration, fonetica: resolved.fonetica || resolved.transliteration.split('·').pop()?.trim() || 'Pronunciación contextual pendiente', morfologia: resolved.morphology, sentido: resolved.meaning };
                         this.interlinearLoading = false;
                     },
                     abrirPalabra(data, verseContext = {}) { return this.openInterlinearWord(data?.palabra || data?.word || data?.texto || data, verseContext).catch(() => { this.interlinearLoading = false; }); },
@@ -4552,6 +4552,7 @@ guardarFicha() {
                         document.body.classList.add('rv-print-outline');
                         const cleanup = () => document.body.classList.remove('rv-print-outline');
                         window.addEventListener('afterprint', cleanup, { once: true });
+                        this.mostrarToast('Abriendo vista de impresión / PDF.');
                         setTimeout(() => window.print(), 50);
                     },
                     vistaPreviaReferencia(item) { this.crossReferencePreview = item; this.activeCrossReference = item; this.closeAllOverlays('crossRefModalOpen'); this.crossRefModalOpen = true; },
