@@ -1,4 +1,4 @@
-import { streamText } from 'ai';
+import { generateText, streamText } from 'ai';
 import { google } from '@ai-sdk/google';
 
 export const runtime = 'edge';
@@ -39,9 +39,23 @@ export async function POST(req) {
       dynamicPrompt = `[Contexto Bíblico: ${context}]\nConsulta: ${prompt}`;
     }
 
+    if (type === 'interlinear_resolve') {
+      const result = await generateText({
+        model: google('gemini-1.5-flash'),
+        system: 'Eres un diccionario léxico morfológico de precisión en Griego/Hebreo. Responde exclusivamente JSON válido, sin markdown ni comentarios.',
+        prompt: `Analiza exactamente el término ${String(prompt).slice(0, 120)} en el contexto del versículo ${String(context || 'no indicado').slice(0, 240)}. Devuelve SOLO este JSON: {"original":"grafía griega o hebrea","transliteration":"transliteración y pronunciación","strong":"G0000 o H0000","morphology":"análisis gramatical formal","meaning":"definición exegética y traducción literal al español","metanoia":"aplicación práctica de renovación mental"}. No dejes campos vacíos.`,
+        temperature: 0.15,
+        maxOutputTokens: 700,
+      });
+      const cleaned = result.text.replace(/^```(?:json)?\s*|\s*```$/gi, '').trim();
+      let data;
+      try { data = JSON.parse(cleaned); } catch (_) { data = { original: String(prompt), transliteration: 'No se pudo estructurar la transliteración.', strong: '', morphology: 'No se pudo estructurar la morfología.', meaning: cleaned, metanoia: 'Vuelve al texto y discierne qué pensamiento necesita ser renovado.' }; }
+      return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+    }
+
     const result = streamText({
       model: google('gemini-1.5-flash'),
-      system: type === 'interlinear_resolve' ? 'Eres un diccionario léxico morfológico de precisión en Griego/Hebreo.' : SYSTEM_PROMPT,
+      system: SYSTEM_PROMPT,
       prompt: dynamicPrompt,
       temperature: 0.3,
     });

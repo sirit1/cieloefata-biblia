@@ -4528,7 +4528,7 @@ guardarFicha() {
                         this.interlinearLoading = true;
                         this.wordModalOpen = true;
                         this.wordSheetOpen = true;
-                        this.selectedWordData = { original: raw, transliteration: 'Resolviendo transliteración…', strong: '—', morphology: 'Analizando morfología…', meaning: 'Buscando entrada léxica y contexto del versículo…', metanoia: 'Preparando una aplicación práctica para la renovación de la mente.', griego: '…', translit: '…', fonetica: '…', morfologia: '…', sentido: '…' };
+                        this.selectedWordData = { original: '', transliteration: '', strong: '', morphology: '', meaning: '', metanoia: '', griego: '', translit: '', fonetica: '', morfologia: '', sentido: '' };
                         const entradas = this.INTERLINEAL_DATA[this.claveVersiculoInterlineal(verseContext.n || verseContext.verse || verseContext.numero)] || [];
                         const local = entradas.find(e => this.normalizarPalabra(e.palabra) === normalized);
                         const semantic = {
@@ -4538,18 +4538,23 @@ guardarFicha() {
                           verdad: { original: 'ἀλήθεια', transliteration: 'alētheia · a-lē-thei-a', strong: 'G225', morphology: 'Sustantivo · Femenino Singular', meaning: 'Verdad manifiesta, aquello que no está oculto y corresponde fielmente a la realidad de Dios.', metanoia: 'La verdad libera al pensamiento de la ilusión y lo vuelve capaz de responder con integridad.' }
                         };
   const found = local ? { original: local.griego, transliteration: `${local.translit} · ${local.fonetica}`, strong: local.strong, morphology: local.morfologia, meaning: local.sentido, metanoia: `La palabra «${raw}» invita a dejar que la verdad de Dios transforme la manera de pensar y actuar.` } : semantic[normalized];
-  let resolved = found || { original: raw || 'Término seleccionado', transliteration: 'Transliteración contextual pendiente', phonetic: 'Pronunciación pendiente', strong: 'Concordancia pendiente', morphology: 'Término bíblico · análisis contextual pendiente', meaning: `La palabra «${raw || 'seleccionada'}» se está leyendo dentro de ${verseContext.reference || 'este versículo'}.`, metanoia: `Pregunta qué pensamiento produce «${raw || 'este término'}» y qué respuesta obediente puede nacer de la Palabra.` };
+  let resolved = found || { original: '', transliteration: '', phonetic: '', strong: '', morphology: '', meaning: '', metanoia: '' };
   if (!found) {
     try {
-      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'interlinear_resolve', message: raw, context: { reference: verseContext.reference || this.referenciaActiva || '', text: verseContext.text || this.textoActual || '' } }) });
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'interlinear_resolve', prompt: raw, context: verseContext.reference || this.referenciaActiva || '' }) });
       if (response.ok) { const remote = await response.json(); resolved = { ...resolved, ...remote, phonetic: remote.phonetic || remote.fonetica }; }
     } catch (_) { /* fallback editorial seguro */ }
   }
-  this.selectedWordData = { ...resolved, griego: resolved.original, translit: resolved.transliteration, fonetica: resolved.phonetic || resolved.fonetica || 'Pronunciación contextual pendiente', morfologia: resolved.morphology, sentido: resolved.meaning };
+  this.selectedWordData = { ...resolved, griego: resolved.original, translit: resolved.transliteration, fonetica: resolved.phonetic || resolved.fonetica || '', morfologia: resolved.morphology, sentido: resolved.meaning };
   this.interlinearLoading = false;
                     },
                     abrirPalabra(data, verseContext = {}) { return this.openInterlinearWord(data?.palabra || data?.word || data?.texto || data, verseContext).catch(() => { this.interlinearLoading = false; }); },
-                    cerrarPalabra() { this.wordModalOpen = false; this.wordSheetOpen = false; this.interlinearLoading = false; },
+                    llevarInterlinealAlDiario() {
+  const ficha = { id: `interlinear-${Date.now()}`, fecha: new Date().toLocaleDateString('es-ES'), referencia: this.referenciaActiva || 'Estudio bíblico', pensamiento: `Término original: ${this.selectedWordData.original || this.selectedWordData.griego}`, verdad: `${this.selectedWordData.meaning || this.selectedWordData.sentido || ''} Strong ${this.selectedWordData.strong || ''}.`, accion: this.selectedWordData.metanoia || '', fuente: 'Motor Interlineal Morfológico' };
+  try { const entries = JSON.parse(localStorage.getItem('revelatio_journal_entries') || '[]'); localStorage.setItem('revelatio_journal_entries', JSON.stringify([ficha, ...entries].slice(0, 200))); } catch (_) {}
+  this.journalEntries = [ficha, ...(this.journalEntries || [])]; this.metanoiaStreak = Number(this.metanoiaStreak || 0) + 1; this.persistLocalState?.(); this.mostrarToast?.('Ficha interlineal llevada al Diario');
+  },
+  cerrarPalabra() { this.wordModalOpen = false; this.wordSheetOpen = false; this.interlinearLoading = false; },
 
                     // ---------- Comparador sinóptico multiversión ----------
                     abrirComparador(numeroVersiculo) { this.compareVerseNumero = numeroVersiculo; this.closeAllOverlays('compareModalOpen'); this.compareModalOpen = true; },
@@ -5453,7 +5458,7 @@ guardarFicha() {
         <div class="border-b border-stone-200 pb-4"><div class="text-3xl sm:text-4xl font-serif font-bold text-amber-950 tracking-wide" x-text="selectedWordData.original"></div><div class="text-sm font-sans text-stone-600 mt-1 italic" x-text="selectedWordData.transliteration"></div><div class="flex items-center gap-2 mt-3 flex-wrap"><span class="text-xs font-mono font-bold text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-md" x-text="selectedWordData.strong"></span><span class="text-xs font-sans font-medium text-stone-700 bg-stone-200/70 border border-stone-300 px-2.5 py-0.5 rounded-md" x-text="selectedWordData.morphology"></span></div></div>
         <div><h5 class="text-xs uppercase font-bold tracking-wider text-stone-500 mb-1">Definición &amp; léxico</h5><p class="text-sm sm:text-base text-stone-800 leading-relaxed" x-text="selectedWordData.meaning"></p></div>
         <div class="bg-amber-50/90 border border-amber-200/90 rounded-2xl p-4"><div class="flex items-center gap-1.5 text-xs font-bold text-amber-950 uppercase tracking-wider mb-1"><span>Insight de metanoia</span></div><p class="text-xs sm:text-sm text-stone-800 leading-relaxed font-sans" x-text="selectedWordData.metanoia"></p></div>
-        <div class="flex items-center justify-end gap-2 pt-2"><button @click="journalForm.truth = selectedWordData.original + ' (' + selectedWordData.strong + '): ' + selectedWordData.meaning; journalOpen = true; cerrarPalabra();" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm transition-colors">Llevar al Diario</button></div>
+        <div class="flex items-center justify-end gap-2 pt-2"><button @click="llevarInterlinealAlDiario(); cerrarPalabra();" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm transition-colors">Llevar al Diario</button></div>
       </div>
     </div>
   </div>
