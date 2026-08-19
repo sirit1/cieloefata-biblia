@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Brain, ChevronRight, Cross, Headphones, Heart, Home, Library, Menu, MessageCircle, Moon, Pause, Play, Search, Send, Sparkles, Sun, Users, Volume2, X } from 'lucide-react'
 import { fallbackResponse, parallelPassages, perspectives, plans, prayerSeed, studies } from '@/lib/local-database'
+import { SelectionToolbar } from '@/components/selection-toolbar'
 
 type View = 'inicio' | 'biblia' | 'ia' | 'estudio' | 'planes' | 'comunidad'
 
@@ -41,7 +42,7 @@ export default function RevelatioApp() {
   const ask = () => { if (question.trim()) setAnswered(true) }
   const addPrayer = () => { if (!prayer.trim()) return; setPrayers([{ id: Date.now(), category: 'General', text: prayer, prayers: 0 }, ...prayers]); setPrayer('') }
 
-  return <div className={dark ? 'revelatio-app dark-mode' : 'revelatio-app'}>
+  return <SelectionToolbar><div className={dark ? 'revelatio-app dark-mode' : 'revelatio-app'}>
     {!sanctuary && <aside className="revelatio-sidebar">
       <div className="revelatio-brand"><div className="brand-symbol"><Cross size={18} /></div><div><strong>RevelatiO</strong><span>BY EFATA</span></div></div>
       <p className="sidebar-label">TU CAMINO</p>
@@ -66,7 +67,7 @@ export default function RevelatioApp() {
       </div>
     </main>
     {sanctuary && <div className="sanctuary-player"><div className="sanctuary-ambient"><div className="sound-wave"><i /><i /><i /><i /><i /></div><div><p className="kicker gold">AMBIENTE DEL SANTUARIO</p><strong>Shalom · Instrumental</strong><small>Reproducción local sin conexión</small></div></div><div className="player-controls"><button onClick={() => setPlaying(!playing)} aria-label={playing ? 'Pausar' : 'Reproducir'}>{playing ? <Pause /> : <Play />}</button><input type="range" min="0" max="100" defaultValue="62" aria-label="Volumen" /><Volume2 size={17} /><button className="close-sanctuary" onClick={() => setSanctuary(false)}><X size={18} /> Salir</button></div></div>}
-  </div>
+  </div></SelectionToolbar>
 }
 
 function StudyCanvas({ study, onBack }: { study: { title: string; verse: string }; onBack: () => void }) { return <section className="study-canvas"><button className="text-btn" onClick={onBack}>← Volver a estudios</button><div className="canvas-header"><span className="study-number">01</span><div><p className="kicker gold">RUTA DE ESTUDIO</p><h3>{study.title}</h3><p>{study.verse} · Paso 1 de 6</p></div></div><div className="steps-row">{['Devocional', 'Exégesis', 'Cirugía del corazón', 'Quiz', 'Anclaje', 'Conclusión'].map((step, i) => <div className={i === 0 ? 'canvas-step active' : 'canvas-step'} key={step}><span>{i + 1}</span>{step}</div>)}</div><article className="devotional-block"><p className="kicker gold">DEVOCIONAL</p><h4>La Palabra no solo informa; transforma.</h4><p>Antes de analizar, permite que el texto te encuentre. Lee Romanos 12:2 lentamente. ¿Qué parte de tu manera de pensar necesita ser presentada hoy delante de Dios?</p><textarea placeholder="Escribe tu reflexión..." /><button className="gold-btn">Guardar reflexión <ChevronRight size={16} /></button></article></section> }
