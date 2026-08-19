@@ -134,6 +134,11 @@
         }
 
         /* Animación de paso de página */
+        .rv-reader-container { width: 100%; max-width: 32rem; margin-inline: auto; padding: 2.5rem 1rem; background: #FAF8F5; border: 1px solid rgba(231,229,228,.8); border-radius: 1.5rem; box-shadow: 0 1px 2px rgba(8,21,43,.06); color: #1c1917; }
+        .rv-reader-container h1, .rv-reader-container h2, .rv-reader-container h3, .rv-reader-container h4, .rv-reader-container h5 { color: #1c1917 !important; }
+        .rv-reader-container .rv-verse-surface { color: #1c1917 !important; -webkit-text-fill-color: #1c1917 !important; }
+        @media (min-width: 768px) { .rv-reader-container { max-width: 56rem; padding-inline: 2rem; } }
+        @media (min-width: 1280px) { .rv-reader-container { max-width: 64rem; padding-inline: 2rem; } }
         .rv-zen-sanctuary { overflow-y: auto; }
         .rv-zen-controls { opacity: .18; transition: opacity .25s ease; }
         .rv-zen-controls:hover, .rv-zen-controls:focus-within { opacity: 1; }
@@ -825,7 +830,7 @@
                             </div>
 
                             <!-- Lectura -->
-                            <div class="lg:col-span-2 bg-panel border border-line rounded-2xl p-6 min-h-[20rem] flex flex-col">
+                            <div class="rv-reader-container w-full max-w-lg mx-auto px-4 md:max-w-4xl md:px-8 xl:max-w-5xl py-10 my-6 bg-[#FAF8F5] rounded-3xl shadow-sm border border-stone-200/80 lg:col-span-2 min-h-[20rem] flex flex-col">
                                 <template x-if="!referenciaActiva && !cargandoPasaje && !errorPasaje">
                                     <div class="flex-1 flex flex-col items-center justify-center text-center text-gray-500">
                                         <svg class="w-12 h-12 mb-3 text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25v13m0-13C10.83 5.48 9.25 5 7.5 5S4.17 5.48 3 6.25v13C4.17 18.48 5.75 18 7.5 18s3.33.48 4.5 1.25m0-13C13.17 5.48 14.75 5 16.5 5S19.83 5.48 21 6.25v13C19.83 18.48 18.25 18 16.5 18s-3.33.48-4.5 1.25"></path></svg>
@@ -873,7 +878,7 @@
                                     </div>
 
                                     <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="openJournal()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Registrar metanoia</button><button @click="createVerseCard()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Crear tarjeta</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
-                                    <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva || libroActual || 'Proverbios'}:${verso.numero || verso.n || 1}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :data-strong="token.strong || ''" :data-word="token.palabra || token.texto || ''" :data-translation="token.traduccion || token.espanol || token.significado || ''" :data-comment="token.comentario || token.comentarioExpositivo || ''" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left rv-interlinear-token"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" @click="window.dispatchEvent(new CustomEvent('revelatio:verse-tap',{detail:{reference: referenciaActiva, version: versionSel, text: textoActual}}))" :data-reference="referenciaActiva" :data-version="versionSel" data-audio-verse="0" :class="[bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl', audioVerseActive === 0 && isPlayingAudio ? 'rv-audio-active' : '']" class="leading-relaxed font-serif text-gold-50/90 flex-1 rv-verse-surface" x-text="textoActual"></p>  <div x-show="bibliaMostrarParalelo" x-cloak class="mt-6 rounded-2xl border border-gold-500/35 bg-slate-950/10 p-5 shadow-[0_12px_30px_rgba(20,30,45,0.16)] ring-1 ring-inset ring-white/30">
+                                    <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva || libroActual || 'Proverbios'}:${verso.numero || verso.n || 1}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :data-strong="token.strong || ''" :data-word="token.palabra || token.texto || ''" :data-translation="token.traduccion || token.espanol || token.significado || ''" :data-comment="token.comentario || token.comentarioExpositivo || ''" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left rv-interlinear-token"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" @click="window.dispatchEvent(new CustomEvent('revelatio:verse-tap',{detail:{reference: referenciaActiva, version: versionSel, text: textoActual}}))" :data-reference="referenciaActiva" :data-version="versionSel" data-audio-verse="0" :class="[bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl', audioVerseActive === 0 && isPlayingAudio ? 'rv-audio-active' : '']" class="font-serif text-lg md:text-xl text-stone-900 leading-relaxed flex-1 rv-verse-surface" x-text="textoActual"></p>  <div x-show="bibliaMostrarParalelo" x-cloak class="mt-6 rounded-2xl border border-gold-500/35 bg-slate-950/10 p-5 shadow-[0_12px_30px_rgba(20,30,45,0.16)] ring-1 ring-inset ring-white/30">
   <div class="flex flex-wrap items-end justify-between gap-4 border-b border-gold-500/25 pb-4">
   <div><p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-600">Segunda lectura · Comparación</p><h4 class="mt-1 text-2xl font-serif font-bold text-slate-800" x-text="versionesLista.find(v => v.key === versionParalelaSel)?.etiqueta || 'Versión paralela'"></h4><p class="mt-1 text-xs text-slate-500">Selecciona aquí una traducción independiente de la lectura principal.</p></div>
   <div class="flex max-w-full flex-wrap gap-1 rounded-lg border border-slate-300 bg-white/75 p-1 shadow-sm">
@@ -2462,6 +2467,12 @@ autenticando: false,
                 estudioNota: '',
                 estudioCompromiso: false,
                 diccionarioPalabra: null,
+                masterData: { commentaries: {}, lexicon: {} },
+                masterDataStatus: { loading: false, errors: [], ready: false },
+                masterDataCache: {},
+                lastRead: null,
+                highlights: {},
+                notas: {},
                 estudiosMarcados: cargarEstudioMarcadores(),
                 get estudiosFiltrados() { return buscarEstudiosMaestro(this.estudioBusqueda, this.estudioCategoria).filter(study => this.estudioNivel === 'Todos' || (study.level || 'Intermedio') === this.estudioNivel); },
                 get estudiosActivosLista() { return this.estudiosFiltrados.filter(study => this.estudioActivos.includes(study.slug)); },
@@ -2842,8 +2853,64 @@ bibliotecaPestana: 'inicio',
                         await this.leerReferencia(guardada.reference);
                     } catch (_e) {}
                 },
-                async   init() {
-                    this.loadMetanoiaData();
+  async loadMasterResource(path, key) {
+  try {
+    const response = await fetch(path, { cache: 'force-cache' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    this.masterDataCache[key] = data;
+    return data;
+  } catch (error) {
+    this.masterDataStatus.errors.push(`${key}: datos no disponibles`);
+    this.masterDataCache[key] = null;
+    return null;
+  }
+  },
+  async loadMasterData() {
+  this.masterDataStatus = { loading: true, errors: [], ready: false };
+  const sources = [
+    ['commentaries/jfb', '/data/commentaries/jfb.json', 'commentaries'],
+    ['commentaries/matthew_henry', '/data/commentaries/matthew_henry.json', 'commentaries'],
+    ['commentaries/barnes', '/data/commentaries/barnes.json', 'commentaries'],
+    ['commentaries/spurgeon', '/data/commentaries/spurgeon.json', 'commentaries'],
+    ['lexicon/strong_greek', '/data/lexicon/strong_greek.json', 'lexicon'],
+    ['lexicon/easton', '/data/lexicon/easton.json', 'lexicon']
+  ];
+  await Promise.allSettled(sources.map(([key, path]) => this.loadMasterResource(path, key)));
+  sources.forEach(([key, , group]) => { if (this.masterDataCache[key]) this.masterData[group][key.split('/').pop()] = this.masterDataCache[key]; });
+  this.masterDataStatus.loading = false;
+  this.masterDataStatus.ready = true;
+  },
+  masterLookup(group, source, bookSlug, chapter, verse) {
+  const root = this.masterData?.[group]?.[source];
+  if (!root) return { available: false, message: `El recurso ${source} todavía no está disponible para esta lectura.` };
+  const route = `${bookSlug}_${chapter}`;
+  const chapterData = root[route] || root[bookSlug]?.[chapter] || root[chapter] || root;
+  const value = chapterData?.[String(verse)] ?? chapterData?.verses?.[String(verse)] ?? chapterData?.versiculos?.[String(verse)];
+  return value ? { available: true, data: value } : { available: false, message: `No hay una entrada ${source} para ${route}:${verse}.` };
+  },
+  restoreLocalState() {
+  const safeRead = (key, fallback) => { try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch (_) { return fallback; } };
+  this.lastRead = safeRead('revelatio_last_read', null);
+  this.metanoiaStreak = safeRead('revelatio_streak', this.metanoiaStreak || 0);
+  this.highlights = safeRead('revelatio_highlights', {});
+  this.notas = safeRead('revelatio_notas', this.notas || {});
+  },
+  persistLocalState() {
+  const safeWrite = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) {} };
+  safeWrite('revelatio_last_read', this.lastRead);
+  safeWrite('revelatio_streak', this.metanoiaStreak || 0);
+  safeWrite('revelatio_highlights', this.highlights || {});
+  safeWrite('revelatio_notas', this.notas || {});
+  },
+  async   init() {
+  this.restoreLocalState();
+  this.loadMasterData();
+  this.$watch('lastRead', () => this.persistLocalState());
+  this.$watch('metanoiaStreak', () => this.persistLocalState());
+  this.$watch('highlights', () => this.persistLocalState());
+  this.$watch('notas', () => this.persistLocalState());
+  this.loadMetanoiaData();
                     const loadVoices = () => { const voices = window.speechSynthesis?.getVoices?.() || []; this.availableVoices = voices.filter(v => /^es/i.test(v.lang)); if (!this.selectedVoiceUri && this.availableVoices.length) { const premium = this.availableVoices.find(v => /Natural|Google|Jorge|Paulina|Mónica|Diego|Microsoft/i.test(v.name)); this.selectedVoiceUri = premium?.voiceURI || this.availableVoices[0].voiceURI; } };
                     loadVoices();
                     if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = loadVoices;
