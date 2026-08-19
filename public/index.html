@@ -1906,10 +1906,10 @@
                         Favorito
                     </button>
                     <button @click="openJournal(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">🌱 Registrar Metanoia</button>
-                    <button @click="shareCard.texto = textoDeVersiculo(versiculoLectorSel) || ''; shareCard.referencia = libroSel ? (libroSel.n + ' ' + capituloSel + ':' + versiculoLectorSel) : ''; shareCard.version = versionSel || 'RVR 1960'; showShareModal = true; versiculoLectorSel = null" class="hover:text-amber-400 flex items-center gap-1 text-xs font-medium text-stone-200 transition-colors">🖼️ Crear Tarjeta</button>
+                    <button @click="shareCard.texto = textoDeVersiculo(versiculoLectorSel) || ''; shareCard.referencia = libroSel ? (libroSel.n + ' ' + capituloSel + ':' + versiculoLectorSel) : ''; shareCard.version = versionSel || 'RVR 1960'; showShareModal = true; versiculoLectorSel = null" class="text-stone-100 hover:text-amber-300 font-medium text-xs flex items-center gap-1 transition-colors">🖼️ Crear Tarjeta</button>
                     <button @click="abrirComparador(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">⚖️ Comparar Versiones</button>
                     <button @click="generarBosquejo(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">📑 Crear Bosquejo de Enseñanza</button>
-                    <button @click="profundizarVersiculoLector(versiculoLectorSel)" class="text-xs bg-gold-600/20 text-gold-200 border border-gold-500/40 px-3 py-1.5 rounded-lg hover:bg-gold-600/30 transition-all ml-auto">Profundizar con RevelatiO IA</button>
+                    <button @click="profundizarVersiculoLector(versiculoLectorSel)" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold px-4 py-2 rounded-xl text-xs shadow-md ml-auto transition-colors">Profundizar con RevelatiO IA</button>
                     <button @click="versiculoLectorSel = null" class="rv-tap-44 text-gray-500 hover:text-gray-200 p-1" aria-label="Cerrar selección">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
                     </button>
@@ -5819,6 +5819,42 @@ guardarFicha() {
       document.addEventListener('mousedown', event => { if (!menu.contains(event.target)) hideMenu(); });
       window.addEventListener('scroll', hideMenu, { passive: true }); window.addEventListener('resize', hideMenu, { passive: true });
       document.addEventListener('keydown', event => { if (event.key === 'Escape') hideMenu(); });
+    })();
+  </script>
+  <style>
+    #revelatio-universal-action-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 99999; display: none; background: #0c0a09; color: #f5f5f4; border-top: 1px solid rgba(245,158,11,.38); box-shadow: 0 -12px 30px rgba(0,0,0,.2); padding: .65rem max(1rem, env(safe-area-inset-left)) max(.65rem, env(safe-area-inset-bottom)); }
+    #revelatio-universal-action-bar.is-visible { display: block; animation: revelatio-bar-in .2s ease-out; }
+    @keyframes revelatio-bar-in { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
+    #revelatio-universal-action-bar .rv-universal-reference { color: #fbbf24; font-weight: 700; font-size: .875rem; }
+    #revelatio-universal-action-bar .rv-universal-fragment { color: #e7e5e4; font-size: .75rem; line-height: 1.35; max-width: 30rem; }
+    #revelatio-universal-action-bar button { color: #f5f5f4; font-size: .75rem; font-weight: 500; border-radius: .65rem; padding: .45rem .65rem; white-space: nowrap; transition: background .15s, color .15s; }
+    #revelatio-universal-action-bar button:hover { background: #292524; color: #fcd34d; }
+    #revelatio-universal-action-bar .rv-universal-ai { background: #f59e0b; color: #1c1917; font-weight: 700; padding-inline: 1rem; }
+    #revelatio-universal-action-bar .rv-universal-ai:hover { background: #fbbf24; color: #1c1917; }
+    #revelatio-universal-action-bar .rv-universal-card { color: #f5f5f4; }
+    @media (max-width: 700px) { #revelatio-universal-action-bar .rv-universal-actions { overflow-x: auto; flex-wrap: nowrap; padding-bottom: .15rem; } #revelatio-universal-action-bar button { flex: 0 0 auto; } }
+  </style>
+  <div id="revelatio-universal-action-bar" role="toolbar" aria-label="Acciones universales sobre selección">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div class="min-w-0"><div class="rv-universal-reference" data-universal-reference>Selección</div><div class="rv-universal-fragment truncate" data-universal-fragment></div></div>
+      <div class="rv-universal-actions flex items-center gap-1"><button type="button" data-universal-action="highlight">Resaltar</button><button type="button" data-universal-action="note">Añadir nota / MarginNote</button><button type="button" data-universal-action="metanoia">Metanoia</button><button type="button" data-universal-action="ai" class="rv-universal-ai">Profundizar con RevelatiO IA</button><button type="button" data-universal-action="listen">Escuchar</button><button type="button" data-universal-action="copy">Copiar</button><button type="button" data-universal-action="close" aria-label="Cerrar barra">✕</button></div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const bar = document.getElementById('revelatio-universal-action-bar'); if (!bar) return;
+      let text = ''; let range = null; let reference = 'Selección';
+      const refEl = bar.querySelector('[data-universal-reference]'); const fragmentEl = bar.querySelector('[data-universal-fragment]');
+      const hide = () => { bar.classList.remove('is-visible'); window.getSelection()?.removeAllRanges?.(); text = ''; range = null; };
+      const contextReference = node => node?.closest?.('[data-reference], [data-versiculo], [data-verse], .rv-verse-surface, .rv-verse, .verse, .bible-verse')?.dataset?.reference || node?.closest?.('[data-reference], [data-versiculo], [data-verse]')?.dataset?.versiculo || 'Selección';
+      const show = (selection, fallbackNode) => { const value = selection?.toString?.().trim() || ''; if (value.length < 3 && !fallbackNode) return; text = value || fallbackNode?.textContent?.trim() || ''; range = selection?.rangeCount ? selection.getRangeAt(0).cloneRange() : null; reference = contextReference(fallbackNode || range?.commonAncestorContainer?.parentElement); refEl.textContent = reference; fragmentEl.textContent = text.slice(0, 180); bar.classList.add('is-visible'); };
+      const persistHighlight = () => { if (!range) return; try { const mark = document.createElement('mark'); mark.className = 'revelatio-highlight'; mark.style.cssText = 'background:#fde68a;color:#1c1917;border-radius:.18em;padding:.04em .12em;'; range.surroundContents(mark); const saved = JSON.parse(localStorage.getItem('revelatio_highlights') || '[]'); saved.unshift({ text, reference, createdAt: new Date().toISOString() }); localStorage.setItem('revelatio_highlights', JSON.stringify(saved.slice(0, 200))); } catch (_) {} };
+      const dispatch = (name, detail) => document.dispatchEvent(new CustomEvent(name, { detail: { text, reference, ...(detail || {}) } }));
+      bar.addEventListener('click', event => { const action = event.target.closest('[data-universal-action]')?.dataset.universalAction; if (!action) return; if (action === 'close') return hide(); if (action === 'highlight') { persistHighlight(); return hide(); } if (action === 'note') { dispatch('revelatio:open-notebook'); return; } if (action === 'metanoia') { dispatch('revelatio:open-journal'); return; } if (action === 'ai') { dispatch('revelatio:ask-ai', { prompt: `Profundiza exegéticamente en: ${text}` }); return hide(); } if (action === 'listen') { const app = window.Alpine?.$data(document.body); app?.speechService?.speak?.(text); return; } if (action === 'copy') { navigator.clipboard?.writeText(text); return; } });
+      document.addEventListener('mouseup', () => { const selection = window.getSelection(); if (selection?.toString?.().trim().length > 2) show(selection); });
+      document.addEventListener('touchend', () => setTimeout(() => { const selection = window.getSelection(); if (selection?.toString?.().trim().length > 2) show(selection); }, 40), { passive: true });
+      document.addEventListener('click', event => { const verse = event.target.closest?.('.rv-verse-surface, .rv-verse, [data-verse], [data-versiculo], .verse, .bible-verse'); if (verse && !event.target.closest('button,a')) show(null, verse); });
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); });
     })();
   </script>
   </body>
