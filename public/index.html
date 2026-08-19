@@ -178,11 +178,12 @@
         .rv-light-modal h1, .rv-light-modal h2, .rv-light-modal h3, .rv-light-modal h4 { color: var(--rv-ink-heading) !important; -webkit-text-fill-color: var(--rv-ink-heading) !important; }
         .rv-light-modal .text-amber-600, .rv-light-modal .text-amber-700, .rv-light-modal .text-amber-800, .rv-light-modal .text-gold-600 { color: var(--rv-gold-on-cream) !important; -webkit-text-fill-color: var(--rv-gold-on-cream) !important; }
         .rv-light-modal .text-stone-500, .rv-light-modal .text-stone-600, .rv-light-modal .text-stone-700 { color: var(--rv-ink-muted) !important; -webkit-text-fill-color: var(--rv-ink-muted) !important; }
-        .rv-toast { position: fixed; left: 50%; bottom: 1.5rem; z-index: 120; transform: translateX(-50%); border: 1px solid rgba(214,170,69,.45); border-radius: .85rem; background: #211a12; color: #fff4df !important; padding: .7rem 1rem; box-shadow: 0 16px 40px rgba(0,0,0,.25); font-size: .78rem; font-weight: 700; }
+        .rv-toast { position: fixed; left: 50%; bottom: max(1.5rem, calc(env(safe-area-inset-bottom) + 1rem)); z-index: 60; transform: translateX(-50%); border: 1px solid rgba(214,170,69,.45); border-radius: .85rem; background: #211a12; color: #fff4df !important; padding: .7rem 1rem; box-shadow: 0 16px 40px rgba(0,0,0,.25); font-size: .78rem; font-weight: 700; }
 
         .ux-card { box-shadow: 0 12px 32px rgba(28,46,74,.06); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
         .ux-card:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(28,46,74,.11); border-color: rgba(154,107,18,.42); }
         .mobile-nav { padding-bottom: max(.5rem, env(safe-area-inset-bottom)); }
+        .rv-audio-player, .rv-action-sheet { padding-bottom: max(.75rem, env(safe-area-inset-bottom)); }
         /* QA: las utilidades bg-amber-50/text-amber-900 de Tailwind viven en @layer utilities, y las reglas
            sin capa (como "header *{color:var(--rv-cream)}" arriba) siempre ganan sobre CUALQUIER regla en capa,
            sin importar su especificidad. El texto del badge de racha quedaba invisible por esto. Se fija aquí
@@ -2232,7 +2233,7 @@
                         { titulo: 'Día 1 · Nombrar la carga', pasajes: ['Salmos 42:5', 'Salmos 62:8'] },
                         { titulo: 'Día 2 · Respirar y recordar', pasajes: ['Salmos 46:10', 'Isaías 26:3'] },
                         { titulo: 'Día 3 · No caminar solo', pasajes: ['Gálatas 6:2', 'Proverbios 12:25'] },
-                        { titulo: 'Día 4 · Pensar con verdad', pasajes: ['Filipenses 4:8'] },
+                        { titulo: 'D��a 4 · Pensar con verdad', pasajes: ['Filipenses 4:8'] },
                         { titulo: 'Día 5 · El cuidado de Dios', pasajes: ['Mateo 6:25-34'] },
                         { titulo: 'Día 6 · Pedir ayuda', pasajes: ['Marcos 2:1-5', 'Proverbios 15:22'] },
                         { titulo: 'Día 7 · Paz paso a paso', pasajes: ['Filipenses 4:6-9'] }
@@ -2680,6 +2681,9 @@ versiones: {},
                 globalChatInput: '',
                 globalChatMessages: [],
                 globalChatDisclaimerSeen: false,
+                aiResponseText: '',
+                aiLoading: false,
+                aiError: '',
                 availableVoices: [],
                 selectedVoiceUri: localStorage.getItem('revelatio_voice') || '',
                 speechRate: 0.90,
@@ -3837,6 +3841,39 @@ const etiquetas = {
                         if (this.sidebarAbierta) { this.sidebarAbierta = false; return; }
                         if (this.menuUsuario) { this.menuUsuario = false; return; }
                     },
+  async askRevelatioIA(message = this.omnibarQuery || this.activeCardText || this.busqueda) {
+  const clean = String(message || '').trim();
+  if (!clean || this.aiLoading) return;
+  this.aiResponseText = '';
+  this.aiError = '';
+  this.aiLoading = true;
+  this.globalChatOpen = true;
+  const assistantMessage = { role: 'assistant', content: '' };
+  this.globalChatMessages.push({ role: 'user', content: clean }, assistantMessage);
+  const box = this.$refs.aiResponse;
+  const scroll = () => { if (box) box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); };
+  try {
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: clean, context: { reference: this.referenciaActiva || this.estudioRef, version: this.versionSel, text: this.activeCardText || this.textoActual, module: 'RevelatiO IA' }, history: this.globalChatMessages }) });
+    if (!response.ok) { let errorText = 'No se pudo iniciar el análisis.'; try { errorText = (await response.json()).error || errorText; } catch (_) {} throw new Error(errorText); }
+    if (!response.body) throw new Error('El navegador no soporta respuestas en streaming.');
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value, { stream: true });
+      this.aiResponseText += chunk;
+      assistantMessage.content += chunk;
+      this.$nextTick(scroll);
+    }
+    this.aiResponseText += decoder.decode();
+  } catch (error) {
+    this.aiError = error?.message || 'No pude responder ahora. Inténtalo de nuevo.';
+  } finally {
+    this.aiLoading = false;
+    this.$nextTick(scroll);
+  }
+  },
   async sendGlobalChat(message = this.globalChatInput) {
   const clean = String(message || '').trim();
   if (!clean || this.globalChatLoading) return;
