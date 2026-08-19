@@ -1788,7 +1788,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
-                    <button @click="startChapterAudio()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-all"><span aria-hidden="true">🔊</span> <span x-text="isPlayingAudio && audioSource === 'chapter' ? 'Narrando…' : 'Escuchar Capítulo'"></span></button>
+                    <button @click="speechService.playFullChapterWithMusic()" :class="isPlayingAudio && audioSource === 'chapter' ? 'animate-pulse border-amber-300 bg-amber-700' : 'border-amber-600 bg-amber-600 hover:bg-amber-700'" class="inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition-all" :aria-pressed="isPlayingAudio && audioSource === 'chapter'"><span aria-hidden="true" x-text="isPlayingAudio && audioSource === 'chapter' ? '⏸' : '🔊'"></span> <span x-text="isPlayingAudio && audioSource === 'chapter' ? 'Detener narración y música' : 'Escuchar pasaje completo con música de fondo'"></span></button>
                     <button @click="interlinearActive = !interlinearActive" :class="interlinearActive ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold" aria-pressed="interlinearActive">🔤 Interlineal<span x-text="interlinearActive ? ' ON' : ' OFF'"></span></button>
                     <button @click="abrirPausaSagrada()" class="inline-flex items-center gap-1.5 text-xs border border-amber-500/30 text-gold-200 px-3 py-1.5 rounded-lg hover:bg-amber-500/10 transition-all font-semibold" aria-label="Iniciar Pausa Sagrada">🕊️ Pausa Sagrada</button>
                     <button @click="toggleCapituloLeido()" :class="capituloEstaLeido ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="hidden sm:inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold">
@@ -3955,7 +3955,21 @@ const etiquetas = {
     app.audioQueue = [{ n: 1, texto: String(text) }]; app.audioIndex = 0; app.audioVerseActive = 0;
     this.playCurrent();
   },
-  startChapterAudio() { this.playPassage('chapter'); },
+  cleanPassageText(text) { return String(text || '').replace(/\[\s*[GH]\d{1,5}\s*\]/gi, ' ').replace(/(^|\s)(\d{1,3})(?=\s)/g, '$1').replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim(); },
+  playFullChapterWithMusic() {
+    const app = Alpine.$data(document.body);
+    if (app.isPlayingAudio && app.audioSource === 'chapter') { this.stop(); return; }
+    const ctx = app.ambienceContext;
+    if (ctx?.state === 'suspended') ctx.resume().catch(() => {});
+    const versos = app.lectorAbierto && app.versosActuales?.length ? app.versosActuales : (app.versionesVersos?.[app.versionSel] || app.original?.versos || []);
+    const queue = versos.map((v, i) => ({ n: v.n || v.numero || i + 1, texto: this.cleanPassageText(v.texto || v.text || '') })).filter(v => v.texto);
+    const textFallback = this.cleanPassageText(app.textoActual || document.querySelector('[data-active-passage], .rv-reading-text, .texto-biblico')?.textContent || '');
+    app.audioQueue = queue.length ? queue : (textFallback ? [{ n: 1, texto: textFallback }] : []);
+    if (!app.audioQueue.length) { app.mostrarToast?.('No hay texto bíblico disponible para narrar.'); return; }
+    app.audioMode = 'chapter'; app.audioSource = 'chapter'; app.audioIndex = 0; app.audioPaused = false; app.soundscapeActive = true;
+    this.ensureSoakingFallback(); app.ambienceContext?.resume?.(); this.startSoundscape(); this.playCurrent();
+  },
+  startChapterAudio() { this.playFullChapterWithMusic(); },
   startSingleVerseAudio(verse) { const app = Alpine.$data(document.body); const item = verse || app.versosActuales?.[app.audioIndex]; if (!item) return; app.audioMode = 'verse'; app.audioSource = 'verse'; app.audioQueue = [{ n: item.n || item.numero || item.verse || 1, texto: item.texto || item.text || '' }]; app.audioIndex = 0; this.playCurrent(); },
   playPassage(source) {
   const app = Alpine.$data(document.body); app.audioMode = source === 'verse' ? 'verse' : 'chapter';
@@ -3979,7 +3993,7 @@ const etiquetas = {
   },
   speakNextSegment() {
     const app = Alpine.$data(document.body); const text = app.speechSegments?.[app.speechSegmentIndex];
-    if (!text) { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; this.playCurrent(); } else { app.isPlayingAudio = false; app.speechStatus = 'En pausa'; app.currentAudioText = ''; app.currentReadingVerseId = null; this.fadeMusicTo(app.musicBaseVolume); } return; }
+    if (!text) { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; this.playCurrent(); } else { app.isPlayingAudio = false; app.audioPaused = false; app.speechStatus = 'En pausa'; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); } return; }
     this.duckSoundscape(true);
     const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'es-ES'; utterance.rate = Number(app.speechRate || app.playbackSpeed) || 0.88; utterance.pitch = Number(app.speechPitch) || 0.95; utterance.voice = app.availableVoices.find(v => v.voiceURI === app.selectedVoiceUri) || this.pickVoice();
     utterance.onend = () => { app.speechSegmentIndex += 1; this.fadeMusicTo(app.musicBaseVolume); setTimeout(() => { if (app.isPlayingAudio && !app.audioPaused) this.speakNextSegment(); }, 150); };
@@ -4017,7 +4031,7 @@ const etiquetas = {
   stopSoundscape(immediate = false) { const app = Alpine.$data(document.body); this.stopSoakingFallback(); const audio = app.ambientAudio; if (!audio) return; if (immediate) { audio.pause(); audio.currentTime = 0; app.ambientAudio = null; return; } const start = audio.volume; const timer = setInterval(() => { audio.volume = Math.max(0, audio.volume - .03); if (audio.volume <= .001) { clearInterval(timer); audio.pause(); audio.currentTime = 0; app.ambientAudio = null; } }, 70); },
   playAmbience(kind) { const app = Alpine.$data(document.body); if (kind === 'silencio') { app.soundscapeActive = false; this.stopSoundscape(); return; } const match = app.soundtracks.find(t => t.id === kind) || app.soundtracks[0]; app.selectedSoundtrack = match.id; app.soundscapeActive = true; this.startSoundscape(); },
   stopAmbience() { this.stopSoundscape(); },
-  stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.audioPaused = false; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); }
+  stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.audioPaused = false; app.isAudioPaused = false; app.speechStatus = 'En pausa'; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); }
   },
   async seleccionarOmniTab(tab) {
   this.omniTab = tab;
