@@ -216,11 +216,11 @@
         #app, .app-shell, main { background: transparent !important; color: var(--rv-cream); }
         header, aside, .zona-oscura, .bg-ink, .bg-night, .bg-night2 { background: linear-gradient(145deg, var(--rv-bg-dark), var(--rv-bg-dark-2)) !important; color: var(--rv-cream) !important; }
 
-        /* Texto por defecto sobre fondo oscuro */
-        main p, main span, main label, main li, main a, main button, main small, main div,
-        header, header *, aside, aside *, .zona-oscura, .zona-oscura *, .bg-ink, .bg-ink *, .bg-night, .bg-night * { color: var(--rv-cream); }
-        main h1, main h2, main h3, main h4, main h5, main strong,
-        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color: var(--rv-cream-heading) !important; }
+  /* Tipografía base scoped: los fondos oscuros conservan su propia jerarquía */
+  header, header *, aside, aside *, .zona-oscura, .zona-oscura *, .bg-ink, .bg-ink *, .bg-night, .bg-night *, .bg-navy, .dark-card { color: var(--rv-cream); }
+  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong,
+  .bg-navy h1, .bg-navy h2, .bg-navy h3, .bg-navy h4, .dark-card h1, .dark-card h2, .dark-card h3 { color: #fff !important; }
+  .zona-oscura p, .bg-navy p, .dark-card p { color: #e2e8f0 !important; }
         .text-gray-100, .text-gray-200, .text-gray-300 { color: var(--rv-cream) !important; }
         .text-gray-400, .text-gray-500, .text-gray-600 { color: var(--rv-cream-muted) !important; }
         .text-gold-50, .text-gold-100, .text-gold-200, .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600, .text-gold-700 { color: var(--rv-gold-on-dark) !important; }
@@ -282,24 +282,16 @@
         #login-card .text-red-300 { color: #991b1b !important; -webkit-text-fill-color: #991b1b !important; }
 
         /* --- MASTER CONTRAST LOCK PARA SUPERFICIES CLARAS --- */
-        .bg-cream, .bg-parchment, [class*="bg-[#f"], [class*="bg-stone-50"], [class*="bg-amber-50"], main:not(.zona-oscura) {
-            --text-primary: #1c1917 !important;
-            --text-secondary: #44403c !important;
-            --text-accent: #78350f !important;
-        }
-        .bg-cream p, .bg-parchment p, main:not(.zona-oscura) p,
-        [class*="bg-[#f"] p, [class*="bg-stone-50"] p, .commentary-content, .verse-text {
-            color: #1c1917 !important;
-            font-weight: 450 !important;
-            text-shadow: none !important;
-            opacity: 1 !important;
-        }
-        .bg-cream h1, .bg-cream h2, .bg-cream h3, .bg-cream h4,
-        .bg-parchment h1, .bg-parchment h2, .bg-parchment h3,
-        main:not(.zona-oscura) h1, main:not(.zona-oscura) h2, main:not(.zona-oscura) h3 {
-            color: #0c0a09 !important;
-            font-weight: 700 !important;
-        }
+  /* CONTENEDORES OSCUROS: solo estos selectores fuerzan tipografía clara */
+  .bg-navy, [class*="bg-[#0f172a]"], [class*="bg-slate-900"], [class*="bg-stone-900"], .dark-card { color: #f8fafc !important; }
+  .bg-navy h1, .bg-navy h2, .bg-navy h3, [class*="bg-[#0f172a]"] h2, [class*="bg-slate-900"] h2 { color: #fff !important; }
+  .bg-navy p, [class*="bg-[#0f172a]"] p, [class*="bg-slate-900"] p { color: #e2e8f0 !important; }
+
+  /* CONTENEDORES CLAROS: paleta editorial, sin contaminar hero ni modales */
+  .bg-cream, .bg-parchment, [class*="bg-[#fbf7ee]"], [class*="bg-[#fdfbf7]"], [class*="bg-stone-50"] { color: #1c1917 !important; }
+  .bg-cream h1, .bg-cream h2, .bg-cream h3, .bg-parchment h2, [class*="bg-[#fbf7ee]"] h2 { color: #0c0a09 !important; }
+  .bg-cream p, .bg-parchment p, [class*="bg-[#fbf7ee]"] p { color: #292524 !important; font-weight: 450 !important; text-shadow: none !important; opacity: 1 !important; }
+  .bg-cream .tag-label, [class*="bg-[#fbf7ee]"] .tag-label, .bg-cream [class*="text-amber-"] { color: #78350f !important; font-weight: 700 !important; }
         .bg-cream button, .bg-parchment button, .bg-cream a, .bg-parchment a,
         .tool-pill, .version-tab {
             color: #1c1917 !important;
@@ -608,16 +600,16 @@
                             <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
                                 class="pointer-events-none select-none absolute right-[-10%] top-1/2 -translate-y-1/2 w-[420px] max-w-[70%] opacity-30 sm:opacity-45 lg:opacity-60 object-contain">
                             <div class="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-transparent"></div>
-                            <div class="relative p-6 sm:p-9 max-w-2xl">
-                                <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
-                                <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Estudia un mismo texto desde nueve lentes</h2>
-                                <blockquote class="mt-4 border-l-2 border-gold-500/50 pl-4">
-                                    <p class="text-sm text-gray-300 italic leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
-                                    <cite class="block text-xs text-gold-400 mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
+                            <div id="hero-banner" class="relative p-6 sm:p-9 max-w-2xl">
+                                <p class="text-xs uppercase tracking-widest text-amber-400 font-bold mb-3" x-text="saludo"></p>
+                                <h2 class="text-2xl sm:text-3xl font-bold text-white font-serif text-balance">Estudia un mismo texto desde nueve lentes</h2>
+                                <blockquote class="mt-4 border-l-2 border-amber-500/60 pl-4">
+                                    <p class="text-sm sm:text-base text-stone-200 italic font-normal leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
+                                    <cite class="block text-xs text-amber-300 font-semibold mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
                                 </blockquote>
                                 <div class="flex flex-wrap gap-3 mt-6">
-                                    <button @click="irA('ia'); $nextTick(() => document.getElementById('ia-input')?.focus())" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Iniciar estudio con RevelatiO IA</button>
-                                    <button @click="leerReferencia(versiculoDelDia.ref)" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Ver texto y evidencia</button>
+                                    <button @click="irA('ia'); $nextTick(() => document.getElementById('ia-input')?.focus())" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold px-4 py-2 rounded-lg text-sm transition-all">Iniciar estudio con RevelatiO IA</button>
+                                    <button @click="leerReferencia(versiculoDelDia.ref)" class="border border-amber-400/50 hover:bg-white/10 text-amber-200 font-medium px-4 py-2 rounded-lg text-sm transition-all">Ver texto y evidencia</button>
   <button x-show="mostrarInstalar" x-cloak @click="instalarApp()" class="inline-flex items-center gap-2 border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">
   <img src="/brand/revelatio-logo-full-new.jpeg" alt="" aria-hidden="true" class="h-5 w-5 rounded-md object-contain">
   Instalar RevelatiO
@@ -923,17 +915,17 @@
                                             <p class="text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-500/70">RevelatiO by Efata · Lectura</p>
                                             <h3 class="text-lg font-serif text-gold-100 mt-1" x-text="referenciaActiva"></h3>
                                         </div>
-                                        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 px-1 rounded-lg border border-line bg-ink">
+                                        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 px-1 rounded-xl border border-stone-800 bg-stone-900/95 p-1 shadow-lg">
                                             <template x-for="(v, vi) in versionesPrincipales" :key="v.key">
                                                 <div class="flex items-center gap-2 shrink-0">
                                                     <div x-show="v.key === 'interlineal' && vi > 0" class="h-4 w-px bg-stone-600/70"></div>
-<button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-xs' : 'text-stone-400 hover:text-stone-100 hover:bg-white/5 font-medium border border-transparent'" class="whitespace-nowrap rounded-lg px-3.5 py-1.5 text-xs transition-all duration-200" x-text="v.etiqueta"></button>
+<button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-500 text-stone-950 font-bold px-3 py-1 rounded-lg shadow-sm' : 'text-stone-300 hover:text-white px-3 py-1 text-xs font-medium transition-colors'" class="whitespace-nowrap rounded-lg" x-text="v.etiqueta"></button>
                                                 </div>
                                             </template>
                                         </div>
                                     </div>
 
-                                    <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="openJournal()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Registrar metanoia</button><button @click="createVerseCard()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Crear tarjeta</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
+                                    <div class="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-stone-200/90 bg-stone-100/70 p-4 shadow-sm"><span class="text-amber-900 font-bold text-xs tracking-widest uppercase">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="bg-white hover:bg-stone-50 text-stone-800 font-medium text-xs px-3.5 py-1.5 rounded-full border border-stone-300 shadow-sm transition-all" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="bg-white hover:bg-stone-50 text-stone-800 font-medium text-xs px-3.5 py-1.5 rounded-full border border-stone-300 shadow-sm transition-all">Modo capítulo</button><button @click="openJournal()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Registrar metanoia</button><button @click="createVerseCard()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Crear tarjeta</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-stone-600 text-xs font-semibold" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
                                     <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva || libroActual || 'Proverbios'}:${verso.numero || verso.n || 1}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :data-strong="token.strong || ''" :data-word="token.palabra || token.texto || ''" :data-translation="token.traduccion || token.espanol || token.significado || ''" :data-comment="token.comentario || token.comentarioExpositivo || ''" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left rv-interlinear-token"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" @click="window.dispatchEvent(new CustomEvent('revelatio:verse-tap',{detail:{reference: referenciaActiva, version: versionSel, text: textoActual}}))" :data-reference="referenciaActiva" :data-version="versionSel" data-audio-verse="0" :class="[bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl', audioVerseActive === 0 && isPlayingAudio ? 'rv-audio-active' : '']" class="font-serif text-lg md:text-xl text-stone-900 leading-relaxed flex-1 rv-verse-surface" x-text="textoActual"></p>  <div x-show="bibliaMostrarParalelo" x-cloak class="mt-6 rounded-2xl border border-gold-500/35 bg-slate-950/10 p-5 shadow-[0_12px_30px_rgba(20,30,45,0.16)] ring-1 ring-inset ring-white/30">
   <div class="flex flex-wrap items-end justify-between gap-4 border-b border-gold-500/25 pb-4">
   <div><p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-600">Segunda lectura · Comparación</p><h4 class="mt-1 text-2xl font-serif font-bold text-slate-800" x-text="versionesLista.find(v => v.key === versionParalelaSel)?.etiqueta || 'Versión paralela'"></h4><p class="mt-1 text-xs text-slate-500">Selecciona aquí una traducción independiente de la lectura principal.</p></div>
@@ -943,7 +935,7 @@
   <p class="mt-4 text-lg leading-relaxed font-serif text-slate-700" x-text="versiones[versionParalelaSel] || versionesVersos[versionParalelaSel]?.map(v => `${v.n} ${v.texto}`).join(' ') || 'Carga esta versión para comparar el pasaje.'"></p></div></div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
-                                        <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
+                                        <button @click="versiculoPrev()" class="text-stone-700 hover:text-stone-950 font-semibold text-sm flex items-center gap-1 transition-colors">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M15 6l-6 6 6 6"></path></svg>
                                             Anterior
                                         </button>
@@ -951,9 +943,9 @@
                                             <button @click="toggleFavorito()" :class="esFavorito() ? 'text-gold-400' : 'text-gray-500 hover:text-gold-300'" class="p-2 rounded-lg hover:bg-ink transition-all" :aria-label="esFavorito() ? 'Quitar de favoritos' : 'Guardar en favoritos'">
                                                 <svg class="w-5 h-5" :fill="esFavorito() ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"></path></svg>
                                             </button>
-                                            <button @click="estudiarActual()" class="text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/25 transition-all">Estudiar con IA</button>
+                                            <button @click="estudiarActual()" class="bg-stone-900 hover:bg-stone-800 text-amber-400 border border-amber-500/40 px-5 py-2 rounded-xl text-sm font-semibold shadow-md flex items-center gap-2 transition-all">Estudiar con IA</button>
                                         </div>
-                                        <button @click="versiculoNext()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
+                                        <button @click="versiculoNext()" class="text-stone-700 hover:text-stone-950 font-semibold text-sm flex items-center gap-1 transition-colors">
                                             Siguiente
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 6l6 6-6 6"></path></svg>
                                         </button>
@@ -1020,25 +1012,25 @@
                                         </div>
 
                                         <!-- Comentarios de autores -->
-                                        <div class="order-1 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
-                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
+                                        <div class="order-1 study-card border border-stone-200 rounded-xl overflow-hidden bg-white">
+                                            <button @click="toggleComentarios()" class="accordion-header w-full flex items-center justify-between gap-3 rounded-xl bg-stone-100/80 hover:bg-stone-200/70 border border-stone-200 px-4 py-3 transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-amber-950 font-bold text-xs tracking-widest uppercase">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
-                                                    <span class="text-[#FFF1C2]">Comentarios de autores</span>
-                                                    <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
+                                                    <span class="text-amber-950">Comentarios de autores</span>
+                                                    <span class="hidden sm:inline text-amber-950 font-black text-[11px] tracking-widest">RevelatiO by Efata</span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
                                             <div x-show="verComentarios" x-collapse x-cloak class="p-4 border-t border-line text-gray-100">
                                                 <div class="flex flex-wrap items-center gap-3 mb-4">
                                                     <label for="biblia-autor" class="text-[11px] text-gray-300 uppercase tracking-wider">Comentarista</label>
-                                                    <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#26343A" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                                    <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#1c1917" class="bg-white text-stone-900 border border-stone-300 rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-800">
                                                         <template x-for="a in AUTORES_LISTA" :key="a.id">
                                                             <option :value="a.id" x-text="a.nombre"></option>
                                                         </template>
                                                     </select>
                                                 </div>
-                                                <div x-show="comentarioEstado.estado === 'loading'" class="flex items-center gap-2 text-[#FFD76A] text-sm py-4 justify-center">
+                                                <div x-show="comentarioEstado.estado === 'loading'" class="flex items-center gap-2 text-amber-900 text-sm py-4 justify-center">
                                                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                                                     RevelatiO IA está preparando el comentario...
                                                 </div>
@@ -1047,10 +1039,10 @@
                                                     <button @click="cargarComentario(true)" class="mt-2 text-xs text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/15">Reintentar</button>
                                                 </div>
                                                 <div x-show="comentarioEstado.estado === 'ready'">
-                                                    <div class="mb-3 flex items-center justify-between gap-3"><h5 class="text-base font-serif text-gold-100" x-text="comentarioEstado.titulo"></h5><button type="button" @click="speechService.speak(comentarioEstado.cuerpo)" class="shrink-0 rounded-lg border border-gold-500/30 px-2.5 py-1.5 text-[11px] text-gold-200 hover:bg-gold-600/15" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
+                                                    <div class="mb-3 flex items-center justify-between gap-3"><h5 class="text-stone-950 font-serif font-bold text-xl md:text-2xl tracking-tight leading-snug" x-text="comentarioEstado.titulo"></h5><button type="button" @click="speechService.speak(comentarioEstado.cuerpo)" class="bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300/80 px-3.5 py-1 rounded-lg text-xs font-bold shadow-sm" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
                                                     <div class="space-y-2.5">
                                                         <template x-for="(p, i) in parrafosDe(comentarioEstado.cuerpo)" :key="i">
-                                                            <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
+                                                            <p class="text-stone-800 font-serif text-base leading-relaxed font-normal" x-text="p"></p>
                                                         </template>
                                                     </div>
                                                     <p class="disclaimer-text mt-4 pt-3 border-t border-stone-200 text-stone-600 text-xs font-medium italic leading-normal">
@@ -1235,15 +1227,15 @@
                             </div>
 
                             <!-- Panel compacto de la lente activa -->
-                            <div class="order-1 rv-ia-response" style="min-height:13rem">
+                            <div class="order-1 rv-ia-response bg-white rounded-2xl border border-stone-200 p-5 shadow-sm" style="min-height:13rem">
                                 <div class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b pb-3" style="border-color:#e7e5e4">
-                                    <p class="text-[10px] font-bold uppercase tracking-[0.16em]" style="color:#92400e">Respuesta de la lente activa</p>
-                                    <div class="flex items-center gap-2"><p class="text-sm font-bold text-stone-900" style="color:#292524 !important" x-text="(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p><button type="button" @click="speechService.speak(lenteEstado.cuerpo || estudio.comentario || estudio.aplicacion)" class="rv-lens-audio rounded-lg border border-amber-500 bg-amber-50 px-2.5 py-1.5 text-[11px] font-bold text-amber-900 hover:bg-amber-100" style="color:#78350f !important" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
+                                    <p class="text-amber-950 font-bold text-xs uppercase tracking-widest">Comentarios de autores · RevelatiO by Efata</p>
+                                    <div class="flex items-center gap-2"><p class="text-stone-950 font-serif font-bold text-xl md:text-2xl tracking-tight leading-snug" style="color:#0c0a09 !important" x-text="comentarioEstado.titulo || (LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p><button type="button" @click="speechService.speak(lenteEstado.cuerpo || estudio.comentario || estudio.aplicacion)" class="rv-lens-audio bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300/80 px-3.5 py-1 rounded-lg text-xs font-bold shadow-sm" style="color:#78350f !important" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
                                 </div>
                                 <!-- Selector de autor (solo lente 'autores') -->
                                 <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b" style="border-color:#e7e5e4">
                                     <label for="autor-sel" class="text-xs uppercase tracking-wider" style="color:#78716c">Comentarista</label>
-                                    <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#26343A" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                    <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#1c1917" class="bg-white text-stone-900 border border-stone-300 rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-800">
                                         <template x-for="a in AUTORES_LISTA" :key="a.id">
                                             <option :value="a.id" x-text="a.nombre"></option>
                                         </template>
@@ -1329,7 +1321,7 @@
                         <!-- Vista catálogo -->
                         <div x-show="!planActivo" x-cloak class="space-y-6">
                         <div>
-                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · El camino</p>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata �� El camino</p>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Planes de lectura</h2>
   <p class="text-sm text-gray-500 mt-1 max-w-2xl">Explora rutas de lectura, doctrina y transformación. Cada plan conserva su contenido y ahora se organiza por propósito, duración y profundidad.</p>
   </div>
