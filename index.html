@@ -2602,8 +2602,9 @@ versiones: {},
                 sacredPauseOpen: false,
                 pausePhase: 0,
                 breathState: 'Inhala la Verdad',
-                pauseTimer: 180,
-                _pauseVerse: { referencia: '', texto: '' },
+  pauseTimer: 180,
+  pauseCompleted: false,
+  _pauseVerse: { referencia: '', texto: '' },
                 _pauseTerm: null,
                 _pauseTimerId: null,
                 _breathStateId: null,
@@ -4611,11 +4612,14 @@ guardarFicha() {
                         this._pauseTerm = terminos[terminos.length - 1] || terminos[0] || null;
                         this.pausePhase = 0;
                         this.pauseTimer = 180;
+                        this.pauseCompleted = false;
                         this.closeAllOverlays('sacredPauseOpen'); this.sacredPauseOpen = true;
                         this._iniciarCicloRespiracion();
                         this._pauseTimerId = setInterval(() => {
-                            if (this.pauseTimer > 0) this.pauseTimer--;
-                            else this._sonarCampana();
+                            if (this.pauseTimer > 0) {
+                              this.pauseTimer--;
+                              if (this.pauseTimer === 0) { clearInterval(this._pauseTimerId); this._pauseTimerId = null; this.pauseCompleted = true; this.pausePhase = 4; this._sonarCampana(); }
+                            }
                         }, 1000);
                     },
                     _iniciarCicloRespiracion() {
@@ -4627,10 +4631,12 @@ guardarFicha() {
                     },
                     siguienteFasePausa() {
                         if (this.pausePhase < 4) this.pausePhase++;
-                        if (this.pausePhase === 4) this._sonarCampana();
+                        if (this.pausePhase === 4) { this.pauseCompleted = true; this._sonarCampana(); }
                     },
+                    closePausa() { this.cerrarPausaSagrada(); },
                     cerrarPausaSagrada() {
                         this.sacredPauseOpen = false;
+                        this.pauseCompleted = false;
                         clearInterval(this._pauseTimerId); this._pauseTimerId = null;
                         clearInterval(this._breathStateId); this._breathStateId = null;
                     },
@@ -5530,7 +5536,7 @@ guardarFicha() {
   </div>
 
   <!-- Pausa Sagrada: Lectio Divina & coherencia cardíaca -->
-  <div x-show="sacredPauseOpen" x-cloak x-transition.opacity class="fixed inset-0 z-[120] flex flex-col bg-[#1C1917] text-[#F5F0E6]" role="dialog" aria-modal="true" aria-label="Pausa Sagrada">
+  <div x-show="sacredPauseOpen" x-cloak x-transition.opacity @keydown.window.escape="closePausa()" @click.self="closePausa()" class="fixed inset-0 z-[120] flex flex-col bg-[#1C1917] text-[#F5F0E6]" role="dialog" aria-modal="true" aria-label="Pausa Sagrada" tabindex="-1">
     <div class="flex items-center justify-between px-5 py-4 sm:px-8">
       <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">Pausa Sagrada</span>
       <div class="flex items-center gap-3">
@@ -5539,13 +5545,19 @@ guardarFicha() {
           <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'bg-amber-600 text-white' : 'bg-white/10 text-amber-100/70'" class="rounded-xl border border-amber-300/30 px-3 py-1.5 text-[10px] font-semibold" x-text="soundscapeActive ? 'Música: ON' : 'Música: OFF'" aria-label="Activar música instrumental"></button>
           <select x-show="soundscapeActive" x-model="selectedSoundtrack" @change="speechService.changeSoundtrack(selectedSoundtrack)" class="max-w-32 rounded-lg border border-amber-300/30 bg-stone-900 px-1.5 py-1 text-[10px] text-amber-50" aria-label="Seleccionar pista"><template x-for="track in soundtracks" :key="'pause-' + track.id"><option :value="track.id" x-text="track.name.split(' &')[0]"></option></template></select>
           <input x-show="soundscapeActive" type="range" min="0" max="0.5" step="0.02" x-model="soundscapeVolume" @input="if(ambientAudio) ambientAudio.volume = Number(soundscapeVolume)" class="h-1 w-16 accent-amber-500" aria-label="Volumen de música">
-          <button @click="cerrarPausaSagrada()" class="rounded-full p-1.5 text-amber-200/60 hover:bg-white/10 hover:text-amber-100" aria-label="Cerrar Pausa Sagrada">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
-        </button>
+          <button @click="closePausa()" class="rounded-lg border border-stone-600 bg-stone-800/80 px-3 py-1.5 text-xs font-semibold text-stone-200 hover:bg-stone-700" aria-label="Salir al texto">✕ Salir al texto</button>
       </div>
     </div>
 
-    <div class="flex flex-1 flex-col items-center justify-center gap-8 px-6 pb-10 text-center sm:px-10">
+    <div x-show="pauseCompleted" x-cloak class="flex flex-1 flex-col items-center justify-center gap-6 px-6 pb-10 text-center sm:px-10">
+      <div class="w-full max-w-md rounded-3xl border border-amber-300/30 bg-stone-900/80 p-8 shadow-2xl">
+        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">Pausa Sagrada</p>
+        <h2 class="mt-3 font-serif text-2xl text-amber-50">Pausa completada en quietud</h2>
+        <p class="mt-3 text-sm leading-relaxed text-stone-300">Has permanecido en silencio ante la Palabra. Puedes volver exactamente al punto de lectura donde comenzaste.</p>
+        <button @click="closePausa()" class="mt-6 inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-stone-950 shadow-lg hover:bg-amber-400">📖 Continuar con la Lectura / Estudio</button>
+      </div>
+    </div>
+    <div x-show="!pauseCompleted" class="flex flex-1 flex-col items-center justify-center gap-8 px-6 pb-10 text-center sm:px-10">
       <!-- Pulsador visual de respiración -->
       <div class="relative flex h-40 w-40 items-center justify-center sm:h-48 sm:w-48">
         <div class="rv-breath-circle absolute inset-0 rounded-full bg-amber-500/15 border border-amber-400/30"></div>
@@ -5594,7 +5606,7 @@ guardarFicha() {
       </div>
     </div>
 
-    <div class="px-6 pb-8 sm:px-10">
+    <div x-show="!pauseCompleted" class="px-6 pb-8 sm:px-10">
       <button x-show="pausePhase < 4" @click="siguienteFasePausa()" class="mx-auto flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-2.5 text-sm font-semibold text-amber-100 hover:bg-amber-500/20 transition-all">Siguiente Fase ➔</button>
       <button x-show="pausePhase === 4" @click="cerrarPausaSagrada()" class="mx-auto flex items-center gap-2 rounded-full bg-amber-600 px-5 py-2.5 text-sm font-bold text-stone-950 hover:bg-amber-500 transition-all">Concluir en Paz</button>
     </div>
