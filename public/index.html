@@ -1837,11 +1837,11 @@
                 </div>
             </div>
 
-            <div class="shrink-0 flex items-center gap-2 overflow-x-auto no-scrollbar py-2 px-4 sm:px-6 border-b border-stone-200/60 bg-[#FBFBFA]/80 backdrop-blur-md">
+            <div class="shrink-0 bg-stone-900 border-b border-stone-800 px-6 py-2 flex items-center gap-2 overflow-x-auto no-scrollbar">
                 <template x-for="(v, vi) in versionesPrincipales" :key="v.key">
                     <div class="flex items-center gap-2 shrink-0">
                         <div x-show="v.key === 'interlineal' && vi > 0" class="h-4 w-px bg-stone-300/70"></div>
-                        <button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-xs' : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/80 font-medium border border-transparent'" class="whitespace-nowrap rounded-lg px-3.5 py-1.5 text-xs transition-all duration-200" x-text="v.etiqueta"></button>
+                        <button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-500 text-stone-950 font-bold text-xs px-3 py-1.5 rounded-lg shadow-sm' : 'text-stone-300 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-stone-800 transition-colors'" class="whitespace-nowrap" x-text="v.etiqueta"></button>
                     </div>
                 </template>
             </div>
@@ -2743,8 +2743,8 @@ versiones: {},
                 speechStatus: 'En pausa',
                 speechSegmentIndex: 0,
                 speechSegments: [],
-                musicBaseVolume: 0.35,
-                musicDuckedVolume: 0.08,
+  musicBaseVolume: 0.40,
+  musicDuckedVolume: 0.15,
                 isPlayingAudio: false,
                 isAudioPaused: false,
                 currentReadingVerseIndex: 0,
@@ -2756,19 +2756,15 @@ versiones: {},
                 audioPaused: false,
                 audioRate: 0.95,
                 audioAmbience: 'silencio',
-                ambienceContext: null,
-                ambienceNodes: [],
-                audioVerseActive: 0,
-                currentReadingVerseId: null,
-                soundscapeActive: false,
-                soundscapeVolume: 0.18,
-                selectedSoundtrack: 'piano_worship',
-                ambientAudio: null,
-                soundtracks: [
-  { id: 'piano_worship', name: 'Piano de Adoración', url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=piano-moment-9835.mp3' },
-  { id: 'peace_strings', name: 'Cuerdas de Paz & Quietud', url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=meditation-peace-spiritual-atmosphere-11442.mp3' },
-  { id: 'holy_presence', name: 'Pad Profundo de Oración', url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=ambient-worship-pad-deep-peace-10332.mp3' }
-                ],
+  musicFadeTimer: null,
+  soundscapeVolume: 0.60,
+  selectedSoundtrack: 'piano_worship',
+  ambientAudio: null,
+  soundtracks: [
+  { id: 'piano_worship', name: 'Piano de Adoración', url: 'https://ia801503.us.archive.org/15/items/gentle-piano-worship-peace/gentle-piano-worship.mp3' },
+  { id: 'peace_strings', name: 'Cuerdas & Paz Sacra', url: 'https://ia801402.us.archive.org/20/items/ambient-prayer-pads/ambient-prayer-strings.mp3' },
+  { id: 'holy_presence', name: 'Pad Íntimo de Oración', url: 'https://ia601402.us.archive.org/20/items/ambient-prayer-pads/deep-worship-pad.mp3' }
+  ],
                 playbackSpeed: 1.0,
                 fontSize: 20,
                 audioSource: 'chapter',
@@ -3619,12 +3615,12 @@ const etiquetas = {
     const voz = preferidas.map(nombre => voces.find(v => v.name.toLowerCase().includes(nombre.toLowerCase()))).find(Boolean)
       || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang) && /female|mujer|sabina|paulina|monica|dalia/i.test(v.name))
       || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang))
-      || voces.find(v => /^es/i.test(v.lang));
+      || null;
     const utterance = new SpeechSynthesisUtterance(this.textoActual);
     utterance.lang = voz?.lang || 'es-MX';
     if (voz) utterance.voice = voz;
-    utterance.rate = 0.86;
-    utterance.pitch = 1.04;
+    utterance.rate = 0.90;
+    utterance.pitch = 1.0;
     utterance.volume = 1;
     utterance.onend = () => { this.bibliaAudioActivo = false; };
     utterance.onerror = () => { this.bibliaAudioActivo = false; };
@@ -3978,13 +3974,14 @@ const etiquetas = {
   },
   speechService: {
   pickVoice() {
-    const voices = window.speechSynthesis?.getVoices?.() || [];
-    const premium = /Google español|Microsoft (Alvaro|Elvira) Online \(Natural\)|Paulina \(Enhanced\)|Jorge \(Enhanced\)|Monica|Mónica/i;
-    const generic = /english|en-US|robot|compact|novelty|default/i;
-    const spanish = voices.filter(v => /^es(-|_)/i.test(v.lang) && !generic.test(v.name));
-    return spanish.find(v => premium.test(v.name)) || spanish.find(v => /es-ES|es-MX|es-US|es-419/i.test(v.lang)) || spanish[0] || null;
+  const voices = window.speechSynthesis?.getVoices?.() || [];
+  const latinoLang = /^(es-MX|es-US|es-CO|es-419|es-AR)$/i;
+  const latinoNames = /Paulina|Sabina|Paloma|Jimena|Dalia Online \(Natural\).*Mexico|Jorge Online \(Natural\)|Google español de Estados Unidos|Google español \(Latinoamérica\)/i;
+  const rejected = /english|es-ES|robot|compact|novelty|default/i;
+  const latino = voices.filter(v => latinoLang.test(v.lang) && !rejected.test(v.name));
+  return latino.find(v => latinoNames.test(v.name)) || latino.find(v => /es-MX|es-US|es-419|es-CO/i.test(v.lang)) || null;
   },
-  refreshVoices() { const app = Alpine.$data(document.body); const voices = window.speechSynthesis?.getVoices?.() || []; app.availableVoices = voices.filter(v => /^es(-|_)/i.test(v.lang) && !/english|robot|compact|novelty/i.test(v.name)); if (!app.selectedVoiceUri && this.pickVoice()) app.selectedVoiceUri = this.pickVoice().voiceURI; },
+  refreshVoices() { const app = Alpine.$data(document.body); const voices = window.speechSynthesis?.getVoices?.() || []; app.availableVoices = voices.filter(v => /^(es-MX|es-US|es-CO|es-419|es-AR)$/i.test(v.lang) && !/english|robot|compact|novelty|es-ES/i.test(v.name + v.lang)); if (!app.selectedVoiceUri && this.pickVoice()) app.selectedVoiceUri = this.pickVoice().voiceURI; },
   speak(text) {
     if (!text || !('speechSynthesis' in window)) return;
     const app = Alpine.$data(document.body);
@@ -3998,15 +3995,14 @@ const etiquetas = {
   playFullChapterWithMusic() {
     const app = Alpine.$data(document.body);
     if (app.isPlayingAudio && app.audioSource === 'chapter') { this.stop(); return; }
-    const ctx = app.ambienceContext;
-    if (ctx?.state === 'suspended') ctx.resume().catch(() => {});
+
     const versos = app.lectorAbierto && app.versosActuales?.length ? app.versosActuales : (app.versionesVersos?.[app.versionSel] || app.original?.versos || []);
     const queue = versos.map((v, i) => ({ n: v.n || v.numero || i + 1, texto: this.cleanPassageText(v.texto || v.text || '') })).filter(v => v.texto);
     const textFallback = this.cleanPassageText(app.textoActual || document.querySelector('[data-active-passage], .rv-reading-text, .texto-biblico')?.textContent || '');
     app.audioQueue = queue.length ? queue : (textFallback ? [{ n: 1, texto: textFallback }] : []);
     if (!app.audioQueue.length) { app.mostrarToast?.('No hay texto bíblico disponible para narrar.'); return; }
     app.audioMode = 'chapter'; app.audioSource = 'chapter'; app.audioIndex = 0; app.audioPaused = false; app.soundscapeActive = true;
-    this.ensureSoakingFallback(); app.ambienceContext?.resume?.(); this.startSoundscape(); this.playCurrent();
+    this.startSoundscape(); this.playCurrent();
   },
   startChapterAudio() { this.playFullChapterWithMusic(); },
   startSingleVerseAudio(verse) { const app = Alpine.$data(document.body); const item = verse || app.versosActuales?.[app.audioIndex]; if (!item) return; app.audioMode = 'verse'; app.audioSource = 'verse'; app.audioQueue = [{ n: item.n || item.numero || item.verse || 1, texto: item.texto || item.text || '' }]; app.audioIndex = 0; this.playCurrent(); },
@@ -4034,7 +4030,7 @@ const etiquetas = {
     const app = Alpine.$data(document.body); const text = app.speechSegments?.[app.speechSegmentIndex];
     if (!text) { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; this.playCurrent(); } else { app.isPlayingAudio = false; app.audioPaused = false; app.speechStatus = 'En pausa'; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); } return; }
     this.duckSoundscape(true);
-    const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'es-ES'; utterance.rate = Number(app.speechRate || app.playbackSpeed) || 0.88; utterance.pitch = Number(app.speechPitch) || 0.95; utterance.voice = app.availableVoices.find(v => v.voiceURI === app.selectedVoiceUri) || this.pickVoice();
+    const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'es-MX'; utterance.rate = 0.90; utterance.pitch = 1.0; utterance.voice = app.availableVoices.find(v => v.voiceURI === app.selectedVoiceUri) || this.pickVoice();
     utterance.onend = () => { app.speechSegmentIndex += 1; this.fadeMusicTo(app.musicBaseVolume); setTimeout(() => { if (app.isPlayingAudio && !app.audioPaused) this.speakNextSegment(); }, 150); };
     utterance.onerror = () => { app.speechStatus = 'En pausa'; this.stop(); }; app.audioUtterance = utterance; window.speechSynthesis.speak(utterance);
   },
@@ -4043,31 +4039,20 @@ const etiquetas = {
   previous() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.max(0, app.audioIndex - 1); this.playCurrent(); },
   cyclePlaybackSpeed() { const app = Alpine.$data(document.body); const steps = [0.85, 1.0, 1.15]; const current = Number(app.playbackSpeed) || 1.0; const idx = steps.findIndex(step => Math.abs(step - current) < 0.01); app.playbackSpeed = steps[(idx + 1) % steps.length]; app.audioRate = app.playbackSpeed; if (app.isPlayingAudio) this.playCurrent(); },
   toggleSoundscape() { const app = Alpine.$data(document.body); app.soundscapeActive = !app.soundscapeActive; if (app.soundscapeActive) this.startSoundscape(); else this.stopSoundscape(); },
-  ensureSoakingFallback() {
-  const app = Alpine.$data(document.body); if (app.soakingNodes?.length) return;
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext; if (!AudioContextClass) return;
-  const ctx = app.ambienceContext || new AudioContextClass(); app.ambienceContext = ctx;
-  const master = ctx.createGain(); const filter = ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 1050; filter.Q.value = 0.35; master.gain.value = 0.0001; filter.connect(master).connect(ctx.destination);
-  const frequencies = [146.83, 220, 293.66, 392];
-  app.soakingNodes = frequencies.map((frequency, index) => { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = index % 2 ? 'sine' : 'triangle'; osc.frequency.value = frequency * (index === 3 ? 1 : 1.002); gain.gain.value = [0.12, 0.08, 0.06, 0.045][index]; osc.connect(gain).connect(filter); osc.start(); return osc; });
-  app.soakingMaster = master; app.soakingFilter = filter; app.soakingFallbackActive = true;
-  },
-  startSoakingFallback() { const app = Alpine.$data(document.body); this.ensureSoakingFallback(); const ctx = app.ambienceContext; if (!ctx || !app.soakingMaster) return; ctx.resume?.(); app.soakingMaster.gain.cancelScheduledValues(ctx.currentTime); app.soakingMaster.gain.linearRampToValueAtTime(Math.min(0.24, Number(app.musicBaseVolume) || 0.35), ctx.currentTime + 1.6); },
-  stopSoakingFallback() { const app = Alpine.$data(document.body); const ctx = app.ambienceContext; if (!ctx || !app.soakingMaster) return; app.soakingMaster.gain.cancelScheduledValues(ctx.currentTime); app.soakingMaster.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.8); },
   startSoundscape() {
   const app = Alpine.$data(document.body); const track = app.soundtracks.find(t => t.id === app.selectedSoundtrack) || app.soundtracks[0];
   if (!track) return;
-  if (app.ambientAudio && app.ambientAudio.dataset?.trackId === track.id) { app.ambientAudio.volume = Math.min(1, Number(app.musicBaseVolume) || 0.35); app.ambientAudio.play().catch(() => {}); this.stopSoakingFallback(); return; }
+  if (app.ambientAudio && app.ambientAudio.dataset?.trackId === track.id) { app.ambientAudio.volume = Math.min(0.50, Number(app.musicBaseVolume) || 0.40); app.ambientAudio.play().catch(() => {}); return; }
   this.stopSoundscape(true);
   const audio = new Audio(track.url); audio.dataset.trackId = track.id; audio.loop = true; audio.preload = 'auto'; audio.crossOrigin = 'anonymous'; audio.volume = 0.001;
-  const fallback = () => { this.stopSoundscape(true); this.startSoakingFallback(); app.soundscapeActive = true; app.mostrarToast?.('Activado pad nativo de oración para mantener la música.'); };
+  const fallback = () => { this.stopSoundscape(true); const nextIndex = (app.soundtracks.findIndex(item => item.id === track.id) + 1) % app.soundtracks.length; if (app.soundtracks.length > 1 && !app._soundtrackRetrying) { app._soundtrackRetrying = true; app.selectedSoundtrack = app.soundtracks[nextIndex].id; this.startSoundscape(); app._soundtrackRetrying = false; } else { app.soundscapeActive = false; app.ambientAudio = null; app._soundtrackRetrying = false; } };
   audio.addEventListener('error', fallback, { once: true });
-  app.ambientAudio = audio; audio.play().then(() => { this.stopSoakingFallback(); const target = Math.min(1, Math.max(.001, Number(app.musicBaseVolume) || .35)); const timer = setInterval(() => { audio.volume = Math.min(target, audio.volume + .025); if (audio.volume >= target) clearInterval(timer); }, 80); }).catch(fallback);
+  app.ambientAudio = audio; audio.play().then(() => { const target = Math.min(0.50, Math.max(.001, Number(app.musicBaseVolume) || 0.40)); const timer = setInterval(() => { audio.volume = Math.min(target, audio.volume + .025); if (audio.volume >= target) clearInterval(timer); }, 80); }).catch(fallback);
   },
   changeSoundtrack(trackId) { const app = Alpine.$data(document.body); app.selectedSoundtrack = trackId; if (app.soundscapeActive) this.startSoundscape(); },
-  fadeMusicTo(target) { const app = Alpine.$data(document.body); const end = Math.max(0, Math.min(1, Number(target) || 0)); if (app.soakingFallbackActive && app.soakingMaster && app.ambienceContext) { const now = app.ambienceContext.currentTime; app.soakingMaster.gain.cancelScheduledValues(now); app.soakingMaster.gain.linearRampToValueAtTime(end * 0.68, now + 0.45); } const audio = app.ambientAudio; if (!audio) return; clearInterval(app.musicFadeTimer); const start = audio.volume; const steps = 8; let step = 0; app.musicFadeTimer = setInterval(() => { step += 1; audio.volume = start + (end - start) * (step / steps); if (step >= steps) clearInterval(app.musicFadeTimer); }, 45); },
-  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio && !app.soakingFallbackActive) return; this.fadeMusicTo(ducked ? 0.15 * (Number(app.musicBaseVolume) || 0.35) : app.musicBaseVolume); },
-  stopSoundscape(immediate = false) { const app = Alpine.$data(document.body); this.stopSoakingFallback(); const audio = app.ambientAudio; if (!audio) return; if (immediate) { audio.pause(); audio.currentTime = 0; app.ambientAudio = null; return; } const start = audio.volume; const timer = setInterval(() => { audio.volume = Math.max(0, audio.volume - .03); if (audio.volume <= .001) { clearInterval(timer); audio.pause(); audio.currentTime = 0; app.ambientAudio = null; } }, 70); },
+  fadeMusicTo(target) { const app = Alpine.$data(document.body); const end = Math.max(0, Math.min(0.50, Number(target) || 0)); const audio = app.ambientAudio; if (!audio) return; clearInterval(app.musicFadeTimer); const start = audio.volume; const steps = 20; let step = 0; app.musicFadeTimer = setInterval(() => { step += 1; audio.volume = start + (end - start) * (step / steps); if (step >= steps) clearInterval(app.musicFadeTimer); }, 100); },
+  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio) return; this.fadeMusicTo(ducked ? 0.15 : 0.40); },
+  stopSoundscape(immediate = false) { const app = Alpine.$data(document.body); const audio = app.ambientAudio; if (!audio) return; if (immediate) { audio.pause(); audio.currentTime = 0; app.ambientAudio = null; return; } const start = audio.volume; const timer = setInterval(() => { audio.volume = Math.max(0, audio.volume - .03); if (audio.volume <= .001) { clearInterval(timer); audio.pause(); audio.currentTime = 0; app.ambientAudio = null; } }, 70); },
   playAmbience(kind) { const app = Alpine.$data(document.body); if (kind === 'silencio') { app.soundscapeActive = false; this.stopSoundscape(); return; } const match = app.soundtracks.find(t => t.id === kind) || app.soundtracks[0]; app.selectedSoundtrack = match.id; app.soundscapeActive = true; this.startSoundscape(); },
   stopAmbience() { this.stopSoundscape(); },
   stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.audioPaused = false; app.isAudioPaused = false; app.speechStatus = 'En pausa'; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); }
@@ -5600,13 +5585,13 @@ guardarFicha() {
       <div class="relative flex h-40 w-40 items-center justify-center sm:h-48 sm:w-48">
         <div class="rv-breath-circle absolute inset-0 rounded-full bg-amber-500/15 border border-amber-400/30"></div>
         <div class="rv-breath-circle absolute inset-6 rounded-full bg-amber-500/20 border border-amber-400/40" style="animation-delay:-.4s"></div>
-        <span class="relative font-serif text-sm text-amber-100/90" x-text="breathState"></span>
+        <span class="relative text-amber-200 font-serif font-bold text-lg drop-shadow-md" x-text="breathState"></span>
       </div>
 
       <!-- Fase 0: Respiración inicial -->
       <div x-show="pausePhase === 0" class="max-w-md space-y-3">
-        <p class="font-serif text-xl leading-relaxed text-amber-50">Respira en la presencia de Dios.</p>
-        <p class="text-sm leading-relaxed text-amber-100/60">Deja que tu cuerpo siga el ritmo del círculo. No hay prisa: estás a punto de leer la Escritura, no de terminarla.</p>
+        <p class="text-amber-300 font-serif font-bold text-xl md:text-2xl mt-4">Respira en la presencia de Dios.</p>
+        <p class="text-stone-300 text-sm font-normal max-w-md mx-auto">Deja que tu cuerpo siga el ritmo del círculo. No hay prisa: estás a punto de leer la Escritura, no de terminarla.</p>
       </div>
 
       <!-- Fase 1: Lectio -->
@@ -5809,7 +5794,7 @@ guardarFicha() {
         highlight() { if (!savedRange) return hideMenu(); try { const mark = document.createElement('mark'); mark.className = 'revelatio-highlight'; mark.style.cssText = 'background:#fde68a;color:#1c1917;border-radius:.18em;padding:.04em .12em;'; savedRange.surroundContents(mark); } catch {} hideMenu(); },
         marginNote() { if (selectedText) window.dispatchEvent(new CustomEvent('add-margin-note', { detail: { text: selectedText } })); hideMenu(); },
         metanoia() { if (selectedText) window.dispatchEvent(new CustomEvent('send-to-omnibar', { detail: { prompt: `Metanoia y renovación mental sobre: "${selectedText}"` } })); hideMenu(); },
-        speak() { if (selectedText && window.speechSynthesis) { window.speechSynthesis.cancel(); const utter = new SpeechSynthesisUtterance(selectedText); utter.lang = 'es-ES'; utter.rate = 0.88; window.speechSynthesis.speak(utter); } hideMenu(); }
+        speak() { if (selectedText && window.speechSynthesis) { window.speechSynthesis.cancel(); const utter = new SpeechSynthesisUtterance(selectedText); utter.lang = 'es-MX'; utter.rate = 0.90; utter.pitch = 1.0; window.speechSynthesis.speak(utter); } hideMenu(); }
       };
       const showMenu = rect => { const width = Math.min(360, window.innerWidth - 20); const left = Math.max(width / 2 + 10, Math.min(window.innerWidth - width / 2 - 10, rect.left + rect.width / 2)); const top = Math.max(58, rect.top - 12); menu.style.left = `${left}px`; menu.style.top = `${top}px`; menu.style.display = 'flex'; };
       const checkSelection = () => { clearTimeout(selectionTimer); selectionTimer = setTimeout(() => { const sel = window.getSelection(); const text = sel?.toString?.().trim() || ''; if (!sel || sel.isCollapsed || text.length < 2 || !sel.rangeCount) return hideMenu(); const range = sel.getRangeAt(0); const rect = range.getBoundingClientRect(); if (!rect.width && !rect.height) return hideMenu(); selectedText = text; savedRange = range.cloneRange(); showMenu(rect); }, 20); };
