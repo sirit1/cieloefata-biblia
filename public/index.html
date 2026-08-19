@@ -952,7 +952,7 @@
                                                         <span>
                                                             <template x-for="(t, ti) in v.tokens" :key="ti">
                                                                 <span>
-                                                                    <button x-show="t.strong" @mouseenter="strongHover = t.strong" @mouseleave="strongHover = ''" @click="consultarLexico(t.strong)" :aria-label="`Consultar ${t.strong}`" :class="strongHover === t.strong ? 'text-gold-300 underline decoration-gold-400 decoration-2 underline-offset-4' : 'hover:text-gold-300 hover:underline'" class="cursor-pointer align-baseline rounded px-0.5 transition-colors">
+                                                                    <button x-show="t.strong" @mouseenter="strongHover = t.strong; mostrarStrongTooltip(t.strong, $event, referenciaActiva)" @mouseleave="strongHover = ''; setTimeout(() => { if (!$event?.relatedTarget?.closest?.('.rv-strong-tooltip')) cerrarStrongTooltip() }, 120)" @click="strongHover === t.strong && strongTooltip.open ? cerrarStrongTooltip() : mostrarStrongTooltip(t.strong, $event, referenciaActiva); consultarLexico(t.strong)" :aria-label="`Consultar ${t.strong}`" :class="strongHover === t.strong ? 'text-gold-300 underline decoration-gold-400 decoration-2 underline-offset-4' : 'hover:text-gold-300 hover:underline'" class="cursor-pointer align-baseline rounded px-0.5 transition-colors">
                                                                         <span x-text="t.palabra"></span><sup class="text-[10px] text-gold-500/80 font-sans ml-0.5" x-text="t.strong"></sup>
                                                                     </button>
                                                                     <span x-show="!t.strong" x-text="t.palabra"></span>
@@ -1667,6 +1667,10 @@
   <div class="space-y-4 p-5"><div class="rounded-xl border border-gold-500/30 bg-gold-500/10 p-3"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-700">Texto seleccionado</p><p class="mt-1 max-h-24 overflow-y-auto font-serif text-sm leading-relaxed text-gray-800" x-text="revelatioBusquedaTexto"></p></div><textarea x-model="revelatioBusquedaPregunta" rows="3" maxlength="500" class="w-full resize-none rounded-xl border border-line bg-white px-3 py-3 text-sm text-gray-900 outline-none focus:border-gold-500" placeholder="¿Qué quieres entender de este texto?"></textarea><div class="flex items-center justify-end gap-2"><button @click="cerrarBusquedaRevelatio()" class="rounded-lg border border-line px-4 py-2 text-xs text-gray-600 hover:bg-ink">Cancelar</button><button @click="buscarDesdeSeleccion()" :disabled="revelatioBusquedaCargando || !revelatioBusquedaPregunta.trim()" class="rounded-lg bg-gold-600 px-4 py-2 text-xs font-bold text-gray-950 disabled:opacity-50"><span x-text="revelatioBusquedaCargando ? 'Consultando...' : 'Buscar en RevelatiO IA'"></span></button></div><div x-show="revelatioBusquedaError" class="rounded-lg border border-red-400/40 bg-red-50 px-3 py-2 text-xs text-red-700" x-text="revelatioBusquedaError"></div><div x-show="revelatioBusquedaRespuesta" class="max-h-72 overflow-y-auto rounded-xl border border-line bg-white p-4 text-sm leading-relaxed text-gray-800 whitespace-pre-line" x-text="revelatioBusquedaRespuesta"></div></div>
   </div></div>
 
+  <div x-show="strongTooltip.open" x-cloak class="rv-strong-tooltip fixed z-[9999] w-[min(320px,calc(100vw-24px))] rounded-xl border border-amber-500/30 bg-stone-900/95 p-3 text-stone-100 shadow-2xl backdrop-blur-md" :style="`left:${strongTooltip.x}px;top:${strongTooltip.y}px`" @mouseenter="strongTooltip.open = true" @mouseleave="cerrarStrongTooltip()" role="tooltip">
+    <template x-if="strongTooltip.loading"><div class="space-y-2"><div class="h-4 w-2/5 animate-pulse rounded bg-stone-700"></div><div class="h-3 w-full animate-pulse rounded bg-stone-800"></div><div class="h-3 w-4/5 animate-pulse rounded bg-stone-800"></div></div></template>
+    <template x-if="!strongTooltip.loading && strongTooltip.data"><div><div class="flex items-start justify-between gap-2"><p class="font-serif text-lg text-amber-100" x-text="strongTooltip.data.original"></p><span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold text-stone-950" x-text="strongTooltip.data.code"></span></div><p class="mt-2 font-bold text-stone-50" x-text="strongTooltip.data.translation"></p><p class="mt-1 text-xs italic text-amber-100/80" x-text="strongTooltip.data.transliteration"></p><p class="mt-1 text-[11px] text-stone-300" x-text="strongTooltip.data.morphology"></p><p class="mt-2 border-t border-stone-700 pt-2 text-[11px] leading-relaxed text-stone-200" x-text="strongTooltip.data.definition"></p></div></template>
+  </div>
   <div x-show="lexicoAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 sm:p-6" role="dialog" aria-modal="true" aria-label="Diccionario Strong" @click.self="lexicoAbierto = false" @keydown.escape.window="lexicoAbierto = false">
             <div class="flex w-full max-w-lg max-h-[min(680px,calc(100vh-2rem))] flex-col overflow-y-auto rounded-2xl border border-gold-500/50 bg-ink p-5 shadow-2xl shadow-black/50 sm:p-6">
                 <div class="flex w-full items-start justify-between gap-4 border-b border-line pb-4"><div class="min-w-0"><p class="text-[10px] uppercase tracking-[0.18em] text-gold-400">Diccionario bíblico Strong</p><h3 class="mt-1 text-xl font-serif text-gold-50" x-text="lexicoDatos?.codigo || 'Consulta léxica'"></h3></div><button @click="lexicoAbierto = false" class="shrink-0 rounded-lg p-2 text-gray-400 hover:bg-night2 hover:text-white" aria-label="Cerrar"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 18L6 6"></path></svg></button></div>
@@ -2574,7 +2578,7 @@ versiones: {},
                     'efesios 3:1': [
                         { palabra: 'Pablo', griego: 'Παῦλος', translit: 'Paulos', fonetica: 'páv-los', strong: 'G3972', morfologia: 'Sustantivo · Masculino Singular · Nominativo', sentido: 'Nombre propio del apóstol; se presenta a sí mismo como remitente y garante personal de la carta.' },
                         { palabra: 'prisionero', griego: 'δέσμιος', translit: 'desmios', fonetica: 'dés-mee-os', strong: 'G1198', morfologia: 'Sustantivo · Masculino Singular · Nominativo', sentido: 'Literalmente "atado con cadenas". Pablo redefine su cautiverio romano no como derrota sino como identidad misional: está encadenado "de Cristo Jesús", no del imperio.' },
-                        { palabra: 'Cristo', griego: 'Χριστοῦ', translit: 'Christou', fonetica: 'jris-tú', strong: 'G5547', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'Genitivo de posesión: Pablo pertenece a Cristo; su prisión tiene un dueño distinto al César.' },
+                        { palabra: 'Cristo', griego: '��ριστοῦ', translit: 'Christou', fonetica: 'jris-tú', strong: 'G5547', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'Genitivo de posesión: Pablo pertenece a Cristo; su prisión tiene un dueño distinto al César.' },
                         { palabra: 'Jesús', griego: 'Ἰησοῦ', translit: 'Iesou', fonetica: 'ie-sú', strong: 'G2424', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'Nombre personal del Mesías; junto a "Cristo" ancla la identidad de Pablo en la persona histórica de Jesús.' },
                         { palabra: 'gentiles', griego: 'ἐθνῶν', translit: 'ethnon', fonetica: 'eth-nón', strong: 'G1484', morfologia: 'Sustantivo · Neutro Plural · Genitivo', sentido: 'Designa a los no-judíos; el sufrimiento de Pablo tiene un propósito vicario: es "por vosotros" los gentiles.' }
                     ],
@@ -2674,6 +2678,8 @@ versiones: {},
                 ],
                 lexicoAbierto: false,
                 strongHover: '',
+  strongTooltip: { open: false, loading: false, code: '', data: null, x: 0, y: 0, reference: '' },
+  strongTooltipCache: {},
   lexicoDatos: null,
   lexicoCodigo: '',
   cargandoLexico: false,
@@ -4417,8 +4423,35 @@ guardarFicha() {
                     }
                 },
 
-                // ---------- Diccionario léxico (Strong's real) ----------
-                async consultarLexico(codigo) {
+  // ---------- Tooltip léxico inmediato Strong ----------
+  posicionarStrongTooltip(rect) {
+  const width = Math.min(320, window.innerWidth - 24); const height = 190; const gap = 10;
+  let x = rect.left + rect.width / 2 - width / 2; let y = rect.bottom + gap;
+  x = Math.max(12, Math.min(window.innerWidth - width - 12, x));
+  if (y + height > window.innerHeight - 12) y = Math.max(12, rect.top - height - gap);
+  this.strongTooltip.x = Math.round(x); this.strongTooltip.y = Math.round(y);
+  },
+  async mostrarStrongTooltip(codigo, event, reference = this.referenciaActiva || '') {
+  const code = String(codigo || '').trim().toUpperCase().replace(/^([GH])0*(\\d+)$/, '$1$2');
+  if (!/^[GH]\\d{1,4}$/.test(code)) return;
+  const rect = event?.currentTarget?.getBoundingClientRect?.(); if (!rect) return;
+  this.posicionarStrongTooltip(rect); this.strongTooltip = { ...this.strongTooltip, open: true, loading: false, code, reference, data: null, x: this.strongTooltip.x, y: this.strongTooltip.y };
+  if (this.strongTooltipCache[code]) { this.strongTooltip.data = this.strongTooltipCache[code]; return; }
+  const local = this.masterData?.lexicon?.strong_greek?.[code] || this.masterData?.lexicon?.strong_greek?.[code.toLowerCase()];
+  if (local) { this.strongTooltip.data = this.strongTooltipCache[code] = this.normalizarTooltipLexico(local, code); return; }
+  this.strongTooltip.loading = true;
+  try {
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'interlinear_resolve', prompt: code, context: reference }) });
+    if (!response.ok) throw new Error('No disponible'); const result = await response.json();
+    this.strongTooltipCache[code] = this.normalizarTooltipLexico(result, code); this.strongTooltip.data = this.strongTooltipCache[code];
+  } catch (_) { this.strongTooltip.data = { original: 'Entrada no disponible', code, translation: 'Consulta pendiente', transliteration: '—', morphology: '—', definition: 'No se pudo cargar la definición en este momento.' }; }
+  finally { this.strongTooltip.loading = false; }
+  },
+  normalizarTooltipLexico(data, code) { return { original: data.original || data.lexema || data.termino || 'Término original pendiente', code: data.strong || data.codigo || code, translation: data.traduccionEstricta || data.translation || data.meaning || data.definicionEs || 'Traducción pendiente', transliteration: data.phonetic || data.fonetica || data.transliteration || 'Transliteración pendiente', morphology: data.morphology || data.morfologia || 'Morfología pendiente', definition: data.definition || data.definicionEs || data.meaning || 'Definición exegética pendiente.' }; },
+  cerrarStrongTooltip() { this.strongTooltip.open = false; },
+
+  // ---------- Diccionario léxico (Strong's real) ----------
+  async consultarLexico(codigo) {
                     const codigoNormalizado = String(codigo || '').trim().toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2');
                     if (!/^[GH]\d{1,4}$/.test(codigoNormalizado)) return;
   this.lexicoCodigo = codigoNormalizado;
