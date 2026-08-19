@@ -2911,7 +2911,7 @@ bibliotecaPestana: 'inicio',
   this.$watch('highlights', () => this.persistLocalState());
   this.$watch('notas', () => this.persistLocalState());
   this.loadMetanoiaData();
-                    const loadVoices = () => { const voices = window.speechSynthesis?.getVoices?.() || []; this.availableVoices = voices.filter(v => /^es/i.test(v.lang)); if (!this.selectedVoiceUri && this.availableVoices.length) { const premium = this.availableVoices.find(v => /Natural|Google|Jorge|Paulina|Mónica|Diego|Microsoft/i.test(v.name)); this.selectedVoiceUri = premium?.voiceURI || this.availableVoices[0].voiceURI; } };
+                    const loadVoices = () => { const voices = window.speechSynthesis?.getVoices?.() || []; this.availableVoices = voices.filter(v => /^es/i.test(v.lang)); if (!this.selectedVoiceUri && this.availableVoices.length) { const premium = this.availableVoices.find(v => /Natural|Google.*español|Google.*Spanish|Jorge|Paulina|Mónica|Monica|Diego|Microsoft.*Natural/i.test(v.name)); this.selectedVoiceUri = premium?.voiceURI || this.availableVoices[0].voiceURI; } };
                     loadVoices();
                     if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = loadVoices;
                     this.$watch('selectedVoiceUri', value => { try { localStorage.setItem('revelatio_voice', value || ''); } catch (_) {} });
@@ -3918,7 +3918,7 @@ const etiquetas = {
   togglePause() { const app = Alpine.$data(document.body); if (!app.isPlayingAudio) return this.playPassage(app.audioSource); if (app.audioPaused) { window.speechSynthesis.resume(); app.audioPaused = false; app.isAudioPaused = false; } else { window.speechSynthesis.pause(); app.audioPaused = true; app.isAudioPaused = true; } },
   next() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.min(app.audioQueue.length - 1, app.audioIndex + 1); this.playCurrent(); },
   previous() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.max(0, app.audioIndex - 1); this.playCurrent(); },
-  cyclePlaybackSpeed() { const app = Alpine.$data(document.body); const steps = [0.9, 1.0, 1.2]; const idx = steps.indexOf(Number(app.playbackSpeed)); app.playbackSpeed = steps[(idx + 1) % steps.length]; app.audioRate = app.playbackSpeed; if (app.isPlayingAudio) this.playCurrent(); },
+  cyclePlaybackSpeed() { const app = Alpine.$data(document.body); const steps = [0.85, 1.0, 1.15]; const current = Number(app.playbackSpeed) || 1.0; const idx = steps.findIndex(step => Math.abs(step - current) < 0.01); app.playbackSpeed = steps[(idx + 1) % steps.length]; app.audioRate = app.playbackSpeed; if (app.isPlayingAudio) this.playCurrent(); },
   toggleSoundscape() { const app = Alpine.$data(document.body); app.soundscapeActive = !app.soundscapeActive; if (app.soundscapeActive) this.startSoundscape(); else this.stopSoundscape(); },
   startSoundscape() {
   const app = Alpine.$data(document.body); const track = app.soundtracks.find(t => t.id === app.selectedSoundtrack) || app.soundtracks[0];
@@ -3930,7 +3930,7 @@ const etiquetas = {
   app.ambientAudio = audio; audio.play().then(() => { const target = Math.min(.5, Math.max(.01, Number(app.soundscapeVolume) || .18)); const timer = setInterval(() => { audio.volume = Math.min(target, audio.volume + .02); if (audio.volume >= target) clearInterval(timer); }, 80); }).catch(() => { app.soundscapeActive = false; app.ambientAudio = null; });
   },
   changeSoundtrack(trackId) { const app = Alpine.$data(document.body); app.selectedSoundtrack = trackId; if (app.soundscapeActive) this.startSoundscape(); },
-  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio) return; const target = ducked ? Math.min(.05, Number(app.soundscapeVolume) * .1) : Number(app.soundscapeVolume) || .18; app.ambientAudio.volume = Math.max(0, Math.min(.5, target)); },
+  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio) return; const target = ducked ? (Number(app.soundscapeVolume) || .18) * 0.1 : Number(app.soundscapeVolume) || .18; app.ambientAudio.volume = Math.max(0, Math.min(.5, target)); },
   stopSoundscape(immediate = false) { const app = Alpine.$data(document.body); const audio = app.ambientAudio; if (!audio) return; if (immediate) { audio.pause(); audio.currentTime = 0; app.ambientAudio = null; return; } const start = audio.volume; const timer = setInterval(() => { audio.volume = Math.max(0, audio.volume - .03); if (audio.volume <= .001) { clearInterval(timer); audio.pause(); audio.currentTime = 0; app.ambientAudio = null; } }, 70); },
   playAmbience(kind) { const app = Alpine.$data(document.body); if (kind === 'silencio') { app.soundscapeActive = false; this.stopSoundscape(); return; } const match = app.soundtracks.find(t => t.id === kind) || app.soundtracks[0]; app.selectedSoundtrack = match.id; app.soundscapeActive = true; this.startSoundscape(); },
   stopAmbience() { this.stopSoundscape(); },
@@ -5584,7 +5584,7 @@ guardarFicha() {
   <div x-show="isPlayingAudio" x-cloak x-transition class="fixed bottom-6 inset-x-4 max-w-lg mx-auto z-50 bg-stone-900/95 text-stone-100 backdrop-blur-md rounded-2xl px-5 py-3.5 shadow-2xl flex items-center justify-between gap-3 border border-stone-700/80" role="status" aria-live="polite">
     <div class="flex min-w-0 items-center gap-2.5">
       <span class="flex items-end gap-0.5 h-4" aria-hidden="true"><span class="w-0.5 bg-amber-400 rounded-full animate-pulse" style="height:40%;animation-duration:0.9s"></span><span class="w-0.5 bg-amber-400 rounded-full animate-pulse" style="height:100%;animation-duration:0.6s"></span><span class="w-0.5 bg-amber-400 rounded-full animate-pulse" style="height:65%;animation-duration:1.1s"></span><span class="w-0.5 bg-amber-400 rounded-full animate-pulse" style="height:85%;animation-duration:0.75s"></span></span>
-      <span class="min-w-0 truncate text-xs text-stone-200" x-text="(referenciaActiva ? 'Narrando ' + referenciaActiva : currentAudioText)"></span>
+      <div class="min-w-0 flex-1"><div class="truncate text-xs font-semibold text-amber-100" x-text="audioSource === 'ai_response' ? 'RevelatiO IA' : (audioMode === 'verse' ? 'Versículo individual' : 'Capítulo completo')"></div><span class="block truncate text-[11px] text-stone-300" x-text="(referenciaActiva ? 'Narrando ' + referenciaActiva : currentAudioText)"></span></div>
     </div>
     <div class="flex items-center gap-1 shrink-0">
       <button @click="speechService.previous()" class="p-1.5 rounded-full hover:bg-white/10 text-stone-300" aria-label="Versículo anterior">⏮️</button>
