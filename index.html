@@ -274,6 +274,46 @@
         #versiculo-input, #versiculo-input:focus { caret-color: var(--rv-ink-heading) !important; }
         #login-card, #login-card * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
         #login-card .text-red-300 { color: #991b1b !important; -webkit-text-fill-color: #991b1b !important; }
+
+        /* --- MASTER CONTRAST LOCK PARA SUPERFICIES CLARAS --- */
+        .bg-cream, .bg-parchment, [class*="bg-[#f"], [class*="bg-stone-50"], [class*="bg-amber-50"], main:not(.zona-oscura) {
+            --text-primary: #1c1917 !important;
+            --text-secondary: #44403c !important;
+            --text-accent: #78350f !important;
+        }
+        .bg-cream p, .bg-parchment p, main:not(.zona-oscura) p,
+        [class*="bg-[#f"] p, [class*="bg-stone-50"] p, .commentary-content, .verse-text {
+            color: #1c1917 !important;
+            font-weight: 450 !important;
+            text-shadow: none !important;
+            opacity: 1 !important;
+        }
+        .bg-cream h1, .bg-cream h2, .bg-cream h3, .bg-cream h4,
+        .bg-parchment h1, .bg-parchment h2, .bg-parchment h3,
+        main:not(.zona-oscura) h1, main:not(.zona-oscura) h2, main:not(.zona-oscura) h3 {
+            color: #0c0a09 !important;
+            font-weight: 700 !important;
+        }
+        .bg-cream button, .bg-parchment button, .bg-cream a, .bg-parchment a,
+        .tool-pill, .version-tab {
+            color: #1c1917 !important;
+            border-color: #78716c !important;
+        }
+        .badge-gold, .tag-label, [class*="text-amber-"], [class*="text-yellow-"] {
+            color: #78350f !important;
+            font-weight: 700 !important;
+        }
+        button.border-amber-300, button.border-yellow-400, .btn-secondary {
+            background-color: #f5f5f4 !important;
+            border: 1px solid #78716c !important;
+            color: #1c1917 !important;
+        }
+        select, select option {
+            background-color: #ffffff !important;
+            color: #1c1917 !important;
+            border: 1px solid #a8a29e !important;
+            font-weight: 600 !important;
+        }
     </style>
 
 </head>
