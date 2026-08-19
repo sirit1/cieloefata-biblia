@@ -2726,9 +2726,9 @@ versiones: {},
                 selectedSoundtrack: 'piano_worship',
                 ambientAudio: null,
                 soundtracks: [
-                    { id: 'piano_worship', name: 'Piano de Adoración & Reposo', url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-piano-worship-ambient-110997.mp3' },
-                    { id: 'peace_strings', name: 'Cuerdas de Paz & Quietud', url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=peaceful-contemplative-ambient-piano-and-strings-10874.mp3' },
-                    { id: 'holy_presence', name: 'Colchón de Gracia (Pads & Guitarra)', url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=spiritual-worship-peace-10336.mp3' }
+  { id: 'piano_worship', name: 'Piano de Adoración', url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=piano-moment-9835.mp3' },
+  { id: 'peace_strings', name: 'Cuerdas de Paz & Quietud', url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=meditation-peace-spiritual-atmosphere-11442.mp3' },
+  { id: 'holy_presence', name: 'Pad Profundo de Oración', url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=ambient-worship-pad-deep-peace-10332.mp3' }
                 ],
                 playbackSpeed: 1.0,
                 fontSize: 20,
@@ -3990,19 +3990,31 @@ const etiquetas = {
   previous() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.max(0, app.audioIndex - 1); this.playCurrent(); },
   cyclePlaybackSpeed() { const app = Alpine.$data(document.body); const steps = [0.85, 1.0, 1.15]; const current = Number(app.playbackSpeed) || 1.0; const idx = steps.findIndex(step => Math.abs(step - current) < 0.01); app.playbackSpeed = steps[(idx + 1) % steps.length]; app.audioRate = app.playbackSpeed; if (app.isPlayingAudio) this.playCurrent(); },
   toggleSoundscape() { const app = Alpine.$data(document.body); app.soundscapeActive = !app.soundscapeActive; if (app.soundscapeActive) this.startSoundscape(); else this.stopSoundscape(); },
+  ensureSoakingFallback() {
+  const app = Alpine.$data(document.body); if (app.soakingNodes?.length) return;
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext; if (!AudioContextClass) return;
+  const ctx = app.ambienceContext || new AudioContextClass(); app.ambienceContext = ctx;
+  const master = ctx.createGain(); const filter = ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 1050; filter.Q.value = 0.35; master.gain.value = 0.0001; filter.connect(master).connect(ctx.destination);
+  const frequencies = [146.83, 220, 293.66, 392];
+  app.soakingNodes = frequencies.map((frequency, index) => { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = index % 2 ? 'sine' : 'triangle'; osc.frequency.value = frequency * (index === 3 ? 1 : 1.002); gain.gain.value = [0.12, 0.08, 0.06, 0.045][index]; osc.connect(gain).connect(filter); osc.start(); return osc; });
+  app.soakingMaster = master; app.soakingFilter = filter; app.soakingFallbackActive = true;
+  },
+  startSoakingFallback() { const app = Alpine.$data(document.body); this.ensureSoakingFallback(); const ctx = app.ambienceContext; if (!ctx || !app.soakingMaster) return; ctx.resume?.(); app.soakingMaster.gain.cancelScheduledValues(ctx.currentTime); app.soakingMaster.gain.linearRampToValueAtTime(Math.min(0.24, Number(app.musicBaseVolume) || 0.35), ctx.currentTime + 1.6); },
+  stopSoakingFallback() { const app = Alpine.$data(document.body); const ctx = app.ambienceContext; if (!ctx || !app.soakingMaster) return; app.soakingMaster.gain.cancelScheduledValues(ctx.currentTime); app.soakingMaster.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.8); },
   startSoundscape() {
   const app = Alpine.$data(document.body); const track = app.soundtracks.find(t => t.id === app.selectedSoundtrack) || app.soundtracks[0];
   if (!track) return;
-  if (app.ambientAudio && app.ambientAudio.src === track.url) { app.ambientAudio.volume = Number(app.soundscapeVolume) || 0.18; app.ambientAudio.play().catch(() => {}); return; }
+  if (app.ambientAudio && app.ambientAudio.dataset?.trackId === track.id) { app.ambientAudio.volume = Math.min(1, Number(app.musicBaseVolume) || 0.35); app.ambientAudio.play().catch(() => {}); this.stopSoakingFallback(); return; }
   this.stopSoundscape(true);
-  const audio = new Audio('https://cdn.freesound.org/previews/518/518884_10672051-lq.mp3'); audio.loop = true; audio.preload = 'auto'; audio.crossOrigin = 'anonymous'; audio.volume = 0.001;
-  audio.addEventListener('error', () => { app.soundscapeActive = false; app.ambientAudio = null; app.mostrarToast?.('No se pudo cargar la pista instrumental.'); }, { once: true });
-  app.ambientAudio = audio; audio.play().then(() => { const target = Math.min(.5, Math.max(.01, Number(app.musicBaseVolume) || .35)); const timer = setInterval(() => { audio.volume = Math.min(target, audio.volume + .02); if (audio.volume >= target) clearInterval(timer); }, 80); }).catch(() => { app.soundscapeActive = false; app.ambientAudio = null; });
+  const audio = new Audio(track.url); audio.dataset.trackId = track.id; audio.loop = true; audio.preload = 'auto'; audio.crossOrigin = 'anonymous'; audio.volume = 0.001;
+  const fallback = () => { this.stopSoundscape(true); this.startSoakingFallback(); app.soundscapeActive = true; app.mostrarToast?.('Activado pad nativo de oración para mantener la música.'); };
+  audio.addEventListener('error', fallback, { once: true });
+  app.ambientAudio = audio; audio.play().then(() => { this.stopSoakingFallback(); const target = Math.min(1, Math.max(.001, Number(app.musicBaseVolume) || .35)); const timer = setInterval(() => { audio.volume = Math.min(target, audio.volume + .025); if (audio.volume >= target) clearInterval(timer); }, 80); }).catch(fallback);
   },
   changeSoundtrack(trackId) { const app = Alpine.$data(document.body); app.selectedSoundtrack = trackId; if (app.soundscapeActive) this.startSoundscape(); },
-  fadeMusicTo(target) { const app = Alpine.$data(document.body); const audio = app.ambientAudio; if (!audio) return; clearInterval(app.musicFadeTimer); const end = Math.max(0, Math.min(1, Number(target) || 0)); const start = audio.volume; const steps = 8; let step = 0; app.musicFadeTimer = setInterval(() => { step += 1; audio.volume = start + (end - start) * (step / steps); if (step >= steps) clearInterval(app.musicFadeTimer); }, 45); },
-  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio) return; this.fadeMusicTo(ducked ? app.musicDuckedVolume : app.musicBaseVolume); },
-  stopSoundscape(immediate = false) { const app = Alpine.$data(document.body); const audio = app.ambientAudio; if (!audio) return; if (immediate) { audio.pause(); audio.currentTime = 0; app.ambientAudio = null; return; } const start = audio.volume; const timer = setInterval(() => { audio.volume = Math.max(0, audio.volume - .03); if (audio.volume <= .001) { clearInterval(timer); audio.pause(); audio.currentTime = 0; app.ambientAudio = null; } }, 70); },
+  fadeMusicTo(target) { const app = Alpine.$data(document.body); const end = Math.max(0, Math.min(1, Number(target) || 0)); if (app.soakingFallbackActive && app.soakingMaster && app.ambienceContext) { const now = app.ambienceContext.currentTime; app.soakingMaster.gain.cancelScheduledValues(now); app.soakingMaster.gain.linearRampToValueAtTime(end * 0.68, now + 0.45); } const audio = app.ambientAudio; if (!audio) return; clearInterval(app.musicFadeTimer); const start = audio.volume; const steps = 8; let step = 0; app.musicFadeTimer = setInterval(() => { step += 1; audio.volume = start + (end - start) * (step / steps); if (step >= steps) clearInterval(app.musicFadeTimer); }, 45); },
+  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio && !app.soakingFallbackActive) return; this.fadeMusicTo(ducked ? 0.15 * (Number(app.musicBaseVolume) || 0.35) : app.musicBaseVolume); },
+  stopSoundscape(immediate = false) { const app = Alpine.$data(document.body); this.stopSoakingFallback(); const audio = app.ambientAudio; if (!audio) return; if (immediate) { audio.pause(); audio.currentTime = 0; app.ambientAudio = null; return; } const start = audio.volume; const timer = setInterval(() => { audio.volume = Math.max(0, audio.volume - .03); if (audio.volume <= .001) { clearInterval(timer); audio.pause(); audio.currentTime = 0; app.ambientAudio = null; } }, 70); },
   playAmbience(kind) { const app = Alpine.$data(document.body); if (kind === 'silencio') { app.soundscapeActive = false; this.stopSoundscape(); return; } const match = app.soundtracks.find(t => t.id === kind) || app.soundtracks[0]; app.selectedSoundtrack = match.id; app.soundscapeActive = true; this.startSoundscape(); },
   stopAmbience() { this.stopSoundscape(); },
   stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.audioPaused = false; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); }
