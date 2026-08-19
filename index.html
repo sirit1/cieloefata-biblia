@@ -194,6 +194,8 @@
         .rv-streak-badge { background: #FFFBEB !important; border-color: rgba(180,131,42,.45) !important; color: #78350F !important; line-height: 1.25; }
   .rv-streak-badge span { color: #78350F !important; }
   .rv-streak-badge span:first-of-type { color: #92400E !important; font-weight: 800; min-width: 1.1rem; text-align: center; }
+        .rv-ia-response .rv-lens-audio { color: #78350F !important; -webkit-text-fill-color: #78350F !important; }
+        .rv-ia-response [x-text*="LENTES_LISTA"] { color: #292524 !important; -webkit-text-fill-color: #292524 !important; }
         /* QA: área táctil mínima de 44x44px (WCAG 2.5.5) para botones de solo icono cuyo padding visual es más pequeño. */
         .rv-tap-44 { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
         @media (max-width: 1023px) { .mobile-nav { display: flex; } main { padding-bottom: 5.5rem; } }
@@ -1190,7 +1192,7 @@
                             <div class="order-1 rv-ia-response" style="min-height:13rem">
                                 <div class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b pb-3" style="border-color:#e7e5e4">
                                     <p class="text-[10px] font-bold uppercase tracking-[0.16em]" style="color:#92400e">Respuesta de la lente activa</p>
-                                    <div class="flex items-center gap-2"><p class="text-sm font-semibold" style="color:#292524" x-text="(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p><button type="button" @click="speechService.speak(lenteEstado.cuerpo || estudio.comentario || estudio.aplicacion)" class="rounded-lg border border-amber-300 px-2.5 py-1.5 text-[11px] font-semibold text-amber-800 hover:bg-amber-50" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
+                                    <div class="flex items-center gap-2"><p class="text-sm font-bold text-stone-900" style="color:#292524 !important" x-text="(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p><button type="button" @click="speechService.speak(lenteEstado.cuerpo || estudio.comentario || estudio.aplicacion)" class="rv-lens-audio rounded-lg border border-amber-500 bg-amber-50 px-2.5 py-1.5 text-[11px] font-bold text-amber-900 hover:bg-amber-100" style="color:#78350f !important" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
                                 </div>
                                 <!-- Selector de autor (solo lente 'autores') -->
                                 <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b" style="border-color:#e7e5e4">
