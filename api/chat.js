@@ -1,4 +1,4 @@
-import { streamText } from 'ai'
+import { generateText, streamText } from 'ai'
 
 export const runtime = 'edge'
 
@@ -15,9 +15,22 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido' })
 
   try {
-    const { message, context = {}, history = [] } = req.body || {}
+    const { message, context = {}, history = [], type = 'chat' } = req.body || {}
     const cleanMessage = String(message || '').trim().slice(0, 5000)
     if (!cleanMessage) return res.status(400).json({ error: 'Escribe una pregunta para continuar.' })
+
+    if (type === 'interlinear_resolve') {
+      const result = await generateText({
+        model: 'google/gemini-3.5-flash',
+        system: 'Eres un especialista académico en hebreo bíblico y griego koiné. Devuelve SOLO JSON válido, sin markdown, con las claves original, transliteration, phonetic, strong, morphology, meaning y metanoia. Nunca inventes certeza: si falta contexto, indica pendiente de verificación de forma clara.',
+        prompt: `Resuelve el término bíblico seleccionado: ${cleanMessage}\nReferencia: ${String(context.reference || 'sin referencia').slice(0, 160)}\nTexto: ${String(context.text || '').slice(0, 1200)}`,
+        temperature: 0.15,
+        maxOutputTokens: 600,
+      })
+      let data
+      try { data = JSON.parse(result.text.replace(/^```json\s*|\s*```$/g, '')) } catch (_) { data = { original: cleanMessage, transliteration: 'Pendiente de verificación', phonetic: 'Pendiente de verificación', strong: 'Pendiente de verificación', morphology: 'Análisis contextual pendiente', meaning: result.text || 'No hay una entrada académica confirmada.', metanoia: 'Discierne cómo este término transforma tu manera de pensar y obedecer.' } }
+      return res.status(200).json(data)
+    }
 
     const contextLine = [context.reference, context.module, context.version, context.text]
       .filter(Boolean)
