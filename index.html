@@ -5791,34 +5791,34 @@ guardarFicha() {
     <div class="mt-3 flex flex-wrap items-center gap-2 text-[11px]"><button @click="speechService.previous()" class="rounded-lg border border-stone-700 px-2 py-1 hover:bg-stone-800" aria-label="Anterior">Anterior</button><button @click="speechService.next()" class="rounded-lg border border-stone-700 px-2 py-1 hover:bg-stone-800" aria-label="Siguiente">Siguiente</button><label class="flex items-center gap-1 text-stone-300">Velocidad<select x-model.number="playbackSpeed" @change="audioRate = playbackSpeed; if (isPlayingAudio) speechService.playCurrent()" class="rounded-md border border-stone-700 bg-stone-900 px-1 py-1 text-stone-100"><option value="0.8">0.8x</option><option value="1">1.0x</option><option value="1.2">1.2x</option></select></label><label class="ml-auto flex items-center gap-1 text-stone-300">Música Pad<input type="range" min="0" max="1" step="0.01" x-model.number="musicBaseVolume" @input="soundscapeVolume = musicBaseVolume; speechService.fadeMusicTo(musicBaseVolume)" class="w-24 accent-amber-400" aria-label="Volumen de música Pad"></label><button @click="speechService.stop()" class="rounded-lg border border-rose-400/40 px-2 py-1 text-rose-200 hover:bg-rose-950">Cerrar</button></div>
   </div>
   <div x-show="toastMessage" x-cloak x-transition class="rv-toast" role="status" aria-live="polite" x-text="toastMessage"></div>
+  <div id="revelatio-selection-tooltip" style="display:none;position:fixed;z-index:9999999;transform:translate(-50%,-100%);" class="flex items-center gap-1 bg-stone-900 text-stone-100 border border-amber-500/50 rounded-xl px-2.5 py-1.5 shadow-2xl backdrop-blur-md select-none" role="toolbar" aria-label="Acciones sobre selección">
+    <button type="button" onclick="window.revelatioActions.copy()" class="px-2.5 py-1 hover:bg-stone-800 text-amber-400 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">📋 <span>Copiar</span></button><div class="h-4 w-px bg-stone-700"></div>
+    <button type="button" onclick="window.revelatioActions.highlight()" class="px-2.5 py-1 hover:bg-stone-800 text-stone-200 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">🎨 <span>Resaltar</span></button><div class="h-4 w-px bg-stone-700"></div>
+    <button type="button" onclick="window.revelatioActions.marginNote()" class="px-2.5 py-1 hover:bg-stone-800 text-stone-200 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">📝 <span>MarginNote</span></button><div class="h-4 w-px bg-stone-700"></div>
+    <button type="button" onclick="window.revelatioActions.metanoia()" class="px-2.5 py-1 hover:bg-stone-800 text-stone-200 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">🌱 <span>Metanoia</span></button><div class="h-4 w-px bg-stone-700"></div>
+    <button type="button" onclick="window.revelatioActions.speak()" class="px-2.5 py-1 hover:bg-stone-800 text-stone-200 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">🔊 <span>Escuchar</span></button>
+  </div>
   <script>
     (() => {
-      let selectionTimer;
-      const isMenuTarget = target => target?.closest?.('#revelatio-universal-menu, button, input, textarea, select, a');
-      const captureSelection = () => {
-        clearTimeout(selectionTimer);
-        selectionTimer = setTimeout(() => {
-          const selection = window.getSelection();
-          const text = selection?.toString?.().trim() || '';
-          if (text.length <= 2 || selection.isCollapsed) return;
-          const range = selection.getRangeAt(0);
-          const rect = range.getBoundingClientRect();
-          if (!rect.width && !rect.height) return;
-          const root = range.commonAncestorContainer.nodeType === 1 ? range.commonAncestorContainer : range.commonAncestorContainer.parentElement;
-          if (isMenuTarget(root)) return;
-          const verse = root?.closest?.('.rv-verse-surface, .rv-verse, [data-verse], [data-versiculo], .verse, .bible-verse');
-          if (verse && typeof window.showVerseSheet === 'function') {
-            window.showVerseSheet({ reference: verse.dataset.reference || 'Versículo', version: verse.dataset.version || 'RevelatiO', text });
-            return;
-          }
-          if (typeof window.showVerseSheet === 'function') window.showVerseSheet({ reference: 'Selección de estudio', version: 'RevelatiO', text });
-        }, 20);
+      let selectedText = ''; let savedRange = null; let selectionTimer;
+      const menu = document.getElementById('revelatio-selection-tooltip');
+      const hideMenu = () => { if (menu) menu.style.display = 'none'; };
+      const copy = async text => { try { await navigator.clipboard.writeText(text); } catch { const input = document.createElement('textarea'); input.value = text; input.style.cssText = 'position:fixed;opacity:0'; document.body.append(input); input.select(); document.execCommand('copy'); input.remove(); } };
+      window.revelatioActions = {
+        copy() { if (!selectedText) return; copy(selectedText); hideMenu(); },
+        highlight() { if (!savedRange) return hideMenu(); try { const mark = document.createElement('mark'); mark.className = 'revelatio-highlight'; mark.style.cssText = 'background:#fde68a;color:#1c1917;border-radius:.18em;padding:.04em .12em;'; savedRange.surroundContents(mark); } catch {} hideMenu(); },
+        marginNote() { if (selectedText) window.dispatchEvent(new CustomEvent('add-margin-note', { detail: { text: selectedText } })); hideMenu(); },
+        metanoia() { if (selectedText) window.dispatchEvent(new CustomEvent('send-to-omnibar', { detail: { prompt: `Metanoia y renovación mental sobre: "${selectedText}"` } })); hideMenu(); },
+        speak() { if (selectedText && window.speechSynthesis) { window.speechSynthesis.cancel(); const utter = new SpeechSynthesisUtterance(selectedText); utter.lang = 'es-ES'; utter.rate = 0.88; window.speechSynthesis.speak(utter); } hideMenu(); }
       };
-      document.addEventListener('selectionchange', captureSelection, { passive: true });
-      document.addEventListener('mouseup', captureSelection, { passive: true });
-      document.addEventListener('touchend', captureSelection, { passive: true });
-      document.addEventListener('mousedown', event => { if (!isMenuTarget(event.target) && !window.getSelection()?.toString?.().trim()) document.getElementById('revelatio-universal-menu')?.remove(); });
-      document.addEventListener('keydown', event => { if (event.key === 'Escape') document.getElementById('revelatio-universal-menu')?.remove(); });
+      const showMenu = rect => { const width = Math.min(360, window.innerWidth - 20); const left = Math.max(width / 2 + 10, Math.min(window.innerWidth - width / 2 - 10, rect.left + rect.width / 2)); const top = Math.max(58, rect.top - 12); menu.style.left = `${left}px`; menu.style.top = `${top}px`; menu.style.display = 'flex'; };
+      const checkSelection = () => { clearTimeout(selectionTimer); selectionTimer = setTimeout(() => { const sel = window.getSelection(); const text = sel?.toString?.().trim() || ''; if (!sel || sel.isCollapsed || text.length < 2 || !sel.rangeCount) return hideMenu(); const range = sel.getRangeAt(0); const rect = range.getBoundingClientRect(); if (!rect.width && !rect.height) return hideMenu(); selectedText = text; savedRange = range.cloneRange(); showMenu(rect); }, 20); };
+      if (!menu) return;
+      menu.addEventListener('mousedown', event => event.preventDefault());
+      document.addEventListener('mouseup', checkSelection); document.addEventListener('touchend', checkSelection, { passive: true });
+      document.addEventListener('mousedown', event => { if (!menu.contains(event.target)) hideMenu(); });
+      window.addEventListener('scroll', hideMenu, { passive: true }); window.addEventListener('resize', hideMenu, { passive: true });
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') hideMenu(); });
     })();
   </script>
   </body>
