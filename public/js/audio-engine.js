@@ -1,16 +1,85 @@
-/* RevelatiO audio engine: HTML5 ambient music plus Latin-American Web Speech. */
-(() => {
-  class RevelatioAudio {
-    constructor() { this.audio = null; this.tracks = []; this.voice = null; this.baseVolume = 0.4; }
-    configure(tracks = []) { this.tracks = tracks; }
-    pickVoice() { const voices = window.speechSynthesis?.getVoices?.() || []; const latin = /^(es-MX|es-US|es-CO|es-419|es-AR)$/i; const preferred = /Paulina|Sabina|Paloma|Jimena|Dalia|Jorge|Google español/i; return voices.filter(v => latin.test(v.lang) && !/english|robot|es-ES/i.test(v.name + v.lang)).find(v => preferred.test(v.name)) || voices.find(v => latin.test(v.lang)) || null; }
-    speak(text, options = {}) { if (!text || !window.speechSynthesis) return; window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(text)); this.voice = this.voice || this.pickVoice(); if (this.voice) u.voice = this.voice; u.lang = this.voice?.lang || options.lang || 'es-MX'; u.rate = options.rate || 0.9; u.pitch = options.pitch || 1; window.speechSynthesis.speak(u); }
-    stopSpeaking() { window.speechSynthesis?.cancel?.(); }
-    async play(track) { if (!track?.url) return false; if (!this.audio || this.audio.src !== track.url) { this.audio?.pause(); this.audio = new Audio(track.url); this.audio.loop = true; this.audio.preload = 'auto'; this.audio.crossOrigin = 'anonymous'; this.audio.volume = 0; } try { await this.audio.play(); this.fadeTo(this.baseVolume); return true; } catch { return false; } }
-    fadeTo(volume, duration = 1800) { if (!this.audio) return; const start = this.audio.volume; const delta = volume - start; const began = performance.now(); const tick = now => { const progress = Math.min(1, (now - began) / duration); if (this.audio) this.audio.volume = start + delta * progress; if (progress < 1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
-    duck(active) { this.fadeTo(active ? 0.15 : this.baseVolume, 900); }
-    stop() { this.fadeTo(0, 700); setTimeout(() => this.audio?.pause(), 750); }
+class RevelatioAudio {
+  constructor() {
+    this.bgAudio = new Audio();
+    this.bgAudio.loop = true;
+    this.bgAudio.crossOrigin = 'anonymous';
+    this.speechSynth = window.speechSynthesis;
+    this.voices = [];
+    this.selectedVoice = null;
+    this.baseVolume = 0.50;
+    this.duckVolume = 0.15;
+
+    this.tracks = {
+      piano: 'https://ia801503.us.archive.org/15/items/gentle-piano-worship-peace/gentle-piano-worship.mp3',
+      cuerdas: 'https://ia801402.us.archive.org/20/items/ambient-prayer-pads/ambient-prayer-strings.mp3',
+      pad: 'https://ia601402.us.archive.org/20/items/ambient-prayer-pads/deep-worship-pad.mp3'
+    };
+    this.bgAudio.src = this.tracks.piano;
+
+    this.loadVoices();
+    if (this.speechSynth && this.speechSynth.onvoiceschanged !== undefined) {
+      this.speechSynth.onvoiceschanged = () => this.loadVoices();
+    }
   }
-  window.revelatioAudio = new RevelatioAudio();
-  window.speechSynthesis?.addEventListener?.('voiceschanged', () => window.revelatioAudio.voice = window.revelatioAudio.pickVoice());
-})();
+
+  loadVoices() {
+    if (!this.speechSynth) return;
+    this.voices = this.speechSynth.getVoices();
+
+    const latinPatterns = [
+      /Paulina/i, /Sabina/i, /Paloma/i, /Jimena/i,
+      /Microsoft Dalia/i, /Microsoft Jorge/i,
+      /Google español de Estados Unidos/i, /Google.*(MX|US|419)/i
+    ];
+
+    for (const pattern of latinPatterns) {
+      const match = this.voices.find(v => pattern.test(v.name) || (pattern.test(v.lang) && !v.lang.includes('ES')));
+      if (match) {
+        this.selectedVoice = match;
+        break;
+      }
+    }
+
+    if (!this.selectedVoice) {
+      this.selectedVoice = this.voices.find(v => v.lang.startsWith('es-') && !v.lang.includes('es-ES')) ||
+                           this.voices.find(v => v.lang.startsWith('es'));
+    }
+  }
+
+  playAmbient(track = 'piano') {
+    if (this.tracks[track]) this.bgAudio.src = this.tracks[track];
+    this.bgAudio.volume = this.baseVolume;
+    this.bgAudio.play().catch(() => {});
+  }
+
+  stopAmbient() {
+    this.bgAudio.pause();
+  }
+
+  speakPassage(text) {
+    if (!this.speechSynth) return;
+    this.speechSynth.cancel();
+
+    const cleanText = text.replace(/\[[GH]?\d+\]/g, '').replace(/^\d+\s+/gm, '').trim();
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+
+    if (!this.selectedVoice) this.loadVoices();
+    if (this.selectedVoice) utterance.voice = this.selectedVoice;
+
+    utterance.rate = 0.86;
+    utterance.pitch = 0.98;
+
+    utterance.onstart = () => { this.bgAudio.volume = this.duckVolume; };
+    utterance.onend = () => { this.bgAudio.volume = this.baseVolume; };
+    utterance.onerror = () => { this.bgAudio.volume = this.baseVolume; };
+
+    this.speechSynth.speak(utterance);
+  }
+
+  stopAll() {
+    if (this.speechSynth) this.speechSynth.cancel();
+    this.stopAmbient();
+  }
+}
+
+window.revelatioAudio = new RevelatioAudio();
