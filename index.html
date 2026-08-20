@@ -10,8 +10,8 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#12313A">
     <link rel="canonical" href="https://revelatio.efata.app/">
-    <link rel="icon" type="image/png" sizes="192x192" href="/brand/revelatio-logo-full-new.jpeg">
-    <link rel="apple-touch-icon" href="/brand/revelatio-logo-full-new.jpeg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,15 +23,18 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="RevelatiO by Efata">
     <meta property="og:title" content="RevelatiO by Efata | Inteligencia Exegética y Renovación de la Mente">
-    <meta property="og:description" content="Plataforma ministerial de inteligencia exegética, conversión y renovación de la mente. Exégesis histórica y gramatical, idiomas originales, psicología cristiana y neuroplasticidad. Libre distribución y gratuita.">
-    <meta property="og:image" content="/brand/revelatio-logo-full-new.jpeg">
+    <meta property="og:description" content="Plataforma de estudio bíblico profundo, análisis léxico interlineal y renovación del entendimiento.">
+    <meta property="og:image" content="/brand/revelatio-logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="es_ES">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="RevelatiO by Efata">
-    <meta name="twitter:description" content="Inteligencia exegética, conversión y renovación de la mente. Estudio bíblico riguroso, gratuito y de libre distribución.">
-    <meta name="twitter:image" content="/brand/revelatio-logo-full-new.jpeg">
+    <meta name="twitter:title" content="RevelatiO by Efata | Inteligencia Exegética">
+    <meta name="twitter:description" content="Plataforma de estudio bíblico profundo y renovación del entendimiento.">
+    <meta name="twitter:image" content="/brand/revelatio-logo.png">
 
     <!-- Datos estructurados (SEO) -->
     <script type="application/ld+json">
@@ -139,8 +142,8 @@
         .rv-reader-container .rv-verse-surface { color: #1c1917 !important; -webkit-text-fill-color: #1c1917 !important; }
         @media (min-width: 768px) { .rv-reader-container { max-width: 56rem; padding-inline: 2rem; } }
         @media (min-width: 1280px) { .rv-reader-container { max-width: 64rem; padding-inline: 2rem; } }
-        .rv-universal-menu { z-index: 60 !important; }
-        #revelatio-universal-menu { z-index: 60 !important; }
+        .rv-universal-menu { position: fixed !important; z-index: 9999 !important; left: 50% !important; bottom: max(1rem, env(safe-area-inset-bottom)) !important; top: auto !important; transform: translateX(-50%); max-width: calc(100vw - 1.5rem); }
+        #revelatio-universal-menu { position: fixed !important; z-index: 9999 !important; }
         .rv-zen-sanctuary { overflow-y: auto; }
         .rv-zen-controls { opacity: .18; transition: opacity .25s ease; }
         .rv-zen-controls:hover, .rv-zen-controls:focus-within { opacity: 1; }
@@ -188,12 +191,22 @@
            sin capa (como "header *{color:var(--rv-cream)}" arriba) siempre ganan sobre CUALQUIER regla en capa,
            sin importar su especificidad. El texto del badge de racha quedaba invisible por esto. Se fija aquí
            con una regla sin capa, siguiendo el mismo patrón .rv-* usado en el resto del archivo. */
-        .rv-streak-badge { background: #FFFBEB !important; border-color: rgba(180,131,42,.45) !important; color: #78350F !important; }
+        .rv-streak-badge { background: #FFFBEB !important; border-color: rgba(180,131,42,.45) !important; color: #78350F !important; line-height: 1.25; }
+  .rv-streak-badge span { color: #78350F !important; }
+  .rv-streak-badge span:first-of-type { color: #92400E !important; font-weight: 800; min-width: 1.1rem; text-align: center; }
+        .rv-ia-response .rv-lens-audio { color: #78350F !important; -webkit-text-fill-color: #78350F !important; }
+        .rv-ia-response [x-text*="LENTES_LISTA"] { color: #292524 !important; -webkit-text-fill-color: #292524 !important; }
         /* QA: área táctil mínima de 44x44px (WCAG 2.5.5) para botones de solo icono cuyo padding visual es más pequeño. */
         .rv-tap-44 { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
         @media (max-width: 1023px) { .mobile-nav { display: flex; } main { padding-bottom: 5.5rem; } }
         @media (min-width: 1024px) { .mobile-nav { display: none; } }
         :focus-visible { outline: 3px solid var(--rv-gold-on-dark); outline-offset: 3px; }
+
+        /* Blindaje contra texto amarillo o deslavado en tarjetas claras */
+        .cross-refs-card, [class*="bg-white"], .study-card, .accordion-header { color: #1c1917 !important; }
+        .cross-refs-card h4, .cross-refs-card .ref-title { color: #78350f !important; font-weight: 700 !important; }
+        .cross-refs-card p, .cross-refs-card .ref-desc { color: #334155 !important; }
+        .disclaimer-text { color: #57534e !important; }
 
         /* ===================== SISTEMA DE COLOR (única fuente de verdad) =====================
            Fondo general: azul noche. Texto por defecto: crema. Los paneles claros
@@ -203,11 +216,11 @@
         #app, .app-shell, main { background: transparent !important; color: var(--rv-cream); }
         header, aside, .zona-oscura, .bg-ink, .bg-night, .bg-night2 { background: linear-gradient(145deg, var(--rv-bg-dark), var(--rv-bg-dark-2)) !important; color: var(--rv-cream) !important; }
 
-        /* Texto por defecto sobre fondo oscuro */
-        main p, main span, main label, main li, main a, main button, main small, main div,
-        header, header *, aside, aside *, .zona-oscura, .zona-oscura *, .bg-ink, .bg-ink *, .bg-night, .bg-night * { color: var(--rv-cream); }
-        main h1, main h2, main h3, main h4, main h5, main strong,
-        .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong { color: var(--rv-cream-heading) !important; }
+  /* Tipografía base scoped: los fondos oscuros conservan su propia jerarquía */
+  header, header *, aside, aside *, .zona-oscura, .zona-oscura *, .bg-ink, .bg-ink *, .bg-night, .bg-night *, .bg-navy, .dark-card { color: var(--rv-cream); }
+  .zona-oscura h1, .zona-oscura h2, .zona-oscura h3, .zona-oscura h4, .zona-oscura strong,
+  .bg-navy h1, .bg-navy h2, .bg-navy h3, .bg-navy h4, .dark-card h1, .dark-card h2, .dark-card h3 { color: #fff !important; }
+  .zona-oscura p, .bg-navy p, .dark-card p { color: #e2e8f0 !important; }
         .text-gray-100, .text-gray-200, .text-gray-300 { color: var(--rv-cream) !important; }
         .text-gray-400, .text-gray-500, .text-gray-600 { color: var(--rv-cream-muted) !important; }
         .text-gold-50, .text-gold-100, .text-gold-200, .text-gold-300, .text-gold-400, .text-gold-500, .text-gold-600, .text-gold-700 { color: var(--rv-gold-on-dark) !important; }
@@ -267,6 +280,38 @@
         #versiculo-input, #versiculo-input:focus { caret-color: var(--rv-ink-heading) !important; }
         #login-card, #login-card * { color: var(--rv-ink) !important; -webkit-text-fill-color: var(--rv-ink) !important; }
         #login-card .text-red-300 { color: #991b1b !important; -webkit-text-fill-color: #991b1b !important; }
+
+        /* --- MASTER CONTRAST LOCK PARA SUPERFICIES CLARAS --- */
+  /* CONTENEDORES OSCUROS: solo estos selectores fuerzan tipografía clara */
+  .bg-navy, [class*="bg-[#0f172a]"], [class*="bg-slate-900"], [class*="bg-stone-900"], .dark-card { color: #f8fafc !important; }
+  .bg-navy h1, .bg-navy h2, .bg-navy h3, [class*="bg-[#0f172a]"] h2, [class*="bg-slate-900"] h2 { color: #fff !important; }
+  .bg-navy p, [class*="bg-[#0f172a]"] p, [class*="bg-slate-900"] p { color: #e2e8f0 !important; }
+
+  /* CONTENEDORES CLAROS: paleta editorial, sin contaminar hero ni modales */
+  .bg-cream, .bg-parchment, [class*="bg-[#fbf7ee]"], [class*="bg-[#fdfbf7]"], [class*="bg-stone-50"] { color: #1c1917 !important; }
+  .bg-cream h1, .bg-cream h2, .bg-cream h3, .bg-parchment h2, [class*="bg-[#fbf7ee]"] h2 { color: #0c0a09 !important; }
+  .bg-cream p, .bg-parchment p, [class*="bg-[#fbf7ee]"] p { color: #292524 !important; font-weight: 450 !important; text-shadow: none !important; opacity: 1 !important; }
+  .bg-cream .tag-label, [class*="bg-[#fbf7ee]"] .tag-label, .bg-cream [class*="text-amber-"] { color: #78350f !important; font-weight: 700 !important; }
+        .bg-cream button, .bg-parchment button, .bg-cream a, .bg-parchment a,
+        .tool-pill, .version-tab {
+            color: #1c1917 !important;
+            border-color: #78716c !important;
+        }
+        .badge-gold, .tag-label, [class*="text-amber-"], [class*="text-yellow-"] {
+            color: #78350f !important;
+            font-weight: 700 !important;
+        }
+        button.border-amber-300, button.border-yellow-400, .btn-secondary {
+            background-color: #f5f5f4 !important;
+            border: 1px solid #78716c !important;
+            color: #1c1917 !important;
+        }
+        select, select option {
+            background-color: #ffffff !important;
+            color: #1c1917 !important;
+            border: 1px solid #a8a29e !important;
+            font-weight: 600 !important;
+        }
     </style>
 
 </head>
@@ -365,7 +410,7 @@
         </div>
 
         <!-- HEADER GLOBAL -->
-        <header x-show="!zenMode" x-transition.opacity.duration.300ms class="zona-oscura shrink-0 min-h-20 lg:min-h-24 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-40 shadow-lg shadow-night/10 transition-all duration-300 ease-in-out overflow-hidden" :class="{ '-translate-y-full max-h-0 min-h-0 py-0 border-0 opacity-0': !sanctuaryShowNav, 'translate-y-0 max-h-40 opacity-100': sanctuaryShowNav }">
+        <header x-show="!zenMode" x-transition.opacity.duration.300ms class="zona-oscura relative shrink-0 min-h-20 lg:min-h-24 py-3 backdrop-blur border-b border-line flex items-center gap-3 px-4 lg:px-6 z-[70] shadow-lg shadow-night/10 transition-all duration-300 ease-in-out overflow-visible" :class="{ '-translate-y-full max-h-0 min-h-0 py-0 border-0 opacity-0': !sanctuaryShowNav, 'translate-y-0 max-h-40 opacity-100': sanctuaryShowNav }">
             <button @click="sidebarAbierta = !sidebarAbierta" class="rv-tap-44 lg:hidden text-gray-300 hover:text-gold-300 p-1" aria-label="Abrir menú">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
@@ -409,7 +454,7 @@
                     <span class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-500 to-gold-600 text-gray-950 font-bold text-sm flex items-center justify-center" x-text="iniciales"></span>
                     <svg class="w-4 h-4 text-gray-400 hidden sm:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                 </button>
-                <div x-show="menuUsuario" x-cloak x-transition class="absolute right-0 mt-2 w-56 bg-panel border border-line rounded-xl shadow-2xl p-2 z-50">
+                <div x-show="menuUsuario" x-cloak x-transition class="absolute right-0 top-full mt-2 w-56 bg-panel border border-line rounded-xl shadow-2xl p-2 z-[90]">
                     <div class="px-3 py-2 border-b border-line mb-1">
                         <p class="text-xs text-gray-400">Sesión iniciada</p>
                         <p class="text-sm text-gray-100 truncate" x-text="userEmail"></p>
@@ -555,16 +600,16 @@
                             <img src="/brand/cerebro-revelatio.jpg" alt="" aria-hidden="true"
                                 class="pointer-events-none select-none absolute right-[-10%] top-1/2 -translate-y-1/2 w-[420px] max-w-[70%] opacity-30 sm:opacity-45 lg:opacity-60 object-contain">
                             <div class="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-transparent"></div>
-                            <div class="relative p-6 sm:p-9 max-w-2xl">
-                                <p class="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold mb-3" x-text="saludo"></p>
-                                <h2 class="text-2xl sm:text-3xl font-bold text-gold-50 font-serif text-balance">Estudia un mismo texto desde nueve lentes</h2>
-                                <blockquote class="mt-4 border-l-2 border-gold-500/50 pl-4">
-                                    <p class="text-sm text-gray-300 italic leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
-                                    <cite class="block text-xs text-gold-400 mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
+                            <div id="hero-banner" class="relative p-6 sm:p-9 max-w-2xl">
+                                <p class="text-xs uppercase tracking-widest text-amber-400 font-bold mb-3" x-text="saludo"></p>
+                                <h2 class="text-2xl sm:text-3xl font-bold text-white font-serif text-balance">Estudia un mismo texto desde nueve lentes</h2>
+                                <blockquote class="mt-4 border-l-2 border-amber-500/60 pl-4">
+                                    <p class="text-sm sm:text-base text-stone-200 italic font-normal leading-relaxed">«Y no os adaptéis a este mundo, sino transformaos mediante la renovación de vuestra mente, para que verifiquéis cuál es la voluntad de Dios: lo que es bueno, aceptable y perfecto.»</p>
+                                    <cite class="block text-xs text-amber-300 font-semibold mt-2 not-italic">— Romanos 12:2 (NBLA)</cite>
                                 </blockquote>
                                 <div class="flex flex-wrap gap-3 mt-6">
-                                    <button @click="irA('ia'); $nextTick(() => document.getElementById('ia-input')?.focus())" class="bg-gradient-to-r from-gold-600 to-gold-500 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-sm hover:from-gold-500 hover:to-gold-400 transition-all">Iniciar estudio con RevelatiO IA</button>
-                                    <button @click="leerReferencia(versiculoDelDia.ref)" class="border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">Ver texto y evidencia</button>
+                                    <button @click="irA('ia'); $nextTick(() => document.getElementById('ia-input')?.focus())" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold px-4 py-2 rounded-lg text-sm transition-all">Iniciar estudio con RevelatiO IA</button>
+                                    <button @click="leerReferencia(versiculoDelDia.ref)" class="border border-amber-400/50 hover:bg-white/10 text-amber-200 font-medium px-4 py-2 rounded-lg text-sm transition-all">Ver texto y evidencia</button>
   <button x-show="mostrarInstalar" x-cloak @click="instalarApp()" class="inline-flex items-center gap-2 border border-gold-500/40 text-gold-200 px-5 py-2.5 rounded-xl text-sm hover:bg-gold-600/10 transition-all">
   <img src="/brand/revelatio-logo-full-new.jpeg" alt="" aria-hidden="true" class="h-5 w-5 rounded-md object-contain">
   Instalar RevelatiO
@@ -870,17 +915,17 @@
                                             <p class="text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-500/70">RevelatiO by Efata · Lectura</p>
                                             <h3 class="text-lg font-serif text-gold-100 mt-1" x-text="referenciaActiva"></h3>
                                         </div>
-                                        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 px-1 rounded-lg border border-line bg-ink">
+                                        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 px-1 rounded-xl border border-stone-800 bg-stone-900/95 p-1 shadow-lg">
                                             <template x-for="(v, vi) in versionesPrincipales" :key="v.key">
                                                 <div class="flex items-center gap-2 shrink-0">
                                                     <div x-show="v.key === 'interlineal' && vi > 0" class="h-4 w-px bg-stone-600/70"></div>
-<button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-xs' : 'text-stone-400 hover:text-stone-100 hover:bg-white/5 font-medium border border-transparent'" class="whitespace-nowrap rounded-lg px-3.5 py-1.5 text-xs transition-all duration-200" x-text="v.etiqueta"></button>
+<button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-500 text-stone-950 font-bold px-3 py-1 rounded-lg shadow-sm' : 'text-stone-300 hover:text-white px-3 py-1 text-xs font-medium transition-colors'" class="whitespace-nowrap rounded-lg" x-text="v.etiqueta"></button>
                                                 </div>
                                             </template>
                                         </div>
                                     </div>
 
-                                    <div class="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-line bg-ink/60 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="rounded-lg border border-line px-2.5 py-1 text-[11px] text-gray-400 hover:border-gold-500/50 hover:text-gold-300">Modo capítulo</button><button @click="openJournal()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Registrar metanoia</button><button @click="createVerseCard()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Crear tarjeta</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-[11px] text-gray-500" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
+                                    <div class="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-stone-200/90 bg-stone-100/70 p-4 shadow-sm"><span class="text-amber-900 font-bold text-xs tracking-widest uppercase">Herramientas</span><button @click="bibliaMostrarParalelo = !bibliaMostrarParalelo" class="bg-white hover:bg-stone-50 text-stone-800 font-medium text-xs px-3.5 py-1.5 rounded-full border border-stone-300 shadow-sm transition-all" x-text="bibliaMostrarParalelo ? 'Ocultar paralelo' : 'Ver paralelo'"></button><button @click="abrirLector()" class="bg-white hover:bg-stone-50 text-stone-800 font-medium text-xs px-3.5 py-1.5 rounded-full border border-stone-300 shadow-sm transition-all">Modo capítulo</button><button @click="openJournal()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Registrar metanoia</button><button @click="createVerseCard()" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10">Crear tarjeta</button><button @click="guardarPasajeOffline()" :disabled="!referenciaActiva || offlineGuardando" class="rounded-lg border border-gold-500/40 px-2.5 py-1 text-[11px] text-gold-300 hover:bg-gold-500/10 disabled:opacity-50" x-text="offlineGuardando ? 'Guardando…' : offlineDisponible ? 'Guardado en este equipo' : 'Guardar sin conexión'"></button><button x-show="offlineDisponible" @click="eliminarPasajeOffline()" class="text-[11px] text-gray-500 hover:text-gold-300">Quitar</button><span class="ml-auto text-stone-600 text-xs font-semibold" x-text="bibliaTamanoTexto === 'grande' ? 'Lectura grande' : 'Lectura normal'"></span></div>
                                     <div :class="bibliaModoSantuario ? 'bg-[#F8F1E2] text-[#26343A] rounded-2xl px-5 py-6' : ''"><template x-if="versionSel === 'interlineal' && original?.versos?.length"><div class="space-y-4"><template x-for="verso in original.versos" :key="verso.numero"><div class="border-b border-line pb-4 last:border-0"><p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-500" x-text="`${referenciaActiva || libroActual || 'Proverbios'}:${verso.numero || verso.n || 1}`"></p><div class="flex flex-wrap gap-2"><template x-for="(token, i) in verso.tokens || []" :key="i"><button type="button" @click="consultarLexico(token.strong)" :disabled="!token.strong" :data-strong="token.strong || ''" :data-word="token.palabra || token.texto || ''" :data-translation="token.traduccion || token.espanol || token.significado || ''" :data-comment="token.comentario || token.comentarioExpositivo || ''" :class="token.strong ? 'cursor-pointer rounded-md border border-gold-500/30 bg-ink/60 px-2 py-1 hover:border-gold-400 hover:bg-gold-500/15' : 'text-gray-500'" class="text-left rv-interlinear-token"><span class="block font-serif text-lg text-gold-50" x-text="token.palabra || token.texto || '—'"></span><span x-show="token.strong" class="block text-[10px] text-gold-400" x-text="token.strong"></span></button></template></div></div></template></div></template><p x-show="versionSel !== 'interlineal' || !original?.versos?.length" @click="window.dispatchEvent(new CustomEvent('revelatio:verse-tap',{detail:{reference: referenciaActiva, version: versionSel, text: textoActual}}))" :data-reference="referenciaActiva" :data-version="versionSel" data-audio-verse="0" :class="[bibliaTamanoTexto === 'grande' ? 'text-2xl' : 'text-xl', audioVerseActive === 0 && isPlayingAudio ? 'rv-audio-active' : '']" class="font-serif text-lg md:text-xl text-stone-900 leading-relaxed flex-1 rv-verse-surface" x-text="textoActual"></p>  <div x-show="bibliaMostrarParalelo" x-cloak class="mt-6 rounded-2xl border border-gold-500/35 bg-slate-950/10 p-5 shadow-[0_12px_30px_rgba(20,30,45,0.16)] ring-1 ring-inset ring-white/30">
   <div class="flex flex-wrap items-end justify-between gap-4 border-b border-gold-500/25 pb-4">
   <div><p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-600">Segunda lectura · Comparación</p><h4 class="mt-1 text-2xl font-serif font-bold text-slate-800" x-text="versionesLista.find(v => v.key === versionParalelaSel)?.etiqueta || 'Versión paralela'"></h4><p class="mt-1 text-xs text-slate-500">Selecciona aquí una traducción independiente de la lectura principal.</p></div>
@@ -890,7 +935,7 @@
   <p class="mt-4 text-lg leading-relaxed font-serif text-slate-700" x-text="versiones[versionParalelaSel] || versionesVersos[versionParalelaSel]?.map(v => `${v.n} ${v.texto}`).join(' ') || 'Carga esta versión para comparar el pasaje.'"></p></div></div>
 
                                     <div class="flex items-center justify-between gap-3 pt-5 mt-4 border-t border-line">
-                                        <button @click="versiculoPrev()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
+                                        <button @click="versiculoPrev()" class="text-stone-700 hover:text-stone-950 font-semibold text-sm flex items-center gap-1 transition-colors">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M15 6l-6 6 6 6"></path></svg>
                                             Anterior
                                         </button>
@@ -898,9 +943,9 @@
                                             <button @click="toggleFavorito()" :class="esFavorito() ? 'text-gold-400' : 'text-gray-500 hover:text-gold-300'" class="p-2 rounded-lg hover:bg-ink transition-all" :aria-label="esFavorito() ? 'Quitar de favoritos' : 'Guardar en favoritos'">
                                                 <svg class="w-5 h-5" :fill="esFavorito() ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"></path></svg>
                                             </button>
-                                            <button @click="estudiarActual()" class="text-xs bg-gold-600/15 text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/25 transition-all">Estudiar con IA</button>
+                                            <button @click="estudiarActual()" class="bg-stone-900 hover:bg-stone-800 text-amber-400 border border-amber-500/40 px-5 py-2 rounded-xl text-sm font-semibold shadow-md flex items-center gap-2 transition-all">Estudiar con IA</button>
                                         </div>
-                                        <button @click="versiculoNext()" class="text-xs text-gray-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
+                                        <button @click="versiculoNext()" class="text-stone-700 hover:text-stone-950 font-semibold text-sm flex items-center gap-1 transition-colors">
                                             Siguiente
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 6l6 6-6 6"></path></svg>
                                         </button>
@@ -930,13 +975,13 @@
   <!-- Herramientas de estudio del pasaje (estilo bibliatodo) -->
                                     <div class="mt-5 flex flex-col gap-3">
                                         <!-- Texto original: griego/hebreo con Strong's + diccionario léxico real -->
-                                        <div class="order-3 border border-line rounded-xl overflow-hidden" x-show="original">
-                                            <button @click="verOriginal = !verOriginal" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
-                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
-                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20l-5-10-5 10m1.5-4h7"></path></svg>
-                                                    <span class="text-[#FFF1C2]" x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
+                                        <div class="order-3 study-card border border-stone-200 rounded-xl overflow-hidden bg-white" x-show="original">
+                                            <button @click="verOriginal = !verOriginal" class="accordion-header w-full flex items-center justify-between gap-3 rounded-xl bg-stone-100/80 hover:bg-stone-200/70 border border-stone-200 px-4 py-3 transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-stone-900 font-bold text-sm tracking-wide">
+                                                    <svg class="w-4 h-4 text-amber-900" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20l-5-10-5 10m1.5-4h7"></path></svg>
+                                                    <span class="text-stone-900" x-text="original ? `Texto original (${original.idioma === 'hebreo' ? 'hebreo' : 'griego'})` : 'Texto original'"></span>
                                                 </span>
-                                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="verOriginal ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+                                                <svg class="w-4 h-4 text-stone-700 transition-transform" :class="verOriginal ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
                                             <div x-show="verOriginal" x-collapse x-cloak class="p-4 border-t border-line">
                                                 <p class="text-[11px] text-gray-500 mb-3" x-text="original?.etiqueta"></p>
@@ -945,7 +990,7 @@
                                                         <span>
                                                             <template x-for="(t, ti) in v.tokens" :key="ti">
                                                                 <span>
-                                                                    <button x-show="t.strong" @mouseenter="strongHover = t.strong" @mouseleave="strongHover = ''" @click="consultarLexico(t.strong)" :aria-label="`Consultar ${t.strong}`" :class="strongHover === t.strong ? 'text-gold-300 underline decoration-gold-400 decoration-2 underline-offset-4' : 'hover:text-gold-300 hover:underline'" class="cursor-pointer align-baseline rounded px-0.5 transition-colors">
+                                                                    <button x-show="t.strong" @mouseenter="strongHover = t.strong; mostrarStrongTooltip(t.strong, $event, referenciaActiva)" @mouseleave="strongHover = ''; setTimeout(() => { if (!$event?.relatedTarget?.closest?.('.rv-strong-tooltip')) cerrarStrongTooltip() }, 120)" @click="strongHover === t.strong && strongTooltip.open ? cerrarStrongTooltip() : mostrarStrongTooltip(t.strong, $event, referenciaActiva); consultarLexico(t.strong)" :aria-label="`Consultar ${t.strong}`" :class="strongHover === t.strong ? 'text-gold-300 underline decoration-gold-400 decoration-2 underline-offset-4' : 'hover:text-gold-300 hover:underline'" class="cursor-pointer align-baseline rounded px-0.5 transition-colors">
                                                                         <span x-text="t.palabra"></span><sup class="text-[10px] text-gold-500/80 font-sans ml-0.5" x-text="t.strong"></sup>
                                                                     </button>
                                                                     <span x-show="!t.strong" x-text="t.palabra"></span>
@@ -967,25 +1012,25 @@
                                         </div>
 
                                         <!-- Comentarios de autores -->
-                                        <div class="order-1 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleComentarios()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
-                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
+                                        <div class="order-1 study-card border border-stone-200 rounded-xl overflow-hidden bg-white">
+                                            <button @click="toggleComentarios()" class="accordion-header w-full flex items-center justify-between gap-3 rounded-xl bg-stone-100/80 hover:bg-stone-200/70 border border-stone-200 px-4 py-3 transition-colors text-left">
+                                                <span class="flex items-center gap-2 text-amber-950 font-bold text-xs tracking-widest uppercase">
                                                     <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M8 8h8m-8 8h5M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>
-                                                    <span class="text-[#FFF1C2]">Comentarios de autores</span>
-                                                    <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
+                                                    <span class="text-amber-950">Comentarios de autores</span>
+                                                    <span class="hidden sm:inline text-amber-950 font-black text-[11px] tracking-widest">RevelatiO by Efata</span>
                                                 </span>
                                                 <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verComentarios ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
                                             </button>
                                             <div x-show="verComentarios" x-collapse x-cloak class="p-4 border-t border-line text-gray-100">
                                                 <div class="flex flex-wrap items-center gap-3 mb-4">
                                                     <label for="biblia-autor" class="text-[11px] text-gray-300 uppercase tracking-wider">Comentarista</label>
-                                                    <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#26343A" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                                    <select id="biblia-autor" x-model="bibliaAutorSel" @change="cargarComentario()" style="color:#1c1917" class="bg-white text-stone-900 border border-stone-300 rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-800">
                                                         <template x-for="a in AUTORES_LISTA" :key="a.id">
                                                             <option :value="a.id" x-text="a.nombre"></option>
                                                         </template>
                                                     </select>
                                                 </div>
-                                                <div x-show="comentarioEstado.estado === 'loading'" class="flex items-center gap-2 text-[#FFD76A] text-sm py-4 justify-center">
+                                                <div x-show="comentarioEstado.estado === 'loading'" class="flex items-center gap-2 text-amber-900 text-sm py-4 justify-center">
                                                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
                                                     RevelatiO IA está preparando el comentario...
                                                 </div>
@@ -994,15 +1039,15 @@
                                                     <button @click="cargarComentario(true)" class="mt-2 text-xs text-gold-300 border border-gold-500/30 px-3 py-1.5 rounded-lg hover:bg-gold-600/15">Reintentar</button>
                                                 </div>
                                                 <div x-show="comentarioEstado.estado === 'ready'">
-                                                    <div class="mb-3 flex items-center justify-between gap-3"><h5 class="text-base font-serif text-gold-100" x-text="comentarioEstado.titulo"></h5><button type="button" @click="speechService.speak(comentarioEstado.cuerpo)" class="shrink-0 rounded-lg border border-gold-500/30 px-2.5 py-1.5 text-[11px] text-gold-200 hover:bg-gold-600/15" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
+                                                    <div class="mb-3 flex items-center justify-between gap-3"><h5 class="text-stone-950 font-serif font-bold text-xl md:text-2xl tracking-tight leading-snug" x-text="comentarioEstado.titulo"></h5><button type="button" @click="speechService.speak(comentarioEstado.cuerpo)" class="bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300/80 px-3.5 py-1 rounded-lg text-xs font-bold shadow-sm" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
                                                     <div class="space-y-2.5">
                                                         <template x-for="(p, i) in parrafosDe(comentarioEstado.cuerpo)" :key="i">
-                                                            <p class="text-sm text-gray-300 leading-relaxed" x-text="p"></p>
+                                                            <p class="text-stone-800 font-serif text-base leading-relaxed font-normal" x-text="p"></p>
                                                         </template>
                                                     </div>
-                                                    <p class="mt-4 pt-3 border-t border-line text-[10px] text-gray-300 leading-relaxed">
+                                                    <p class="disclaimer-text mt-4 pt-3 border-t border-stone-200 text-stone-600 text-xs font-medium italic leading-normal">
                                                         <template x-if="comentarioEstado.esDominioPublico === false">
-                                                            <span>Síntesis de RevelatiO IA sobre la línea teológica <strong class="text-gold-500">públicamente conocida</strong> de <span class="text-gold-500" x-text="comentarioEstado.autor"></span> (autor con obra bajo derechos de autor vigentes). No es una cita textual de sus libros.</span>
+                                                            <span>Síntesis de RevelatiO IA sobre la línea teológica <strong class="text-stone-900 font-bold not-italic">públicamente conocida</strong> de <span class="text-gold-500" x-text="comentarioEstado.autor"></span> (autor con obra bajo derechos de autor vigentes). No es una cita textual de sus libros.</span>
                                                         </template>
                                                         <template x-if="comentarioEstado.esDominioPublico !== false">
                                                             <span>Síntesis elaborada por RevelatiO IA siguiendo la línea teológica documentada de <span class="text-gold-500" x-text="comentarioEstado.autor"></span>. No sustituye la lectura directa de su obra.</span>
@@ -1013,15 +1058,15 @@
                                         </div>
 
                                         <!-- Referencias cruzadas -->
-                                        <div class="order-2 border border-gold-500/30 rounded-xl overflow-hidden">
-                                            <button @click="toggleReferencias()" class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-night/95 hover:bg-night transition-colors text-left text-[#FFF1C2]">
-                                                <span class="flex items-center gap-2 text-sm font-semibold text-gold-200">
-                                                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
-                                                    <span class="text-[#FFF1C2]">Referencias cruzadas</span>
-                                                    <span class="hidden sm:inline text-[9px] font-bold uppercase tracking-[0.16em] text-gold-300">RevelatiO by Efata</span>
-                                                </span>
-                                                <svg class="w-4 h-4 text-gold-200 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
-                                            </button>
+<div class="order-2 cross-refs-card border border-stone-200 rounded-xl overflow-hidden bg-white">
+  <button @click="toggleReferencias()" class="accordion-header w-full flex items-center justify-between gap-3 rounded-xl bg-stone-100/80 hover:bg-stone-200/70 border border-stone-200 px-4 py-3 transition-colors text-left">
+  <span class="flex items-center gap-2 text-stone-900 font-bold text-xs tracking-wider uppercase">
+  <svg class="w-4 h-4 text-stone-700" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18a2 2 0 012 2v0a2 2 0 01-2 2h-3m-4.5 4H6a2 2 0 01-2-2v0a2 2 0 012-2h3m-1 2h8"></path></svg>
+  <span class="text-stone-900">Referencias cruzadas</span>
+  <span class="hidden sm:inline text-amber-950 font-black text-[11px] tracking-widest">RevelatiO by Efata</span>
+  </span>
+  <svg class="w-4 h-4 text-stone-700 transition-transform" :class="verReferencias ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 9l6 6 6-6"></path></svg>
+  </button>
                                             <div x-show="verReferencias" x-collapse x-cloak class="p-4 border-t border-line">
                                                 <div x-show="referenciasEstado.estado === 'loading'" class="flex items-center gap-2 text-[#FFD76A] text-sm py-4 justify-center">
                                                     <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3a9 9 0 109 9"></path></svg>
@@ -1033,9 +1078,9 @@
                                                 </div>
                                                 <div x-show="referenciasEstado.estado === 'ready'" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                                     <template x-for="(r, i) in referenciasEstado.referencias" :key="i">
-                                                        <button @click="leerReferencia(r.ref)" class="text-left bg-ink/50 hover:bg-gold-600/15 border border-line hover:border-gold-500/40 rounded-lg px-3 py-2.5 transition-all group">
-                                                            <span class="block text-sm font-semibold text-gold-300 group-hover:text-gold-200" x-text="r.ref"></span>
-                                                            <span class="block text-xs text-gray-400 mt-0.5 leading-snug" x-text="r.nota"></span>
+<button @click="leerReferencia(r.ref)" class="cross-refs-card text-left bg-white hover:bg-amber-50/50 border border-stone-200/90 hover:border-amber-700/50 rounded-xl p-3.5 shadow-sm transition-all cursor-pointer group">
+  <span class="ref-title block text-amber-950 font-bold text-sm tracking-tight group-hover:text-amber-900" x-text="r.ref"></span>
+  <span class="ref-desc block text-stone-700 text-xs font-normal leading-relaxed mt-1" x-text="r.nota"></span>
                                                         </button>
                                                     </template>
                                                 </div>
@@ -1182,15 +1227,15 @@
                             </div>
 
                             <!-- Panel compacto de la lente activa -->
-                            <div class="order-1 rv-ia-response" style="min-height:13rem">
+                            <div class="order-1 rv-ia-response bg-white rounded-2xl border border-stone-200 p-5 shadow-sm" style="min-height:13rem">
                                 <div class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b pb-3" style="border-color:#e7e5e4">
-                                    <p class="text-[10px] font-bold uppercase tracking-[0.16em]" style="color:#92400e">Respuesta de la lente activa</p>
-                                    <div class="flex items-center gap-2"><p class="text-sm font-semibold" style="color:#292524" x-text="(LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p><button type="button" @click="speechService.speak(lenteEstado.cuerpo || estudio.comentario || estudio.aplicacion)" class="rounded-lg border border-amber-300 px-2.5 py-1.5 text-[11px] font-semibold text-amber-800 hover:bg-amber-50" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
+                                    <p class="text-amber-950 font-bold text-xs uppercase tracking-widest">Comentarios de autores · RevelatiO by Efata</p>
+                                    <div class="flex items-center gap-2"><p class="text-stone-950 font-serif font-bold text-xl md:text-2xl tracking-tight leading-snug" style="color:#0c0a09 !important" x-text="comentarioEstado.titulo || (LENTES_LISTA.find(l => l.id === lenteActiva)?.etiqueta) || 'Exégesis'"></p><button type="button" @click="speechService.speak(lenteEstado.cuerpo || estudio.comentario || estudio.aplicacion)" class="rv-lens-audio bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300/80 px-3.5 py-1 rounded-lg text-xs font-bold shadow-sm" style="color:#78350f !important" x-text="isPlayingAudio ? 'Detener' : 'Escuchar'"></button></div>
                                 </div>
                                 <!-- Selector de autor (solo lente 'autores') -->
                                 <div x-show="lenteActiva === 'autores'" class="mb-5 flex flex-wrap items-center gap-3 pb-4 border-b" style="border-color:#e7e5e4">
                                     <label for="autor-sel" class="text-xs uppercase tracking-wider" style="color:#78716c">Comentarista</label>
-                                    <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#26343A" class="bg-white border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gold-500">
+                                    <select id="autor-sel" x-model="autorSel" @change="cargarLente('autores')" style="color:#1c1917" class="bg-white text-stone-900 border border-stone-300 rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-800">
                                         <template x-for="a in AUTORES_LISTA" :key="a.id">
                                             <option :value="a.id" x-text="a.nombre"></option>
                                         </template>
@@ -1266,7 +1311,7 @@
   <section x-show="vista === 'discipulado'" class="space-y-6">
  <div class="zona-oscura rounded-3xl border border-gold-500/30 bg-night p-6 shadow-xl sm:p-8"><div class="flex flex-wrap items-start justify-between gap-4"><div><p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-400">RevelatiO by Efata · Camino de formación</p><h2 class="mt-2 font-serif text-3xl text-gold-50">Discipulado bíblico profundo</h2><p class="mt-3 max-w-3xl text-sm leading-relaxed text-gray-300">Seis pasos para pasar de la convicción a la obediencia: devocional, exégesis, cirugía del corazón, evaluación, práctica y consagración.</p></div><div class="rounded-2xl border border-gold-500/30 bg-gold-500/10 px-5 py-4 text-center"><p class="text-[10px] uppercase tracking-wider text-gold-300">Progreso maestro</p><p class="mt-1 text-3xl font-bold text-gold-100" x-text="`${Math.round((discipuladoCompletados / DISCIPULADO_TOPICS.length) * 100)}%`"></p><p class="text-xs text-gray-400" x-text="`${discipuladoCompletados} de ${DISCIPULADO_TOPICS.length} temas`"></p></div></div><div class="mt-5 flex flex-col gap-3 sm:flex-row"><label class="sr-only" for="buscar-discipulado">Buscar tema</label><input id="buscar-discipulado" x-model="discipuladoBusqueda" type="search" placeholder="Buscar tema, pasaje o término original..." class="min-w-0 flex-1 rounded-xl border border-gold-500/30 bg-ink px-4 py-3 text-sm text-gray-100 focus:border-gold-400 focus:outline-none"><select x-model.number="discipuladoEtapa" class="rounded-xl border border-gold-500/30 bg-ink px-4 py-3 text-sm text-gray-700"><option value="0">Todas las etapas</option><template x-for="stage in DISCIPULADO_ETAPAS" :key="stage.id"><option :value="stage.id" x-text="`Etapa ${stage.id} · ${stage.title}`"></option></template></select></div></div>
  <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><template x-for="stage in DISCIPULADO_ETAPAS" :key="stage.id"><button @click="discipuladoEtapa = discipuladoEtapa === stage.id ? 0 : stage.id" class="rounded-2xl border p-4 text-left transition" :class="discipuladoEtapa === stage.id ? 'border-gold-500 bg-gold-500/10' : 'border-line bg-panel hover:border-gold-500/40'"><div class="flex items-center gap-3"><span class="font-mono text-xs text-gold-500" x-text="stage.icon"></span><p class="text-sm font-semibold text-gold-100" x-text="stage.title"></p></div><p class="mt-2 text-xs leading-relaxed text-gray-500" x-text="stage.description"></p></button></template></div>
- <div class="grid gap-3 md:grid-cols-3"><div class="rounded-2xl border border-gold-500/25 bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Método</p><p class="mt-2 text-sm font-semibold text-gold-100">Texto · corazón → obediencia</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Cada lección termina en una respuesta concreta, no solo en información.</p></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Mentoría 1 a 1</p><p class="mt-2 text-sm font-semibold text-gold-100">Camina acompañado</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Comparte tu avance con un mentor de confianza cuando estés listo.</p><button @click="alert('La invitación de mentoría estará disponible al conectar tu cuenta.')" class="mt-3 text-xs font-bold text-gold-600">Preparar invitación</button></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Próximo paso</p><p class="mt-2 text-sm font-semibold text-gold-100" x-text="discipuladoFiltrados[0]?.title || 'Explora una etapa'"></p><p class="mt-1 text-xs text-gray-500">Abre una lección y completa su canvas de seis pasos.</p></div></div>
+ <div class="grid gap-3 md:grid-cols-3"><div class="rounded-2xl border border-gold-500/25 bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Método</p><p class="mt-2 text-sm font-semibold text-gold-100">Texto · coraz��n → obediencia</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Cada lección termina en una respuesta concreta, no solo en información.</p></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Mentoría 1 a 1</p><p class="mt-2 text-sm font-semibold text-gold-100">Camina acompañado</p><p class="mt-1 text-xs leading-relaxed text-gray-500">Comparte tu avance con un mentor de confianza cuando estés listo.</p><button @click="alert('La invitación de mentoría estará disponible al conectar tu cuenta.')" class="mt-3 text-xs font-bold text-gold-600">Preparar invitación</button></div><div class="rounded-2xl border border-line bg-panel p-4"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-500">Próximo paso</p><p class="mt-2 text-sm font-semibold text-gold-100" x-text="discipuladoFiltrados[0]?.title || 'Explora una etapa'"></p><p class="mt-1 text-xs text-gray-500">Abre una lección y completa su canvas de seis pasos.</p></div></div>
  <div class="grid gap-4 md:grid-cols-2"><template x-for="topic in discipuladoFiltrados" :key="topic.slug"><article class="rounded-2xl border border-line bg-panel p-5"><div class="flex items-center justify-between gap-3"><span class="text-[10px] font-bold uppercase tracking-wider text-gold-500" x-text="`Tema ${topic.number} · Etapa ${topic.stageId}`"></span><span class="rounded-full px-2 py-1 text-[10px]" :class="discipuladoProgreso[topic.slug]?.status === 'completed' ? 'bg-green-100 text-green-800' : discipuladoProgreso[topic.slug]?.status === 'in_progress' ? 'bg-gold-100 text-gold-800' : 'bg-ink text-gray-500'" x-text="discipuladoProgreso[topic.slug]?.status === 'completed' ? 'Completado' : discipuladoProgreso[topic.slug]?.status === 'in_progress' ? 'En progreso' : 'No iniciado'"></span></div><h3 class="mt-3 font-serif text-xl text-gold-100" x-text="topic.title"></h3><p class="mt-1 text-xs text-cyan-700" x-text="`${topic.passage} · ${topic.greek}`"></p><p class="mt-3 text-sm leading-relaxed text-gray-500" x-text="topic.context"></p><button @click="abrirDiscipulado(topic)" class="mt-4 rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-gray-950">Abrir canvas</button></article></template></div>
  <article id="discipulado-canvas" x-show="discipuladoTema" x-cloak class="rounded-3xl border border-gold-500/30 bg-panel p-6 sm:p-8"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-[10px] uppercase tracking-wider text-gold-500" x-text="discipuladoTema && `Tema ${discipuladoTema.number} · ${discipuladoTema.passage}`"></p><h3 class="mt-2 font-serif text-3xl text-gold-100" x-text="discipuladoTema && discipuladoTema.title"></h3></div><button @click="discipuladoTema=null" class="text-xs text-gray-500">Cerrar</button></div><div class="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-6"><template x-for="step in ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre']" :key="step"><button @click="discipuladoPaso = ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1" class="rounded-lg px-2 py-2 text-[10px]" :class="discipuladoPaso === ['Apertura','Exégesis','Corazón','Quiz','Práctica','Cierre'].indexOf(step)+1 ? 'bg-gold-500 font-bold text-gray-950' : 'bg-ink text-gray-500'" x-text="step"></button></template></div><div class="mt-7"><div x-show="discipuladoPaso === 1"><h4 class="font-serif text-2xl text-gold-100">Devocional y oración de apertura</h4><p class="mt-4 font-serif text-lg italic leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.psalm"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.prayer"></p></div><div x-show="discipuladoPaso === 2"><h4 class="font-serif text-2xl text-gold-100">Fundamento bíblico exegético</h4><p class="mt-2 text-xs uppercase tracking-wider text-cyan-700" x-text="discipuladoTema && discipuladoTema.passage"></p><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.context"></p><div class="mt-4 rounded-xl border border-gold-500/20 bg-ink p-4"><p class="font-griego text-lg text-gold-700" x-text="discipuladoTema && discipuladoTema.greek"></p><p class="mt-2 text-xs text-gray-500">El término original ilumina el movimiento del texto, pero nunca reemplaza su contexto literario e histórico.</p></div></div><div x-show="discipuladoPaso === 3"><h4 class="font-serif text-2xl text-gold-100">Cirugía del corazón</h4><div class="mt-4 space-y-3"><template x-for="question in (discipuladoTema ? discipuladoTema.questions : [])" :key="question"><p class="rounded-xl border border-line bg-ink p-4 text-sm text-gray-600" x-text="question"></p></template></div><textarea x-model="discipuladoNota" @input="guardarProgresoTema()" rows="7" placeholder="Escribe aquí tu confesión privada y tus compromisos..." class="mt-4 w-full rounded-xl border border-line bg-ink p-4 text-sm text-gray-700 focus:border-gold-500 focus:outline-none"></textarea><p class="mt-2 text-[11px] text-gray-500">Tu reflexión queda privada en este dispositivo.</p></div><div x-show="discipuladoPaso === 4"><h4 class="font-serif text-2xl text-gold-100">Quiz de evaluación</h4><div class="mt-4 space-y-5"><template x-for="(item,index) in (discipuladoTema ? discipuladoTema.quiz : [])" :key="index"><div class="rounded-xl border border-line p-4"><p class="text-sm font-semibold text-gray-700" x-text="`${index+1}. ${item.q}`"></p><div class="mt-3 flex flex-col gap-2"><template x-for="(option,optIndex) in item.options" :key="option"><button @click="responderQuiz(index,optIndex)" class="rounded-lg border px-3 py-2 text-left text-xs" :class="discipuladoQuiz[index] === optIndex ? (optIndex === item.correct ? 'border-green-500 bg-green-50 text-green-800' : 'border-red-400 bg-red-50 text-red-800') : 'border-line text-gray-600 hover:border-gold-500'" x-text="option"></button></template></div><p x-show="discipuladoQuiz[index] !== undefined" class="mt-3 text-xs leading-relaxed text-gray-500" x-text="item.explanation"></p></div></template></div></div><div x-show="discipuladoPaso === 5"><h4 class="font-serif text-2xl text-gold-100">Reforzamiento espiritual</h4><p class="mt-4 rounded-xl border border-gold-500/30 bg-gold-50 p-5 font-serif text-lg italic text-gray-700" x-text="discipuladoTema && discipuladoTema.verse"></p><label class="mt-4 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoMemorizado" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He memorizado el versículo de anclaje</label><div class="mt-4 rounded-xl border border-line bg-ink p-4"><p class="text-[10px] uppercase tracking-wider text-gold-500">Acción práctica</p><p class="mt-2 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.action"></p><label class="mt-3 flex items-center gap-3 text-sm text-gray-600"><input type="checkbox" x-model="discipuladoAccion" @change="guardarProgresoTema()" class="h-4 w-4 accent-gold-500"> He dado este paso esta semana</label></div></div><div x-show="discipuladoPaso === 6"><h4 class="font-serif text-2xl text-gold-100">Conclusión y consagración</h4><p class="mt-4 text-sm leading-relaxed text-gray-600" x-text="discipuladoTema && discipuladoTema.theology"></p><p class="mt-4 rounded-xl border-l-2 border-gold-500 bg-gold-50 p-5 font-serif text-lg italic leading-relaxed text-gray-700" x-text="discipuladoTema && discipuladoTema.prayer"></p><button @click="completarDiscipulado()" class="mt-5 rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-gray-950">Completar tema</button></div></div><div class="mt-7 flex justify-between border-t border-line pt-4"><button @click="discipuladoPaso = Math.max(1, discipuladoPaso-1)" class="rounded-lg border border-line px-4 py-2 text-xs text-gray-600">Anterior</button><button @click="discipuladoPaso = Math.min(6, discipuladoPaso+1)" class="rounded-lg bg-night px-4 py-2 text-xs font-bold text-gray-100">Siguiente paso</button></div></article>
 </section>
@@ -1276,7 +1321,7 @@
                         <!-- Vista catálogo -->
                         <div x-show="!planActivo" x-cloak class="space-y-6">
                         <div>
-                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata · El camino</p>
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-500">RevelatiO by Efata �� El camino</p>
                             <h2 class="text-2xl font-bold text-gold-50 font-serif mt-1">Planes de lectura</h2>
   <p class="text-sm text-gray-500 mt-1 max-w-2xl">Explora rutas de lectura, doctrina y transformación. Cada plan conserva su contenido y ahora se organiza por propósito, duración y profundidad.</p>
   </div>
@@ -1660,6 +1705,10 @@
   <div class="space-y-4 p-5"><div class="rounded-xl border border-gold-500/30 bg-gold-500/10 p-3"><p class="text-[10px] font-bold uppercase tracking-wider text-gold-700">Texto seleccionado</p><p class="mt-1 max-h-24 overflow-y-auto font-serif text-sm leading-relaxed text-gray-800" x-text="revelatioBusquedaTexto"></p></div><textarea x-model="revelatioBusquedaPregunta" rows="3" maxlength="500" class="w-full resize-none rounded-xl border border-line bg-white px-3 py-3 text-sm text-gray-900 outline-none focus:border-gold-500" placeholder="¿Qué quieres entender de este texto?"></textarea><div class="flex items-center justify-end gap-2"><button @click="cerrarBusquedaRevelatio()" class="rounded-lg border border-line px-4 py-2 text-xs text-gray-600 hover:bg-ink">Cancelar</button><button @click="buscarDesdeSeleccion()" :disabled="revelatioBusquedaCargando || !revelatioBusquedaPregunta.trim()" class="rounded-lg bg-gold-600 px-4 py-2 text-xs font-bold text-gray-950 disabled:opacity-50"><span x-text="revelatioBusquedaCargando ? 'Consultando...' : 'Buscar en RevelatiO IA'"></span></button></div><div x-show="revelatioBusquedaError" class="rounded-lg border border-red-400/40 bg-red-50 px-3 py-2 text-xs text-red-700" x-text="revelatioBusquedaError"></div><div x-show="revelatioBusquedaRespuesta" class="max-h-72 overflow-y-auto rounded-xl border border-line bg-white p-4 text-sm leading-relaxed text-gray-800 whitespace-pre-line" x-text="revelatioBusquedaRespuesta"></div></div>
   </div></div>
 
+  <div x-show="strongTooltip.open" x-cloak class="rv-strong-tooltip fixed z-[9999] w-[min(320px,calc(100vw-24px))] rounded-xl border border-amber-500/30 bg-stone-900/95 p-3 text-stone-100 shadow-2xl backdrop-blur-md" :style="`left:${strongTooltip.x}px;top:${strongTooltip.y}px`" @mouseenter="strongTooltip.open = true" @mouseleave="cerrarStrongTooltip()" role="tooltip">
+    <template x-if="strongTooltip.loading"><div class="space-y-2"><div class="h-4 w-2/5 animate-pulse rounded bg-stone-700"></div><div class="h-3 w-full animate-pulse rounded bg-stone-800"></div><div class="h-3 w-4/5 animate-pulse rounded bg-stone-800"></div></div></template>
+    <template x-if="!strongTooltip.loading && strongTooltip.data"><div><div class="flex items-start justify-between gap-2"><p class="font-serif text-lg text-amber-100" x-text="strongTooltip.data.original"></p><span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold text-stone-950" x-text="strongTooltip.data.code"></span></div><p class="mt-2 font-bold text-stone-50" x-text="strongTooltip.data.translation"></p><p class="mt-1 text-xs italic text-amber-100/80" x-text="strongTooltip.data.transliteration"></p><p class="mt-1 text-[11px] text-stone-300" x-text="strongTooltip.data.morphology"></p><p class="mt-2 border-t border-stone-700 pt-2 text-[11px] leading-relaxed text-stone-200" x-text="strongTooltip.data.definition"></p></div></template>
+  </div>
   <div x-show="lexicoAbierto" x-cloak x-transition.opacity class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 sm:p-6" role="dialog" aria-modal="true" aria-label="Diccionario Strong" @click.self="lexicoAbierto = false" @keydown.escape.window="lexicoAbierto = false">
             <div class="flex w-full max-w-lg max-h-[min(680px,calc(100vh-2rem))] flex-col overflow-y-auto rounded-2xl border border-gold-500/50 bg-ink p-5 shadow-2xl shadow-black/50 sm:p-6">
                 <div class="flex w-full items-start justify-between gap-4 border-b border-line pb-4"><div class="min-w-0"><p class="text-[10px] uppercase tracking-[0.18em] text-gold-400">Diccionario bíblico Strong</p><h3 class="mt-1 text-xl font-serif text-gold-50" x-text="lexicoDatos?.codigo || 'Consulta léxica'"></h3></div><button @click="lexicoAbierto = false" class="shrink-0 rounded-lg p-2 text-gray-400 hover:bg-night2 hover:text-white" aria-label="Cerrar"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 18L6 6"></path></svg></button></div>
@@ -1777,7 +1826,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
-                    <button @click="startChapterAudio()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-all"><span aria-hidden="true">🔊</span> <span x-text="isPlayingAudio && audioSource === 'chapter' ? 'Narrando…' : 'Escuchar Capítulo'"></span></button>
+                    <button @click="speechService.playFullChapterWithMusic()" :class="isPlayingAudio && audioSource === 'chapter' ? 'animate-pulse border-amber-300 bg-amber-700' : 'border-amber-600 bg-amber-600 hover:bg-amber-700'" class="inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition-all" :aria-pressed="isPlayingAudio && audioSource === 'chapter'"><span aria-hidden="true" x-text="isPlayingAudio && audioSource === 'chapter' ? '⏸' : '🔊'"></span> <span x-text="isPlayingAudio && audioSource === 'chapter' ? 'Detener narración y música' : 'Escuchar pasaje completo con música de fondo'"></span></button>
                     <button @click="interlinearActive = !interlinearActive" :class="interlinearActive ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold" aria-pressed="interlinearActive">🔤 Interlineal<span x-text="interlinearActive ? ' ON' : ' OFF'"></span></button>
                     <button @click="abrirPausaSagrada()" class="inline-flex items-center gap-1.5 text-xs border border-amber-500/30 text-gold-200 px-3 py-1.5 rounded-lg hover:bg-amber-500/10 transition-all font-semibold" aria-label="Iniciar Pausa Sagrada">🕊️ Pausa Sagrada</button>
                     <button @click="toggleCapituloLeido()" :class="capituloEstaLeido ? 'bg-gold-600 text-gray-950 border-gold-500' : 'text-gold-200 border-line hover:border-gold-500/50'" class="hidden sm:inline-flex items-center gap-1.5 text-xs border px-3 py-1.5 rounded-lg transition-all font-semibold">
@@ -1788,11 +1837,11 @@
                 </div>
             </div>
 
-            <div class="shrink-0 flex items-center gap-2 overflow-x-auto no-scrollbar py-2 px-4 sm:px-6 border-b border-stone-200/60 bg-[#FBFBFA]/80 backdrop-blur-md">
+            <div class="shrink-0 bg-stone-900 border-b border-stone-800 px-6 py-2 flex items-center gap-2 overflow-x-auto no-scrollbar">
                 <template x-for="(v, vi) in versionesPrincipales" :key="v.key">
                     <div class="flex items-center gap-2 shrink-0">
                         <div x-show="v.key === 'interlineal' && vi > 0" class="h-4 w-px bg-stone-300/70"></div>
-                        <button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-xs' : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/80 font-medium border border-transparent'" class="whitespace-nowrap rounded-lg px-3.5 py-1.5 text-xs transition-all duration-200" x-text="v.etiqueta"></button>
+                        <button type="button" @click="versionSel = v.key" :class="versionSel === v.key ? 'bg-amber-500 text-stone-950 font-bold text-xs px-3 py-1.5 rounded-lg shadow-sm' : 'text-stone-300 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-stone-800 transition-colors'" class="whitespace-nowrap" x-text="v.etiqueta"></button>
                     </div>
                 </template>
             </div>
@@ -1857,10 +1906,10 @@
                         Favorito
                     </button>
                     <button @click="openJournal(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">🌱 Registrar Metanoia</button>
-                    <button @click="shareCard.texto = textoDeVersiculo(versiculoLectorSel) || ''; shareCard.referencia = libroSel ? (libroSel.n + ' ' + capituloSel + ':' + versiculoLectorSel) : ''; shareCard.version = versionSel || 'RVR 1960'; showShareModal = true; versiculoLectorSel = null" class="hover:text-amber-400 flex items-center gap-1 text-xs font-medium text-stone-200 transition-colors">🖼️ Crear Tarjeta</button>
+                    <button @click="shareCard.texto = textoDeVersiculo(versiculoLectorSel) || ''; shareCard.referencia = libroSel ? (libroSel.n + ' ' + capituloSel + ':' + versiculoLectorSel) : ''; shareCard.version = versionSel || 'RVR 1960'; showShareModal = true; versiculoLectorSel = null" class="text-stone-100 hover:text-amber-300 font-medium text-xs flex items-center gap-1 transition-colors">🖼️ Crear Tarjeta</button>
                     <button @click="abrirComparador(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">⚖️ Comparar Versiones</button>
                     <button @click="generarBosquejo(versiculoLectorSel)" class="text-xs text-gold-200 hover:text-gold-100 flex items-center gap-1">📑 Crear Bosquejo de Enseñanza</button>
-                    <button @click="profundizarVersiculoLector(versiculoLectorSel)" class="text-xs bg-gold-600/20 text-gold-200 border border-gold-500/40 px-3 py-1.5 rounded-lg hover:bg-gold-600/30 transition-all ml-auto">Profundizar con RevelatiO IA</button>
+                    <button @click="profundizarVersiculoLector(versiculoLectorSel)" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold px-4 py-2 rounded-xl text-xs shadow-md ml-auto transition-colors">Profundizar con RevelatiO IA</button>
                     <button @click="versiculoLectorSel = null" class="rv-tap-44 text-gray-500 hover:text-gray-200 p-1" aria-label="Cerrar selección">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
                     </button>
@@ -2567,7 +2616,7 @@ versiones: {},
                     'efesios 3:1': [
                         { palabra: 'Pablo', griego: 'Παῦλος', translit: 'Paulos', fonetica: 'páv-los', strong: 'G3972', morfologia: 'Sustantivo · Masculino Singular · Nominativo', sentido: 'Nombre propio del apóstol; se presenta a sí mismo como remitente y garante personal de la carta.' },
                         { palabra: 'prisionero', griego: 'δέσμιος', translit: 'desmios', fonetica: 'dés-mee-os', strong: 'G1198', morfologia: 'Sustantivo · Masculino Singular · Nominativo', sentido: 'Literalmente "atado con cadenas". Pablo redefine su cautiverio romano no como derrota sino como identidad misional: está encadenado "de Cristo Jesús", no del imperio.' },
-                        { palabra: 'Cristo', griego: 'Χριστοῦ', translit: 'Christou', fonetica: 'jris-tú', strong: 'G5547', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'Genitivo de posesión: Pablo pertenece a Cristo; su prisión tiene un dueño distinto al César.' },
+                        { palabra: 'Cristo', griego: '��ριστοῦ', translit: 'Christou', fonetica: 'jris-tú', strong: 'G5547', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'Genitivo de posesión: Pablo pertenece a Cristo; su prisión tiene un dueño distinto al César.' },
                         { palabra: 'Jesús', griego: 'Ἰησοῦ', translit: 'Iesou', fonetica: 'ie-sú', strong: 'G2424', morfologia: 'Sustantivo · Masculino Singular · Genitivo', sentido: 'Nombre personal del Mesías; junto a "Cristo" ancla la identidad de Pablo en la persona histórica de Jesús.' },
                         { palabra: 'gentiles', griego: 'ἐθνῶν', translit: 'ethnon', fonetica: 'eth-nón', strong: 'G1484', morfologia: 'Sustantivo · Neutro Plural · Genitivo', sentido: 'Designa a los no-judíos; el sufrimiento de Pablo tiene un propósito vicario: es "por vosotros" los gentiles.' }
                     ],
@@ -2591,8 +2640,9 @@ versiones: {},
                 sacredPauseOpen: false,
                 pausePhase: 0,
                 breathState: 'Inhala la Verdad',
-                pauseTimer: 180,
-                _pauseVerse: { referencia: '', texto: '' },
+  pauseTimer: 180,
+  pauseCompleted: false,
+  _pauseVerse: { referencia: '', texto: '' },
                 _pauseTerm: null,
                 _pauseTimerId: null,
                 _breathStateId: null,
@@ -2667,6 +2717,8 @@ versiones: {},
                 ],
                 lexicoAbierto: false,
                 strongHover: '',
+  strongTooltip: { open: false, loading: false, code: '', data: null, x: 0, y: 0, reference: '' },
+  strongTooltipCache: {},
   lexicoDatos: null,
   lexicoCodigo: '',
   cargandoLexico: false,
@@ -2686,8 +2738,13 @@ versiones: {},
                 aiError: '',
                 availableVoices: [],
                 selectedVoiceUri: localStorage.getItem('revelatio_voice') || '',
-                speechRate: 0.90,
+                speechRate: 0.88,
                 speechPitch: 0.95,
+                speechStatus: 'En pausa',
+                speechSegmentIndex: 0,
+                speechSegments: [],
+  musicBaseVolume: 0.40,
+  musicDuckedVolume: 0.15,
                 isPlayingAudio: false,
                 isAudioPaused: false,
                 currentReadingVerseIndex: 0,
@@ -2699,19 +2756,15 @@ versiones: {},
                 audioPaused: false,
                 audioRate: 0.95,
                 audioAmbience: 'silencio',
-                ambienceContext: null,
-                ambienceNodes: [],
-                audioVerseActive: 0,
-                currentReadingVerseId: null,
-                soundscapeActive: false,
-                soundscapeVolume: 0.18,
-                selectedSoundtrack: 'piano_worship',
-                ambientAudio: null,
-                soundtracks: [
-                    { id: 'piano_worship', name: 'Piano de Adoración & Reposo', url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-piano-worship-ambient-110997.mp3' },
-                    { id: 'peace_strings', name: 'Cuerdas de Paz & Quietud', url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=peaceful-contemplative-ambient-piano-and-strings-10874.mp3' },
-                    { id: 'holy_presence', name: 'Colchón de Gracia (Pads & Guitarra)', url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=spiritual-worship-peace-10336.mp3' }
-                ],
+  musicFadeTimer: null,
+  soundscapeVolume: 0.60,
+  selectedSoundtrack: 'piano_worship',
+  ambientAudio: null,
+  soundtracks: [
+  { id: 'piano_worship', name: 'Piano de Adoración', url: 'https://ia801503.us.archive.org/15/items/gentle-piano-worship-peace/gentle-piano-worship.mp3' },
+  { id: 'peace_strings', name: 'Cuerdas & Paz Sacra', url: 'https://ia801402.us.archive.org/20/items/ambient-prayer-pads/ambient-prayer-strings.mp3' },
+  { id: 'holy_presence', name: 'Pad Íntimo de Oración', url: 'https://ia601402.us.archive.org/20/items/ambient-prayer-pads/deep-worship-pad.mp3' }
+  ],
                 playbackSpeed: 1.0,
                 fontSize: 20,
                 audioSource: 'chapter',
@@ -2919,7 +2972,7 @@ bibliotecaPestana: 'inicio',
   this.loadMetanoiaData();
                     const loadVoices = () => { const voices = window.speechSynthesis?.getVoices?.() || []; this.availableVoices = voices.filter(v => /^es/i.test(v.lang)); if (!this.selectedVoiceUri && this.availableVoices.length) { const premium = this.availableVoices.find(v => /Natural|Google.*español|Google.*Spanish|Jorge|Paulina|Mónica|Monica|Diego|Microsoft.*Natural/i.test(v.name)); this.selectedVoiceUri = premium?.voiceURI || this.availableVoices[0].voiceURI; } };
                     loadVoices();
-                    if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = loadVoices;
+                    if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = () => { loadVoices(); this.speechService.refreshVoices(); };
                     this.$watch('selectedVoiceUri', value => { try { localStorage.setItem('revelatio_voice', value || ''); } catch (_) {} });
                     document.addEventListener('revelatio:highlight', e => { const app=Alpine.$data(document.body); const n=String(e.detail?.reference||'').split(':').pop(); app?.resaltarVersiculo?.(n,'amarillo'); });
                     document.addEventListener('revelatio:open-journal', e => { const app=Alpine.$data(document.body); app.journalDraft.verdad = `${e.detail?.text||''} (${e.detail?.reference||''})`; app.openJournal?.(); });
@@ -3562,12 +3615,12 @@ const etiquetas = {
     const voz = preferidas.map(nombre => voces.find(v => v.name.toLowerCase().includes(nombre.toLowerCase()))).find(Boolean)
       || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang) && /female|mujer|sabina|paulina|monica|dalia/i.test(v.name))
       || voces.find(v => /es[-_]?(419|mx|us|ar|co|cl|pe)/i.test(v.lang))
-      || voces.find(v => /^es/i.test(v.lang));
+      || null;
     const utterance = new SpeechSynthesisUtterance(this.textoActual);
     utterance.lang = voz?.lang || 'es-MX';
     if (voz) utterance.voice = voz;
-    utterance.rate = 0.86;
-    utterance.pitch = 1.04;
+    utterance.rate = 0.90;
+    utterance.pitch = 1.0;
     utterance.volume = 1;
     utterance.onend = () => { this.bibliaAudioActivo = false; };
     utterance.onerror = () => { this.bibliaAudioActivo = false; };
@@ -3921,10 +3974,14 @@ const etiquetas = {
   },
   speechService: {
   pickVoice() {
-    const voices = window.speechSynthesis?.getVoices?.() || [];
-    const latin = voices.filter(v => /^(es-MX|es-US|es-419|es-CO|es-AR|es-CL|es-PE)/i.test(v.lang) || /Jorge|Raul|Raúl|Alonso|Google español|Microsoft/i.test(v.name));
-    return latin.find(v => /Jorge|Raul|Raúl|Alonso/i.test(v.name)) || latin[0] || voices.find(v => /^es/i.test(v.lang)) || null;
+  const voices = window.speechSynthesis?.getVoices?.() || [];
+  const latinoLang = /^(es-MX|es-US|es-CO|es-419|es-AR)$/i;
+  const latinoNames = /Paulina|Sabina|Paloma|Jimena|Dalia Online \(Natural\).*Mexico|Jorge Online \(Natural\)|Google español de Estados Unidos|Google español \(Latinoamérica\)/i;
+  const rejected = /english|es-ES|robot|compact|novelty|default/i;
+  const latino = voices.filter(v => latinoLang.test(v.lang) && !rejected.test(v.name));
+  return latino.find(v => latinoNames.test(v.name)) || latino.find(v => /es-MX|es-US|es-419|es-CO/i.test(v.lang)) || null;
   },
+  refreshVoices() { const app = Alpine.$data(document.body); const voices = window.speechSynthesis?.getVoices?.() || []; app.availableVoices = voices.filter(v => /^(es-MX|es-US|es-CO|es-419|es-AR)$/i.test(v.lang) && !/english|robot|compact|novelty|es-ES/i.test(v.name + v.lang)); if (!app.selectedVoiceUri && this.pickVoice()) app.selectedVoiceUri = this.pickVoice().voiceURI; },
   speak(text) {
     if (!text || !('speechSynthesis' in window)) return;
     const app = Alpine.$data(document.body);
@@ -3934,7 +3991,20 @@ const etiquetas = {
     app.audioQueue = [{ n: 1, texto: String(text) }]; app.audioIndex = 0; app.audioVerseActive = 0;
     this.playCurrent();
   },
-  startChapterAudio() { this.playPassage('chapter'); },
+  cleanPassageText(text) { return String(text || '').replace(/\[\s*[GH]\d{1,5}\s*\]/gi, ' ').replace(/(^|\s)(\d{1,3})(?=\s)/g, '$1').replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim(); },
+  playFullChapterWithMusic() {
+    const app = Alpine.$data(document.body);
+    if (app.isPlayingAudio && app.audioSource === 'chapter') { this.stop(); return; }
+
+    const versos = app.lectorAbierto && app.versosActuales?.length ? app.versosActuales : (app.versionesVersos?.[app.versionSel] || app.original?.versos || []);
+    const queue = versos.map((v, i) => ({ n: v.n || v.numero || i + 1, texto: this.cleanPassageText(v.texto || v.text || '') })).filter(v => v.texto);
+    const textFallback = this.cleanPassageText(app.textoActual || document.querySelector('[data-active-passage], .rv-reading-text, .texto-biblico')?.textContent || '');
+    app.audioQueue = queue.length ? queue : (textFallback ? [{ n: 1, texto: textFallback }] : []);
+    if (!app.audioQueue.length) { app.mostrarToast?.('No hay texto bíblico disponible para narrar.'); return; }
+    app.audioMode = 'chapter'; app.audioSource = 'chapter'; app.audioIndex = 0; app.audioPaused = false; app.soundscapeActive = true;
+    this.startSoundscape(); this.playCurrent();
+  },
+  startChapterAudio() { this.playFullChapterWithMusic(); },
   startSingleVerseAudio(verse) { const app = Alpine.$data(document.body); const item = verse || app.versosActuales?.[app.audioIndex]; if (!item) return; app.audioMode = 'verse'; app.audioSource = 'verse'; app.audioQueue = [{ n: item.n || item.numero || item.verse || 1, texto: item.texto || item.text || '' }]; app.audioIndex = 0; this.playCurrent(); },
   playPassage(source) {
   const app = Alpine.$data(document.body); app.audioMode = source === 'verse' ? 'verse' : 'chapter';
@@ -3943,22 +4013,28 @@ const etiquetas = {
     app.audioQueue = versos.length ? versos.map((v, i) => ({ n: v.n || v.numero || i + 1, texto: v.texto || v.text || '' })).filter(v => v.texto) : [{ n: 1, texto: app.textoActual || '' }];
     if (!app.audioQueue.length) return;
     app.audioIndex = 0; app.audioPaused = false; app.audioVerseActive = 0;
-    if (app.soundscapeActive) this.startSoundscape();
+    if (!app.soundscapeActive) { app.soundscapeActive = true; this.startSoundscape(); }
     this.playCurrent();
   },
   playCurrent() {
     const app = Alpine.$data(document.body); const item = app.audioQueue?.[app.audioIndex];
     if (!item || !('speechSynthesis' in window)) return this.stop();
-  window.speechSynthesis.cancel();
-  this.duckSoundscape(true);
-  const utterance = new SpeechSynthesisUtterance(String(item.texto).slice(0, 5000));
-    utterance.lang = 'es-MX'; utterance.rate = Number(app.speechRate || app.playbackSpeed || app.audioRate) || 0.90; utterance.pitch = Number(app.speechPitch) || 0.95; utterance.voice = app.availableVoices.find(v => v.voiceURI === app.selectedVoiceUri) || this.pickVoice();
-    utterance.onend = () => { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; app.audioVerseActive = app.audioIndex; this.playCurrent(); } else { app.isPlayingAudio = false; app.currentAudioText = ''; app.currentReadingVerseId = null; this.duckSoundscape(false); } };
-    app.audioUtterance = utterance; app.isPlayingAudio = true; app.audioPaused = false; app.isAudioPaused = false; app.audioVerseActive = app.audioIndex; app.currentReadingVerseIndex = Number(item.n) || app.audioIndex; app.currentReadingVerseId = item.n; app.currentAudioText = String(item.texto).slice(0, 120);
+    window.speechSynthesis.cancel();
+    app.speechSegments = String(item.texto || '').split(/(?<=[.;:!?])\s+/).map(s => s.trim()).filter(Boolean);
+    app.speechSegmentIndex = 0; app.isPlayingAudio = true; app.audioPaused = false; app.isAudioPaused = false; app.speechStatus = 'Narrando con voz natural...';
+    app.audioVerseActive = app.audioIndex; app.currentReadingVerseIndex = Number(item.n) || app.audioIndex; app.currentReadingVerseId = item.n; app.currentAudioText = String(item.texto).slice(0, 120);
     app.$nextTick(() => document.getElementById('verse-' + item.n)?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
-    window.speechSynthesis.speak(utterance);
+    this.speakNextSegment();
   },
-  togglePause() { const app = Alpine.$data(document.body); if (!app.isPlayingAudio) return this.playPassage(app.audioSource); if (app.audioPaused) { window.speechSynthesis.resume(); app.audioPaused = false; app.isAudioPaused = false; } else { window.speechSynthesis.pause(); app.audioPaused = true; app.isAudioPaused = true; } },
+  speakNextSegment() {
+    const app = Alpine.$data(document.body); const text = app.speechSegments?.[app.speechSegmentIndex];
+    if (!text) { if (app.audioIndex < app.audioQueue.length - 1) { app.audioIndex += 1; this.playCurrent(); } else { app.isPlayingAudio = false; app.audioPaused = false; app.speechStatus = 'En pausa'; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); } return; }
+    this.duckSoundscape(true);
+    const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'es-MX'; utterance.rate = 0.90; utterance.pitch = 1.0; utterance.voice = app.availableVoices.find(v => v.voiceURI === app.selectedVoiceUri) || this.pickVoice();
+    utterance.onend = () => { app.speechSegmentIndex += 1; this.fadeMusicTo(app.musicBaseVolume); setTimeout(() => { if (app.isPlayingAudio && !app.audioPaused) this.speakNextSegment(); }, 150); };
+    utterance.onerror = () => { app.speechStatus = 'En pausa'; this.stop(); }; app.audioUtterance = utterance; window.speechSynthesis.speak(utterance);
+  },
+  togglePause() { const app = Alpine.$data(document.body); if (!app.isPlayingAudio) return this.playPassage(app.audioSource); if (app.audioPaused) { window.speechSynthesis.resume(); app.audioPaused = false; app.isAudioPaused = false; app.speechStatus = 'Narrando con voz natural...'; this.duckSoundscape(true); } else { window.speechSynthesis.pause(); app.audioPaused = true; app.isAudioPaused = true; app.speechStatus = 'En pausa'; this.fadeMusicTo(app.musicBaseVolume); } },
   next() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.min(app.audioQueue.length - 1, app.audioIndex + 1); this.playCurrent(); },
   previous() { const app = Alpine.$data(document.body); if (!app.audioQueue.length) return; app.audioIndex = Math.max(0, app.audioIndex - 1); this.playCurrent(); },
   cyclePlaybackSpeed() { const app = Alpine.$data(document.body); const steps = [0.85, 1.0, 1.15]; const current = Number(app.playbackSpeed) || 1.0; const idx = steps.findIndex(step => Math.abs(step - current) < 0.01); app.playbackSpeed = steps[(idx + 1) % steps.length]; app.audioRate = app.playbackSpeed; if (app.isPlayingAudio) this.playCurrent(); },
@@ -3966,18 +4042,20 @@ const etiquetas = {
   startSoundscape() {
   const app = Alpine.$data(document.body); const track = app.soundtracks.find(t => t.id === app.selectedSoundtrack) || app.soundtracks[0];
   if (!track) return;
-  if (app.ambientAudio && app.ambientAudio.src === track.url) { app.ambientAudio.volume = Number(app.soundscapeVolume) || 0.18; app.ambientAudio.play().catch(() => {}); return; }
+  if (app.ambientAudio && app.ambientAudio.dataset?.trackId === track.id) { app.ambientAudio.volume = Math.min(0.50, Number(app.musicBaseVolume) || 0.40); app.ambientAudio.play().catch(() => {}); return; }
   this.stopSoundscape(true);
-  const audio = new Audio(track.url); audio.loop = true; audio.preload = 'auto'; audio.volume = 0.001;
-  audio.addEventListener('error', () => { app.soundscapeActive = false; app.ambientAudio = null; app.mostrarToast?.('No se pudo cargar la pista instrumental.'); }, { once: true });
-  app.ambientAudio = audio; audio.play().then(() => { const target = Math.min(.5, Math.max(.01, Number(app.soundscapeVolume) || .18)); const timer = setInterval(() => { audio.volume = Math.min(target, audio.volume + .02); if (audio.volume >= target) clearInterval(timer); }, 80); }).catch(() => { app.soundscapeActive = false; app.ambientAudio = null; });
+  const audio = new Audio(track.url); audio.dataset.trackId = track.id; audio.loop = true; audio.preload = 'auto'; audio.crossOrigin = 'anonymous'; audio.volume = 0.001;
+  const fallback = () => { this.stopSoundscape(true); const nextIndex = (app.soundtracks.findIndex(item => item.id === track.id) + 1) % app.soundtracks.length; if (app.soundtracks.length > 1 && !app._soundtrackRetrying) { app._soundtrackRetrying = true; app.selectedSoundtrack = app.soundtracks[nextIndex].id; this.startSoundscape(); app._soundtrackRetrying = false; } else { app.soundscapeActive = false; app.ambientAudio = null; app._soundtrackRetrying = false; } };
+  audio.addEventListener('error', fallback, { once: true });
+  app.ambientAudio = audio; audio.play().then(() => { const target = Math.min(0.50, Math.max(.001, Number(app.musicBaseVolume) || 0.40)); const timer = setInterval(() => { audio.volume = Math.min(target, audio.volume + .025); if (audio.volume >= target) clearInterval(timer); }, 80); }).catch(fallback);
   },
   changeSoundtrack(trackId) { const app = Alpine.$data(document.body); app.selectedSoundtrack = trackId; if (app.soundscapeActive) this.startSoundscape(); },
-  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio) return; const target = ducked ? (Number(app.soundscapeVolume) || .18) * 0.1 : Number(app.soundscapeVolume) || .18; app.ambientAudio.volume = Math.max(0, Math.min(.5, target)); },
+  fadeMusicTo(target) { const app = Alpine.$data(document.body); const end = Math.max(0, Math.min(0.50, Number(target) || 0)); const audio = app.ambientAudio; if (!audio) return; clearInterval(app.musicFadeTimer); const start = audio.volume; const steps = 20; let step = 0; app.musicFadeTimer = setInterval(() => { step += 1; audio.volume = start + (end - start) * (step / steps); if (step >= steps) clearInterval(app.musicFadeTimer); }, 100); },
+  duckSoundscape(ducked) { const app = Alpine.$data(document.body); if (!app.ambientAudio) return; this.fadeMusicTo(ducked ? 0.15 : 0.40); },
   stopSoundscape(immediate = false) { const app = Alpine.$data(document.body); const audio = app.ambientAudio; if (!audio) return; if (immediate) { audio.pause(); audio.currentTime = 0; app.ambientAudio = null; return; } const start = audio.volume; const timer = setInterval(() => { audio.volume = Math.max(0, audio.volume - .03); if (audio.volume <= .001) { clearInterval(timer); audio.pause(); audio.currentTime = 0; app.ambientAudio = null; } }, 70); },
   playAmbience(kind) { const app = Alpine.$data(document.body); if (kind === 'silencio') { app.soundscapeActive = false; this.stopSoundscape(); return; } const match = app.soundtracks.find(t => t.id === kind) || app.soundtracks[0]; app.selectedSoundtrack = match.id; app.soundscapeActive = true; this.startSoundscape(); },
   stopAmbience() { this.stopSoundscape(); },
-  stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.audioPaused = false; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); }
+  stop() { window.speechSynthesis?.cancel(); const app = Alpine.$data(document.body); app.isPlayingAudio = false; app.audioPaused = false; app.isAudioPaused = false; app.speechStatus = 'En pausa'; app.currentAudioText = ''; app.currentReadingVerseId = null; this.stopSoundscape(); }
   },
   async seleccionarOmniTab(tab) {
   this.omniTab = tab;
@@ -4410,8 +4488,35 @@ guardarFicha() {
                     }
                 },
 
-                // ---------- Diccionario léxico (Strong's real) ----------
-                async consultarLexico(codigo) {
+  // ---------- Tooltip léxico inmediato Strong ----------
+  posicionarStrongTooltip(rect) {
+  const width = Math.min(320, window.innerWidth - 24); const height = 190; const gap = 10;
+  let x = rect.left + rect.width / 2 - width / 2; let y = rect.bottom + gap;
+  x = Math.max(12, Math.min(window.innerWidth - width - 12, x));
+  if (y + height > window.innerHeight - 12) y = Math.max(12, rect.top - height - gap);
+  this.strongTooltip.x = Math.round(x); this.strongTooltip.y = Math.round(y);
+  },
+  async mostrarStrongTooltip(codigo, event, reference = this.referenciaActiva || '') {
+  const code = String(codigo || '').trim().toUpperCase().replace(/^([GH])0*(\\d+)$/, '$1$2');
+  if (!/^[GH]\\d{1,4}$/.test(code)) return;
+  const rect = event?.currentTarget?.getBoundingClientRect?.(); if (!rect) return;
+  this.posicionarStrongTooltip(rect); this.strongTooltip = { ...this.strongTooltip, open: true, loading: false, code, reference, data: null, x: this.strongTooltip.x, y: this.strongTooltip.y };
+  if (this.strongTooltipCache[code]) { this.strongTooltip.data = this.strongTooltipCache[code]; return; }
+  const local = this.masterData?.lexicon?.strong_greek?.[code] || this.masterData?.lexicon?.strong_greek?.[code.toLowerCase()];
+  if (local) { this.strongTooltip.data = this.strongTooltipCache[code] = this.normalizarTooltipLexico(local, code); return; }
+  this.strongTooltip.loading = true;
+  try {
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'interlinear_resolve', prompt: code, context: reference }) });
+    if (!response.ok) throw new Error('No disponible'); const result = await response.json();
+    this.strongTooltipCache[code] = this.normalizarTooltipLexico(result, code); this.strongTooltip.data = this.strongTooltipCache[code];
+  } catch (_) { this.strongTooltip.data = { original: 'Entrada no disponible', code, translation: 'Consulta pendiente', transliteration: '—', morphology: '—', definition: 'No se pudo cargar la definición en este momento.' }; }
+  finally { this.strongTooltip.loading = false; }
+  },
+  normalizarTooltipLexico(data, code) { return { original: data.original || data.lexema || data.termino || 'Término original pendiente', code: data.strong || data.codigo || code, translation: data.traduccionEstricta || data.translation || data.meaning || data.definicionEs || 'Traducción pendiente', transliteration: data.phonetic || data.fonetica || data.transliteration || 'Transliteración pendiente', morphology: data.morphology || data.morfologia || 'Morfología pendiente', definition: data.definition || data.definicionEs || data.meaning || 'Definición exegética pendiente.' }; },
+  cerrarStrongTooltip() { this.strongTooltip.open = false; },
+
+  // ---------- Diccionario léxico (Strong's real) ----------
+  async consultarLexico(codigo) {
                     const codigoNormalizado = String(codigo || '').trim().toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2');
                     if (!/^[GH]\d{1,4}$/.test(codigoNormalizado)) return;
   this.lexicoCodigo = codigoNormalizado;
@@ -4473,7 +4578,7 @@ guardarFicha() {
                         this.interlinearLoading = true;
                         this.wordModalOpen = true;
                         this.wordSheetOpen = true;
-                        this.selectedWordData = { original: raw, transliteration: 'Resolviendo transliteración…', strong: '—', morphology: 'Analizando morfología…', meaning: 'Buscando entrada léxica y contexto del versículo…', metanoia: 'Preparando una aplicación práctica para la renovación de la mente.', griego: '…', translit: '…', fonetica: '…', morfologia: '…', sentido: '…' };
+                        this.selectedWordData = { original: '', transliteration: '', strong: '', morphology: '', meaning: '', metanoia: '', griego: '', translit: '', fonetica: '', morfologia: '', sentido: '' };
                         const entradas = this.INTERLINEAL_DATA[this.claveVersiculoInterlineal(verseContext.n || verseContext.verse || verseContext.numero)] || [];
                         const local = entradas.find(e => this.normalizarPalabra(e.palabra) === normalized);
                         const semantic = {
@@ -4483,18 +4588,23 @@ guardarFicha() {
                           verdad: { original: 'ἀλήθεια', transliteration: 'alētheia · a-lē-thei-a', strong: 'G225', morphology: 'Sustantivo · Femenino Singular', meaning: 'Verdad manifiesta, aquello que no está oculto y corresponde fielmente a la realidad de Dios.', metanoia: 'La verdad libera al pensamiento de la ilusión y lo vuelve capaz de responder con integridad.' }
                         };
   const found = local ? { original: local.griego, transliteration: `${local.translit} · ${local.fonetica}`, strong: local.strong, morphology: local.morfologia, meaning: local.sentido, metanoia: `La palabra «${raw}» invita a dejar que la verdad de Dios transforme la manera de pensar y actuar.` } : semantic[normalized];
-  let resolved = found || { original: raw || 'Término seleccionado', transliteration: 'Transliteración contextual pendiente', phonetic: 'Pronunciación pendiente', strong: 'Concordancia pendiente', morphology: 'Término bíblico · análisis contextual pendiente', meaning: `La palabra «${raw || 'seleccionada'}» se está leyendo dentro de ${verseContext.reference || 'este versículo'}.`, metanoia: `Pregunta qué pensamiento produce «${raw || 'este término'}» y qué respuesta obediente puede nacer de la Palabra.` };
+  let resolved = found || { original: '', transliteration: '', phonetic: '', strong: '', morphology: '', meaning: '', metanoia: '' };
   if (!found) {
     try {
-      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'interlinear_resolve', message: raw, context: { reference: verseContext.reference || this.referenciaActiva || '', text: verseContext.text || this.textoActual || '' } }) });
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'interlinear_resolve', prompt: raw, context: verseContext.reference || this.referenciaActiva || '' }) });
       if (response.ok) { const remote = await response.json(); resolved = { ...resolved, ...remote, phonetic: remote.phonetic || remote.fonetica }; }
     } catch (_) { /* fallback editorial seguro */ }
   }
-  this.selectedWordData = { ...resolved, griego: resolved.original, translit: resolved.transliteration, fonetica: resolved.phonetic || resolved.fonetica || 'Pronunciación contextual pendiente', morfologia: resolved.morphology, sentido: resolved.meaning };
+  this.selectedWordData = { ...resolved, griego: resolved.original, translit: resolved.transliteration, fonetica: resolved.phonetic || resolved.fonetica || '', morfologia: resolved.morphology, sentido: resolved.meaning };
   this.interlinearLoading = false;
                     },
                     abrirPalabra(data, verseContext = {}) { return this.openInterlinearWord(data?.palabra || data?.word || data?.texto || data, verseContext).catch(() => { this.interlinearLoading = false; }); },
-                    cerrarPalabra() { this.wordModalOpen = false; this.wordSheetOpen = false; this.interlinearLoading = false; },
+                    llevarInterlinealAlDiario() {
+  const ficha = { id: `interlinear-${Date.now()}`, fecha: new Date().toLocaleDateString('es-ES'), referencia: this.referenciaActiva || 'Estudio bíblico', pensamiento: `Término original: ${this.selectedWordData.original || this.selectedWordData.griego}`, verdad: `${this.selectedWordData.meaning || this.selectedWordData.sentido || ''} Strong ${this.selectedWordData.strong || ''}.`, accion: this.selectedWordData.metanoia || '', fuente: 'Motor Interlineal Morfológico' };
+  try { const entries = JSON.parse(localStorage.getItem('revelatio_journal_entries') || '[]'); localStorage.setItem('revelatio_journal_entries', JSON.stringify([ficha, ...entries].slice(0, 200))); } catch (_) {}
+  this.journalEntries = [ficha, ...(this.journalEntries || [])]; this.metanoiaStreak = Number(this.metanoiaStreak || 0) + 1; this.persistLocalState?.(); this.mostrarToast?.('Ficha interlineal llevada al Diario');
+  },
+  cerrarPalabra() { this.wordModalOpen = false; this.wordSheetOpen = false; this.interlinearLoading = false; },
 
                     // ---------- Comparador sinóptico multiversión ----------
                     abrirComparador(numeroVersiculo) { this.compareVerseNumero = numeroVersiculo; this.closeAllOverlays('compareModalOpen'); this.compareModalOpen = true; },
@@ -4525,11 +4635,14 @@ guardarFicha() {
                         this._pauseTerm = terminos[terminos.length - 1] || terminos[0] || null;
                         this.pausePhase = 0;
                         this.pauseTimer = 180;
+                        this.pauseCompleted = false;
                         this.closeAllOverlays('sacredPauseOpen'); this.sacredPauseOpen = true;
                         this._iniciarCicloRespiracion();
                         this._pauseTimerId = setInterval(() => {
-                            if (this.pauseTimer > 0) this.pauseTimer--;
-                            else this._sonarCampana();
+                            if (this.pauseTimer > 0) {
+                              this.pauseTimer--;
+                              if (this.pauseTimer === 0) { clearInterval(this._pauseTimerId); this._pauseTimerId = null; this.pauseCompleted = true; this.pausePhase = 4; this._sonarCampana(); }
+                            }
                         }, 1000);
                     },
                     _iniciarCicloRespiracion() {
@@ -4541,10 +4654,12 @@ guardarFicha() {
                     },
                     siguienteFasePausa() {
                         if (this.pausePhase < 4) this.pausePhase++;
-                        if (this.pausePhase === 4) this._sonarCampana();
+                        if (this.pausePhase === 4) { this.pauseCompleted = true; this._sonarCampana(); }
                     },
+                    closePausa() { this.cerrarPausaSagrada(); },
                     cerrarPausaSagrada() {
                         this.sacredPauseOpen = false;
+                        this.pauseCompleted = false;
                         clearInterval(this._pauseTimerId); this._pauseTimerId = null;
                         clearInterval(this._breathStateId); this._breathStateId = null;
                     },
@@ -5328,7 +5443,7 @@ guardarFicha() {
       const strongData = { 'árbol de vida': { strong:'H6086', traduccion:'ets — árbol, madera, linaje', resumen:'La imagen señala una vida que nutre y restaura; la sabiduría práctica produce fruto visible.' }, 'necio': { strong:'H191', traduccion:'evíl — necio, moralmente insensato', resumen:'El necio no es solo ignorante; rechaza la corrección y persiste en su propio camino.' }, 'corrección': { strong:'H4148', traduccion:'musar — disciplina, instrucción correctiva', resumen:'La disciplina recibida con humildad forma el carácter y conduce a una vida recta.' } };
       const studyData = text => { const nodes=[...document.querySelectorAll('.rv-interlinear-token')].filter(n=>{try{return savedRange?.intersectsNode(n)}catch{return false}}); const items=nodes.map(n=>({strong:n.dataset.strong,word:n.dataset.word,translation:n.dataset.translation||n.dataset.trans||n.dataset.meaning||n.dataset.gloss||'',comment:n.dataset.comment||n.dataset.expositivo||n.dataset.note||''})).filter(x=>x.strong||x.word); const lower=text.toLowerCase(); const lexical=[['seol',{strong:'H7585',word:'שְׁאוֹל · Seol',translation:'morada de los muertos; sepulcro',comment:'Representa el ámbito de la muerte, no necesariamente una descripción del castigo final.'}],['abadón',{strong:'H11',word:'אֲבַדּוֹן — Abadón',translation:'destrucción; perdición',comment:'Nombre asociado con destrucción y ruina; el texto subraya el alcance del conocimiento de Dios.'}],['corazones',{strong:'H3820',word:'לֵב · corazón',translation:'corazón; mente; voluntad interior',comment:'En la Biblia, el corazón incluye pensamiento, voluntad y afectos, no solo emociones.'}],['prudente',{strong:'H6175',word:'עָרוּם — prudente',translation:'sensato; sagaz; prudente',comment:'La prudencia bíblica recibe corrección y aplica sabiduría a sus decisiones.'}]]; const matched=lexical.filter(([term])=>lower.includes(term)).map(([,value])=>value); const key=Object.keys(strongData).find(k=>lower.includes(k)); const fallback=strongData[key]; const passage=window.__revelatioPassageData||{}; const selectedWords=lower.split(/\s+/).filter(w=>w.length>4).slice(0,8); const verseTexts=Object.values(passage.versionesVersos||{}).flat(); const selectedVerse=verseTexts.find(v=>{const body=String(v.texto||'').toLowerCase();return selectedWords.length&&selectedWords.filter(w=>body.includes(w)).length>=Math.min(2,selectedWords.length)}); const verseNumber=selectedVerse?.n||selectedVerse?.verse; const originalVerses=passage.original?.versos||[]; const sourceVerse=originalVerses.find(v=>String(v.verso)===String(verseNumber)); const passageTokens=(sourceVerse?.tokens||originalVerses.flatMap(v=>v.tokens||[])).map(t=>({strong:t.strong,word:t.palabra||t.texto,translation:t.traduccion||t.espanol||'',comment:''})).filter(x=>x.strong); const unique=[...items,...matched,...passageTokens].filter((x,i,a)=>x.strong&&a.findIndex(y=>y.strong===x.strong)===i); return {items:unique.length?unique:[{strong:'Sin datos Strong',word:'Selección',translation:'El pasaje cargado no contiene metadata interlineal verificable.',comment:'Cambia a Interlineal · Original + Strong para comprobar las palabras originales de este pasaje.'}],summary:unique.map(x=>x.comment).filter(Boolean).join(' ')||fallback?.resumen||'La selección pertenece al pasaje activo. El desglose Strong disponible procede del texto original cargado; la traducción léxica debe verificarse palabra por palabra en el interlineal.'}; };
       const enrichStudyData = async data => { const token = await supabaseClient?.auth?.getSession?.().then(r=>r.data.session?.access_token).catch(()=>null); if(!token)return data; const items=await Promise.all(data.items.map(async item=>{if(!item.strong||!/^\w\d+$/.test(item.strong))return item; try{const res=await fetch('/api/lexico',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({codigo:item.strong})});const json=await res.json();const d=json.data||{};return {...item,translation:item.translation||d.traduccionEstricta||d.definicionEs||d.definicionCorta||'',comment:item.comment||d.definicionEs||''};}catch{return item;}})); return {...data,items,summary:data.summary||items.map(x=>x.comment).filter(Boolean).join(' ')}; };
-      const closeVerseSheet=()=>{verseSheet?.remove();verseSheet=null;verseSheetData=null}; const showVerseSheet=data=>{document.querySelectorAll('.rv-selection-toolbar,.rv-selection-detail,.rv-selection-handle').forEach(node=>node.remove());close();closeVerseSheet();verseSheetData=data;verseSheet=document.createElement('section');verseSheet.className='rv-action-sheet rv-universal-menu'; verseSheet.id='revelatio-universal-menu';verseSheet.setAttribute('role','dialog');verseSheet.setAttribute('aria-label','Acciones del versículo');const acciones=[['copy','📋 Copiar'],['highlight','🎨 Resaltar'],['note','📝 Ficha MarginNote'],['metanoia','🌱 Metanoia'],['image','🖼️ Tarjeta'],['parallel','⚖️ Comparar'],['listen','🔊 Escuchar'],['ai','💡 Analizar con IA']];verseSheet.innerHTML=`<div class="rv-action-sheet__grip" data-verse-grip></div><div class="rv-action-sheet__head"><span class="rv-action-sheet__toggle" style="visibility:hidden">×</span><div class="rv-action-sheet__ref">${escapeHtml(data.reference||'Versículo')}</div><button class="rv-action-sheet__toggle" data-verse-close aria-label="Cerrar">×</button></div><div class="rv-action-sheet__text">${escapeHtml(data.text)}</div><div class="rv-action-sheet__carousel">${acciones.map(([a,l])=>`<button class="rv-action-sheet__action" data-verse-action="${a}">${l}</button>`).join('')}</div><div class="rv-action-sheet__swatches" data-verse-swatches hidden><button class="rv-swatch" data-c="amarillo" data-swatch="rv-oro" aria-label="Resaltar en amarillo"></button><button class="rv-swatch" data-c="lila" data-swatch="rv-lila" aria-label="Resaltar en morado"></button><button class="rv-swatch" data-c="celeste" data-swatch="rv-cielo" aria-label="Resaltar en azul"></button><button class="rv-swatch" data-c="quitar" data-swatch="" aria-label="Quitar resaltado"></button></div><div class="rv-action-sheet__note" data-verse-note>Selecciona una acción para este versículo.</div><div class="rv-action-sheet__footer" data-verse-expand>Desliza hacia arriba para ver más ⌃</div><div class="rv-action-sheet__expanded" data-verse-expanded><div class="rv-xref-tabs"><button class="rv-xref-tab active" data-xref-tab="cruzadas">Referencias cruzadas</button><button class="rv-xref-tab" data-xref-tab="comentarios">Comentarios</button><button class="rv-xref-tab" data-xref-tab="strong">Originales (Strong)</button><button class="rv-xref-tab" data-xref-tab="concordancia">Concordancia</button></div><div data-xref-body><p class="rv-xref-empty">Cargando referencias cruzadas…</p></div></div>`;document.body.append(verseSheet)};
+      const closeVerseSheet=()=>{verseSheet?.remove();verseSheet=null;verseSheetData=null}; const showVerseSheet=window.showVerseSheet=data=>{document.querySelectorAll('.rv-selection-toolbar,.rv-selection-detail,.rv-selection-handle').forEach(node=>node.remove());close();closeVerseSheet();verseSheetData=data;verseSheet=document.createElement('section');verseSheet.className='rv-action-sheet rv-universal-menu'; verseSheet.id='revelatio-universal-menu';verseSheet.setAttribute('role','dialog');verseSheet.setAttribute('aria-label','Acciones del versículo');const acciones=[['copy','📋 Copiar'],['highlight','🎨 Resaltar'],['note','📝 Ficha MarginNote'],['metanoia','🌱 Metanoia'],['image','🖼️ Tarjeta'],['parallel','⚖️ Comparar'],['listen','🔊 Escuchar'],['ai','💡 Analizar con IA']];verseSheet.innerHTML=`<div class="rv-action-sheet__grip" data-verse-grip></div><div class="rv-action-sheet__head"><span class="rv-action-sheet__toggle" style="visibility:hidden">×</span><div class="rv-action-sheet__ref">${escapeHtml(data.reference||'Versículo')}</div><button class="rv-action-sheet__toggle" data-verse-close aria-label="Cerrar">×</button></div><div class="rv-action-sheet__text">${escapeHtml(data.text)}</div><div class="rv-action-sheet__carousel">${acciones.map(([a,l])=>`<button class="rv-action-sheet__action" data-verse-action="${a}">${l}</button>`).join('')}</div><div class="rv-action-sheet__swatches" data-verse-swatches hidden><button class="rv-swatch" data-c="amarillo" data-swatch="rv-oro" aria-label="Resaltar en amarillo"></button><button class="rv-swatch" data-c="lila" data-swatch="rv-lila" aria-label="Resaltar en morado"></button><button class="rv-swatch" data-c="celeste" data-swatch="rv-cielo" aria-label="Resaltar en azul"></button><button class="rv-swatch" data-c="quitar" data-swatch="" aria-label="Quitar resaltado"></button></div><div class="rv-action-sheet__note" data-verse-note>Selecciona una acción para este versículo.</div><div class="rv-action-sheet__footer" data-verse-expand>Desliza hacia arriba para ver más ⌃</div><div class="rv-action-sheet__expanded" data-verse-expanded><div class="rv-xref-tabs"><button class="rv-xref-tab active" data-xref-tab="cruzadas">Referencias cruzadas</button><button class="rv-xref-tab" data-xref-tab="comentarios">Comentarios</button><button class="rv-xref-tab" data-xref-tab="strong">Originales (Strong)</button><button class="rv-xref-tab" data-xref-tab="concordancia">Concordancia</button></div><div data-xref-body><p class="rv-xref-empty">Cargando referencias cruzadas…</p></div></div>`;document.body.append(verseSheet)};
       const close = () => { closeVerseSheet();box?.remove();detail?.remove();menu?.remove(); document.querySelector('.rv-word-tooltip')?.remove(); box = null; detail = null; menu = null; document.querySelectorAll('.rv-selection-handle').forEach(e => e.remove()); };
   const copyText = async text => { try { if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text); else { const input=document.createElement('textarea'); input.value=text; input.style.position='fixed'; input.style.opacity='0'; document.body.append(input); input.select(); document.execCommand('copy'); input.remove(); } return true; } catch { return false; } };
       const show = () => { const s = getSelection(); if (!s || s.isCollapsed || !s.toString().trim()) return close(); const r = s.getRangeAt(0).getBoundingClientRect(); savedText=s.toString().trim(); savedRange=s.getRangeAt(0).cloneRange(); const ancestor=savedRange.commonAncestorContainer.nodeType===1?savedRange.commonAncestorContainer:savedRange.commonAncestorContainer.parentElement; const verseNode=ancestor?.closest('.rv-verse-surface, .rv-verse, [data-verse], [data-versiculo], .verse, .bible-verse'); if (verseNode) { openVerseFromNode(verseNode); return; } const verseContext=!!ancestor?.closest('.rv-verse, [data-verse], [data-versiculo], .verse, .bible-verse, .rv-interlinear-token, [x-text="textoActual"]'); if (!r.width) return; close(); const width = Math.min(490, innerWidth - 24), left = Math.max(12, Math.min(innerWidth - width - 12, r.right - width + 8)), top = r.bottom + 62 < innerHeight ? r.bottom + 16 : Math.max(12, r.top - 58); box = document.createElement('div'); box.className='rv-selection-toolbar'; box.style.cssText=`left:${left}px;top:${top}px;width:${width}px`; box.innerHTML=`<button data-a="copy"><b>Copy</b></button>${verseContext?'<button data-a="extend"><b>Extend</b></button><button data-a="text"><b>Text</b></button>':''}<i class="rv-sep"></i><span class="rv-colors">${colors.map(([c,n])=>`<button class="rv-dot ${c}" data-color="${c}" aria-label="${n}"></button>`).join('')}</span><i class="rv-sep"></i><button data-a="more"><b>More</b></button>`; document.body.append(box); [['rv-selection-handle',r.left-2,r.top-2],['rv-selection-handle',r.right-10,r.bottom-2]].forEach(([c,x,y])=>{const h=document.createElement('span');h.className=c;h.style.left=x+'px';h.style.top=y+'px';document.body.append(h)});
@@ -5391,14 +5506,14 @@ guardarFicha() {
   <!-- Modal: motor interlineal morfológico dinámico -->
   <div x-show="wordModalOpen" x-cloak x-transition class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" @click.self="cerrarPalabra()" role="dialog" aria-modal="true" aria-label="Análisis interlineal de la palabra">
     <div class="rv-light-modal relative w-full max-w-lg bg-[#FAF8F5] border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl text-stone-900">
-      <button @click="cerrarPalabra()" class="absolute top-5 right-5 text-stone-400 hover:text-stone-700 w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-200/60 transition-colors" aria-label="Cerrar análisis interlineal">×</button>
+      <button @click="cerrarPalabra()" class="absolute top-5 right-5 text-stone-400 hover:text-stone-700 w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-200/60 transition-colors" aria-label="Cerrar an��lisis interlineal">×</button>
       <div class="flex items-center gap-2 mb-4"><span class="text-[11px] font-mono uppercase tracking-widest text-amber-900 font-bold bg-amber-100/90 border border-amber-300 px-3 py-1 rounded-full">Motor interlineal morfológico</span></div>
       <div x-show="interlinearLoading" class="space-y-4 animate-pulse py-4" aria-live="polite"><div class="h-10 bg-stone-200 rounded-xl w-1/2"></div><div class="h-5 bg-stone-200 rounded w-1/3"></div><div class="h-20 bg-stone-200 rounded-2xl w-full"></div></div>
       <div x-show="!interlinearLoading" class="space-y-5">
         <div class="border-b border-stone-200 pb-4"><div class="text-3xl sm:text-4xl font-serif font-bold text-amber-950 tracking-wide" x-text="selectedWordData.original"></div><div class="text-sm font-sans text-stone-600 mt-1 italic" x-text="selectedWordData.transliteration"></div><div class="flex items-center gap-2 mt-3 flex-wrap"><span class="text-xs font-mono font-bold text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-md" x-text="selectedWordData.strong"></span><span class="text-xs font-sans font-medium text-stone-700 bg-stone-200/70 border border-stone-300 px-2.5 py-0.5 rounded-md" x-text="selectedWordData.morphology"></span></div></div>
         <div><h5 class="text-xs uppercase font-bold tracking-wider text-stone-500 mb-1">Definición &amp; léxico</h5><p class="text-sm sm:text-base text-stone-800 leading-relaxed" x-text="selectedWordData.meaning"></p></div>
         <div class="bg-amber-50/90 border border-amber-200/90 rounded-2xl p-4"><div class="flex items-center gap-1.5 text-xs font-bold text-amber-950 uppercase tracking-wider mb-1"><span>Insight de metanoia</span></div><p class="text-xs sm:text-sm text-stone-800 leading-relaxed font-sans" x-text="selectedWordData.metanoia"></p></div>
-        <div class="flex items-center justify-end gap-2 pt-2"><button @click="journalForm.truth = selectedWordData.original + ' (' + selectedWordData.strong + '): ' + selectedWordData.meaning; journalOpen = true; cerrarPalabra();" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm transition-colors">Llevar al Diario</button></div>
+        <div class="flex items-center justify-end gap-2 pt-2"><button @click="llevarInterlinealAlDiario(); cerrarPalabra();" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm transition-colors">Llevar al Diario</button></div>
       </div>
     </div>
   </div>
@@ -5444,7 +5559,7 @@ guardarFicha() {
   </div>
 
   <!-- Pausa Sagrada: Lectio Divina & coherencia cardíaca -->
-  <div x-show="sacredPauseOpen" x-cloak x-transition.opacity class="fixed inset-0 z-[120] flex flex-col bg-[#1C1917] text-[#F5F0E6]" role="dialog" aria-modal="true" aria-label="Pausa Sagrada">
+  <div x-show="sacredPauseOpen" x-cloak x-transition.opacity @keydown.window.escape="closePausa()" @click.self="closePausa()" class="fixed inset-0 z-[120] flex flex-col bg-[#1C1917] text-[#F5F0E6]" role="dialog" aria-modal="true" aria-label="Pausa Sagrada" tabindex="-1">
     <div class="flex items-center justify-between px-5 py-4 sm:px-8">
       <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">Pausa Sagrada</span>
       <div class="flex items-center gap-3">
@@ -5453,24 +5568,30 @@ guardarFicha() {
           <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'bg-amber-600 text-white' : 'bg-white/10 text-amber-100/70'" class="rounded-xl border border-amber-300/30 px-3 py-1.5 text-[10px] font-semibold" x-text="soundscapeActive ? 'Música: ON' : 'Música: OFF'" aria-label="Activar música instrumental"></button>
           <select x-show="soundscapeActive" x-model="selectedSoundtrack" @change="speechService.changeSoundtrack(selectedSoundtrack)" class="max-w-32 rounded-lg border border-amber-300/30 bg-stone-900 px-1.5 py-1 text-[10px] text-amber-50" aria-label="Seleccionar pista"><template x-for="track in soundtracks" :key="'pause-' + track.id"><option :value="track.id" x-text="track.name.split(' &')[0]"></option></template></select>
           <input x-show="soundscapeActive" type="range" min="0" max="0.5" step="0.02" x-model="soundscapeVolume" @input="if(ambientAudio) ambientAudio.volume = Number(soundscapeVolume)" class="h-1 w-16 accent-amber-500" aria-label="Volumen de música">
-          <button @click="cerrarPausaSagrada()" class="rounded-full p-1.5 text-amber-200/60 hover:bg-white/10 hover:text-amber-100" aria-label="Cerrar Pausa Sagrada">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg>
-        </button>
+          <button @click="closePausa()" class="rounded-lg border border-stone-600 bg-stone-800/80 px-3 py-1.5 text-xs font-semibold text-stone-200 hover:bg-stone-700" aria-label="Salir al texto">✕ Salir al texto</button>
       </div>
     </div>
 
-    <div class="flex flex-1 flex-col items-center justify-center gap-8 px-6 pb-10 text-center sm:px-10">
+    <div x-show="pauseCompleted" x-cloak class="flex flex-1 flex-col items-center justify-center gap-6 px-6 pb-10 text-center sm:px-10">
+      <div class="w-full max-w-md rounded-3xl border border-amber-300/30 bg-stone-900/80 p-8 shadow-2xl">
+        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">Pausa Sagrada</p>
+        <h2 class="mt-3 font-serif text-2xl text-amber-50">Pausa completada en quietud</h2>
+        <p class="mt-3 text-sm leading-relaxed text-stone-300">Has permanecido en silencio ante la Palabra. Puedes volver exactamente al punto de lectura donde comenzaste.</p>
+        <button @click="closePausa()" class="mt-6 inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-stone-950 shadow-lg hover:bg-amber-400">📖 Continuar con la Lectura / Estudio</button>
+      </div>
+    </div>
+    <div x-show="!pauseCompleted" class="flex flex-1 flex-col items-center justify-center gap-8 px-6 pb-10 text-center sm:px-10">
       <!-- Pulsador visual de respiración -->
       <div class="relative flex h-40 w-40 items-center justify-center sm:h-48 sm:w-48">
         <div class="rv-breath-circle absolute inset-0 rounded-full bg-amber-500/15 border border-amber-400/30"></div>
         <div class="rv-breath-circle absolute inset-6 rounded-full bg-amber-500/20 border border-amber-400/40" style="animation-delay:-.4s"></div>
-        <span class="relative font-serif text-sm text-amber-100/90" x-text="breathState"></span>
+        <span class="relative text-amber-200 font-serif font-bold text-lg drop-shadow-md" x-text="breathState"></span>
       </div>
 
       <!-- Fase 0: Respiración inicial -->
       <div x-show="pausePhase === 0" class="max-w-md space-y-3">
-        <p class="font-serif text-xl leading-relaxed text-amber-50">Respira en la presencia de Dios.</p>
-        <p class="text-sm leading-relaxed text-amber-100/60">Deja que tu cuerpo siga el ritmo del círculo. No hay prisa: estás a punto de leer la Escritura, no de terminarla.</p>
+        <p class="text-amber-300 font-serif font-bold text-xl md:text-2xl mt-4">Respira en la presencia de Dios.</p>
+        <p class="text-stone-300 text-sm font-normal max-w-md mx-auto">Deja que tu cuerpo siga el ritmo del círculo. No hay prisa: estás a punto de leer la Escritura, no de terminarla.</p>
       </div>
 
       <!-- Fase 1: Lectio -->
@@ -5508,7 +5629,7 @@ guardarFicha() {
       </div>
     </div>
 
-    <div class="px-6 pb-8 sm:px-10">
+    <div x-show="!pauseCompleted" class="px-6 pb-8 sm:px-10">
       <button x-show="pausePhase < 4" @click="siguienteFasePausa()" class="mx-auto flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-2.5 text-sm font-semibold text-amber-100 hover:bg-amber-500/20 transition-all">Siguiente Fase ➔</button>
       <button x-show="pausePhase === 4" @click="cerrarPausaSagrada()" class="mx-auto flex items-center gap-2 rounded-full bg-amber-600 px-5 py-2.5 text-sm font-bold text-stone-950 hover:bg-amber-500 transition-all">Concluir en Paz</button>
     </div>
@@ -5650,7 +5771,77 @@ guardarFicha() {
     </div>
   </div>
   <div x-show="!isPlayingAudio && referenciaActiva" x-cloak class="fixed bottom-5 left-1/2 z-30 -translate-x-1/2"><button @click="startChapterAudio()" class="rounded-full border border-amber-400/60 bg-stone-900 px-4 py-2 text-xs font-bold text-amber-100 shadow-xl hover:bg-black">🔊 Escuchar pasaje completo con música de fondo</button></div>
+  <div x-show="isPlayingAudio || audioPaused" x-cloak class="rv-audio-player fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-2xl rounded-2xl border border-amber-500/30 bg-stone-950/95 p-3 text-stone-100 shadow-2xl backdrop-blur-md sm:inset-x-auto sm:w-[min(680px,calc(100vw-2rem))]" role="region" aria-label="Reproductor de audio">
+    <div class="flex items-center gap-3"><div class="flex items-end gap-0.5" aria-hidden="true"><span class="h-3 w-1 rounded-full bg-amber-400 animate-pulse"></span><span class="h-5 w-1 rounded-full bg-amber-300 animate-pulse"></span><span class="h-4 w-1 rounded-full bg-amber-500 animate-pulse"></span><span class="h-6 w-1 rounded-full bg-amber-200 animate-pulse"></span></div><div class="min-w-0 flex-1"><p class="truncate text-xs font-semibold text-amber-100" x-text="speechStatus"></p><p class="truncate text-[11px] text-stone-300" x-text="currentAudioText || 'RevelatiO by Efata'"></p></div><button @click="speechService.togglePause()" class="rounded-xl bg-amber-500 px-3 py-2 text-sm font-bold text-stone-950" x-text="audioPaused ? '▶' : 'Ⅱ'" :aria-label="audioPaused ? 'Reproducir' : 'Pausar'"></button></div>
+    <div class="mt-3 flex flex-wrap items-center gap-2 text-[11px]"><button @click="speechService.previous()" class="rounded-lg border border-stone-700 px-2 py-1 hover:bg-stone-800" aria-label="Anterior">Anterior</button><button @click="speechService.next()" class="rounded-lg border border-stone-700 px-2 py-1 hover:bg-stone-800" aria-label="Siguiente">Siguiente</button><label class="flex items-center gap-1 text-stone-300">Velocidad<select x-model.number="playbackSpeed" @change="audioRate = playbackSpeed; if (isPlayingAudio) speechService.playCurrent()" class="rounded-md border border-stone-700 bg-stone-900 px-1 py-1 text-stone-100"><option value="0.8">0.8x</option><option value="1">1.0x</option><option value="1.2">1.2x</option></select></label><label class="ml-auto flex items-center gap-1 text-stone-300">Música Pad<input type="range" min="0" max="1" step="0.01" x-model.number="musicBaseVolume" @input="soundscapeVolume = musicBaseVolume; speechService.fadeMusicTo(musicBaseVolume)" class="w-24 accent-amber-400" aria-label="Volumen de música Pad"></label><button @click="speechService.stop()" class="rounded-lg border border-rose-400/40 px-2 py-1 text-rose-200 hover:bg-rose-950">Cerrar</button></div>
+  </div>
   <div x-show="toastMessage" x-cloak x-transition class="rv-toast" role="status" aria-live="polite" x-text="toastMessage"></div>
+  <div id="revelatio-selection-tooltip" style="display:none;position:fixed;z-index:9999999;transform:translate(-50%,-100%);" class="flex items-center gap-1 bg-stone-900 text-stone-100 border border-amber-500/50 rounded-xl px-2.5 py-1.5 shadow-2xl backdrop-blur-md select-none" role="toolbar" aria-label="Acciones sobre selección">
+    <button type="button" onclick="window.revelatioActions.copy()" class="px-2.5 py-1 hover:bg-stone-800 text-amber-400 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">📋 <span>Copiar</span></button><div class="h-4 w-px bg-stone-700"></div>
+    <button type="button" onclick="window.revelatioActions.highlight()" class="px-2.5 py-1 hover:bg-stone-800 text-stone-200 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">🎨 <span>Resaltar</span></button><div class="h-4 w-px bg-stone-700"></div>
+    <button type="button" onclick="window.revelatioActions.marginNote()" class="px-2.5 py-1 hover:bg-stone-800 text-stone-200 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">📝 <span>MarginNote</span></button><div class="h-4 w-px bg-stone-700"></div>
+    <button type="button" onclick="window.revelatioActions.metanoia()" class="px-2.5 py-1 hover:bg-stone-800 text-stone-200 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">🌱 <span>Metanoia</span></button><div class="h-4 w-px bg-stone-700"></div>
+    <button type="button" onclick="window.revelatioActions.speak()" class="px-2.5 py-1 hover:bg-stone-800 text-stone-200 hover:text-amber-300 text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors">🔊 <span>Escuchar</span></button>
+  </div>
+  <script>
+    (() => {
+      let selectedText = ''; let savedRange = null; let selectionTimer;
+      const menu = document.getElementById('revelatio-selection-tooltip');
+      const hideMenu = () => { if (menu) menu.style.display = 'none'; };
+      const copy = async text => { try { await navigator.clipboard.writeText(text); } catch { const input = document.createElement('textarea'); input.value = text; input.style.cssText = 'position:fixed;opacity:0'; document.body.append(input); input.select(); document.execCommand('copy'); input.remove(); } };
+      window.revelatioActions = {
+        copy() { if (!selectedText) return; copy(selectedText); hideMenu(); },
+        highlight() { if (!savedRange) return hideMenu(); try { const mark = document.createElement('mark'); mark.className = 'revelatio-highlight'; mark.style.cssText = 'background:#fde68a;color:#1c1917;border-radius:.18em;padding:.04em .12em;'; savedRange.surroundContents(mark); } catch {} hideMenu(); },
+        marginNote() { if (selectedText) window.dispatchEvent(new CustomEvent('add-margin-note', { detail: { text: selectedText } })); hideMenu(); },
+        metanoia() { if (selectedText) window.dispatchEvent(new CustomEvent('send-to-omnibar', { detail: { prompt: `Metanoia y renovación mental sobre: "${selectedText}"` } })); hideMenu(); },
+        speak() { if (selectedText && window.speechSynthesis) { window.speechSynthesis.cancel(); const utter = new SpeechSynthesisUtterance(selectedText); utter.lang = 'es-MX'; utter.rate = 0.90; utter.pitch = 1.0; window.speechSynthesis.speak(utter); } hideMenu(); }
+      };
+      const showMenu = rect => { const width = Math.min(360, window.innerWidth - 20); const left = Math.max(width / 2 + 10, Math.min(window.innerWidth - width / 2 - 10, rect.left + rect.width / 2)); const top = Math.max(58, rect.top - 12); menu.style.left = `${left}px`; menu.style.top = `${top}px`; menu.style.display = 'flex'; };
+      const checkSelection = () => { clearTimeout(selectionTimer); selectionTimer = setTimeout(() => { const sel = window.getSelection(); const text = sel?.toString?.().trim() || ''; if (!sel || sel.isCollapsed || text.length < 2 || !sel.rangeCount) return hideMenu(); const range = sel.getRangeAt(0); const rect = range.getBoundingClientRect(); if (!rect.width && !rect.height) return hideMenu(); selectedText = text; savedRange = range.cloneRange(); showMenu(rect); }, 20); };
+      if (!menu) return;
+      menu.addEventListener('mousedown', event => event.preventDefault());
+      document.addEventListener('mouseup', checkSelection); document.addEventListener('touchend', checkSelection, { passive: true });
+      document.addEventListener('mousedown', event => { if (!menu.contains(event.target)) hideMenu(); });
+      window.addEventListener('scroll', hideMenu, { passive: true }); window.addEventListener('resize', hideMenu, { passive: true });
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') hideMenu(); });
+    })();
+  </script>
+  <style>
+    #revelatio-universal-action-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 99999; display: none; background: #0c0a09; color: #f5f5f4; border-top: 1px solid rgba(245,158,11,.38); box-shadow: 0 -12px 30px rgba(0,0,0,.2); padding: .65rem max(1rem, env(safe-area-inset-left)) max(.65rem, env(safe-area-inset-bottom)); }
+    #revelatio-universal-action-bar.is-visible { display: block; animation: revelatio-bar-in .2s ease-out; }
+    @keyframes revelatio-bar-in { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
+    #revelatio-universal-action-bar .rv-universal-reference { color: #fbbf24; font-weight: 700; font-size: .875rem; }
+    #revelatio-universal-action-bar .rv-universal-fragment { color: #e7e5e4; font-size: .75rem; line-height: 1.35; max-width: 30rem; }
+    #revelatio-universal-action-bar button { color: #f5f5f4; font-size: .75rem; font-weight: 500; border-radius: .65rem; padding: .45rem .65rem; white-space: nowrap; transition: background .15s, color .15s; }
+    #revelatio-universal-action-bar button:hover { background: #292524; color: #fcd34d; }
+    #revelatio-universal-action-bar .rv-universal-ai { background: #f59e0b; color: #1c1917; font-weight: 700; padding-inline: 1rem; }
+    #revelatio-universal-action-bar .rv-universal-ai:hover { background: #fbbf24; color: #1c1917; }
+    #revelatio-universal-action-bar .rv-universal-card { color: #f5f5f4; }
+    @media (max-width: 700px) { #revelatio-universal-action-bar .rv-universal-actions { overflow-x: auto; flex-wrap: nowrap; padding-bottom: .15rem; } #revelatio-universal-action-bar button { flex: 0 0 auto; } }
+  </style>
+  <div id="revelatio-universal-action-bar" role="toolbar" aria-label="Acciones universales sobre selección">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div class="min-w-0"><div class="rv-universal-reference" data-universal-reference>Selección</div><div class="rv-universal-fragment truncate" data-universal-fragment></div></div>
+      <div class="rv-universal-actions flex items-center gap-1"><button type="button" data-universal-action="highlight">Resaltar</button><button type="button" data-universal-action="note">Añadir nota / MarginNote</button><button type="button" data-universal-action="metanoia">Metanoia</button><button type="button" data-universal-action="ai" class="rv-universal-ai">Profundizar con RevelatiO IA</button><button type="button" data-universal-action="listen">Escuchar</button><button type="button" data-universal-action="copy">Copiar</button><button type="button" data-universal-action="close" aria-label="Cerrar barra">✕</button></div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const bar = document.getElementById('revelatio-universal-action-bar'); if (!bar) return;
+      let text = ''; let range = null; let reference = 'Selección';
+      const refEl = bar.querySelector('[data-universal-reference]'); const fragmentEl = bar.querySelector('[data-universal-fragment]');
+      const hide = () => { bar.classList.remove('is-visible'); window.getSelection()?.removeAllRanges?.(); text = ''; range = null; };
+      const contextReference = node => node?.closest?.('[data-reference], [data-versiculo], [data-verse], .rv-verse-surface, .rv-verse, .verse, .bible-verse')?.dataset?.reference || node?.closest?.('[data-reference], [data-versiculo], [data-verse]')?.dataset?.versiculo || 'Selección';
+      const show = (selection, fallbackNode) => { const value = selection?.toString?.().trim() || ''; if (value.length < 3 && !fallbackNode) return; text = value || fallbackNode?.textContent?.trim() || ''; range = selection?.rangeCount ? selection.getRangeAt(0).cloneRange() : null; reference = contextReference(fallbackNode || range?.commonAncestorContainer?.parentElement); refEl.textContent = reference; fragmentEl.textContent = text.slice(0, 180); bar.classList.add('is-visible'); };
+      const persistHighlight = () => { if (!range) return; try { const mark = document.createElement('mark'); mark.className = 'revelatio-highlight'; mark.style.cssText = 'background:#fde68a;color:#1c1917;border-radius:.18em;padding:.04em .12em;'; range.surroundContents(mark); const saved = JSON.parse(localStorage.getItem('revelatio_highlights') || '[]'); saved.unshift({ text, reference, createdAt: new Date().toISOString() }); localStorage.setItem('revelatio_highlights', JSON.stringify(saved.slice(0, 200))); } catch (_) {} };
+      const dispatch = (name, detail) => document.dispatchEvent(new CustomEvent(name, { detail: { text, reference, ...(detail || {}) } }));
+      bar.addEventListener('click', event => { const action = event.target.closest('[data-universal-action]')?.dataset.universalAction; if (!action) return; if (action === 'close') return hide(); if (action === 'highlight') { persistHighlight(); return hide(); } if (action === 'note') { dispatch('revelatio:open-notebook'); return; } if (action === 'metanoia') { dispatch('revelatio:open-journal'); return; } if (action === 'ai') { dispatch('revelatio:ask-ai', { prompt: `Profundiza exegéticamente en: ${text}` }); return hide(); } if (action === 'listen') { const app = window.Alpine?.$data(document.body); app?.speechService?.speak?.(text); return; } if (action === 'copy') { navigator.clipboard?.writeText(text); return; } });
+      document.addEventListener('mouseup', () => { const selection = window.getSelection(); if (selection?.toString?.().trim().length > 2) show(selection); });
+      document.addEventListener('touchend', () => setTimeout(() => { const selection = window.getSelection(); if (selection?.toString?.().trim().length > 2) show(selection); }, 40), { passive: true });
+      document.addEventListener('click', event => { const verse = event.target.closest?.('.rv-verse-surface, .rv-verse, [data-verse], [data-versiculo], .verse, .bible-verse'); if (verse && !event.target.closest('button,a')) show(null, verse); });
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); });
+    })();
+  </script>
   </body>
   
 </html>
