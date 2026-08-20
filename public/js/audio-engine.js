@@ -33,34 +33,17 @@ class RevelatioAudio {
   speak(text) {
     if (!this.synth) return;
     this.synth.cancel();
-    const cleanText = String(text || '').replace(/\[.*?\]/g, '');
-    const u = new SpeechSynthesisUtterance(cleanText);
-    const trySpeak = (attempts = 0) => {
-      const voices = this.synth.getVoices();
-      if (voices.length === 0 && attempts < 10) {
-        setTimeout(() => trySpeak(attempts + 1), 100);
-        return;
-      }
-      let bestVoice = voices.find(v =>
-        (v.lang.includes('MX') || v.lang.includes('US') || v.lang.includes('419')) &&
-        (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Paulina') || v.name.includes('Sabina'))
-      );
-      if (!bestVoice) bestVoice = voices.find(v => v.lang.startsWith('es-') && !v.lang.includes('ES'));
-      if (bestVoice) {
-        u.voice = bestVoice;
-        u.lang = bestVoice.lang;
-      } else {
-        u.lang = 'es-MX';
-      }
-      u.rate = 0.88;
-      u.pitch = 0.98;
-      this.bg.volume = 0.15;
-      this.speechActive = true;
-      u.onend = () => { this.bg.volume = 0.50; this.speechActive = false; };
-      u.onerror = () => { this.bg.volume = 0.50; this.speechActive = false; };
-      this.synth.speak(u);
-    };
-    trySpeak();
+    const clean = String(text || '').replace(/<[^>]*>/g, ' ').replace(/\[.*?\]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!clean) return;
+    const u = new SpeechSynthesisUtterance(clean);
+    if (this.voice) u.voice = this.voice;
+    u.lang = this.voice?.lang || 'es-MX';
+    u.rate = 0.88;
+    u.pitch = 1.0;
+    this.duck(true);
+    this.speechActive = true;
+    u.onend = u.onerror = () => { this.duck(false); this.speechActive = false; };
+    this.synth.speak(u);
   }
   speakPassage(text) { this.speak(text); }
   stop() { this.bg.pause(); this.synth?.cancel?.(); this.speechActive = false; this.bg.volume = 0.50; }
