@@ -769,7 +769,7 @@
   <button @click="zenMode = !zenMode; bibliaModoSantuario = zenMode; sanctuaryShowNav = !zenMode" :class="zenMode ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="inline-flex items-center gap-1.5 text-xs border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Activar modo santuario">
   <span aria-hidden="true">◉</span> <span x-text="bibliaModoSantuario ? 'Salir del santuario' : 'Modo santuario'"></span>
   </button>
-  <button @click="escucharTextoBiblico()" :class="bibliaAudioActivo ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="inline-flex items-center gap-1.5 text-xs border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" :aria-label="bibliaAudioActivo ? 'Detener lectura en voz alta' : 'Escuchar pasaje'">
+  <button @click="escucharTextoBiblico()" :class="bibliaAudioActivo ? 'bg-gold-500 text-gray-950' : 'text-gold-600'" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs px-3.5 py-1.5 rounded-lg shadow-sm border border-amber-600 flex items-center gap-1.5 transition-colors" :aria-label="bibliaAudioActivo ? 'Detener lectura en voz alta' : 'Escuchar pasaje'">
   <span aria-hidden="true">◖</span> <span x-text="bibliaAudioActivo ? 'Detener audio' : 'Escuchar' "></span>
   </button>
   <button @click="bibliaTamanoTexto = bibliaTamanoTexto === 'grande' ? 'normal' : 'grande'" class="inline-flex items-center gap-1.5 text-xs text-gold-600 border border-gold-500/40 rounded-lg px-3 py-2 hover:bg-gold-600/10 transition-colors" title="Cambiar tamaño del texto">A<sup>+</sup></button>
@@ -5561,20 +5561,20 @@ guardarFicha() {
   <!-- Pausa Sagrada: Lectio Divina & coherencia cardíaca -->
   <div x-show="sacredPauseOpen" x-cloak x-transition.opacity @keydown.window.escape="closePausa()" @click.self="closePausa()" class="fixed inset-0 z-[120] flex flex-col bg-[#1C1917] text-[#F5F0E6]" role="dialog" aria-modal="true" aria-label="Pausa Sagrada" tabindex="-1">
     <div class="flex items-center justify-between px-5 py-4 sm:px-8">
-      <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">Pausa Sagrada</span>
+      <span class="text-amber-400 font-bold text-xs tracking-widest uppercase">Pausa Sagrada</span>
       <div class="flex items-center gap-3">
-        <span class="font-mono text-xs text-amber-200/70" x-text="pauseTimerFormato"></span>
+        <span class="text-stone-300 font-mono text-xs font-semibold" x-text="pauseTimerFormato"></span>
         <div class="flex items-center gap-2">
-          <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'bg-amber-600 text-white' : 'bg-white/10 text-amber-100/70'" class="rounded-xl border border-amber-300/30 px-3 py-1.5 text-[10px] font-semibold" x-text="soundscapeActive ? 'Música: ON' : 'Música: OFF'" aria-label="Activar música instrumental"></button>
-          <select x-show="soundscapeActive" x-model="selectedSoundtrack" @change="speechService.changeSoundtrack(selectedSoundtrack)" class="max-w-32 rounded-lg border border-amber-300/30 bg-stone-900 px-1.5 py-1 text-[10px] text-amber-50" aria-label="Seleccionar pista"><template x-for="track in soundtracks" :key="'pause-' + track.id"><option :value="track.id" x-text="track.name.split(' &')[0]"></option></template></select>
+          <button @click="speechService.toggleSoundscape()" :class="soundscapeActive ? 'bg-amber-600 text-white' : 'bg-white/10 text-amber-100/70'" class="bg-stone-800 hover:bg-stone-700 text-amber-400 border border-amber-500/40 px-3 py-1 rounded-lg text-xs font-bold transition-all" x-text="soundscapeActive ? 'Música: ON' : 'Música: OFF'" aria-label="Activar música instrumental"></button>
+          <select x-show="soundscapeActive" x-model="selectedSoundtrack" @change="speechService.changeSoundtrack(selectedSoundtrack)" class="bg-stone-900 text-stone-100 border border-stone-700 rounded-lg px-2.5 py-1 text-xs font-medium focus:ring-amber-500" aria-label="Seleccionar pista"><template x-for="track in soundtracks" :key="'pause-' + track.id"><option :value="track.id" x-text="track.name.split(' &')[0]"></option></template></select>
           <input x-show="soundscapeActive" type="range" min="0" max="0.5" step="0.02" x-model="soundscapeVolume" @input="if(ambientAudio) ambientAudio.volume = Number(soundscapeVolume)" class="h-1 w-16 accent-amber-500" aria-label="Volumen de música">
-          <button @click="closePausa()" class="rounded-lg border border-stone-600 bg-stone-800/80 px-3 py-1.5 text-xs font-semibold text-stone-200 hover:bg-stone-700" aria-label="Salir al texto">✕ Salir al texto</button>
+          <button @click="pausaSagradaOpen = false; sacredPauseOpen = false; if(window.revelatioAudio) window.revelatioAudio.stopAll(); closePausa()" class="bg-stone-800 hover:bg-stone-700 text-white border border-stone-600 px-3.5 py-1.5 rounded-lg text-xs font-semibold shadow-sm transition-all" aria-label="Salir al texto">✕ Salir al texto</button>
       </div>
     </div>
 
     <div x-show="pauseCompleted" x-cloak class="flex flex-1 flex-col items-center justify-center gap-6 px-6 pb-10 text-center sm:px-10">
       <div class="w-full max-w-md rounded-3xl border border-amber-300/30 bg-stone-900/80 p-8 shadow-2xl">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">Pausa Sagrada</p>
+        <p class="text-amber-400 font-bold text-xs tracking-widest uppercase">Pausa Sagrada</p>
         <h2 class="mt-3 font-serif text-2xl text-amber-50">Pausa completada en quietud</h2>
         <p class="mt-3 text-sm leading-relaxed text-stone-300">Has permanecido en silencio ante la Palabra. Puedes volver exactamente al punto de lectura donde comenzaste.</p>
         <button @click="closePausa()" class="mt-6 inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-stone-950 shadow-lg hover:bg-amber-400">📖 Continuar con la Lectura / Estudio</button>
@@ -5596,14 +5596,14 @@ guardarFicha() {
 
       <!-- Fase 1: Lectio -->
       <div x-show="pausePhase === 1" class="max-w-lg space-y-3">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">I · Lectio — Lectura Atenta</p>
-        <p class="font-serif text-2xl leading-relaxed text-amber-50 text-balance" x-text="_pauseVerse.texto"></p>
+        <p class="text-amber-400 font-bold text-xs tracking-widest uppercase">I · Lectio — Lectura Atenta</p>
+        <p class="text-stone-100 font-serif text-lg leading-relaxed text-center max-w-2xl mx-auto" x-text="_pauseVerse.texto"></p>
         <p class="text-xs font-semibold text-amber-200/60" x-text="_pauseVerse.referencia"></p>
       </div>
 
       <!-- Fase 2: Meditatio -->
       <div x-show="pausePhase === 2" class="max-w-md space-y-4">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">II · Meditatio — Rumiar la Raíz</p>
+        <p class="text-amber-400 font-bold text-xs tracking-widest uppercase">II · Meditatio — Rumiar la Raíz</p>
         <template x-if="_pauseTerm">
           <div>
             <p class="font-serif text-4xl text-amber-50" x-text="_pauseTerm.griego"></p>
@@ -5618,13 +5618,13 @@ guardarFicha() {
 
       <!-- Fase 3: Oratio -->
       <div x-show="pausePhase === 3" class="max-w-md space-y-3">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">III · Oratio — Alineación del Corazón</p>
+        <p class="text-amber-400 font-bold text-xs tracking-widest uppercase">III · Oratio — Alineación del Corazón</p>
         <p class="font-serif text-lg leading-relaxed text-amber-50">Señor, gracias por tu Palabra en <span x-text="_pauseVerse.referencia"></span>. Alinea mi corazón con esta verdad; que no quede solo en mi mente, sino que reordene mis decisiones de hoy. En el nombre de Jesús, amén.</p>
       </div>
 
       <!-- Fase 4: Contemplatio -->
       <div x-show="pausePhase === 4" class="max-w-md space-y-3">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400/80">IV · Contemplatio — Silencio y Asimilación</p>
+        <p class="text-amber-400 font-bold text-xs tracking-widest uppercase">IV · Contemplatio — Silencio y Asimilación</p>
         <p class="text-sm leading-relaxed text-amber-100/60">Permanece en silencio. No necesitas producir nada más: solo descansa en lo que ya has recibido.</p>
       </div>
     </div>
@@ -5770,7 +5770,7 @@ guardarFicha() {
       <button @click="speechService.stop()" class="rounded-full border border-stone-600 px-2 py-1 text-[10px] font-bold text-stone-300 hover:bg-white/10" aria-label="Cerrar reproductor">✕</button>
     </div>
   </div>
-  <div x-show="!isPlayingAudio && referenciaActiva" x-cloak class="fixed bottom-5 left-1/2 z-30 -translate-x-1/2"><button @click="startChapterAudio()" class="rounded-full border border-amber-400/60 bg-stone-900 px-4 py-2 text-xs font-bold text-amber-100 shadow-xl hover:bg-black">🔊 Escuchar pasaje completo con música de fondo</button></div>
+  <div x-show="!isPlayingAudio && referenciaActiva" x-cloak class="fixed bottom-5 left-1/2 z-30 -translate-x-1/2"><button @click="startChapterAudio()" class="bg-stone-900 hover:bg-stone-800 text-amber-300 border border-amber-500/50 px-5 py-2.5 rounded-full text-xs font-bold shadow-xl flex items-center gap-2 mx-auto transition-all">🔊 Escuchar pasaje completo con música de fondo</button></div>
   <div x-show="isPlayingAudio || audioPaused" x-cloak class="rv-audio-player fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-2xl rounded-2xl border border-amber-500/30 bg-stone-950/95 p-3 text-stone-100 shadow-2xl backdrop-blur-md sm:inset-x-auto sm:w-[min(680px,calc(100vw-2rem))]" role="region" aria-label="Reproductor de audio">
     <div class="flex items-center gap-3"><div class="flex items-end gap-0.5" aria-hidden="true"><span class="h-3 w-1 rounded-full bg-amber-400 animate-pulse"></span><span class="h-5 w-1 rounded-full bg-amber-300 animate-pulse"></span><span class="h-4 w-1 rounded-full bg-amber-500 animate-pulse"></span><span class="h-6 w-1 rounded-full bg-amber-200 animate-pulse"></span></div><div class="min-w-0 flex-1"><p class="truncate text-xs font-semibold text-amber-100" x-text="speechStatus"></p><p class="truncate text-[11px] text-stone-300" x-text="currentAudioText || 'RevelatiO by Efata'"></p></div><button @click="speechService.togglePause()" class="rounded-xl bg-amber-500 px-3 py-2 text-sm font-bold text-stone-950" x-text="audioPaused ? '▶' : 'Ⅱ'" :aria-label="audioPaused ? 'Reproducir' : 'Pausar'"></button></div>
     <div class="mt-3 flex flex-wrap items-center gap-2 text-[11px]"><button @click="speechService.previous()" class="rounded-lg border border-stone-700 px-2 py-1 hover:bg-stone-800" aria-label="Anterior">Anterior</button><button @click="speechService.next()" class="rounded-lg border border-stone-700 px-2 py-1 hover:bg-stone-800" aria-label="Siguiente">Siguiente</button><label class="flex items-center gap-1 text-stone-300">Velocidad<select x-model.number="playbackSpeed" @change="audioRate = playbackSpeed; if (isPlayingAudio) speechService.playCurrent()" class="rounded-md border border-stone-700 bg-stone-900 px-1 py-1 text-stone-100"><option value="0.8">0.8x</option><option value="1">1.0x</option><option value="1.2">1.2x</option></select></label><label class="ml-auto flex items-center gap-1 text-stone-300">Música Pad<input type="range" min="0" max="1" step="0.01" x-model.number="musicBaseVolume" @input="soundscapeVolume = musicBaseVolume; speechService.fadeMusicTo(musicBaseVolume)" class="w-24 accent-amber-400" aria-label="Volumen de música Pad"></label><button @click="speechService.stop()" class="rounded-lg border border-rose-400/40 px-2 py-1 text-rose-200 hover:bg-rose-950">Cerrar</button></div>
