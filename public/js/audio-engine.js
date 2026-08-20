@@ -1,121 +1,52 @@
 class RevelatioAudio {
   constructor() {
-    this.bgAudio = new Audio();
-    this.bgAudio.loop = true;
-    this.bgAudio.crossOrigin = 'anonymous';
-    this.speechSynth = window.speechSynthesis;
-    this.voices = [];
-    this.selectedVoice = null;
-    this.baseVolume = 0.45;
-    this.duckVolume = 0.15;
-    this._voiceLoadPromise = null;
-    this._speechToken = 0;
-
+    this.bg = new Audio();
+    this.bg.loop = true;
+    this.bg.crossOrigin = 'anonymous';
     this.tracks = {
-      piano: 'https://ia801503.us.archive.org/15/items/gentle-piano-worship-peace/gentle-piano-worship.mp3',
-      cuerdas: 'https://ia801402.us.archive.org/20/items/ambient-prayer-pads/ambient-prayer-strings.mp3',
-      pad: 'https://ia601402.us.archive.org/20/items/ambient-prayer-pads/deep-worship-pad.mp3'
+      piano: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-piano-112621.mp3',
+      cuerdas: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=ambient-worship-10825.mp3',
+      pad: 'https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=worship-pad-123405.mp3'
     };
-    this.bgAudio.src = this.tracks.piano;
-
+    this.bg.src = this.tracks.piano;
+    this.bg.volume = 0.50;
+    this.synth = window.speechSynthesis || null;
+    this.voices = [];
+    this.voice = null;
+    this.speechActive = false;
     this.loadVoices();
-    if (this.speechSynth && 'onvoiceschanged' in this.speechSynth) {
-      this.speechSynth.onvoiceschanged = () => this.loadVoices();
-    }
+    if (this.synth) this.synth.onvoiceschanged = () => this.loadVoices();
   }
-
-  loadVoices() {
-    if (!this.speechSynth) return [];
-    this.voices = this.speechSynth.getVoices();
-    this.selectedVoice = this.pickLatinVoice(this.voices);
-    return this.voices;
+  loadVoices() { this.voices = this.synth?.getVoices?.() || []; this.voice = this.pickLatinVoice(); return this.voices; }
+  pickLatinVoice() {
+    const latin = v => /MX|US|419|CO|AR/i.test(v.lang) || /Paulina|Sabina|Google español/i.test(v.name);
+    return this.voices.find(v => latin(v) && !/es-ES|english|robot/i.test(`${v.lang} ${v.name}`)) || this.voices.find(v => /^es/i.test(v.lang)) || null;
   }
-
-  pickLatinVoice(voices) {
-    const preferred = [
-      v => /es-(MX|US|419)/i.test(v.lang),
-      v => /Paulina|Sabina/i.test(v.name),
-      v => /Google español/i.test(v.name),
-      v => /es[-_]419|es[-_]MX|es[-_]US/i.test(`${v.name} ${v.lang}`)
-    ];
-    for (const match of preferred) {
-      const voice = voices.find(match);
-      if (voice) return voice;
-    }
-    return voices.find(v => /^es[-_]/i.test(v.lang)) || voices.find(v => /^es/i.test(v.lang)) || null;
+  playTrack(key = 'piano') {
+    if (this.tracks[key]) this.bg.src = this.tracks[key];
+    this.bg.volume = 0.50;
+    this.bg.play().catch(() => {});
   }
-
-  async ensureVoices() {
-    if (!this.speechSynth) return [];
-    this.loadVoices();
-    if (this.voices.length && this.selectedVoice) return this.voices;
-    if (!this._voiceLoadPromise) {
-      this._voiceLoadPromise = new Promise(resolve => {
-        let attempts = 0;
-        const retry = () => {
-          this.loadVoices();
-          if (this.voices.length || attempts >= 8) {
-            this._voiceLoadPromise = null;
-            resolve(this.voices);
-            return;
-          }
-          attempts += 1;
-          setTimeout(retry, 150);
-        };
-        retry();
-      });
-    }
-    return this._voiceLoadPromise;
+  playAmbient(key = 'piano') { this.playTrack(key); }
+  stopAmbient() { this.bg.pause(); }
+  duck(active) { this.bg.volume = active ? 0.15 : 0.50; }
+  speak(text) {
+    if (!this.synth) return;
+    this.synth.cancel();
+    const clean = String(text || '').replace(/<[^>]*>/g, ' ').replace(/\[.*?\]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!clean) return;
+    const u = new SpeechSynthesisUtterance(clean);
+    if (this.voice) u.voice = this.voice;
+    u.lang = this.voice?.lang || 'es-MX';
+    u.rate = 0.88;
+    u.pitch = 1.0;
+    this.duck(true);
+    this.speechActive = true;
+    u.onend = u.onerror = () => { this.duck(false); this.speechActive = false; };
+    this.synth.speak(u);
   }
-
-  playAmbient(track = 'piano') {
-    if (this.tracks[track]) this.bgAudio.src = this.tracks[track];
-    this.bgAudio.volume = this.baseVolume;
-    this.bgAudio.play().catch(() => {});
-  }
-
-  stopAmbient() {
-    this.bgAudio.pause();
-  }
-
-  async speakPassage(text) {
-    if (!this.speechSynth) return;
-    const token = ++this._speechToken;
-    this.speechSynth.cancel();
-    const cleanText = String(text || '')
-      .replace(/<[^>]*>/g, ' ')
-      .replace(/\[[GH]?\d+\]/gi, ' ')
-      .replace(/^\d+\s+/gm, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-    if (!cleanText) return;
-
-    await this.ensureVoices();
-    if (token !== this._speechToken) return;
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    if (this.selectedVoice) utterance.voice = this.selectedVoice;
-    utterance.lang = this.selectedVoice?.lang || 'es-MX';
-    utterance.rate = 0.86;
-    utterance.pitch = 0.98;
-    utterance.volume = 1;
-
-    utterance.onstart = () => {
-      if (token === this._speechToken) this.bgAudio.volume = this.duckVolume;
-    };
-    const restore = () => {
-      if (token === this._speechToken) this.bgAudio.volume = this.baseVolume;
-    };
-    utterance.onend = restore;
-    utterance.onerror = restore;
-    this.speechSynth.speak(utterance);
-  }
-
-  stopAll() {
-    this._speechToken += 1;
-    if (this.speechSynth) this.speechSynth.cancel();
-    this.bgAudio.volume = this.baseVolume;
-    this.stopAmbient();
-  }
+  speakPassage(text) { this.speak(text); }
+  stop() { this.bg.pause(); this.synth?.cancel?.(); this.speechActive = false; this.bg.volume = 0.50; }
+  stopAll() { this.stop(); }
 }
-
 window.revelatioAudio = new RevelatioAudio();
