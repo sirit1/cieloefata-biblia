@@ -70,6 +70,51 @@
 
         [x-cloak] { display: none !important; }
 
+        /* =========================================================
+           REVELATIO DESIGN SYSTEM - REGLAS MAESTRAS DE CONTRASTE
+           ========================================================= */
+        .bg-cream, .bg-parchment, [class*="bg-[#fbf7ee]"], [class*="bg-[#fdfbf7]"], [class*="bg-stone-50"], [class*="bg-amber-50"] {
+          background-color: #fbf7ee !important;
+          color: #1c1917 !important;
+        }
+        .bg-cream p, .bg-parchment p, [class*="bg-[#fbf7ee]"] p, [class*="bg-stone-50"] p {
+          color: #1c1917 !important;
+          font-weight: 450 !important;
+          opacity: 1 !important;
+        }
+        .bg-cream h1, .bg-cream h2, .bg-cream h3, .bg-cream h4,
+        .bg-parchment h1, .bg-parchment h2, .bg-parchment h3 {
+          color: #0c0a09 !important;
+          font-weight: 700 !important;
+        }
+        .bg-cream .tag-label, .bg-parchment .tag-label,
+        [class*="bg-[#fbf7ee]"] [class*="text-amber-"], [class*="bg-[#fbf7ee]"] [class*="text-yellow-"] {
+          color: #78350f !important;
+          font-weight: 700 !important;
+        }
+        .bg-cream .tool-pill, .bg-parchment .tool-pill,
+        [class*="bg-[#fbf7ee]"] button:not(.btn-primary-dark) {
+          background-color: #ffffff !important;
+          color: #1c1917 !important;
+          border: 1px solid #d6d3d1 !important;
+        }
+        .bg-navy, .bg-dark, [class*="bg-[#0f172a]"], [class*="bg-[#0a0f1d]"], [class*="bg-slate-900"], [class*="bg-stone-900"], [class*="bg-stone-950"] {
+          color: #f8fafc !important;
+        }
+        .bg-navy h1, .bg-navy h2, .bg-navy h3, [class*="bg-[#0a0f1d]"] h2, [class*="bg-slate-900"] h2 {
+          color: #ffffff !important;
+        }
+        .bg-navy p, [class*="bg-[#0a0f1d]"] p, [class*="bg-slate-900"] p {
+          color: #e2e8f0 !important;
+        }
+        .bg-navy .text-accent, [class*="bg-[#0a0f1d]"] .text-accent { color: #fbbf24 !important; }
+        .cross-refs-card, .study-card, .commentary-card {
+          background-color: #ffffff !important;
+          border: 1px solid #e7e5e4 !important;
+        }
+        .cross-refs-card h4, .ref-title { color: #78350f !important; font-weight: 700 !important; }
+        .cross-refs-card p, .ref-desc { color: #44403c !important; }
+
         :root {
             --rv-bg-dark: #071a33;
             --rv-bg-dark-2: #0b2443;
@@ -2756,6 +2801,8 @@ versiones: {},
                 audioPaused: false,
                 audioRate: 0.95,
                 audioAmbience: 'silencio',
+                audioVerseActive: -1,
+                soundscapeActive: false,
   musicFadeTimer: null,
   soundscapeVolume: 0.60,
   selectedSoundtrack: 'piano_worship',
