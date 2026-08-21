@@ -8,6 +8,17 @@
 
     const RV = (global.RV = global.RV || {});
 
+    /** Filtro de inerrancia (espejo del system prompt servidor). */
+    const FILTRO_INERRANCIA =
+        "Eres un asistente teológico conservador. Tienes estrictamente prohibido usar metodologías de alta crítica destructiva, teología liberal o psicología secular de autoayuda. Asumes la inerrancia de las Escrituras.";
+
+    const AUTOR_LABEL = {
+        "matthew-henry": "Matthew Henry",
+        "jamieson-fausset-brown": "Jamieson, Fausset y Brown",
+        "albert-barnes": "Albert Barnes",
+        "charles-spurgeon": "Charles Spurgeon",
+    };
+
     async function authToken() {
         if (global.revelatioLectura?.tokenAuth) return global.revelatioLectura.tokenAuth();
         try {
@@ -104,7 +115,7 @@
 
     /**
      * Contexto invisible para el prompt: verso activo del Aposento / Estudio.
-     * No incluye lógica pastoral de Acompañamiento Ministerial.
+     * Incluye gobernanza de inerrancia y huella de auditoría (datos duros).
      */
     function getStudyContext() {
         const loc = global.__revelatioLibroActivo || { n: "Romanos", c: 16, cap: 12, verso: null };
@@ -123,6 +134,29 @@
         const reference = n ? `${loc.n} ${loc.cap}:${n}` : `${loc.n} ${loc.cap}`;
         const inStudy = document.body.classList.contains("is-santuario");
         const verseMode = document.body.classList.contains("is-verse-study");
+        const autorKey = localStorage.getItem("revelatio_autor") || "matthew-henry";
+        const commentator =
+            (global.RV_DATA && global.RV_DATA.AUTOR_LABEL && global.RV_DATA.AUTOR_LABEL[autorKey]) ||
+            AUTOR_LABEL[autorKey] ||
+            "Matthew Henry";
+        const doctrineTags = global.RV?.ui?.getActiveDoctrinalTags?.() || [];
+        const doctrineLabels = (global.RV?.ui?.DOCTRINAL_TAGS || [])
+            .filter((t) => doctrineTags.includes(t.id))
+            .map((t) => t.label);
+        const strongCodes = collectStrongCodes(n);
+        const audit = {
+            commentator,
+            commentatorKey: autorKey,
+            doctrine: doctrineLabels.length
+                ? doctrineLabels
+                : ["Exégesis canónica · teología sistemática (según el pasaje)"],
+            lexicon: strongCodes.length
+                ? `Léxico Strong (${strongCodes.slice(0, 8).join(", ")})`
+                : "Léxico Strong (hebreo/griego) · diccionario morfológico RevelatiO",
+            strongCodes,
+            reference,
+            governance: "inerrancia_v1",
+        };
         return {
             module: "EstudioProfundoExegesis",
             door: "estudio",
@@ -132,9 +166,85 @@
             verseMode,
             inStudy,
             version: localStorage.getItem("revelatio_version") || "rv1960",
-            guardrail:
-                "Asistente exegético y teológico bajo autoridad de las Escrituras y comentarios clásicos. No es consejería pastoral; el Acompañamiento Ministerial tiene su propia puerta.",
+            commentator,
+            audit,
+            auditHint: `Comentarista: ${commentator}. Doctrina: ${(audit.doctrine || []).join(", ")}. Léxico: ${audit.lexicon}.`,
+            guardrail: `${FILTRO_INERRANCIA} Asistente exegético bajo autoridad de las Escrituras y comentarios clásicos. No es consejería pastoral.`,
+            systemPromptAddendum: FILTRO_INERRANCIA,
         };
+    }
+
+    function collectStrongCodes(versoNum) {
+        const n = Number(versoNum || 0);
+        const seen = new Set();
+        const codes = [];
+        const push = (s) => {
+            const key = String(s || "")
+                .toUpperCase()
+                .replace(/^([GH])0+(\d+)$/, "$1$2");
+            if (!/^[GH]\d{1,5}$/.test(key) || seen.has(key)) return;
+            seen.add(key);
+            codes.push(key);
+        };
+        if (n) {
+            document
+                .querySelectorAll(`#texto-biblico .rv-verse-surface[data-versiculo="${n}"] [data-strong]`)
+                .forEach((el) => push(el.getAttribute("data-strong")));
+            document.querySelectorAll(`#lista-strong-verso [data-strong]`).forEach((el) => push(el.getAttribute("data-strong")));
+        }
+        const original = global.__revelatioPassageData?.original;
+        const verso = (original?.versos || []).find((v) => Number(v.verso || v.n || v.verse) === n);
+        (verso?.tokens || []).forEach((t) => push(t.strong));
+        return codes;
+    }
+
+    /**
+     * Panel de auditoría obligatorio: Trazabilidad Exegética (acordeón).
+     * Fuentes = datos duros del estudio activo, no invención libre del modelo.
+     */
+    function buildTraceabilityPanel(audit) {
+        const a = audit || getStudyContext().audit || {};
+        const doctrina = Array.isArray(a.doctrine) ? a.doctrine.join(" · ") : String(a.doctrine || "—");
+        const details = document.createElement("details");
+        details.className = "rv-ia-trace";
+        details.open = false;
+        details.innerHTML = `
+            <summary class="rv-ia-trace-summary">
+                <span class="rv-ia-trace-mark" aria-hidden="true">◈</span>
+                Trazabilidad Exegética
+                <span class="rv-ia-trace-badge">Fuentes consultadas</span>
+            </summary>
+            <div class="rv-ia-trace-body">
+                <p class="rv-ia-trace-lead">Esta respuesta no es una alucinación libre: se ancla a datos duros del marco RevelatiO.</p>
+                <dl class="rv-ia-trace-grid">
+                    <div>
+                        <dt>Autoridad / Comentarista base</dt>
+                        <dd>${escapeHtml(a.commentator || "Matthew Henry")}</dd>
+                    </div>
+                    <div>
+                        <dt>Doctrina aplicable</dt>
+                        <dd>${escapeHtml(doctrina)}</dd>
+                    </div>
+                    <div>
+                        <dt>Diccionario léxico consultado</dt>
+                        <dd>${escapeHtml(a.lexicon || "Léxico Strong (hebreo/griego)")}</dd>
+                    </div>
+                    <div>
+                        <dt>Pasaje / gobernanza</dt>
+                        <dd>${escapeHtml(a.reference || "—")} · filtro de inerrancia activo</dd>
+                    </div>
+                </dl>
+            </div>
+        `;
+        return details;
+    }
+
+    function finalizeAssistantReply(wrap, body, text, ctx) {
+        const acc = String(text || "").trim();
+        body.innerHTML = renderMarkdown(acc);
+        wrap.appendChild(buildTraceabilityPanel(ctx?.audit));
+        wrap.appendChild(buildReplyActions(acc));
+        return acc;
     }
 
     function paintContextHint() {
@@ -352,18 +462,24 @@
                 const token = await authToken();
                 const headers = { "Content-Type": "application/json", Accept: "text/plain, application/json" };
                 if (token) headers.Authorization = `Bearer ${token}`;
+                const apiContext = {
+                    ...ctx,
+                    module: "EstudioProfundoExegesis",
+                    invisiblePromptSeed: [
+                        FILTRO_INERRANCIA,
+                        ctx.verseText
+                            ? `Pasaje bajo estudio: ${ctx.reference} — «${ctx.verseText}». Tratado exegético; Strong y comentaristas clásicos; sin autoayuda; conduce a la cruz.`
+                            : `Pasaje bajo estudio: ${ctx.reference}. Tratado exegético bajo autoridad bíblica e inerrancia.`,
+                    ].join(" "),
+                    audit: ctx.audit,
+                    auditHint: ctx.auditHint,
+                };
                 const res = await fetch("/api/chat-global", {
                     method: "POST",
                     headers,
                     body: JSON.stringify({
                         message,
-                        context: {
-                            ...ctx,
-                            module: "EstudioProfundoExegesis",
-                            invisiblePromptSeed: ctx.verseText
-                                ? `Pasaje bajo estudio: ${ctx.reference} — «${ctx.verseText}». Responde como tratado exegético; Strong y comentaristas clásicos; sin autoayuda; conduce a la cruz.`
-                                : `Pasaje bajo estudio: ${ctx.reference}. Responde como tratado exegético bajo autoridad bíblica.`,
-                        },
+                        context: apiContext,
                         history,
                     }),
                 });
@@ -383,7 +499,7 @@
                 } else if (res.ok) {
                     acc = await chatGlobal({
                         message,
-                        context: { ...ctx, module: "EstudioProfundoExegesis" },
+                        context: apiContext,
                         history,
                     });
                 } else {
@@ -394,14 +510,12 @@
                 if (!acc) {
                     acc = await chatGlobal({
                         message,
-                        context: { ...ctx, module: "EstudioProfundoExegesis" },
+                        context: apiContext,
                         history,
                     });
                 }
-                lastAssistant = acc;
-                body.innerHTML = renderMarkdown(acc);
-                wrap.appendChild(buildReplyActions(acc));
-                history.push({ role: "assistant", content: acc });
+                lastAssistant = finalizeAssistantReply(wrap, body, acc, ctx);
+                history.push({ role: "assistant", content: lastAssistant });
                 log.scrollTop = log.scrollHeight;
             } catch {
                 body.textContent = "La Palabra no depende de este panel. Reintenta en un momento.";
@@ -440,6 +554,9 @@
         synthesizePerspectives,
         getStudyContext,
         renderMarkdown,
+        buildTraceabilityPanel,
+        finalizeAssistantReply,
+        FILTRO_INERRANCIA,
         mountPermanentAssistant,
         escapeHtml,
     });

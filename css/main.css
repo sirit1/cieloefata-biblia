@@ -1,25 +1,32 @@
 /* ==========================================================================
    Éfata RevelatiO — css/main.css
-   Bloques: Reset/Tokens · Layout · Components · DarkLuxury
+   Bloques: Reset/Tokens · Layout · Components · LightLuxury Editorial
    ========================================================================== */
 
-/* --- Reset & Tokens ------------------------------------------------------ */
+/* --- Reset & Tokens · Light Luxury (Editorial Clásico) ------------------- */
 :root {
-    --obsidian: #000000;
-    --pearl: #0a0a0a;
-    --paper: #0a0a0a;
-    --graphite: #FFFFFF;
-    --graphite-soft: rgba(255, 255, 255, 0.92);
-    --chrome-ink: #FFFFFF;
-    --chrome-muted: rgba(255, 255, 255, 0.92);
-    --gold: #D4AF37;
-    --gold-soft: rgba(212, 175, 55, 0.22);
-    --panel: #0a0a0a;
+    --obsidian: #1C1C1C;
+    --pearl: #FBF9F6;
+    --paper: #F5F2EA;
+    --parchment: #FBF9F6;
+    --sidebar: #EFEBE1;
+    --graphite: #1C1C1C;
+    --graphite-soft: rgba(28, 28, 28, 0.88);
+    --chrome-ink: #1C1C1C;
+    --chrome-muted: #595959;
+    --gold: #9E7B35;
+    --gold-bright: #B8860B;
+    --gold-soft: rgba(158, 123, 53, 0.18);
+    --gold-line: rgba(158, 123, 53, 0.3);
+    --panel: #FBF9F6;
+    --panel-elevated: #FFFFFF;
     --radius: 14px;
-    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.28);
-    --shadow-deep: 0 10px 25px -5px rgba(0, 0, 0, 0.55), 0 8px 10px -6px rgba(0, 0, 0, 0.35);
-    --ink: #FFFFFF;
-    --ink-soft: rgba(255, 255, 255, 0.92);
+    --shadow-card: 0 10px 25px -5px rgba(60, 45, 20, 0.12), 0 8px 10px -6px rgba(60, 45, 20, 0.08);
+    --shadow-deep: 0 10px 25px -5px rgba(60, 45, 20, 0.16), 0 8px 10px -6px rgba(60, 45, 20, 0.1);
+    --ink: #1C1C1C;
+    --ink-soft: #2C3E50;
+    --ink-muted: #595959;
+    --chrome-dark: #1A1A1A;
 }
 
 html,
@@ -29,8 +36,8 @@ body {
 }
 
 body {
-    background: #000000;
-    color: #FFFFFF;
+    background: var(--parchment);
+    color: var(--ink);
     font-family: "Source Serif 4", "Palatino Linotype", Palatino, "Times New Roman", serif;
     display: flex;
     flex-direction: column;
@@ -185,19 +192,20 @@ body {
 }
 
 .rv-stage {
-    background: #000000;
-    color: #FFFFFF;
+    background: var(--paper);
+    color: var(--ink);
 }
 
 /* --- Layout · Estudio shell ---------------------------------------------- */
 .rv-chrome {
-    background: var(--obsidian);
+    background: var(--parchment);
     color: var(--chrome-ink);
+    border-color: var(--gold-line);
 }
 
 /* --- Components · Sidebar / Canon ---------------------------------------- */
 .rv-sidebar {
-    background: #0E1016;
+    background: var(--sidebar);
     color: var(--chrome-ink);
 }
 
@@ -530,6 +538,84 @@ body {
     border-color: #D4AF37;
     color: #D4AF37;
     background: rgba(212, 175, 55, 0.08);
+}
+
+/* Fase 4 · Trazabilidad Exegética (auditoría de fuentes) */
+.rv-ia-trace {
+    margin-top: 0.85rem;
+    border: 1px solid rgba(158, 123, 53, 0.45);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+}
+
+.rv-ia-trace-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.55rem;
+    cursor: pointer;
+    list-style: none;
+    padding: 0.65rem 0.75rem;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #E8D5A3;
+    user-select: none;
+}
+
+.rv-ia-trace-summary::-webkit-details-marker {
+    display: none;
+}
+
+.rv-ia-trace-mark {
+    color: #B8860B;
+}
+
+.rv-ia-trace-badge {
+    margin-left: auto;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    border: 1px solid rgba(184, 134, 11, 0.45);
+    color: #B8860B;
+}
+
+.rv-ia-trace[open] .rv-ia-trace-summary {
+    border-bottom: 1px solid rgba(158, 123, 53, 0.3);
+}
+
+.rv-ia-trace-body {
+    padding: 0.75rem 0.85rem 0.9rem;
+}
+
+.rv-ia-trace-lead {
+    margin: 0 0 0.7rem;
+    font-size: 12px;
+    line-height: 1.45;
+    color: rgba(245, 240, 230, 0.78);
+}
+
+.rv-ia-trace-grid {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+}
+
+.rv-ia-trace-grid dt {
+    margin: 0 0 0.2rem;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #B8860B;
+}
+
+.rv-ia-trace-grid dd {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #F5F0E6;
 }
 
 body.is-acompanamiento #panel-asistente-ia .rv-ia-kicker::after {
@@ -1387,9 +1473,9 @@ sup.rv-verse-num {
 .rv-contexto-historico {
     margin: 0 0 1.35rem;
     padding: 1.15rem 0.15rem 1.2rem;
-    background: #111111;
-    border-top: 1px solid rgba(212, 175, 55, 0.4);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+    background: #F3EFE6;
+    border-top: 1px solid rgba(158, 123, 53, 0.3);
+    border-bottom: 1px solid rgba(158, 123, 53, 0.3);
     border-left: none;
     border-right: none;
     border-radius: 0;
@@ -1417,14 +1503,14 @@ sup.rv-verse-num {
     font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #D4AF37;
+    color: #9E7B35;
     font-weight: 500;
 }
 
 .rv-contexto-value {
     font-size: 12px;
     letter-spacing: 0.04em;
-    color: rgba(245, 240, 230, 0.92);
+    color: #1C1C1C;
     line-height: 1.35;
 }
 
@@ -1435,7 +1521,7 @@ sup.rv-verse-num {
     font-style: italic;
     font-weight: 400;
     line-height: 1.55;
-    color: #F5F0E6;
+    color: #2C3E50;
     max-width: 42rem;
 }
 
@@ -1445,7 +1531,7 @@ body.is-santuario #contexto-historico-header:not([hidden]) {
     position: sticky;
     top: 0;
     z-index: 4;
-    background: #111111;
+    background: #F3EFE6;
     padding-top: 0.95rem;
     padding-bottom: 1rem;
 }
@@ -1653,46 +1739,46 @@ body.is-santuario #contexto-historico-header:not([hidden]) {
     color: #D4AF37;
 }
 
-/* Contraste absoluto del menú lateral de estudio */
+/* Contraste editorial del menú lateral de estudio */
 body.is-santuario .rv-sidebar,
 #panel-canon.rv-sidebar {
-    background: #000000 !important;
-    color: #FFFFFF !important;
-    border-color: rgba(212, 175, 55, 0.35) !important;
+    background: var(--sidebar) !important;
+    color: var(--ink) !important;
+    border-color: var(--gold-line) !important;
 }
 
 body.is-santuario .rv-sidebar input,
 #panel-canon #buscador-canon {
-    background: #0a0a0a !important;
-    color: #FFFFFF !important;
-    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    background: #FFFFFF !important;
+    color: var(--ink) !important;
+    border: 1px solid var(--gold-line) !important;
 }
 
 body.is-santuario .rv-sidebar input::placeholder {
-    color: rgba(255, 255, 255, 0.55) !important;
+    color: var(--ink-muted) !important;
 }
 
 body.is-santuario .rv-sidebar .libro-btn,
 body.is-santuario .rv-sidebar .libro-nombre {
-    color: #FFFFFF !important;
+    color: var(--ink) !important;
 }
 
 body.is-santuario .rv-sidebar .libro-caps,
 body.is-santuario .rv-sidebar h3 {
-    color: #D4AF37 !important;
+    color: var(--gold) !important;
 }
 
 body.is-santuario .rv-sidebar .cap-btn {
-    color: #FFFFFF !important;
-    border-color: rgba(212, 175, 55, 0.35) !important;
-    background: #0a0a0a !important;
+    color: var(--ink) !important;
+    border-color: var(--gold-line) !important;
+    background: #FFFFFF !important;
 }
 
 body.is-santuario .rv-sidebar .cap-btn.is-active,
 body.is-santuario .rv-sidebar .cap-btn:hover {
-    background: #D4AF37 !important;
-    color: #000000 !important;
-    border-color: #D4AF37 !important;
+    background: var(--gold) !important;
+    color: #FFFFFF !important;
+    border-color: var(--gold) !important;
 }
 
 /* --- Components · Cuaderno del Peregrino (panel derecho) ----------------- */
@@ -2851,14 +2937,16 @@ body:not(.is-registrado) #rv-home .rv-home-actions .rv-btn-gold::after {
 }
 
 
-/* —— Umbral doble vía · dark luxury absoluto —— */
+/* —— Umbral doble vía · Light Luxury editorial —— */
 #rv-home.rv-home {
-    background: #000000;
+    background: var(--parchment);
     background-image: none;
+    color: var(--ink);
 }
 
 body:not(.is-santuario):not(.is-acompanamiento) {
-    background: #000000;
+    background: var(--parchment);
+    color: var(--ink);
 }
 
 #rv-home .rv-home-bg {
@@ -2885,7 +2973,7 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     height: auto;
     margin: 0 auto;
     display: block;
-    filter: drop-shadow(0 20px 44px rgba(0, 0, 0, 0.75));
+    filter: drop-shadow(0 12px 28px rgba(60, 45, 20, 0.18));
 }
 
 .rv-dual-kicker {
@@ -2894,7 +2982,7 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-size: 10px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: #C5A059;
+    color: #9E7B35;
     text-align: center;
 }
 
@@ -2905,12 +2993,12 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-size: clamp(1.85rem, 4.2vw, 2.65rem);
     font-weight: 600;
     line-height: 1.12;
-    color: #FDFCFA;
+    color: #1C1C1C;
 }
 
 .rv-dual-title em {
     font-style: italic;
-    color: #E8D5A3;
+    color: #9E7B35;
 }
 
 .rv-dual-doors {
@@ -2933,13 +3021,13 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     min-height: 14.5rem;
     padding: 1.7rem 1.55rem 1.5rem;
     border-radius: 18px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    background: #000000;
+    border: 1px solid rgba(158, 123, 53, 0.3);
+    background: #FFFFFF;
     box-shadow:
-        0 22px 48px rgba(0, 0, 0, 0.65),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        0 18px 40px rgba(60, 45, 20, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    color: inherit;
+    color: #1C1C1C;
     overflow: hidden;
     transition: border-color .28s ease, transform .28s ease, box-shadow .28s ease;
     cursor: pointer;
@@ -2953,18 +3041,17 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     width: 70%;
     height: 70%;
     pointer-events: none;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.16), transparent 68%);
+    background: radial-gradient(circle, rgba(158, 123, 53, 0.12), transparent 68%);
     opacity: 0.85;
     transition: opacity .28s ease;
 }
 
 .rv-door:hover {
-    border-color: rgba(212, 175, 55, 0.75);
+    border-color: rgba(158, 123, 53, 0.55);
     transform: translateY(-4px);
     box-shadow:
-        0 30px 64px rgba(0, 0, 0, 0.72),
-        0 0 0 1px rgba(212, 175, 55, 0.22),
-        0 0 36px rgba(212, 175, 55, 0.12);
+        0 24px 48px rgba(60, 45, 20, 0.14),
+        0 0 0 1px rgba(158, 123, 53, 0.18);
 }
 
 .rv-door:hover::before {
@@ -2987,7 +3074,7 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-size: 9px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: rgba(212, 175, 55, 0.95);
+    color: #9E7B35;
 }
 
 .rv-door-title {
@@ -2996,7 +3083,7 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-size: clamp(1.45rem, 2.4vw, 1.85rem);
     font-weight: 600;
     line-height: 1.15;
-    color: #FDFCFA;
+    color: #1C1C1C;
 }
 
 .rv-door-copy {
@@ -3005,7 +3092,7 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-family: "Source Serif 4", Georgia, serif;
     font-size: 0.98rem;
     line-height: 1.55;
-    color: #C9C6BE;
+    color: #595959;
 }
 
 .rv-door-cta {
@@ -3017,7 +3104,7 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-size: 10px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(212, 175, 55, 0.95);
+    color: #9E7B35;
 }
 
 body:not(.is-registrado) .rv-door[data-ir]::after {
@@ -3869,8 +3956,8 @@ body.is-acompanamiento #breadcrumbs {
     flex: 1 1 0%;
     min-width: 0;
     min-height: 0;
-    background: #000000 !important;
-    color: #FFFFFF !important;
+    background: var(--paper) !important;
+    color: var(--ink) !important;
 }
 
 @media (max-width: 1023px) {
@@ -4785,8 +4872,8 @@ body.is-acompanamiento #breadcrumbs {
 }
 
 /* =========================================================
- --- DarkLuxury · Contraste absoluto ------------------------------------- */
-/* DARK LUXURY · CONTRASTE ABSOLUTO (capa final anti-herencia)
+ --- Light Luxury · Editorial Clásico (capa final) ---------------------- */
+/* LIGHT LUXURY · PERGAMINO (comodidad visual en sesiones largas)
    ========================================================= */
 body.is-santuario,
 body.is-santuario .rv-stage,
@@ -4795,16 +4882,16 @@ body.is-santuario .rv-estudio-modulo,
 body.is-santuario #panel-neuro,
 body.is-santuario #panel-perspectivas,
 body.is-santuario #panel-concordancia {
-    background-color: #000000 !important;
-    color: #FFFFFF !important;
+    background-color: var(--paper) !important;
+    color: var(--ink) !important;
 }
 
 body.is-santuario .rv-lectura {
-    background: #0a0a0a !important;
-    border-color: rgba(212, 175, 55, 0.4) !important;
+    background: var(--parchment) !important;
+    border-color: var(--gold-line) !important;
 }
 
-/* Texto corriente: blanco nítido — nunca gris deslavado */
+/* Texto corriente: carbón sobre pergamino */
 body.is-santuario #texto-biblico,
 body.is-santuario #texto-biblico p,
 body.is-santuario #texto-biblico .rv-verse-text,
@@ -4822,14 +4909,26 @@ body.is-santuario .rv-xref-nota,
 body.is-santuario .rv-estudio-vacio,
 body.is-santuario .rv-ficha-grid dd,
 body.is-santuario .rv-lectura-muted,
-body.is-santuario .rv-lectura-note {
-    color: #FFFFFF !important;
+body.is-santuario .rv-lectura-note,
+body.is-santuario .rv-contexto-resumen,
+body.is-santuario .rv-contexto-value {
+    color: var(--ink) !important;
     opacity: 1 !important;
 }
 
-/* Títulos y acentos dorados */
-body.is-santuario .rv-lectura-title,
+/* Metadatos y notas secundarias */
 body.is-santuario .rv-lectura-meta,
+body.is-santuario .rv-comentario-ref,
+body.is-santuario .rv-audio-status,
+body.is-santuario .rv-ficha-grid dt,
+body.is-santuario .rv-contexto-label,
+body.is-santuario .rv-il-legend,
+body.is-santuario .rv-il-trans {
+    color: var(--ink-muted) !important;
+}
+
+/* Títulos y acentos oro bronceado */
+body.is-santuario .rv-lectura-title,
 body.is-santuario .rv-comentario-kicker,
 body.is-santuario #etiqueta-autor,
 body.is-santuario .rv-obra-autor,
@@ -4838,8 +4937,9 @@ body.is-santuario .rv-persp-card-kicker,
 body.is-santuario .rv-persp-tip-kicker,
 body.is-santuario .rv-ficha-kicker,
 body.is-santuario .rv-estudio-h,
-body.is-santuario .rv-xref-ref {
-    color: #D4AF37 !important;
+body.is-santuario .rv-xref-ref,
+body.is-santuario .rv-verse-num {
+    color: var(--gold) !important;
     opacity: 1 !important;
 }
 
@@ -4847,78 +4947,275 @@ body.is-santuario .rv-persp-pillar-title,
 body.is-santuario .rv-persp-card-title,
 body.is-santuario .rv-persp-tip-title,
 body.is-santuario .rv-ficha-title {
-    color: #FFFFFF !important;
+    color: var(--ink-soft) !important;
 }
 
 /* Pestañas Comentario / Perspectivas / Concordancia */
 body.is-santuario .rv-estudio-tabs button {
-    background: transparent !important;
-    border: 1px solid rgba(212, 175, 55, 0.5) !important;
-    color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--gold-line) !important;
+    color: var(--ink) !important;
     opacity: 1 !important;
 }
 
 body.is-santuario .rv-estudio-tabs button.is-on,
 body.is-santuario .rv-estudio-tabs button[aria-selected="true"] {
-    background: #D4AF37 !important;
-    border-color: #D4AF37 !important;
-    color: #000000 !important;
-}
-
-/* Lentes: inactivas blancas; activa dorado sólido + negro */
-body.is-santuario .rv-persp-chip {
-    background: #0a0a0a !important;
-    border: 1px solid rgba(212, 175, 55, 0.5) !important;
+    background: var(--gold) !important;
+    border-color: var(--gold) !important;
     color: #FFFFFF !important;
 }
 
+/* Lentes */
+body.is-santuario .rv-persp-chip {
+    background: #FFFFFF !important;
+    border: 1px solid var(--gold-line) !important;
+    color: var(--ink) !important;
+}
+
 body.is-santuario .rv-persp-chip small {
-    color: rgba(255, 255, 255, 0.92) !important;
+    color: var(--ink-muted) !important;
 }
 
 body.is-santuario .rv-persp-chip.is-on,
 body.is-santuario .rv-persp-chip[aria-selected="true"] {
-    background: #D4AF37 !important;
-    border-color: #D4AF37 !important;
-    color: #000000 !important;
+    background: var(--gold) !important;
+    border-color: var(--gold) !important;
+    color: #FFFFFF !important;
 }
 
 body.is-santuario .rv-persp-chip.is-on small,
 body.is-santuario .rv-persp-chip[aria-selected="true"] small {
-    color: #000000 !important;
-    opacity: 0.85 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    opacity: 1 !important;
 }
 
-/* Neutralizar utilidades Tailwind grises dentro del santuario */
+/* Neutralizar utilidades Tailwind oscuras dentro del santuario */
 body.is-santuario .text-\[\#6B6B6B\],
 body.is-santuario .text-\[\#8D7040\],
 body.is-santuario .text-\[\#3D3D3D\],
 body.is-santuario .text-\[\#C9C6BE\],
 body.is-santuario .text-\[\#8f8c84\],
-body.is-santuario .text-\[\#9A9790\] {
-    color: rgba(255, 255, 255, 0.92) !important;
+body.is-santuario .text-\[\#9A9790\],
+body.is-santuario .text-\[\#F4F5F7\],
+body.is-santuario .text-\[\#FDFCFA\] {
+    color: var(--ink-muted) !important;
+}
+
+body.is-santuario .text-\[\#C5A059\],
+body.is-santuario .text-\[\#D4AF37\],
+body.is-santuario .text-\[\#E8D5A3\] {
+    color: var(--gold) !important;
 }
 
 body.is-santuario .rv-sidebar,
 body.is-santuario .rv-chrome {
-    background: #000000 !important;
-    color: #FFFFFF !important;
+    background: var(--sidebar) !important;
+    color: var(--ink) !important;
+    border-color: var(--gold-line) !important;
+}
+
+body.is-santuario .rv-chrome {
+    background: var(--parchment) !important;
 }
 
 body.is-santuario .rv-select,
 body.is-santuario select.rv-select {
-    background: #0a0a0a !important;
-    color: #FFFFFF !important;
-    border-color: rgba(212, 175, 55, 0.5) !important;
+    background: #FFFFFF !important;
+    color: var(--ink) !important;
+    border-color: var(--gold-line) !important;
 }
 
-/* Versículos: texto blanco sobre negro */
+/* Versículos: carbón sobre pergamino */
 body.is-santuario .rv-verse-surface,
 body.is-santuario .rv-verse-text {
-    color: #FFFFFF !important;
+    color: var(--ink) !important;
 }
 
 body.is-santuario .rv-verse-num {
-    color: #D4AF37 !important;
+    color: var(--gold) !important;
 }
-    
+
+/* Ficha de contexto histórico */
+body.is-santuario #contexto-historico-header,
+body.is-santuario .rv-contexto-historico {
+    background: #F3EFE6 !important;
+    border-top-color: var(--gold-line) !important;
+    border-bottom-color: var(--gold-line) !important;
+}
+
+body.is-santuario .rv-il-es {
+    color: var(--ink) !important;
+}
+
+body.is-santuario .rv-il-orig {
+    color: var(--ink-soft) !important;
+}
+
+body.is-santuario .rv-il-morph,
+body.is-santuario .rv-il-code {
+    color: var(--gold) !important;
+}
+
+body.is-santuario .rv-interlineal-grid {
+    background: #FFFFFF !important;
+    border-color: var(--gold-line) !important;
+}
+
+body.is-santuario .rv-il-cell {
+    border-color: var(--gold-line) !important;
+}
+
+/* --- Superficies globales Light Luxury (dashboard + shells) -------------- */
+#rv-app,
+.rv-home,
+body.is-acompanamiento,
+#rv-acompanamiento {
+    background: var(--parchment);
+    color: var(--ink);
+}
+
+.rv-btn-gold,
+button.rv-btn-gold {
+    background: var(--gold) !important;
+    border-color: var(--gold) !important;
+    color: #FFFFFF !important;
+}
+
+.rv-toolbar,
+.rv-estudio-modulo,
+.rv-comentario,
+.rv-concordancia,
+.rv-ficha-academica,
+.rv-verse-study,
+.rv-oia-composer {
+    background: var(--parchment);
+    color: var(--ink);
+    border-color: var(--gold-line);
+}
+
+.rv-oia-input,
+.rv-select,
+select.rv-select,
+#buscador-canon {
+    background: #FFFFFF;
+    color: var(--ink);
+    border-color: var(--gold-line);
+}
+
+/* Separadores sutiles */
+.border-\[\#C5A059\]\/20,
+.border-\[\#C5A059\]\/15,
+.rv-chrome,
+.rv-sidebar,
+.rv-estudio-tabs,
+.rv-cuaderno-head,
+.rv-contexto-historico {
+    border-color: var(--gold-line) !important;
+}
+
+/* Cuaderno: panel claro para lectura prolongada */
+.rv-cuaderno-panel {
+    background: var(--parchment) !important;
+    color: var(--ink) !important;
+    border-color: var(--gold-line) !important;
+}
+
+.rv-note-card {
+    background: #FFFFFF !important;
+    color: var(--ink) !important;
+    border-color: var(--gold-line) !important;
+}
+
+.rv-note-body,
+.rv-note-ref,
+.rv-note-title {
+    color: var(--ink) !important;
+}
+
+.rv-note-when,
+.rv-sync,
+.rv-cuaderno-kicker {
+    color: var(--ink-muted) !important;
+}
+
+.rv-cuaderno-title {
+    color: var(--ink-soft) !important;
+}
+
+/* =========================================================
+   Chrome oscuro premium (contraste sobre pergamino)
+   Popover contextual + RevelatiO IA + dock de audio
+   ========================================================= */
+#rv-popover {
+    background: #1A1A1A !important;
+    color: #FDFCFA !important;
+    border-color: rgba(158, 123, 53, 0.55) !important;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35) !important;
+}
+
+#rv-popover button[data-act],
+#rv-popover .rv-pop-label,
+#rv-popover .rv-pop-empty {
+    color: #E8D5A3 !important;
+}
+
+#rv-popover button[data-act]:hover,
+#rv-popover .rv-pop-study,
+#rv-popover .rv-pop-oia {
+    color: #FFFFFF !important;
+    border-color: #B8860B !important;
+}
+
+#btn-asistente-ia,
+.rv-fab-omni {
+    background: #1A1A1A !important;
+    color: #FDFCFA !important;
+    border-color: rgba(158, 123, 53, 0.55) !important;
+}
+
+#panel-asistente-ia,
+.rv-ia-panel {
+    background: #1A1A1A !important;
+    color: #F5F0E6 !important;
+    border-color: rgba(158, 123, 53, 0.45) !important;
+}
+
+#panel-asistente-ia .rv-ia-msg-user {
+    background: rgba(158, 123, 53, 0.15) !important;
+    color: #FDFCFA !important;
+}
+
+#panel-asistente-ia .rv-ia-msg-bot,
+#panel-asistente-ia .rv-ia-md {
+    color: #F5F0E6 !important;
+}
+
+#rv-audio-dock.rv-audio-dock {
+    background: #1A1A1A !important;
+    color: #FDFCFA !important;
+    border-color: rgba(158, 123, 53, 0.45) !important;
+}
+
+#rv-audio-dock .rv-dock-title,
+#rv-audio-dock .rv-dock-chip,
+#rv-audio-dock .rv-audio-status {
+    color: #E8D5A3 !important;
+}
+
+#rv-audio-dock button.rv-dock-play {
+    background: #1A1A1A !important;
+    color: #B8860B !important;
+    border-color: #B8860B !important;
+}
+
+#rv-audio-dock button.rv-dock-play.is-on {
+    background: #B8860B !important;
+    color: #1A1A1A !important;
+}
+
+/* Splash / umbral: puede permanecer solemne (oscuro) */
+#rv-splash {
+    background: #0a0a0a !important;
+    color: #FDFCFA !important;
+}
+
