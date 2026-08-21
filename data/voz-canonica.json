@@ -1,0 +1,14 @@
+{
+  "schema": "revelatio.voz.v1",
+  "producto": "Éfata RevelatiO",
+  "voz_oficial": {
+    "id": "es-MX-JorgeNeural",
+    "motor": "edge-tts",
+    "locale": "es-MX",
+    "genero": "masculino",
+    "etiqueta": "Jorge · México",
+    "uso": ["bienvenida", "narracion", "lectura"]
+  },
+  "rate": "+0%",
+  "bienvenida_local": "/audio/bienvenida-varon.wav"
+}

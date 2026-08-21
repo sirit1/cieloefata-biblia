@@ -4,8 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "start": "next start",
+    "dev": "node server.js",
+    "preview": "node server.js",
+    "start": "node server.js",
+    "dev:next": "next dev",
+    "start:next": "next start",
     "build:css": "tailwindcss -i ./styles/tailwind.input.css -o ./public/assets/tailwind.css --minify",
     "build": "npm run build:css && next build",
     "check": "node --check lib/biblia.js && node --check api/config.js && node --check api/exegesis.js && node --check api/lente.js && node --check api/referencias.js && node --check api/pasaje.js && node --check api/lexico.js && node --check api/biblia.js"

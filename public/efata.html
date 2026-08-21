@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>Éfata RevelatiO | Revelación y exégesis de las Escrituras</title>
+    <meta name="description"
+        content="Organización sin fines de lucro dedicada a la revelación y exégesis de las Escrituras. Estudio bíblico gratuito con comentaristas históricos y RevelatiO IA.">
+    <link rel="icon" type="image/png" href="brand/revelatio-mark.png">
+    <link rel="apple-touch-icon" href="brand/revelatio-mark.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/tailwind.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body class="flex h-full flex-col">
+
+    <div id="rv-splash" class="rv-splash" role="button" tabindex="0"
+        aria-label="Éfata RevelatiO. Toca la pantalla para continuar." aria-modal="true">
+        <div class="rv-splash-stage">
+            <img src="brand/revelatio-lockup.png" alt="REVELATIO by Efata" class="rv-splash-logo">
+            <p class="rv-splash-hint" aria-hidden="true">Toca para continuar</p>
+        </div>
+    </div>
+    <audio id="rv-music" playsinline webkit-playsinline preload="none"></audio>
+    <audio id="rv-voice" playsinline webkit-playsinline preload="auto"></audio>
+    <audio id="rv-welcome-voice" playsinline webkit-playsinline preload="auto"></audio>
+
+    <!-- Shell: las vistas viven en /views y las inyecta el router -->
+    <div id="rv-app" class="rv-app flex min-h-0 flex-1 flex-col" aria-live="polite"></div>
+    <div id="rv-overlays"></div>
+
+    <script src="script-principal.js"></script>
+    <script src="js/bible-data.js?v=oia1"></script>
+    <script src="js/storage.js?v=oia1"></script>
+    <script src="js/ui-ux.js?v=oia1"></script>
+    <script src="js/audio-engine.js?v=oia1"></script>
+    <script src="js/ai-engine.js?v=oia1"></script>
+    <script src="js/router.js?v=oia1"></script>
+    <script src="js/navigation.js?v=oia1"></script>
+    <script src="js/estudio-app.js?v=oia1"></script>
+    <script src="js/main.js?v=oia1"></script>
+    <script>
+        /* Vista inicial: /views/dashboard.html vía router */
+        (function bootShell() {
+            function start() {
+                var RV = window.RV;
+                if (!RV || !RV.router) {
+                    console.error("[shell] router.js no disponible");
+                    return;
+                }
+                RV.router.load("views/dashboard.html").catch(function (err) {
+                    console.error("[shell] No se pudo cargar el dashboard", err);
+                });
+            }
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", start);
+            } else {
+                start();
+            }
+        })();
+    </script>
+</body>
+
+</html>

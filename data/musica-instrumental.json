@@ -1,0 +1,50 @@
+{
+  "schema": "revelatio.musica.v1",
+  "producto": "Éfata RevelatiO",
+  "descripcion": "Catálogo de música cristiana instrumental ambiental. Solo se descarga la pista activa (preload=none).",
+  "licencia_nota": "Activar pistas (enabled:true) solo cuando el archivo exista en /audio.",
+  "tracks": [
+    {
+      "id": "oracion-instrumental",
+      "title": "Oración instrumental",
+      "url": "/audio/oracion-instrumental.m4a",
+      "mood": "oracion",
+      "enabled": true
+    },
+    {
+      "id": "paz-en-el-jardin",
+      "title": "Paz en el jardín",
+      "url": "/audio/paz-en-el-jardin.m4a",
+      "mood": "oracion",
+      "enabled": false
+    },
+    {
+      "id": "agua-viva",
+      "title": "Agua viva",
+      "url": "/audio/agua-viva.m4a",
+      "mood": "lectura",
+      "enabled": false
+    },
+    {
+      "id": "alba-de-fe",
+      "title": "Alba de fe",
+      "url": "/audio/alba-de-fe.m4a",
+      "mood": "lectura",
+      "enabled": false
+    },
+    {
+      "id": "sosiego-sagrado",
+      "title": "Sosiego sagrado",
+      "url": "/audio/sosiego-sagrado.m4a",
+      "mood": "cierre",
+      "enabled": false
+    },
+    {
+      "id": "quietud-del-alma",
+      "title": "Quietud del alma",
+      "url": "/audio/quietud-del-alma.m4a",
+      "mood": "cierre",
+      "enabled": false
+    }
+  ]
+}

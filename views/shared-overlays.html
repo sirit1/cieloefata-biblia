@@ -1,0 +1,353 @@
+<div id="rv-popover" role="toolbar" aria-label="Menú contextual de estudio">
+        <div class="rv-pop-top">
+            <div class="rv-ipad-swatches" role="group" aria-label="Color de resaltado">
+                <button type="button" class="rv-swatch sw-oro" data-hl="oro" title="Resaltar en dorado"
+                    aria-label="Resaltar en dorado"></button>
+                <button type="button" class="rv-swatch sw-azul" data-hl="azul" title="Azul real"
+                    aria-label="Resaltar en azul real"></button>
+                <button type="button" class="rv-swatch sw-verde" data-hl="verde" title="Verde esperanza"
+                    aria-label="Resaltar en verde esperanza"></button>
+                <button type="button" class="rv-swatch sw-purpura" data-hl="purpura" title="Púrpura"
+                    aria-label="Resaltar en púrpura"></button>
+            </div>
+            <div class="rv-pop-acts">
+                <button type="button" data-act="study" class="rv-pop-study">Estudiar vv.</button>
+                <button type="button" data-act="oia" class="rv-pop-oia" title="Estudio inductivo Observación · Interpretación · Aplicación">Estudiar (O-I-A)</button>
+                <button type="button" data-act="notebook">Enviar al Cuaderno</button>
+                <button type="button" data-act="copy">Copiar</button>
+                <button type="button" data-act="note">Nota</button>
+                <button type="button" data-act="xref">Concordancia</button>
+                <button type="button" data-act="strong">Strong</button>
+                <button type="button" data-act="ai" class="rv-ia-btn" title="RevelatiO IA" aria-label="RevelatiO IA">
+                    <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                    <span class="rv-ia-name">RevelatiO IA</span>
+                </button>
+                <button type="button" data-act="listen">Oír</button>
+            </div>
+        </div>
+        <div class="rv-pop-panel" aria-label="Números Strong">
+            <p class="rv-pop-label">Números Strong · raíces originales</p>
+            <div id="rv-pop-strongs" class="rv-pop-strongs"></div>
+        </div>
+        <div class="rv-pop-panel" aria-label="Referencias cruzadas">
+            <p class="rv-pop-label">Referencias cruzadas</p>
+            <div id="rv-pop-xrefs" class="rv-pop-xrefs"></div>
+        </div>
+        <div class="rv-pop-panel rv-pop-selects">
+            <div>
+                <label for="pop-selector-version">Versión</label>
+                <select id="pop-selector-version" aria-label="Cambiar versión bíblica">
+                    <option value="rv1960">RVR1960</option>
+                    <option value="kjv">KJV</option>
+                    <option value="tla">TLA</option>
+                    <option value="dhh">DHH</option>
+                    <option value="septuaginta">Septuaginta</option>
+                </select>
+            </div>
+            <div>
+                <label for="pop-selector-autor">Comentarista</label>
+                <select id="pop-selector-autor" aria-label="Cambiar comentarista">
+                    <option value="matthew-henry">Matthew Henry</option>
+                    <option value="jamieson-fausset-brown">Jamieson, Fausset y Brown</option>
+                    <option value="albert-barnes">Albert Barnes</option>
+                    <option value="charles-spurgeon">Charles Spurgeon</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section id="modulo-marginnote"
+        class="sheet-hidden fixed inset-x-4 bottom-24 z-80 mx-auto max-w-lg rounded-2xl p-5">
+        <div class="mb-3 flex items-center justify-between gap-3">
+            <div>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-[#C5A059]">Nota de estudio</p>
+                <p id="estado-nota" class="rv-sync mt-1">Guardado en este dispositivo</p>
+            </div>
+            <button type="button" id="cerrar-nota" class="text-[#C5A059]" aria-label="Cerrar nota">✕</button>
+        </div>
+        <form id="form-marginnote" class="space-y-3">
+            <input type="hidden" name="nota-id">
+            <input name="referencia" class="w-full px-3 py-2 text-sm" placeholder="Referencia">
+            <textarea name="nota" rows="5" class="w-full px-3 py-2 text-sm"
+                placeholder="Observación ante el texto…"></textarea>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <label class="flex items-center gap-2 text-[11px] tracking-wide text-[#6B6B6B]">
+                    <input type="checkbox" name="permanente" class="accent-[#C5A059]">
+                    Archivo permanente
+                </label>
+                <button type="submit"
+                    class="rv-btn-gold px-3 py-2 text-[11px] uppercase tracking-widest">Guardar</button>
+            </div>
+        </form>
+    </section>
+
+    <section id="modulo-cuaderno" class="rv-cuaderno" aria-hidden="true" aria-label="Cuaderno del Peregrino">
+        <div class="rv-cuaderno-backdrop" data-cuaderno-close tabindex="-1"></div>
+        <aside class="rv-cuaderno-panel" role="dialog" aria-modal="true" aria-labelledby="rv-cuaderno-title">
+            <header class="rv-cuaderno-head">
+                <div>
+                    <p class="rv-cuaderno-kicker">Cuaderno del Peregrino</p>
+                    <h2 id="rv-cuaderno-title" class="rv-cuaderno-title">Mis apuntes</h2>
+                    <p id="estado-cuaderno" class="rv-sync">Guardado en este dispositivo</p>
+                </div>
+                <div class="rv-cuaderno-tools">
+                    <button type="button" id="cuaderno-imprimir" class="rv-cuaderno-icon-btn" title="Imprimir apuntes"
+                        aria-label="Imprimir apuntes">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M6 9V3h12v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                            <path d="M6 17H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"
+                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                            <path d="M6 13h12v8H6v-8Z" stroke="currentColor" stroke-width="1.6" />
+                        </svg>
+                    </button>
+                    <button type="button" id="cuaderno-compartir" class="rv-cuaderno-icon-btn" title="Compartir / copiar"
+                        aria-label="Compartir o copiar apuntes">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="18" cy="5" r="2.4" stroke="currentColor" stroke-width="1.6" />
+                            <circle cx="6" cy="12" r="2.4" stroke="currentColor" stroke-width="1.6" />
+                            <circle cx="18" cy="19" r="2.4" stroke="currentColor" stroke-width="1.6" />
+                            <path d="M8.2 13.1 15.7 17.2M15.8 6.8 8.3 10.8" stroke="currentColor" stroke-width="1.6" />
+                        </svg>
+                    </button>
+                    <button type="button" id="cerrar-cuaderno" class="rv-cuaderno-icon-btn" aria-label="Cerrar cuaderno">✕</button>
+                </div>
+            </header>
+
+            <div class="rv-cuaderno-body canon-scroll">
+                <div id="aviso-cuota" class="rv-cuaderno-quota hidden">
+                    <p class="rv-cuaderno-quota-kicker">Espacio de estudio</p>
+                    <p id="aviso-cuota-texto" class="rv-cuaderno-quota-copy"></p>
+                    <div class="rv-cuaderno-export-row">
+                        <button type="button" id="backup-md" class="rv-btn-gold">Backup Markdown</button>
+                        <button type="button" id="backup-pdf" class="rv-btn-gold">Backup PDF</button>
+                    </div>
+                </div>
+
+                <div class="rv-cuaderno-meter">
+                    <div class="rv-cuaderno-meter-labels">
+                        <span>Uso del cuaderno</span>
+                        <span id="cuota-label">0 KB de 180 KB</span>
+                    </div>
+                    <div class="rv-cuota-track">
+                        <div id="cuota-fill" class="rv-cuota-fill" style="width:0%"></div>
+                    </div>
+                    <p id="aviso-caducidad" class="rv-cuaderno-expire-hint hidden"></p>
+                    <div class="rv-cuaderno-export-row">
+                        <button type="button" id="backup-md-always" class="rv-btn-gold">Markdown</button>
+                        <button type="button" id="backup-pdf-always" class="rv-btn-gold">PDF</button>
+                    </div>
+                </div>
+
+                <div id="filtros-cuaderno" class="rv-cuaderno-filters">
+                    <button type="button" class="rv-tab is-on" data-filtro="todas">Todo</button>
+                    <button type="button" class="rv-tab" data-filtro="nota">Notas</button>
+                    <button type="button" class="rv-tab" data-filtro="estudio">Estudios</button>
+                    <button type="button" class="rv-tab" data-filtro="resaltado">Resaltados</button>
+                    <button type="button" class="rv-tab" data-filtro="ia">IA</button>
+                    <button type="button" class="rv-tab" data-filtro="sermon">Sermones</button>
+                    <button type="button" class="rv-tab" data-filtro="permanente">Permanente</button>
+                </div>
+
+                <!-- Fase 3 · Plantilla inductiva O-I-A -->
+                <section id="rv-oia-composer" class="rv-oia-composer" hidden aria-label="Estudio inductivo O-I-A">
+                    <header class="rv-oia-head">
+                        <p class="rv-oia-kicker">Flujo inductivo · O-I-A</p>
+                        <h3 class="rv-oia-title">Observación · Interpretación · Aplicación</h3>
+                        <p id="rv-oia-ref" class="rv-oia-ref">—</p>
+                        <div id="rv-oia-tags" class="rv-oia-tags" aria-label="Etiquetas doctrinales del estudio"></div>
+                    </header>
+                    <label class="rv-oia-field">
+                        <span class="rv-oia-label">Observación — ¿Qué dice el texto?</span>
+                        <textarea id="rv-oia-obs" class="rv-oia-input" rows="5"
+                            placeholder="Palabras clave, estructura, repeticiones…"></textarea>
+                    </label>
+                    <label class="rv-oia-field">
+                        <span class="rv-oia-label">Interpretación — ¿Qué significaba para la audiencia original?</span>
+                        <textarea id="rv-oia-interp" class="rv-oia-input" rows="4"
+                            placeholder="Contexto histórico, intención del autor, sentido en Cristo…"></textarea>
+                    </label>
+                    <label class="rv-oia-field">
+                        <span class="rv-oia-label">Aplicación — ¿Cómo transforma mi vida hoy?</span>
+                        <textarea id="rv-oia-apl" class="rv-oia-input" rows="4"
+                            placeholder="Obediencia concreta, oración, cambio de mente…"></textarea>
+                    </label>
+                    <div class="rv-oia-actions">
+                        <button type="button" id="rv-oia-guardar" class="rv-btn-gold" data-oia-save>Guardar en el Cuaderno</button>
+                        <button type="button" id="rv-oia-cancelar" class="rv-oia-cancel" data-oia-close>Cerrar plantilla</button>
+                    </div>
+                </section>
+
+                <div id="lista-cuaderno" class="rv-cuaderno-lista"></div>
+            </div>
+
+            <footer class="rv-cuaderno-footer" role="status">
+                <p id="rv-cuaderno-ttl-banner">
+                    Atención: Para optimizar el rendimiento de nuestra plataforma, las notas y el historial de consultas
+                    se conservan por un tiempo limitado (30 días). Te sugerimos imprimir o respaldar tus apuntes importantes.
+                </p>
+            </footer>
+        </aside>
+    </section>
+
+    <!-- Zona solo para impresión (oculta en pantalla) -->
+    <div id="rv-cuaderno-print" class="rv-cuaderno-print" hidden aria-hidden="true"></div>
+
+
+    <form id="form-sermon" class="hidden">
+        <input name="pasaje"><select name="tipo">
+            <option value="sermon">sermon</option>
+        </select>
+        <textarea name="consulta"></textarea>
+        <div id="salida-sermon"></div>
+    </form>
+    <div id="visor-paralelo" class="hidden">
+        <div data-paralelo-cuerpo></div>
+        <div data-paralelo-cuerpo></div>
+    </div>
+
+    <div id="rv-audio-dock" class="rv-audio-dock" aria-label="Motor de audio de doble pista">
+        <button type="button" id="dock-musica" class="rv-dock-play" aria-pressed="false" title="Play / Pause música">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+            </svg>
+        </button>
+        <div class="rv-dock-main min-w-0 flex-1">
+            <p id="dock-track-title" class="rv-dock-title">Ambiente instrumental</p>
+            <p id="estado-audio" class="rv-audio-status">En silencio</p>
+        </div>
+        <button type="button" id="dock-voz" class="rv-dock-chip" title="Pausar o reanudar narración">Voz</button>
+        <button type="button" id="dock-stop-voz" class="rv-dock-chip" title="Detener narración">Stop</button>
+        <button type="button" id="dock-expand" class="rv-dock-chip" aria-expanded="false" title="Volúmenes y pistas">≡</button>
+        <div class="rv-dock-panel" id="dock-panel">
+            <label class="rv-dock-field">
+                <span>Pista BGM</span>
+                <select id="dock-bgm-select" aria-label="Pista instrumental"></select>
+            </label>
+            <label class="rv-dock-field rv-dock-loop">
+                <input type="checkbox" id="dock-loop" checked>
+                <span>Bucle</span>
+            </label>
+            <label class="rv-dock-field">
+                <span>Volumen voz</span>
+                <input type="range" id="dock-vol-voz" min="0" max="100" value="100">
+            </label>
+            <label class="rv-dock-field">
+                <span>Volumen música</span>
+                <input type="range" id="dock-vol-musica" min="0" max="100" value="28">
+            </label>
+        </div>
+    </div>
+
+    <button type="button" id="btn-asistente-ia" class="rv-fab rv-fab-omni" aria-controls="panel-asistente-ia"
+        aria-expanded="false" aria-label="RevelatiO IA — asistente permanente" title="RevelatiO IA">
+        <span class="rv-fab-pulse" aria-hidden="true"></span>
+        <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+        <span class="rv-ia-name">RevelatiO IA</span>
+    </button>
+    <aside id="panel-asistente-ia" class="rv-drawer rv-ia-panel flex-col overflow-hidden" role="dialog"
+        aria-label="RevelatiO IA · asistente exegético">
+        <header class="rv-ia-panel-head">
+            <div class="rv-ia-badge rv-ia-badge-lg">
+                <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                <div>
+                    <p class="rv-ia-name">RevelatiO IA</p>
+                    <p class="rv-ia-kicker">Asistente exegético · Estudio Profundo</p>
+                </div>
+            </div>
+            <button type="button" id="btn-cerrar-ia" class="text-[#C5A059]" aria-label="Cerrar RevelatiO IA">✕</button>
+        </header>
+        <p id="rv-ia-context-hint" class="rv-ia-context-hint" aria-live="polite"></p>
+        <div id="chat-ia-mensajes" class="canon-scroll flex-1 overflow-y-auto p-4 text-sm">
+            <div class="rv-ia-welcome">
+                <span class="rv-ia-badge">
+                    <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                    <span class="rv-ia-name">RevelatiO IA</span>
+                </span>
+                <p>Pregunta al texto abierto. Este panel es ayuda de <strong>exégesis y teología</strong> en el Estudio
+                    Profundo — no sustituye el Acompañamiento Ministerial (Puerta II del Dashboard).</p>
+            </div>
+        </div>
+        <form id="form-asistente-ia" class="rv-ia-form border-t border-[#C5A059]/20 p-3">
+            <textarea name="mensaje" rows="2" class="mb-2 w-full px-3 py-2 text-sm"
+                placeholder="Consulta exegética al pasaje activo…"></textarea>
+            <div class="flex flex-col gap-2">
+                <button type="submit" class="rv-btn-gold rv-ia-btn w-full justify-center py-2">
+                    <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                    <span class="rv-ia-name">Consultar RevelatiO IA</span>
+                </button>
+                <button type="button" id="ia-enviar-cuaderno" class="rv-ia-to-notebook">
+                    Enviar última respuesta al Cuaderno
+                </button>
+            </div>
+        </form>
+        <p class="rv-ia-disclaimer" role="note">
+            RevelatiO IA procesa el texto bajo la autoridad inquebrantable de las Santas Escrituras y comentarios clásicos.
+        </p>
+    </aside>
+
+    <aside id="panel-strong" class="rv-strong-panel" role="dialog" aria-label="Léxico Strong" aria-hidden="true">
+        <header class="mb-3 flex items-center justify-between gap-3">
+            <p id="codigo-strong" class="text-[10px] uppercase tracking-[0.22em] text-[#C5A059]">Strong</p>
+            <button type="button" id="cerrar-strong" class="text-[#C5A059]" aria-label="Cerrar léxico">✕</button>
+        </header>
+        <div id="cuerpo-strong"></div>
+    </aside>
+
+    <footer class="rv-footer" role="contentinfo">
+        <p class="rv-legal-sbu">Los textos de la Reina-Valera 1960 (RVR1960), la Traducción en Lenguaje Actual (TLA) y
+            Dios Habla Hoy (DHH) son © Sociedades Bíblicas Unidas. Usados con permiso para lectura digital. Todos los
+            derechos reservados. Queda prohibida su reproducción, almacenamiento o distribución completa sin
+            autorización de SBU.</p>
+        <p>RevelatiO IA es estocástico y no sustituye el pastoreo ni la autoridad de la Escritura; úsese solo como
+            referencia de estudio.</p>
+    </footer>
+
+    <section id="modal-efata-card" class="sheet-hidden efata-modal" role="dialog" aria-labelledby="titulo-efata-card">
+        <div class="efata-modal-panel">
+            <header class="flex items-center justify-between border-b border-[#C5A059]/20 px-4 py-3">
+                <div class="flex items-center gap-3">
+                    <div class="rv-lockup">
+                        <img src="brand/revelatio-mark.png" alt="" class="rv-cerebro">
+                        <img src="brand/revelatio-wordmark.png" alt="RevelatiO" class="rv-palabra">
+                    </div>
+                    <p id="titulo-efata-card" class="text-[10px] uppercase tracking-[0.22em] text-[#C5A059]">Éfata Cards
+                    </p>
+                </div>
+                <button type="button" id="cerrar-efata-card" class="text-[#C5A059]">✕</button>
+            </header>
+            <div class="grid gap-0 lg:grid-cols-[minmax(0,1fr)_16.5rem]">
+                <div class="efata-preview-wrap">
+                    <canvas id="canvas-efata-card" width="1080" height="1350"
+                        aria-label="Vista previa de la tarjeta"></canvas>
+                </div>
+                <div class="space-y-5 border-t border-[#C5A059]/15 p-4 lg:border-l lg:border-t-0">
+                    <div>
+                        <p class="mb-2 text-[10px] uppercase tracking-[0.18em] text-[#C5A059]">Fondo</p>
+                        <div class="flex gap-2">
+                            <button type="button" class="efata-swatch sw-marmol is-on" data-fondo="marmol"
+                                title="Mármol negro" aria-label="Mármol negro"></button>
+                            <button type="button" class="efata-swatch sw-papiro" data-fondo="papiro"
+                                title="Papiro envejecido" aria-label="Papiro envejecido"></button>
+                            <button type="button" class="efata-swatch sw-jerusalem" data-fondo="jerusalem"
+                                title="Jerusalén" aria-label="Paisaje de Jerusalén"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="mb-2 text-[10px] uppercase tracking-[0.18em] text-[#C5A059]">Tipografía</p>
+                        <div class="flex flex-col gap-2">
+                            <button type="button" class="efata-tipo is-on" data-tipo="editorial">Editorial
+                                itálica</button>
+                            <button type="button" class="efata-tipo" data-tipo="monumental">Monumental Cinzel</button>
+                            <button type="button" class="efata-tipo" data-tipo="lectura">Lectura serif</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 pt-1">
+                        <button type="button" id="descargar-efata-card"
+                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Descargar</button>
+                        <button type="button" id="publicar-efata-card"
+                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Compartir en redes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
