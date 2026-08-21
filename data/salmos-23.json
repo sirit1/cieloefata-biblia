@@ -1,0 +1,46 @@
+{
+  "libro": "Salmos",
+  "capitulo": 23,
+  "versiculos": 6,
+  "fuente": "Reina-Valera 1909",
+  "dominio_publico": true,
+  "nota": "Biblioteca local de lectura instantánea. El texto de cada clave (rv1960, tla, dhh) es Reina-Valera 1909, dominio público, para que el capítulo nunca dependa de la red. Las ediciones RVR1960, TLA y DHH de Sociedades Bíblicas Unidas no se incluyen en el repositorio; si existen packs licenciados en data/versiones, el lector los superpone.",
+  "versos": [
+    {
+      "n": 1,
+      "rv1960": "Jehová es mi pastor; nada me faltará.",
+      "tla": "Jehová es mi pastor; nada me faltará.",
+      "dhh": "Jehová es mi pastor; nada me faltará."
+    },
+    {
+      "n": 2,
+      "rv1960": "En lugares de delicados pastos me hará yacer: Junto á aguas de reposo me pastoreará.",
+      "tla": "En lugares de delicados pastos me hará yacer: Junto á aguas de reposo me pastoreará.",
+      "dhh": "En lugares de delicados pastos me hará yacer: Junto á aguas de reposo me pastoreará."
+    },
+    {
+      "n": 3,
+      "rv1960": "Confortará mi alma; Guiárame por sendas de justicia por amor de su nombre.",
+      "tla": "Confortará mi alma; Guiárame por sendas de justicia por amor de su nombre.",
+      "dhh": "Confortará mi alma; Guiárame por sendas de justicia por amor de su nombre."
+    },
+    {
+      "n": 4,
+      "rv1960": "Aunque ande en valle de sombra de muerte, No temeré mal alguno; porque tú estarás conmigo: Tu vara y tu cayado me infundirán aliento.",
+      "tla": "Aunque ande en valle de sombra de muerte, No temeré mal alguno; porque tú estarás conmigo: Tu vara y tu cayado me infundirán aliento.",
+      "dhh": "Aunque ande en valle de sombra de muerte, No temeré mal alguno; porque tú estarás conmigo: Tu vara y tu cayado me infundirán aliento."
+    },
+    {
+      "n": 5,
+      "rv1960": "Aderezarás mesa delante de mí, en presencia de mis angustiadores: Ungiste mi cabeza con aceite: mi copa está rebosando.",
+      "tla": "Aderezarás mesa delante de mí, en presencia de mis angustiadores: Ungiste mi cabeza con aceite: mi copa está rebosando.",
+      "dhh": "Aderezarás mesa delante de mí, en presencia de mis angustiadores: Ungiste mi cabeza con aceite: mi copa está rebosando."
+    },
+    {
+      "n": 6,
+      "rv1960": "Ciertamente el bien y la misericordia me seguirán todos los días de mi vida: Y en la casa de Jehová moraré por largos días.",
+      "tla": "Ciertamente el bien y la misericordia me seguirán todos los días de mi vida: Y en la casa de Jehová moraré por largos días.",
+      "dhh": "Ciertamente el bien y la misericordia me seguirán todos los días de mi vida: Y en la casa de Jehová moraré por largos días."
+    }
+  ]
+}

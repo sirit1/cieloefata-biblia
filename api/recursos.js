@@ -1,20 +1,15 @@
 // Recursos de Estudio Histórico: comentarios y diccionarios léxicos para
 // CUALQUIER pasaje de los 66 libros (no solo una muestra fija).
 //
-// - Diccionario Strong: dato léxico 100% real (Brown-Driver-Briggs / Thayer),
-//   resuelto dinámicamente a partir del texto original (griego/hebreo) del
-//   pasaje consultado. Nunca es generado por IA.
-// - Comentarios (JFB, Matthew Henry, Barnes, Spurgeon) y diccionarios
-//   temáticos (Easton, Hitchcock, Trench): estos autores son reales y de
-//   dominio público, pero no existe una base de datos con su obra completa
-//   digitalizada versículo a versículo para los 66 libros. RevelatiO IA
-//   sintetiza la entrada siguiendo fielmente la línea, el énfasis y el
-//   estilo documentado de cada autor, apoyada en el texto original real
-//   (Strong's) del pasaje —nunca inventa el griego/hebreo—, y la interfaz
-//   etiqueta siempre el resultado como síntesis, no como cita textual.
+// - Diccionario Strong: léxico de dominio público (local + Thayer/BDB).
+//   Nunca es generado por IA.
+// - Comentarios v1.0 (JFB, Matthew Henry, Barnes, Spurgeon): JSON modular
+//   en data/commentaries/. No se sintetiza con IA.
 import { createClient } from '@supabase/supabase-js';
-import { generarJSON, hayMotorIA } from '../lib/ai.js';
 import { parsearReferencia, obtenerOriginal, originalComoTextoPlano, strongsUnicos, obtenerDefinicionStrong } from '../lib/biblia.js';
+import { armarRespuestaComentario } from '../lib/comentarios.js';
+import { entradaStrongLocal } from '../lib/strong.js';
+import { generarJSON, hayMotorIA } from '../lib/ai.js';
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -87,8 +82,19 @@ const DICCIONARIOS = {
   trench: { autor: 'Sinónimos del Nuevo Testamento de Trench', tipo: 'Filología y matices léxicos del NT', anio: 1854, enfoque: 'un estudio filológico de los matices de las palabras griegas clave del pasaje, comparándolas con sinónimos cercanos y explicando la diferencia doctrinal o de énfasis entre ellas.' },
 };
 
+const CLAVE_AUTOR = {
+  jfb: 'jamieson-fausset-brown',
+  'jamieson-fausset-brown': 'jamieson-fausset-brown',
+  matthew_henry: 'matthew-henry',
+  'matthew-henry': 'matthew-henry',
+  barnes: 'albert-barnes',
+  'albert-barnes': 'albert-barnes',
+  spurgeon: 'charles-spurgeon',
+  'charles-spurgeon': 'charles-spurgeon',
+};
+
 function resolverFuente(tipo, clave) {
-  if (tipo === 'commentaries') return COMENTARIOS[clave] || null;
+  if (tipo === 'commentaries') return COMENTARIOS[clave] || COMENTARIOS[Object.keys(CLAVE_AUTOR).find((k) => CLAVE_AUTOR[k] === clave)] || null;
   if (tipo === 'dictionaries') return DICCIONARIOS[clave] || null;
   return null;
 }
@@ -122,20 +128,48 @@ export default async function handler(req, res) {
     original = await obtenerOriginal(ref);
   } catch (_e) { /* si falla, seguimos sin este contexto extra */ }
 
-  // ---- Diccionario Strong: dato léxico real, nunca generado por IA ----
+  // ---- Diccionario Strong: léxico de dominio público, nunca generado por IA ----
   if (tipo === 'dictionaries' && clave === 'strong') {
     const codigos = strongsUnicos(original).slice(0, 12);
     if (!codigos.length) {
       return res.status(200).json({
         success: true,
-        data: { autor: 'Concordancia Strong', tipo: 'Griego / hebreo con códigos', nota: 'No se encontró texto original disponible para este pasaje en la fuente consultada (Tischendorf / Texto Masorético).', items: [] },
+        data: { autor: 'Concordancia Strong', tipo: 'Griego / hebreo con códigos', items: [] },
       });
     }
-    const entradas = (await Promise.all(codigos.map((c) => obtenerDefinicionStrong(c).catch(() => null)))).filter(Boolean);
+    const entradas = (await Promise.all(codigos.map(async (c) => {
+      const local = entradaStrongLocal(c);
+      if (local?.definicion) {
+        return {
+          codigo: c,
+          lexema: local.lemma || '',
+          transliteracion: local.translit || '',
+          definicionCorta: local.definicion,
+          definicion: local.definicion,
+        };
+      }
+      return obtenerDefinicionStrong(c).catch(() => null);
+    }))).filter(Boolean);
     return res.status(200).json({
       success: true,
-      data: { autor: 'Concordancia Strong', tipo: 'Griego / hebreo con códigos', nota: 'Dato léxico real (Brown-Driver-Briggs / Thayer), vinculado al número Strong de cada palabra del texto original.', items: entradas },
+      data: { autor: 'Concordancia Strong', tipo: 'Griego / hebreo con códigos', items: entradas },
     });
+  }
+
+  if (tipo === 'commentaries') {
+    const autorKey = CLAVE_AUTOR[clave] || clave;
+    const data = armarRespuestaComentario(autorKey, referencia);
+    const fuente = resolverFuente('commentaries', clave) || { autor: data.titulo, tipo: 'Comentario clásico' };
+    if (data.cuerpo) {
+      return res.status(200).json({
+        success: true,
+        data: {
+          autor: data.titulo || fuente.autor,
+          tipo: fuente.tipo,
+          texto: data.cuerpo,
+        },
+      });
+    }
   }
 
   const fuente = resolverFuente(tipo, clave);
@@ -146,7 +180,7 @@ export default async function handler(req, res) {
   if (cached) return res.status(200).json({ success: true, data: cached, cached: true });
 
   if (!hayMotorIA()) {
-    return res.status(503).json({ error: 'El motor de IA todavía no está configurado.' });
+    return res.status(503).json({ error: 'RevelatiO IA todavía no está configurado.' });
   }
 
   const contextoOriginal = original

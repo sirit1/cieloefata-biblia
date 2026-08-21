@@ -1,0 +1,136 @@
+{
+  "libro": "Romanos",
+  "capitulo": 12,
+  "versiculos": 21,
+  "fuente": "Reina-Valera 1909",
+  "dominio_publico": true,
+  "nota": "Biblioteca local de lectura instantánea. El texto de cada clave (rv1960, tla, dhh) es Reina-Valera 1909, dominio público, para que el capítulo nunca dependa de la red. Las ediciones RVR1960, TLA y DHH de Sociedades Bíblicas Unidas no se incluyen en el repositorio; si existen packs licenciados en data/versiones, el lector los superpone.",
+  "versos": [
+    {
+      "n": 1,
+      "rv1960": "Así que, hermanos, os ruego por las misericordias de Dios, que presentéis vuestros cuerpos en sacrificio vivo, santo, agradable á Dios, que es vuestro racional culto.",
+      "tla": "Así que, hermanos, os ruego por las misericordias de Dios, que presentéis vuestros cuerpos en sacrificio vivo, santo, agradable á Dios, que es vuestro racional culto.",
+      "dhh": "Así que, hermanos, os ruego por las misericordias de Dios, que presentéis vuestros cuerpos en sacrificio vivo, santo, agradable á Dios, que es vuestro racional culto."
+    },
+    {
+      "n": 2,
+      "rv1960": "Y no os conforméis á este siglo; mas reformaos por la renovación de vuestro entendimiento, para que experimentéis cuál sea la buena voluntad de Dios, agradable y perfecta.",
+      "tla": "Y no os conforméis á este siglo; mas reformaos por la renovación de vuestro entendimiento, para que experimentéis cuál sea la buena voluntad de Dios, agradable y perfecta.",
+      "dhh": "Y no os conforméis á este siglo; mas reformaos por la renovación de vuestro entendimiento, para que experimentéis cuál sea la buena voluntad de Dios, agradable y perfecta."
+    },
+    {
+      "n": 3,
+      "rv1960": "Digo pues por la gracia que me es dada, á cada cual que está entre vosotros, que no tenga más alto concepto de sí que el que debe tener, sino que piense de sí con templanza, conforme á la medida de la fe que Dios repartió á cada uno.",
+      "tla": "Digo pues por la gracia que me es dada, á cada cual que está entre vosotros, que no tenga más alto concepto de sí que el que debe tener, sino que piense de sí con templanza, conforme á la medida de la fe que Dios repartió á cada uno.",
+      "dhh": "Digo pues por la gracia que me es dada, á cada cual que está entre vosotros, que no tenga más alto concepto de sí que el que debe tener, sino que piense de sí con templanza, conforme á la medida de la fe que Dios repartió á cada uno."
+    },
+    {
+      "n": 4,
+      "rv1960": "Porque de la manera que en un cuerpo tenemos muchos miembros, empero todos los miembros no tienen la misma operación;",
+      "tla": "Porque de la manera que en un cuerpo tenemos muchos miembros, empero todos los miembros no tienen la misma operación;",
+      "dhh": "Porque de la manera que en un cuerpo tenemos muchos miembros, empero todos los miembros no tienen la misma operación;"
+    },
+    {
+      "n": 5,
+      "rv1960": "Así muchos somos un cuerpo en Cristo, mas todos miembros los unos de los otros.",
+      "tla": "Así muchos somos un cuerpo en Cristo, mas todos miembros los unos de los otros.",
+      "dhh": "Así muchos somos un cuerpo en Cristo, mas todos miembros los unos de los otros."
+    },
+    {
+      "n": 6,
+      "rv1960": "De manera que, teniendo diferentes dones según la gracia que nos es dada, si el de profecía, úsese conforme á la medida de la fe;",
+      "tla": "De manera que, teniendo diferentes dones según la gracia que nos es dada, si el de profecía, úsese conforme á la medida de la fe;",
+      "dhh": "De manera que, teniendo diferentes dones según la gracia que nos es dada, si el de profecía, úsese conforme á la medida de la fe;"
+    },
+    {
+      "n": 7,
+      "rv1960": "ó si ministerio, en servir; ó el que enseña, en doctrina;",
+      "tla": "ó si ministerio, en servir; ó el que enseña, en doctrina;",
+      "dhh": "ó si ministerio, en servir; ó el que enseña, en doctrina;"
+    },
+    {
+      "n": 8,
+      "rv1960": "El que exhorta, en exhortar; el que reparte, hágalo en simplicidad; el que preside, con solicitud; el que hace misericordia, con alegría.",
+      "tla": "El que exhorta, en exhortar; el que reparte, hágalo en simplicidad; el que preside, con solicitud; el que hace misericordia, con alegría.",
+      "dhh": "El que exhorta, en exhortar; el que reparte, hágalo en simplicidad; el que preside, con solicitud; el que hace misericordia, con alegría."
+    },
+    {
+      "n": 9,
+      "rv1960": "El amor sea sin fingimiento: aborreciendo lo malo, llegándoos á lo bueno;",
+      "tla": "El amor sea sin fingimiento: aborreciendo lo malo, llegándoos á lo bueno;",
+      "dhh": "El amor sea sin fingimiento: aborreciendo lo malo, llegándoos á lo bueno;"
+    },
+    {
+      "n": 10,
+      "rv1960": "Amándoos los unos á los otros con caridad fraternal; previniéndoos con honra los unos á los otros;",
+      "tla": "Amándoos los unos á los otros con caridad fraternal; previniéndoos con honra los unos á los otros;",
+      "dhh": "Amándoos los unos á los otros con caridad fraternal; previniéndoos con honra los unos á los otros;"
+    },
+    {
+      "n": 11,
+      "rv1960": "En el cuidado no perezosos; ardientes en espíritu; sirviendo al Señor;",
+      "tla": "En el cuidado no perezosos; ardientes en espíritu; sirviendo al Señor;",
+      "dhh": "En el cuidado no perezosos; ardientes en espíritu; sirviendo al Señor;"
+    },
+    {
+      "n": 12,
+      "rv1960": "Gozosos en la esperanza; sufridos en la tribulación; constantes en la oración;",
+      "tla": "Gozosos en la esperanza; sufridos en la tribulación; constantes en la oración;",
+      "dhh": "Gozosos en la esperanza; sufridos en la tribulación; constantes en la oración;"
+    },
+    {
+      "n": 13,
+      "rv1960": "Comunicando á las necesidades de los santos; siguiendo la hospitalidad.",
+      "tla": "Comunicando á las necesidades de los santos; siguiendo la hospitalidad.",
+      "dhh": "Comunicando á las necesidades de los santos; siguiendo la hospitalidad."
+    },
+    {
+      "n": 14,
+      "rv1960": "Bendecid á los que os persiguen: bendecid y no maldigáis.",
+      "tla": "Bendecid á los que os persiguen: bendecid y no maldigáis.",
+      "dhh": "Bendecid á los que os persiguen: bendecid y no maldigáis."
+    },
+    {
+      "n": 15,
+      "rv1960": "Gozaos con los que se gozan: llorad con los que lloran.",
+      "tla": "Gozaos con los que se gozan: llorad con los que lloran.",
+      "dhh": "Gozaos con los que se gozan: llorad con los que lloran."
+    },
+    {
+      "n": 16,
+      "rv1960": "Unánimes entre vosotros: no altivos, mas acomodándoos á los humildes. No seáis sabios en vuestra opinión.",
+      "tla": "Unánimes entre vosotros: no altivos, mas acomodándoos á los humildes. No seáis sabios en vuestra opinión.",
+      "dhh": "Unánimes entre vosotros: no altivos, mas acomodándoos á los humildes. No seáis sabios en vuestra opinión."
+    },
+    {
+      "n": 17,
+      "rv1960": "No paguéis á nadie mal por mal; procurad lo bueno delante de todos los hombres.",
+      "tla": "No paguéis á nadie mal por mal; procurad lo bueno delante de todos los hombres.",
+      "dhh": "No paguéis á nadie mal por mal; procurad lo bueno delante de todos los hombres."
+    },
+    {
+      "n": 18,
+      "rv1960": "Si se puede hacer, cuanto está en vosotros, tened paz con todos los hombres.",
+      "tla": "Si se puede hacer, cuanto está en vosotros, tened paz con todos los hombres.",
+      "dhh": "Si se puede hacer, cuanto está en vosotros, tened paz con todos los hombres."
+    },
+    {
+      "n": 19,
+      "rv1960": "No os venguéis vosotros mismos, amados míos; antes dad lugar á la ira; porque escrito está: Mía es la venganza: yo pagaré, dice el Señor.",
+      "tla": "No os venguéis vosotros mismos, amados míos; antes dad lugar á la ira; porque escrito está: Mía es la venganza: yo pagaré, dice el Señor.",
+      "dhh": "No os venguéis vosotros mismos, amados míos; antes dad lugar á la ira; porque escrito está: Mía es la venganza: yo pagaré, dice el Señor."
+    },
+    {
+      "n": 20,
+      "rv1960": "Así que, si tu enemigo tuviere hambre, dale de comer; si tuviere sed, dale de beber: que haciendo esto, ascuas de fuego amontonas sobre su cabeza.",
+      "tla": "Así que, si tu enemigo tuviere hambre, dale de comer; si tuviere sed, dale de beber: que haciendo esto, ascuas de fuego amontonas sobre su cabeza.",
+      "dhh": "Así que, si tu enemigo tuviere hambre, dale de comer; si tuviere sed, dale de beber: que haciendo esto, ascuas de fuego amontonas sobre su cabeza."
+    },
+    {
+      "n": 21,
+      "rv1960": "No seas vencido de lo malo; mas vence con el bien el mal.",
+      "tla": "No seas vencido de lo malo; mas vence con el bien el mal.",
+      "dhh": "No seas vencido de lo malo; mas vence con el bien el mal."
+    }
+  ]
+}

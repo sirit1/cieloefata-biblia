@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Escribe una consulta de entre 1 y 300 caracteres.' });
   }
   if (!hayMotorIA()) {
-    return res.status(503).json({ error: 'El motor de IA todavía no está configurado.' });
+    return res.status(503).json({ error: 'RevelatiO IA todavía no está configurado.' });
   }
 
   // Si la consulta es una referencia reconocible, trae el texto original real
@@ -62,11 +62,11 @@ export default async function handler(req, res) {
 La consulta puede ser (a) una referencia bíblica concreta (ej. "Juan 3:16", "Salmos 23:1") o (b) un tema o pregunta ("el perdón", "¿qué es la gracia?").
 
 Responde ÚNICAMENTE con JSON válido y esta estructura exacta:
-{"referencia":"","versiones":{"rvr1960":"","nvi":"","ntv":"","lbla":"","pdt":"","btx3":"","rv2004":"","peshitta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"objetivo":"","contextoHistoricoLiterario":"","estructuraLiteraria":"","analisisGramatical":"","hermeneutica":"","exegesisVersiculoVersiculo":"","comentarioExpositivo":"","aplicacion":""}
+{"referencia":"","versiones":{"rv1960":"","tla":"","dhh":"","septuaginta":""},"idiomaOriginal":{"termino":"","strong":"","analisis":""},"objetivo":"","contextoHistoricoLiterario":"","estructuraLiteraria":"","analisisGramatical":"","hermeneutica":"","exegesisVersiculoVersiculo":"","comentarioExpositivo":"","aplicacion":""}
 
 Reglas:
 - "referencia": la cita canónica normalizada (ej. "Juan 3:16"). Si es un tema, coloca el pasaje base más representativo.
-- "versiones": incluye siempre las ocho claves: rvr1960, nvi, ntv, lbla, pdt, btx3, rv2004 y peshitta. Escribe el texto solo si puedes confirmarlo con seguridad; si no, deja el campo vacío "". No inventes una traducción ni presentes una paráfrasis como texto bíblico.
+- "versiones": solo las claves licenciadas de v1.0: rv1960, tla, dhh y septuaginta. No cites NVI, NTV, Peshitta ni otras ediciones restringidas. Escribe el texto solo si puedes confirmarlo; si no, deja "".
 - "idiomaOriginal": término griego o hebreo clave, número Strong y un breve análisis morfológico/etimológico. Si se te da un CONTEXTO REAL VERIFICADO más abajo, tu término y número de Strong DEBEN salir de ahí, no de tu memoria.
 - "objetivo": propósito concreto del estudio y pregunta que debe responder.
 - "contextoHistoricoLiterario": autor, audiencia, situación, género y contexto histórico solo cuando sea razonablemente verificable.

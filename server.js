@@ -1,23 +1,76 @@
-// Dev server SOLO para el preview local de v0.
-// Sirve index.html y ejecuta las funciones /api/* con el mismo formato req/res de Vercel.
-// En producción, Vercel enruta /api automáticamente y este archivo no se usa.
+/**
+ * Servidor local de Éfata RevelatiO.
+ * Raíz = carpeta de este archivo (cieloefata-biblia), independiente del cwd.
+ * Sirve la SPA + /api/* + estáticos (audio, brand, data, public/).
+ */
 import { createServer } from 'node:http';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname, extname, join, normalize, sep } from 'node:path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const PORT = process.env.PORT || 3000;
+const ROOT = dirname(fileURLToPath(import.meta.url));
+const PORT = Number(process.env.PORT) || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 
-// Adapta el res de Node al formato Vercel (res.status().json(), res.setHeader()).
+loadEnv(ROOT);
+
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.webmanifest': 'application/manifest+json',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.ico': 'image/x-icon',
+  '.gif': 'image/gif',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.mp3': 'audio/mpeg',
+  '.m4a': 'audio/mp4',
+  '.wav': 'audio/wav',
+  '.ogg': 'audio/ogg',
+};
+
+function loadEnv(dir) {
+  for (const file of ['.env.local', '.env']) {
+    const path = join(dir, file);
+    if (!existsSync(path)) continue;
+    for (const line of readFileSync(path, 'utf8').split(/\r?\n/)) {
+      const t = line.trim();
+      if (!t || t.startsWith('#')) continue;
+      const cleaned = t.replace(/^export\s+/, '');
+      const i = cleaned.indexOf('=');
+      if (i < 1) continue;
+      const k = cleaned.slice(0, i).trim();
+      let v = cleaned.slice(i + 1).trim();
+      if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
+      if (process.env[k] == null || process.env[k] === '') process.env[k] = v;
+    }
+  }
+}
+
 function decorate(res) {
   res.status = (code) => {
     res.statusCode = code;
     return res;
   };
   res.json = (payload) => {
-    if (!res.getHeader('Content-Type')) res.setHeader('Content-Type', 'application/json');
+    if (!res.getHeader('Content-Type')) res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.end(JSON.stringify(payload));
+    return res;
+  };
+  res.send = (payload) => {
+    if (Buffer.isBuffer(payload) || payload instanceof Uint8Array) {
+      res.end(payload);
+      return res;
+    }
+    if (payload && typeof payload === 'object' && !('pipe' in payload)) return res.json(payload);
+    res.end(payload);
     return res;
   };
   return res;
@@ -34,64 +87,122 @@ async function readBody(req) {
   }
 }
 
-const server = createServer(async (req, res) => {
-  decorate(res);
-  const parsed = new URL(req.url, `http://${req.headers.host}`);
-  const pathname = parsed.pathname;
+function safeJoin(base, requestPath) {
+  const cleaned = normalize(String(requestPath || '').replace(/^\/+/, '')).replace(/^(\.\.(\/|\\|$))+/, '');
+  if (!cleaned || cleaned === '.' || cleaned.includes(`..${sep}`) || cleaned.startsWith(`..`)) return null;
+  const full = join(base, cleaned);
+  if (!full.startsWith(base)) return null;
+  return full;
+}
 
-  // Rutas de API -> funciones serverless
-  if (pathname.startsWith('/api/')) {
-    const name = pathname.slice('/api/'.length).replace(/[^a-z0-9_-]/gi, '');
+function isBlocked(rel) {
+  return /(^|\/)\.env|(^|\/)\.git|(^|\/)node_modules\b/i.test(rel);
+}
+
+async function sendFile(res, filePath) {
+  const buf = await readFile(filePath);
+  const ext = extname(filePath).toLowerCase();
+  res.setHeader('Content-Type', MIME[ext] || 'application/octet-stream');
+  res.setHeader('Content-Length', String(buf.length));
+  res.setHeader('Accept-Ranges', 'bytes');
+  res.setHeader('Cache-Control', ext === '.js' || ext === '.html' ? 'no-store, max-age=0' : 'public, max-age=3600');
+  res.statusCode = 200;
+  res.end(buf);
+}
+
+async function sendSpa(res) {
+  const htmlPath = join(ROOT, 'index.html');
+  const buf = await readFile(htmlPath);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Content-Length', String(buf.length));
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+  res.statusCode = 200;
+  res.end(buf);
+}
+
+async function tryStatic(res, pathname) {
+  const rel = pathname.replace(/^\/+/, '');
+  if (!rel || isBlocked(rel)) return false;
+  for (const base of [ROOT, join(ROOT, 'public')]) {
+    const full = safeJoin(base, rel);
+    if (!full || !existsSync(full)) continue;
     try {
-      const apiFile = join(__dirname, 'api', `${name}.js`);
-      try {
-        await readFile(apiFile);
-      } catch {
-        return res.status(404).json({ error: 'Ruta API no encontrada.' });
-      }
-      const mod = await import(apiFile);
-      req.query = Object.fromEntries(parsed.searchParams.entries());
-      if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
-        req.body = await readBody(req);
-      }
-      await mod.default(req, res);
-    } catch (error) {
-      console.error('[dev-server] error en /api/%s:', name, error?.message);
-      if (!res.headersSent) res.status(500).json({ error: 'Error interno del dev server.' });
+      if (!statSync(full).isFile()) continue;
+    } catch {
+      continue;
     }
+    await sendFile(res, full);
+    return true;
+  }
+  return false;
+}
+
+async function handleApi(req, res, pathname, parsed) {
+  const name = pathname.slice('/api/'.length).replace(/[^a-z0-9_-]/gi, '');
+  if (!name) {
+    res.status(404).json({ error: 'Ruta API no encontrada.' });
     return;
   }
-
-  // Archivos estáticos de public/ (en Vercel se sirven en la raíz)
-  if (pathname !== '/' && pathname !== '/index.html') {
-    const safe = pathname.replace(/\.\.+/g, '').replace(/^\/+/, '');
-    try {
-      const file = await readFile(join(__dirname, 'public', safe));
-      const ext = safe.split('.').pop().toLowerCase();
-      const types = {
-        png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', svg: 'image/svg+xml',
-        webp: 'image/webp', ico: 'image/x-icon', gif: 'image/gif',
-        css: 'text/css', js: 'text/javascript', json: 'application/json', webmanifest: 'application/manifest+json', html: 'text/html; charset=utf-8',
-        woff: 'font/woff', woff2: 'font/woff2', mp3: 'audio/mpeg'
-      };
-      res.setHeader('Content-Type', types[ext] || 'application/octet-stream');
-      res.setHeader('Cache-Control', 'public, max-age=3600');
-      res.end(file);
-      return;
-    } catch { /* cae al index (SPA) */ }
+  const apiFile = join(ROOT, 'api', `${name}.js`);
+  if (!existsSync(apiFile)) {
+    res.status(404).json({ error: 'Ruta API no encontrada.' });
+    return;
   }
-
-  // Archivo estático principal (SPA)
   try {
-    const html = await readFile(join(__dirname, 'index.html'));
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-store, max-age=0');
-    res.end(html);
-  } catch {
-    res.status(404).end('No encontrado');
+    const mod = await import(`${apiFile}?t=${Date.now()}`);
+    req.query = Object.fromEntries(parsed.searchParams.entries());
+    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
+      req.body = await readBody(req);
+    }
+    await mod.default(req, res);
+  } catch (error) {
+    console.error('[dev-server] error en /api/%s:', name, error?.message || error);
+    if (!res.headersSent) res.status(500).json({ error: 'Error interno del servidor local.' });
+  }
+}
+
+const server = createServer(async (req, res) => {
+  decorate(res);
+  try {
+    const parsed = new URL(req.url || '/', `http://${req.headers.host || '127.0.0.1'}`);
+    const pathname = parsed.pathname.replace(/\/+$/, '') || '/';
+
+    if (pathname === '/' || pathname === '/index.html' || pathname === '/lectura' || pathname === '/efata') {
+      await sendSpa(res);
+      return;
+    }
+
+    if (pathname.startsWith('/api/')) {
+      await handleApi(req, res, pathname, parsed);
+      return;
+    }
+
+    if (await tryStatic(res, pathname)) return;
+
+    // SPA fallback (nunca listar directorios)
+    await sendSpa(res);
+  } catch (error) {
+    console.error('[dev-server]', error?.message || error);
+    if (!res.headersSent) {
+      res.statusCode = 500;
+      res.end('Error interno');
+    }
   }
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`[dev-server] RevelatiO by Efata escuchando en http://0.0.0.0:${PORT}`);
+server.on('error', (err) => {
+  if (err?.code === 'EADDRINUSE') {
+    console.error(`[dev-server] El puerto ${PORT} ya está en uso.`);
+    console.error(`[dev-server] Libéralo o arranca con: PORT=3001 npm start`);
+    process.exit(1);
+  }
+  console.error('[dev-server] no pudo iniciar:', err?.message || err);
+  process.exit(1);
+});
+
+server.listen(PORT, HOST, () => {
+  const local = `http://127.0.0.1:${PORT}/`;
+  console.log(`[dev-server] Éfata RevelatiO listo`);
+  console.log(`[dev-server] Abre: ${local}`);
+  console.log(`[dev-server] Raíz: ${ROOT}`);
 });

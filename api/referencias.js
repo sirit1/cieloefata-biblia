@@ -46,7 +46,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Consulta inválida.' });
   }
   if (!hayMotorIA()) {
-    return res.status(503).json({ error: 'El motor de IA todavía no está configurado.' });
+    return res.status(503).json({ error: 'RevelatiO IA todavía no está configurado.' });
   }
 
   // Contexto real: si la consulta es una referencia puntual, se le da a la IA

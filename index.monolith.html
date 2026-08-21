@@ -1,0 +1,4725 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>Éfata RevelatiO | Revelación y exégesis de las Escrituras</title>
+    <meta name="description"
+        content="Organización sin fines de lucro dedicada a la revelación y exégesis de las Escrituras. Estudio bíblico gratuito con comentaristas históricos y RevelatiO IA.">
+    <link rel="icon" type="image/png" href="brand/revelatio-mark.png">
+    <link rel="apple-touch-icon" href="brand/revelatio-mark.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/tailwind.css">
+    <style>
+        :root {
+            --obsidian: #000000;
+            --pearl: #0a0a0a;
+            --paper: #0a0a0a;
+            --graphite: #FFFFFF;
+            --graphite-soft: rgba(255, 255, 255, 0.92);
+            --chrome-ink: #FFFFFF;
+            --chrome-muted: rgba(255, 255, 255, 0.92);
+            --gold: #D4AF37;
+            --gold-soft: rgba(212, 175, 55, 0.22);
+            --panel: #0a0a0a;
+            --radius: 14px;
+            --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.28);
+            --shadow-deep: 0 10px 25px -5px rgba(0, 0, 0, 0.55), 0 8px 10px -6px rgba(0, 0, 0, 0.35);
+            --ink: #FFFFFF;
+            --ink-soft: rgba(255, 255, 255, 0.92);
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #000000;
+            color: #FFFFFF;
+            font-family: "Source Serif 4", "Palatino Linotype", Palatino, "Times New Roman", serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            min-height: 100dvh;
+        }
+
+        /* Fallbacks si falla Tailwind: layout del aposento */
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .flex-1 {
+            flex: 1 1 0%;
+        }
+
+        .min-h-0 {
+            min-height: 0;
+        }
+
+        .min-w-0 {
+            min-width: 0;
+        }
+
+        .shrink-0 {
+            flex-shrink: 0;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .gap-1 {
+            gap: 0.25rem;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .grid-cols-6 {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .overflow-y-auto {
+            overflow-y: auto;
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:flex-row {
+                flex-direction: row;
+            }
+
+            .lg\:w-\[17\.5rem\] {
+                width: 17.5rem;
+            }
+
+            .lg\:max-h-none {
+                max-height: none;
+            }
+
+            .lg\:border-b-0 {
+                border-bottom-width: 0;
+            }
+
+            .lg\:border-r {
+                border-right-width: 1px;
+                border-right-style: solid;
+                border-right-color: rgba(197, 160, 89, 0.2);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .font-display {
+            font-family: "Cormorant Garamond", Georgia, serif;
+        }
+
+        .font-brand {
+            font-family: Cinzel, serif;
+        }
+
+        .wordmark {
+            background: linear-gradient(180deg, #e8d5a3, #C5A059 55%, #8d7040);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .canon-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .canon-scroll::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 99px;
+        }
+
+        .rv-card {
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(26, 26, 26, 0.06);
+        }
+
+        .rv-card-deep {
+            background: var(--panel);
+            color: var(--chrome-ink);
+            border: 1px solid rgba(197, 160, 89, 0.16);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-deep);
+        }
+
+        .rv-stage {
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        .rv-chrome {
+            background: var(--obsidian);
+            color: var(--chrome-ink);
+        }
+
+        .rv-sidebar {
+            background: #0E1016;
+            color: var(--chrome-ink);
+        }
+
+        .rv-shell {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 0%;
+            min-height: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .rv-shell {
+                flex-direction: row;
+            }
+        }
+
+        .libro-btn {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            color: var(--chrome-ink);
+            border-radius: 10px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            font: inherit;
+            text-align: left;
+            padding: 0.5rem 0.5rem;
+        }
+
+        .libro-btn>.libro-caps,
+        .libro-btn>span:last-child {
+            flex-shrink: 0;
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            color: var(--gold);
+            opacity: 0.9;
+        }
+
+        .libro-btn>.libro-nombre {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        .cap-btn:hover {
+            background: rgba(197, 160, 89, 0.15);
+            border-color: rgba(197, 160, 89, 0.4);
+        }
+
+        .libro-btn.is-open,
+        .libro-btn:hover {
+            color: var(--gold);
+            background: var(--gold-soft);
+        }
+
+        .cap-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 2rem;
+            min-width: 0;
+            border-radius: 8px;
+            border: 1px solid rgba(197, 160, 89, 0.18);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--chrome-ink);
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .cap-btn.is-active {
+            background: var(--gold);
+            color: var(--obsidian);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-card);
+        }
+
+        .caps-grid {
+            display: none;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 0.25rem;
+            padding: 0 0.5rem 0.75rem;
+        }
+
+        .libro-item.is-open .caps-grid {
+            display: grid;
+        }
+
+        .rv-ia-isotipo {
+            width: 1.2rem;
+            height: 1.2rem;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 6px rgba(197, 160, 89, 0.42));
+        }
+
+        .rv-ia-name {
+            font-family: Cinzel, serif;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: .1em;
+            color: var(--gold);
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        .rv-ia-kicker {
+            margin: .28rem 0 0;
+            font-size: 9px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--chrome-muted);
+        }
+
+        .rv-ia-badge,
+        .rv-ia-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .42rem;
+        }
+
+        .rv-ia-badge-lg .rv-ia-isotipo {
+            width: 2.05rem;
+            height: 2.05rem;
+        }
+
+        .rv-ia-badge-lg .rv-ia-name {
+            font-size: 13px;
+            letter-spacing: .12em;
+        }
+
+        .rv-ia-welcome {
+            display: flex;
+            flex-direction: column;
+            gap: .85rem;
+            padding: .15rem .1rem 1rem;
+            color: #C9C6BE;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .rv-ia-welcome.is-hidden {
+            display: none;
+        }
+
+        .rv-fab {
+            position: fixed;
+            right: 1.15rem;
+            bottom: 1.15rem;
+            z-index: 9999;
+            width: auto;
+            height: 3.25rem;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0 .95rem 0 .42rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            background: rgba(9, 10, 15, 0.92);
+            box-shadow: 0 0 28px rgba(212, 175, 55, 0.22);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            cursor: pointer;
+            color: var(--gold);
+            pointer-events: auto;
+        }
+
+        .rv-fab .rv-ia-isotipo {
+            width: 1.85rem;
+            height: 1.85rem;
+            mix-blend-mode: screen;
+            background: transparent;
+        }
+
+        .rv-fab:hover {
+            background: rgba(9, 10, 15, 0.82);
+            border-color: var(--gold);
+        }
+
+        .rv-fab .rv-ia-name {
+            font-size: 10px;
+        }
+
+        .rv-canon-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0 .85rem;
+            margin-right: .15rem;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.35);
+            color: var(--gold);
+            font-size: 10px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .rv-canon-toggle.is-on {
+            background: rgba(197, 160, 89, 0.16);
+        }
+
+        @media (min-width: 1024px) {
+            .rv-canon-toggle {
+                display: none;
+            }
+        }
+
+        .rv-drawer {
+            position: fixed;
+            right: 1rem;
+            bottom: 5.1rem;
+            z-index: 10000;
+            width: min(24rem, calc(100vw - 1.5rem));
+            max-height: 62vh;
+            display: none;
+            background: var(--panel);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 16px;
+            box-shadow: var(--shadow-deep);
+        }
+
+        .rv-drawer.is-open {
+            display: flex;
+        }
+
+        .rv-sidebar input {
+            background: #0A0C11;
+            color: var(--chrome-ink);
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            border-radius: 12px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .25);
+        }
+
+        .rv-sidebar input::placeholder {
+            color: var(--chrome-muted);
+        }
+
+        select.rv-select {
+            min-width: 12.5rem;
+            padding: .5rem .75rem;
+            font-size: 12px;
+            background: #fff;
+            color: var(--graphite);
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+        }
+
+        select.rv-select:focus {
+            outline: 2px solid var(--gold);
+        }
+
+        .rv-card-deep input,
+        .rv-card-deep textarea,
+        .rv-drawer input,
+        .rv-drawer textarea {
+            background: #0A0C11;
+            color: var(--chrome-ink);
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            border-radius: 12px;
+        }
+
+        .rv-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .65rem 1.15rem;
+            align-items: end;
+        }
+
+        .rv-exp-btn {
+            width: 2.75rem;
+            height: 2.75rem;
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 12px;
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            background: #fff;
+            color: var(--gold);
+            box-shadow: var(--shadow-card);
+            display: grid;
+            place-items: center;
+        }
+
+        .rv-exp-btn:hover,
+        .rv-exp-btn.is-on {
+            background: rgba(197, 160, 89, 0.14);
+            border-color: var(--gold);
+        }
+
+        .rv-exp-wrap {
+            position: relative;
+            align-self: end;
+        }
+
+        .rv-exp-panel {
+            display: none;
+            position: absolute;
+            top: calc(100% + .55rem);
+            right: 0;
+            z-index: 60;
+            width: min(19.5rem, calc(100vw - 2.5rem));
+            padding: 1rem 1.05rem;
+            background: var(--paper);
+            color: var(--graphite);
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            border-radius: 16px;
+            box-shadow: var(--shadow-deep);
+        }
+
+        .rv-exp-panel.is-open {
+            display: block;
+        }
+
+        .rv-exp-panel label span {
+            color: var(--gold);
+        }
+
+        .rv-exp-panel input[type="range"] {
+            width: 100%;
+            accent-color: var(--gold);
+        }
+
+        body:not(.is-santuario):not(.is-acompanamiento) .rv-chrome,
+        body:not(.is-santuario):not(.is-acompanamiento) .rv-shell,
+        body:not(.is-santuario):not(.is-acompanamiento) #breadcrumbs,
+        body:not(.is-santuario):not(.is-acompanamiento) #rv-audio-dock,
+        body:not(.is-santuario):not(.is-acompanamiento) #rv-popover {
+            display: none !important;
+        }
+
+        body:not(.is-santuario) #rv-audio-dock {
+            display: none !important;
+        }
+
+        /* RevelatiO IA: siempre visible en Dashboard, Estudio y Acompañamiento */
+        #btn-asistente-ia.rv-fab {
+            display: inline-flex !important;
+            position: fixed !important;
+            right: 1.15rem !important;
+            bottom: 1.15rem !important;
+            z-index: 9999 !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+
+        body.rv-splash-blocking #btn-asistente-ia {
+            display: none !important;
+        }
+
+        #panel-asistente-ia,
+        #panel-asistente-ia.is-open {
+            z-index: 10000 !important;
+        }
+
+        body.is-santuario #panel-canon {
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .rv-door[data-ir] {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            position: relative;
+            z-index: 2;
+        }
+
+        .rv-audio-dock {
+            position: fixed;
+            z-index: 75;
+            left: 50%;
+            right: auto;
+            bottom: 0.85rem;
+            transform: translateX(-50%);
+            width: min(28rem, calc(100vw - 7.5rem));
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            min-height: 2.85rem;
+            padding: .4rem .65rem;
+            background: rgba(9, 10, 15, 0.96);
+            color: #FDFCFA;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            border-radius: 999px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            pointer-events: auto;
+        }
+
+        .rv-audio-dock button.rv-dock-play {
+            width: 2.45rem;
+            height: 2.45rem;
+            min-width: 40px;
+            min-height: 40px;
+            border-radius: 999px;
+            border: 1px solid #C5A059;
+            background: #C5A059 !important;
+            color: #090A0F !important;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .rv-audio-dock button.rv-dock-play.is-on {
+            background: #FDFCFA !important;
+            color: #090A0F !important;
+            border-color: #FDFCFA;
+        }
+
+        .rv-audio-dock input[type="range"] {
+            width: 5.2rem;
+            accent-color: var(--gold);
+            height: 6px;
+        }
+
+        .rv-audio-dock #dock-voz {
+            min-height: 36px;
+            padding: 0 .7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 160, 89, 0.55);
+            background: transparent !important;
+            color: #E8D5A3 !important;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .rv-audio-dock #dock-voz:hover {
+            background: rgba(197, 160, 89, 0.18) !important;
+            color: #FDFCFA !important;
+        }
+
+        .rv-audio-status {
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #C9C6BE;
+        }
+
+        @media (max-width: 767px) {
+            .rv-audio-dock {
+                width: calc(100vw - 1.5rem);
+                bottom: 4.85rem;
+                border-radius: 16px;
+            }
+
+            .rv-fab {
+                bottom: 1.05rem;
+            }
+
+            .rv-footer {
+                padding-bottom: 9.2rem;
+            }
+
+            #rv-popover {
+                flex-wrap: wrap;
+                max-width: min(96vw, 22rem);
+            }
+
+            #rv-popover .rv-pop-acts {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .rv-audio-dock {
+                width: min(26rem, calc(100vw - 8rem));
+            }
+
+            .rv-footer {
+                padding-bottom: 6.4rem;
+            }
+        }
+
+        .rv-toolbar label span {
+            color: var(--gold);
+        }
+
+        .rv-highlight-dev,
+        .rv-hl-oro,
+        mark.rv-hl-oro {
+            background: rgba(197, 160, 89, 0.42);
+            color: var(--graphite);
+            box-shadow: inset 0 -2px 0 var(--gold);
+            border-radius: 4px;
+            transition: background .25s ease, box-shadow .25s ease;
+        }
+
+        .rv-hl-azul,
+        mark.rv-hl-azul {
+            background: rgba(46, 92, 184, 0.28);
+            color: var(--graphite);
+            box-shadow: inset 0 -2px 0 #2E5CB8;
+            border-radius: 4px;
+            transition: background .25s ease, box-shadow .25s ease;
+        }
+
+        .rv-hl-verde,
+        mark.rv-hl-verde {
+            background: rgba(46, 125, 78, 0.30);
+            color: var(--graphite);
+            box-shadow: inset 0 -2px 0 #2E7D4E;
+            border-radius: 4px;
+            transition: background .25s ease, box-shadow .25s ease;
+        }
+
+        .rv-hl-purpura,
+        mark.rv-hl-purpura {
+            background: rgba(122, 62, 157, 0.28);
+            color: var(--graphite);
+            box-shadow: inset 0 -2px 0 #7A3E9D;
+            border-radius: 4px;
+            transition: background .25s ease, box-shadow .25s ease;
+        }
+
+        .rv-verse-surface {
+            display: block;
+            cursor: pointer;
+            border-radius: 8px;
+            padding: .18rem .4rem .22rem .2rem;
+            touch-action: manipulation;
+            margin: 0 0 .85em;
+            scroll-margin-top: 5.5rem;
+            transition: background .2s ease, box-shadow .2s ease, outline-color .2s ease;
+        }
+
+        .rv-verse-surface:hover {
+            background: rgba(197, 160, 89, 0.08);
+        }
+
+        .rv-verse-surface.is-verse-on {
+            background: linear-gradient(90deg, rgba(197, 160, 89, 0.16), rgba(197, 160, 89, 0.04));
+            box-shadow: inset 3px 0 0 var(--gold), 0 8px 18px -12px rgba(90, 70, 30, 0.28);
+            outline: 1px solid rgba(197, 160, 89, 0.4);
+            outline-offset: 2px;
+        }
+
+        .rv-verse-text {
+            display: inline;
+        }
+
+        .rv-verse-num,
+        sup.rv-verse-num {
+            display: inline;
+            position: static;
+            float: none;
+            font-family: Cinzel, serif;
+            font-size: .68em;
+            font-weight: 700;
+            line-height: 0;
+            vertical-align: super;
+            margin: 0 .32em 0 0;
+            padding: 0;
+            min-width: 0;
+            height: auto;
+            color: var(--gold);
+            background: none;
+            border: none;
+            border-radius: 0;
+            letter-spacing: .02em;
+            user-select: none;
+        }
+
+        .rv-verse-surface.is-verse-on .rv-verse-num {
+            color: #8D7040;
+            background: none;
+            border: none;
+        }
+
+        .rv-lectura-cuerpo {
+            display: grid;
+            grid-template-columns: 2.85rem minmax(0, 1fr);
+            gap: 0.85rem 1rem;
+            align-items: start;
+        }
+
+        .rv-verse-rail:empty {
+            display: none;
+        }
+
+        .rv-lectura-cuerpo:has(.rv-verse-rail:empty) {
+            grid-template-columns: 1fr;
+        }
+
+        .rv-verse-rail {
+            position: sticky;
+            top: .65rem;
+            max-height: min(68vh, 38rem);
+            overflow-y: auto;
+            padding: .1rem 0 .3rem;
+        }
+
+        .rv-verse-rail-label {
+            display: block;
+            margin-bottom: .35rem;
+            font-size: 8px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .rv-verse-rail-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2px;
+        }
+
+        .rv-verse-rail button {
+            width: 2.75rem;
+            height: 2.75rem;
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 8px;
+            font-size: 11px;
+            color: #6B6B6B;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .rv-verse-rail button:hover {
+            color: var(--graphite);
+            background: rgba(197, 160, 89, 0.12);
+            border-color: rgba(197, 160, 89, 0.28);
+        }
+
+        .rv-verse-rail button.is-on {
+            color: var(--graphite);
+            background: rgba(197, 160, 89, 0.22);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-card);
+        }
+
+        @media (max-width: 639px) {
+            .rv-lectura-cuerpo {
+                grid-template-columns: 1fr;
+            }
+
+            .rv-verse-rail {
+                position: static;
+                max-height: none;
+                margin-bottom: .4rem;
+                padding-bottom: .55rem;
+                border-bottom: 1px solid rgba(26, 26, 26, .06);
+            }
+
+            .rv-verse-rail-grid {
+                grid-template-columns: repeat(auto-fill, minmax(1.85rem, 1fr));
+            }
+        }
+
+        #rv-popover {
+            position: fixed;
+            z-index: 120;
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.45rem;
+            width: min(96vw, 28rem);
+            max-width: min(96vw, 28rem);
+            padding: 0.55rem 0.6rem 0.6rem;
+            background: #000000;
+            color: #FDFCFA;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            border-radius: 14px;
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.62);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            transform: translateY(4px) scale(.98);
+            opacity: 0;
+            transition: opacity .16s ease, transform .16s ease;
+            pointer-events: auto;
+        }
+
+        #rv-popover.is-on {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        #rv-popover .rv-pop-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        #rv-popover .rv-pop-acts {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.28rem;
+        }
+
+        #rv-popover .rv-pop-panel {
+            border-top: 1px solid rgba(212, 175, 55, 0.22);
+            padding-top: 0.45rem;
+        }
+
+        #rv-popover .rv-pop-label {
+            margin: 0 0 0.28rem;
+            font-family: Cinzel, serif;
+            font-size: 8px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.9);
+        }
+
+        #rv-popover .rv-pop-strongs,
+        #rv-popover .rv-pop-xrefs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            max-height: 4.6rem;
+            overflow: auto;
+        }
+
+        #rv-popover .rv-pop-strongs button,
+        #rv-popover .rv-pop-xrefs button {
+            min-height: 28px;
+            padding: 0.2rem 0.45rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: rgba(212, 175, 55, 0.08);
+            color: #E8D5A3;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        #rv-popover .rv-pop-empty {
+            margin: 0;
+            font-size: 11px;
+            color: #8f8c84;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-style: italic;
+        }
+
+        #rv-popover .rv-pop-selects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem;
+        }
+
+        #rv-popover .rv-pop-selects label {
+            display: block;
+            font-size: 8px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.85);
+            margin-bottom: 0.2rem;
+        }
+
+        #rv-popover .rv-pop-selects select {
+            width: 100%;
+            min-height: 34px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: #0a0a0c;
+            color: #FDFCFA;
+            font-size: 11px;
+            padding: 0.25rem 0.4rem;
+        }
+
+        .rv-ficha-academica {
+            margin: 0 0 1.25rem;
+            padding: 1rem 1.05rem 1.05rem;
+            border-radius: 14px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background:
+                linear-gradient(165deg, rgba(212, 175, 55, 0.08), transparent 48%),
+                #000000;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+        }
+
+        .rv-ficha-academica[hidden] {
+            display: none !important;
+        }
+
+        .rv-ficha-kicker {
+            margin: 0 0 0.35rem;
+            font-family: Cinzel, serif;
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.95);
+        }
+
+        .rv-ficha-title {
+            margin: 0 0 0.75rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.2rem;
+            color: #FDFCFA;
+            font-weight: 600;
+        }
+
+        .rv-ficha-grid {
+            display: grid;
+            gap: 0.55rem 1rem;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 640px) {
+            .rv-ficha-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .rv-ficha-grid dt {
+            margin: 0;
+            font-family: Cinzel, serif;
+            font-size: 8px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.85);
+        }
+
+        .rv-ficha-grid dd {
+            margin: 0.15rem 0 0;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 0.98rem;
+            line-height: 1.45;
+            color: #C9C6BE;
+        }
+
+        #rv-popover button[data-act] {
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 600;
+            color: #FDFCFA !important;
+            background: #1A1D26 !important;
+            border: 1px solid rgba(253, 252, 250, 0.22);
+            border-radius: 9px;
+            padding: 0.38rem 0.58rem;
+            min-height: 34px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        #rv-popover button[data-act]:hover {
+            color: #090A0F !important;
+            background: #C5A059 !important;
+            border-color: #C5A059;
+        }
+
+        #rv-popover button[data-act="ai"] {
+            text-transform: none;
+            letter-spacing: 0;
+            color: #090A0F !important;
+            background: #C5A059 !important;
+            border: 1px solid #C5A059;
+            padding: 0.28rem 0.5rem 0.28rem 0.35rem;
+            gap: 0.28rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        #rv-popover button[data-act="ai"]:hover {
+            color: #090A0F !important;
+            background: #E8D5A3 !important;
+            border-color: #E8D5A3;
+        }
+
+        #rv-popover button[data-act="ai"] .rv-ia-isotipo {
+            width: 0.92rem;
+            height: 0.92rem;
+        }
+
+        #rv-popover button[data-act="ai"] .rv-ia-name {
+            font-size: 9px;
+            letter-spacing: .08em;
+            color: inherit;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .rv-ipad-swatches {
+            display: flex;
+            align-items: center;
+            gap: .2rem;
+            padding: 0 .08rem;
+        }
+
+        .rv-swatch {
+            width: 1.2rem;
+            height: 1.2rem;
+            min-width: 22px;
+            min-height: 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, .35);
+            box-shadow: 0 0 0 1px rgba(197, 160, 89, 0.18);
+            transition: transform .16s ease, box-shadow .16s ease;
+        }
+
+        .rv-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .rv-swatch.is-on {
+            box-shadow: 0 0 0 2px var(--gold);
+            transform: scale(1.08);
+        }
+
+        .sw-oro {
+            background: radial-gradient(circle at 35% 30%, #E8D5A3, #C5A059 55%, #8D7040);
+        }
+
+        .sw-azul {
+            background: radial-gradient(circle at 35% 30%, #7BA3E8, #2E5CB8 58%, #1B3A7A);
+        }
+
+        .sw-verde {
+            background: radial-gradient(circle at 35% 30%, #8FCB9B, #2E7D4E 58%, #1B4D32);
+        }
+
+        .sw-purpura {
+            background: radial-gradient(circle at 35% 30%, #C49BDE, #7A3E9D 58%, #4A2266);
+        }
+
+        .rv-ipad-sep {
+            width: 1px;
+            height: 0.9rem;
+            background: rgba(197, 160, 89, 0.28);
+            margin: 0 .08rem;
+        }
+
+        .rv-nav-cuaderno {
+            width: 100%;
+            text-align: left;
+            padding: .7rem .85rem;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #D4AF37;
+            background: #0a0a0a;
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        .rv-nav-cuaderno:hover {
+            background: rgba(212, 175, 55, 0.14);
+            color: #FFFFFF;
+            border-color: #D4AF37;
+        }
+
+        .rv-nav-cuaderno.is-on {
+            background: #D4AF37;
+            color: #000000;
+            border-color: #D4AF37;
+        }
+
+        .rv-sidebar-home {
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            min-height: 36px;
+            padding: 0.4rem 0.55rem;
+            border: 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+            border-radius: 0;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.92);
+            font-family: Cinzel, serif;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .rv-sidebar-home:hover {
+            color: #D4AF37;
+        }
+
+        /* Contraste absoluto del menú lateral de estudio */
+        body.is-santuario .rv-sidebar,
+        #panel-canon.rv-sidebar {
+            background: #000000 !important;
+            color: #FFFFFF !important;
+            border-color: rgba(212, 175, 55, 0.35) !important;
+        }
+
+        body.is-santuario .rv-sidebar input,
+        #panel-canon #buscador-canon {
+            background: #0a0a0a !important;
+            color: #FFFFFF !important;
+            border: 1px solid rgba(212, 175, 55, 0.45) !important;
+        }
+
+        body.is-santuario .rv-sidebar input::placeholder {
+            color: rgba(255, 255, 255, 0.55) !important;
+        }
+
+        body.is-santuario .rv-sidebar .libro-btn,
+        body.is-santuario .rv-sidebar .libro-nombre {
+            color: #FFFFFF !important;
+        }
+
+        body.is-santuario .rv-sidebar .libro-caps,
+        body.is-santuario .rv-sidebar h3 {
+            color: #D4AF37 !important;
+        }
+
+        body.is-santuario .rv-sidebar .cap-btn {
+            color: #FFFFFF !important;
+            border-color: rgba(212, 175, 55, 0.35) !important;
+            background: #0a0a0a !important;
+        }
+
+        body.is-santuario .rv-sidebar .cap-btn.is-active,
+        body.is-santuario .rv-sidebar .cap-btn:hover {
+            background: #D4AF37 !important;
+            color: #000000 !important;
+            border-color: #D4AF37 !important;
+        }
+
+        #modulo-cuaderno {
+            position: fixed;
+            inset: 0;
+            z-index: 88;
+            display: none;
+            background: rgba(9, 10, 15, 0.72);
+            padding: .85rem;
+        }
+
+        #modulo-cuaderno.is-open {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .rv-cuaderno-panel {
+            width: min(52rem, 100%);
+            max-height: calc(100vh - 1.7rem);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--paper);
+            color: var(--graphite);
+            border-radius: 16px;
+            box-shadow: var(--shadow-deep);
+            border: 1px solid rgba(26, 26, 26, 0.06);
+        }
+
+        .rv-cuaderno-head {
+            background: var(--obsidian);
+            color: var(--chrome-ink);
+        }
+
+        .rv-cuota-track {
+            height: 6px;
+            border-radius: 99px;
+            background: rgba(26, 26, 26, .08);
+            overflow: hidden;
+        }
+
+        .rv-cuota-fill {
+            height: 100%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, #C5A059, #8D7040);
+            transition: width .35s ease;
+        }
+
+        .rv-cuota-fill.is-warn {
+            background: linear-gradient(90deg, #C5A059, #B45309);
+        }
+
+        .rv-cuota-fill.is-full {
+            background: linear-gradient(90deg, #B45309, #7F1D1D);
+        }
+
+        .rv-note-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 1rem 1.05rem;
+            border: 1px solid rgba(26, 26, 26, 0.06);
+            box-shadow: var(--shadow-card);
+        }
+
+        .rv-note-card.is-expire {
+            border-color: rgba(180, 83, 9, 0.35);
+        }
+
+        .rv-chip {
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            padding: .22rem .5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(26, 26, 26, .08);
+            color: #6B6B6B;
+        }
+
+        .rv-chip-gold {
+            color: #8D7040;
+            border-color: rgba(197, 160, 89, .45);
+            background: rgba(197, 160, 89, .12);
+        }
+
+        .rv-sync {
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #8D7040;
+        }
+
+        .rv-sync.is-busy {
+            color: #2E5CB8;
+        }
+
+        .rv-tab {
+            font-size: 10px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            padding: .45rem .75rem;
+            border-radius: 999px;
+            color: #6B6B6B;
+        }
+
+        .rv-tab.is-on {
+            background: rgba(197, 160, 89, .18);
+            color: var(--graphite);
+            box-shadow: var(--shadow-card);
+        }
+
+        #modulo-marginnote {
+            background: var(--paper);
+            color: var(--graphite);
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            box-shadow: var(--shadow-deep);
+            z-index: 92;
+        }
+
+        #modulo-marginnote input,
+        #modulo-marginnote textarea {
+            background: #fff;
+            color: var(--graphite);
+            border: 1px solid rgba(26, 26, 26, 0.08);
+        }
+
+        .rv-token {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 .4rem .7rem 0;
+            vertical-align: top;
+            cursor: pointer;
+        }
+
+        .rv-token-orig {
+            color: var(--gold);
+            font-size: 1.05rem;
+            line-height: 1.2;
+        }
+
+        .rv-token-meta {
+            color: var(--graphite-soft);
+            font-size: 9px;
+            letter-spacing: .04em;
+            text-align: center;
+            max-width: 7.5rem;
+        }
+
+        .rv-lectura-title {
+            color: #D4AF37 !important;
+        }
+
+        .rv-lectura-meta {
+            color: #D4AF37 !important;
+        }
+
+        .rv-lectura-muted {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        .rv-lectura-note {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        #rv-music,
+        #rv-voice,
+        #rv-welcome-voice {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            pointer-events: none;
+        }
+
+        #form-sermon,
+        #visor-paralelo {
+            display: none !important;
+        }
+
+        body.rv-estudio #revelatio-universal-action-bar,
+        body.rv-estudio .rv-action-sheet,
+        body.rv-estudio .rv-selection-toolbar,
+        body.rv-estudio .rv-selection-handle {
+            display: none !important;
+        }
+
+        .sheet-hidden {
+            display: none;
+        }
+
+        .sheet-hidden.is-open {
+            display: block;
+        }
+
+        .efata-modal.sheet-hidden.is-open {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .rv-header-copy {
+            min-width: 0;
+        }
+
+        .rv-sub {
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            color: var(--chrome-muted);
+            line-height: 1.45;
+        }
+
+        .rv-lockup-btn {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .rv-lockup-btn:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        .rv-home {
+            position: fixed;
+            inset: 0;
+            z-index: 82;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background:
+                radial-gradient(1200px 640px at 12% -10%, rgba(197, 160, 89, 0.14), transparent 58%),
+                radial-gradient(900px 520px at 92% 8%, rgba(197, 160, 89, 0.07), transparent 50%),
+                #0a0a0c;
+            color: #F4F5F7;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .rv-home.is-hidden {
+            display: none;
+        }
+
+        body:not(.is-santuario) {
+            overflow: hidden;
+        }
+
+        .rv-home-bg {
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            background-image: url("brand/textures/marmol.png");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.09;
+        }
+
+        .rv-home-inner {
+            position: relative;
+            width: min(72rem, calc(100% - 2rem));
+            margin: 0 auto;
+            padding: 1.6rem 0 3.5rem;
+        }
+
+        .rv-glass {
+            background: rgba(14, 16, 22, 0.62);
+            border: 1px solid rgba(197, 160, 89, 0.18);
+            border-radius: 18px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .rv-home-kicker {
+            font-size: 10px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .rv-home-hero {
+            display: grid;
+            gap: 1.15rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .rv-home-brand {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: min(100%, 36rem);
+            margin: 0.35rem auto 0.85rem;
+            isolation: isolate;
+        }
+
+        /* Halo premium detrás del emblema (sin caja). */
+        .rv-home-brand::before {
+            content: "";
+            position: absolute;
+            inset: 4% 10% 12%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 48% 42% at 50% 36%, rgba(232, 205, 140, 0.42), rgba(197, 160, 89, 0.16) 42%, transparent 72%),
+                radial-gradient(ellipse 28% 22% at 68% 22%, rgba(255, 220, 150, 0.28), transparent 70%);
+            filter: blur(34px);
+            opacity: 0.95;
+            animation: rv-brand-glow 7.5s ease-in-out infinite;
+        }
+
+        .rv-home-brand::after {
+            content: "";
+            position: absolute;
+            inset: 18% 22% 28%;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 45%, rgba(255, 236, 190, 0.22), transparent 68%);
+            filter: blur(18px);
+            mix-blend-mode: screen;
+        }
+
+        .rv-home-lockup {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: min(100%, 32rem);
+            height: auto;
+            max-height: min(42vh, 22rem);
+            object-fit: contain;
+            mix-blend-mode: normal;
+            filter:
+                drop-shadow(0 0 18px rgba(197, 160, 89, 0.38)) drop-shadow(0 0 48px rgba(197, 160, 89, 0.22)) drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55)) brightness(1.06) contrast(1.04) saturate(1.08);
+            -webkit-mask-image: none;
+            mask-image: none;
+            transform: translateZ(0) scale(1.04);
+        }
+
+        @keyframes rv-brand-glow {
+
+            0%,
+            100% {
+                opacity: 0.82;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.04);
+            }
+        }
+
+        .rv-home-hero-panel {
+            display: grid;
+            gap: 1.25rem;
+            padding: 1.55rem 1.45rem 1.45rem;
+        }
+
+        .rv-home-hero h2 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(2.15rem, 5vw, 3.55rem);
+            font-weight: 600;
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            color: #FDFCFA;
+        }
+
+        .rv-home-hero h2 em {
+            font-style: italic;
+            color: #E8D5A3;
+        }
+
+        .rv-home-lead {
+            max-width: 38rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #C9C6BE;
+        }
+
+        .rv-home-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .rv-home-actions .rv-btn-fill,
+        .rv-home-actions .rv-btn-gold {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            min-height: 2.75rem;
+            height: 2.75rem;
+            padding: 0 1.2rem;
+            border-radius: 10px;
+            font-family: Cinzel, Georgia, serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .rv-home-actions .rv-btn-fill {
+            border: 1px solid var(--gold);
+            background: linear-gradient(180deg, #E8D5A3 0%, var(--gold) 48%, #9a7a3d 100%);
+            color: #0a0a0c;
+            box-shadow:
+                0 10px 28px rgba(197, 160, 89, 0.32),
+                0 0 0 1px rgba(232, 213, 163, 0.25) inset;
+            min-height: 3.05rem;
+            height: 3.05rem;
+            padding: 0 1.55rem;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+        }
+
+        .rv-home-actions .rv-btn-fill:hover {
+            filter: brightness(1.06);
+            box-shadow:
+                0 14px 34px rgba(197, 160, 89, 0.42),
+                0 0 0 1px rgba(255, 240, 200, 0.35) inset;
+        }
+
+        .rv-home-actions .rv-btn-fill:active {
+            transform: translateY(1px);
+            filter: brightness(0.98);
+        }
+
+        #entrar-texto {
+            position: relative;
+            z-index: 1;
+        }
+
+        .rv-home-actions .rv-btn-gold {
+            border: 1px solid rgba(197, 160, 89, 0.55);
+            background: transparent;
+            color: #E8D5A3;
+            box-shadow: none;
+        }
+
+        .rv-home-actions .rv-btn-gold:hover {
+            background: rgba(197, 160, 89, 0.1);
+            border-color: var(--gold);
+        }
+
+        .rv-home-music {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin: 0;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 0.95rem;
+            color: #C9C6BE;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .rv-home-music input {
+            width: 0.95rem;
+            height: 0.95rem;
+            accent-color: var(--gold);
+        }
+
+        .rv-btn-fill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gold);
+            background: var(--gold);
+            color: #0a0a0c;
+            border-radius: 12px;
+            padding: 0.78rem 1.15rem;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            min-height: 44px;
+            text-decoration: none;
+            box-shadow: 0 10px 28px rgba(197, 160, 89, 0.22);
+        }
+
+        .rv-btn-fill:hover {
+            filter: brightness(1.06);
+        }
+
+        .rv-home-grid {
+            display: grid;
+            gap: 1.1rem;
+        }
+
+        @media (min-width: 900px) {
+            .rv-home-hero-panel {
+                padding: 2rem 2.1rem 1.85rem;
+            }
+
+            .rv-home-brand {
+                width: min(100%, 42rem);
+                margin-bottom: 1.1rem;
+            }
+
+            .rv-home-lockup {
+                max-height: min(48vh, 26rem);
+                width: min(100%, 38rem);
+                transform: translateZ(0) scale(1.06);
+            }
+
+            .rv-home-grid {
+                grid-template-columns: 1.15fr 0.85fr;
+            }
+
+            .rv-home-span {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .rv-home-card {
+            padding: 1.25rem 1.3rem 1.3rem;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .rv-home-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(197, 160, 89, 0.38);
+            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .rv-home-card h3 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.65rem;
+            line-height: 1.2;
+            color: #FDFCFA;
+            margin: 0.35rem 0 0.55rem;
+        }
+
+        .rv-home-card p {
+            color: #C9C6BE;
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        .rv-home-quote {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.45;
+            color: #E8D5A3;
+            margin: 0.7rem 0 1rem;
+        }
+
+        .rv-home-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 0.85rem;
+        }
+
+        .rv-home-form input,
+        .rv-home-form textarea {
+            flex: 1 1 14rem;
+            min-height: 44px;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            background: rgba(9, 10, 15, 0.55);
+            color: #F4F5F7;
+            padding: 0.7rem 0.9rem;
+            font-size: 0.95rem;
+        }
+
+        .rv-home-form textarea {
+            min-height: 5.2rem;
+            resize: vertical;
+            flex-basis: 100%;
+        }
+
+        .rv-home-form input:focus,
+        .rv-home-form textarea:focus {
+            outline: 1px solid var(--gold);
+        }
+
+        .rv-home-status {
+            margin-top: 0.65rem;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            color: var(--gold);
+            min-height: 1.1em;
+        }
+
+        .rv-auth {
+            margin-top: 0.15rem;
+        }
+
+        .rv-auth-lead {
+            max-width: 42rem;
+        }
+
+        .rv-auth-grid {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 700px) {
+            .rv-auth-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .rv-auth-grid .rv-auth-full {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .rv-auth-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            min-width: 0;
+        }
+
+        .rv-auth-field label {
+            font-family: Cinzel, Georgia, serif;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #E8D5A3;
+        }
+
+        .rv-auth-field input,
+        .rv-auth-field select {
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 48px;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.32);
+            background: rgba(9, 10, 15, 0.72);
+            color: #FDFCFA;
+            padding: 0.75rem 0.95rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.05rem;
+        }
+
+        .rv-auth-field input:focus,
+        .rv-auth-field select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 1px rgba(197, 160, 89, 0.35);
+        }
+
+        .rv-wa-row {
+            display: grid;
+            grid-template-columns: 7.2rem 1fr;
+            gap: 0.5rem;
+        }
+
+        .rv-auth-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem 1.1rem;
+            margin-top: 0.2rem;
+        }
+
+        .rv-auth-actions .rv-btn-fill {
+            min-width: 12rem;
+        }
+
+        .rv-auth-switch {
+            background: none;
+            border: 0;
+            padding: 0;
+            color: #C9C6BE;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 0.98rem;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+            text-decoration-color: rgba(197, 160, 89, 0.45);
+        }
+
+        .rv-auth-switch:hover {
+            color: #E8D5A3;
+            text-decoration-color: var(--gold);
+        }
+
+        .rv-auth-session {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-top: 0.85rem;
+            padding: 0.85rem 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            background: rgba(197, 160, 89, 0.08);
+        }
+
+        .rv-auth-session[hidden],
+        #form-login[hidden],
+        #form-registro[hidden],
+        #rv-auth-forms[hidden] {
+            display: none !important;
+        }
+
+        .rv-auth-session strong {
+            color: #E8D5A3;
+            font-family: Cinzel, Georgia, serif;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .rv-auth-session.is-admin {
+            border-color: rgba(197, 160, 89, 0.55);
+            background: linear-gradient(135deg, rgba(197, 160, 89, 0.16), rgba(197, 160, 89, 0.05));
+        }
+
+        .rv-auth-admin-badge {
+            display: inline-block;
+            margin-top: 0.35rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 160, 89, 0.45);
+            color: #E8D5A3;
+            font-family: Cinzel, Georgia, serif;
+            font-size: 9px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .rv-auth-session p {
+            margin: 0.25rem 0 0;
+            color: #C9C6BE;
+            font-size: 0.92rem;
+        }
+
+        .rv-auth-hint {
+            margin: 0.35rem 0 0;
+            font-size: 0.82rem;
+            color: #8f8c84;
+            line-height: 1.45;
+        }
+
+        .rv-auth-gate {
+            margin: 0 0 0.85rem;
+            padding: 0.7rem 0.9rem;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.35);
+            background: rgba(197, 160, 89, 0.1);
+            color: #E8D5A3;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            font-family: "Cormorant Garamond", Georgia, serif;
+        }
+
+        .rv-auth.is-gate-focus {
+            outline: 1px solid rgba(197, 160, 89, 0.55);
+            box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.12), 0 18px 40px rgba(0, 0, 0, 0.35);
+            animation: rv-gate-pulse 1.1s ease-out 1;
+        }
+
+        @keyframes rv-gate-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.35), 0 18px 40px rgba(0, 0, 0, 0.35);
+            }
+
+            100% {
+                box-shadow: 0 0 0 12px rgba(197, 160, 89, 0), 0 18px 40px rgba(0, 0, 0, 0.35);
+            }
+        }
+
+        body:not(.is-registrado) #rv-home [data-ir],
+        body:not(.is-registrado) #form-home-ia button[type="submit"] {
+            position: relative;
+        }
+
+        body:not(.is-registrado) #rv-home .rv-home-actions .rv-btn-fill::after,
+        body:not(.is-registrado) #rv-home .rv-home-actions .rv-btn-gold::after {
+            content: "Registro";
+            margin-left: 0.45rem;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            opacity: 0.75;
+        }
+
+        .rv-streak {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .rv-streak-mark {
+            width: 3.4rem;
+            height: 3.4rem;
+            border-radius: 50%;
+            border: 1px solid rgba(197, 160, 89, 0.45);
+            display: grid;
+            place-items: center;
+            font-family: Cinzel, serif;
+            font-size: 1.15rem;
+            color: var(--gold);
+            background: radial-gradient(circle at 40% 30%, rgba(197, 160, 89, 0.22), transparent 65%);
+            box-shadow: 0 0 18px rgba(197, 160, 89, 0.18);
+        }
+
+        .rv-note-mini {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: rgba(9, 10, 15, 0.4);
+            border: 1px solid rgba(197, 160, 89, 0.14);
+            border-radius: 12px;
+            padding: 0.7rem 0.85rem;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .rv-note-mini+.rv-note-mini {
+            margin-top: 0.45rem;
+        }
+
+        .rv-note-mini:hover {
+            border-color: rgba(197, 160, 89, 0.4);
+        }
+
+        .rv-note-mini b {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .rv-note-mini span {
+            display: block;
+            margin-top: 0.25rem;
+            color: #C9C6BE;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .rv-home-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 0.35rem;
+        }
+
+        .rv-home-pills button,
+        .rv-home-pills a {
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            color: #E8D5A3;
+            background: rgba(9, 10, 15, 0.35);
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .rv-home-pills button:hover,
+        .rv-home-pills a:hover {
+            background: rgba(197, 160, 89, 0.12);
+        }
+
+
+        /* —— Umbral doble vía · dark luxury absoluto —— */
+        #rv-home.rv-home {
+            background: #000000;
+            background-image: none;
+        }
+
+        body:not(.is-santuario):not(.is-acompanamiento) {
+            background: #000000;
+        }
+
+        #rv-home .rv-home-bg {
+            opacity: 0.04;
+        }
+
+        .rv-dual-hero {
+            display: grid;
+            gap: 1.35rem;
+            width: min(56rem, 100%);
+            margin: 0 auto;
+            padding: 1.25rem 0 1.75rem;
+            min-height: min(72vh, 40rem);
+            align-content: center;
+        }
+
+        .rv-dual-brand {
+            text-align: center;
+            margin: 0 0 0.35rem;
+        }
+
+        .rv-dual-brand img {
+            width: min(13rem, 48vw);
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            filter: drop-shadow(0 20px 44px rgba(0, 0, 0, 0.75));
+        }
+
+        .rv-dual-kicker {
+            margin: 0.85rem 0 0.35rem;
+            font-family: Cinzel, serif;
+            font-size: 10px;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: #C5A059;
+            text-align: center;
+        }
+
+        .rv-dual-title {
+            margin: 0 0 1.35rem;
+            text-align: center;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(1.85rem, 4.2vw, 2.65rem);
+            font-weight: 600;
+            line-height: 1.12;
+            color: #FDFCFA;
+        }
+
+        .rv-dual-title em {
+            font-style: italic;
+            color: #E8D5A3;
+        }
+
+        .rv-dual-doors {
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (min-width: 820px) {
+            .rv-dual-doors {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.15rem;
+            }
+        }
+
+        .rv-door {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 14.5rem;
+            padding: 1.7rem 1.55rem 1.5rem;
+            border-radius: 18px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: #000000;
+            box-shadow:
+                0 22px 48px rgba(0, 0, 0, 0.65),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transition: border-color .28s ease, transform .28s ease, box-shadow .28s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .rv-door::before {
+            content: "";
+            position: absolute;
+            inset: -40% auto auto -20%;
+            width: 70%;
+            height: 70%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.16), transparent 68%);
+            opacity: 0.85;
+            transition: opacity .28s ease;
+        }
+
+        .rv-door:hover {
+            border-color: rgba(212, 175, 55, 0.75);
+            transform: translateY(-4px);
+            box-shadow:
+                0 30px 64px rgba(0, 0, 0, 0.72),
+                0 0 0 1px rgba(212, 175, 55, 0.22),
+                0 0 36px rgba(212, 175, 55, 0.12);
+        }
+
+        .rv-door:hover::before {
+            opacity: 1;
+        }
+
+        .rv-door:focus-visible {
+            outline: 2px solid rgba(212, 175, 55, 0.7);
+            outline-offset: 3px;
+        }
+
+        .rv-door>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .rv-door-kicker {
+            margin: 0 0 0.55rem;
+            font-family: Cinzel, serif;
+            font-size: 9px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.95);
+        }
+
+        .rv-door-title {
+            margin: 0 0 0.7rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+            font-weight: 600;
+            line-height: 1.15;
+            color: #FDFCFA;
+        }
+
+        .rv-door-copy {
+            margin: 0;
+            flex: 1;
+            font-family: "Source Serif 4", Georgia, serif;
+            font-size: 0.98rem;
+            line-height: 1.55;
+            color: #C9C6BE;
+        }
+
+        .rv-door-cta {
+            margin-top: 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: Cinzel, serif;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.95);
+        }
+
+        body:not(.is-registrado) .rv-door[data-ir]::after {
+            content: " · Registro";
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            opacity: 0.7;
+        }
+
+        /* Acompañamiento ministerial */
+        #rv-acompanamiento {
+            display: none;
+            position: relative;
+            z-index: 40;
+            min-height: 100dvh;
+            background: #000000;
+            color: #FDFCFA;
+            padding: 1.25rem 1rem 3rem;
+        }
+
+        body.is-acompanamiento #rv-acompanamiento {
+            display: block;
+        }
+
+        body.is-acompanamiento #rv-home,
+        body.is-acompanamiento .rv-chrome,
+        body.is-acompanamiento .rv-shell,
+        body.is-acompanamiento #breadcrumbs,
+        body.is-acompanamiento #rv-audio-dock {
+            display: none !important;
+        }
+
+        .rv-acomp-inner {
+            width: min(42rem, 100%);
+            margin: 0 auto;
+        }
+
+        .rv-acomp-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .rv-acomp-card {
+            padding: 1.6rem 1.45rem 1.7rem;
+            border-radius: 18px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background:
+                radial-gradient(ellipse at top, rgba(212, 175, 55, 0.1), transparent 55%),
+                #000000;
+            box-shadow: 0 22px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        .rv-acomp-card h2 {
+            margin: 0 0 0.65rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(1.7rem, 3vw, 2.2rem);
+            color: #FDFCFA;
+        }
+
+        .rv-acomp-card p {
+            margin: 0 0 0.9rem;
+            color: #C9C6BE;
+            line-height: 1.55;
+        }
+
+        .rv-acomp-form textarea {
+            width: 100%;
+            min-height: 7.5rem;
+            margin: 0.75rem 0 1rem;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            background: #000000;
+            color: #FDFCFA;
+            font-family: "Source Serif 4", Georgia, serif;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .rv-acomp-form textarea:focus {
+            outline: none;
+            border-color: #C5A059;
+        }
+
+        #rv-acomp-respuesta {
+            margin-top: 1.25rem;
+            padding-top: 1.15rem;
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.15rem;
+            line-height: 1.55;
+            color: #E8DCC0;
+            white-space: pre-wrap;
+        }
+
+        #rv-acomp-respuesta:empty {
+            display: none;
+        }
+
+        .rv-home-foot {
+            margin-top: 1.4rem;
+            text-align: center;
+            color: #9A9790;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .rv-aporte {
+            margin-top: 1.15rem;
+            text-align: center;
+            padding: 1.65rem 1.45rem 1.7rem;
+            background: #000000;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .rv-aporte .rv-home-kicker {
+            margin-bottom: 0.35rem;
+            color: rgba(212, 175, 55, 0.95);
+        }
+
+        .rv-aporte h3 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(1.45rem, 3vw, 1.9rem);
+            color: #FDFCFA;
+            margin: 0.2rem 0 0.75rem;
+            font-weight: 600;
+        }
+
+        .rv-aporte-leyenda {
+            max-width: 40rem;
+            margin: 0 auto 1.35rem;
+            color: #C9C6BE;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-style: italic;
+        }
+
+        .rv-aporte-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            width: min(100%, 28rem);
+            min-height: 3.35rem;
+            padding: 1rem 1.55rem;
+            border-radius: 14px;
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            background:
+                linear-gradient(180deg, rgba(212, 175, 55, 0.18) 0%, rgba(212, 175, 55, 0.06) 100%),
+                #050505;
+            color: #F0E6C8;
+            font-family: Cinzel, Georgia, serif;
+            font-size: clamp(10px, 2.4vw, 12px);
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow:
+                0 16px 40px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 240, 200, 0.14);
+            transition: border-color 0.28s ease, background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
+        }
+
+        .rv-aporte-btn:hover {
+            border-color: rgba(212, 175, 55, 0.85);
+            color: #FDFCFA;
+            transform: translateY(-2px);
+            background:
+                linear-gradient(180deg, rgba(212, 175, 55, 0.26) 0%, rgba(212, 175, 55, 0.1) 100%),
+                #000000;
+            box-shadow:
+                0 20px 48px rgba(0, 0, 0, 0.55),
+                0 0 28px rgba(212, 175, 55, 0.14),
+                inset 0 1px 0 rgba(255, 240, 200, 0.2);
+        }
+
+        .rv-aporte-btn:focus-visible {
+            outline: 2px solid rgba(212, 175, 55, 0.7);
+            outline-offset: 3px;
+        }
+
+        .rv-aporte-btn svg {
+            flex-shrink: 0;
+            opacity: 0.95;
+        }
+
+        .rv-aporte-wa {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            color: #8f8c84;
+        }
+
+        .rv-aporte-wa a {
+            color: rgba(212, 175, 55, 0.95);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+        }
+
+        .rv-aporte-wa a:hover {
+            color: #E8D5A3;
+            border-bottom-color: rgba(212, 175, 55, 0.75);
+        }
+
+        .rv-auth-field-hint {
+            margin: 0.35rem 0 0;
+            font-size: 11px;
+            line-height: 1.45;
+            color: #8f8c84;
+        }
+
+        .rv-auth-lead strong {
+            color: #E8D5A3;
+            font-weight: 600;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rv-home-card {
+                transition: none;
+            }
+
+            .rv-home-brand::before {
+                animation: none;
+            }
+        }
+
+        .rv-btn-gold {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            background: transparent;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: var(--shadow-card);
+        }
+
+        .rv-btn-gold:hover {
+            background: var(--gold-soft);
+        }
+
+        .rv-btn-gold.rv-ia-btn {
+            text-transform: none;
+            letter-spacing: 0;
+            min-height: 44px;
+        }
+
+        .rv-btn-gold .rv-ia-name {
+            color: var(--gold);
+        }
+
+        .rv-footer {
+            flex-shrink: 0;
+            border-top: 1px solid rgba(154, 151, 144, 0.18);
+            background: #0B0C10;
+            padding: 1.35rem 4.75rem 1.45rem 1.5rem;
+            z-index: 40;
+        }
+
+        .rv-footer p {
+            margin: 0 auto 0.85rem;
+            max-width: 44rem;
+            text-align: center;
+            color: #9A9790;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .rv-footer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .rv-legal-sbu {
+            color: #C9C6BE;
+        }
+
+        .rv-strong-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .28rem .4rem;
+            margin-top: .4rem;
+        }
+
+        .rv-strong,
+        .rv-token.is-strong {
+            cursor: pointer;
+        }
+
+        .rv-strong {
+            font-family: Cinzel, serif;
+            font-size: 9px;
+            letter-spacing: .08em;
+            color: var(--gold);
+            background: rgba(197, 160, 89, 0.08);
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            border-radius: 999px;
+            padding: .14rem .48rem .12rem;
+        }
+
+        .rv-strong:hover,
+        .rv-token.is-strong:hover {
+            background: rgba(197, 160, 89, 0.16);
+        }
+
+        .rv-strong sup,
+        .rv-strong-num {
+            font-size: 8px;
+            margin-left: .18rem;
+            color: #E4D2A8;
+            letter-spacing: .04em;
+        }
+
+        .rv-strong-panel {
+            display: none;
+            position: fixed;
+            z-index: 95;
+            right: 1.25rem;
+            bottom: 7.4rem;
+            width: min(22rem, calc(100vw - 2rem));
+            padding: 1.1rem 1.15rem 1.2rem;
+            background: var(--panel);
+            color: #E4D2A8;
+            border: 1px solid rgba(197, 160, 89, 0.22);
+            border-radius: 16px;
+            box-shadow: var(--shadow-deep);
+        }
+
+        .rv-strong-panel.is-open {
+            display: block;
+        }
+
+        .rv-strong-lemma {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.45rem;
+            color: var(--gold);
+            margin: 0 0 .35rem;
+        }
+
+        .rv-strong-meta {
+            font-size: 11px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: rgba(197, 160, 89, 0.7);
+            margin: 0 0 .85rem;
+        }
+
+        .rv-strong-def {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: #E4D2A8;
+            margin: 0;
+        }
+
+        .rv-stage-grid {
+            display: block;
+            padding: 1.15rem 1.15rem 5.2rem;
+            max-width: 46rem;
+            margin: 0 auto;
+        }
+
+        .rv-shell {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 0%;
+            min-height: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .rv-shell {
+                flex-direction: row;
+            }
+
+            .rv-sidebar {
+                width: 17.5rem;
+                flex-shrink: 0;
+                max-height: none !important;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .rv-sidebar>* {
+                display: revert;
+            }
+        }
+
+        .rv-stage {
+            flex: 1 1 0%;
+            min-width: 0;
+            min-height: 0;
+            background: #000000 !important;
+            color: #FFFFFF !important;
+        }
+
+        @media (max-width: 1023px) {
+            .rv-stage-grid {
+                padding: 1rem 1rem 7.2rem;
+            }
+
+            .rv-footer {
+                padding: 1.2rem 1.25rem 4.6rem;
+            }
+
+            .rv-sidebar:not(.is-open) {
+                max-height: 0;
+                overflow: hidden;
+                border-bottom-width: 0;
+                padding: 0;
+            }
+
+            .rv-sidebar:not(.is-open)>* {
+                display: none;
+            }
+
+            .rv-sidebar.is-open {
+                max-height: min(70vh, 32rem);
+                overflow: auto;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .rv-stage-grid {
+                max-width: 58rem;
+                padding: 1.35rem 1.75rem 7rem;
+            }
+
+            select.rv-select {
+                min-width: 11rem;
+                min-height: 44px;
+            }
+
+            .rv-sidebar.is-open {
+                position: absolute;
+                z-index: 55;
+                top: 0;
+                left: 0;
+                width: min(22rem, 88vw);
+                max-height: min(78vh, 38rem);
+                background: var(--obsidian);
+                border-right: 1px solid rgba(197, 160, 89, 0.22);
+                box-shadow: var(--shadow-deep);
+            }
+
+            .rv-audio-dock {
+                width: min(26rem, calc(100vw - 8rem));
+                min-height: 2.85rem;
+            }
+
+            .rv-exp-btn,
+            .rv-canon-toggle,
+            .rv-btn-gold {
+                min-height: 44px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .rv-stage-grid {
+                max-width: 64rem;
+                padding: 1.5rem 2rem 6.5rem;
+            }
+        }
+
+        .rv-lockup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .rv-lockup-hero {
+            height: 4.6rem;
+            width: auto;
+            max-width: 12.5rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.28));
+        }
+
+        .rv-cerebro {
+            height: 2.15rem;
+            width: 2.15rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.35));
+        }
+
+        .rv-palabra {
+            height: .82rem;
+            width: auto;
+            max-width: 7.2rem;
+            object-fit: contain;
+            margin-top: .22rem;
+        }
+
+        .rv-isotipo {
+            height: 2.6rem;
+            width: 2.6rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.35));
+        }
+
+        .rv-lectura {
+            position: relative;
+            background: #0a0a0a;
+            color: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+        }
+
+        #texto-biblico {
+            color: rgba(255, 255, 255, 0.92) !important;
+            max-width: 42rem;
+        }
+
+        .rv-estudio-modulo {
+            margin: 1.85rem 0 0;
+            width: 100%;
+        }
+
+        .rv-estudio-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .45rem;
+            margin: 0 0 .85rem;
+        }
+
+        .rv-estudio-tabs button {
+            min-height: 44px;
+            padding: .55rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(212, 175, 55, 0.5) !important;
+            background: transparent !important;
+            color: #FFFFFF !important;
+            font-family: Cinzel, serif;
+            font-size: 10px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .rv-estudio-tabs button.is-on,
+        .rv-estudio-tabs button[aria-selected="true"] {
+            color: #000000 !important;
+            background: #D4AF37 !important;
+            border-color: #D4AF37 !important;
+            font-weight: 600;
+        }
+
+        /* —— Lentes de estudio · dos pilares Dark Luxury —— */
+        .rv-persp-pillars {
+            display: grid;
+            gap: 1rem;
+            margin: 0 0 1.1rem;
+        }
+
+        @media (min-width: 900px) {
+            .rv-persp-pillars {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.1rem;
+                align-items: stretch;
+            }
+        }
+
+        .rv-persp-pillar {
+            padding: 1rem 0.95rem 1.05rem;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background:
+                linear-gradient(165deg, rgba(212, 175, 55, 0.08), transparent 42%),
+                #000000;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .rv-persp-pillar-kicker {
+            margin: 0 0 0.25rem;
+            font-family: Cinzel, serif;
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.95);
+        }
+
+        .rv-persp-pillar-title {
+            margin: 0 0 0.3rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(1.15rem, 2vw, 1.4rem);
+            font-weight: 600;
+            line-height: 1.2;
+            color: #FDFCFA;
+        }
+
+        .rv-persp-pillar-lead {
+            margin: 0 0 0.85rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .rv-persp-rail {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rv-persp-chip {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.55rem;
+            width: 100%;
+            text-align: left;
+            min-height: 48px;
+            padding: 0.7rem 0.85rem;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            background: #0a0a0a;
+            color: #FFFFFF;
+            font-family: Cinzel, serif;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background .2s ease, border-color .2s ease, color .2s ease, transform .18s ease, box-shadow .2s ease;
+        }
+
+        .rv-persp-chip:hover,
+        .rv-persp-chip:focus-visible {
+            color: #FDFCFA;
+            border-color: rgba(212, 175, 55, 0.65);
+            transform: translateY(-1px);
+            outline: none;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .rv-persp-chip.is-on {
+            color: #0a0a0c;
+            background: linear-gradient(180deg, #E8D5A3, #C5A059 58%, #9a7a3d);
+            border-color: rgba(212, 175, 55, 0.85);
+        }
+
+        .rv-persp-chip .rv-persp-mark {
+            font-size: 1rem;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+
+        .rv-persp-chip-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            min-width: 0;
+        }
+
+        .rv-persp-chip-copy strong {
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        .rv-persp-chip-copy small {
+            font-family: "Source Serif 4", Georgia, serif;
+            font-size: 11px;
+            letter-spacing: 0;
+            text-transform: none;
+            line-height: 1.4;
+            opacity: 0.88;
+            color: inherit;
+        }
+
+        .rv-persp-chip.is-on .rv-persp-chip-copy small {
+            color: rgba(10, 10, 12, 0.78);
+        }
+
+        .rv-persp-tip {
+            display: none;
+            margin: 0 0 1rem;
+            padding: 0.95rem 1.05rem;
+            border-radius: 14px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background:
+                radial-gradient(ellipse at top left, rgba(212, 175, 55, 0.12), transparent 55%),
+                #050505;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+        }
+
+        .rv-persp-tip.is-on {
+            display: block;
+            animation: rv-persp-in .28s ease;
+        }
+
+        .rv-persp-tip-kicker {
+            margin: 0 0 0.3rem;
+            font-family: Cinzel, serif;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.95);
+        }
+
+        .rv-persp-tip-title {
+            margin: 0 0 0.45rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.25rem;
+            color: #FDFCFA;
+            font-weight: 600;
+        }
+
+        .rv-persp-tip-body {
+            margin: 0;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.02rem;
+            line-height: 1.55;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .rv-persp-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem 0.85rem;
+            margin: 0 0 1.1rem;
+        }
+
+        .rv-persp-toggle {
+            min-height: 40px;
+            padding: 0.45rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: transparent;
+            color: #E8D5A3;
+            font-family: Cinzel, serif;
+            font-size: 9px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .rv-persp-toggle.is-on {
+            background: rgba(212, 175, 55, 0.16);
+            border-color: rgba(212, 175, 55, 0.7);
+            color: #FDFCFA;
+        }
+
+        .rv-persp-synth {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            width: min(100%, 28rem);
+            min-height: 52px;
+            padding: 0.7rem 1.15rem 0.7rem 0.75rem;
+            border-radius: 14px;
+            border: 1px solid rgba(212, 175, 55, 0.65);
+            background:
+                linear-gradient(135deg, rgba(212, 175, 55, 0.28), rgba(14, 16, 22, 0.95) 52%);
+            color: #FDFCFA;
+            font-family: Cinzel, serif;
+            font-size: clamp(10px, 2.2vw, 11px);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45), 0 0 24px rgba(212, 175, 55, 0.12);
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        }
+
+        .rv-persp-synth:hover {
+            transform: translateY(-2px);
+            border-color: #E8D5A3;
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55), 0 0 32px rgba(212, 175, 55, 0.18);
+        }
+
+        .rv-persp-synth .rv-ia-isotipo {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .rv-persp-synth .rv-ia-name {
+            color: #E8D5A3;
+            font-weight: 600;
+        }
+
+        .rv-persp-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .rv-persp-grid.is-compare {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 820px) {
+            .rv-persp-grid.is-compare {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .rv-persp-card {
+            padding: 1.15rem 1.1rem 1.2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: #000000;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+            animation: rv-persp-in .32s ease;
+        }
+
+        @keyframes rv-persp-in {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .rv-persp-card,
+            .rv-persp-tip.is-on,
+            .rv-persp-chip,
+            .rv-persp-synth {
+                animation: none;
+                transition: none;
+            }
+        }
+
+        .rv-persp-card-kicker {
+            margin: 0 0 0.35rem;
+            font-family: Cinzel, serif;
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.95);
+        }
+
+        .rv-persp-card-title {
+            margin: 0 0 0.7rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+            font-weight: 600;
+            color: #FDFCFA;
+            line-height: 1.2;
+        }
+
+        .rv-persp-card-body {
+            font-family: "Source Serif 4", Georgia, serif;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: #FFFFFF;
+        }
+
+        .rv-persp-card-body p {
+            margin: 0 0 0.75rem;
+        }
+
+        .rv-persp-card-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .rv-persp-meta {
+            margin: 0.9rem 0 0;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.75);
+        }
+
+        .rv-persp-compare-pick {
+            display: none;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            margin: 0 0 0.85rem;
+        }
+
+        .rv-persp-compare-pick.is-on {
+            display: flex;
+        }
+
+        .rv-persp-compare-pick label {
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #E8D5A3;
+        }
+
+        .rv-persp-compare-pick select {
+            min-height: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: #0a0a0c;
+            color: #FDFCFA;
+            padding: 0.35rem 0.65rem;
+        }
+
+        .rv-persp-synth-report {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.15rem 1.1rem 1.25rem;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            background: #000000;
+        }
+
+        .rv-persp-synth-report.is-on {
+            display: block;
+            animation: rv-persp-in .4s ease;
+        }
+
+        .rv-persp-synth-report h4 {
+            margin: 0 0 0.4rem;
+            font-family: Cinzel, serif;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.95);
+        }
+
+        .rv-persp-synth-report .rv-persp-block {
+            margin: 0 0 1rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+        }
+
+        .rv-persp-synth-report .rv-persp-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+        .rv-persp-synth-report .rv-persp-block p {
+            margin: 0;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #FFFFFF;
+        }
+
+        .rv-persp-synth-head {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin-bottom: 1rem;
+        }
+
+        .rv-persp-synth-head .rv-ia-isotipo {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .rv-persp-synth-head strong {
+            display: block;
+            font-family: Cinzel, serif;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #FDFCFA;
+        }
+
+        .rv-persp-synth-head span {
+            font-size: 12px;
+            color: #C9C6BE;
+        }
+
+        .rv-persp-loading {
+            margin: 0;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .rv-estudio-cols {
+            display: grid;
+            gap: 1.4rem;
+        }
+
+        @media (min-width: 768px) {
+            .rv-estudio-cols {
+                grid-template-columns: 1.15fr .85fr;
+                gap: 1.8rem;
+            }
+        }
+
+        .rv-estudio-vacio {
+            margin: 0;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: rgba(228, 210, 168, 0.7);
+        }
+
+        .rv-xref-list {
+            display: flex;
+            flex-direction: column;
+            gap: .55rem;
+        }
+
+        .rv-xref-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: .2rem;
+            width: 100%;
+            min-height: 44px;
+            text-align: left;
+            padding: .7rem .85rem;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.22);
+            background: rgba(9, 10, 15, 0.35);
+        }
+
+        .rv-xref-item:hover {
+            border-color: var(--gold);
+            background: rgba(197, 160, 89, 0.1);
+        }
+
+        .rv-xref-ref {
+            font-family: Cinzel, serif;
+            font-size: 12px;
+            letter-spacing: .06em;
+            color: var(--gold);
+        }
+
+        .rv-xref-nota {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.05rem;
+            line-height: 1.55;
+            color: #F0E6D0;
+        }
+
+        .rv-comentario-kicker {
+            margin: 0 0 .55rem;
+            font-family: Cinzel, serif;
+            font-size: 10px;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: #D4AF37 !important;
+        }
+
+        #etiqueta-autor {
+            margin: 0;
+            font-family: Cinzel, serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: .08em;
+            color: #D4AF37 !important;
+        }
+
+        .rv-comentario-ref {
+            margin: .35rem 0 1.35rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        #analisis-neuro {
+            color: #FFFFFF !important;
+            max-width: none;
+        }
+
+        #analisis-neuro .rv-obra-autor {
+            margin: 0 0 1.25rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            letter-spacing: 0.04em;
+            color: #D4AF37 !important;
+        }
+
+        #analisis-neuro .rv-exegesis {
+            margin: 0 0 1.55rem;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 1.28rem;
+            line-height: 2.05;
+            color: #FFFFFF !important;
+            white-space: pre-line;
+            overflow: visible;
+            text-wrap: pretty;
+        }
+
+        @media (min-width: 768px) {
+            #analisis-neuro .rv-exegesis {
+                font-size: 1.34rem;
+                line-height: 2.12;
+                max-width: none;
+            }
+        }
+
+        #analisis-neuro .rv-exegesis:last-child {
+            margin-bottom: 0;
+        }
+
+        .efata-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(9, 10, 15, 0.72);
+            padding: 1rem;
+            overflow: auto;
+        }
+
+        .efata-modal-panel {
+            margin: 0 auto;
+            max-width: 58rem;
+            background: var(--panel);
+            border: 1px solid rgba(197, 160, 89, 0.22);
+            border-radius: 16px;
+            box-shadow: var(--shadow-deep);
+        }
+
+        .efata-preview-wrap {
+            background: #0A0C11;
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 14px;
+        }
+
+        #canvas-efata-card {
+            width: min(100%, 22rem);
+            height: auto;
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .efata-swatch {
+            width: 4.4rem;
+            height: 3.2rem;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .efata-swatch.is-on,
+        .efata-tipo.is-on {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 1px var(--gold);
+        }
+
+        .efata-tipo {
+            border: 1px solid rgba(197, 160, 89, 0.28);
+            color: var(--chrome-ink);
+            padding: .45rem .7rem;
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .sw-marmol {
+            background-image: url("brand/textures/marmol.png");
+        }
+
+        .sw-papiro {
+            background-image: url("brand/textures/papiro.png");
+        }
+
+        .sw-jerusalem {
+            background-image: url("brand/textures/jerusalem.png");
+        }
+
+        .rv-splash {
+            position: fixed;
+            inset: 0;
+            z-index: 240;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: #000000;
+            opacity: 1;
+            cursor: pointer;
+            transition: opacity 1.5s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .rv-splash.is-out {
+            opacity: 0;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        .rv-splash.is-gone {
+            display: none;
+            pointer-events: none;
+        }
+
+        .rv-splash.is-playing .rv-splash-logo {
+            animation: rv-splash-logo-hold 3.2s cubic-bezier(.22, 1, .36, 1) forwards;
+        }
+
+        .rv-splash-stage {
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: min(98vw, 56rem);
+            height: min(92vh, 56rem);
+            pointer-events: none;
+        }
+
+        .rv-splash-stage::after {
+            content: "";
+            position: absolute;
+            inset: -12%;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 46%, #000000 74%);
+        }
+
+        .rv-splash-logo {
+            width: min(98vw, 56rem);
+            height: auto;
+            max-height: 88vh;
+            object-fit: contain;
+            opacity: 0;
+            mix-blend-mode: screen;
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 46%, transparent 78%);
+            mask-image: radial-gradient(ellipse at center, #000 46%, transparent 78%);
+            animation: rv-splash-logo 1.8s cubic-bezier(.22, 1, .36, 1) forwards;
+        }
+
+        .rv-splash-hint {
+            position: absolute;
+            left: 50%;
+            bottom: max(6vh, 1.6rem);
+            z-index: 2;
+            transform: translateX(-50%);
+            margin: 0;
+            font-family: Cinzel, serif;
+            font-size: 10px;
+            letter-spacing: 0.38em;
+            text-transform: uppercase;
+            color: rgba(232, 213, 163, 0.42);
+            opacity: 0;
+            animation: rv-splash-hint 1.2s ease 1.6s forwards;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .rv-splash.is-playing .rv-splash-hint {
+            opacity: 0;
+            animation: none;
+        }
+
+        @keyframes rv-splash-logo {
+            from {
+                opacity: 0;
+                transform: scale(0.94);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rv-splash-logo-hold {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.015);
+            }
+        }
+
+        @keyframes rv-splash-hint {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .rv-splash-logo,
+            .rv-splash.is-playing .rv-splash-logo {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+
+            .rv-splash-hint {
+                animation: none;
+                opacity: 0.55;
+            }
+
+            .rv-splash {
+                transition: opacity 0.35s ease;
+            }
+        }
+
+        /* =========================================================
+           DARK LUXURY · CONTRASTE ABSOLUTO (capa final anti-herencia)
+           ========================================================= */
+        body.is-santuario,
+        body.is-santuario .rv-stage,
+        body.is-santuario .rv-lectura,
+        body.is-santuario .rv-estudio-modulo,
+        body.is-santuario #panel-neuro,
+        body.is-santuario #panel-perspectivas,
+        body.is-santuario #panel-concordancia {
+            background-color: #000000 !important;
+            color: #FFFFFF !important;
+        }
+
+        body.is-santuario .rv-lectura {
+            background: #0a0a0a !important;
+            border-color: rgba(212, 175, 55, 0.4) !important;
+        }
+
+        /* Texto corriente: blanco nítido — nunca gris deslavado */
+        body.is-santuario #texto-biblico,
+        body.is-santuario #texto-biblico p,
+        body.is-santuario #texto-biblico .rv-verse-text,
+        body.is-santuario #analisis-neuro,
+        body.is-santuario #analisis-neuro p,
+        body.is-santuario #analisis-neuro .rv-exegesis,
+        body.is-santuario .rv-comentario-cuerpo,
+        body.is-santuario .rv-comentario-ref,
+        body.is-santuario .rv-persp-card-body,
+        body.is-santuario .rv-persp-card-body p,
+        body.is-santuario .rv-persp-tip-body,
+        body.is-santuario .rv-persp-pillar-lead,
+        body.is-santuario .rv-persp-synth-report p,
+        body.is-santuario .rv-xref-nota,
+        body.is-santuario .rv-estudio-vacio,
+        body.is-santuario .rv-ficha-grid dd,
+        body.is-santuario .rv-lectura-muted,
+        body.is-santuario .rv-lectura-note {
+            color: #FFFFFF !important;
+            opacity: 1 !important;
+        }
+
+        /* Títulos y acentos dorados */
+        body.is-santuario .rv-lectura-title,
+        body.is-santuario .rv-lectura-meta,
+        body.is-santuario .rv-comentario-kicker,
+        body.is-santuario #etiqueta-autor,
+        body.is-santuario .rv-obra-autor,
+        body.is-santuario .rv-persp-pillar-kicker,
+        body.is-santuario .rv-persp-card-kicker,
+        body.is-santuario .rv-persp-tip-kicker,
+        body.is-santuario .rv-ficha-kicker,
+        body.is-santuario .rv-estudio-h,
+        body.is-santuario .rv-xref-ref {
+            color: #D4AF37 !important;
+            opacity: 1 !important;
+        }
+
+        body.is-santuario .rv-persp-pillar-title,
+        body.is-santuario .rv-persp-card-title,
+        body.is-santuario .rv-persp-tip-title,
+        body.is-santuario .rv-ficha-title {
+            color: #FFFFFF !important;
+        }
+
+        /* Pestañas Comentario / Perspectivas / Concordancia */
+        body.is-santuario .rv-estudio-tabs button {
+            background: transparent !important;
+            border: 1px solid rgba(212, 175, 55, 0.5) !important;
+            color: #FFFFFF !important;
+            opacity: 1 !important;
+        }
+
+        body.is-santuario .rv-estudio-tabs button.is-on,
+        body.is-santuario .rv-estudio-tabs button[aria-selected="true"] {
+            background: #D4AF37 !important;
+            border-color: #D4AF37 !important;
+            color: #000000 !important;
+        }
+
+        /* Lentes: inactivas blancas; activa dorado sólido + negro */
+        body.is-santuario .rv-persp-chip {
+            background: #0a0a0a !important;
+            border: 1px solid rgba(212, 175, 55, 0.5) !important;
+            color: #FFFFFF !important;
+        }
+
+        body.is-santuario .rv-persp-chip small {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        body.is-santuario .rv-persp-chip.is-on,
+        body.is-santuario .rv-persp-chip[aria-selected="true"] {
+            background: #D4AF37 !important;
+            border-color: #D4AF37 !important;
+            color: #000000 !important;
+        }
+
+        body.is-santuario .rv-persp-chip.is-on small,
+        body.is-santuario .rv-persp-chip[aria-selected="true"] small {
+            color: #000000 !important;
+            opacity: 0.85 !important;
+        }
+
+        /* Neutralizar utilidades Tailwind grises dentro del santuario */
+        body.is-santuario .text-\[\#6B6B6B\],
+        body.is-santuario .text-\[\#8D7040\],
+        body.is-santuario .text-\[\#3D3D3D\],
+        body.is-santuario .text-\[\#C9C6BE\],
+        body.is-santuario .text-\[\#8f8c84\],
+        body.is-santuario .text-\[\#9A9790\] {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        body.is-santuario .rv-sidebar,
+        body.is-santuario .rv-chrome {
+            background: #000000 !important;
+            color: #FFFFFF !important;
+        }
+
+        body.is-santuario .rv-select,
+        body.is-santuario select.rv-select {
+            background: #0a0a0a !important;
+            color: #FFFFFF !important;
+            border-color: rgba(212, 175, 55, 0.5) !important;
+        }
+
+        /* Versículos: texto blanco sobre negro */
+        body.is-santuario .rv-verse-surface,
+        body.is-santuario .rv-verse-text {
+            color: #FFFFFF !important;
+        }
+
+        body.is-santuario .rv-verse-num {
+            color: #D4AF37 !important;
+        }
+    </style>
+</head>
+
+<body class="flex h-full flex-col">
+
+    <div id="rv-splash" class="rv-splash" role="button" tabindex="0"
+        aria-label="Éfata RevelatiO. Toca la pantalla para continuar." aria-modal="true">
+        <div class="rv-splash-stage">
+            <img src="brand/revelatio-lockup.png" alt="REVELATIO by Efata" class="rv-splash-logo">
+            <p class="rv-splash-hint" aria-hidden="true">Toca para continuar</p>
+        </div>
+    </div>
+    <audio id="rv-music" playsinline webkit-playsinline preload="none"></audio>
+    <audio id="rv-voice" playsinline webkit-playsinline preload="auto"></audio>
+    <audio id="rv-welcome-voice" playsinline webkit-playsinline preload="auto"></audio>
+    <script>
+        (function () {
+            if (window.__RV_EXPERIENCIA_WIRED__) return;
+            window.__RV_EXPERIENCIA_WIRED__ = true;
+
+            var TEXTO = 'Eres bienaventurado hoy, bienvenido a RevelatiO by Éfata';
+            var FADE_MS = 1200;
+            var HOLD_MS = 7000;
+            var assetUrl = function (rel) {
+                try { return new URL(rel, location.href).href; } catch (e) { return rel; }
+            };
+            var PISTA = assetUrl('audio/oracion-instrumental.m4a');
+            var BIENVENIDA_LOCAL = assetUrl('audio/bienvenida-varon.wav?v=jorge12');
+            var SPLASH_DONE_KEY = 'rv_splash_done_v4';
+
+            var splash = document.getElementById('rv-splash');
+            var voice = document.getElementById('rv-welcome-voice');
+            var music = document.getElementById('rv-music');
+            var hint = splash ? splash.querySelector('.rv-splash-hint') : null;
+            var cerrado = false;
+            var arrancado = false;
+            var desplegarTimer = 0;
+            var blobUrl = null;
+
+            var rutaLectura = function () {
+                var path = String(location.pathname || '').replace(/\/+$/, '') || '/';
+                var hash = String(location.hash || '').replace(/^#/, '').toLowerCase();
+                if (hash === 'santuario' || hash === 'lectura' || hash.indexOf('lectura/') === 0 || hash.indexOf('lectura?') === 0) return true;
+                return /\/lectura$/i.test(path);
+            };
+            var markDone = function () {
+                try {
+                    sessionStorage.setItem(SPLASH_DONE_KEY, '1');
+                    sessionStorage.setItem('rv_splash_done_v1', '1');
+                    sessionStorage.setItem('rv_splash_done_v2', '1');
+                    sessionStorage.setItem('rv_splash_done_v3', '1');
+                } catch (e) { }
+            };
+            var yaHecho = function () {
+                try {
+                    return sessionStorage.getItem(SPLASH_DONE_KEY) === '1'
+                        || sessionStorage.getItem('rv_splash_done_v3') === '1'
+                        || sessionStorage.getItem('rv_splash_done_v2') === '1'
+                        || sessionStorage.getItem('rv_splash_done_v1') === '1';
+                } catch (e) { return false; }
+            };
+            var silenciarBienvenida = function () {
+                window.__rvWelcomePlaying = false;
+                if (voice) {
+                    try {
+                        voice.pause();
+                        voice.removeAttribute('src');
+                        voice.load();
+                    } catch (e0) { /* ignore */ }
+                }
+                if (blobUrl) {
+                    try { URL.revokeObjectURL(blobUrl); } catch (e1) { /* ignore */ }
+                    blobUrl = null;
+                }
+            };
+            var quiereMusicaHome = function () {
+                var cb = document.getElementById('entrar-con-musica');
+                return !cb || cb.checked;
+            };
+            var detenerMusicaIntro = function () {
+                if (!music) return;
+                try {
+                    music.pause();
+                    music.muted = true;
+                    music.volume = 0;
+                } catch (e2) { /* ignore */ }
+                try { window.revelatioAudio?.detenerMusica?.(); } catch (e3) { /* ignore */ }
+            };
+            var forzarCierreSplash = function () {
+                if (!splash) return;
+                cerrado = true;
+                arrancado = true;
+                silenciarBienvenida();
+                if (!quiereMusicaHome()) detenerMusicaIntro();
+                splash.classList.add('is-out', 'is-gone');
+                splash.style.pointerEvents = 'none';
+                splash.setAttribute('aria-hidden', 'true');
+                splash.removeAttribute('tabindex');
+                markDone();
+            };
+
+            if (hint) hint.textContent = 'Toca para continuar';
+
+            // Precarga blob en paralelo; NUNCA bloquea la UI.
+            fetch(BIENVENIDA_LOCAL, { cache: 'force-cache' })
+                .then(function (r) { return r.ok ? r.arrayBuffer() : null; })
+                .then(function (ab) {
+                    if (!ab) return;
+                    blobUrl = URL.createObjectURL(new Blob([ab], { type: 'audio/wav' }));
+                    if (voice) {
+                        voice.preload = 'auto';
+                        voice.src = blobUrl;
+                    }
+                })
+                .catch(function () {
+                    if (voice) voice.src = BIENVENIDA_LOCAL;
+                });
+
+            if (voice && !voice.src) {
+                try { voice.src = BIENVENIDA_LOCAL; } catch (e0) { }
+            }
+
+            var fadeIntro = function () {
+                if (!splash) return;
+                if (cerrado) {
+                    splash.classList.add('is-gone');
+                    return;
+                }
+                cerrado = true;
+                silenciarBienvenida();
+                if (!quiereMusicaHome()) detenerMusicaIntro();
+                markDone();
+                splash.classList.add('is-out');
+                splash.style.pointerEvents = 'none';
+                splash.setAttribute('aria-hidden', 'true');
+                splash.removeAttribute('tabindex');
+                setTimeout(function () { splash.classList.add('is-gone'); }, FADE_MS + 40);
+            };
+
+            var programarDespliegue = function () {
+                clearTimeout(desplegarTimer);
+                desplegarTimer = setTimeout(fadeIntro, HOLD_MS);
+                if (voice) {
+                    var onEnd = function () {
+                        voice.removeEventListener('ended', onEnd);
+                        window.__rvWelcomePlaying = false;
+                        try { if (music) { music.muted = false; music.volume = 0.26; } } catch (e1) { }
+                        clearTimeout(desplegarTimer);
+                        desplegarTimer = setTimeout(fadeIntro, 350);
+                    };
+                    voice.addEventListener('ended', onEnd);
+                }
+                // Red de seguridad: aunque el audio falle, el splash NUNCA atrapa la app.
+                setTimeout(forzarCierreSplash, HOLD_MS + 2500);
+            };
+
+            var playVoz = function () {
+                if (!voice) return;
+                try {
+                    window.__rvWelcomePlaying = true;
+                    voice.muted = false;
+                    voice.volume = 1;
+                    if (blobUrl && voice.src.indexOf('blob:') !== 0) voice.src = blobUrl;
+                    else if (!voice.src) voice.src = BIENVENIDA_LOCAL;
+                    // Sin pause/seek: evita corte de «Eres» en Chrome/Safari.
+                    var p = voice.play();
+                    if (p && p.catch) p.catch(function () { window.__rvWelcomePlaying = false; });
+                } catch (e2) {
+                    window.__rvWelcomePlaying = false;
+                }
+            };
+
+            var playMusicaSuave = function () {
+                if (!music || !quiereMusicaHome()) return;
+                try {
+                    music.loop = false;
+                    music.muted = false;
+                    music.volume = 0.05;
+                    if (!music.src || music.src.indexOf('oracion-instrumental') === -1) music.src = PISTA;
+                    var p = music.play();
+                    if (p && p.catch) p.catch(function () { });
+                } catch (e3) { }
+            };
+
+            var iniciarExperiencia = function (event) {
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                if (cerrado) return;
+                if (arrancado) {
+                    // Segundo toque: si quedó colgado, fuerza entrada al umbral.
+                    fadeIntro();
+                    return;
+                }
+                arrancado = true;
+                if (splash) splash.classList.add('is-playing');
+                playVoz();
+                playMusicaSuave();
+                programarDespliegue();
+                markDone();
+                // No relanzar motor de audio aquí: evita ruido por pistas 404 / voz duplicada.
+            };
+
+            if (splash) {
+                splash.addEventListener('click', iniciarExperiencia);
+                splash.addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter' || event.key === ' ') iniciarExperiencia(event);
+                });
+            }
+            window.revelatioBienvenida = { entrar: iniciarExperiencia, iniciar: iniciarExperiencia, texto: TEXTO };
+            // Escape hatch global por si el splash quedó encima.
+            window.revelatioForzarUmbral = forzarCierreSplash;
+            window.revelatioSilenciarAmbiente = function () {
+                silenciarBienvenida();
+                detenerMusicaIntro();
+            };
+            if (!window.__RV_SPLASH_MUSIC_CB__) {
+                window.__RV_SPLASH_MUSIC_CB__ = true;
+                document.addEventListener('change', function (ev) {
+                    if (!ev.target || ev.target.id !== 'entrar-con-musica') return;
+                    if (ev.target.checked) {
+                        try { playMusicaSuave(); } catch (e) { }
+                        try { window.revelatioAudio && window.revelatioAudio.reproducirMusica && window.revelatioAudio.reproducirMusica(true); } catch (e2) { }
+                    } else {
+                        silenciarBienvenida();
+                        detenerMusicaIntro();
+                        try { localStorage.setItem('revelatio_musica_on', '0'); } catch (e3) { }
+                    }
+                });
+            }
+
+            // Si el splash ya se hizo: cerrar overlay y matar ruido colgado.
+            if (yaHecho() || rutaLectura()) {
+                forzarCierreSplash();
+                silenciarBienvenida();
+                detenerMusicaIntro();
+                try {
+                    var cb = document.getElementById('entrar-con-musica');
+                    if (cb) cb.checked = false;
+                    localStorage.setItem('revelatio_musica_on', '0');
+                } catch (e4) { }
+                return;
+            }
+        })();
+    </script>
+
+    <div id="rv-home" class="rv-home" role="main" aria-label="Umbral de Éfata RevelatiO">
+        <div class="rv-home-bg" aria-hidden="true"></div>
+        <div class="rv-home-inner">
+            <section class="rv-dual-hero" aria-labelledby="home-titulo">
+                <div class="rv-dual-brand">
+                    <img src="brand/revelatio-lockup-clear.png" alt="REVELATIO by Éfata" width="867" height="889">
+                    <p class="rv-dual-kicker">Éfata RevelatiO · sin fines de lucro</p>
+                    <h1 id="home-titulo" class="rv-dual-title">Éfata RevelatiO<br><em>Dos puertas. Una sola cruz.</em>
+                    </h1>
+                </div>
+                <div class="rv-dual-doors" role="navigation" aria-label="Puertas de entrada">
+                    <a href="#lectura/Romanos/12" class="rv-door" id="entrar-texto" data-ir="estudio-profundo"
+                        role="button" tabindex="0" aria-label="Estudio Profundo de las Escrituras">
+                        <div>
+                            <p class="rv-door-kicker">Puerta I · Exégesis</p>
+                            <h2 class="rv-door-title">Estudio Profundo de las Escrituras</h2>
+                            <p class="rv-door-copy">Motor exegético, cruce de perspectivas, léxico Strong y profundidad
+                                teológica bajo la autoridad de la Palabra.</p>
+                        </div>
+                        <span class="rv-door-cta">Abrir el estudio →</span>
+                    </a>
+                    <a href="#acompanamiento" class="rv-door" id="entrar-acompanamiento" data-ir="acompanamiento"
+                        role="button" tabindex="0" aria-label="Acompañamiento Ministerial">
+                        <div>
+                            <p class="rv-door-kicker">Puerta II · Pastoral</p>
+                            <h2 class="rv-door-title">Acompañamiento Ministerial</h2>
+                            <p class="rv-door-copy">Consejería espiritual, contención y guía pastoral para las crisis
+                                del alma — siempre hacia la cruz de Cristo.</p>
+                        </div>
+                        <span class="rv-door-cta">Abrir el acompañamiento →</span>
+                    </a>
+                </div>
+            </section>
+
+            <section id="rv-auth-card" class="rv-home-span rv-glass rv-home-card rv-auth"
+                aria-labelledby="home-suscripcion">
+                <p class="rv-home-kicker">Círculo de Estudios Exegéticos</p>
+                <h3 id="home-suscripcion">Registro de entrada</h3>
+                <p class="rv-auth-lead">Tu puerta de acceso a la plataforma. Con <strong>Correo Electrónico</strong> y
+                    <strong>Número de WhatsApp</strong> vinculamos notas, exégesis y actividad a tu perfil en este
+                    dispositivo.
+                </p>
+                <p id="rv-auth-gate-msg" class="rv-auth-gate" hidden role="status">
+                    Para abrir cualquiera de las dos puertas, únete primero al Círculo con tu correo y WhatsApp.
+                </p>
+
+                <div id="rv-auth-session" class="rv-auth-session" hidden>
+                    <div>
+                        <strong id="rv-auth-session-role">Perfil activo</strong>
+                        <p id="rv-auth-session-copy">Sesión vinculada a tu Cuaderno, notas y exégesis.</p>
+                        <span id="rv-auth-admin-badge" class="rv-auth-admin-badge" hidden>Administrador · sesión
+                            local</span>
+                    </div>
+                    <button type="button" id="rv-auth-logout"
+                        class="rv-btn-gold px-4 py-2 text-[11px] uppercase tracking-[0.18em]">Cerrar sesión</button>
+                </div>
+
+                <div id="rv-auth-forms">
+                    <form id="form-registro" class="rv-auth-grid" autocomplete="on" method="post" action="#">
+                        <div class="rv-auth-field">
+                            <label for="reg-email">Correo Electrónico</label>
+                            <input id="reg-email" name="email" type="email" autocomplete="email" required
+                                placeholder="tu@correo.org" aria-required="true">
+                        </div>
+                        <div class="rv-auth-field">
+                            <label for="reg-whatsapp">Número de WhatsApp</label>
+                            <div class="rv-wa-row">
+                                <label class="sr-only" for="reg-pais">Código de país</label>
+                                <select id="reg-pais" name="pais" aria-label="Código de país">
+                                    <option value="+57" selected>CO +57</option>
+                                    <option value="+58">VE +58</option>
+                                    <option value="+52">MX +52</option>
+                                    <option value="+54">AR +54</option>
+                                    <option value="+56">CL +56</option>
+                                    <option value="+51">PE +51</option>
+                                    <option value="+593">EC +593</option>
+                                    <option value="+507">PA +507</option>
+                                    <option value="+1">US/CA +1</option>
+                                    <option value="+34">ES +34</option>
+                                </select>
+                                <input id="reg-whatsapp" name="whatsapp" type="tel" inputmode="tel"
+                                    autocomplete="tel-national" required placeholder="310 786 0864"
+                                    pattern="[0-9\s\-]{7,15}" aria-required="true" aria-describedby="reg-whatsapp-hint">
+                            </div>
+                            <p id="reg-whatsapp-hint" class="rv-auth-field-hint">Incluye solo el número local; el código
+                                de país va a la izquierda.</p>
+                        </div>
+                        <div class="rv-auth-actions rv-auth-full">
+                            <button type="submit" id="btn-entrar-circulo" class="rv-btn-fill"
+                                data-auth="registro">Entrar al Círculo</button>
+                            <button type="button" id="rv-auth-show-login" class="rv-auth-switch"
+                                data-auth="show-login">¿Ya tienes cuenta? Inicia sesión</button>
+                        </div>
+                        <p class="rv-auth-hint rv-auth-full">Registro principal de la app: notas, lecturas y exégesis
+                            quedan vinculadas a tu correo y WhatsApp en este dispositivo.</p>
+                    </form>
+
+                    <form id="form-login" class="rv-auth-grid" hidden autocomplete="on" method="post" action="#">
+                        <div class="rv-auth-field">
+                            <label for="login-email">Correo Electrónico</label>
+                            <input id="login-email" name="email" type="email" autocomplete="username" required
+                                placeholder="tu@correo.org" aria-required="true">
+                        </div>
+                        <div class="rv-auth-field">
+                            <label for="login-whatsapp">Número de WhatsApp</label>
+                            <div class="rv-wa-row">
+                                <label class="sr-only" for="login-pais">Código de país</label>
+                                <select id="login-pais" name="pais" aria-label="Código de país">
+                                    <option value="+57" selected>CO +57</option>
+                                    <option value="+58">VE +58</option>
+                                    <option value="+52">MX +52</option>
+                                    <option value="+54">AR +54</option>
+                                    <option value="+56">CL +56</option>
+                                    <option value="+51">PE +51</option>
+                                    <option value="+593">EC +593</option>
+                                    <option value="+507">PA +507</option>
+                                    <option value="+1">US/CA +1</option>
+                                    <option value="+34">ES +34</option>
+                                </select>
+                                <input id="login-whatsapp" name="whatsapp" type="tel" inputmode="tel"
+                                    autocomplete="tel-national" required placeholder="310 786 0864"
+                                    pattern="[0-9\s\-]{7,15}" aria-required="true">
+                            </div>
+                        </div>
+                        <div class="rv-auth-actions rv-auth-full">
+                            <button type="submit" id="btn-iniciar-sesion" class="rv-btn-fill" data-auth="login">Iniciar
+                                sesión</button>
+                            <button type="button" id="rv-auth-show-registro" class="rv-auth-switch"
+                                data-auth="show-registro">¿Primera vez? Únete al Círculo</button>
+                        </div>
+                        <p class="rv-auth-hint rv-auth-full">Usa el mismo correo y WhatsApp del registro para recuperar
+                            tu actividad vinculada en este dispositivo.</p>
+                    </form>
+                </div>
+                <p id="estado-suscripcion" class="rv-home-status" role="status"></p>
+            </section>
+
+            <section class="rv-home-span rv-glass rv-home-card rv-aporte" aria-labelledby="home-aporte">
+                <p class="rv-home-kicker">Semilla Ministerial</p>
+                <h3 id="home-aporte">Aporte Voluntario</h3>
+                <p class="rv-aporte-leyenda">Somos una organización sin fines de lucro dedicada a la revelación de las
+                    Escrituras. Si deseas apoyarnos y ser parte de esta obra, contáctanos a nuestro WhatsApp. ¡Que el
+                    Señor te multiplique y mil gracias por tu respaldo!</p>
+                <a class="rv-aporte-btn" id="btn-aporte-voluntario"
+                    href="https://wa.me/573107860864?text=Paz%20y%20bendici%C3%B3n%20del%20Se%C3%B1or.%20Deseo%20sembrar%20un%20Aporte%20Voluntario%20(Semilla%20Ministerial)%20para%20sostener%20la%20obra%20de%20%C3%89fata%20RevelatiO.%20%C2%A1Que%20el%20Se%C3%B1or%20multiplique%20esta%20siembra!%20%C2%BFMe%20indican%20c%C3%B3mo%20puedo%20colaborar%3F"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="Abrir WhatsApp +57 310 786 0864 para Aporte Voluntario (Semilla Ministerial)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm0 1.82c4.46 0 8.09 3.63 8.09 8.09 0 4.46-3.63 8.09-8.09 8.09-1.42 0-2.8-.37-4.01-1.07l-.29-.17-3.12.82.83-3.04-.19-.31a8.05 8.05 0 0 1-1.23-4.32c0-4.46 3.63-8.09 8.01-8.09zm4.43 10.54c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.48-.4-.41-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z" />
+                    </svg>
+                    Aporte Voluntario (Semilla Ministerial)
+                </a>
+                <p class="rv-aporte-wa">WhatsApp ministerial:
+                    <a href="https://wa.me/573107860864?text=Paz%20y%20bendici%C3%B3n%20del%20Se%C3%B1or.%20Deseo%20sembrar%20un%20Aporte%20Voluntario%20(Semilla%20Ministerial)%20para%20sostener%20la%20obra%20de%20%C3%89fata%20RevelatiO.%20%C2%A1Que%20el%20Se%C3%B1or%20multiplique%20esta%20siembra!%20%C2%BFMe%20indican%20c%C3%B3mo%20puedo%20colaborar%3F"
+                        target="_blank" rel="noopener noreferrer">+57 310 786 0864</a>
+                </p>
+            </section>
+
+            <p class="rv-home-foot">Éfata RevelatiO · sin fines de lucro<br>RevelatiO IA no sustituye el pastoreo local
+                ni la autoridad de la Escritura. Toda respuesta desemboca en la cruz de Cristo.</p>
+        </div>
+    </div>
+
+    <div id="rv-acompanamiento" aria-label="Acompañamiento Ministerial" hidden>
+        <div class="rv-acomp-inner">
+            <div class="rv-acomp-head">
+                <button type="button" id="btn-volver-acomp"
+                    class="rv-btn-gold px-4 py-2 text-[11px] uppercase tracking-[0.18em]">Volver al umbral</button>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" data-hub="estudio"
+                        class="rv-btn-gold px-4 py-2 text-[11px] uppercase tracking-[0.18em]">Estudio
+                        Profundo</button>
+                    <div class="rv-ia-badge">
+                        <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                        <span class="rv-ia-name">RevelatiO IA</span>
+                    </div>
+                </div>
+            </div>
+            <section class="rv-acomp-card">
+                <p class="rv-home-kicker">Consejería y restauración</p>
+                <h2>Acompañamiento Ministerial</h2>
+                <p>Este espacio no ofrece autoayuda ni psicología secular como autoridad. Trae tu carga ante la
+                    Escritura: el Padre soberano, la cruz de Cristo y el Espíritu Santo regenerador son el único
+                    remedio del corazón de piedra.</p>
+                <form id="form-acompanamiento" class="rv-acomp-form">
+                    <label class="sr-only" for="acomp-mensaje">Consulta ministerial</label>
+                    <textarea id="acomp-mensaje" name="mensaje" required
+                        placeholder="Describe con reverencia tu consulta, dolor o necesidad espiritual…"></textarea>
+                    <button type="submit" class="rv-btn-fill rv-ia-btn">
+                        <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                        <span class="rv-ia-name" style="color:#0a0a0c">Pedir orientación a RevelatiO IA</span>
+                    </button>
+                </form>
+                <div id="rv-acomp-respuesta" role="status" aria-live="polite"></div>
+            </section>
+        </div>
+    </div>
+
+    <header class="rv-chrome flex shrink-0 items-center gap-3 border-b border-[#C5A059]/20 px-4 py-2">
+        <button type="button" id="btn-canon" class="rv-canon-toggle" aria-expanded="false"
+            aria-controls="panel-canon">Canon</button>
+        <button type="button" id="btn-volver-home" class="rv-lockup-btn"
+            aria-label="Volver al umbral de Éfata RevelatiO">
+            <img src="brand/revelatio-lockup.png" alt="RevelatiO — libro, cerebro y Palabra" class="rv-lockup-hero">
+        </button>
+        <div class="rv-header-copy flex-1">
+            <h1 class="sr-only">Éfata RevelatiO</h1>
+            <p class="rv-sub">by Efata</p>
+            <p class="rv-sub mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span class="rv-ia-badge">
+                    <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                    <span class="rv-ia-name">RevelatiO IA</span>
+                </span>
+                <span>bajo el estándar de Xtrametrik</span>
+            </p>
+        </div>
+        <img src="brand/xtrametrik.png" alt="Xtrametrik" class="hidden h-7 w-auto opacity-80 sm:block">
+    </header>
+
+    <nav id="breadcrumbs"
+        class="rv-chrome shrink-0 border-b border-[#C5A059]/15 px-4 py-2 text-[12px] tracking-wide text-[#F4F5F7]"
+        aria-label="Ubicación">
+        Biblia <span class="text-[#C5A059]">›</span> Nuevo Testamento <span class="text-[#C5A059]">›</span> Romanos 12
+    </nav>
+
+    <div class="rv-shell flex min-h-0 flex-1 flex-col lg:flex-row">
+        <aside id="panel-canon"
+            class="rv-sidebar flex shrink-0 flex-col border-b border-[#C5A059]/20 lg:max-h-none lg:w-[17.5rem] lg:border-b-0 lg:border-r"
+            aria-label="Canon y herramientas de estudio">
+            <div class="shrink-0 p-3">
+                <button type="button" id="btn-sidebar-dashboard" class="rv-sidebar-home" data-hub="dashboard"
+                    title="Volver al Dashboard principal">
+                    ← Dashboard
+                </button>
+                <label class="sr-only" for="buscador-canon">Ir a libro, capítulo o versículo</label>
+                <input id="buscador-canon" type="search" autocomplete="off" placeholder="Ir a: Romanos 12:2"
+                    class="w-full px-3 py-2 text-sm outline-none mt-2.5">
+                <button type="button" id="abrir-cuaderno" class="rv-nav-cuaderno mt-2.5">Mi Cuaderno</button>
+            </div>
+            <div id="selector-libros" class="canon-scroll min-h-0 flex-1 overflow-y-auto px-2 pb-4"></div>
+        </aside>
+
+        <div class="rv-stage canon-scroll min-w-0 flex-1 overflow-y-auto">
+            <div class="rv-stage-grid">
+                <article class="rv-lectura px-6 py-7 sm:px-10 sm:py-8">
+                    <div class="rv-toolbar mb-6">
+                        <label class="block">
+                            <span class="mb-1 block text-[10px] uppercase tracking-[0.18em]">Versión</span>
+                            <select id="selector-version" class="rv-select" aria-label="Versión bíblica">
+                                <option value="rv1960">RVR1960</option>
+                                <option value="kjv">KJV</option>
+                                <option value="tla">TLA</option>
+                                <option value="dhh">DHH</option>
+                                <option value="septuaginta">Septuaginta (Rahlfs)</option>
+                            </select>
+                        </label>
+                        <label class="block">
+                            <span class="mb-1 block text-[10px] uppercase tracking-[0.18em]">Comentarista</span>
+                            <select id="selector-autor" class="rv-select" aria-label="Autor del comentario">
+                                <option value="matthew-henry">Matthew Henry</option>
+                                <option value="jamieson-fausset-brown">Jamieson, Fausset y Brown</option>
+                                <option value="albert-barnes">Albert Barnes</option>
+                                <option value="charles-spurgeon">Charles Spurgeon</option>
+                            </select>
+                        </label>
+                        <div class="rv-exp-wrap">
+                            <button type="button" id="btn-experiencia" class="rv-exp-btn" aria-expanded="false"
+                                aria-controls="panel-experiencia" title="Configuración de experiencia">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M9 18V6l10 6-10 6Z" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linejoin="round" />
+                                    <circle cx="6.2" cy="16.2" r="2.1" stroke="currentColor" stroke-width="1.5" />
+                                    <path d="M6.2 14.1V8.4" stroke="currentColor" stroke-width="1.5" />
+                                </svg>
+                            </button>
+                            <div id="panel-experiencia" class="rv-exp-panel" role="dialog"
+                                aria-label="Configuración de experiencia">
+                                <p class="mb-3 text-[10px] uppercase tracking-[0.2em] text-[#C5A059]">Experiencia de
+                                    audio</p>
+                                <label class="mb-3 block">
+                                    <span class="mb-1 block text-[10px] uppercase tracking-[0.16em]">Voz humana</span>
+                                    <select id="selector-voz" class="rv-select w-full">
+                                        <option value="varon">Varón latinoamericano</option>
+                                        <option value="hembra">Hembra latinoamericana</option>
+                                    </select>
+                                </label>
+                                <label class="mb-3 flex items-center justify-between gap-3 text-[13px]">
+                                    <span>Música cristiana instrumental</span>
+                                    <input type="checkbox" id="toggle-musica" class="accent-[#C5A059]">
+                                </label>
+                                <label class="mb-2 block">
+                                    <span class="mb-1 block text-[10px] uppercase tracking-[0.16em]">Volumen de la
+                                        música</span>
+                                    <input type="range" id="vol-musica" min="0" max="100" value="28">
+                                </label>
+                                <label class="mb-3 block">
+                                    <span class="mb-1 block text-[10px] uppercase tracking-[0.16em]">Volumen de la
+                                        voz</span>
+                                    <input type="range" id="vol-voz" min="0" max="100" value="100">
+                                </label>
+                                <div class="flex gap-2">
+                                    <button type="button" id="pausa-narracion"
+                                        class="rv-btn-gold flex-1 py-2 text-[10px] uppercase tracking-[0.14em]">Pausar
+                                        voz</button>
+                                    <button type="button" id="narrar-capitulo"
+                                        class="rv-btn-gold flex-1 py-2 text-[10px] uppercase tracking-[0.14em]">Narrar
+                                        capítulo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <aside id="rv-ficha-academica" class="rv-ficha-academica" aria-label="Ficha académica del libro"
+                        hidden>
+                        <p class="rv-ficha-kicker">Ficha académica</p>
+                        <h2 class="rv-ficha-title" id="rv-ficha-titulo">—</h2>
+                        <dl class="rv-ficha-grid">
+                            <div>
+                                <dt>Autor</dt>
+                                <dd id="rv-ficha-autor">—</dd>
+                            </div>
+                            <div>
+                                <dt>Fecha</dt>
+                                <dd id="rv-ficha-fecha">—</dd>
+                            </div>
+                            <div>
+                                <dt>Quién</dt>
+                                <dd id="rv-ficha-quien">—</dd>
+                            </div>
+                            <div>
+                                <dt>Cómo</dt>
+                                <dd id="rv-ficha-como">—</dd>
+                            </div>
+                            <div>
+                                <dt>Dónde</dt>
+                                <dd id="rv-ficha-donde">—</dd>
+                            </div>
+                            <div>
+                                <dt>Cuándo</dt>
+                                <dd id="rv-ficha-cuando">—</dd>
+                            </div>
+                        </dl>
+                    </aside>
+                    <div class="rv-lectura-cuerpo">
+                        <nav id="indice-versiculos" class="rv-verse-rail" aria-label="Versículos del capítulo"></nav>
+                        <div id="texto-biblico" class="select-text text-[1.2rem] leading-[1.9]"></div>
+                    </div>
+                </article>
+                <section id="modulo-estudio" class="rv-estudio-modulo" aria-label="Estudio del pasaje">
+                    <div id="tabs-estudio" class="rv-estudio-tabs" role="tablist" aria-label="Módulos de estudio">
+                        <button type="button" class="is-on" data-estudio-tab="comentario" role="tab"
+                            aria-selected="true">Comentario</button>
+                        <button type="button" data-estudio-tab="perspectivas" role="tab"
+                            aria-selected="false">Perspectivas</button>
+                        <button type="button" data-estudio-tab="concordancia" role="tab"
+                            aria-selected="false">Concordancia</button>
+                    </div>
+                    <section id="panel-neuro" class="rv-comentario" role="tabpanel" aria-label="Comentario exegético">
+                        <p class="rv-comentario-kicker">Comentario exegético</p>
+                        <p id="etiqueta-autor">Matthew Henry</p>
+                        <p id="ref-comentario" class="rv-comentario-ref"></p>
+                        <div id="analisis-neuro" class="rv-comentario-cuerpo"></div>
+                    </section>
+                    <section id="panel-perspectivas" class="rv-comentario is-hidden-tab" role="tabpanel"
+                        aria-label="Lentes de estudio profundo">
+                        <p class="rv-comentario-kicker">Estudio Profundo · lentes de autoridad</p>
+                        <p id="ref-perspectivas" class="rv-comentario-ref"></p>
+                        <div class="rv-persp-pillars">
+                            <div class="rv-persp-pillar" data-pillar="a">
+                                <p class="rv-persp-pillar-kicker">Bloque A</p>
+                                <h3 class="rv-persp-pillar-title">El Pilar Exegético y Teológico</h3>
+                                <p class="rv-persp-pillar-lead">La Verdad Histórica y Doctrinal</p>
+                                <div class="rv-persp-rail" role="tablist" aria-label="Pilar exegético y teológico">
+                                    <button type="button" class="rv-persp-chip is-on" data-persp="exegesis" role="tab"
+                                        aria-selected="true"
+                                        data-tip="Analiza la raíz gramatical original (griego/hebreo) y el trasfondo histórico-cultural del autor. Recibirás sentido léxico Strong, contexto y trasfondo del pasaje.">
+                                        <span class="rv-persp-mark" aria-hidden="true">🏛️</span>
+                                        <span class="rv-persp-chip-copy">
+                                            <strong>Exégesis e Historia</strong>
+                                            <small>Strong &amp; Contexto</small>
+                                        </span>
+                                    </button>
+                                    <button type="button" class="rv-persp-chip" data-persp="hermeneutica" role="tab"
+                                        aria-selected="false"
+                                        data-tip="Cruza el pasaje bajo el principio de que la Biblia interpreta la Biblia, conectándolo con la teología de la gracia. Recibirás coherencia canónica y doctrina centrada en Cristo.">
+                                        <span class="rv-persp-mark" aria-hidden="true">📜</span>
+                                        <span class="rv-persp-chip-copy">
+                                            <strong>Hermenéutica y Teología</strong>
+                                            <small>Escritura con Escritura</small>
+                                        </span>
+                                    </button>
+                                    <button type="button" class="rv-persp-chip" data-persp="apologetica" role="tab"
+                                        aria-selected="false"
+                                        data-tip="Da solidez doctrinal y argumentos inquebrantables sobre la autenticidad y defensa del texto sagrado. Recibirás anclas de veracidad y defensa fiel del pasaje.">
+                                        <span class="rv-persp-mark" aria-hidden="true">🛡️</span>
+                                        <span class="rv-persp-chip-copy">
+                                            <strong>Apologética y Veracidad</strong>
+                                            <small>Defensa del texto sagrado</small>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rv-persp-pillar" data-pillar="b">
+                                <p class="rv-persp-pillar-kicker">Bloque B</p>
+                                <h3 class="rv-persp-pillar-title">El Pilar de la Mente y la Restauración del Alma</h3>
+                                <p class="rv-persp-pillar-lead">Bajo el Blindaje Bíblico</p>
+                                <div class="rv-persp-rail" role="tablist" aria-label="Pilar de la mente y el alma">
+                                    <button type="button" class="rv-persp-chip" data-persp="mente" role="tab"
+                                        aria-selected="false"
+                                        data-tip="Examina cómo el diseño biológico de la mente responde a la renovación del entendimiento (metanoia), rechazando el humanismo secular y anclándolo en la verdad de Dios.">
+                                        <span class="rv-persp-mark" aria-hidden="true">🧠</span>
+                                        <span class="rv-persp-chip-copy">
+                                            <strong>Neuroplasticidad y Pensamiento</strong>
+                                            <small>Metanoia bajo la Palabra</small>
+                                        </span>
+                                    </button>
+                                    <button type="button" class="rv-persp-chip" data-persp="alma" role="tab"
+                                        aria-selected="false"
+                                        data-tip="Aborda las pasiones humanas (miedo, ira, frustración) guiando el quebrantamiento del corazón de piedra hacia un corazón de carne por la gracia del Espíritu Santo.">
+                                        <span class="rv-persp-mark" aria-hidden="true">🌱</span>
+                                        <span class="rv-persp-chip-copy">
+                                            <strong>Inteligencia Emocional y Alma</strong>
+                                            <small>Restauración por gracia</small>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <aside id="rv-persp-tip" class="rv-persp-tip is-on" aria-live="polite">
+                            <p class="rv-persp-tip-kicker">Profundidad de análisis</p>
+                            <h4 class="rv-persp-tip-title" id="rv-persp-tip-title">🏛️ Exégesis e Historia</h4>
+                            <p class="rv-persp-tip-body" id="rv-persp-tip-body">Analiza la raíz gramatical original
+                                (griego/hebreo) y el trasfondo histórico-cultural original del autor.</p>
+                        </aside>
+                        <div class="rv-persp-toolbar">
+                            <button type="button" id="rv-persp-compare" class="rv-persp-toggle" aria-pressed="false">
+                                Vista comparativa
+                            </button>
+                            <button type="button" id="rv-persp-synth" class="rv-persp-synth"
+                                aria-controls="rv-persp-synth-report">
+                                <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                                <span>Sintetizar Perspectivas con <span class="rv-ia-name">RevelatiO IA</span></span>
+                            </button>
+                        </div>
+                        <div id="rv-persp-compare-pick" class="rv-persp-compare-pick" hidden>
+                            <label for="rv-persp-b">Segunda lente</label>
+                            <select id="rv-persp-b" aria-label="Segunda lente para comparar">
+                                <option value="hermeneutica">Hermenéutica y Teología</option>
+                                <option value="apologetica">Apologética y Veracidad</option>
+                                <option value="mente">Neuroplasticidad y Pensamiento</option>
+                                <option value="alma">Inteligencia Emocional y Alma</option>
+                                <option value="exegesis">Exégesis e Historia</option>
+                            </select>
+                        </div>
+                        <div id="rv-persp-grid" class="rv-persp-grid" aria-live="polite"></div>
+                        <div id="rv-persp-synth-report" class="rv-persp-synth-report" aria-live="polite"></div>
+                    </section>
+                    <section id="panel-concordancia" class="rv-concordancia is-hidden-tab" role="tabpanel"
+                        aria-label="Concordancia y referencias cruzadas">
+                        <p class="rv-comentario-kicker">Concordancia · referencias cruzadas</p>
+                        <p id="ref-concordancia" class="rv-comentario-ref"></p>
+                        <div class="rv-estudio-cols">
+                            <div>
+                                <h3 class="rv-estudio-h">Paralelos</h3>
+                                <div id="lista-cruzadas" class="rv-xref-list"></div>
+                            </div>
+                            <div>
+                                <h3 class="rv-estudio-h">Raíces Strong</h3>
+                                <div id="lista-strong-verso" class="rv-strong-row"></div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div id="rv-popover" role="toolbar" aria-label="Menú contextual de estudio">
+        <div class="rv-pop-top">
+            <div class="rv-ipad-swatches" role="group" aria-label="Color de resaltado">
+                <button type="button" class="rv-swatch sw-oro" data-hl="oro" title="Resaltar en dorado"
+                    aria-label="Resaltar en dorado"></button>
+                <button type="button" class="rv-swatch sw-azul" data-hl="azul" title="Azul real"
+                    aria-label="Resaltar en azul real"></button>
+                <button type="button" class="rv-swatch sw-verde" data-hl="verde" title="Verde esperanza"
+                    aria-label="Resaltar en verde esperanza"></button>
+                <button type="button" class="rv-swatch sw-purpura" data-hl="purpura" title="Púrpura"
+                    aria-label="Resaltar en púrpura"></button>
+            </div>
+            <div class="rv-pop-acts">
+                <button type="button" data-act="copy">Copiar</button>
+                <button type="button" data-act="note">Nota</button>
+                <button type="button" data-act="xref">Concordancia</button>
+                <button type="button" data-act="strong">Strong</button>
+                <button type="button" data-act="ai" class="rv-ia-btn" title="RevelatiO IA" aria-label="RevelatiO IA">
+                    <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                    <span class="rv-ia-name">RevelatiO IA</span>
+                </button>
+                <button type="button" data-act="listen">Oír</button>
+            </div>
+        </div>
+        <div class="rv-pop-panel" aria-label="Números Strong">
+            <p class="rv-pop-label">Números Strong · raíces originales</p>
+            <div id="rv-pop-strongs" class="rv-pop-strongs"></div>
+        </div>
+        <div class="rv-pop-panel" aria-label="Referencias cruzadas">
+            <p class="rv-pop-label">Referencias cruzadas</p>
+            <div id="rv-pop-xrefs" class="rv-pop-xrefs"></div>
+        </div>
+        <div class="rv-pop-panel rv-pop-selects">
+            <div>
+                <label for="pop-selector-version">Versión</label>
+                <select id="pop-selector-version" aria-label="Cambiar versión bíblica">
+                    <option value="rv1960">RVR1960</option>
+                    <option value="kjv">KJV</option>
+                    <option value="tla">TLA</option>
+                    <option value="dhh">DHH</option>
+                    <option value="septuaginta">Septuaginta</option>
+                </select>
+            </div>
+            <div>
+                <label for="pop-selector-autor">Comentarista</label>
+                <select id="pop-selector-autor" aria-label="Cambiar comentarista">
+                    <option value="matthew-henry">Matthew Henry</option>
+                    <option value="jamieson-fausset-brown">Jamieson, Fausset y Brown</option>
+                    <option value="albert-barnes">Albert Barnes</option>
+                    <option value="charles-spurgeon">Charles Spurgeon</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section id="modulo-marginnote"
+        class="sheet-hidden fixed inset-x-4 bottom-24 z-80 mx-auto max-w-lg rounded-2xl p-5">
+        <div class="mb-3 flex items-center justify-between gap-3">
+            <div>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-[#C5A059]">Nota de estudio</p>
+                <p id="estado-nota" class="rv-sync mt-1">Guardado en este dispositivo</p>
+            </div>
+            <button type="button" id="cerrar-nota" class="text-[#C5A059]" aria-label="Cerrar nota">✕</button>
+        </div>
+        <form id="form-marginnote" class="space-y-3">
+            <input type="hidden" name="nota-id">
+            <input name="referencia" class="w-full px-3 py-2 text-sm" placeholder="Referencia">
+            <textarea name="nota" rows="5" class="w-full px-3 py-2 text-sm"
+                placeholder="Observación ante el texto…"></textarea>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <label class="flex items-center gap-2 text-[11px] tracking-wide text-[#6B6B6B]">
+                    <input type="checkbox" name="permanente" class="accent-[#C5A059]">
+                    Archivo permanente
+                </label>
+                <button type="submit"
+                    class="rv-btn-gold px-3 py-2 text-[11px] uppercase tracking-widest">Guardar</button>
+            </div>
+        </form>
+    </section>
+
+    <section id="modulo-cuaderno" aria-hidden="true">
+        <div class="rv-cuaderno-panel">
+            <header class="rv-cuaderno-head flex items-start justify-between gap-3 px-5 py-4">
+                <div>
+                    <p class="text-[10px] uppercase tracking-[0.22em] text-[#C5A059]">Workspace</p>
+                    <h2 class="font-display mt-1 text-3xl text-[#FDFCFA]">Mi Cuaderno</h2>
+                    <p id="estado-cuaderno" class="rv-sync mt-1 text-[#C9C6BE]">Sincronizando</p>
+                </div>
+                <button type="button" id="cerrar-cuaderno" class="text-[#C5A059]"
+                    aria-label="Cerrar cuaderno">✕</button>
+            </header>
+            <div class="canon-scroll min-h-0 flex-1 overflow-y-auto px-5 py-4">
+                <div id="aviso-cuota" class="rv-note-card mb-4 hidden">
+                    <p class="text-[10px] uppercase tracking-[0.16em] text-[#8D7040]">Espacio de estudio</p>
+                    <p id="aviso-cuota-texto" class="mt-1 text-[14px] leading-relaxed text-[#3D3D3D]"></p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <button type="button" id="backup-md"
+                            class="rv-btn-gold px-3 py-1.5 text-[10px] uppercase tracking-[0.16em]">Backup
+                            Markdown</button>
+                        <button type="button" id="backup-pdf"
+                            class="rv-btn-gold px-3 py-1.5 text-[10px] uppercase tracking-[0.16em]">Backup PDF</button>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="mb-2 flex items-center justify-between text-[11px] text-[#6B6B6B]">
+                        <span>Uso del cuaderno</span>
+                        <span id="cuota-label">0 KB de 180 KB</span>
+                    </div>
+                    <div class="rv-cuota-track">
+                        <div id="cuota-fill" class="rv-cuota-fill" style="width:0%"></div>
+                    </div>
+                    <p id="aviso-caducidad" class="mt-2 hidden text-[12px] leading-relaxed text-[#8D7040]"></p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <button type="button" id="backup-md-always"
+                            class="rv-btn-gold px-3 py-1.5 text-[10px] uppercase tracking-[0.16em]">Markdown</button>
+                        <button type="button" id="backup-pdf-always"
+                            class="rv-btn-gold px-3 py-1.5 text-[10px] uppercase tracking-[0.16em]">PDF</button>
+                    </div>
+                </div>
+                <div id="filtros-cuaderno" class="mb-4 flex flex-wrap gap-1.5">
+                    <button type="button" class="rv-tab is-on" data-filtro="todas">Todo</button>
+                    <button type="button" class="rv-tab" data-filtro="nota">Notas</button>
+                    <button type="button" class="rv-tab" data-filtro="resaltado">Resaltados</button>
+                    <button type="button" class="rv-tab" data-filtro="sermon">Sermones</button>
+                    <button type="button" class="rv-tab" data-filtro="estudio">Estudios</button>
+                    <button type="button" class="rv-tab" data-filtro="permanente">Archivo permanente</button>
+                </div>
+                <div id="lista-cuaderno" class="space-y-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <form id="form-sermon" class="hidden">
+        <input name="pasaje"><select name="tipo">
+            <option value="sermon">sermon</option>
+        </select>
+        <textarea name="consulta"></textarea>
+        <div id="salida-sermon"></div>
+    </form>
+    <div id="visor-paralelo" class="hidden">
+        <div data-paralelo-cuerpo></div>
+        <div data-paralelo-cuerpo></div>
+    </div>
+
+    <div id="rv-audio-dock" class="rv-audio-dock" aria-label="Reproductor de experiencia">
+        <button type="button" id="dock-musica" class="rv-dock-play" aria-pressed="false"
+            title="Música cristiana instrumental">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+            </svg>
+        </button>
+        <div class="min-w-0 flex-1">
+            <p class="text-[11px] tracking-wide text-[#FDFCFA]">Música cristiana instrumental</p>
+            <p id="estado-audio" class="rv-audio-status">En silencio</p>
+        </div>
+        <label class="hidden items-center gap-2 sm:flex" title="Volumen de la música">
+            <span class="sr-only">Volumen de la música</span>
+            <input type="range" id="dock-vol-musica" min="0" max="100" value="28">
+        </label>
+        <button type="button" id="dock-voz" title="Pausar o reanudar narración">Pausar voz</button>
+    </div>
+
+    <button type="button" id="btn-asistente-ia" class="rv-fab" aria-controls="panel-asistente-ia" aria-expanded="false"
+        aria-label="RevelatiO IA" title="RevelatiO IA">
+        <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+        <span class="rv-ia-name">RevelatiO IA</span>
+    </button>
+    <aside id="panel-asistente-ia" class="rv-drawer flex-col overflow-hidden" role="dialog" aria-label="RevelatiO IA">
+        <header class="flex items-center justify-between border-b border-[#C5A059]/20 px-4 py-3">
+            <div class="rv-ia-badge rv-ia-badge-lg">
+                <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                <div>
+                    <p class="rv-ia-name">RevelatiO IA</p>
+                    <p class="rv-ia-kicker">Exégesis y renovación</p>
+                </div>
+            </div>
+            <button type="button" id="btn-cerrar-ia" class="text-[#C5A059]" aria-label="Cerrar RevelatiO IA">✕</button>
+        </header>
+        <div id="chat-ia-mensajes" class="canon-scroll flex-1 overflow-y-auto p-4 text-sm">
+            <div class="rv-ia-welcome">
+                <span class="rv-ia-badge">
+                    <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                    <span class="rv-ia-name">RevelatiO IA</span>
+                </span>
+                <p>Pregunta al texto abierto. RevelatiO IA responde como ayuda de estudio, no como autoridad sobre la
+                    Escritura.</p>
+            </div>
+        </div>
+        <form id="form-asistente-ia" class="border-t border-[#C5A059]/20 p-3">
+            <textarea name="mensaje" rows="2" class="mb-2 w-full px-3 py-2 text-sm"
+                placeholder="Pregunta a RevelatiO IA…"></textarea>
+            <button type="submit" class="rv-btn-gold rv-ia-btn w-full justify-center py-2">
+                <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                <span class="rv-ia-name">Consultar RevelatiO IA</span>
+            </button>
+        </form>
+    </aside>
+
+    <aside id="panel-strong" class="rv-strong-panel" role="dialog" aria-label="Léxico Strong" aria-hidden="true">
+        <header class="mb-3 flex items-center justify-between gap-3">
+            <p id="codigo-strong" class="text-[10px] uppercase tracking-[0.22em] text-[#C5A059]">Strong</p>
+            <button type="button" id="cerrar-strong" class="text-[#C5A059]" aria-label="Cerrar léxico">✕</button>
+        </header>
+        <div id="cuerpo-strong"></div>
+    </aside>
+
+    <footer class="rv-footer" role="contentinfo">
+        <p class="rv-legal-sbu">Los textos de la Reina-Valera 1960 (RVR1960), la Traducción en Lenguaje Actual (TLA) y
+            Dios Habla Hoy (DHH) son © Sociedades Bíblicas Unidas. Usados con permiso para lectura digital. Todos los
+            derechos reservados. Queda prohibida su reproducción, almacenamiento o distribución completa sin
+            autorización de SBU.</p>
+        <p>RevelatiO IA es estocástico y no sustituye el pastoreo ni la autoridad de la Escritura; úsese solo como
+            referencia de estudio.</p>
+    </footer>
+
+    <section id="modal-efata-card" class="sheet-hidden efata-modal" role="dialog" aria-labelledby="titulo-efata-card">
+        <div class="efata-modal-panel">
+            <header class="flex items-center justify-between border-b border-[#C5A059]/20 px-4 py-3">
+                <div class="flex items-center gap-3">
+                    <div class="rv-lockup">
+                        <img src="brand/revelatio-mark.png" alt="" class="rv-cerebro">
+                        <img src="brand/revelatio-wordmark.png" alt="RevelatiO" class="rv-palabra">
+                    </div>
+                    <p id="titulo-efata-card" class="text-[10px] uppercase tracking-[0.22em] text-[#C5A059]">Éfata Cards
+                    </p>
+                </div>
+                <button type="button" id="cerrar-efata-card" class="text-[#C5A059]">✕</button>
+            </header>
+            <div class="grid gap-0 lg:grid-cols-[minmax(0,1fr)_16.5rem]">
+                <div class="efata-preview-wrap">
+                    <canvas id="canvas-efata-card" width="1080" height="1350"
+                        aria-label="Vista previa de la tarjeta"></canvas>
+                </div>
+                <div class="space-y-5 border-t border-[#C5A059]/15 p-4 lg:border-l lg:border-t-0">
+                    <div>
+                        <p class="mb-2 text-[10px] uppercase tracking-[0.18em] text-[#C5A059]">Fondo</p>
+                        <div class="flex gap-2">
+                            <button type="button" class="efata-swatch sw-marmol is-on" data-fondo="marmol"
+                                title="Mármol negro" aria-label="Mármol negro"></button>
+                            <button type="button" class="efata-swatch sw-papiro" data-fondo="papiro"
+                                title="Papiro envejecido" aria-label="Papiro envejecido"></button>
+                            <button type="button" class="efata-swatch sw-jerusalem" data-fondo="jerusalem"
+                                title="Jerusalén" aria-label="Paisaje de Jerusalén"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="mb-2 text-[10px] uppercase tracking-[0.18em] text-[#C5A059]">Tipografía</p>
+                        <div class="flex flex-col gap-2">
+                            <button type="button" class="efata-tipo is-on" data-tipo="editorial">Editorial
+                                itálica</button>
+                            <button type="button" class="efata-tipo" data-tipo="monumental">Monumental Cinzel</button>
+                            <button type="button" class="efata-tipo" data-tipo="lectura">Lectura serif</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 pt-1">
+                        <button type="button" id="descargar-efata-card"
+                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Descargar</button>
+                        <button type="button" id="publicar-efata-card"
+                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Compartir en redes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script-principal.js"></script>
+    <script src="revelatio-modulos.js?v=sidebarex1"></script>
+</body>
+
+</html>

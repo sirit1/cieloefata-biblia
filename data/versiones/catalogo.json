@@ -1,0 +1,51 @@
+{
+  "schema": "revelatio.versiones.v1",
+  "producto": "Éfata RevelatiO",
+  "activa": ["rv1960", "tla", "dhh", "septuaginta"],
+  "versiones": [
+    {
+      "key": "rv1960",
+      "etiqueta": "RVR1960",
+      "nombre": "Reina-Valera 1960",
+      "licencia": "sbu",
+      "titular": "Sociedades Bíblicas Unidas",
+      "archivo": "rv1960.json",
+      "aviso": "sbu",
+      "fuente_remota": "RV1960"
+    },
+    {
+      "key": "tla",
+      "etiqueta": "TLA",
+      "nombre": "Traducción en Lenguaje Actual",
+      "licencia": "sbu",
+      "titular": "Sociedades Bíblicas Unidas",
+      "archivo": "tla.json",
+      "aviso": "sbu",
+      "fuente_remota": "TLA"
+    },
+    {
+      "key": "dhh",
+      "etiqueta": "DHH",
+      "nombre": "Dios Habla Hoy",
+      "licencia": "sbu",
+      "titular": "Sociedades Bíblicas Unidas",
+      "archivo": "dhh.json",
+      "aviso": "sbu",
+      "fuente_remota": "DHH"
+    },
+    {
+      "key": "septuaginta",
+      "etiqueta": "Septuaginta",
+      "nombre": "Septuaginta (Rahlfs)",
+      "licencia": "public",
+      "titular": "Texto griego base (ed. Rahlfs)",
+      "archivo": "septuaginta.json",
+      "aviso": null,
+      "fuente_remota": "LXX"
+    }
+  ],
+  "reservadas_v2": [
+    { "key": "nvi", "etiqueta": "NVI", "nombre": "Nueva Versión Internacional", "licencia": "pending", "archivo": "nvi.json" },
+    { "key": "ntv", "etiqueta": "NTV", "nombre": "Nueva Traducción Viviente", "licencia": "pending", "archivo": "ntv.json" }
+  ]
+}

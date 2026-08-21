@@ -1,0 +1,15 @@
+{
+  "key": "autor-comercial",
+  "etiqueta": "Nombre del autor",
+  "obra": "Título de la obra licenciada",
+  "licencia": "pending",
+  "entries": {
+    "genesis_1": {
+      "capitulo": "",
+      "1": ""
+    }
+  },
+  "libros": {
+    "Génesis": ""
+  }
+}

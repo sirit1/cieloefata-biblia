@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { obtenerDefinicionStrong, DICCIONARIO_STRONG } from '../lib/biblia.js';
 import { consultarDiccionario } from '../lib/diccionario.js';
+import { entradaStrongLocal } from '../lib/strong.js';
 import { generarJSON, hayMotorIA } from '../lib/ai.js';
 import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 
@@ -28,7 +29,7 @@ async function traducirConIA(prompt) {
 async function traducirDefinicion(definicion) {
   const base = { ...definicion };
   if (!hayMotorIA()) {
-    return { ...base, traduccionEstricta: 'Traducción no disponible: falta el motor de IA.', definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
+    return { ...base, traduccionEstricta: 'Traducción no disponible: falta configurar RevelatiO IA.', definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
   }
 
   const instruccionComun = 'NO incluyas inglés ni etiquetas de campos, tampoco Original, Transliteration, Phonetic, Definition, Origin, TDNT, Part(s) of speech o Strong\'s. traduccion_estricta debe ser SIEMPRE en español: una lista breve de equivalentes españoles directos del término, separados por comas, NUNCA la palabra hebrea o griega original ni texto en inglés.';
@@ -78,11 +79,28 @@ export default async function handler(req, res) {
   if (!cuota.allowed) return cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
 
   const codigo = typeof req.body?.codigo === 'string' ? req.body.codigo.trim().toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2') : '';
-  if (!/^[GH]\d{1,4}$/.test(codigo)) {
+  if (!/^[GH]\d{1,5}$/.test(codigo)) {
     return res.status(400).json({ error: 'Código de Strong inválido.' });
   }
 
   try {
+    const local = entradaStrongLocal(codigo);
+    if (local?.definicion) {
+      const contexto = await consultarDiccionario(codigo);
+      return res.status(200).json({ success: true, data: contexto || {
+        codigo,
+        lexema: local.lemma,
+        lemma: local.lemma,
+        raiz: local.raiz,
+        transliteracion: local.translit,
+        definicion: local.definicion,
+        definicionEs: local.definicion,
+        traduccionEstricta: local.definicion,
+        idioma: local.idioma,
+        fuente: 'Strong · dominio público',
+      } });
+    }
+
     let definicion = await obtenerDefinicionStrong(codigo);
     // Bolls devuelve las entradas hebreas con el prefijo H; este respaldo evita
     // que una respuesta transitoria del proveedor rompa H7223, H834, etc.
@@ -90,10 +108,14 @@ export default async function handler(req, res) {
       const respuesta = await fetch(`https://bolls.life/dictionary-definition/${DICCIONARIO_STRONG.bolls}/${encodeURIComponent(codigo)}/`);
       const entradas = await respuesta.json();
       const entrada = Array.isArray(entradas) ? entradas[0] : null;
-      if (entrada) definicion = { codigo, lexema: entrada.lexeme || entrada.topic || codigo, transliteracion: entrada.transliteration || '', pronunciacion: entrada.pronunciation || '', definicionCorta: entrada.short_definition || '', definicion: String(entrada.definition || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() };
+      if (entrada) definicion = { codigo, lexema: entrada.lexeme || entrada.topic || codigo, transliteracion: entrada.transliteration || '', pronunciacion: entrada.pronunciation || '', definicionCorta: entrada.short_definition || '', definicion: String(entrada.definition || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(), fuente: 'Strong / Thayer / BDB · dominio público' };
     }
     if (!definicion) {
       return res.status(404).json({ error: 'No se encontró una definición para ese término.' });
+    }
+    if (definicion.definicionEs || definicion.fuente?.includes('Strong · dominio público')) {
+      const contexto = await consultarDiccionario(codigo);
+      return res.status(200).json({ success: true, data: { ...definicion, ...contexto } });
     }
     const resultado = await traducirDefinicion(definicion);
     const contexto = await consultarDiccionario(codigo);

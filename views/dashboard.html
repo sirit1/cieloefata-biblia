@@ -1,0 +1,163 @@
+<div id="rv-home" class="rv-home" role="main" aria-label="Umbral de Éfata RevelatiO">
+        <div class="rv-home-bg" aria-hidden="true"></div>
+        <div class="rv-home-inner">
+            <section class="rv-dual-hero" aria-labelledby="home-titulo">
+                <div class="rv-dual-brand">
+                    <img src="brand/revelatio-lockup-clear.png" alt="REVELATIO by Éfata" width="867" height="889">
+                    <p class="rv-dual-kicker">Éfata RevelatiO · sin fines de lucro</p>
+                    <h1 id="home-titulo" class="rv-dual-title">Éfata RevelatiO<br><em>Dos puertas. Una sola cruz.</em>
+                    </h1>
+                </div>
+                <div class="rv-dual-doors" role="navigation" aria-label="Puertas de entrada">
+                    <a href="#lectura/Romanos/12" class="rv-door" id="entrar-texto" data-ir="estudio-profundo"
+                        role="button" tabindex="0" aria-label="Estudio Profundo de las Escrituras">
+                        <div>
+                            <p class="rv-door-kicker">Puerta I · Exégesis</p>
+                            <h2 class="rv-door-title">Estudio Profundo de las Escrituras</h2>
+                            <p class="rv-door-copy">Motor exegético, cruce de perspectivas, léxico Strong y profundidad
+                                teológica bajo la autoridad de la Palabra.</p>
+                        </div>
+                        <span class="rv-door-cta">Abrir el estudio →</span>
+                    </a>
+                    <a href="#acompanamiento" class="rv-door" id="entrar-acompanamiento" data-ir="acompanamiento"
+                        role="button" tabindex="0" aria-label="Acompañamiento Ministerial">
+                        <div>
+                            <p class="rv-door-kicker">Puerta II · Pastoral</p>
+                            <h2 class="rv-door-title">Acompañamiento Ministerial</h2>
+                            <p class="rv-door-copy">Consejería espiritual, contención y guía pastoral para las crisis
+                                del alma — siempre hacia la cruz de Cristo.</p>
+                        </div>
+                        <span class="rv-door-cta">Abrir el acompañamiento →</span>
+                    </a>
+                </div>
+            </section>
+
+            <section id="rv-auth-card" class="rv-home-span rv-glass rv-home-card rv-auth"
+                aria-labelledby="home-suscripcion">
+                <p class="rv-home-kicker">Círculo de Estudios Exegéticos</p>
+                <h3 id="home-suscripcion">Registro de entrada</h3>
+                <p class="rv-auth-lead">Tu puerta de acceso a la plataforma. Con <strong>Correo Electrónico</strong> y
+                    <strong>Número de WhatsApp</strong> vinculamos notas, exégesis y actividad a tu perfil en este
+                    dispositivo.
+                </p>
+                <p id="rv-auth-gate-msg" class="rv-auth-gate" hidden role="status">
+                    Para abrir cualquiera de las dos puertas, únete primero al Círculo con tu correo y WhatsApp.
+                </p>
+
+                <div id="rv-auth-session" class="rv-auth-session" hidden>
+                    <div>
+                        <strong id="rv-auth-session-role">Perfil activo</strong>
+                        <p id="rv-auth-session-copy">Sesión vinculada a tu Cuaderno, notas y exégesis.</p>
+                        <span id="rv-auth-admin-badge" class="rv-auth-admin-badge" hidden>Administrador · sesión
+                            local</span>
+                    </div>
+                    <button type="button" id="rv-auth-logout"
+                        class="rv-btn-gold px-4 py-2 text-[11px] uppercase tracking-[0.18em]">Cerrar sesión</button>
+                </div>
+
+                <div id="rv-auth-forms">
+                    <form id="form-registro" class="rv-auth-grid" autocomplete="on" method="post" action="#">
+                        <div class="rv-auth-field">
+                            <label for="reg-email">Correo Electrónico</label>
+                            <input id="reg-email" name="email" type="email" autocomplete="email" required
+                                placeholder="tu@correo.org" aria-required="true">
+                        </div>
+                        <div class="rv-auth-field">
+                            <label for="reg-whatsapp">Número de WhatsApp</label>
+                            <div class="rv-wa-row">
+                                <label class="sr-only" for="reg-pais">Código de país</label>
+                                <select id="reg-pais" name="pais" aria-label="Código de país">
+                                    <option value="+57" selected>CO +57</option>
+                                    <option value="+58">VE +58</option>
+                                    <option value="+52">MX +52</option>
+                                    <option value="+54">AR +54</option>
+                                    <option value="+56">CL +56</option>
+                                    <option value="+51">PE +51</option>
+                                    <option value="+593">EC +593</option>
+                                    <option value="+507">PA +507</option>
+                                    <option value="+1">US/CA +1</option>
+                                    <option value="+34">ES +34</option>
+                                </select>
+                                <input id="reg-whatsapp" name="whatsapp" type="tel" inputmode="tel"
+                                    autocomplete="tel-national" required placeholder="310 786 0864"
+                                    pattern="[0-9\s\-]{7,15}" aria-required="true" aria-describedby="reg-whatsapp-hint">
+                            </div>
+                            <p id="reg-whatsapp-hint" class="rv-auth-field-hint">Incluye solo el número local; el código
+                                de país va a la izquierda.</p>
+                        </div>
+                        <div class="rv-auth-actions rv-auth-full">
+                            <button type="submit" id="btn-entrar-circulo" class="rv-btn-fill"
+                                data-auth="registro">Entrar al Círculo</button>
+                            <button type="button" id="rv-auth-show-login" class="rv-auth-switch"
+                                data-auth="show-login">¿Ya tienes cuenta? Inicia sesión</button>
+                        </div>
+                        <p class="rv-auth-hint rv-auth-full">Registro principal de la app: notas, lecturas y exégesis
+                            quedan vinculadas a tu correo y WhatsApp en este dispositivo.</p>
+                    </form>
+
+                    <form id="form-login" class="rv-auth-grid" hidden autocomplete="on" method="post" action="#">
+                        <div class="rv-auth-field">
+                            <label for="login-email">Correo Electrónico</label>
+                            <input id="login-email" name="email" type="email" autocomplete="username" required
+                                placeholder="tu@correo.org" aria-required="true">
+                        </div>
+                        <div class="rv-auth-field">
+                            <label for="login-whatsapp">Número de WhatsApp</label>
+                            <div class="rv-wa-row">
+                                <label class="sr-only" for="login-pais">Código de país</label>
+                                <select id="login-pais" name="pais" aria-label="Código de país">
+                                    <option value="+57" selected>CO +57</option>
+                                    <option value="+58">VE +58</option>
+                                    <option value="+52">MX +52</option>
+                                    <option value="+54">AR +54</option>
+                                    <option value="+56">CL +56</option>
+                                    <option value="+51">PE +51</option>
+                                    <option value="+593">EC +593</option>
+                                    <option value="+507">PA +507</option>
+                                    <option value="+1">US/CA +1</option>
+                                    <option value="+34">ES +34</option>
+                                </select>
+                                <input id="login-whatsapp" name="whatsapp" type="tel" inputmode="tel"
+                                    autocomplete="tel-national" required placeholder="310 786 0864"
+                                    pattern="[0-9\s\-]{7,15}" aria-required="true">
+                            </div>
+                        </div>
+                        <div class="rv-auth-actions rv-auth-full">
+                            <button type="submit" id="btn-iniciar-sesion" class="rv-btn-fill" data-auth="login">Iniciar
+                                sesión</button>
+                            <button type="button" id="rv-auth-show-registro" class="rv-auth-switch"
+                                data-auth="show-registro">¿Primera vez? Únete al Círculo</button>
+                        </div>
+                        <p class="rv-auth-hint rv-auth-full">Usa el mismo correo y WhatsApp del registro para recuperar
+                            tu actividad vinculada en este dispositivo.</p>
+                    </form>
+                </div>
+                <p id="estado-suscripcion" class="rv-home-status" role="status"></p>
+            </section>
+
+            <section class="rv-home-span rv-glass rv-home-card rv-aporte" aria-labelledby="home-aporte">
+                <p class="rv-home-kicker">Semilla Ministerial</p>
+                <h3 id="home-aporte">Aporte Voluntario</h3>
+                <p class="rv-aporte-leyenda">Somos una organización sin fines de lucro dedicada a la revelación de las
+                    Escrituras. Si deseas apoyarnos y ser parte de esta obra, contáctanos a nuestro WhatsApp. ¡Que el
+                    Señor te multiplique y mil gracias por tu respaldo!</p>
+                <a class="rv-aporte-btn" id="btn-aporte-voluntario"
+                    href="https://wa.me/573107860864?text=Paz%20y%20bendici%C3%B3n%20del%20Se%C3%B1or.%20Deseo%20sembrar%20un%20Aporte%20Voluntario%20(Semilla%20Ministerial)%20para%20sostener%20la%20obra%20de%20%C3%89fata%20RevelatiO.%20%C2%A1Que%20el%20Se%C3%B1or%20multiplique%20esta%20siembra!%20%C2%BFMe%20indican%20c%C3%B3mo%20puedo%20colaborar%3F"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="Abrir WhatsApp +57 310 786 0864 para Aporte Voluntario (Semilla Ministerial)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm0 1.82c4.46 0 8.09 3.63 8.09 8.09 0 4.46-3.63 8.09-8.09 8.09-1.42 0-2.8-.37-4.01-1.07l-.29-.17-3.12.82.83-3.04-.19-.31a8.05 8.05 0 0 1-1.23-4.32c0-4.46 3.63-8.09 8.01-8.09zm4.43 10.54c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.48-.4-.41-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z" />
+                    </svg>
+                    Aporte Voluntario (Semilla Ministerial)
+                </a>
+                <p class="rv-aporte-wa">WhatsApp ministerial:
+                    <a href="https://wa.me/573107860864?text=Paz%20y%20bendici%C3%B3n%20del%20Se%C3%B1or.%20Deseo%20sembrar%20un%20Aporte%20Voluntario%20(Semilla%20Ministerial)%20para%20sostener%20la%20obra%20de%20%C3%89fata%20RevelatiO.%20%C2%A1Que%20el%20Se%C3%B1or%20multiplique%20esta%20siembra!%20%C2%BFMe%20indican%20c%C3%B3mo%20puedo%20colaborar%3F"
+                        target="_blank" rel="noopener noreferrer">+57 310 786 0864</a>
+                </p>
+            </section>
+
+            <p class="rv-home-foot">Éfata RevelatiO · sin fines de lucro<br>RevelatiO IA no sustituye el pastoreo local
+                ni la autoridad de la Escritura. Toda respuesta desemboca en la cruz de Cristo.</p>
+        </div>
+    </div>

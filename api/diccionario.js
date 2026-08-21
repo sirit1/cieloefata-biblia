@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido.' });
   if (!await authenticate(req)) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
   const codigo = String(req.body?.strongId || req.body?.codigo || '').trim().toUpperCase();
-  if (!/^[GH]\d{1,4}$/.test(codigo)) return res.status(400).json({ error: 'Código Strong inválido.' });
+  if (!/^[GH]\d{1,5}$/.test(codigo)) return res.status(400).json({ error: 'Código Strong inválido.' });
   try {
     const data = await consultarDiccionario(codigo);
     if (!data) return res.status(404).json({ error: 'No se encontró la entrada.' });

@@ -1,0 +1,23 @@
+{
+  "fuente": "Reina-Valera 1909",
+  "capitulos": [
+    {
+      "archivo": "romanos-12.json",
+      "libro": "Romanos",
+      "capitulo": 12,
+      "versiculos": 21
+    },
+    {
+      "archivo": "juan-14.json",
+      "libro": "Juan",
+      "capitulo": 14,
+      "versiculos": 31
+    },
+    {
+      "archivo": "salmos-23.json",
+      "libro": "Salmos",
+      "capitulo": 23,
+      "versiculos": 6
+    }
+  ]
+}

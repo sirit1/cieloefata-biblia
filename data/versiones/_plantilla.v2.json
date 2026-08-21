@@ -1,0 +1,15 @@
+{
+  "key": "siglas",
+  "etiqueta": "SIGLAS",
+  "nombre": "Nombre comercial de la versión",
+  "licencia": "pending",
+  "titular": "Titular de derechos",
+  "aviso": null,
+  "libros": {
+    "Génesis": {
+      "1": {
+        "1": ""
+      }
+    }
+  }
+}

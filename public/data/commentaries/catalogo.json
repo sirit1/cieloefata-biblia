@@ -1,0 +1,43 @@
+{
+  "schema": "revelatio.comentarios.v1",
+  "activa": [
+    "matthew-henry",
+    "jamieson-fausset-brown",
+    "albert-barnes",
+    "charles-spurgeon"
+  ],
+  "autores": [
+    {
+      "key": "matthew-henry",
+      "etiqueta": "Matthew Henry",
+      "archivo": "matthew_henry.json",
+      "obra": "Exposition of the Old and New Testament",
+      "licencia": "public"
+    },
+    {
+      "key": "jamieson-fausset-brown",
+      "etiqueta": "Jamieson, Fausset y Brown",
+      "archivo": "jfb.json",
+      "obra": "Commentary Critical and Explanatory on the Whole Bible",
+      "licencia": "public"
+    },
+    {
+      "key": "albert-barnes",
+      "etiqueta": "Albert Barnes",
+      "archivo": "barnes.json",
+      "obra": "Notes on the Old and New Testaments",
+      "licencia": "public"
+    },
+    {
+      "key": "charles-spurgeon",
+      "etiqueta": "Charles Spurgeon",
+      "archivo": "spurgeon.json",
+      "obra": "Treasury of David y exposiciones",
+      "licencia": "public"
+    }
+  ],
+  "reservadas_v2": [
+    { "key": "walvoord", "etiqueta": "Walvoord", "archivo": "walvoord.json", "licencia": "pending" },
+    { "key": "macarthur", "etiqueta": "MacArthur", "archivo": "macarthur.json", "licencia": "pending" }
+  ]
+}

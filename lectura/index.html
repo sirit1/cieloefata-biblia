@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éfata RevelatiO</title>
+    <script>
+        (function () {
+            var dest = '/#lectura';
+            try {
+                var path = String(location.pathname || '/').replace(/\/lectura\/?$/i, '/') || '/';
+                dest = (path === '/' ? '' : path.replace(/\/$/, '')) + '/#lectura';
+                dest = dest.replace(/\/\/#/, '/#');
+            } catch (e) { dest = '/#lectura'; }
+            location.replace(dest);
+        })();
+    </script>
+    <meta http-equiv="refresh" content="0; url=/#lectura">
+</head>
+<body></body>
+</html>
