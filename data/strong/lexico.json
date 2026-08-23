@@ -1,45 +1,439 @@
 {
-  "G165": { "lemma": "αἰών", "translit": "aiōn", "raiz": "αἰών", "idioma": "griego", "definicion": "Era, siglo o mundo presente; el curso de esta edad." },
-  "G235": { "lemma": "ἀλλά", "translit": "alla", "raiz": "ἀλλά", "idioma": "griego", "definicion": "Sino, mas; adversativa que introduce un contraste." },
-  "G305": { "lemma": "ἀναβαίνω", "translit": "anabainō", "raiz": "βαίνω", "idioma": "griego", "definicion": "Subir, ascender." },
-  "G342": { "lemma": "ἀνακαίνωσις", "translit": "anakainōsis", "raiz": "καινός", "idioma": "griego", "definicion": "Renovación; hacer nuevo de nuevo." },
-  "G26": { "lemma": "ἀγάπη", "translit": "agapē", "raiz": "ἀγάπη", "idioma": "griego", "definicion": "Amor; la disposición de benevolencia y donación." },
-  "G40": { "lemma": "ἅγιος", "translit": "hagios", "raiz": "ἅγιος", "idioma": "griego", "definicion": "Santo, consagrado, apartado." },
-  "G80": { "lemma": "ἀδελφός", "translit": "adelphos", "raiz": "ἀδελφός", "idioma": "griego", "definicion": "Hermano; miembro de la misma familia o fe." },
-  "G2316": { "lemma": "θεός", "translit": "theos", "raiz": "θεός", "idioma": "griego", "definicion": "Dios; la Deidad." },
-  "G2424": { "lemma": "Ἰησοῦς", "translit": "Iēsous", "raiz": "Ἰησοῦς", "idioma": "griego", "definicion": "Jesús; forma griega del nombre hebreo Josué, «Jehová salva»." },
-  "G2962": { "lemma": "κύριος", "translit": "kyrios", "raiz": "κύριος", "idioma": "griego", "definicion": "Señor; dueño, el que tiene autoridad." },
-  "G4102": { "lemma": "πίστις", "translit": "pistis", "raiz": "πείθω", "idioma": "griego", "definicion": "Fe, fidelidad, convicción y confianza." },
-  "G4151": { "lemma": "πνεῦμα", "translit": "pneuma", "raiz": "πνέω", "idioma": "griego", "definicion": "Espíritu; aliento, viento, el Espíritu de Dios." },
-  "G3056": { "lemma": "λόγος", "translit": "logos", "raiz": "λέγω", "idioma": "griego", "definicion": "Palabra, razonamiento, discurso; el Verbo." },
-  "G3339": { "lemma": "μεταμορφόω", "translit": "metamorphoō", "raiz": "μορφή", "idioma": "griego", "definicion": "Transformar, transfigurar; cambiar de forma." },
-  "G3341": { "lemma": "μετάνοια", "translit": "metanoia", "raiz": "νοῦς", "idioma": "griego", "definicion": "Arrepentimiento: cambio de mente y de rumbo." },
-  "G3361": { "lemma": "μή", "translit": "mē", "raiz": "μή", "idioma": "griego", "definicion": "No; partícula de negación, a menudo en prohibiciones." },
-  "G3563": { "lemma": "νοῦς", "translit": "nous", "raiz": "νοῦς", "idioma": "griego", "definicion": "Mente, entendimiento, facultad de percibir." },
-  "G4964": { "lemma": "συσχηματίζω", "translit": "syschēmatizō", "raiz": "σχῆμα", "idioma": "griego", "definicion": "Conformarse a un esquema o figura; amoldarse." },
-  "G5485": { "lemma": "χάρις", "translit": "charis", "raiz": "χαίρω", "idioma": "griego", "definicion": "Gracia, favor inmerecido, don." },
-  "G5547": { "lemma": "Χριστός", "translit": "Christos", "raiz": "χρίω", "idioma": "griego", "definicion": "Cristo; el Ungido, el Mesías." },
-  "G1515": { "lemma": "εἰρήνη", "translit": "eirēnē", "raiz": "εἰρήνη", "idioma": "griego", "definicion": "Paz; armonía, bienestar, ausencia de hostilidad." },
-  "G1198": { "lemma": "δέσμιος", "translit": "desmios", "raiz": "δεσμός", "idioma": "griego", "definicion": "Prisionero; el que está atado." },
-  "G266": { "lemma": "ἁμαρτία", "translit": "hamartia", "raiz": "ἁμαρτάνω", "idioma": "griego", "definicion": "Pecado; errar el blanco, transgresión." },
-  "G1343": { "lemma": "δικαιοσύνη", "translit": "dikaiosynē", "raiz": "δίκαιος", "idioma": "griego", "definicion": "Justicia; rectitud, el estado de ser justo." },
-  "G1680": { "lemma": "ἐλπίς", "translit": "elpis", "raiz": "ἐλπίς", "idioma": "griego", "definicion": "Esperanza; expectativa confiada." },
-  "G2222": { "lemma": "ζωή", "translit": "zōē", "raiz": "ζάω", "idioma": "griego", "definicion": "Vida; la vida verdadera, a menudo la vida eterna." },
-  "G386": { "lemma": "ἀνάστασις", "translit": "anastasis", "raiz": "ἵστημι", "idioma": "griego", "definicion": "Resurrección; levantarse de entre los muertos." },
-  "G1577": { "lemma": "ἐκκλησία", "translit": "ekklēsia", "raiz": "καλέω", "idioma": "griego", "definicion": "Iglesia; asamblea convocada, congregación." },
-  "G2307": { "lemma": "θέλημα", "translit": "thelēma", "raiz": "θέλω", "idioma": "griego", "definicion": "Voluntad; lo que uno desea o determina." },
-  "G2101": { "lemma": "εὐάρεστος", "translit": "euarestos", "raiz": "ἀρέσκω", "idioma": "griego", "definicion": "Agradable, bien recibido." },
-  "G5046": { "lemma": "τέλειος", "translit": "teleios", "raiz": "τέλος", "idioma": "griego", "definicion": "Perfecto, completo, maduro, llegado a su fin." },
-  "G1381": { "lemma": "δοκιμάζω", "translit": "dokimazō", "raiz": "δόκιμος", "idioma": "griego", "definicion": "Probar, examinar, comprobar por ensayo." },
-  "H3068": { "lemma": "יהוה", "translit": "YHWH", "raiz": "היה", "idioma": "hebreo", "definicion": "El Nombre del Dios de Israel; el Eterno, «Yo Soy»." },
-  "H430": { "lemma": "אֱלֹהִים", "translit": "elohim", "raiz": "אל", "idioma": "hebreo", "definicion": "Dios; plural de majestad o deidad." },
-  "H113": { "lemma": "אָדוֹן", "translit": "adon", "raiz": "אדן", "idioma": "hebreo", "definicion": "Señor, amo, dueño." },
-  "H2617": { "lemma": "חֶסֶד", "translit": "chesed", "raiz": "חסד", "idioma": "hebreo", "definicion": "Misericordia leal; bondad de pacto." },
-  "H539": { "lemma": "אָמַן", "translit": "aman", "raiz": "אמן", "idioma": "hebreo", "definicion": "Estar firme, confiar, creer; de aquí «amén»." },
-  "H6942": { "lemma": "קָדַשׁ", "translit": "qadash", "raiz": "קדש", "idioma": "hebreo", "definicion": "Santificar, apartar como santo." },
-  "H5315": { "lemma": "נֶפֶשׁ", "translit": "nephesh", "raiz": "נפש", "idioma": "hebreo", "definicion": "Alma, vida, persona, ser viviente." },
-  "H7307": { "lemma": "רוּחַ", "translit": "ruach", "raiz": "רוח", "idioma": "hebreo", "definicion": "Espíritu, aliento, viento." },
-  "H1697": { "lemma": "דָּבָר", "translit": "dabar", "raiz": "דבר", "idioma": "hebreo", "definicion": "Palabra, asunto, hecho." },
-  "H7462": { "lemma": "רָעָה", "translit": "raah", "raiz": "רעה", "idioma": "hebreo", "definicion": "Pastorear, apacentar, cuidar el rebaño." },
-  "H2637": { "lemma": "חָסֵר", "translit": "chaser", "raiz": "חסר", "idioma": "hebreo", "definicion": "Faltar, carecer, disminuir." }
+  "G165": {
+    "lemma": "αἰών",
+    "translit": "aiōn",
+    "raiz": "αἰών",
+    "idioma": "griego",
+    "definicion": "Era, siglo o mundo presente; el curso de esta edad."
+  },
+  "G235": {
+    "lemma": "ἀλλά",
+    "translit": "alla",
+    "raiz": "ἀλλά",
+    "idioma": "griego",
+    "definicion": "Sino, mas; adversativa que introduce un contraste."
+  },
+  "G305": {
+    "lemma": "ἀναβαίνω",
+    "translit": "anabainō",
+    "raiz": "βαίνω",
+    "idioma": "griego",
+    "definicion": "Subir, ascender."
+  },
+  "G342": {
+    "lemma": "ἀνακαίνωσις",
+    "translit": "anakainōsis",
+    "raiz": "καινός",
+    "idioma": "griego",
+    "definicion": "Renovación; hacer nuevo de nuevo."
+  },
+  "G26": {
+    "lemma": "ἀγάπη",
+    "translit": "agapē",
+    "raiz": "ἀγάπη",
+    "idioma": "griego",
+    "definicion": "Amor; la disposición de benevolencia y donación."
+  },
+  "G40": {
+    "lemma": "ἅγιος",
+    "translit": "hagios",
+    "raiz": "ἅγιος",
+    "idioma": "griego",
+    "definicion": "Santo, consagrado, apartado."
+  },
+  "G80": {
+    "lemma": "ἀδελφός",
+    "translit": "adelphos",
+    "raiz": "ἀδελφός",
+    "idioma": "griego",
+    "definicion": "Hermano; miembro de la misma familia o fe."
+  },
+  "G2316": {
+    "lemma": "θεός",
+    "translit": "theos",
+    "raiz": "θεός",
+    "idioma": "griego",
+    "definicion": "Dios; la Deidad."
+  },
+  "G2424": {
+    "lemma": "Ἰησοῦς",
+    "translit": "Iēsous",
+    "raiz": "Ἰησοῦς",
+    "idioma": "griego",
+    "definicion": "Jesús; forma griega del nombre hebreo Josué, «Jehová salva»."
+  },
+  "G2962": {
+    "lemma": "κύριος",
+    "translit": "kyrios",
+    "raiz": "κύριος",
+    "idioma": "griego",
+    "definicion": "Señor; dueño, el que tiene autoridad."
+  },
+  "G4102": {
+    "lemma": "πίστις",
+    "translit": "pistis",
+    "raiz": "πείθω",
+    "idioma": "griego",
+    "definicion": "Fe, fidelidad, convicción y confianza."
+  },
+  "G4151": {
+    "lemma": "πνεῦμα",
+    "translit": "pneuma",
+    "raiz": "πνέω",
+    "idioma": "griego",
+    "definicion": "Espíritu; aliento, viento, el Espíritu de Dios."
+  },
+  "G3056": {
+    "lemma": "λόγος",
+    "translit": "logos",
+    "raiz": "λέγω",
+    "idioma": "griego",
+    "definicion": "Palabra, razonamiento, discurso; el Verbo."
+  },
+  "G3339": {
+    "lemma": "μεταμορφόω",
+    "translit": "metamorphoō",
+    "raiz": "μορφή",
+    "idioma": "griego",
+    "definicion": "Transformar, transfigurar; cambiar de forma."
+  },
+  "G3341": {
+    "lemma": "μετάνοια",
+    "translit": "metanoia",
+    "raiz": "νοῦς",
+    "idioma": "griego",
+    "definicion": "Arrepentimiento: cambio de mente y de rumbo."
+  },
+  "G3361": {
+    "lemma": "μή",
+    "translit": "mē",
+    "raiz": "μή",
+    "idioma": "griego",
+    "definicion": "No; partícula de negación, a menudo en prohibiciones."
+  },
+  "G3563": {
+    "lemma": "νοῦς",
+    "translit": "nous",
+    "raiz": "νοῦς",
+    "idioma": "griego",
+    "definicion": "Mente, entendimiento, facultad de percibir."
+  },
+  "G4964": {
+    "lemma": "συσχηματίζω",
+    "translit": "syschēmatizō",
+    "raiz": "σχῆμα",
+    "idioma": "griego",
+    "definicion": "Conformarse a un esquema o figura; amoldarse."
+  },
+  "G5485": {
+    "lemma": "χάρις",
+    "translit": "charis",
+    "raiz": "χαίρω",
+    "idioma": "griego",
+    "definicion": "Gracia, favor inmerecido, don."
+  },
+  "G5547": {
+    "lemma": "Χριστός",
+    "translit": "Christos",
+    "raiz": "χρίω",
+    "idioma": "griego",
+    "definicion": "Cristo; el Ungido, el Mesías."
+  },
+  "G1515": {
+    "lemma": "εἰρήνη",
+    "translit": "eirēnē",
+    "raiz": "εἰρήνη",
+    "idioma": "griego",
+    "definicion": "Paz; armonía, bienestar, ausencia de hostilidad."
+  },
+  "G1198": {
+    "lemma": "δέσμιος",
+    "translit": "desmios",
+    "raiz": "δεσμός",
+    "idioma": "griego",
+    "definicion": "Prisionero; el que está atado."
+  },
+  "G266": {
+    "lemma": "ἁμαρτία",
+    "translit": "hamartia",
+    "raiz": "ἁμαρτάνω",
+    "idioma": "griego",
+    "definicion": "Pecado; errar el blanco, transgresión."
+  },
+  "G1343": {
+    "lemma": "δικαιοσύνη",
+    "translit": "dikaiosynē",
+    "raiz": "δίκαιος",
+    "idioma": "griego",
+    "definicion": "Justicia; rectitud, el estado de ser justo."
+  },
+  "G1680": {
+    "lemma": "ἐλπίς",
+    "translit": "elpis",
+    "raiz": "ἐλπίς",
+    "idioma": "griego",
+    "definicion": "Esperanza; expectativa confiada."
+  },
+  "G2222": {
+    "lemma": "ζωή",
+    "translit": "zōē",
+    "raiz": "ζάω",
+    "idioma": "griego",
+    "definicion": "Vida; la vida verdadera, a menudo la vida eterna."
+  },
+  "G386": {
+    "lemma": "ἀνάστασις",
+    "translit": "anastasis",
+    "raiz": "ἵστημι",
+    "idioma": "griego",
+    "definicion": "Resurrección; levantarse de entre los muertos."
+  },
+  "G1577": {
+    "lemma": "ἐκκλησία",
+    "translit": "ekklēsia",
+    "raiz": "καλέω",
+    "idioma": "griego",
+    "definicion": "Iglesia; asamblea convocada, congregación."
+  },
+  "G2307": {
+    "lemma": "θέλημα",
+    "translit": "thelēma",
+    "raiz": "θέλω",
+    "idioma": "griego",
+    "definicion": "Voluntad; lo que uno desea o determina."
+  },
+  "G2101": {
+    "lemma": "εὐάρεστος",
+    "translit": "euarestos",
+    "raiz": "ἀρέσκω",
+    "idioma": "griego",
+    "definicion": "Agradable, bien recibido."
+  },
+  "G5046": {
+    "lemma": "τέλειος",
+    "translit": "teleios",
+    "raiz": "τέλος",
+    "idioma": "griego",
+    "definicion": "Perfecto, completo, maduro, llegado a su fin."
+  },
+  "G1381": {
+    "lemma": "δοκιμάζω",
+    "translit": "dokimazō",
+    "raiz": "δόκιμος",
+    "idioma": "griego",
+    "definicion": "Probar, examinar, comprobar por ensayo."
+  },
+  "H3068": {
+    "lemma": "יהוה",
+    "translit": "YHWH",
+    "raiz": "היה",
+    "idioma": "hebreo",
+    "definicion": "Jehová / Yahvé: El Dios autoexistente y del pacto eterno."
+  },
+  "H430": {
+    "lemma": "אֱלֹהִים",
+    "translit": "elohim",
+    "raiz": "אל",
+    "idioma": "hebreo",
+    "definicion": "Dios; plural de majestad o deidad."
+  },
+  "H113": {
+    "lemma": "אָדוֹן",
+    "translit": "adon",
+    "raiz": "אדן",
+    "idioma": "hebreo",
+    "definicion": "Señor, amo, dueño."
+  },
+  "H2617": {
+    "lemma": "חֶסֶד",
+    "translit": "chesed",
+    "raiz": "חסד",
+    "idioma": "hebreo",
+    "definicion": "Misericordia leal; bondad de pacto."
+  },
+  "H539": {
+    "lemma": "אָמַן",
+    "translit": "aman",
+    "raiz": "אמן",
+    "idioma": "hebreo",
+    "definicion": "Estar firme, confiar, creer; de aquí «amén»."
+  },
+  "H6942": {
+    "lemma": "קָדַשׁ",
+    "translit": "qadash",
+    "raiz": "קדש",
+    "idioma": "hebreo",
+    "definicion": "Santificar, apartar como santo."
+  },
+  "H5315": {
+    "lemma": "נֶפֶשׁ",
+    "translit": "nephesh",
+    "raiz": "נפש",
+    "idioma": "hebreo",
+    "definicion": "Alma, vida, persona, ser viviente."
+  },
+  "H7307": {
+    "lemma": "רוּחַ",
+    "translit": "ruach",
+    "raiz": "רוח",
+    "idioma": "hebreo",
+    "definicion": "Espíritu, aliento, viento."
+  },
+  "H1697": {
+    "lemma": "דָּבָר",
+    "translit": "dabar",
+    "raiz": "דבר",
+    "idioma": "hebreo",
+    "definicion": "Palabra, asunto, hecho."
+  },
+  "H7462": {
+    "lemma": "רָעָה",
+    "translit": "raah",
+    "raiz": "רעה",
+    "idioma": "hebreo",
+    "definicion": "Pastorear, apacentar, cuidar el rebaño."
+  },
+  "H2637": {
+    "lemma": "חָסֵר",
+    "translit": "chaser",
+    "raiz": "חסר",
+    "idioma": "hebreo",
+    "definicion": "Faltar, carecer, disminuir."
+  },
+  "G281": {
+    "lemma": "ἀμήν",
+    "translit": "amēn",
+    "pron": "am-ane'",
+    "definicion": "Amén, verdaderamente, en verdad, así sea.",
+    "part": "Adverbio / Partícula",
+    "idioma": "griego"
+  },
+  "G3004": {
+    "lemma": "λέγω",
+    "translit": "legō",
+    "pron": "leg'-o",
+    "definicion": "Decir, hablar, proponer, relatar, ordenar.",
+    "part": "Verbo",
+    "idioma": "griego"
+  },
+  "G5210": {
+    "lemma": "ὑμῖν",
+    "translit": "hymin",
+    "pron": "hoo-min'",
+    "definicion": "A vosotros, para vosotros, por vosotros.",
+    "part": "Pronombre personal",
+    "idioma": "griego"
+  },
+  "G3588": {
+    "lemma": "ὁ",
+    "translit": "ho",
+    "pron": "ho",
+    "definicion": "El, la, lo (Artículo determinado determinativo).",
+    "part": "Artículo",
+    "idioma": "griego"
+  },
+  "G2532": {
+    "lemma": "καί",
+    "translit": "kai",
+    "pron": "kahee",
+    "definicion": "Y, también, aun, además.",
+    "part": "Conjunción",
+    "idioma": "griego"
+  },
+  "G3936": {
+    "lemma": "παρίστημι",
+    "translit": "paristēmi",
+    "pron": "par-is'-tay-mee",
+    "definicion": "Presentar, poner al lado; ofrecer.",
+    "part": "Verbo",
+    "idioma": "griego"
+  },
+  "G4983": {
+    "lemma": "σῶμα",
+    "translit": "sōma",
+    "pron": "so'-mah",
+    "definicion": "Cuerpo; la persona en su existencia corporal.",
+    "part": "Sustantivo",
+    "idioma": "griego"
+  },
+  "G2378": {
+    "lemma": "θυσία",
+    "translit": "thysia",
+    "pron": "thoo-see'-ah",
+    "definicion": "Sacrificio, ofrenda.",
+    "part": "Sustantivo",
+    "idioma": "griego"
+  },
+  "G2198": {
+    "lemma": "ζάω",
+    "translit": "zaō",
+    "pron": "dzah'-o",
+    "definicion": "Vivir; estar vivo.",
+    "part": "Verbo",
+    "idioma": "griego"
+  },
+  "G3050": {
+    "lemma": "λογικός",
+    "translit": "logikos",
+    "pron": "log-ik-os'",
+    "definicion": "Racional, razonable; culto acorde a la razón renovada.",
+    "part": "Adjetivo",
+    "idioma": "griego"
+  },
+  "G2999": {
+    "lemma": "λατρεία",
+    "translit": "latreia",
+    "pron": "lat-ri'-ah",
+    "definicion": "Culto, servicio sagrado.",
+    "part": "Sustantivo",
+    "idioma": "griego"
+  },
+  "H4853": {
+    "lemma": "מַשָּׂא",
+    "translit": "massâ'",
+    "pron": "mas-saw'",
+    "definicion": "Carga, peso, tributo; profecía, oráculo divino solemne o mensaje de juicio.",
+    "part": "Sustantivo masculino",
+    "idioma": "hebreo"
+  },
+  "H834": {
+    "lemma": "אֲשֶׁר",
+    "translit": "'ăsher",
+    "pron": "ash-er'",
+    "definicion": "Que, quien, el cual, donde, conforme a.",
+    "part": "Pronombre relativo",
+    "idioma": "hebreo"
+  },
+  "H2372": {
+    "lemma": "חָזָה",
+    "translit": "châzâh",
+    "pron": "khaw-zaw'",
+    "definicion": "Ver, contemplar, percibir por visión profética, discernir.",
+    "part": "Verbo",
+    "idioma": "hebreo"
+  },
+  "H2265": {
+    "lemma": "חֲבַקּוּק",
+    "translit": "Chăbaqqûwq",
+    "pron": "khab-ak-kook'",
+    "definicion": "Habacuc («Abrazo» o «El que lucha/abraza»).",
+    "part": "Nombre propio masculino",
+    "idioma": "hebreo"
+  },
+  "H5030": {
+    "lemma": "נָבִיא",
+    "translit": "nâbîy'",
+    "pron": "naw-bee'",
+    "definicion": "Profeta, portavoz inspirado de Dios, mensajero divino.",
+    "part": "Sustantivo masculino",
+    "idioma": "hebreo"
+  },
+  "H7768": {
+    "lemma": "שָׁוַע",
+    "translit": "shâva'",
+    "pron": "shaw-vah'",
+    "definicion": "Clamar por auxilio, gritar pidiendo socorro.",
+    "part": "Verbo",
+    "idioma": "hebreo"
+  }
 }

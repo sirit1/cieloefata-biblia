@@ -28,8 +28,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método no permitido.' });
   }
 
-  const user = await authenticate(req);
-  if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
+  // Lectura pública: la concordancia usa Bolls (texto real). Auth opcional.
+  await authenticate(req);
 
   const termino = typeof req.query?.q === 'string' ? req.query.q.trim() : '';
   if (termino.length < 3) {

@@ -23,8 +23,8 @@ async function authenticate(request) {
 }
 
 export async function GET(request) {
-  const user = await authenticate(request)
-  if (!user) return Response.json({ error: 'Sesión inválida o vencida.' }, { status: 401 })
+  // Concordancia pública vía Bolls; auth opcional.
+  await authenticate(request)
 
   const { searchParams } = new URL(request.url)
   const termino = searchParams.get('q')?.trim() || ''

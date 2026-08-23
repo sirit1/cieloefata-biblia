@@ -97,12 +97,14 @@
     };
 
     const VERSION_LABEL = {
-        rv1960: 'RVR1960',
+        rv1960: 'RVR1909',
+        rv1909: 'RVR1909',
         kjv: 'KJV',
         tla: 'TLA',
         dhh: 'DHH',
-        septuaginta: 'Septuaginta (Rahlfs)',
-        lxx: 'Septuaginta (Rahlfs)'
+        septuaginta: 'Biblia Textual',
+        textual: 'Biblia Textual',
+        lxx: 'Biblia Textual'
     };
 
     const FICHAS_ACADEMICAS = {
@@ -548,7 +550,10 @@
         G235: 'sino', G3339: 'transformarse', G342: 'renovación', G3563: 'mente',
         G1519: 'para', G1381: 'comprobar', G2307: 'voluntad', G2316: 'Dios',
         G2101: 'agradable', G5046: 'perfecta', G2962: 'Señor', G5547: 'Cristo',
-        H3068: 'YHWH', H7462: 'pastorear', H2637: 'faltar', H5315: 'alma'
+        H3068: 'Jehová / Yahvé', H7462: 'pastorear', H2637: 'faltar', H5315: 'alma',
+        H4853: 'carga / oráculo', H834: 'que / quien', H2372: 'contemplar',
+        H2265: 'Habacuc', H5030: 'profeta', H7768: 'clamar por auxilio',
+        H430: 'Dios', H113: 'Señor', H2617: 'misericordia del pacto',
     };
 
     const PERSPECTIVAS = {

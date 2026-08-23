@@ -1,0 +1,8 @@
+{
+  "schema": "revelatio.versiones.v1",
+  "key": "kjv",
+  "etiqueta": "KJV",
+  "nombre": "King James Version",
+  "licencia": "public",
+  "libros": {}
+}

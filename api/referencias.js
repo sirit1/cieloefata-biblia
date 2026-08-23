@@ -36,10 +36,16 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método no permitido.' });
   }
 
+  // Referencias cruzadas: auth/cuota opcionales para no bloquear el estudio público.
   const user = await authenticate(req);
-  if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
-  const cuota = await consumirCuota(req, user, 'referencias');
-  if (!cuota.allowed) return cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
+  if (user) {
+    const cuota = await consumirCuota(req, user, 'referencias');
+    if (!cuota.allowed) {
+      return cuota.reason
+        ? respuestaCuotaAgotada(res, cuota)
+        : res.status(cuota.status || 503).json({ error: cuota.error });
+    }
+  }
 
   const consulta = typeof req.body?.consulta === 'string' ? req.body.consulta.trim() : '';
   if (!consulta || consulta.length > 300) {

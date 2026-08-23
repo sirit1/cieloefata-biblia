@@ -1,28 +1,54 @@
-<header class="rv-chrome flex shrink-0 items-center gap-3 border-b border-[#C5A059]/20 px-4 py-2">
+    <header class="rv-chrome flex shrink-0 items-center gap-3 border-b border-[#C59B27]/30 px-4 py-2 bg-[#07101E]">
         <button type="button" id="btn-canon" class="rv-canon-toggle" aria-expanded="false"
             aria-controls="panel-canon">Canon</button>
+        <button type="button" id="btn-bible-nav" class="rv-canon-toggle" data-bible-nav
+            title="Ir a libro, capítulo o versículo" aria-label="Navegador bíblico">Ir a…</button>
         <button type="button" id="btn-volver-home" class="rv-lockup-btn"
             aria-label="Volver al umbral de Éfata RevelatiO">
-            <img src="brand/revelatio-lockup.png" alt="RevelatiO — libro, cerebro y Palabra" class="rv-lockup-hero">
+            <div class="flex items-center gap-3">
+              <img
+                src="assets/branding/revelatio-wordmark-master.jpeg"
+                alt="REVELATIO"
+                class="h-8 sm:h-9 w-auto rounded-lg object-contain border border-[#C59B27]/30 shadow-sm"
+                onerror="this.onerror=null;this.src='assets/branding/revelatio-wordmark.jpg'"
+              />
+              <span class="hidden lg:inline text-[11px] font-serif text-[#DFB743] border-l border-[#C59B27]/30 pl-3 tracking-wider">
+                Inteligencia Exegética &amp; Renovación Mental
+              </span>
+            </div>
         </button>
-        <div class="rv-header-copy flex-1">
+        <div class="rv-header-copy flex-1 min-w-0">
             <h1 class="sr-only">Éfata RevelatiO</h1>
-            <p class="rv-sub">by Efata</p>
-            <p class="rv-sub mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span class="rv-ia-badge">
-                    <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
-                    <span class="rv-ia-name">RevelatiO IA</span>
-                </span>
-                <span>bajo el estándar de Xtrametrik</span>
-            </p>
         </div>
-        <img src="brand/xtrametrik.png" alt="Xtrametrik" class="hidden h-7 w-auto opacity-80 sm:block">
+        <button type="button" id="btn-study-panel" class="rv-canon-toggle hidden sm:inline-flex"
+            title="Panel exegético clásico" aria-label="Abrir panel exegético">Fuentes</button>
+        <!-- Botón Modo Aposento + mini panel de volumen -->
+        <div id="rv-aposento-cluster" class="relative flex items-center gap-2">
+            <button type="button" id="btn-aposento"
+                class="rv-aposento-toggle flex items-center gap-2 px-3 py-1.5 rounded-lg border border-amber-500/30 bg-stone-900/60 text-stone-300 hover:text-amber-300 hover:border-amber-400 transition-all text-sm font-serif"
+                title="Entrar en Modo Aposento (Concentración & Audio)"
+                aria-pressed="false" aria-label="Activar Modo Aposento">
+                <span class="text-base" aria-hidden="true">🕯️</span>
+                <span class="hidden sm:inline">Aposento</span>
+            </button>
+            <div id="aposento-controls"
+                class="hidden items-center gap-2 bg-stone-950/90 border border-amber-900/40 px-2 py-1 rounded-md">
+                <button type="button" id="aposento-audio-toggle"
+                    class="text-stone-400 hover:text-amber-400 text-xs" title="Pads ambientales"
+                    aria-label="Activar o silenciar pads" aria-pressed="false">🔊</button>
+                <input id="aposento-volume-slider" type="range" min="0" max="0.8" step="0.05" value="0.3"
+                    class="w-16 accent-amber-500 h-1" aria-label="Volumen ambiental">
+            </div>
+        </div>
+        <img src="assets/branding/xtrametrik-logo.jpg" alt="XtraMetrik"
+            class="hidden h-5 w-auto opacity-80 lg:block object-contain rounded"
+            onerror="this.onerror=null;this.src='brand/xtrametrik.png'">
     </header>
 
     <nav id="breadcrumbs"
-        class="rv-chrome shrink-0 border-b border-[#C5A059]/15 px-4 py-2 text-[12px] tracking-wide text-[#F4F5F7]"
+        class="rv-chrome rv-breadcrumbs shrink-0 border-b border-[#C5A059]/25 px-4 py-2 text-[12px] tracking-wide"
         aria-label="Ubicación">
-        Biblia <span class="text-[#C5A059]">›</span> Nuevo Testamento <span class="text-[#C5A059]">›</span> Romanos 12
+        Biblia <span class="rv-crumb-sep">›</span> Nuevo Testamento <span class="rv-crumb-sep">›</span> Romanos 12
     </nav>
 
     <div class="rv-shell flex min-h-0 flex-1 flex-col lg:flex-row">
@@ -37,6 +63,18 @@
                 <label class="sr-only" for="buscador-canon">Ir a libro, capítulo o versículo</label>
                 <input id="buscador-canon" type="search" autocomplete="off" placeholder="Ir a: Romanos 12:2"
                     class="w-full px-3 py-2 text-sm outline-none mt-2.5">
+                <div class="rv-quick-chips rv-quick-chips--sidebar" role="list" aria-label="Acceso rápido IA">
+                    <button type="button" class="rv-chip" data-rv-chip data-mode="vida"
+                        data-prompt="Siento ansiedad alta y cortisol disparado. Ayúdame con diagnóstico del diseño humano y la raíz bíblica.">⚡ Ansiedad</button>
+                    <button type="button" class="rv-chip" data-rv-chip data-mode="vida"
+                        data-prompt="Incertidumbre laboral y miedo a perder el trabajo. Protocolo Vital RevelatiO.">💼 Laboral</button>
+                    <button type="button" class="rv-chip" data-rv-chip data-mode="vida"
+                        data-prompt="Matrimonio y comunicación: conflicto en el hogar y pasos concretos.">💍 Matrimonio</button>
+                    <button type="button" class="rv-chip" data-rv-chip data-mode="vida"
+                        data-prompt="Romper hábitos con metanoia y neuroplasticidad bíblica.">🧠 Hábitos</button>
+                    <button type="button" class="rv-chip" data-rv-chip data-mode="exegesis"
+                        data-prompt="Exégesis histórico-gramatical de Juan 14:6 con Strong y nexo canónico.">📖 Jn 14:6</button>
+                </div>
                 <button type="button" id="abrir-cuaderno" class="rv-nav-cuaderno mt-2.5">Cuaderno del Peregrino</button>
             </div>
             <div id="selector-libros" class="canon-scroll min-h-0 flex-1 overflow-y-auto px-2 pb-4"></div>
@@ -49,11 +87,13 @@
                         <label class="block">
                             <span class="mb-1 block text-[10px] uppercase tracking-[0.18em]">Versión</span>
                             <select id="selector-version" class="rv-select" aria-label="Versión bíblica">
-                                <option value="rv1960">RVR1960</option>
-                                <option value="kjv">KJV</option>
-                                <option value="tla">TLA</option>
-                                <option value="dhh">DHH</option>
-                                <option value="septuaginta">Septuaginta (Rahlfs)</option>
+                                <option value="RVR1960">Reina-Valera 1960</option>
+                                <option value="RVR1909">Reina-Valera 1909</option>
+                                <option value="DHH">Dios Habla Hoy</option>
+                                <option value="TLA">Traducción en Lenguaje Actual</option>
+                                <option value="NVI">Nueva Versión Internacional</option>
+                                <option value="KJV">King James Version</option>
+                                <option value="LXX">Septuaginta (Griego)</option>
                             </select>
                         </label>
                         <label class="block">
@@ -112,21 +152,21 @@
                         </div>
                     </div>
 
-                    <!-- Fase 1 · Ficha de Contexto Histórico (Modo Aposento) -->
-                    <div id="contexto-historico-header" class="rv-contexto-historico" hidden
+                    <!-- Ficha de contexto histórico · pergamino editorial -->
+                    <div id="contexto-historico-header" class="rv-contexto-historico rv-meta-scroll"
                         aria-label="Contexto histórico del libro">
                         <div class="rv-contexto-meta" role="list">
                             <div class="rv-contexto-item" role="listitem">
                                 <span class="rv-contexto-label">Autor</span>
-                                <span id="ctx-autor" class="rv-contexto-value">—</span>
+                                <strong id="ctx-autor" class="rv-contexto-value">—</strong>
                             </div>
                             <div class="rv-contexto-item" role="listitem">
                                 <span class="rv-contexto-label">Fecha</span>
-                                <span id="ctx-fecha" class="rv-contexto-value">—</span>
+                                <strong id="ctx-fecha" class="rv-contexto-value">—</strong>
                             </div>
                             <div class="rv-contexto-item" role="listitem">
                                 <span class="rv-contexto-label">Destinatarios</span>
-                                <span id="ctx-destinatarios" class="rv-contexto-value">—</span>
+                                <strong id="ctx-destinatarios" class="rv-contexto-value">—</strong>
                             </div>
                         </div>
                         <p id="ctx-resumen" class="rv-contexto-resumen">—</p>
@@ -163,64 +203,23 @@
                             </div>
                         </dl>
                     </aside>
-                    <!-- Fase 2 · Modo de Estudio por Versículo -->
-                    <section id="rv-verse-study" class="rv-verse-study" hidden aria-label="Estudio por versículo">
-                        <div class="rv-verse-study-bar">
-                            <p class="rv-verse-study-kicker">Modo estudio · versículo</p>
-                            <div class="rv-verse-study-ref-row">
-                                <p class="rv-verse-study-ref" id="rv-verse-study-ref">—</p>
-                                <button type="button" id="btn-atlas-exegesis" class="rv-atlas-btn"
-                                    title="Atlas exegético · mapa histórico" aria-haspopup="dialog"
-                                    aria-controls="rv-atlas-modal">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                        <path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20V6.5Z"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-                                        <path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.5" />
-                                    </svg>
-                                    <span class="sr-only">Mapa histórico</span>
-                                </button>
-                            </div>
-                            <div id="rv-doctrine-tags" class="rv-doctrine-tags" role="group"
-                                aria-label="Etiquetas de teología sistemática"></div>
-                            <div class="rv-verse-study-nav" role="group" aria-label="Navegación de versículo">
-                                <button type="button" id="rv-verse-prev" class="rv-verse-study-btn" title="Versículo anterior"
-                                    aria-label="Versículo anterior">←</button>
-                                <button type="button" id="rv-verse-next" class="rv-verse-study-btn" title="Versículo siguiente"
-                                    aria-label="Versículo siguiente">→</button>
-                                <button type="button" id="rv-verse-exit" class="rv-verse-study-exit"
-                                    title="Volver al capítulo completo">Capítulo</button>
-                                <button type="button" id="btn-oia-verse" class="rv-verse-study-exit rv-oia-quick"
-                                    title="Abrir estudio inductivo O-I-A en el Cuaderno">O-I-A</button>
-                            </div>
-                        </div>
-                        <blockquote class="rv-verse-study-hero" id="rv-verse-study-hero"></blockquote>
-                        <div class="rv-verse-study-jumps">
-                            <button type="button" data-verse-jump="comentario">Comentario</button>
-                            <button type="button" data-verse-jump="perspectivas">Perspectivas</button>
-                            <button type="button" data-verse-jump="concordancia">Concordancia</button>
-                        </div>
-                    </section>
+                    <!-- Estudio por versículo: oculto (acciones → barra flotante) -->
+                    <section id="rv-verse-study" class="rv-verse-study" hidden aria-hidden="true"></section>
 
-                    <div class="rv-lectura-cuerpo">
-                        <nav id="indice-versiculos" class="rv-verse-rail" aria-label="Versículos del capítulo"></nav>
-                        <div id="texto-biblico" class="select-text text-[1.2rem] leading-[1.9]"></div>
-                    </div>
-                    <div class="rv-toolbar-listen">
-                        <button type="button" class="rv-listen-btn" data-listen="chapter" title="Escuchar capítulo">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5a5 5 0 0 1 0 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                            Capítulo
-                        </button>
-                        <button type="button" class="rv-listen-btn" data-listen="verse" title="Escuchar versículo activo">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5a5 5 0 0 1 0 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                            Versículo
-                        </button>
-                        <button type="button" class="rv-listen-btn" data-listen="comentario" title="Escuchar comentario">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5a5 5 0 0 1 0 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                            Comentario
-                        </button>
-                    </div>
+                    <main id="bible-reader" class="bible-reader w-full max-w-3xl mx-auto flex-1 flex flex-col px-4 sm:px-8 py-8">
+                        <nav id="indice-versiculos" class="rv-verse-rail" aria-label="Versículos del capítulo" hidden></nav>
+                        <div id="chapter-header" class="mb-6 pb-2 border-b border-[#E8DFC8]">
+                            <p id="chapter-title" class="rv-lectura-title mb-1 font-display text-3xl text-[#0F172A]"></p>
+                            <p id="chapter-version-label" class="rv-lectura-meta text-[11px] tracking-[0.14em] text-[#0F172A]/75"></p>
+                        </div>
+                        <div id="verses-container" class="space-y-4 font-serif text-[#0F172A]">
+                            <!-- Aquí se inyectan los versículos; #texto-biblico mantiene compatibilidad -->
+                            <div id="texto-biblico" class="visor-biblico-contenido select-text space-y-4"></div>
+                        </div>
+                    </main>
                 </article>
-                <section id="modulo-estudio" class="rv-estudio-modulo" aria-label="Estudio del pasaje">
+                <!-- Módulo lateral legado oculto: recursos viven en #study-drawer -->
+                <section id="modulo-estudio" class="rv-estudio-modulo" hidden aria-hidden="true">
                     <div id="tabs-estudio" class="rv-estudio-tabs" role="tablist" aria-label="Módulos de estudio">
                         <button type="button" class="is-on" data-estudio-tab="comentario" role="tab"
                             aria-selected="true">Comentario</button>
@@ -237,128 +236,24 @@
                     </section>
                     <section id="panel-perspectivas" class="rv-comentario is-hidden-tab" role="tabpanel"
                         aria-label="Lentes de estudio profundo">
-                        <p class="rv-comentario-kicker">Estudio Profundo · lentes de autoridad</p>
                         <p id="ref-perspectivas" class="rv-comentario-ref"></p>
-                        <div class="rv-persp-pillars">
-                            <div class="rv-persp-pillar" data-pillar="a">
-                                <p class="rv-persp-pillar-kicker">Bloque A</p>
-                                <h3 class="rv-persp-pillar-title">El Pilar Exegético y Teológico</h3>
-                                <p class="rv-persp-pillar-lead">La Verdad Histórica y Doctrinal</p>
-                                <div class="rv-persp-rail" role="tablist" aria-label="Pilar exegético y teológico">
-                                    <button type="button" class="rv-persp-chip is-on" data-persp="exegesis" role="tab"
-                                        aria-selected="true"
-                                        data-tip="Analiza la raíz gramatical original (griego/hebreo) y el trasfondo histórico-cultural del autor. Recibirás sentido léxico Strong, contexto y trasfondo del pasaje.">
-                                        <span class="rv-persp-mark" aria-hidden="true">🏛️</span>
-                                        <span class="rv-persp-chip-copy">
-                                            <strong>Exégesis e Historia</strong>
-                                            <small>Strong &amp; Contexto</small>
-                                        </span>
-                                    </button>
-                                    <button type="button" class="rv-persp-chip" data-persp="hermeneutica" role="tab"
-                                        aria-selected="false"
-                                        data-tip="Cruza el pasaje bajo el principio de que la Biblia interpreta la Biblia, conectándolo con la teología de la gracia. Recibirás coherencia canónica y doctrina centrada en Cristo.">
-                                        <span class="rv-persp-mark" aria-hidden="true">📜</span>
-                                        <span class="rv-persp-chip-copy">
-                                            <strong>Hermenéutica y Teología</strong>
-                                            <small>Escritura con Escritura</small>
-                                        </span>
-                                    </button>
-                                    <button type="button" class="rv-persp-chip" data-persp="apologetica" role="tab"
-                                        aria-selected="false"
-                                        data-tip="Da solidez doctrinal y argumentos inquebrantables sobre la autenticidad y defensa del texto sagrado. Recibirás anclas de veracidad y defensa fiel del pasaje.">
-                                        <span class="rv-persp-mark" aria-hidden="true">🛡️</span>
-                                        <span class="rv-persp-chip-copy">
-                                            <strong>Apologética y Veracidad</strong>
-                                            <small>Defensa del texto sagrado</small>
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="rv-persp-pillar" data-pillar="b">
-                                <p class="rv-persp-pillar-kicker">Bloque B</p>
-                                <h3 class="rv-persp-pillar-title">El Pilar de la Mente y la Restauración del Alma</h3>
-                                <p class="rv-persp-pillar-lead">Bajo el Blindaje Bíblico</p>
-                                <div class="rv-persp-rail" role="tablist" aria-label="Pilar de la mente y el alma">
-                                    <button type="button" class="rv-persp-chip" data-persp="mente" role="tab"
-                                        aria-selected="false"
-                                        data-tip="Examina cómo el diseño biológico de la mente responde a la renovación del entendimiento (metanoia), rechazando el humanismo secular y anclándolo en la verdad de Dios.">
-                                        <span class="rv-persp-mark" aria-hidden="true">🧠</span>
-                                        <span class="rv-persp-chip-copy">
-                                            <strong>Neuroplasticidad y Pensamiento</strong>
-                                            <small>Metanoia bajo la Palabra</small>
-                                        </span>
-                                    </button>
-                                    <button type="button" class="rv-persp-chip" data-persp="alma" role="tab"
-                                        aria-selected="false"
-                                        data-tip="Aborda las pasiones humanas (miedo, ira, frustración) guiando el quebrantamiento del corazón de piedra hacia un corazón de carne por la gracia del Espíritu Santo.">
-                                        <span class="rv-persp-mark" aria-hidden="true">🌱</span>
-                                        <span class="rv-persp-chip-copy">
-                                            <strong>Inteligencia Emocional y Alma</strong>
-                                            <small>Restauración por gracia</small>
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
+                        <div id="rv-persp-tip" class="rv-persp-tip" hidden>
+                            <h4 id="rv-persp-tip-title"></h4>
+                            <p id="rv-persp-tip-body"></p>
                         </div>
-                        <aside id="rv-persp-tip" class="rv-persp-tip is-on" aria-live="polite">
-                            <p class="rv-persp-tip-kicker">Profundidad de análisis</p>
-                            <h4 class="rv-persp-tip-title" id="rv-persp-tip-title">🏛️ Exégesis e Historia</h4>
-                            <p class="rv-persp-tip-body" id="rv-persp-tip-body">Analiza la raíz gramatical original
-                                (griego/hebreo) y el trasfondo histórico-cultural original del autor.</p>
-                        </aside>
-                        <div class="rv-persp-toolbar">
-                            <button type="button" id="rv-persp-compare" class="rv-persp-toggle" aria-pressed="false">
-                                Vista comparativa
-                            </button>
-                            <button type="button" id="rv-persp-synth" class="rv-persp-synth"
-                                aria-controls="rv-persp-synth-report">
-                                <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
-                                <span>Sintetizar Perspectivas con <span class="rv-ia-name">RevelatiO IA</span></span>
-                            </button>
-                        </div>
-                        <div id="rv-persp-compare-pick" class="rv-persp-compare-pick" hidden>
-                            <label for="rv-persp-b">Segunda lente</label>
-                            <select id="rv-persp-b" aria-label="Segunda lente para comparar">
-                                <option value="hermeneutica">Hermenéutica y Teología</option>
-                                <option value="apologetica">Apologética y Veracidad</option>
-                                <option value="mente">Neuroplasticidad y Pensamiento</option>
-                                <option value="alma">Inteligencia Emocional y Alma</option>
-                                <option value="exegesis">Exégesis e Historia</option>
-                            </select>
+                        <div id="rv-persp-compare-pick" hidden>
+                            <select id="rv-persp-b" aria-label="Segunda lente"></select>
                         </div>
                         <div id="rv-persp-grid" class="rv-persp-grid" aria-live="polite"></div>
                         <div id="rv-persp-synth-report" class="rv-persp-synth-report" aria-live="polite"></div>
+                        <button type="button" id="rv-persp-compare" hidden></button>
+                        <button type="button" id="rv-persp-synth" hidden></button>
                     </section>
                     <section id="panel-concordancia" class="rv-concordancia is-hidden-tab" role="tabpanel"
-                        aria-label="Concordancia y referencias cruzadas">
-                        <div class="rv-concordancia-head">
-                            <div>
-                                <p class="rv-comentario-kicker">Concordancia · referencias cruzadas</p>
-                                <p id="ref-concordancia" class="rv-comentario-ref"></p>
-                            </div>
-                            <button type="button" class="rv-atlas-btn rv-atlas-btn-lg" data-atlas-open
-                                title="Atlas exegético · mapa histórico" aria-haspopup="dialog"
-                                aria-controls="rv-atlas-modal">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20V6.5Z"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-                                    <path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.5" />
-                                </svg>
-                                Atlas
-                            </button>
-                        </div>
-                        <div class="rv-estudio-cols">
-                            <div>
-                                <h3 class="rv-estudio-h">Paralelos</h3>
-                                <div id="lista-cruzadas" class="rv-xref-list"></div>
-                            </div>
-                            <div>
-                                <h3 class="rv-estudio-h">Interlineal inverso · Léxico Strong</h3>
-                                <p class="rv-il-legend">Español → manuscrito · transliteración · morfología</p>
-                                <div id="lista-strong-verso" class="rv-interlineal-grid" role="list"
-                                    aria-label="Interlineal inverso"></div>
-                            </div>
-                        </div>
+                        aria-label="Concordancia" hidden>
+                        <p id="ref-concordancia" class="rv-comentario-ref"></p>
+                        <div id="lista-cruzadas" class="rv-xref-list"></div>
+                        <div id="lista-strong-verso" class="rv-interlineal-grid"></div>
                     </section>
                 </section>
             </div>

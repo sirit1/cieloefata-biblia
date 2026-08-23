@@ -13,6 +13,22 @@
             return;
         }
 
+        // Legal compacto: expandir/ocultar detalle sin ocupar altura fija
+        if (!global.__RV_FOOTER_LEGAL__) {
+            global.__RV_FOOTER_LEGAL__ = true;
+            document.addEventListener("click", (event) => {
+                const btn = event.target.closest?.("[data-rv-legal-toggle]");
+                if (!btn) return;
+                const box = document.getElementById("rv-footer-legal");
+                if (!box) return;
+                const open = box.hasAttribute("hidden");
+                if (open) box.removeAttribute("hidden");
+                else box.setAttribute("hidden", "");
+                btn.setAttribute("aria-expanded", open ? "true" : "false");
+                btn.textContent = open ? "Cerrar" : "Legal";
+            });
+        }
+
         try {
             RV.router.wireHashSync?.();
         } catch (err) {

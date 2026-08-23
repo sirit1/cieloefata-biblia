@@ -11,7 +11,9 @@ async function authenticate(req) {
   const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
   const { url, anonKey } = getSupabaseConfig();
   if (!token || !url || !anonKey) return null;
-  const supabase = createClient(url, anonKey, { auth: { persistSession: false, autoRefreshToken: false } });
+  const supabase = createClient(url, anonKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
   const { data, error } = await supabase.auth.getUser(token);
   return error ? null : data.user;
 }
@@ -20,6 +22,32 @@ function bloqueDe(versos) {
   if (!versos?.length) return '';
   if (versos.length === 1) return versos[0].texto;
   return versos.map((v) => `${v.n} ${v.texto}`).join(' ');
+}
+
+async function resolverVersion(meta, ref) {
+  if (meta.key === 'septuaginta') return null;
+  let versos = versosDesdePack(
+    cargarPack(meta.key),
+    ref.libro,
+    ref.capitulo,
+    ref.versoInicio,
+    ref.versoFin
+  );
+  if (!versos.length && meta.fuente_remota) {
+    const remota = VERSIONES.find((v) => v.key === meta.key);
+    const data = await obtenerCapitulo(remota?.bolls || meta.fuente_remota, ref.libroId, ref.capitulo);
+    versos = extraerVersos(data, ref.versoInicio, ref.versoFin);
+  }
+  const texto = bloqueDe(versos);
+  if (!texto) return null;
+  return {
+    key: meta.key,
+    etiqueta: meta.etiqueta,
+    nombre: meta.nombre,
+    licencia: meta.licencia,
+    texto,
+    versos,
+  };
 }
 
 export default async function handler(req, res) {
@@ -42,38 +70,47 @@ export default async function handler(req, res) {
 
   try {
     const catalogo = versionesActivas();
-    const original = await obtenerOriginal(ref).catch(() => null);
+    const [original, ...resueltas] = await Promise.all([
+      obtenerOriginal(ref).catch(() => null),
+      ...catalogo.map((meta) => resolverVersion(meta, ref).catch(() => null)),
+    ]);
+
     const versiones = {};
     const versionesVersos = {};
     const versionesLista = [];
 
-    for (const meta of catalogo) {
-      if (meta.key === 'septuaginta') continue;
-      let versos = versosDesdePack(cargarPack(meta.key), ref.libro, ref.capitulo, ref.versoInicio, ref.versoFin);
-      if (!versos.length && meta.fuente_remota) {
-        const remota = VERSIONES.find((v) => v.key === meta.key);
-        const data = await obtenerCapitulo(remota?.bolls || meta.fuente_remota, ref.libroId, ref.capitulo);
-        versos = extraerVersos(data, ref.versoInicio, ref.versoFin);
-      }
-      const texto = bloqueDe(versos);
-      if (texto) {
-        versiones[meta.key] = texto;
-        versionesVersos[meta.key] = versos;
-        versionesLista.push({ key: meta.key, etiqueta: meta.etiqueta, nombre: meta.nombre, licencia: meta.licencia });
-      }
+    for (const item of resueltas) {
+      if (!item) continue;
+      versiones[item.key] = item.texto;
+      versionesVersos[item.key] = item.versos;
+      versionesLista.push({
+        key: item.key,
+        etiqueta: item.etiqueta,
+        nombre: item.nombre,
+        licencia: item.licencia,
+      });
     }
 
-    const lxxLocal = versosDesdePack(cargarPack('septuaginta'), ref.libro, ref.capitulo, ref.versoInicio, ref.versoFin);
+    const lxxLocal = versosDesdePack(
+      cargarPack('septuaginta'),
+      ref.libro,
+      ref.capitulo,
+      ref.versoInicio,
+      ref.versoFin
+    );
     if (lxxLocal.length) {
       versiones.septuaginta = bloqueDe(lxxLocal);
       versionesVersos.septuaginta = lxxLocal;
       versionesLista.push({ key: 'septuaginta', etiqueta: 'Septuaginta', licencia: 'public' });
     } else if (ref.esAT && original?.septuaginta?.texto) {
       versiones.septuaginta = original.septuaginta.texto;
-      versionesVersos.septuaginta = original.septuaginta.texto.split(/(?=\d+\s)/).filter(Boolean).map((texto, indice) => {
-        const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/);
-        return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() };
-      });
+      versionesVersos.septuaginta = original.septuaginta.texto
+        .split(/(?=\d+\s)/)
+        .filter(Boolean)
+        .map((texto, indice) => {
+          const match = texto.trim().match(/^(\d+)\s+([\s\S]*)$/);
+          return { n: Number(match?.[1] || indice + 1), texto: match?.[2] || texto.trim() };
+        });
       versionesLista.push({ key: 'septuaginta', etiqueta: 'Septuaginta', licencia: 'public' });
     }
 
@@ -91,7 +128,13 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-      data: { referencia: referenciaNormalizada, versiones, versionesVersos, versionesLista, original }
+      data: {
+        referencia: referenciaNormalizada,
+        versiones,
+        versionesVersos,
+        versionesLista,
+        original,
+      },
     });
   } catch (error) {
     console.error('Error obteniendo pasaje:', error?.message);

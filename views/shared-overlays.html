@@ -1,23 +1,27 @@
-<div id="rv-popover" role="toolbar" aria-label="Menú contextual de estudio">
+<div id="rv-popover" role="toolbar" aria-label="Menú contextual de estudio (legado)" hidden aria-hidden="true" style="display:none!important">
         <div class="rv-pop-top">
             <div class="rv-ipad-swatches" role="group" aria-label="Color de resaltado">
-                <button type="button" class="rv-swatch sw-oro" data-hl="oro" title="Resaltar en dorado"
-                    aria-label="Resaltar en dorado"></button>
-                <button type="button" class="rv-swatch sw-azul" data-hl="azul" title="Azul real"
-                    aria-label="Resaltar en azul real"></button>
-                <button type="button" class="rv-swatch sw-verde" data-hl="verde" title="Verde esperanza"
-                    aria-label="Resaltar en verde esperanza"></button>
-                <button type="button" class="rv-swatch sw-purpura" data-hl="purpura" title="Púrpura"
-                    aria-label="Resaltar en púrpura"></button>
+                <button type="button" class="rv-swatch sw-oro" data-hl="oro" title="Oro"
+                    aria-label="Resaltar en oro"></button>
+                <button type="button" class="rv-swatch sw-verde" data-hl="esmeralda" title="Esmeralda"
+                    aria-label="Resaltar en esmeralda"></button>
+                <button type="button" class="rv-swatch sw-azul" data-hl="zafiro" title="Zafiro"
+                    aria-label="Resaltar en zafiro"></button>
+                <button type="button" class="rv-swatch sw-rubi" data-hl="rubi" title="Rubí"
+                    aria-label="Resaltar en rubí"></button>
+                <button type="button" class="rv-swatch sw-purpura" data-hl="amatista" title="Amatista"
+                    aria-label="Resaltar en amatista"></button>
             </div>
             <div class="rv-pop-acts">
                 <button type="button" data-act="study" class="rv-pop-study">Estudiar vv.</button>
+                <button type="button" data-act="card">Crear tarjeta</button>
                 <button type="button" data-act="oia" class="rv-pop-oia" title="Estudio inductivo Observación · Interpretación · Aplicación">Estudiar (O-I-A)</button>
                 <button type="button" data-act="notebook">Enviar al Cuaderno</button>
                 <button type="button" data-act="copy">Copiar</button>
                 <button type="button" data-act="note">Nota</button>
-                <button type="button" data-act="xref">Concordancia</button>
+                <button type="button" data-act="xref">Referencias &amp; Fuentes</button>
                 <button type="button" data-act="strong">Strong</button>
+                <button type="button" data-act="clear">Deseleccionar</button>
                 <button type="button" data-act="ai" class="rv-ia-btn" title="RevelatiO IA" aria-label="RevelatiO IA">
                     <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
                     <span class="rv-ia-name">RevelatiO IA</span>
@@ -37,11 +41,13 @@
             <div>
                 <label for="pop-selector-version">Versión</label>
                 <select id="pop-selector-version" aria-label="Cambiar versión bíblica">
-                    <option value="rv1960">RVR1960</option>
-                    <option value="kjv">KJV</option>
-                    <option value="tla">TLA</option>
-                    <option value="dhh">DHH</option>
-                    <option value="septuaginta">Septuaginta</option>
+                    <option value="RVR1960">Reina-Valera 1960</option>
+                    <option value="RVR1909">Reina-Valera 1909</option>
+                    <option value="DHH">Dios Habla Hoy</option>
+                    <option value="TLA">Traducción en Lenguaje Actual</option>
+                    <option value="NVI">Nueva Versión Internacional</option>
+                    <option value="KJV">King James Version</option>
+                    <option value="LXX">Septuaginta (Griego)</option>
                 </select>
             </div>
             <div>
@@ -205,73 +211,89 @@
         <div data-paralelo-cuerpo></div>
     </div>
 
-    <div id="rv-audio-dock" class="rv-audio-dock" aria-label="Motor de audio de doble pista">
-        <button type="button" id="dock-musica" class="rv-dock-play" aria-pressed="false" title="Play / Pause música">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M8 5v14l11-7z" />
-            </svg>
-        </button>
-        <div class="rv-dock-main min-w-0 flex-1">
-            <p id="dock-track-title" class="rv-dock-title">Ambiente instrumental</p>
-            <p id="estado-audio" class="rv-audio-status">En silencio</p>
-        </div>
-        <button type="button" id="dock-voz" class="rv-dock-chip" title="Pausar o reanudar narración">Voz</button>
-        <button type="button" id="dock-stop-voz" class="rv-dock-chip" title="Detener narración">Stop</button>
-        <button type="button" id="dock-expand" class="rv-dock-chip" aria-expanded="false" title="Volúmenes y pistas">≡</button>
-        <div class="rv-dock-panel" id="dock-panel">
-            <label class="rv-dock-field">
-                <span>Pista BGM</span>
-                <select id="dock-bgm-select" aria-label="Pista instrumental"></select>
-            </label>
-            <label class="rv-dock-field rv-dock-loop">
-                <input type="checkbox" id="dock-loop" checked>
-                <span>Bucle</span>
-            </label>
-            <label class="rv-dock-field">
-                <span>Volumen voz</span>
-                <input type="range" id="dock-vol-voz" min="0" max="100" value="100">
-            </label>
-            <label class="rv-dock-field">
-                <span>Volumen música</span>
-                <input type="range" id="dock-vol-musica" min="0" max="100" value="28">
-            </label>
-        </div>
-    </div>
+    <div id="rv-popover-legacy-stub" hidden aria-hidden="true"></div>
 
-    <button type="button" id="btn-asistente-ia" class="rv-fab rv-fab-omni" aria-controls="panel-asistente-ia"
-        aria-expanded="false" aria-label="RevelatiO IA — asistente permanente" title="RevelatiO IA">
-        <span class="rv-fab-pulse" aria-hidden="true"></span>
-        <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+    <footer id="rv-audio-dock" class="rv-reader-footer" aria-label="Barra de lectura">
+        <div class="rv-reader-footer-left">
+            <button type="button" id="reader-audio-play" class="rv-reader-play" aria-pressed="false"
+                title="Pad ambiental 432Hz">▶</button>
+            <span id="dock-track-title" class="rv-reader-track">Pad de Adoración 432Hz</span>
+            <input id="reader-audio-vol" type="range" min="0" max="0.8" step="0.05" value="0.3"
+                class="rv-reader-vol" aria-label="Volumen ambiental">
+        </div>
+        <p id="estado-audio" class="rv-reader-legal text-[11px] text-stone-500 truncate max-w-md">
+            Textos © SBU · Uso con permiso · Éfata RevelatiO · sin fines de lucro
+        </p>
+        <button type="button" id="reader-ia-open" class="rv-reader-ia" title="RevelatiO IA">
+            🧠 RevelatiO IA
+        </button>
+        <!-- IDs legacy no visibles para no romper audio-engine -->
+        <button type="button" id="dock-musica" hidden aria-hidden="true"></button>
+        <input type="range" id="dock-vol-musica" hidden aria-hidden="true" value="28">
+        <input type="range" id="dock-vol-voz" hidden aria-hidden="true" value="100">
+    </footer>
+
+    <button type="button" id="btn-asistente-ia" class="rv-fab rv-fab-omni rv-fab-brand"
+        aria-controls="panel-asistente-ia" aria-expanded="false"
+        aria-label="RevelatiO IA — asistente permanente" title="Abrir RevelatiO IA"
+        onclick="window.openAiModal && window.openAiModal()">
+        <img src="assets/branding/revelatio-symbol-master.jpeg" class="rv-fab-avatar" alt="RevelatiO IA"
+            onerror="this.onerror=null;this.src='assets/branding/revelatio-symbol.jpg'">
         <span class="rv-ia-name">RevelatiO IA</span>
     </button>
-    <aside id="panel-asistente-ia" class="rv-drawer rv-ia-panel flex-col overflow-hidden" role="dialog"
-        aria-label="RevelatiO IA · asistente exegético">
+    <aside id="panel-asistente-ia" class="rv-drawer rv-ia-panel rv-ia-modal flex-col overflow-hidden" role="dialog"
+        aria-labelledby="rv-ia-panel-title" aria-label="RevelatiO IA · asistente exegético"
+        aria-hidden="true" hidden data-ia-closed="1">
         <header class="rv-ia-panel-head">
             <div class="rv-ia-badge rv-ia-badge-lg">
-                <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
+                <img src="assets/branding/revelatio-symbol-master.jpeg" alt="" class="rv-ia-isotipo rounded-full object-cover"
+                    onerror="this.onerror=null;this.src='assets/branding/revelatio-symbol.jpg'">
                 <div>
-                    <p class="rv-ia-name">RevelatiO IA</p>
-                    <p class="rv-ia-kicker">Asistente exegético · Estudio Profundo</p>
+                    <p class="rv-ia-name" id="rv-ia-panel-title">RevelatiO IA</p>
+                    <p class="rv-ia-kicker" id="rv-ia-panel-kicker">Cátedra Exegética · Estudio Profundo</p>
                 </div>
             </div>
-            <button type="button" id="btn-cerrar-ia" class="text-[#C5A059]" aria-label="Cerrar RevelatiO IA">✕</button>
+            <button type="button" id="btn-cerrar-ia" data-ia-close class="text-[#C5A059]" aria-label="Cerrar RevelatiO IA">✕</button>
         </header>
+        <div class="rv-ia-mode-tabs" role="tablist" aria-label="Modo de RevelatiO IA">
+            <button type="button" role="tab" id="rv-ia-tab-exegesis" class="rv-ia-mode-tab is-active"
+                data-ia-mode="exegesis" aria-selected="true">
+                🏛️ Estudio Profundo
+            </button>
+            <button type="button" role="tab" id="rv-ia-tab-vida" class="rv-ia-mode-tab"
+                data-ia-mode="vida" aria-selected="false">
+                🧠 Renovación &amp; Vida
+            </button>
+        </div>
         <p id="rv-ia-context-hint" class="rv-ia-context-hint" aria-live="polite"></p>
-        <div id="chat-ia-mensajes" class="canon-scroll flex-1 overflow-y-auto p-4 text-sm">
+        <div id="chat-ia-mensajes" class="canon-scroll rv-ia-scroll flex-1 overflow-y-auto p-6 space-y-4 text-sm">
             <div class="rv-ia-welcome">
                 <span class="rv-ia-badge">
                     <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
                     <span class="rv-ia-name">RevelatiO IA</span>
                 </span>
-                <p>Pregunta al texto abierto. Este panel es ayuda de <strong>exégesis y teología</strong> en el Estudio
-                    Profundo — no sustituye el Acompañamiento Ministerial (Puerta II del Dashboard).</p>
+                <p>Elige una puerta: <strong>Estudio Profundo</strong> (cátedra exegética) o
+                    <strong>Renovación &amp; Vida</strong> (crisis diaria anclada en la Palabra).</p>
+                <div class="rv-ia-quick-chips rv-quick-chips" role="list" aria-label="Temas frecuentes">
+                    <button type="button" class="rv-chip rv-ia-chip" role="listitem" data-rv-chip data-mode="vida"
+                        data-prompt="Siento ansiedad alta y cortisol disparado. Ayúdame con diagnóstico del diseño humano y la raíz bíblica para renovar la mente.">⚡ Ansiedad</button>
+                    <button type="button" class="rv-chip rv-ia-chip" role="listitem" data-rv-chip data-mode="vida"
+                        data-prompt="Enfrento incertidumbre laboral y miedo a perder el trabajo. Guía un Protocolo Vital RevelatiO anclado en la Providencia.">💼 Laboral</button>
+                    <button type="button" class="rv-chip rv-ia-chip" role="listitem" data-rv-chip data-mode="vida"
+                        data-prompt="Necesito ayuda con matrimonio y comunicación: conflicto en el hogar, empatía bíblica y pasos concretos para hoy.">💍 Matrimonio</button>
+                    <button type="button" class="rv-chip rv-ia-chip" role="listitem" data-rv-chip data-mode="vida"
+                        data-prompt="Quiero romper hábitos destructivos mediante metanoia y neuroplasticidad bíblica. Dame un plan de acción de hoy.">🧠 Hábitos</button>
+                    <button type="button" class="rv-chip rv-ia-chip" role="listitem" data-rv-chip data-mode="exegesis"
+                        data-prompt="Exégesis histórico-gramatical de Juan 14:6 con léxico Strong, nexo canónico y articulación doctrinal.">📖 Juan 14:6</button>
+                </div>
             </div>
         </div>
-        <form id="form-asistente-ia" class="rv-ia-form border-t border-[#C5A059]/20 p-3">
-            <textarea name="mensaje" rows="2" class="mb-2 w-full px-3 py-2 text-sm"
-                placeholder="Consulta exegética al pasaje activo…"></textarea>
+        <form id="form-asistente-ia" class="rv-ia-form border-t border-[#C59B27]/30 p-4">
+            <textarea name="mensaje" rows="3"
+                class="rv-ia-textarea mb-3 w-full px-3 py-3 text-sm font-serif"
+                placeholder="Consulta al Motor RevelatiO…"></textarea>
             <div class="flex flex-col gap-2">
-                <button type="submit" class="rv-btn-gold rv-ia-btn w-full justify-center py-2">
+                <button type="submit" class="rv-btn-gold rv-ia-btn w-full justify-center py-3 tracking-wide uppercase">
                     <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
                     <span class="rv-ia-name">Consultar RevelatiO IA</span>
                 </button>
@@ -294,12 +316,14 @@
     </aside>
 
     <footer class="rv-footer" role="contentinfo">
-        <p class="rv-legal-sbu">Los textos de la Reina-Valera 1960 (RVR1960), la Traducción en Lenguaje Actual (TLA) y
-            Dios Habla Hoy (DHH) son © Sociedades Bíblicas Unidas. Usados con permiso para lectura digital. Todos los
-            derechos reservados. Queda prohibida su reproducción, almacenamiento o distribución completa sin
-            autorización de SBU.</p>
-        <p>RevelatiO IA es estocástico y no sustituye el pastoreo ni la autoridad de la Escritura; úsese solo como
-            referencia de estudio.</p>
+        <p class="rv-footer-compact" title="RVR1960, TLA y DHH © Sociedades Bíblicas Unidas. Usados con permiso. Queda prohibida la reproducción completa sin autorización. RevelatiO IA es estocástico y no sustituye el pastoreo ni la autoridad de la Escritura.">
+            © SBU · Uso con permiso · Éfata RevelatiO · sin fines de lucro ·
+            <button type="button" class="rv-footer-more" data-rv-legal-toggle aria-expanded="false">Legal</button>
+        </p>
+        <div class="rv-footer-details" id="rv-footer-legal" hidden>
+            <p>Los textos RVR1960, TLA y DHH son © Sociedades Bíblicas Unidas, usados con permiso para lectura digital. Queda prohibida su reproducción, almacenamiento o distribución completa sin autorización de SBU.</p>
+            <p>RevelatiO IA es estocástico y no sustituye el pastoreo ni la autoridad de la Escritura; úsese solo como referencia de estudio.</p>
+        </div>
     </footer>
 
     <section id="modal-efata-card" class="sheet-hidden efata-modal" role="dialog" aria-labelledby="titulo-efata-card">
@@ -343,7 +367,9 @@
                     </div>
                     <div class="flex flex-col gap-2 pt-1">
                         <button type="button" id="descargar-efata-card"
-                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Descargar</button>
+                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Descargar PNG</button>
+                        <button type="button" id="copiar-efata-card"
+                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Copiar Imagen</button>
                         <button type="button" id="publicar-efata-card"
                             class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Compartir en redes</button>
                     </div>

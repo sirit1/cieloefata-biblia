@@ -8,6 +8,7 @@
 
     const VERSIONES = [
         { key: 'rv1960', etiqueta: 'RVR1960', licencia: 'sbu' },
+        { key: 'kjv', etiqueta: 'KJV', licencia: 'public' },
         { key: 'tla', etiqueta: 'TLA', licencia: 'sbu' },
         { key: 'dhh', etiqueta: 'DHH', licencia: 'sbu' },
         { key: 'septuaginta', etiqueta: 'Septuaginta (Rahlfs)', licencia: 'public' }
@@ -213,7 +214,30 @@
         await precargarComentarios();
         const meta = AUTORES.find(a => a.key === autorKey) || AUTORES[0];
         const pack = meta?.json ? await cargarJsonComentarista(meta.json) : null;
-        return armarComentario(referencia, autorKey, pack || {});
+        const local = armarComentario(referencia, autorKey, pack || {});
+        const localLen = String(local?.cuerpo || '').trim().length;
+        if (localLen >= 120 && !local?.vacio) return local;
+        try {
+            const res = await fetch('/api/comentario', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({ referencia, autor: autorKey, author: autorKey, ref: referencia })
+            });
+            if (res.ok) {
+                const json = await res.json();
+                const data = json?.data || json;
+                if (data?.cuerpo || data?.entradas?.length) {
+                    return {
+                        ia: false,
+                        vacio: false,
+                        titulo: data.titulo || meta?.etiqueta || autorKey,
+                        entradas: data.entradas || [{ texto: data.cuerpo }],
+                        cuerpo: data.cuerpo || (data.entradas || []).map(e => e.texto).join('\n\n')
+                    };
+                }
+            }
+        } catch (_e) { /* keep local */ }
+        return local;
     }
 
 
@@ -317,16 +341,52 @@
         return pasaje;
     }
 
+    function esTextoVacioOPlaceholder(texto) {
+        const t = String(texto || '').replace(/\s+/g, ' ').trim();
+        if (!t) return true;
+        // Rechaza "…", "...", "· · ·" y el ejemplo literario del prompt de contingencia.
+        return /^(?:\.{1,6}|…+|·+|•+|[-–—]+|n\/?a|null|undefined)$/i.test(t);
+    }
+
+    function verseTextOf(v) {
+        if (v == null) return '';
+        if (typeof v === 'string') return v;
+        return String(
+            v.text || v.texto || v.content || v.body || v.verse_text
+            || (typeof v.verse === 'string' ? v.verse : '')
+            || ''
+        ).trim();
+    }
+
+    function verseNumOf(v, i) {
+        const n = Number(v?.number ?? v?.n ?? v?.verse ?? v?.versiculo ?? v?.verso ?? i + 1);
+        return Number.isFinite(n) && n > 0 ? n : i + 1;
+    }
+
+    function normalizarListaVersos(lista) {
+        if (!Array.isArray(lista)) return [];
+        return lista
+            .map((v, i) => ({ n: verseNumOf(v, i), texto: verseTextOf(v) }))
+            .filter((v) => v.n > 0 && !esTextoVacioOPlaceholder(v.texto));
+    }
+
+    function pasajeTieneVersosReales(data) {
+        return Object.values(data?.versionesVersos || {}).some(
+            (a) => Array.isArray(a) && normalizarListaVersos(a).length > 0
+        );
+    }
+
     function pasajeTieneVersos(data) {
-        return Object.values(data?.versionesVersos || {}).some(a => Array.isArray(a) && a.length > 0);
+        return pasajeTieneVersosReales(data);
     }
 
     async function fetchPasajeRemoto(referencia) {
         const token = await tokenAuth();
-        const headers = { 'Content-Type': 'application/json' };
+        const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
         if (token) headers.Authorization = `Bearer ${token}`;
         const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-        const timer = ctrl ? setTimeout(() => ctrl.abort(), 1800) : null;
+        // Bolls + varias versiones en paralelo suele tardar 3–8s; no abortar prematuro.
+        const timer = ctrl ? setTimeout(() => ctrl.abort(), 20000) : null;
         try {
             const res = await fetch('/api/pasaje', {
                 method: 'POST',
@@ -337,19 +397,175 @@
             if (!res.ok) return null;
             const json = await res.json();
             return json?.success ? (json.data || {}) : null;
+        } catch {
+            return null;
         } finally {
             if (timer) clearTimeout(timer);
         }
     }
 
-    async function fetchPasaje(referencia) {
-        let local = null;
-        try { local = await fetchCapituloLocal(referencia); } catch (_e) { local = null; }
-        let remoto = null;
-        if (!pasajeTieneVersos(local)) {
-            try { remoto = await fetchPasajeRemoto(referencia); } catch (_e) { remoto = null; }
+    function empaquetarVersosContingencia(ref, versos, meta = {}) {
+        const limpios = normalizarListaVersos(versos);
+        if (!limpios.length) return null;
+        return {
+            referencia: ref,
+            fuente: meta.fuente || 'Contingencia RVR1909 · Agente Teológico',
+            contingencia: true,
+            fallbackVersion: 'rv1960',
+            fallbackNotice: null,
+            versiones: {
+                rv1960: limpios.map((v) => `${v.n} ${v.texto}`).join(' '),
+                rv1909: limpios.map((v) => `${v.n} ${v.texto}`).join(' '),
+            },
+            versionesVersos: {
+                rv1960: limpios,
+                rv1909: limpios,
+            },
+            versionesLista: [
+                { key: 'rv1960', etiqueta: 'RVR1909 (contingencia)', licencia: 'public' },
+            ],
+            original: null,
+        };
+    }
+
+    async function fetchPasajeContingenciaAgente(referencia, opts = {}) {
+        const ref = String(referencia || '').trim();
+        if (!ref) return null;
+        const version = opts.version || 'rv1909';
+        const book = opts.book || '';
+        const chapter = opts.chapter || '';
+        const prompt = [
+            `Entrega el texto bíblico COMPLETO de ${ref} en Reina-Valera 1909 (dominio público).`,
+            'Responde ÚNICAMENTE con un array JSON válido de objetos.',
+            'Cada objeto debe tener: "number" (entero) y "text" (texto real del versículo en español, nunca puntos suspensivos).',
+            'Ejemplo de forma (no copies el contenido): [{"number":1,"text":"Texto íntegro del versículo uno."}]',
+            'Sin markdown, sin comentarios, sin bloques de código. Incluye TODOS los versículos del capítulo.',
+        ].join('\n');
+
+        let text = '';
+        try {
+            if (typeof window.RV?.ai?.agenteTeologico === 'function') {
+                const result = await window.RV.ai.agenteTeologico({
+                    prompt,
+                    message: prompt,
+                    action: 'get_chapter',
+                    book,
+                    chapter,
+                    version,
+                    contextPassage: ref,
+                    mode: 'exegesis',
+                });
+                text = String(result?.text || result?.data || '').trim();
+            } else {
+                const res = await fetch('/api/agente-teologico', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    body: JSON.stringify({
+                        action: 'get_chapter',
+                        book: book || undefined,
+                        chapter: chapter || undefined,
+                        version,
+                        prompt,
+                        message: prompt,
+                        contextPassage: ref,
+                        mode: 'exegesis',
+                    }),
+                });
+                const json = await res.json().catch(() => null);
+                if (!res.ok || json?.ok === false) return null;
+                text = String(json?.data || json?.text || '').trim();
+            }
+        } catch {
+            return null;
         }
-        const data = fusionarPasajesLocalRemoto(local, remoto);
+        if (!text) return null;
+        const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
+        const candidate = fence ? fence[1].trim() : text;
+        const start = candidate.indexOf('[');
+        const end = candidate.lastIndexOf(']');
+        if (start < 0 || end <= start) return null;
+        let parsed;
+        try {
+            parsed = JSON.parse(candidate.slice(start, end + 1));
+        } catch {
+            return null;
+        }
+        return empaquetarVersosContingencia(ref, parsed, {
+            notice: null,
+        });
+    }
+
+    async function fetchPasaje(referencia, opts = {}) {
+        const ref = String(referencia || '').trim();
+        const wanted = String(opts.version || '').toLowerCase();
+        let local = null;
+        let remoto = null;
+        try { local = await fetchCapituloLocal(ref); } catch (_e) { local = null; }
+
+        if (!pasajeTieneVersos(local)) {
+            try { remoto = await fetchPasajeRemoto(ref); } catch (_e) { remoto = null; }
+        } else {
+            fetchPasajeRemoto(ref)
+                .then((r) => {
+                    if (!r || !pasajeTieneVersos(r)) return;
+                    const merged = fusionarPasajesLocalRemoto(local, r);
+                    window.__revelatioPassageData = merged;
+                })
+                .catch(() => {});
+        }
+
+        let data = fusionarPasajesLocalRemoto(local, remoto);
+
+        // Si la versión pedida (DHH/TLA/…) no trae texto real, forzar canónica pública.
+        const keyWanted = wanted === 'rv1909' || wanted === 'btx3' ? 'rv1960' : wanted;
+        const tienePedida = keyWanted
+            ? normalizarListaVersos(data?.versionesVersos?.[keyWanted]).length > 0
+            : pasajeTieneVersos(data);
+        const tieneCanon = normalizarListaVersos(data?.versionesVersos?.rv1960).length > 0
+            || normalizarListaVersos(data?.versionesVersos?.rv1909).length > 0;
+
+        if (!tienePedida && !tieneCanon) {
+            try {
+                const contingencia = await fetchPasajeContingenciaAgente(ref, {
+                    version: keyWanted || 'rv1909',
+                    book: opts.book,
+                    chapter: opts.chapter,
+                });
+                if (pasajeTieneVersos(contingencia)) data = contingencia;
+            } catch (_e) { /* keep empty */ }
+        } else if (keyWanted && !tienePedida && tieneCanon) {
+            // Sin aviso de contingencia: no etiquetar otra versión como RVR1909.
+            data = {
+                ...data,
+                fallbackVersion: null,
+                fallbackNotice: null,
+                contingencia: false,
+            };
+        }
+
+        // Última red: si aún no hay versos reales, agente get_chapter.
+        if (!pasajeTieneVersos(data)) {
+            try {
+                const contingencia = await fetchPasajeContingenciaAgente(ref, {
+                    version: keyWanted || 'rv1909',
+                    book: opts.book,
+                    chapter: opts.chapter,
+                });
+                if (pasajeTieneVersos(contingencia)) data = contingencia;
+            } catch (_e) { /* keep empty */ }
+        }
+
+        // Sanear cualquier "…" residual en listas.
+        if (data?.versionesVersos) {
+            for (const k of Object.keys(data.versionesVersos)) {
+                data.versionesVersos[k] = normalizarListaVersos(data.versionesVersos[k]);
+                if (data.versionesVersos[k].length) {
+                    data.versiones = data.versiones || {};
+                    data.versiones[k] = data.versionesVersos[k].map((v) => `${v.n} ${v.texto}`).join(' ');
+                }
+            }
+        }
+
         window.__revelatioPassageData = data;
         return data;
     }
@@ -412,5 +628,19 @@
         } catch (_e) { /* la marca visual ya quedó en el DOM */ }
     }
 
-    window.revelatioLectura = { VERSIONES, AUTORES, fetchPasaje, fetchCapituloLocal, fetchComentario, comentarioInmediato, precargarComentarios, persistHighlight, tokenAuth, partirVersiculos, envolverVersiculos };
+    window.revelatioLectura = {
+        VERSIONES,
+        AUTORES,
+        fetchPasaje,
+        fetchCapituloLocal,
+        fetchComentario,
+        comentarioInmediato,
+        precargarComentarios,
+        persistHighlight,
+        tokenAuth,
+        partirVersiculos,
+        envolverVersiculos,
+        normalizarListaVersos,
+        esTextoVacioOPlaceholder,
+    };
 })();

@@ -140,42 +140,25 @@
         const session = document.getElementById('rv-auth-session');
         if (session) session.classList.toggle('is-admin', admin);
         const badge = document.getElementById('rv-auth-admin-badge');
-        if (badge) badge.hidden = !admin;
+        if (badge) badge.hidden = true;
         const roleEl = document.getElementById('rv-auth-session-role');
-        if (roleEl) roleEl.textContent = admin ? 'Administrador' : 'Perfil activo';
+        if (roleEl) roleEl.textContent = ok ? 'Listo para entrar' : 'Perfil activo';
     }
 
     function exigirRegistro(motivo, destino) {
-        if (sesionActiva()) return true;
+        // Acceso libre a las puertas: el registro es opcional (enriquece Cuaderno / perfil).
+        // Solo retenemos destino pendiente si el caller quiere forzar ficha más adelante.
         if (destino) pendingDestino = { ...destino };
-        document.getElementById('rv-home')?.classList.remove('is-hidden');
-        document.body.classList.remove('is-santuario');
-        try {
-            if (String(location.hash || '').toLowerCase().indexOf('lectura') === 0) {
-                history.replaceState({ revelatio: 'home' }, '', `${location.pathname}${location.search || ''}#`);
-            }
-        } catch { /* ignore */ }
-        const status = document.getElementById('estado-suscripcion');
+        void motivo;
+        if (sesionActiva()) return true;
+        // No bloqueamos: invitamos al Círculo de forma sutil, sin tarjeta tosca.
         const gate = document.getElementById('rv-auth-gate-msg');
-        // Un solo aviso claro (HTML fijo). Sin jerga de «Aposento» ni banners duplicados.
         if (gate) {
             gate.hidden = false;
-            gate.textContent = 'Para abrir cualquiera de las dos puertas, únete primero al Círculo con tu correo y WhatsApp.';
-        }
-        if (status) status.textContent = '';
-        void motivo;
-        mostrarPanelAuth('registro');
-        const card = document.getElementById('rv-auth-card') || document.querySelector('.rv-auth');
-        if (card) {
-            card.classList.add('is-gate-focus');
-            setTimeout(() => {
-                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                document.getElementById('reg-email')?.focus?.();
-            }, 40);
-            setTimeout(() => card.classList.remove('is-gate-focus'), 1600);
+            gate.textContent = 'Puedes entrar ya. Si quieres vincular notas a tu perfil, únete al Círculo más abajo.';
         }
         sincronizarGateUI();
-        return false;
+        return true;
     }
 
     function liberarDestinoPendiente() {
@@ -276,11 +259,12 @@
         jud: 'Judas', ap: 'Apocalipsis', apoc: 'Apocalipsis'
     };
     const PLATAFORMA_URL = 'https://revelatio.efata.app';
-    const cardState = { text: '', ref: '', version: '', fondo: 'marmol', tipo: 'editorial' };
+    const cardState = { text: '', ref: '', version: '', fondo: 'celestial', tipo: 'lectura' };
     const texturas = {};
     let isotipoImg = null;
     let lockupImg = null;
     let palabraImg = null;
+    let cieloBwImg = null;
 
     function norm(s) {
         return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -288,6 +272,15 @@
 
     function escapeHtml(s) {
         return String(s || '').replace(/[&<>]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[ch]));
+    }
+
+    function resolveTestamentoLibro(nombre, hint) {
+        const nav = window.RV?.bibleNav;
+        if (nav?.resolveTestamento) return nav.resolveTestamento(nombre, hint);
+        if (nav?.isOldTestament?.(nombre)) return 'at';
+        if (nav?.isNewTestament?.(nombre)) return 'nt';
+        if (hint === 'at' || hint === 'nt') return hint;
+        return 'at';
     }
 
     function estado() {
@@ -341,11 +334,11 @@
         if (!nav) return;
         const tes = libro.testamento === 'nt' ? 'Nuevo Testamento' : 'Antiguo Testamento';
         nav.innerHTML = `
-            <button type="button" data-crumb="biblia" class="hover:text-[#C5A059]">Biblia</button>
-            <span class="text-[#C5A059]">›</span>
-            <button type="button" data-crumb="${libro.testamento}" class="hover:text-[#C5A059]">${tes}</button>
-            <span class="text-[#C5A059]">›</span>
-            <span class="text-[#C5A059]">${escapeHtml(libro.n)} ${libro.cap}${libro.verso ? `:${libro.verso}` : ''}</span>`;
+            <button type="button" data-crumb="biblia" class="rv-crumb-link">Biblia</button>
+            <span class="rv-crumb-sep" aria-hidden="true">›</span>
+            <button type="button" data-crumb="${libro.testamento}" class="rv-crumb-link">${tes}</button>
+            <span class="rv-crumb-sep" aria-hidden="true">›</span>
+            <span class="rv-crumb-here">${escapeHtml(libro.n)} ${libro.cap}${libro.verso ? `:${libro.verso}` : ''}</span>`;
     }
 
     async function tokenAuth() {
@@ -396,18 +389,50 @@
 
     async function cargarPasaje(referencia) {
         let data = null;
+        const version = versionActiva();
+        const loc = estado();
         try {
             if (window.revelatioLectura?.fetchPasaje) {
-                data = await window.revelatioLectura.fetchPasaje(referencia);
+                data = await window.revelatioLectura.fetchPasaje(referencia, {
+                    version,
+                    book: loc?.n,
+                    chapter: loc?.cap,
+                });
             } else if (window.revelatioLectura?.fetchCapituloLocal) {
                 data = await window.revelatioLectura.fetchCapituloLocal(referencia);
             }
         } catch { data = null; }
+
+        const tieneVersos = Object.values(data?.versionesVersos || {}).some(
+            (a) => Array.isArray(a) && normalizarVersos(a).length > 0
+        );
+        if (!tieneVersos) {
+            try {
+                const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+                const timer = ctrl ? setTimeout(() => ctrl.abort(), 20000) : null;
+                const res = await fetch('/api/pasaje', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    body: JSON.stringify({ referencia }),
+                    signal: ctrl?.signal
+                });
+                if (timer) clearTimeout(timer);
+                if (res.ok) {
+                    const json = await res.json();
+                    if (json?.success && json.data) data = json.data;
+                }
+            } catch { /* keep prior */ }
+        }
+
         try {
-            const loc = estado();
-            return await fusionarPacksLocales(data, loc);
+            const fused = await fusionarPacksLocales(data, loc);
+            // Si packs locales vacíos no aportan, conservar contingencia del fetch.
+            window.__revelatioPassageData = fused;
+            return fused;
         } catch {
-            return data || { versiones: {}, versionesVersos: {}, versionesLista: [], original: null };
+            const out = data || { versiones: {}, versionesVersos: {}, versionesLista: [], original: null };
+            window.__revelatioPassageData = out;
+            return out;
         }
     }
 
@@ -534,57 +559,122 @@
         return Number(VERSOS_CAP[libro?.n]?.[Number(libro?.cap) - 1]) || 0;
     }
 
+    function esTextoPlaceholder(texto) {
+        if (window.revelatioLectura?.esTextoVacioOPlaceholder) {
+            return window.revelatioLectura.esTextoVacioOPlaceholder(texto);
+        }
+        const t = String(texto || '').replace(/\s+/g, ' ').trim();
+        return !t || /^(?:\.{1,6}|…+|·+|•+|[-–—]+)$/i.test(t);
+    }
+
     function normalizarVersos(lista) {
         return (lista || [])
-            .map(v => ({
-                n: Number(v.n || v.verse || v.verso || v.versiculo || 0),
-                texto: String(v.texto || v.text || '').trim(),
+            .map((v, i) => ({
+                n: Number(v.n || v.verse || v.verso || v.versiculo || v.number || i + 1),
+                texto: String(
+                    v.texto || v.text || v.content || v.body || v.verse_text
+                    || (typeof v.verse === 'string' ? v.verse : '')
+                    || ''
+                ).trim(),
                 tokens: Array.isArray(v.tokens) ? v.tokens : undefined
             }))
-            .filter(v => v.n > 0 && (v.texto || (v.tokens && v.tokens.length)))
+            .filter((v) => v.n > 0 && ((v.texto && !esTextoPlaceholder(v.texto)) || (v.tokens && v.tokens.length)))
             .sort((a, b) => a.n - b.n);
     }
 
     function originalComoVersos(passage) {
-        return normalizarVersos((passage?.original?.versos || []).map(v => ({
+        return normalizarVersos((passage?.original?.versos || []).map((v) => ({
             n: v.verso || v.n || v.verse,
             tokens: v.tokens,
-            texto: (v.tokens || []).map(t => t.palabra || t.texto || '').join(' ')
+            texto: (v.tokens || []).map((t) => t.palabra || t.texto || '').join(' ')
         })));
     }
 
     function textoComoVersos(texto, libro) {
-        const partidos = partirVersos(texto);
+        const partidos = partirVersos(texto).filter((v) => !esTextoPlaceholder(v.texto));
         if (partidos.length > 1) return versosHtml(partidos, libro);
         const unico = partidos[0]?.texto || String(texto || '').trim();
-        if (!unico) return '';
+        if (!unico || esTextoPlaceholder(unico)) return '';
         return versosHtml([{ n: 1, texto: unico }], libro);
     }
 
-    function cuerpoLectura(libro, version, passage) {
+    function elegirVersosPasaje(libro, version, passage) {
         const key = claveMotor(version);
+        const orden = [key, 'rv1960', 'rv1909', 'kjv', 'tla', 'dhh'];
+        const seen = new Set();
+        for (const k of orden) {
+            if (!k || seen.has(k)) continue;
+            seen.add(k);
+            const versos = normalizarVersos(passage?.versionesVersos?.[k]);
+            if (versos.length) {
+                return {
+                    versos,
+                    usedKey: k,
+                    isFallback: Boolean(k && key && k !== key),
+                };
+            }
+            const bloque = passage?.versiones?.[k];
+            if (bloque && !esTextoPlaceholder(bloque)) {
+                const partidos = partirVersos(bloque).filter((v) => !esTextoPlaceholder(v.texto));
+                if (partidos.length) {
+                    return {
+                        versos: partidos,
+                        usedKey: k,
+                        isFallback: Boolean(k && key && k !== key),
+                    };
+                }
+            }
+        }
+        return { versos: [], usedKey: null, isFallback: false };
+    }
+
+    function badgeFallbackHtml() {
+        // Avisos de contingencia RVR1909 eliminados: la API entrega la versión pedida o error.
+        return '';
+    }
+
+    function cuerpoLectura(libro, version, passage) {
         const original = passage?.original;
+        const bookName = libro?.n || '';
+        const nav = window.RV?.bibleNav;
+        const resolvedOT = Boolean(nav?.isOldTestament?.(bookName) || (!nav?.isNewTestament?.(bookName) && libro?.testamento === 'at'));
+        const resolvedNT = Boolean(nav?.isNewTestament?.(bookName) || (!resolvedOT && libro?.testamento === 'nt'));
+
+        let lxxNtNotice = '';
         if (version === 'lxx' || version === 'septuaginta') {
             const lxxVersos = normalizarVersos(passage?.versionesVersos?.septuaginta);
             const lxxTexto = passage?.versiones?.septuaginta || original?.septuaginta?.texto;
-            if (lxxVersos.length) return versosHtml(lxxVersos, libro);
-            if (lxxTexto) return textoComoVersos(lxxTexto, libro);
-            if (libro.testamento === 'nt') {
-                return `<p class="rv-lectura-note text-[15px] leading-relaxed">La Septuaginta es el Antiguo Testamento griego. Para este libro del Nuevo Testamento elige RVR1960, TLA o DHH.</p>`;
+            if (lxxVersos.length) {
+                return `<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(lxxVersos, libro)}</div>`;
+            }
+            if (lxxTexto && !esTextoPlaceholder(lxxTexto)) {
+                return `<div class="rv-lectura-cuerpo text-[#0F172A]">${textoComoVersos(lxxTexto, libro)}</div>`;
+            }
+            if (resolvedOT) {
+                // AT + LXX: válido; si no hay griego aún, caer a RVR/otras sin aviso de NT.
+            } else if (resolvedNT) {
+                lxxNtNotice = `<p class="rv-lectura-note text-[13px] leading-relaxed text-[#0F172A]/85 mb-4 border-l-2 border-[#C59B27] pl-3">La Septuaginta es el Antiguo Testamento griego (LXX / Rahlfs). Para este libro del Nuevo Testamento elige texto griego original (Nestle-Aland / Textus Receptus) o RVR1960.</p>`;
             }
         }
-        const versos = normalizarVersos(passage?.versionesVersos?.[key] || passage?.versionesVersos?.rv1960);
-        if (versos.length) return versosHtml(versos, libro);
-        const bloque = passage?.versiones?.[key] || passage?.versiones?.rv1960;
-        if (bloque) {
-            const partidos = partirVersos(bloque);
-            if (partidos.length > 1) return versosHtml(partidos, libro);
-            return textoComoVersos(bloque, libro);
+
+        const pick = elegirVersosPasaje(libro, version, passage);
+        if (pick.versos.length) {
+            return `${lxxNtNotice}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(pick.versos, libro)}</div>`;
         }
+
         const orig = originalComoVersos(passage);
-        if (orig.length) return versosHtml(orig, libro);
-        const esperado = versosEsperados(libro);
-        return `<p class="rv-lectura-note text-[15px] leading-relaxed">${escapeHtml(libro.n)} ${libro.cap} está en el canon${esperado ? ` (${esperado} versículos)` : ''}. Este capítulo se añadirá a la biblioteca local; el riel de versículos permanece disponible.</p>`;
+        if (orig.length) {
+            return `${lxxNtNotice}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(orig, libro)}</div>`;
+        }
+
+        if (lxxNtNotice) return lxxNtNotice;
+
+        return `
+            <p class="rv-lectura-muted text-[14px] leading-relaxed text-[#0F172A]">
+                No se pudo obtener el texto de <strong>${escapeHtml(libro.n)} ${libro.cap}</strong>
+                en ${escapeHtml(etiquetaVersion(version, passage))}.
+            </p>
+            <button type="button" class="rv-sp-retry mt-3" data-rv-retry-pasaje="${escapeHtml(libro.n)} ${libro.cap}">Actualizar texto</button>`;
     }
 
     function esRuidoEditorial(texto) {
@@ -703,26 +793,38 @@
     }
 
     async function pintarPaneles(libro) {
+        const resolvedTes = resolveTestamentoLibro(libro?.n, libro?.testamento);
+        libro = { ...libro, testamento: resolvedTes };
         window.__revelatioLibroActivo = libro;
         const stamp = ++panelStamp;
         try { salirModoVersiculo(); } catch { /* ignore */ }
         const version = versionActiva();
         const autor = autorActivo();
-        localStorage.setItem('revelatio_version', version);
-        localStorage.setItem('revelatio_autor', autor);
+        try { localStorage.setItem('revelatio_version', version); } catch { /* ignore */ }
+        try { localStorage.setItem('revelatio_autor', autor); } catch { /* ignore */ }
         const esperado = versosEsperados(libro);
-        const texto = document.getElementById('texto-biblico');
-        if (texto) {
-            texto.innerHTML = `
-                <p class="rv-lectura-title mb-2 font-display text-3xl">${escapeHtml(libro.n)} ${libro.cap}</p>
-                <p class="rv-lectura-meta mb-6 text-[11px] tracking-[0.14em]">${escapeHtml(etiquetaVersion(version))}${esperado ? ` · ${esperado} versículos` : ''}</p>
-                <p class="rv-lectura-muted">Abriendo el capítulo completo…</p>`;
+        const header = document.getElementById('chapter-header');
+        const versesBox = document.getElementById('verses-container');
+        const texto = document.getElementById('texto-biblico') || versesBox;
+        const readerOwns = Boolean(window.RV?.readerView?.active && window.RV?.AppState?.setPassage);
+        if (header && !document.getElementById('chapter-title')) {
+            header.innerHTML = `
+                <p id="chapter-title" class="rv-lectura-title mb-1 font-display text-3xl text-[#0F172A]">${escapeHtml(libro.n)} ${libro.cap}</p>
+                <p id="chapter-version-label" class="rv-lectura-meta text-[11px] tracking-[0.14em] text-[#0F172A]/75">${readerOwns ? 'Cargando…' : `${escapeHtml(etiquetaVersion(version))}${esperado ? ` · ${esperado} versículos` : ''}`}</p>`;
+        } else if (header) {
+            const titleNode = document.getElementById('chapter-title');
+            if (titleNode) titleNode.textContent = `${libro.n} ${libro.cap}`;
         }
-        pintarIndiceVersiculos(libro, esperado ? Array.from({ length: esperado }, (_, i) => i + 1) : []);
-        pintarContextoHistorico(libro);
-        pintarFichaAcademica(libro);
-        pintarComentario(libro, autor, window.revelatioLectura?.comentarioInmediato?.(referenciaComentario(libro), autor) || { titulo: AUTOR_LABEL[autor] || autor });
-        refrescarConcordancia(libro);
+        if (!readerOwns && texto) {
+            texto.innerHTML = `<p class="rv-lectura-muted text-[#0F172A]">Abriendo el capítulo completo…</p>`;
+        }
+        try { pintarIndiceVersiculos(libro, esperado ? Array.from({ length: esperado }, (_, i) => i + 1) : []); } catch { /* ignore */ }
+        try { pintarContextoHistorico(libro); } catch { /* ignore */ }
+        try { pintarFichaAcademica(libro); } catch { /* ignore */ }
+        try {
+            pintarComentario(libro, autor, window.revelatioLectura?.comentarioInmediato?.(referenciaComentario(libro), autor) || { titulo: AUTOR_LABEL[autor] || autor });
+        } catch { /* ignore */ }
+        try { refrescarConcordancia(libro); } catch { /* ignore */ }
         let passage = window.__revelatioPassageData;
         try {
             const fetched = await cargarPasaje(`${libro.n} ${libro.cap}`);
@@ -733,12 +835,48 @@
             }
         } catch (_e) { /* modo local */ }
         if (stamp !== panelStamp) return;
-        if (texto) {
-            texto.innerHTML = `
-                <p class="rv-lectura-title mb-2 font-display text-3xl">${escapeHtml(libro.n)} ${libro.cap}</p>
-                <p class="rv-lectura-meta mb-6 text-[11px] tracking-[0.14em]">${escapeHtml(etiquetaVersion(version, passage))}</p>
-                ${cuerpoLectura(libro, version, passage)}
-                <p class="rv-lectura-meta mt-8 text-[12px] tracking-wide">${escapeHtml(libro.n)} ${libro.cap}</p>`;
+        const pick = elegirVersosPasaje(libro, version, passage);
+        const badge = badgeFallbackHtml(passage, version, pick);
+        if (header) {
+            const titleNode = document.getElementById('chapter-title');
+            const versionNode = document.getElementById('chapter-version-label');
+            if (titleNode) {
+                titleNode.textContent = `${libro.n} ${libro.cap}`;
+            } else if (!readerOwns) {
+                header.innerHTML = `
+                <p id="chapter-title" class="rv-lectura-title mb-1 font-display text-3xl text-[#0F172A]">${escapeHtml(libro.n)} ${libro.cap}</p>
+                <p id="chapter-version-label" class="rv-lectura-meta text-[11px] tracking-[0.14em] text-[#0F172A]/80">${escapeHtml(etiquetaVersion(version, passage))}${badge}</p>`;
+            }
+            // Con reader-view activo, la etiqueta de versión la pinta SOLO res.version de /api/bible
+            if (!readerOwns) {
+                const meta = versionNode || header.querySelector('.rv-lectura-meta');
+                if (meta) {
+                    meta.id = meta.id || 'chapter-version-label';
+                    meta.innerHTML = `${escapeHtml(etiquetaVersion(version, passage))}${badge}`;
+                } else if (titleNode) {
+                    const p = document.createElement('p');
+                    p.id = 'chapter-version-label';
+                    p.className = 'rv-lectura-meta text-[11px] tracking-[0.14em] text-[#0F172A]/80';
+                    p.innerHTML = `${escapeHtml(etiquetaVersion(version, passage))}${badge}`;
+                    header.appendChild(p);
+                }
+            }
+        }
+
+        // Si reader-view está activo, el DOM de versículos lo pinta AppState (sin acoplar CSS aquí)
+        if (readerOwns) {
+            const uiVer = version === 'septuaginta' || version === 'lxx'
+                ? 'septuaginta'
+                : (version === 'rv1960' || version === 'rv1909' ? 'RVR1960' : version);
+            try {
+                await window.RV.AppState.setPassage(libro.n, libro.cap, uiVer);
+            } catch (err) {
+                console.warn('[estudio] AppState.setPassage', err);
+            }
+        } else if (texto) {
+            texto.innerHTML = cuerpoLectura(libro, version, passage);
+        } else if (versesBox) {
+            versesBox.innerHTML = cuerpoLectura(libro, version, passage);
         }
         try {
             const comentario = await cargarComentario(referenciaComentario(libro), autor);
@@ -746,23 +884,28 @@
             pintarComentario(libro, autor, comentario || window.revelatioLectura?.comentarioInmediato?.(referenciaComentario(libro), autor) || { titulo: AUTOR_LABEL[autor] || autor });
         } catch (_e) { /* se conserva el comentario local */ }
         const plano = passage?.versiones?.[claveMotor(version)] || '';
-        document.querySelectorAll('[data-paralelo-cuerpo]').forEach(el => {
+        document.querySelectorAll('[data-paralelo-cuerpo]')?.forEach?.((el) => {
             el.textContent = plano ? `${libro.n} ${libro.cap} — ${plano}` : `${libro.n} ${libro.cap}`;
         });
         const refInput = document.querySelector('#form-marginnote [name="referencia"]');
         const pasajeInput = document.querySelector('#form-sermon [name="pasaje"]');
         if (refInput) refInput.value = `${libro.n} ${libro.cap}`;
         if (pasajeInput) pasajeInput.value = `${libro.n} ${libro.cap}`;
-        actualizarBreadcrumbs(libro);
-        document.querySelectorAll('.cap-btn').forEach(btn => {
+        try { actualizarBreadcrumbs(libro); } catch { /* ignore */ }
+        document.querySelectorAll('.cap-btn')?.forEach?.((btn) => {
             const sameBook = btn.closest('[data-libro-item]')?.dataset.libroItem === libro.n;
             btn.classList.toggle('is-active', sameBook && Number(btn.dataset.cap) === Number(libro.cap));
         });
-        pintarIndiceVersiculos(libro, numerosDelPasaje(passage, version));
-        restaurarMarcasCapitulo(libro);
-        refrescarConcordancia(libro);
-        refrescarPerspectivas(libro);
-        if (libro.verso) requestAnimationFrame(() => irAVersiculo(Number(libro.verso)));
+        try { pintarIndiceVersiculos(libro, numerosDelPasaje(passage, version)); } catch { /* ignore */ }
+        try { restaurarMarcasCapitulo(libro); } catch { /* ignore */ }
+        try { refrescarConcordancia(libro); } catch { /* ignore */ }
+        try { refrescarPerspectivas(libro); } catch { /* ignore */ }
+        if (libro.verso) requestAnimationFrame(() => { try { irAVersiculo(Number(libro.verso)); } catch { /* ignore */ } });
+        try {
+            document.dispatchEvent(new CustomEvent('revelatio:passage-ready', {
+                detail: { libro: libro.n, cap: libro.cap, version, passage },
+            }));
+        } catch { /* ignore */ }
     }
 
     function capitulosHtml(libro) {
@@ -774,7 +917,7 @@
     function renderGrupo(titulo, libros, testamento) {
         return `
             <section data-grupo="${testamento}" class="mb-5">
-                <h3 class="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C5A059]">${titulo}</h3>
+                <h3 class="rv-canon-section mb-2 px-2 text-[11px] font-bold uppercase tracking-widest text-[#C59B27]">${titulo}</h3>
                 ${libros.map(libro => `
                     <div class="libro-item" data-libro-item="${libro.n}" data-testamento="${testamento}" data-capitulos="${libro.c}">
                         <button type="button" class="libro-btn" data-libro="${libro.n}">
@@ -802,7 +945,7 @@
             c: Number(item.dataset.capitulos),
             cap,
             verso: verso || null,
-            testamento: item.dataset.testamento
+            testamento: resolveTestamentoLibro(item.dataset.libroItem || nombre, item.dataset.testamento)
         });
         try { item.scrollIntoView({ block: 'nearest' }); } catch { /* ignore */ }
         return true;
@@ -988,117 +1131,147 @@
 
     async function asegurarAssetsCard() {
         if (!texturas.marmol) {
-            const [marmol, papiro, jerusalem, mark, lockup, palabra] = await Promise.all([
+            const [marmol, papiro, jerusalem, mark, wordmark, cieloBw, brandFull] = await Promise.all([
                 loadImg('brand/textures/marmol.png'),
                 loadImg('brand/textures/papiro.png'),
                 loadImg('brand/textures/jerusalem.png'),
                 loadImg('brand/revelatio-mark.png'),
-                loadImg('brand/revelatio-lockup.png'),
-                loadImg('brand/revelatio-wordmark.png')
+                loadImg('assets/branding/revelatio-wordmark-master.jpeg'),
+                loadImg('assets/branding/cielo-efata-bw.jpg'),
+                loadImg('assets/branding/revelatio-logo-master.jpeg')
             ]);
             texturas.marmol = marmol;
             texturas.papiro = papiro;
             texturas.jerusalem = jerusalem;
             isotipoImg = mark;
-            lockupImg = lockup;
-            palabraImg = palabra;
+            palabraImg = wordmark || (await loadImg('assets/branding/revelatio-wordmark.jpg'))
+                || (await loadImg('brand/revelatio-wordmark.jpg'));
+            // Cabecera de tarjeta: wordmark oficial centrado
+            lockupImg = palabraImg || brandFull || (await loadImg('assets/branding/revelatio-logo.jpg'));
+            cieloBwImg = cieloBw || (await loadImg('assets/branding/cielo-efata.jpg'));
         }
         try { await document.fonts.ready; } catch { /* fuentes del sistema */ }
+        // Espera explícita a caras tipográficas usadas en canvas (timeout 1.5s)
+        try {
+            if (document.fonts?.load) {
+                await Promise.race([
+                    Promise.all([
+                        document.fonts.load('600 46px Cinzel'),
+                        document.fonts.load('italic 54px "Cormorant Garamond"'),
+                        document.fonts.load('400 44px "Source Serif 4"'),
+                        document.fonts.load('500 22px "Cormorant Garamond"'),
+                    ]),
+                    new Promise((resolve) => setTimeout(resolve, 1500)),
+                ]);
+            }
+        } catch { /* fallback a stack del sistema en fillText */ }
     }
 
     function paletaFondo(fondo) {
-        if (fondo === 'papiro') return { verse: '#2A1C0E', ref: '#7A5A1E', url: '#5C4A32', veil: 'rgba(250, 241, 220, 0.18)', frame: 'rgba(122, 90, 30, 0.7)' };
-        if (fondo === 'jerusalem') return { verse: '#F7F1E1', ref: '#C5A059', url: 'rgba(241, 226, 160, 0.8)', veil: 'rgba(9, 10, 15, 0.42)', frame: 'rgba(197, 160, 89, 0.7)' };
-        return { verse: '#F3E2A0', ref: '#C5A059', url: 'rgba(209, 209, 209, 0.72)', veil: 'rgba(9, 10, 15, 0.38)', frame: 'rgba(197, 160, 89, 0.75)' };
+        /* Marca editorial: Luz Celestial / Azul Imperial / Oro Sacro */
+        if (fondo === 'celestial' || fondo === 'brand' || !fondo) {
+            return {
+                verse: '#0A192F',
+                ref: '#C59B27',
+                url: '#64748B',
+                veil: 'transparent',
+                frame: 'rgba(197, 155, 39, 0.55)',
+                celestial: true,
+            };
+        }
+        if (fondo === 'papiro') return { verse: '#2A1C0E', ref: '#C59B27', url: '#5C4A32', veil: 'rgba(250, 241, 220, 0.18)', frame: 'rgba(122, 90, 30, 0.7)' };
+        if (fondo === 'jerusalem') return { verse: '#F7F1E1', ref: '#C59B27', url: 'rgba(241, 226, 160, 0.8)', veil: 'rgba(9, 10, 15, 0.42)', frame: 'rgba(197, 160, 89, 0.7)' };
+        return { verse: '#0A192F', ref: '#C59B27', url: '#64748B', veil: 'transparent', frame: 'rgba(197, 155, 39, 0.55)', celestial: true };
     }
 
     function tipoCard(tipo, paleta) {
-        if (tipo === 'monumental') return { verse: '600 46px Cinzel, serif', ref: '500 22px "Cormorant Garamond", serif', verseColor: paleta.verse, align: 'center', leading: 62 };
+        if (tipo === 'monumental') return { verse: '600 46px Cinzel, "Playfair Display", serif', ref: '600 22px Cinzel, serif', verseColor: paleta.verse, align: 'center', leading: 62 };
         if (tipo === 'lectura') return { verse: '400 44px "Source Serif 4", Georgia, serif', ref: '600 20px Cinzel, serif', verseColor: paleta.verse, align: 'left', leading: 60 };
-        return { verse: 'italic 54px "Cormorant Garamond", Georgia, serif', ref: '600 20px Cinzel, serif', verseColor: paleta.verse, align: 'center', leading: 66 };
+        return { verse: '500 48px "Source Serif 4", "Playfair Display", Georgia, serif', ref: '600 22px Cinzel, serif', verseColor: paleta.verse, align: 'center', leading: 64 };
     }
 
     function pintarEfataCard() {
         const canvas = document.getElementById('canvas-efata-card');
         if (!canvas) return;
+
+        const fondoKey = (cardState.fondo === 'papiro' || cardState.fondo === 'jerusalem' || cardState.fondo === 'marmol')
+            ? cardState.fondo
+            : 'celestial';
+        const bgImg = (fondoKey !== 'celestial' && texturas[fondoKey])
+            ? texturas[fondoKey]
+            : (texturas.jerusalem || texturas.marmol || null);
+        const logoImg = palabraImg || lockupImg || null;
+        const draw = window.RV?.drawVerseCard || window.drawVerseCard;
+
+        if (typeof draw === 'function') {
+            draw(canvas, {
+                text: cardState.text,
+                ref: cardState.ref,
+                version: cardState.version,
+                tipo: cardState.tipo || 'lectura',
+                logoImg,
+                bgImg,
+            });
+            return;
+        }
+
+        // Fallback mínimo si verse-actions no cargó
         const ctx = canvas.getContext('2d');
         const w = canvas.width;
         const h = canvas.height;
-        const paleta = paletaFondo(cardState.fondo);
-        const tipo = tipoCard(cardState.tipo, paleta);
-        ctx.clearRect(0, 0, w, h);
-        const tex = texturas[cardState.fondo];
-        if (tex) {
-            const scale = Math.max(w / tex.width, h / tex.height);
-            const dw = tex.width * scale;
-            const dh = tex.height * scale;
-            ctx.drawImage(tex, (w - dw) / 2, (h - dh) / 2, dw, dh);
-        } else {
-            ctx.fillStyle = '#090A0F';
-            ctx.fillRect(0, 0, w, h);
-        }
-        ctx.fillStyle = paleta.veil;
+        ctx.fillStyle = '#07101E';
         ctx.fillRect(0, 0, w, h);
-        const g = ctx.createLinearGradient(0, 0, 0, h);
-        g.addColorStop(0, 'rgba(9,10,15,0.35)');
-        g.addColorStop(0.45, 'rgba(9,10,15,0.08)');
-        g.addColorStop(1, 'rgba(9,10,15,0.55)');
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, w, h);
-        ctx.strokeStyle = paleta.frame;
-        ctx.lineWidth = 2;
-        ctx.strokeRect(48, 48, w - 96, h - 96);
-        ctx.strokeStyle = 'rgba(197,160,89,0.35)';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(58, 58, w - 116, h - 116);
-
-        if (lockupImg) {
-            const lw = 280;
-            const lh = lw * (lockupImg.height / lockupImg.width);
-            ctx.drawImage(lockupImg, (w - lw) / 2, 72, lw, lh);
-        } else if (isotipoImg) {
-            ctx.drawImage(isotipoImg, (w - 92) / 2, 92, 92, 92);
-            if (palabraImg) ctx.drawImage(palabraImg, (w - 220) / 2, 196, 220, 36);
-        }
-
-        ctx.font = tipo.verse;
-        ctx.fillStyle = tipo.verseColor;
-        ctx.textAlign = tipo.align;
-        const maxW = w - 180;
-        const verso = cardState.text.replace(/^[\d\s]+/, '').trim() || cardState.text;
-        const lines = wrapCanvas(ctx, `«${verso}»`, maxW);
-        const blockH = lines.length * tipo.leading;
-        let y = Math.max(380, (h / 2) - blockH / 2 + 36);
-        const x = tipo.align === 'left' ? 110 : w / 2;
-        lines.forEach(line => {
-            ctx.fillText(line, x, y);
-            y += tipo.leading;
-        });
-
-        ctx.font = tipo.ref;
-        ctx.fillStyle = paleta.ref;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '500 36px Georgia, serif';
         ctx.textAlign = 'center';
-        ctx.fillText(cardState.ref, w / 2, y + 36);
-        ctx.font = '500 16px Cinzel, serif';
-        ctx.fillStyle = paleta.url;
-        ctx.fillText(cardState.version, w / 2, y + 64);
-
-        if (isotipoImg) ctx.drawImage(isotipoImg, (w - 52) / 2, h - 168, 52, 52);
-        if (palabraImg) ctx.drawImage(palabraImg, (w - 200) / 2, h - 110, 200, 32);
-        ctx.font = '400 18px "Source Serif 4", serif';
-        ctx.fillStyle = paleta.url;
-        ctx.textAlign = 'center';
-        ctx.fillText(PLATAFORMA_URL.replace('https://', ''), w / 2, h - 68);
+        ctx.fillText(cardState.ref || 'Éfata RevelatiO', w / 2, h / 2);
     }
 
-    async function abrirEfataCard({ text, ref, version }) {
+    function roundRectPath(ctx, x, y, width, height, radius) {
+        const r = Math.min(radius, width / 2, height / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + width, y, x + width, y + height, r);
+        ctx.arcTo(x + width, y + height, x, y + height, r);
+        ctx.arcTo(x, y + height, x, y, r);
+        ctx.arcTo(x, y, x + width, y, r);
+        ctx.closePath();
+    }
+
+    async function abrirEfataCard({ text, ref, version, brandLogo, brandWatermark }) {
         cardState.text = String(text || '').replace(/\s+/g, ' ').trim();
         cardState.ref = ref || '';
         cardState.version = version || '';
-        const modal = document.getElementById('modal-efata-card');
+        // Wordmark centrado + marca de agua Cielo Éfata B/N
+        if (brandLogo) {
+            const branded = await loadImg(brandLogo);
+            if (branded) {
+                palabraImg = branded;
+                lockupImg = branded;
+            }
+        } else if (!palabraImg) {
+            palabraImg = await loadImg('assets/branding/revelatio-wordmark.jpg')
+                || await loadImg('brand/revelatio-wordmark.jpg');
+            if (palabraImg) lockupImg = palabraImg;
+        }
+        if (brandWatermark) {
+            const wm = await loadImg(brandWatermark);
+            if (wm) cieloBwImg = wm;
+        } else if (!cieloBwImg) {
+            cieloBwImg = await loadImg('assets/branding/cielo-efata-bw.jpg');
+        }        const modal = document.getElementById('modal-efata-card');
         modal?.classList.add('is-open');
-        await asegurarAssetsCard();
-        pintarEfataCard();
+        try {
+            await asegurarAssetsCard();
+            pintarEfataCard();
+        } catch (err) {
+            console.warn('[efata-card] render diferido / fuente:', err?.message || err);
+            try {
+                pintarEfataCard();
+            } catch {
+                /* canvas no disponible */
+            }
+        }
     }
 
     function blobTarjeta() {
@@ -1140,6 +1313,23 @@
                 a.click();
                 URL.revokeObjectURL(a.href);
             } catch { /* canvas no exportable */ }
+        });
+        document.getElementById('copiar-efata-card')?.addEventListener('click', async () => {
+            try {
+                const blob = await blobTarjeta();
+                if (navigator.clipboard?.write && global.ClipboardItem) {
+                    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                    return;
+                }
+            } catch { /* fallback download */ }
+            try {
+                const blob = await blobTarjeta();
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `efata-revelatio-${(cardState.ref || 'versiculo').replace(/\s+/g, '-').toLowerCase()}.png`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+            } catch { /* ignore */ }
         });
         document.getElementById('publicar-efata-card')?.addEventListener('click', async () => {
             const caption = `${cardState.ref}\n«${cardState.text}»\nÉfata RevelatiO · ${PLATAFORMA_URL}`;
@@ -1498,7 +1688,7 @@
                 <div class="mt-3 flex flex-wrap gap-2">
                     <button type="button" class="rv-btn-gold px-2.5 py-1 text-[10px] uppercase tracking-[0.14em]" data-cuaderno-act="abrir">Abrir</button>
                     ${item.archivo === 'permanente' ? '' : `<button type="button" class="rv-btn-gold px-2.5 py-1 text-[10px] uppercase tracking-[0.14em]" data-cuaderno-act="archivar">Archivo permanente</button>`}
-                    <button type="button" class="px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-[#E8D5A3]" data-cuaderno-act="borrar">Quitar</button>
+                    <button type="button" class="rv-cuaderno-quitar px-2.5 py-1 text-[10px] uppercase tracking-[0.14em]" data-cuaderno-act="borrar">Quitar</button>
                 </div>
             </article>`;
         }).join('');
@@ -1656,25 +1846,41 @@ function descargarBackup(kind) {
     }
 
     function aplicarResaltado(color) {
-        const cls = `rv-hl rv-hl-${color}`;
+        const alias = {
+            esmeralda: 'verde',
+            zafiro: 'azul',
+            amatista: 'purpura',
+            rubi: 'rubi',
+            oro: 'oro',
+            verde: 'verde',
+            azul: 'azul',
+            purpura: 'purpura',
+        };
+        const tone = alias[color] || color || 'oro';
+        const cls = `rv-hl rv-hl-${tone}`;
         const ref = selectedRef || `${estado().n} ${estado().cap}`;
         if (savedRange) {
             try {
                 const mark = document.createElement('mark');
                 mark.className = cls;
-                mark.dataset.hl = color;
+                mark.dataset.hl = tone;
                 savedRange.surroundContents(mark);
             } catch {
                 const verse = document.querySelector('.rv-verse-surface.is-verse-on, [data-verse].is-verse-on')
                     || document.querySelector(`.rv-verse-surface[data-reference="${CSS.escape(ref)}"]`);
-                verse?.classList.add(`rv-hl-${color}`);
+                verse?.classList.add(`rv-hl-${tone}`);
             }
         } else {
             const verse = document.querySelector('.rv-verse-surface.is-verse-on')
                 || document.querySelector(`.rv-verse-surface[data-reference="${CSS.escape(ref)}"]`);
-            verse?.classList.add(`rv-hl-${color}`);
+            verse?.classList.add(`rv-hl-${tone}`);
         }
-        upsertItem({ tipo: 'resaltado', referencia: ref, texto: selectedText, color, archivo: 'temporal' });
+        upsertItem({ tipo: 'resaltado', referencia: ref, texto: selectedText, color: tone, archivo: 'temporal' });
+        try {
+            const map = JSON.parse(localStorage.getItem('revelatio_verse_highlights_v1') || '{}');
+            map[ref] = color;
+            localStorage.setItem('revelatio_verse_highlights_v1', JSON.stringify(map));
+        } catch { /* ignore */ }
         document.querySelectorAll('#rv-popover [data-hl]').forEach(btn => btn.classList.toggle('is-on', btn.dataset.hl === color));
     }
 
@@ -1918,30 +2124,55 @@ function descargarBackup(kind) {
     function celdaInterlineal(item) {
         const esHeb = /^H/i.test(item.strong);
         const lang = esHeb ? 'he' : 'el';
-        const es = item.glosa || item.palabra || item.strong;
-        const orig = item.original || '—';
-        const translit = item.translit || '—';
-        const morph = item.morph || '—';
-        return `<button type="button" class="rv-il-cell" role="listitem" data-strong="${escapeHtml(item.strong)}" data-lemma="${escapeHtml(orig)}" aria-label="Strong ${escapeHtml(item.strong)}: ${escapeHtml(es)}">
-            <span class="rv-il-es">${escapeHtml(es)}</span>
-            <span class="rv-il-orig ${esHeb ? 'is-he' : 'is-el'}" lang="${lang}">${escapeHtml(orig)}</span>
-            <span class="rv-il-trans">${escapeHtml(translit)}</span>
-            <span class="rv-il-morph">${escapeHtml(morph)}</span>
-            <span class="rv-il-code">${escapeHtml(item.strong)}</span>
+        const resolve = window.resolveSpanishStrong || window.RV?.Strongs?.resolveSpanishEntry;
+        const entry = typeof resolve === 'function'
+            ? resolve(item.strong, {
+                word: item.original,
+                translit: item.translit,
+                def: item.glosa || item.meaning,
+                morph: item.morph,
+            })
+            : null;
+        const es = entry?.def?.split(/[.;]/)[0]
+            || (window.translateGlossToSpanish
+                ? window.translateGlossToSpanish(item.glosa || item.palabra || '')
+                : (item.glosa || item.palabra || item.strong));
+        const orig = entry?.word || item.original || '—';
+        const translit = entry?.translit || item.translit || '—';
+        const morph = entry?.part || item.morph || '—';
+        const code = entry?.strongCode || item.strong;
+        return `<button type="button" class="rv-il-cell rv-strong-pill bg-amber-100/70 hover:bg-amber-200 border border-[#C59B27]/40 text-[#0F172A] text-xs font-serif px-2 py-0.5 rounded-md cursor-pointer transition-all shadow-sm" role="listitem" data-strong="${escapeHtml(code)}" data-lemma="${escapeHtml(orig)}" aria-label="Strong ${escapeHtml(code)}: ${escapeHtml(es)}">
+            <span class="rv-il-es font-semibold text-[#0F172A]">${escapeHtml(es)}</span>
+            <span class="rv-il-orig ${esHeb ? 'is-he' : 'is-el'} font-bold text-[#0A192F]" lang="${lang}">${escapeHtml(orig)}</span>
+            <span class="rv-il-trans text-stone-600">${escapeHtml(translit)}</span>
+            <span class="rv-il-morph text-[#855D10]">${escapeHtml(morph)}</span>
+            <span class="rv-il-code text-[9px] font-mono font-bold text-[#855D10]">${escapeHtml(code)}</span>
         </button>`;
     }
 
     async function enriquecerTokensStrong(keys) {
         if (!keys.length) return keys;
         const lexico = await cargarLexicoStrong();
+        const resolve = window.resolveSpanishStrong || window.RV?.Strongs?.resolveSpanishEntry;
         return keys.map((t) => {
             const local = lexico[t.strong] || lexico[String(t.strong).toUpperCase()] || {};
+            const rawGlosa = t.glosa || GLOSA[t.strong] || local.definicion || local.definition || t.palabra || '';
+            const entry = typeof resolve === 'function'
+                ? resolve(t.strong, {
+                    word: t.original || local.lemma,
+                    translit: t.translit || local.translit,
+                    def: rawGlosa,
+                    morph: t.morph || local.morph,
+                })
+                : null;
             return {
                 ...t,
-                original: t.original || local.lemma || local.lexema || local.raiz || '',
-                translit: t.translit || local.translit || local.transliteracion || '',
-                glosa: t.glosa || GLOSA[t.strong] || (local.definicion ? String(local.definicion).split(/[.;]/)[0] : '') || t.palabra,
-                morph: t.morph || local.morph || local.morfologia || local.parsing || '—',
+                original: entry?.word || t.original || local.lemma || local.lexema || local.raiz || '',
+                translit: entry?.translit || t.translit || local.translit || local.transliteracion || '',
+                glosa: entry?.def?.split(/[.;]/)[0]
+                    || (window.translateGlossToSpanish ? window.translateGlossToSpanish(rawGlosa) : rawGlosa)
+                    || t.palabra,
+                morph: entry?.part || t.morph || local.morph || local.morfologia || local.parsing || '—',
             };
         });
     }
@@ -1980,13 +2211,14 @@ function descargarBackup(kind) {
     }
 
     async function cargarCruzadas(ref) {
-        const local = TSK_LOCAL[String(ref || '').toLowerCase()] || [];
+        const local = (window.TSK_LOCAL || {})[String(ref || '').toLowerCase()] || [];
         try {
             const token = await tokenAuth();
-            if (!token) return local;
+            const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
+            if (token) headers.Authorization = `Bearer ${token}`;
             const res = await fetch('/api/referencias', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                headers,
                 body: JSON.stringify({ consulta: ref })
             });
             if (!res.ok) return local;
@@ -2001,7 +2233,7 @@ function descargarBackup(kind) {
 
     async function refrescarConcordancia(libro) {
         const ref = referenciaComentario(libro);
-        pintarConcordancia(libro, TSK_LOCAL[String(ref).toLowerCase()] || []);
+        pintarConcordancia(libro, (window.TSK_LOCAL || {})[String(ref).toLowerCase()] || []);
         const lista = await cargarCruzadas(ref);
         if (referenciaComentario(estado()) === ref) pintarConcordancia(libro, lista);
     }
@@ -2392,6 +2624,21 @@ function descargarBackup(kind) {
             const nombre = resolverLibro(parsed?.libroQ || '');
             if (nombre && parsed?.cap) irGoto(nombre, parsed.cap, parsed.verso);
         });
+        document.getElementById('texto-biblico')?.addEventListener('click', (event) => {
+            const retry = event.target.closest('[data-rv-retry-pasaje]');
+            if (!retry) return;
+            event.preventDefault();
+            const ref = retry.getAttribute('data-rv-retry-pasaje') || '';
+            const m = ref.match(/^(.+?)\s+(\d+)$/);
+            if (m) {
+                pintarPaneles({
+                    n: m[1],
+                    cap: Number(m[2]),
+                    verso: 0,
+                    testamento: resolveTestamentoLibro(m[1]),
+                });
+            } else pintarPaneles(estado());
+        });
         montarPerspectivas();
         abrirEstudioTab('comentario');
     }
@@ -2424,7 +2671,7 @@ function descargarBackup(kind) {
                 : `<p class="rv-pop-empty">${n ? 'Sin raíces Strong cargadas para este versículo.' : 'Selecciona un versículo para ver Strong.'}</p>`;
         }
         const ref = referenciaComentario({ ...loc, verso: n || loc.verso }) || selectedRef || `${loc.n} ${loc.cap}`;
-        const cruzadas = TSK_LOCAL[String(ref || '').toLowerCase()] || [];
+        const cruzadas = (window.TSK_LOCAL || {})[String(ref || '').toLowerCase()] || [];
         if (xrefBox) {
             xrefBox.innerHTML = cruzadas.length
                 ? cruzadas.slice(0, 6).map(item => {
@@ -2464,29 +2711,39 @@ function descargarBackup(kind) {
             const loc = estado();
             const ref = selectedRef || `${loc.n} ${loc.cap}`;
             if (act === 'copy' && selectedText) {
-                const payload = selectedRef ? `${selectedRef} — ${selectedText}` : selectedText;
+                const ver = VERSION_LABEL[versionActiva()] || 'RVR1909';
+                const payload = `«${selectedText}» — ${ref} (${ver === 'RVR1960' ? 'RVR1909' : ver}) · Éfata RevelatiO`;
                 navigator.clipboard?.writeText(payload).catch(() => {});
             }
-            if (act === 'ai') {
-                const prompt = selectedText
-                    ? `Redacta un tratado exegético denso y académico sobre ${ref}: «${selectedText}». Fundaméntate en léxico Strong cuando aplique, comentarios clásicos (Matthew Henry u otros) y el canon. Prohibido autoayuda o psicología secular. Conduce a la cruz de Cristo y al Espíritu Santo.`
-                    : `Redacta un tratado exegético denso sobre ${ref}, con Strong, comentaristas clásicos y canon. Sin autoayuda. Conduce al Padre, a la cruz y al Espíritu.`;
-                document.dispatchEvent(new CustomEvent('revelatio:ask-ai', { detail: { prompt, text: selectedText, reference: ref } }));
-            }
-            if (act === 'listen' && selectedText) {
-                window.revelatioAudio?.narrar(selectedText);
-            }
-            if (act === 'share') {
+            if (act === 'card' || act === 'share') {
                 abrirEfataCard({
                     text: selectedText,
                     ref,
                     version: VERSION_LABEL[versionActiva()] || 'Reina-Valera'
                 });
             }
+            if (act === 'clear') {
+                document.querySelectorAll('#texto-biblico .is-verse-on, #texto-biblico .is-va-active').forEach((n) => {
+                    n.classList.remove('is-verse-on', 'is-va-active');
+                });
+                selectedText = '';
+                selectedRef = '';
+                hide(true);
+            }
+            if (act === 'ai') {
+                const prompt = selectedText
+                    ? `Redacta un tratado exegético denso y académico sobre ${ref}: «${selectedText}». Fundaméntate en léxico Strong cuando aplique, comentarios clásicos (Matthew Henry u otros) y el canon. Prohibido autoayuda o psicología secular. Conduce a la cruz de Cristo y al Espíritu Santo.`
+                    : `Redacta un tratado exegético denso sobre ${ref}, con Strong, comentaristas clásicos y canon. Sin autoayuda. Conduce al Padre, a la cruz y al Espíritu.`;
+                document.dispatchEvent(new CustomEvent('revelatio:ask-ai', { detail: { prompt, text: selectedText, reference: ref, mode: 'exegesis' } }));
+            }
+            if (act === 'listen' && selectedText) {
+                window.revelatioAudio?.narrar(selectedText);
+            }
             if (act === 'xref') {
                 abrirEstudioTab('concordancia');
                 const n = Number(String(selectedRef || '').split(':').pop()) || loc.verso;
                 refrescarConcordancia({ ...loc, verso: n });
+                window.RV?.studyPanel?.open?.({ tab: 'tsk', ref });
             }
             if (act === 'strong') {
                 abrirEstudioTab('concordancia');
@@ -3216,7 +3473,7 @@ function descargarBackup(kind) {
         cerrarAcompanamiento();
         try { window.RV?.router?.show?.('dashboard'); } catch (e) { /* ignore */ }
         document.getElementById('rv-home')?.classList.remove('is-hidden');
-        document.body.classList.remove('is-santuario', 'is-acompanamiento');
+        document.body.classList.remove('is-santuario', 'is-acompanamiento', 'visor-active');
         try { history.replaceState(null, '', '#inicio'); } catch { /* sin history */ }
         pintarRacha();
         pintarHomeNotas();
@@ -3244,12 +3501,8 @@ function descargarBackup(kind) {
     }
 
     function entrarAcompanamiento(opts = {}) {
-        if (!sesionActiva()) {
-            exigirRegistro(null, { acompanamiento: true });
-            return;
-        }
         cerrarSplashForzado();
-        document.body.classList.remove('is-santuario');
+        document.body.classList.remove('is-santuario', 'visor-active');
         try { window.RV?.router?.show?.('acompanamiento'); } catch (e) { /* ignore */ }
         try { window.RV?.navigation?.onAcompReady?.(); } catch (e) { /* ignore */ }
         document.getElementById('rv-home')?.classList.add('is-hidden');
@@ -3380,18 +3633,7 @@ function descargarBackup(kind) {
 
     let navStamp = 0;
     function entrarSantuario(opts = {}) {
-        if (!sesionActiva()) {
-            exigirRegistro(null, {
-                libro: opts.libro || 'Romanos',
-                cap: Number(opts.cap) || 12,
-                verso: opts.verso ? Number(opts.verso) : null,
-                canon: Boolean(opts.canon),
-                cuaderno: Boolean(opts.cuaderno),
-                ir: opts.ir || '',
-                iaPrompt: opts.iaPrompt || '',
-            });
-            return;
-        }
+        // Ingreso inmediato: sesión opcional (guest + perfil si existe).
         if (opts.acompanamiento) {
             entrarAcompanamiento(opts);
             return;
@@ -3404,7 +3646,7 @@ function descargarBackup(kind) {
         try { window.RV?.router?.show?.('estudio'); } catch (e) { /* ignore */ }
         try { window.RV?.navigation?.onEstudioReady?.(); } catch (e) { /* ignore */ }
         document.getElementById('rv-home')?.classList.add('is-hidden');
-        document.body.classList.add('is-santuario');
+        document.body.classList.add('is-santuario', 'visor-active');
         document.body.classList.remove('is-acompanamiento');
         const destino = {
             libro: opts.libro || 'Romanos',
@@ -3418,8 +3660,10 @@ function descargarBackup(kind) {
             const next = urlLectura(destino);
             if (location.hash !== next) history.pushState({ revelatio: 'lectura' }, '', next);
         } catch { /* sin history */ }
-        tocarRacha();
-        pintarRacha();
+        if (sesionActiva()) {
+            tocarRacha();
+            pintarRacha();
+        }
         const libro = destino.libro;
         const cap = destino.cap;
         const verso = destino.verso;
@@ -3431,7 +3675,7 @@ function descargarBackup(kind) {
                 c: 50,
                 cap,
                 verso,
-                testamento: 'nt',
+                testamento: resolveTestamentoLibro(libro),
             });
         }
         const quiereMusica = document.getElementById('entrar-con-musica')?.checked;
@@ -3443,7 +3687,12 @@ function descargarBackup(kind) {
         }, 80);
         if (opts.iaPrompt) {
             setTimeout(() => {
-                document.dispatchEvent(new CustomEvent('revelatio:ask-ai', { detail: { prompt: opts.iaPrompt } }));
+                document.dispatchEvent(new CustomEvent('revelatio:ask-ai', {
+                    detail: {
+                        prompt: opts.iaPrompt,
+                        mode: opts.iaMode === 'vida' ? 'vida' : 'exegesis',
+                    },
+                }));
             }, 120);
         }
         if (opts.perspectivas) {
@@ -3466,8 +3715,11 @@ function descargarBackup(kind) {
     function destinoDesdeBoton(btn) {
         const ir = btn?.dataset?.ir;
         if (ir === 'acompanamiento') return { acompanamiento: true };
+        if (ir === 'renovacion-vida' || ir === 'renovacion') {
+            return { renovacionVida: true, iaMode: 'vida', iaPrompt: btn?.dataset?.prompt || '' };
+        }
         if (ir === 'estudio-profundo' || ir === 'estudio-mes' || ir === 'santuario') {
-            return { libro: 'Romanos', cap: 12, perspectivas: ir === 'estudio-profundo', canon: true };
+            return { libro: 'Romanos', cap: 12, perspectivas: ir === 'estudio-profundo', canon: true, iaMode: 'exegesis' };
         }
         if (ir === 'devocional') return { ...devoDestino };
         if (ir === 'libro') {
@@ -3535,8 +3787,24 @@ function descargarBackup(kind) {
         cerrarSplashForzado();
         document.body.classList.remove('rv-splash-blocking');
         const destino = dest && typeof dest === 'object' ? dest : {};
-        if (destino.acompanamiento) entrarAcompanamiento(destino);
-        else entrarSantuario({
+        if (destino.acompanamiento) {
+            entrarAcompanamiento(destino);
+            return;
+        }
+        if (destino.renovacionVida) {
+            document.body.classList.remove('rv-splash-blocking');
+            try { window.RV?.router?.show?.('dashboard'); } catch { /* ignore */ }
+            setTimeout(() => {
+                document.dispatchEvent(new CustomEvent('revelatio:ask-ai', {
+                    detail: {
+                        mode: 'vida',
+                        prompt: destino.iaPrompt || 'Necesito renovación de la mente ante una crisis o hábito. Guía un Protocolo Vital RevelatiO.',
+                    },
+                }));
+            }, 120);
+            return;
+        }
+        entrarSantuario({
             libro: destino.libro || 'Romanos',
             cap: Number(destino.cap) || 12,
             verso: destino.verso ? Number(destino.verso) : null,
@@ -3544,6 +3812,7 @@ function descargarBackup(kind) {
             canon: destino.canon !== false,
             cuaderno: Boolean(destino.cuaderno),
             iaPrompt: destino.iaPrompt || '',
+            iaMode: destino.iaMode || 'exegesis',
             ir: destino.ir || '',
         });
     }
@@ -3566,7 +3835,7 @@ function descargarBackup(kind) {
         }
 
         // Bind directo por si la delegación falla en algún navegador.
-        ['entrar-texto', 'entrar-acompanamiento'].forEach((id) => {
+        ['entrar-texto', 'entrar-acompanamiento', 'entrar-renovacion'].forEach((id) => {
             const el = document.getElementById(id);
             if (!el || el.dataset.rvDoorBound === '1') return;
             el.dataset.rvDoorBound = '1';
@@ -3587,12 +3856,50 @@ function descargarBackup(kind) {
     function montarHome() {
         const home = document.getElementById('rv-home');
         if (!home) return;
+        // Blindaje: el modal IA nunca debe quedar incrustado en el umbral
+        try {
+            window.closeAiModal?.();
+            const panel = document.getElementById('panel-asistente-ia');
+            if (panel) {
+                panel.classList.remove('is-open');
+                panel.setAttribute('hidden', '');
+                panel.setAttribute('data-ia-closed', '1');
+                panel.style.display = 'none';
+                panel.setAttribute('aria-hidden', 'true');
+            }
+            const backdrop = document.getElementById('ai-modal');
+            if (backdrop) {
+                backdrop.classList.remove('is-open');
+                backdrop.classList.add('hidden');
+                backdrop.setAttribute('hidden', '');
+                backdrop.style.display = 'none';
+                backdrop.setAttribute('aria-hidden', 'true');
+            }
+            document.body.classList.remove('rv-ia-modal-open');
+        } catch { /* ignore */ }
         montarAuthCirculo();
         pintarRacha();
         pintarHomeNotas();
         pintarDevocionalHome();
         montarPuertasMaestras();
 
+        if (!window.__RV_ENTRAR_PLATAFORMA__) {
+            window.__RV_ENTRAR_PLATAFORMA__ = true;
+            window.entrarPlataforma = (mode = 'exegesis') => {
+                const m = String(mode || '').toLowerCase();
+                if (m === 'vida' || m === 'renovacion' || m === 'renovacion-vida') {
+                    abrirPuertaMaestra({ renovacionVida: true, iaMode: 'vida' });
+                    return;
+                }
+                abrirPuertaMaestra({
+                    libro: 'Romanos',
+                    cap: 12,
+                    perspectivas: true,
+                    canon: true,
+                    iaMode: 'exegesis',
+                });
+            };
+        }
         if (!window.__RV_NAV_WIRED__) {
             window.__RV_NAV_WIRED__ = true;
             window.addEventListener('popstate', () => {
@@ -3642,8 +3949,16 @@ function descargarBackup(kind) {
     }
 
     function normalizarWhatsapp(pais, numero) {
-        const digits = String(numero || '').replace(/\D+/g, '');
-        const code = String(pais || '+58').replace(/\s+/g, '');
+        let digits = String(numero || '').replace(/\D+/g, '');
+        const codeDigits = String(pais || '+57').replace(/\D+/g, '');
+        // Si el usuario pegó el número con código de país, quitar el prefijo duplicado
+        if (codeDigits && digits.startsWith(codeDigits) && digits.length > codeDigits.length + 6) {
+            digits = digits.slice(codeDigits.length);
+        }
+        // Prefijos comunes pegados (57…, 58…)
+        if (/^57\d{10}$/.test(digits)) digits = digits.slice(2);
+        if (/^58\d{10}$/.test(digits)) digits = digits.slice(2);
+        const code = String(pais || '+57').replace(/\s+/g, '') || '+57';
         if (!digits) return '';
         return `${code} ${digits}`;
     }
@@ -3667,20 +3982,31 @@ function descargarBackup(kind) {
         const copy = document.getElementById('rv-auth-session-copy');
         const status = document.getElementById('estado-suscripcion');
         const gate = document.getElementById('rv-auth-gate-msg');
+        const card = document.getElementById('rv-auth-card');
+        const logoutLink = document.getElementById('rv-auth-switch-user');
         const admin = activa && esAdmin(perfil);
+        document.body.classList.toggle('is-session-ready', activa);
         if (activa && perfil?.email) {
             if (session) session.hidden = false;
             if (forms) forms.hidden = true;
             if (gate) gate.hidden = true;
+            if (card) card.classList.add('is-session-compact');
+            if (logoutLink) logoutLink.hidden = false;
             // Privacidad: nunca volcar nombre, correo ni WhatsApp en la UI pública.
             if (copy) {
                 copy.textContent = admin
-                    ? 'Sesión activa en este dispositivo. Facultades de administración habilitadas.'
-                    : 'Sesión activa. Notas, lecturas y exégesis quedan vinculadas a tu perfil.';
+                    ? 'Sesión activa · puedes entrar directo a cualquiera de las dos puertas.'
+                    : 'Sesión activa · elige una puerta para continuar.';
             }
+            const roleEl = document.getElementById('rv-auth-session-role');
+            if (roleEl) roleEl.textContent = 'Listo para entrar';
+            const badge = document.getElementById('rv-auth-admin-badge');
+            if (badge) badge.hidden = true;
         } else {
             if (session) session.hidden = true;
             if (forms) forms.hidden = false;
+            if (card) card.classList.remove('is-session-compact');
+            if (logoutLink) logoutLink.hidden = true;
             if (copy) copy.textContent = 'Sesión vinculada a tu Cuaderno, notas y exégesis.';
         }
         if (status && statusMsg != null) status.textContent = statusMsg;
@@ -3689,12 +4015,9 @@ function descargarBackup(kind) {
     }
 
     function mostrarPanelAuth(modo) {
-        const reg = document.getElementById('form-registro');
-        const login = document.getElementById('form-login');
-        if (!reg || !login) return;
         const esLogin = modo === 'login';
-        reg.hidden = esLogin;
-        login.hidden = !esLogin;
+        document.querySelectorAll('#form-registro').forEach((reg) => { reg.hidden = esLogin; });
+        document.querySelectorAll('#form-login').forEach((login) => { login.hidden = !esLogin; });
     }
 
     async function asegurarCuentaAdmin() {
@@ -3722,28 +4045,44 @@ function descargarBackup(kind) {
     }
 
     function montarAuthCirculo() {
-        const status = () => document.getElementById('estado-suscripcion');
         const setStatus = (msg) => {
-            const el = status();
-            if (el) el.textContent = msg || '';
+            const nodes = document.querySelectorAll('#estado-suscripcion');
+            if (!nodes.length) return;
+            nodes.forEach((el) => {
+                el.textContent = msg || '';
+                el.hidden = !msg;
+            });
+            if (msg) {
+                try { nodes[nodes.length - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch { /* ignore */ }
+            }
         };
 
-        const leerCampo = (id) => String(document.getElementById(id)?.value || '').trim();
+        const leerCampo = (id) => {
+            const nodes = [...document.querySelectorAll(`#${CSS.escape(id)}`)];
+            const visible = nodes.find((el) => {
+                const form = el.closest('form');
+                if (form?.hidden) return false;
+                const rect = el.getBoundingClientRect?.();
+                return rect && rect.width + rect.height > 0;
+            }) || nodes[nodes.length - 1] || document.getElementById(id);
+            if (!visible) return '';
+            return String(visible.value ?? visible.getAttribute('value') ?? '').trim();
+        };
 
         const completarRegistro = async () => {
             try { window.revelatioForzarUmbral?.(); } catch { /* ignore */ }
             const email = emailKey(leerCampo('reg-email'));
-            const pais = leerCampo('reg-pais') || '+58';
+            const pais = leerCampo('reg-pais') || '+57';
             const whatsapp = normalizarWhatsapp(pais, leerCampo('reg-whatsapp'));
             const nombre = leerCampo('reg-nombre');
-            if (!email || !email.includes('@')) {
-                setStatus('Escribe un correo válido.');
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                setStatus('Escribe un correo válido (ej. tu@correo.org).');
                 document.getElementById('reg-email')?.focus();
                 return false;
             }
             const waDigits = whatsapp.replace(/\D+/g, '');
-            if (waDigits.length < 8) {
-                setStatus('Indica un WhatsApp válido con código de país.');
+            if (waDigits.length < 10) {
+                setStatus('Indica un WhatsApp válido (código de país + número local).');
                 document.getElementById('reg-whatsapp')?.focus();
                 return false;
             }
@@ -3779,9 +4118,9 @@ function descargarBackup(kind) {
             escribirCuentas(cuentas);
             guardarPerfil(perfil);
             marcarSesionExplicita();
-            leerCuaderno();
+            try { leerCuaderno(); } catch (err) { console.warn('[auth] cuaderno', err); }
             sincronizarGateUI();
-            pintarAuthUI('Entraste al Círculo. Ya puedes abrir las dos puertas.');
+            pintarAuthUI('✓ Entraste al Círculo. Ya puedes abrir las dos puertas.');
             liberarDestinoPendiente();
             return true;
         };
@@ -3797,7 +4136,7 @@ function descargarBackup(kind) {
                 return false;
             }
             const waDigits = whatsapp.replace(/\D+/g, '');
-            if (waDigits.length < 8) {
+            if (waDigits.length < 10) {
                 setStatus('Indica el WhatsApp con el que te registraste.');
                 document.getElementById('login-whatsapp')?.focus();
                 return false;
@@ -3839,9 +4178,9 @@ function descargarBackup(kind) {
             }
             guardarPerfil(perfil);
             marcarSesionExplicita();
-            leerCuaderno();
+            try { leerCuaderno(); } catch (err) { console.warn('[auth] cuaderno', err); }
             sincronizarGateUI();
-            pintarAuthUI('Sesión restaurada. Ya puedes abrir las dos puertas.');
+            pintarAuthUI('✓ Sesión restaurada. Ya puedes abrir las dos puertas.');
             liberarDestinoPendiente();
             return true;
         };
@@ -3854,33 +4193,32 @@ function descargarBackup(kind) {
             sesion: sesionActiva,
         };
 
-        // Ficha de registro completa y vacía (sin volcar perfil personal previo).
+        // Vaciar solo al montar (una vez), nunca tras async si el usuario ya escribió.
         forzarFichaRegistroVacia();
-        limpiarSesionSiNoExplicita();
-        vaciarCamposRegistro();
+        if (!sesionActiva()) {
+            limpiarSesionSiNoExplicita();
+            if (!window.__RV_AUTH_FIELDS_SEEDED__) {
+                window.__RV_AUTH_FIELDS_SEEDED__ = true;
+                vaciarCamposRegistro();
+            }
+        }
         sincronizarGateUI();
 
-        // Delegación única (no depende de flags rotos a medias).
         if (!window.__RV_AUTH_DELEGATE__) {
             window.__RV_AUTH_DELEGATE__ = true;
 
             document.addEventListener('click', (event) => {
-                // No interceptar puertas maestras ni hub: las maneja montarPuertasMaestras / hub.
-                if (event.target?.closest?.('.rv-door[data-ir], [data-ir], [data-hub], #btn-asistente-ia, #panel-asistente-ia')) {
-                    return;
-                }
-                const t = event.target?.closest?.('button, a, [data-auth]');
+                const t = event.target?.closest?.('#btn-entrar-circulo, #btn-iniciar-sesion, #rv-auth-show-login, #rv-auth-show-registro, #rv-auth-logout, #rv-auth-switch-user, [data-auth]');
                 if (!t) return;
-                if (t.classList?.contains('rv-door') || t.hasAttribute?.('data-ir')) return;
+                // No interceptar puertas / hubs / FAB
+                if (t.closest?.('.rv-door[data-ir], [data-ir], [data-hub], #btn-asistente-ia, #panel-asistente-ia')) return;
 
                 if (t.id === 'rv-auth-show-login' || t.getAttribute('data-auth') === 'show-login') {
                     event.preventDefault();
                     event.stopPropagation();
                     mostrarPanelAuth('login');
                     setStatus('');
-                    const loginEmail = document.getElementById('login-email');
-                    const loginPass = document.getElementById('login-password');
-                    // Campos vacíos: el usuario escribe sus datos.
+                    document.getElementById('login-email')?.focus?.();
                     return;
                 }
                 if (t.id === 'rv-auth-show-registro' || t.getAttribute('data-auth') === 'show-registro') {
@@ -3888,9 +4226,10 @@ function descargarBackup(kind) {
                     event.stopPropagation();
                     mostrarPanelAuth('registro');
                     setStatus('');
+                    document.getElementById('reg-email')?.focus?.();
                     return;
                 }
-                if (t.id === 'rv-auth-logout') {
+                if (t.id === 'rv-auth-logout' || t.id === 'rv-auth-switch-user') {
                     event.preventDefault();
                     event.stopPropagation();
                     try {
@@ -3898,24 +4237,35 @@ function descargarBackup(kind) {
                         localStorage.removeItem(SESION_EXPLICITA_KEY);
                     } catch { /* ignore */ }
                     pendingDestino = null;
+                    window.__RV_AUTH_FIELDS_SEEDED__ = false;
                     vaciarCamposRegistro();
                     if (document.body.classList.contains('is-santuario')) volverHome();
-                    pintarAuthUI('Sesión cerrada. Regístrate o inicia sesión para continuar.');
+                    pintarAuthUI('Sesión cerrada. Puedes entrar de nuevo o unirte al Círculo.');
                     mostrarPanelAuth('registro');
                     sincronizarGateUI();
                     return;
                 }
-                if (t.id === 'btn-entrar-circulo' || t.getAttribute('data-auth') === 'registro') {
+
+                if (t.id === 'btn-entrar-circulo' || (t.getAttribute('data-auth') === 'registro' && t.type === 'submit')) {
                     event.preventDefault();
                     event.stopPropagation();
-                    completarRegistro();
+                    setStatus('Entrando al Círculo…');
+                    Promise.resolve((window.revelatioAuth?.registrar || completarRegistro)())
+                        .catch((err) => {
+                            console.error('[auth] registro', err);
+                            setStatus('No se pudo registrar. Inténtalo de nuevo.');
+                        });
                     return;
                 }
-                if (t.id === 'btn-iniciar-sesion' || t.getAttribute('data-auth') === 'login') {
+                if (t.id === 'btn-iniciar-sesion' || (t.getAttribute('data-auth') === 'login' && t.type === 'submit')) {
                     event.preventDefault();
                     event.stopPropagation();
-                    completarLogin();
-                    return;
+                    setStatus('Iniciando sesión…');
+                    Promise.resolve((window.revelatioAuth?.login || completarLogin)())
+                        .catch((err) => {
+                            console.error('[auth] login', err);
+                            setStatus('No se pudo iniciar sesión. Inténtalo de nuevo.');
+                        });
                 }
             }, true);
 
@@ -3925,52 +4275,106 @@ function descargarBackup(kind) {
                 if (form.id === 'form-registro') {
                     event.preventDefault();
                     event.stopPropagation();
-                    completarRegistro();
+                    setStatus('Entrando al Círculo…');
+                    const fn = window.revelatioAuth?.registrar || completarRegistro;
+                    Promise.resolve(fn()).catch((err) => {
+                        console.error('[auth] submit registro', err);
+                        setStatus('No se pudo registrar. Inténtalo de nuevo.');
+                    });
                 } else if (form.id === 'form-login') {
                     event.preventDefault();
                     event.stopPropagation();
-                    completarLogin();
+                    setStatus('Iniciando sesión…');
+                    const fn = window.revelatioAuth?.login || completarLogin;
+                    Promise.resolve(fn()).catch((err) => {
+                        console.error('[auth] submit login', err);
+                        setStatus('No se pudo iniciar sesión. Inténtalo de nuevo.');
+                    });
                 }
             }, true);
         }
 
-        window.__RV_AUTH_WIRED__ = true;
+        // Bind directo en botones visibles (sobrevive a re-inyección del dashboard)
+        const bindAuthBtn = (el, handler) => {
+            if (!el || el.dataset.rvAuthBound === '1') return;
+            el.dataset.rvAuthBound = '1';
+            el.addEventListener('click', handler);
+        };
+        document.querySelectorAll('#rv-auth-show-login, [data-auth="show-login"]').forEach((el) => {
+            bindAuthBtn(el, (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                mostrarPanelAuth('login');
+                setStatus('');
+                document.getElementById('login-email')?.focus?.();
+            });
+        });
+        document.querySelectorAll('#rv-auth-show-registro, [data-auth="show-registro"]').forEach((el) => {
+            bindAuthBtn(el, (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                mostrarPanelAuth('registro');
+                setStatus('');
+                document.getElementById('reg-email')?.focus?.();
+            });
+        });
+        document.querySelectorAll('#btn-entrar-circulo').forEach((el) => {
+            bindAuthBtn(el, (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setStatus('Entrando al Círculo…');
+                Promise.resolve((window.revelatioAuth?.registrar || completarRegistro)()).catch((err) => {
+                    console.error('[auth] registro click', err);
+                    setStatus('No se pudo registrar. Inténtalo de nuevo.');
+                });
+            });
+        });
+        document.querySelectorAll('#btn-iniciar-sesion').forEach((el) => {
+            bindAuthBtn(el, (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setStatus('Iniciando sesión…');
+                Promise.resolve((window.revelatioAuth?.login || completarLogin)()).catch((err) => {
+                    console.error('[auth] login click', err);
+                    setStatus('No se pudo iniciar sesión. Inténtalo de nuevo.');
+                });
+            });
+        });
 
+        window.__RV_AUTH_WIRED__ = true;
+        window.revelatioAuth = {
+            registrar: completarRegistro,
+            login: completarLogin,
+            mostrar: mostrarPanelAuth,
+            pintar: pintarAuthUI,
+            sesion: sesionActiva,
+        };
+
+        // Sembrar cuenta admin en background SIN vaciar el formulario
         asegurarCuentaAdmin()
             .then(() => {
-                limpiarSesionSiNoExplicita();
-                vaciarCamposRegistro();
                 pintarAuthUI(sesionActiva() ? null : '');
-                mostrarPanelAuth('registro');
+                if (!sesionActiva()) mostrarPanelAuth('registro');
                 sincronizarGateUI();
             })
             .catch(() => {
-                limpiarSesionSiNoExplicita();
-                vaciarCamposRegistro();
                 pintarAuthUI('');
-                mostrarPanelAuth('registro');
+                if (!sesionActiva()) mostrarPanelAuth('registro');
                 sincronizarGateUI();
             });
     }
 
     function aplicarModoInicial() {
         if (esRutaLectura()) {
-            if (!sesionActiva()) {
-                document.getElementById('rv-splash')?.classList.add('is-out', 'is-gone');
-                document.getElementById('rv-home')?.classList.remove('is-hidden');
-                document.body.classList.remove('is-santuario');
-                setTimeout(() => exigirRegistro(null, destinoDesdeQuery()), 60);
-                return;
-            }
             document.getElementById('rv-splash')?.classList.add('is-out', 'is-gone');
             document.getElementById('rv-home')?.classList.add('is-hidden');
-            document.body.classList.add('is-santuario');
+            document.body.classList.add('is-santuario', 'visor-active');
             const dest = destinoDesdeQuery();
             setTimeout(() => entrarSantuario({ ...dest, silencio: true }), 0);
             return;
         }
         document.getElementById('rv-home')?.classList.remove('is-hidden');
-        document.body.classList.remove('is-santuario');
+        document.body.classList.remove('is-santuario', 'visor-active');
         sincronizarGateUI();
     }
 
@@ -3987,6 +4391,34 @@ function descargarBackup(kind) {
         const abrir = async (codigo, lemma) => {
             const key = String(codigo || '').toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2');
             if (!/^[GH]\d{1,5}$/.test(key)) return;
+
+            // Preferir popup español de alto contraste
+            if (typeof window.showStrongModal === 'function') {
+                try {
+                    const lexico = await cargarLexicoStrong();
+                    const local = lexico[key] || {};
+                    let remote = null;
+                    if (!(local.definicion || local.definition)) {
+                        try {
+                            const res = await fetch(`/api/strong?codigo=${encodeURIComponent(key)}`);
+                            const json = await res.json().catch(() => ({}));
+                            if (json?.success) remote = json.data;
+                        } catch { /* local basta */ }
+                    }
+                    window.showStrongModal(key, {
+                        word: local.lemma || remote?.lemma || lemma || '',
+                        translit: local.translit || remote?.translit || '',
+                        pron: local.pron || '',
+                        def: local.definicion || local.definition || remote?.definicion || remote?.definition || '',
+                        part: local.part || remote?.idioma || '',
+                        lemma: local.lemma || remote?.lemma || lemma || '',
+                    });
+                    return;
+                } catch {
+                    /* caer al panel legacy */
+                }
+            }
+
             panel.classList.add('is-open');
             panel.setAttribute('aria-hidden', 'false');
             if (codigoEl) codigoEl.textContent = key;
@@ -4014,10 +4446,13 @@ function descargarBackup(kind) {
                     cuerpo.innerHTML = `<p class="rv-strong-def">No hay entrada clásica para ${key}.</p>`;
                     return;
                 }
+                const defEs = window.translateGlossToSpanish
+                    ? window.translateGlossToSpanish(data.definicion || '')
+                    : (data.definicion || '');
                 cuerpo.innerHTML = `
-                    <p class="rv-strong-lemma">${escapeHtml(data.lemma || lemma || '')}</p>
-                    <p class="rv-strong-meta">${escapeHtml([data.idioma, data.translit, data.raiz && data.raiz !== data.lemma ? `raíz ${data.raiz}` : ''].filter(Boolean).join(' · '))}</p>
-                    <p class="rv-strong-def">${escapeHtml(data.definicion || '')}</p>
+                    <p class="rv-strong-lemma text-[#0A192F] font-bold">${escapeHtml(data.lemma || lemma || '')}</p>
+                    <p class="rv-strong-meta text-[#855D10]">${escapeHtml([data.idioma, data.translit, data.raiz && data.raiz !== data.lemma ? `raíz ${data.raiz}` : ''].filter(Boolean).join(' · '))}</p>
+                    <p class="rv-strong-def text-[#0F172A] font-semibold">${escapeHtml(defEs)}</p>
                 `;
             } catch {
                 cuerpo.innerHTML = `<p class="rv-strong-def">El léxico no está disponible.</p>`;
@@ -4186,6 +4621,41 @@ function descargarBackup(kind) {
         seguro(montarEfataCards);
         seguro(montarSermon);
         seguro(montarModoVersiculo);
+        seguro(() => window.RV?.bibleNav?.mount?.());
+        seguro(() => window.RV?.verseActions?.mount?.());
+        seguro(() => window.RV?.studyPanel?.mount?.());
+        seguro(() => window.RV?.aposento?.mount?.());
+        seguro(() => {
+            document.addEventListener('revelatio:open-card', (event) => {
+                const d = event.detail || {};
+                abrirEfataCard({
+                    text: d.text,
+                    ref: d.ref,
+                    version: d.version,
+                    brandLogo: d.brandLogo,
+                    brandWatermark: d.brandWatermark,
+                });
+            });
+            document.addEventListener('revelatio:goto', (event) => {
+                const d = event.detail || {};
+                if (!d.libro) return;
+                entrarSantuario({
+                    libro: d.libro,
+                    cap: Number(d.cap) || 1,
+                    verso: d.verso ? Number(d.verso) : null,
+                    canon: true,
+                });
+            });
+            window.RV.estudio = Object.assign(window.RV.estudio || {}, {
+                goto: (dest) => entrarSantuario({
+                    libro: dest.libro,
+                    cap: Number(dest.cap) || 1,
+                    verso: dest.verso ? Number(dest.verso) : null,
+                    canon: true,
+                }),
+            });
+            window.abrirEfataCard = abrirEfataCard;
+        });
     }
 
     function iniciar() {

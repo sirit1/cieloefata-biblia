@@ -1,0 +1,1836 @@
+/* Éfata RevelatiO — styles/globals.css
+   Paleta editorial: Luz Celestial · Azul Imperial · Oro Sacro · Frutos del Espíritu */
+
+:root {
+  /* Paleta Éfata RevelatiO Editorial */
+  --color-primary-navy: #0A192F;
+  --color-sacred-gold: #C59B27;
+  --color-gold-light: #DFB743;
+  --color-bg-celestial: #FAF8F5;
+  --color-card-surface: #FFFFFF;
+  --color-border-subtle: #E8DFC8;
+  --color-text-main: #1E293B;
+  --color-text-muted: #64748B;
+
+  /* Frutos del Espíritu (resaltados y lentes) */
+  --fruto-amor: #A8201A;
+  --fruto-gozo: #C59B27;
+  --fruto-paz: #1D4ED8;
+  --fruto-paciencia: #7E22CE;
+  --fruto-bondad: #15803D;
+  --fruto-templanza: #9A3412;
+
+  /* Alias de compatibilidad con main.css */
+  --obsidian: var(--color-primary-navy);
+  --obsidian-mid: #0F2744;
+  --pearl: var(--color-card-surface);
+  --paper: var(--color-bg-celestial);
+  --sidebar: #F4EFE6;
+  --graphite: var(--color-text-main);
+  --graphite-soft: rgba(30, 41, 59, 0.88);
+  --chrome-ink: var(--color-text-main);
+  --chrome-muted: var(--color-text-muted);
+  --gold: var(--color-sacred-gold);
+  --gold-bright: var(--color-gold-light);
+  --gold-soft: rgba(197, 155, 39, 0.18);
+  --gold-line: rgba(197, 155, 39, 0.35);
+  --panel: var(--color-card-surface);
+  --panel-elevated: #FFFEFA;
+  --ink: var(--color-text-main);
+  --ink-soft: #334155;
+  --ink-muted: var(--color-text-muted);
+  --chrome-dark: var(--color-primary-navy);
+  --shadow-card: 0 10px 28px -12px rgba(10, 25, 47, 0.14), 0 4px 10px -6px rgba(10, 25, 47, 0.08);
+  --shadow-deep: 0 18px 40px -16px rgba(10, 25, 47, 0.22);
+}
+
+body {
+  background-color: var(--color-bg-celestial);
+  color: var(--color-text-main);
+  font-family: "Cinzel", "Playfair Display", Georgia, serif;
+}
+
+body.aposento-active,
+body.is-aposento,
+body.dark-mode {
+  background-color: #060D1A !important;
+  color: #F8FAFC !important;
+}
+
+/* —— Resaltados · Frutos del Espíritu —— */
+.rv-hl-oro,
+.rv-hl-gozo,
+mark.rv-hl-oro,
+mark.rv-hl-gozo,
+.hl-gozo {
+  background-color: rgba(197, 155, 39, 0.22) !important;
+  border-left: 3px solid #C59B27 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  border-radius: 4px;
+}
+
+.rv-hl-verde,
+.rv-hl-bondad,
+mark.rv-hl-verde,
+mark.rv-hl-bondad,
+.hl-bondad {
+  background-color: rgba(21, 128, 61, 0.2) !important;
+  border-left: 3px solid #15803D !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  border-radius: 4px;
+}
+
+.rv-hl-azul,
+.rv-hl-paz,
+mark.rv-hl-azul,
+mark.rv-hl-paz,
+.hl-paz {
+  background-color: rgba(29, 78, 216, 0.2) !important;
+  border-left: 3px solid #1D4ED8 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  border-radius: 4px;
+}
+
+.rv-hl-rubi,
+.rv-hl-amor,
+mark.rv-hl-rubi,
+mark.rv-hl-amor,
+.hl-amor {
+  background-color: rgba(168, 32, 26, 0.2) !important;
+  border-left: 3px solid #A8201A !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  border-radius: 4px;
+}
+
+.rv-hl-purpura,
+.rv-hl-paciencia,
+mark.rv-hl-purpura,
+mark.rv-hl-paciencia,
+.hl-paciencia {
+  background-color: rgba(126, 34, 206, 0.2) !important;
+  border-left: 3px solid #7E22CE !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  border-radius: 4px;
+}
+
+/* —— Light Luxury: tarjetas y paneles —— */
+.rv-luxury-card,
+.rv-sp-card,
+.rv-sp-morph-card,
+.rv-sp-tsk-group,
+.rv-sp-dogma-detail,
+.rv-verse-actions {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  box-shadow: var(--shadow-card) !important;
+  border-radius: 0.75rem !important;
+  color: var(--color-text-main) !important;
+}
+
+#study-drawer.rv-study-panel,
+.study-drawer.rv-study-panel {
+  background: var(--color-bg-celestial) !important;
+  border-left-color: var(--color-border-subtle) !important;
+  color: var(--color-text-main) !important;
+}
+
+.rv-sp-chrome {
+  background: var(--color-card-surface) !important;
+  border-bottom-color: var(--color-border-subtle) !important;
+}
+
+.rv-sp-head h2,
+.rv-sp-title,
+#rv-sp-title {
+  color: var(--color-primary-navy) !important;
+  font-family: Cinzel, "Playfair Display", Georgia, serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.rv-sp-kicker,
+.rv-sp-ref,
+.rv-sp-card-kicker,
+.rv-sp-strong-badge,
+.rv-sp-dogma-label,
+.rv-sp-tsk-phrase {
+  color: var(--bronze-strong, #5C4508) !important;
+}
+
+.rv-sp-tabs button,
+.rv-sp-dogma-card,
+.rv-sp-tsk-ref,
+.rv-sp-morph-act,
+.rv-sp-dogma-ia,
+.rv-va-acts button,
+.rv-sp-retry {
+  background: rgba(255, 251, 235, 0.72) !important;
+  border: 1px solid rgba(197, 155, 39, 0.45) !important;
+  color: var(--color-primary-navy) !important;
+}
+
+.rv-sp-tabs button.is-on,
+.rv-sp-dogma-card.is-active {
+  background: rgba(254, 243, 199, 0.9) !important;
+  border-color: rgba(92, 69, 8, 0.55) !important;
+  color: var(--color-primary-navy) !important;
+}
+
+.rv-sp-dogma-card strong {
+  color: var(--bronze-strong, #5C4508) !important;
+}
+
+.rv-sp-dogma-card small {
+  color: var(--muted-on-parchment, #334155) !important;
+}
+
+.rv-sp-tabs button:hover,
+.rv-sp-dogma-card:hover,
+.rv-sp-tsk-ref:hover,
+.rv-va-acts button:hover {
+  background: rgba(254, 243, 199, 0.85) !important;
+}
+
+.rv-sp-comment-prose,
+.rv-sp-dogma-copy,
+.rv-sp-morph-def,
+.rv-sp-empty,
+.rv-sp-loading {
+  color: var(--color-text-main) !important;
+}
+
+.rv-sp-autor {
+  background: var(--color-card-surface) !important;
+  border-color: var(--color-border-subtle) !important;
+  color: var(--color-primary-navy) !important;
+}
+
+.rv-va-swatch {
+  border: 2px solid rgba(10, 25, 47, 0.12) !important;
+}
+
+.rv-va-swatch--gozo { background: var(--fruto-gozo) !important; }
+.rv-va-swatch--bondad { background: var(--fruto-bondad) !important; }
+.rv-va-swatch--paz { background: var(--fruto-paz) !important; }
+.rv-va-swatch--amor { background: var(--fruto-amor) !important; }
+.rv-va-swatch--paciencia { background: var(--fruto-paciencia) !important; }
+
+/* Lectura en luz celestial (fuera de Aposento) */
+body.visor-active:not(.aposento-active):not(.is-aposento) .rv-stage,
+body.visor-active:not(.aposento-active):not(.is-aposento) .bible-reader,
+body.visor-active:not(.aposento-active):not(.is-aposento) #texto-biblico {
+  background: var(--color-bg-celestial) !important;
+  color: var(--color-text-main) !important;
+}
+
+body.visor-active:not(.aposento-active):not(.is-aposento) #texto-biblico .rv-lectura-title {
+  color: var(--color-primary-navy) !important;
+}
+
+body.visor-active:not(.aposento-active):not(.is-aposento) #texto-biblico .rv-verse-num {
+  color: var(--color-sacred-gold) !important;
+}
+
+/* Aposento / noche: paneles siguen legibles sobre navy */
+body.aposento-active #study-drawer.is-open,
+body.is-aposento #study-drawer.is-open {
+  background: #0A192F !important;
+  color: #F8FAFC !important;
+  border-left-color: rgba(197, 155, 39, 0.35) !important;
+}
+
+body.aposento-active #study-drawer.is-open .rv-sp-card,
+body.is-aposento #study-drawer.is-open .rv-sp-card,
+body.aposento-active #study-drawer.is-open .rv-sp-morph-card,
+body.is-aposento #study-drawer.is-open .rv-sp-morph-card {
+  background: rgba(15, 39, 68, 0.92) !important;
+  border-color: rgba(197, 155, 39, 0.28) !important;
+  color: #F8FAFC !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UI Contrast Fix · Logo · Pergamino · Ficha metadatos
+   (carga después de main.css — gana la cascada editorial)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* —— 1. Logo vectorial (sin PNG / sin blend que mancha) —— */
+.rv-lockup-btn,
+button.rv-lockup-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.rv-brand-lockup,
+.rv-brand-lockup svg,
+.rv-lockup-hero,
+.rv-lockup-btn .rv-brand-lockup,
+.rv-dual-brand .rv-brand-lockup,
+.rv-splash-logo {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  mix-blend-mode: normal !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  image-rendering: auto;
+}
+
+.rv-brand-lockup svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 4px 12px rgba(197, 155, 39, 0.15));
+}
+
+/* Cabecera oscura: “by Efata” y lema en oro (no navy sobre navy) */
+.rv-chrome .rv-brand-lockup .rv-logo-by {
+  fill: #DFB743 !important;
+}
+.rv-chrome .rv-brand-lockup .rv-logo-lema {
+  fill: rgba(223, 183, 67, 0.72) !important;
+}
+
+/* —— Logo compacto cabecera (h-9) —— */
+.rv-chrome .rv-lockup-btn {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.rv-chrome .rv-brand-lockup--compact,
+.rv-chrome .rv-lockup-btn .rv-brand-lockup--compact,
+.rv-chrome .rv-lockup-hero.rv-brand-lockup--compact {
+  height: 2.25rem !important; /* h-9 */
+  width: auto !important;
+  max-width: none !important;
+  max-height: 2.25rem !important;
+  filter: none !important;
+}
+
+.rv-chrome .rv-brand-lockup--compact svg {
+  height: 2.25rem !important;
+  width: auto !important;
+  max-height: 2.25rem;
+  overflow: visible;
+  filter: drop-shadow(0 1px 4px rgba(197, 155, 39, 0.28)) !important;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+}
+
+/* Textos secundarios adaptados a escala pequeña */
+.rv-chrome .rv-brand-lockup--compact .rv-logo-lema {
+  display: none !important;
+}
+.rv-chrome .rv-brand-lockup--compact .rv-logo-rule {
+  opacity: 0.45;
+}
+.rv-chrome .rv-brand-lockup--compact .rv-logo-by {
+  font-size: 13px !important;
+  letter-spacing: 1.2px !important;
+  fill: #E8C547 !important;
+}
+.rv-chrome .rv-brand-lockup--compact .rv-logo-wordmark {
+  font-size: 30px !important;
+  letter-spacing: 2.8px !important;
+}
+/* Medallón ΑΩ: tipografía vectorial nítida a h-9 */
+.rv-chrome .rv-brand-lockup--compact .rv-logo-ao {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+  paint-order: stroke fill;
+}
+.rv-chrome .rv-brand-lockup--compact .rv-logo-ao-ring {
+  stroke-width: 2.4px;
+}
+
+/* Fallback PNG residual (si queda algún img) */
+img.rv-lockup-hero,
+img.rv-splash-logo,
+.rv-dual-brand > img {
+  mix-blend-mode: multiply !important;
+  filter: contrast(1.1) brightness(0.95) !important;
+  background: transparent !important;
+}
+
+.rv-brand-line {
+  margin: 0;
+  color: #DFB743 !important;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-family: Cinzel, "Playfair Display", Georgia, "Times New Roman", serif !important;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* —— 2. Lienzo de lectura · Pergamino Sagrado —— */
+#bible-reader,
+main#bible-reader,
+.bible-reader,
+#bible-reader .bible-reader-inner,
+#bible-reader #texto-biblico,
+#texto-biblico.visor-biblico-contenido,
+body.visor-active #bible-reader,
+body.visor-active #texto-biblico,
+body.is-santuario #bible-reader,
+body.is-santuario #texto-biblico,
+body.aposento-active #bible-reader,
+body.aposento-active #texto-biblico,
+body.is-aposento #bible-reader,
+body.is-aposento #texto-biblico {
+  background-color: #FAF7F0 !important;
+  background-image: linear-gradient(180deg, #FAF7F0 0%, #F5EFEB 100%) !important;
+  color: #0F172A !important;
+}
+
+#bible-reader #texto-biblico,
+#texto-biblico.visor-biblico-contenido,
+#texto-biblico .rv-verse-surface,
+#texto-biblico .rv-verse-text,
+#texto-biblico p,
+body.is-santuario #texto-biblico,
+body.is-santuario #texto-biblico p,
+body.is-santuario #texto-biblico .rv-verse-text,
+body.is-santuario #texto-biblico .rv-verse-surface,
+body.aposento-active #texto-biblico,
+body.aposento-active #texto-biblico .rv-verse-text,
+body.aposento-active #texto-biblico .rv-verse-surface,
+body.is-aposento #texto-biblico,
+body.is-aposento #texto-biblico .rv-verse-text,
+body.is-aposento #texto-biblico .rv-verse-surface {
+  color: #0F172A !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+#texto-biblico .rv-verse-num,
+#texto-biblico sup.rv-verse-num,
+body.is-santuario #texto-biblico .rv-verse-num,
+body.is-santuario .rv-verse-num,
+body.aposento-active #texto-biblico .rv-verse-num,
+body.is-aposento #texto-biblico .rv-verse-num {
+  color: #5C4508 !important;
+  font-weight: 700 !important;
+  font-family: Cinzel, "Playfair Display", Georgia, serif !important;
+}
+
+#texto-biblico .rv-lectura-title,
+body.is-santuario #texto-biblico .rv-lectura-title,
+body.is-santuario .rv-lectura-title,
+body.aposento-active #texto-biblico .rv-lectura-title,
+body.is-aposento #texto-biblico .rv-lectura-title {
+  color: #0A192F !important;
+  font-family: Cinzel, "Playfair Display", Georgia, serif !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid #E8DFC8;
+  padding-bottom: 0.55rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Selección / resaltado: NUNCA texto blanco ni borroso */
+#texto-biblico .rv-verse-surface.is-verse-on,
+#texto-biblico .rv-verse-surface.is-verse-on .rv-verse-text,
+#texto-biblico .rv-verse-surface.is-verse-on .rv-verse-num,
+body.is-verse-study #texto-biblico .rv-verse-surface.is-verse-on,
+body.is-verse-study #texto-biblico .rv-verse-surface.is-verse-on .rv-verse-text,
+body.is-santuario #texto-biblico .rv-verse-surface.is-verse-on,
+body.is-santuario #texto-biblico .rv-verse-surface.is-verse-on .rv-verse-text,
+::selection {
+  color: #0F172A !important;
+}
+
+#texto-biblico .rv-verse-surface.is-verse-on,
+body.is-verse-study #texto-biblico .rv-verse-surface.is-verse-on,
+body.is-santuario #texto-biblico .rv-verse-surface.is-verse-on {
+  background-color: rgba(197, 155, 39, 0.14) !important;
+  background-image: none !important;
+  border-left: 4px solid #C59B27 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+body.is-verse-study #texto-biblico .rv-verse-surface:not(.is-verse-on) {
+  opacity: 0.45 !important;
+  filter: none !important;
+  color: #0F172A !important;
+}
+
+/* Resaltados Frutos: texto sigue charcoal */
+#texto-biblico .rv-hl-oro,
+#texto-biblico .rv-hl-gozo,
+#texto-biblico .rv-hl-verde,
+#texto-biblico .rv-hl-bondad,
+#texto-biblico .rv-hl-azul,
+#texto-biblico .rv-hl-paz,
+#texto-biblico .rv-hl-rubi,
+#texto-biblico .rv-hl-amor,
+#texto-biblico .rv-hl-purpura,
+#texto-biblico .rv-hl-paciencia,
+#texto-biblico mark[class*="rv-hl-"],
+#texto-biblico mark[class*="hl-"] {
+  color: #0F172A !important;
+}
+
+/* —— 3. Ficha metadatos · pergamino refinado —— */
+#contexto-historico-header,
+.rv-contexto-historico,
+.rv-meta-scroll,
+body.is-santuario #contexto-historico-header,
+body.is-santuario .rv-contexto-historico,
+body.is-santuario #contexto-historico-header:not([hidden]) {
+  margin: 0 0 1.5rem !important;
+  padding: 1rem !important;
+  background: #F4EFE6 !important;
+  border: 1px solid #E2D7C3 !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 1px 3px rgba(10, 25, 47, 0.06) !important;
+  position: relative !important;
+  top: auto !important;
+  z-index: 1 !important;
+}
+
+.rv-contexto-meta {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+  margin: 0 0 0.5rem !important;
+  font-family: Cinzel, "Playfair Display", Georgia, serif !important;
+  font-size: 0.75rem !important;
+}
+
+.rv-contexto-label {
+  display: block !important;
+  color: #5C4508 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  font-size: 10px !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.rv-contexto-value,
+#ctx-autor,
+#ctx-fecha,
+#ctx-destinatarios,
+body.is-santuario .rv-contexto-value {
+  color: #0A192F !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.01em !important;
+}
+
+.rv-contexto-resumen,
+#ctx-resumen,
+body.is-santuario .rv-contexto-resumen {
+  margin: 0.5rem 0 0 !important;
+  padding-top: 0.5rem !important;
+  border-top: 1px solid #E8DFC8 !important;
+  font-size: 0.75rem !important;
+  font-style: italic !important;
+  color: #334155 !important;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+  line-height: 1.55 !important;
+  max-width: none !important;
+}
+
+#rv-ficha-academica,
+.rv-ficha-academica,
+body.is-santuario .rv-ficha-academica {
+  margin: 0 0 1.5rem !important;
+  padding: 1rem !important;
+  background: #F4EFE6 !important;
+  border: 1px solid #E2D7C3 !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 1px 3px rgba(10, 25, 47, 0.06) !important;
+  color: #0A192F !important;
+}
+
+.rv-ficha-kicker,
+body.is-santuario .rv-ficha-kicker,
+.rv-ficha-grid dt,
+body.is-santuario .rv-ficha-grid dt {
+  color: var(--bronze-strong) !important;
+}
+
+.rv-ficha-title,
+body.is-santuario .rv-ficha-title {
+  color: #0A192F !important;
+  border-bottom: 1px solid #E8DFC8;
+  padding-bottom: 0.4rem;
+}
+
+.rv-ficha-grid dd,
+body.is-santuario .rv-ficha-grid dd {
+  color: #0A192F !important;
+}
+
+@media (max-width: 640px) {
+  .rv-contexto-meta {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTRASTE UNIVERSAL POR SUPERFICIE
+   Navy → texto claro + oro vivo
+   Pergamino → texto charcoal + bronce oscuro (nunca oro claro)
+   Oro sólido → navy (nunca blanco)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ink-on-parchment: #0F172A;
+  --muted-on-parchment: #334155;
+  --soft-on-parchment: #475569;
+  --bronze-on-parchment: #7A5C0F; /* AA sobre #FAF7F0 / #F4EFE6 */
+  --bronze-strong: #5C4508;
+  --ink-on-navy: #F8FAFC;
+  --muted-on-navy: #CBD5E1;
+  --gold-on-navy: #E8C547;
+  --gold-bright-on-navy: #F0D56A;
+  --ink-on-gold: #0A192F;
+}
+
+/* —— Cabecera navy —— */
+header.rv-chrome,
+body.is-santuario header.rv-chrome,
+body.visor-active header.rv-chrome {
+  background: #0A192F !important;
+  color: var(--ink-on-navy) !important;
+}
+
+.rv-brand-line {
+  color: var(--gold-bright-on-navy) !important;
+  font-weight: 600 !important;
+}
+
+.rv-canon-toggle,
+header.rv-chrome .rv-canon-toggle,
+header.rv-chrome .rv-aposento-toggle {
+  color: var(--ink-on-navy) !important;
+}
+
+header.rv-chrome .rv-aposento-toggle {
+  color: #E2E8F0 !important;
+}
+
+/* Breadcrumbs sobre navy */
+#breadcrumbs,
+#breadcrumbs.rv-chrome,
+.rv-breadcrumbs,
+body.is-santuario #breadcrumbs {
+  background: #0A192F !important;
+  color: var(--muted-on-navy) !important;
+  border-color: rgba(232, 197, 71, 0.28) !important;
+}
+
+#breadcrumbs .rv-crumb-sep,
+#breadcrumbs .text-\[\#C5A059\],
+body.is-santuario #breadcrumbs .text-\[\#C5A059\],
+body.is-santuario #breadcrumbs .text-\[\#D4AF37\] {
+  color: var(--gold-on-navy) !important;
+}
+
+#breadcrumbs .rv-crumb-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--muted-on-navy) !important;
+  cursor: pointer;
+}
+
+#breadcrumbs .rv-crumb-link:hover {
+  color: var(--gold-bright-on-navy) !important;
+}
+
+#breadcrumbs .rv-crumb-here,
+#breadcrumbs strong,
+#breadcrumbs .is-here,
+#breadcrumbs [aria-current="page"] {
+  color: var(--gold-bright-on-navy) !important;
+  font-weight: 600;
+}
+
+/* —— Sidebar canónica · Azul Noche Imperial —— */
+.rv-sidebar,
+#panel-canon.rv-sidebar,
+body.is-santuario .rv-sidebar,
+body.is-santuario #panel-canon {
+  background-color: #0A192F !important;
+  color: #E7E5E4 !important;
+  border-right: 1px solid rgba(197, 155, 39, 0.3) !important;
+  border-color: rgba(197, 155, 39, 0.3) !important;
+}
+
+.rv-sidebar-home,
+body.is-santuario .rv-sidebar-home,
+#panel-canon .rv-sidebar-home {
+  color: #E7E5E4 !important;
+  border-bottom-color: rgba(197, 155, 39, 0.28) !important;
+}
+
+.rv-sidebar-home:hover,
+body.is-santuario .rv-sidebar-home:hover {
+  color: #DFB743 !important;
+}
+
+#panel-canon #buscador-canon,
+body.is-santuario .rv-sidebar input,
+body.is-santuario #panel-canon #buscador-canon {
+  background: #13233D !important;
+  color: #F8FAFC !important;
+  border: 1px solid rgba(197, 155, 39, 0.4) !important;
+}
+
+#panel-canon #buscador-canon::placeholder,
+body.is-santuario .rv-sidebar input::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Títulos AT / NT */
+#panel-canon h3,
+#selector-libros h3,
+body.is-santuario .rv-sidebar h3,
+body.is-santuario #selector-libros h3 {
+  color: #C59B27 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  opacity: 1 !important;
+}
+
+/* Nombres de libros */
+.libro-btn,
+.libro-btn .libro-nombre,
+body.is-santuario .rv-sidebar .libro-btn,
+body.is-santuario .rv-sidebar .libro-nombre {
+  color: #E7E5E4 !important; /* stone-200 */
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+  font-size: 0.875rem !important;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.libro-btn > .libro-caps,
+.libro-btn > span:last-child,
+body.is-santuario .rv-sidebar .libro-caps {
+  color: rgba(197, 155, 39, 0.75) !important;
+  opacity: 1 !important;
+}
+
+.libro-btn:hover,
+.libro-btn.is-open,
+body.is-santuario .rv-sidebar .libro-btn:hover,
+body.is-santuario .rv-sidebar .libro-btn.is-open {
+  color: #DFB743 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.libro-btn:hover .libro-nombre,
+.libro-btn.is-open .libro-nombre,
+.libro-btn:hover .libro-caps,
+.libro-btn.is-open .libro-caps {
+  color: #DFB743 !important;
+}
+
+.libro-btn.is-active,
+.libro-item.is-active > .libro-btn {
+  background: rgba(197, 155, 39, 0.18) !important;
+  color: #DFB743 !important;
+}
+
+.libro-btn.is-active .libro-nombre,
+.libro-btn.is-active .libro-caps,
+.libro-btn.is-active > span {
+  color: #DFB743 !important;
+}
+
+.cap-btn,
+body.is-santuario .rv-sidebar .cap-btn {
+  background: #13233D !important;
+  color: #E7E5E4 !important;
+  border-color: rgba(197, 155, 39, 0.28) !important;
+}
+
+.cap-btn.is-active,
+.cap-btn:hover,
+body.is-santuario .rv-sidebar .cap-btn.is-active,
+body.is-santuario .rv-sidebar .cap-btn:hover {
+  background: #C59B27 !important;
+  color: #0A192F !important;
+  border-color: #C59B27 !important;
+  font-weight: 700;
+}
+
+.rv-nav-cuaderno,
+#panel-canon .rv-nav-cuaderno {
+  background: #13233D !important;
+  color: #DFB743 !important;
+  border-color: rgba(197, 155, 39, 0.4) !important;
+}
+
+.rv-nav-cuaderno:hover {
+  background: rgba(197, 155, 39, 0.2) !important;
+  color: #DFB743 !important;
+}
+
+.rv-nav-cuaderno.is-on {
+  background: #C59B27 !important;
+  color: #0A192F !important;
+}
+
+/* Chips de acceso rápido */
+.rv-chip,
+.rv-quick-chips .rv-chip,
+#panel-canon .rv-chip,
+body.is-santuario .rv-sidebar .rv-chip {
+  background: #13233D !important;
+  border: 1px solid rgba(197, 155, 39, 0.4) !important;
+  color: #DFB743 !important;
+  border-radius: 0.375rem !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.rv-chip:hover,
+.rv-quick-chips .rv-chip:hover,
+#panel-canon .rv-chip:hover {
+  background: rgba(197, 155, 39, 0.2) !important;
+  color: #DFB743 !important;
+  border-color: rgba(197, 155, 39, 0.55) !important;
+}
+
+/* —— Toolbar / selects sobre lectura —— */
+.rv-toolbar,
+.rv-lectura .rv-toolbar,
+body.is-santuario .rv-toolbar {
+  background: transparent !important;
+  color: var(--ink-on-parchment) !important;
+  border-color: transparent !important;
+}
+
+.rv-toolbar label span,
+.rv-lectura .rv-toolbar label span,
+body.is-santuario .rv-toolbar label span {
+  color: var(--bronze-on-parchment) !important;
+  font-weight: 700;
+}
+
+.rv-select,
+select.rv-select,
+body.is-santuario .rv-select,
+body.is-santuario select.rv-select {
+  background: #0A192F !important;
+  color: #F8FAFC !important;
+  border-color: rgba(232, 197, 71, 0.4) !important;
+}
+
+/* —— Ficha metadatos: bronce oscuro, no oro claro —— */
+.rv-contexto-label,
+body.is-santuario .rv-contexto-label,
+.rv-ficha-kicker,
+body.is-santuario .rv-ficha-kicker,
+.rv-ficha-grid dt,
+body.is-santuario .rv-ficha-grid dt {
+  color: var(--bronze-strong) !important;
+}
+
+.rv-contexto-value,
+#ctx-autor,
+#ctx-fecha,
+#ctx-destinatarios,
+body.is-santuario .rv-contexto-value {
+  color: var(--ink-on-parchment) !important;
+}
+
+.rv-contexto-resumen,
+#ctx-resumen,
+body.is-santuario .rv-contexto-resumen {
+  color: var(--muted-on-parchment) !important;
+}
+
+.rv-ficha-title,
+.rv-ficha-grid dd,
+body.is-santuario .rv-ficha-title,
+body.is-santuario .rv-ficha-grid dd {
+  color: var(--ink-on-parchment) !important;
+}
+
+/* —— Lectura: números en bronce legible —— */
+#texto-biblico .rv-verse-num,
+#texto-biblico sup.rv-verse-num,
+body.is-santuario #texto-biblico .rv-verse-num,
+body.is-santuario .rv-verse-num,
+body.aposento-active #texto-biblico .rv-verse-num,
+body.is-aposento #texto-biblico .rv-verse-num {
+  color: var(--bronze-strong) !important;
+  font-weight: 700 !important;
+}
+
+.rv-lectura-meta,
+body.is-santuario .rv-lectura-meta,
+#texto-biblico .rv-lectura-meta {
+  color: var(--muted-on-parchment) !important;
+}
+
+.rv-lectura-muted,
+.rv-lectura-note,
+body.is-santuario .rv-lectura-muted,
+body.is-santuario .rv-lectura-note {
+  color: var(--soft-on-parchment) !important;
+}
+
+/* Anular oro claro / blancos fantasmas sobre pergamino */
+body.is-santuario .rv-lectura .text-\[\#C5A059\],
+body.is-santuario .rv-lectura .text-\[\#D4AF37\],
+body.is-santuario .rv-lectura .text-\[\#E8D5A3\],
+body.is-santuario .rv-lectura .text-\[\#9E7B35\],
+body.is-santuario #texto-biblico .text-\[\#C5A059\],
+body.is-santuario #texto-biblico .text-\[\#D4AF37\] {
+  color: var(--bronze-on-parchment) !important;
+}
+
+body.is-santuario .rv-lectura .text-\[\#F4F5F7\],
+body.is-santuario .rv-lectura .text-white,
+body.is-santuario #texto-biblico .text-\[\#F4F5F7\] {
+  color: var(--ink-on-parchment) !important;
+}
+
+/* —— Study panel · contraste sobre pergamino —— */
+#study-drawer.rv-study-panel,
+.study-drawer.rv-study-panel,
+#study-drawer.rv-study-panel .rv-sp-chrome,
+.study-drawer.rv-study-panel .rv-sp-chrome {
+  background: #FAF7F0 !important;
+  color: var(--ink-on-parchment) !important;
+}
+
+#study-drawer .rv-sp-kicker,
+#study-drawer .rv-sp-ref,
+#study-drawer .rv-sp-card-kicker,
+#study-drawer .rv-sp-dogma-label,
+#study-drawer .rv-sp-tsk-phrase,
+#study-drawer .rv-sp-strong-badge,
+#study-drawer .rv-sp-preview-ref {
+  color: var(--bronze-strong) !important;
+}
+
+/* Léxico Strong: alto contraste sobre panel claro (no tipografía crema sobre pergamino) */
+#study-drawer .rv-sp-morph-card,
+.study-drawer .rv-sp-morph-card {
+  background: #ffffff !important;
+  border: 1px solid #E8DFC8 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06) !important;
+  color: #0F172A !important;
+}
+
+#study-drawer .rv-sp-strong-orig,
+#study-drawer .rv-sp-morph-head,
+#study-drawer .rv-sp-morph-head .rv-sp-strong-orig,
+.study-drawer .rv-sp-strong-orig {
+  color: #0A192F !important;
+  font-weight: 700 !important;
+  font-size: 1.35rem !important;
+  letter-spacing: 0.02em !important;
+}
+
+#study-drawer .rv-sp-morph-def,
+.study-drawer .rv-sp-morph-def {
+  color: #0F172A !important;
+  font-weight: 600 !important;
+}
+
+#study-drawer .rv-sp-morph-pos,
+.study-drawer .rv-sp-morph-pos {
+  color: #57534e !important;
+}
+
+#study-drawer .rv-sp-morph-act,
+.study-drawer .rv-sp-morph-act {
+  background: #0A192F !important;
+  color: #DFB743 !important;
+  border: 0 !important;
+}
+
+#study-drawer .rv-sp-tabs,
+#study-drawer #study-drawer-tabs,
+#study-drawer-tabs.rv-sp-tabs {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0.35rem !important;
+  overflow: visible !important;
+  background: rgba(10, 25, 47, 0.05) !important;
+  border-bottom: 1px solid #E8DFC8 !important;
+}
+
+@media (min-width: 640px) {
+  #study-drawer .rv-sp-tabs,
+  #study-drawer #study-drawer-tabs {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+#study-drawer .rv-sp-tabs button,
+#study-drawer #study-drawer-tabs button {
+  width: 100% !important;
+  min-width: 0 !important;
+  white-space: normal !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 0.4rem 0.3rem !important;
+}
+
+@media (min-width: 640px) {
+  #study-drawer .rv-sp-tabs button,
+  #study-drawer #study-drawer-tabs button {
+    font-size: 12px !important;
+  }
+}
+
+#study-drawer .rv-sp-tabs button,
+#study-drawer #study-drawer-tabs button,
+#study-drawer .rv-sp-retry,
+#study-drawer .rv-sp-tsk-ref,
+#study-drawer .rv-sp-morph-act,
+#study-drawer .rv-sp-dogma-ia {
+  background: #FFFBF0 !important;
+  border: 1px solid rgba(197, 155, 39, 0.42) !important;
+  color: #0A192F !important;
+}
+
+#study-drawer .rv-sp-tabs button.is-on,
+#study-drawer #study-drawer-tabs button.is-on,
+#study-drawer .rv-sp-dogma-card.is-active {
+  background: #F8EBC8 !important;
+  border-color: rgba(92, 69, 8, 0.5) !important;
+  color: #0A192F !important;
+}
+
+#study-drawer .rv-sp-dogma-card {
+  background: #FFFEFA !important;
+  border: 1px solid rgba(197, 155, 39, 0.35) !important;
+  color: #0A192F !important;
+}
+
+#study-drawer .rv-sp-dogma-card strong {
+  color: var(--bronze-strong) !important;
+}
+
+#study-drawer .rv-sp-dogma-card small {
+  color: var(--muted-on-parchment) !important;
+}
+
+#study-drawer .rv-sp-card,
+#study-drawer .rv-sp-morph-card,
+#study-drawer .rv-sp-tsk-group,
+#study-drawer .rv-sp-dogma-detail {
+  background: #FFFEFA !important;
+  border-color: rgba(197, 155, 39, 0.28) !important;
+  color: var(--ink-on-parchment) !important;
+}
+
+#study-drawer .rv-sp-body {
+  scrollbar-color: #C59B27 #F4EFE6;
+}
+
+/* Aposento: oro vivo sobre navy (no bronce de pergamino) */
+body.aposento-active #study-drawer.is-open,
+body.is-aposento #study-drawer.is-open,
+body.aposento-active #study-drawer.is-open .rv-sp-chrome,
+body.is-aposento #study-drawer.is-open .rv-sp-chrome {
+  background: #0A192F !important;
+  color: #F8FAFC !important;
+}
+
+body.aposento-active #study-drawer.is-open .rv-sp-kicker,
+body.is-aposento #study-drawer.is-open .rv-sp-kicker,
+body.aposento-active #study-drawer.is-open .rv-sp-ref,
+body.is-aposento #study-drawer.is-open .rv-sp-ref,
+body.aposento-active #study-drawer.is-open .rv-sp-card-kicker,
+body.is-aposento #study-drawer.is-open .rv-sp-card-kicker,
+body.aposento-active #study-drawer.is-open .rv-sp-dogma-label,
+body.is-aposento #study-drawer.is-open .rv-sp-dogma-label,
+body.aposento-active #study-drawer.is-open .rv-sp-tsk-phrase,
+body.is-aposento #study-drawer.is-open .rv-sp-tsk-phrase,
+body.aposento-active #study-drawer.is-open .rv-sp-strong-badge,
+body.is-aposento #study-drawer.is-open .rv-sp-strong-badge,
+body.aposento-active #study-drawer.is-open .rv-sp-dogma-card strong,
+body.is-aposento #study-drawer.is-open .rv-sp-dogma-card strong {
+  color: var(--gold-bright-on-navy) !important;
+}
+
+body.aposento-active #study-drawer.is-open .rv-sp-head h2,
+body.is-aposento #study-drawer.is-open .rv-sp-head h2,
+body.aposento-active #study-drawer.is-open .rv-sp-comment-prose,
+body.is-aposento #study-drawer.is-open .rv-sp-comment-prose,
+body.aposento-active #study-drawer.is-open .rv-sp-dogma-copy,
+body.is-aposento #study-drawer.is-open .rv-sp-dogma-copy,
+body.aposento-active #study-drawer.is-open .rv-sp-empty,
+body.is-aposento #study-drawer.is-open .rv-sp-empty {
+  color: #F8FAFC !important;
+}
+
+body.aposento-active #study-drawer.is-open .rv-sp-tabs button,
+body.is-aposento #study-drawer.is-open .rv-sp-tabs button,
+body.aposento-active #study-drawer.is-open .rv-sp-dogma-card,
+body.is-aposento #study-drawer.is-open .rv-sp-dogma-card {
+  background: rgba(19, 35, 61, 0.9) !important;
+  border-color: rgba(197, 155, 39, 0.35) !important;
+  color: #E2E8F0 !important;
+}
+
+body.aposento-active #study-drawer.is-open .rv-sp-tabs button.is-on,
+body.is-aposento #study-drawer.is-open .rv-sp-tabs button.is-on,
+body.aposento-active #study-drawer.is-open .rv-sp-dogma-card.is-active,
+body.is-aposento #study-drawer.is-open .rv-sp-dogma-card.is-active {
+  background: rgba(197, 155, 39, 0.18) !important;
+  border-color: rgba(232, 197, 71, 0.65) !important;
+  color: #F8FAFC !important;
+}
+
+body.aposento-active #study-drawer.is-open .rv-sp-dogma-card small,
+body.is-aposento #study-drawer.is-open .rv-sp-dogma-card small {
+  color: #94A3B8 !important;
+}
+
+/* Stage / lectura: tinta sobre pergamino */
+.rv-stage,
+body.is-santuario .rv-stage,
+body.visor-active .rv-stage {
+  background: #FAF7F0 !important;
+  color: var(--ink-on-parchment) !important;
+}
+
+.rv-lectura,
+body.is-santuario .rv-lectura {
+  color: var(--ink-on-parchment) !important;
+}
+
+/* —— Superficies oscuras (dock, FAB, aposento chrome) —— */
+.rv-audio-dock,
+#rv-audio-dock {
+  color: var(--ink-on-navy) !important;
+}
+
+.rv-audio-dock button,
+#rv-audio-dock button {
+  color: var(--ink-on-navy) !important;
+}
+
+/* Oro sólido → navy, nunca blanco */
+.cap-btn.is-active,
+.libro-btn.is-active,
+.rv-nav-cuaderno.is-on,
+.rv-btn-gold,
+button.rv-btn-gold {
+  color: var(--ink-on-gold) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Cuaderno del Peregrino · contraste sobre navy/negro
+   ═══════════════════════════════════════════════════════════════════════════ */
+#modulo-cuaderno .rv-cuaderno-panel,
+.rv-cuaderno .rv-cuaderno-panel {
+  background: #0A192F !important;
+  color: #F8FAFC !important;
+}
+
+#modulo-cuaderno .rv-cuaderno-head,
+#modulo-cuaderno .rv-cuaderno-footer {
+  background: #07111F !important;
+}
+
+#modulo-cuaderno .rv-cuaderno-kicker,
+#modulo-cuaderno .rv-sync,
+#modulo-cuaderno .rv-note-when,
+#modulo-cuaderno .rv-cuaderno-quota-kicker {
+  color: #E8C547 !important;
+  font-weight: 600 !important;
+}
+
+#modulo-cuaderno .rv-cuaderno-title {
+  color: #FFFFFF !important;
+}
+
+#modulo-cuaderno .rv-cuaderno-meter-labels,
+#modulo-cuaderno #cuota-label,
+#modulo-cuaderno .rv-cuaderno-footer p,
+#modulo-cuaderno .rv-cuaderno-expire-hint,
+#modulo-cuaderno .rv-cuaderno-quota-copy {
+  color: #E8E2D4 !important;
+}
+
+#modulo-cuaderno .rv-cuota-track {
+  height: 10px !important;
+  background: rgba(248, 250, 252, 0.2) !important;
+  border: 1px solid rgba(232, 197, 71, 0.4) !important;
+}
+
+#modulo-cuaderno .rv-cuota-fill {
+  background: linear-gradient(90deg, #F0D56A, #C59B27) !important;
+  min-width: 4px !important;
+}
+
+#modulo-cuaderno .rv-tab {
+  background: rgba(19, 35, 61, 0.9) !important;
+  border: 1px solid rgba(232, 197, 71, 0.45) !important;
+  color: #F0E6C8 !important;
+}
+
+#modulo-cuaderno .rv-tab.is-on {
+  background: rgba(197, 155, 39, 0.32) !important;
+  border-color: #E8C547 !important;
+  color: #FFFFFF !important;
+}
+
+#modulo-cuaderno .rv-note-card {
+  background: #13233D !important;
+  border-color: rgba(232, 197, 71, 0.38) !important;
+  color: #F8FAFC !important;
+}
+
+#modulo-cuaderno .rv-note-ref {
+  color: #F0D56A !important;
+}
+
+#modulo-cuaderno .rv-note-title,
+#modulo-cuaderno .rv-note-body {
+  color: #F8FAFC !important;
+}
+
+#modulo-cuaderno .rv-chip,
+#modulo-cuaderno .rv-chip-gold {
+  background: rgba(10, 25, 47, 0.75) !important;
+  border-color: rgba(232, 197, 71, 0.5) !important;
+  color: #F0D56A !important;
+}
+
+#modulo-cuaderno .rv-cuaderno-quitar {
+  border: 1px solid rgba(232, 197, 71, 0.45) !important;
+  background: transparent !important;
+  color: #F0D56A !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+}
+
+#modulo-cuaderno .rv-cuaderno-quitar:hover {
+  background: rgba(197, 155, 39, 0.15) !important;
+  color: #FFFFFF !important;
+}
+
+#modulo-cuaderno .rv-btn-gold,
+#modulo-cuaderno button.rv-btn-gold {
+  color: #0A192F !important;
+  background: #E8C547 !important;
+  border-color: #E8C547 !important;
+}
+
+#modulo-cuaderno .rv-cuaderno-icon-btn {
+  color: #E8C547 !important;
+  border-color: rgba(232, 197, 71, 0.5) !important;
+  background: #0A192F !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Splash pergamino · Auth compacto · Modal RevelatiO IA
+   ═══════════════════════════════════════════════════════════════════════════ */
+#rv-splash,
+.rv-splash {
+  background: #07101E !important;
+  color: #FAF8F5 !important;
+}
+
+#rv-splash .rv-brand-lockup,
+#rv-splash .rv-splash-logo:not(.rv-welcome-logo),
+.rv-splash .rv-brand-lockup,
+.rv-splash-logo:not(.rv-welcome-logo) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  max-width: min(18.75rem, 86vw);
+  width: 100%;
+}
+
+#rv-splash .rv-brand-lockup svg,
+.rv-splash .rv-brand-lockup svg {
+  filter: none;
+}
+
+#rv-splash .rv-splash-hint,
+.rv-splash-hint {
+  color: rgba(223, 183, 67, 0.75) !important;
+}
+
+.rv-auth-switch-user-wrap {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 0.35rem;
+}
+
+.rv-auth-switch-user {
+  background: none;
+  border: 0;
+  padding: 0.35rem 0.5rem;
+  color: rgba(223, 183, 67, 0.85) !important;
+  font-family: Cinzel, Georgia, serif;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.rv-auth-switch-user:hover {
+  color: #DFB743 !important;
+}
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  color: #5C4508;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.rv-auth-switch-user:hover {
+  color: #0A192F;
+  opacity: 1;
+}
+
+body.is-session-ready #rv-auth-card.is-session-compact {
+  padding: 0.85rem 1rem !important;
+  background: #FAF8F5 !important;
+  border: 1px solid rgba(197, 155, 39, 0.35) !important;
+}
+
+body.is-session-ready #rv-auth-card.is-session-compact .rv-auth-lead,
+body.is-session-ready #rv-auth-card.is-session-compact .rv-home-kicker,
+body.is-session-ready #rv-auth-card.is-session-compact h3 {
+  display: none !important;
+}
+
+body.is-session-ready #rv-auth-session {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+body.is-session-ready #rv-auth-session .rv-btn-gold {
+  display: none !important;
+}
+
+/* Contraste legible: texto oscuro sobre pergamino (no oro claro sobre crema) */
+body.is-session-ready #rv-auth-session strong,
+body.is-session-ready #rv-auth-session-role,
+#rv-auth-card.is-session-compact #rv-auth-session-role {
+  color: #0A192F !important;
+  font-weight: 700 !important;
+}
+
+body.is-session-ready #rv-auth-session p,
+body.is-session-ready #rv-auth-session-copy,
+#rv-auth-card.is-session-compact #rv-auth-session-copy {
+  color: #334155 !important;
+}
+
+body.is-session-ready #rv-auth-admin-badge,
+#rv-auth-card.is-session-compact .rv-auth-admin-badge {
+  color: #8A6A12 !important;
+  border-color: rgba(197, 155, 39, 0.55) !important;
+  background: rgba(197, 155, 39, 0.12) !important;
+}
+
+/* Modal / panel RevelatiO IA · Dark Luxury */
+#panel-asistente-ia.rv-ia-panel,
+#panel-asistente-ia.rv-ia-modal {
+  background: #0A192F !important;
+  border-left: 1px solid rgba(197, 155, 39, 0.4) !important;
+  color: #FAF8F5 !important;
+  max-width: 42rem !important;
+  width: min(42rem, 100vw) !important;
+  max-height: 85vh !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  box-shadow: -18px 0 48px rgba(0, 0, 0, 0.45) !important;
+  border-radius: 1rem 0 0 1rem !important;
+}
+
+/* Cerrado: oculto. Abierto: modal centrado (nunca incrustado en el home). */
+#panel-asistente-ia:not(.is-open),
+#panel-asistente-ia[hidden],
+#panel-asistente-ia[data-ia-closed="1"]:not(.is-open) {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+#panel-asistente-ia.is-open {
+  display: flex !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  width: min(42rem, calc(100vw - 2rem)) !important;
+  max-width: 42rem !important;
+  max-height: 90vh !important;
+  z-index: 999999 !important;
+  border-radius: 1rem !important;
+  border: 1px solid rgba(197, 155, 39, 0.4) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Backdrop del modal IA (index.html #ai-modal) */
+#ai-modal.rv-ai-modal-backdrop,
+.rv-ai-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999998 !important;
+  background: rgba(6, 13, 26, 0.62) !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: none !important;
+  pointer-events: none !important;
+}
+
+#ai-modal.rv-ai-modal-backdrop.is-open,
+.rv-ai-modal-backdrop.is-open {
+  display: block !important;
+  pointer-events: auto !important;
+}
+
+/* FAB: no en splash; discreto en home; visible en estudio */
+body.rv-splash-blocking #btn-asistente-ia {
+  display: none !important;
+}
+
+body:not(.is-santuario):not(.is-acompanamiento):not(.visor-active) #btn-asistente-ia {
+  opacity: 0.92;
+}
+
+/* Tipografía de lectura · contingencia */
+#texto-biblico .rv-lectura-cuerpo,
+#texto-biblico .rv-verse-surface {
+  color: #0F172A;
+}
+
+#texto-biblico .rv-fallback-badge {
+  display: inline-flex;
+  align-items: center;
+  color: #b45309 !important;
+  background: rgba(254, 243, 199, 0.85) !important;
+  border: 1px solid rgba(197, 155, 39, 0.35);
+}
+#welcome-screen {
+  background-color: #07101E !important;
+}
+
+#welcome-screen.rv-welcome-screen,
+.rv-welcome-screen {
+  background-color: #07101E !important;
+  background-image: none !important;
+  background: #07101E !important;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Logo hero: sin marco, borde, sombra ni recorte angular; fundido radial */
+#welcome-screen .rv-welcome-logo,
+.rv-welcome-logo {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  overflow: visible !important;
+  max-width: min(26.25rem, 92vw); /* ~420px */
+  width: 100%;
+  padding: 0 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+#welcome-screen .rv-welcome-logo img,
+.rv-welcome-logo > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 42%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 80%) !important;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 42%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 80%) !important;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* Wordmark cabecera: sin distorsión */
+header.rv-chrome .rv-lockup-btn img {
+  height: 2rem !important; /* h-8 */
+  width: auto !important;
+  max-height: 2.25rem !important;
+  border-radius: 0.5rem;
+  object-fit: contain !important;
+  object-position: left center;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  border: 1px solid rgba(197, 155, 39, 0.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 640px) {
+  header.rv-chrome .rv-lockup-btn img {
+    height: 2.25rem !important; /* h-9 */
+  }
+}
+
+#rv-splash,
+.rv-splash {
+  background-color: #07101E !important;
+  background: #07101E !important;
+  color: #FAF8F5 !important;
+}
+
+#rv-splash .rv-splash-logo.rv-welcome-logo,
+#rv-splash .rv-welcome-logo {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: min(26.25rem, 92vw);
+  width: 100%;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+#rv-splash .rv-splash-logo.rv-welcome-logo img,
+#rv-splash .rv-welcome-logo > img,
+.rv-splash-logo.rv-welcome-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0 !important;
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  object-fit: contain !important;
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 42%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 80%) !important;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 42%, rgba(0, 0, 0, 0.6) 65%, rgba(0, 0, 0, 0) 80%) !important;
+}
+
+#rv-splash .rv-splash-logo,
+.rv-splash-logo {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+#rv-splash .rv-splash-logo img,
+.rv-splash-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#rv-splash .rv-splash-hint,
+.rv-splash-hint {
+  color: rgba(223, 183, 67, 0.75) !important;
+}
+
+.rv-welcome-door.rv-door {
+  display: flex;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  color: #E8EDF5 !important;
+  background: #0A192F !important;
+  border: 1px solid rgba(197, 155, 39, 0.45) !important;
+}
+
+/* Contraste forzado: umbral noche (no heredar --ink #1E293B) */
+#rv-home.rv-home:has(#welcome-screen),
+#welcome-screen.rv-welcome-screen,
+.rv-welcome-screen {
+  color: #F1F5F9 !important;
+}
+
+#welcome-screen #home-titulo,
+#welcome-screen h1 {
+  color: #FFFFFF !important;
+}
+
+#welcome-screen .rv-welcome-tagline,
+#welcome-screen p.font-serif.italic {
+  color: #DFB743 !important;
+}
+
+#welcome-screen .rv-welcome-door h2,
+#welcome-screen .rv-welcome-door .rv-door-title {
+  color: #FFFFFF !important;
+}
+
+#welcome-screen .rv-welcome-door p,
+#welcome-screen .rv-welcome-door .rv-door-copy {
+  color: #CBD5E1 !important; /* slate-300 legible sobre navy */
+}
+
+#welcome-screen .rv-welcome-door .rv-door-kicker,
+#welcome-screen .rv-welcome-door span.font-mono,
+#welcome-screen .rv-welcome-door > div > span:first-child {
+  color: #DFB743 !important;
+}
+
+#welcome-screen .rv-welcome-door .rv-door-cta,
+#welcome-screen .rv-welcome-door span.font-serif.font-bold,
+#welcome-screen .rv-welcome-door > span {
+  color: #DFB743 !important;
+}
+
+#welcome-screen .rv-welcome-door:hover h2,
+#welcome-screen .rv-welcome-door:hover .rv-door-title {
+  color: #DFB743 !important;
+}
+
+#welcome-screen .rv-auth-switch-user,
+#welcome-screen a.rv-auth-switch-user {
+  color: #DFB743 !important;
+}
+
+#welcome-screen .text-stone-400,
+#welcome-screen header span,
+#welcome-screen > div:first-child > span {
+  color: #94A3B8 !important;
+}
+
+.rv-home-inner--secondary {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  background: #FAF8F5;
+}
+
+/* Cabecera visor · navy brand */
+header.rv-chrome {
+  background: #07101E !important;
+  border-bottom: 1px solid rgba(197, 155, 39, 0.3) !important;
+}
+
+header.rv-chrome .rv-lockup-btn img {
+  height: 2rem !important; /* h-8 */
+  width: auto !important;
+  max-height: 2.25rem !important;
+  border-radius: 0.5rem;
+  object-fit: contain !important;
+  object-position: left center;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  border: 1px solid rgba(197, 155, 39, 0.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 640px) {
+  header.rv-chrome .rv-lockup-btn img {
+    height: 2.25rem !important; /* h-9 */
+  }
+}
+
+/* FAB branding oficial */
+#btn-asistente-ia.rv-fab-brand,
+.rv-fab.rv-fab-brand {
+  background: #0A192F !important;
+  border: 2px solid #C59B27 !important;
+  border-radius: 9999px !important;
+  padding: 0.375rem 1rem 0.375rem 0.375rem !important;
+  gap: 0.625rem !important;
+  right: 1.5rem !important;
+  bottom: 3rem !important; /* bottom-12 */
+  z-index: 40 !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+}
+
+#btn-asistente-ia.rv-fab-brand:hover {
+  background: #13233D !important;
+  transform: scale(1.05);
+}
+
+#btn-asistente-ia .rv-fab-avatar,
+#btn-asistente-ia.rv-fab-brand img {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  border-radius: 9999px !important;
+  object-fit: cover !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+#btn-asistente-ia.rv-fab-brand .rv-ia-name {
+  color: #DFB743 !important;
+  font-family: Cinzel, Georgia, serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+}
+
+#btn-asistente-ia .rv-fab-pulse {
+  display: none !important;
+}
+
+#panel-asistente-ia #btn-cerrar-ia {
+  position: relative;
+  z-index: 5;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(197, 155, 39, 0.35);
+  background: transparent;
+  color: #E8C547 !important;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  pointer-events: auto !important;
+}
+
+#panel-asistente-ia #btn-cerrar-ia:hover {
+  background: rgba(197, 155, 39, 0.15);
+  color: #FFFFFF !important;
+}
+
+#panel-asistente-ia .rv-ia-panel-head,
+#panel-asistente-ia .rv-ia-disclaimer {
+  background: #07111F !important;
+  border-color: rgba(197, 155, 39, 0.28) !important;
+  color: #F0E6C8 !important;
+}
+
+#panel-asistente-ia .rv-ia-scroll,
+#chat-ia-mensajes {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  padding: 1.25rem 1.35rem !important;
+  background: #0A192F !important;
+  color: #FAF8F5 !important;
+}
+
+#panel-asistente-ia .rv-ia-form {
+  flex: 0 0 auto !important;
+  background: #0A192F !important;
+  border-top: 1px solid rgba(197, 155, 39, 0.3) !important;
+  padding: 1rem !important;
+}
+
+#panel-asistente-ia .rv-ia-textarea,
+#panel-asistente-ia textarea[name="mensaje"] {
+  background: #13233D !important;
+  border: 1px solid rgba(197, 155, 39, 0.3) !important;
+  color: #FAF8F5 !important;
+  border-radius: 0.65rem !important;
+  padding: 0.75rem !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 0.9rem !important;
+  resize: vertical !important;
+}
+
+#panel-asistente-ia .rv-ia-textarea::placeholder,
+#panel-asistente-ia textarea[name="mensaje"]::placeholder {
+  color: #A8A29E !important;
+}
+
+#panel-asistente-ia .rv-ia-textarea:focus,
+#panel-asistente-ia textarea[name="mensaje"]:focus {
+  outline: none !important;
+  border-color: #C59B27 !important;
+  box-shadow: 0 0 0 1px #C59B27 !important;
+}
+
+#panel-asistente-ia .rv-ia-btn,
+#panel-asistente-ia button.rv-ia-btn,
+#panel-asistente-ia .rv-btn-gold.rv-ia-btn {
+  background: #C59B27 !important;
+  border-color: #C59B27 !important;
+  color: #0A192F !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  border-radius: 0.65rem !important;
+  padding: 0.85rem 1.25rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25) !important;
+}
+
+#panel-asistente-ia .rv-ia-btn:hover,
+#panel-asistente-ia button.rv-ia-btn:hover {
+  background: #B38A22 !important;
+  border-color: #B38A22 !important;
+  color: #0A192F !important;
+}
+
+#panel-asistente-ia .rv-ia-btn .rv-ia-name,
+#panel-asistente-ia .rv-ia-btn .rv-ia-isotipo {
+  color: #0A192F !important;
+  filter: none !important;
+}
+
+#panel-asistente-ia .rv-ia-chip,
+#panel-asistente-ia .rv-ia-quick-chips .rv-chip {
+  background: #1E3A5F !important;
+  color: #DFB743 !important;
+  border: 1px solid rgba(197, 155, 39, 0.3) !important;
+  border-radius: 999px !important;
+  font-size: 0.72rem !important;
+  padding: 0.3rem 0.65rem !important;
+}
+
+#panel-asistente-ia .rv-ia-chip:hover,
+#panel-asistente-ia .rv-ia-quick-chips .rv-chip:hover {
+  background: rgba(197, 155, 39, 0.2) !important;
+  color: #F0D56A !important;
+}
+
+

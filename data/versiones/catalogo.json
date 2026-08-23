@@ -1,7 +1,7 @@
 {
   "schema": "revelatio.versiones.v1",
   "producto": "Éfata RevelatiO",
-  "activa": ["rv1960", "tla", "dhh", "septuaginta"],
+  "activa": ["rv1960", "kjv", "tla", "dhh", "septuaginta"],
   "versiones": [
     {
       "key": "rv1960",
@@ -12,6 +12,16 @@
       "archivo": "rv1960.json",
       "aviso": "sbu",
       "fuente_remota": "RV1960"
+    },
+    {
+      "key": "kjv",
+      "etiqueta": "KJV",
+      "nombre": "King James Version",
+      "licencia": "public",
+      "titular": "Public domain (1611/1769)",
+      "archivo": "kjv.json",
+      "aviso": null,
+      "fuente_remota": "KJV"
     },
     {
       "key": "tla",

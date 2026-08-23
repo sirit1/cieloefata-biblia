@@ -7,7 +7,7 @@
     "use strict";
 
     const RV = (global.RV = global.RV || {});
-    const VERSION = "oia1";
+    const VERSION = "lentesDecision1";
 
     /** Rutas nombradas → archivos en /views */
     const ROUTES = {
@@ -20,6 +20,8 @@
 
     /** @type {Map<string, HTMLElement>} */
     const slots = new Map();
+    /** @type {Map<string, Promise<HTMLElement>>} */
+    const inflight = new Map();
     let appEl = null;
     let overlaysReady = false;
     let current = null;
@@ -60,13 +62,13 @@
     function applyBodyFor(name) {
         const body = document.body;
         if (name === "estudio") {
-            body.classList.add("is-santuario");
+            body.classList.add("is-santuario", "visor-active");
             body.classList.remove("is-acompanamiento");
         } else if (name === "acompanamiento") {
             body.classList.add("is-acompanamiento");
-            body.classList.remove("is-santuario");
+            body.classList.remove("is-santuario", "visor-active");
         } else {
-            body.classList.remove("is-santuario", "is-acompanamiento");
+            body.classList.remove("is-santuario", "is-acompanamiento", "visor-active");
         }
     }
 
@@ -93,13 +95,36 @@
     async function ensure(name) {
         if (!ROUTES[name]) throw new Error(`[router] Vista desconocida: ${name}`);
         if (slots.has(name)) return slots.get(name);
-        const host = app();
-        if (!host) throw new Error("[router] Falta #rv-app en el shell");
-        const html = await fetchHtml(viewUrl(name));
-        const slot = wrapSlot(name, html);
-        host.appendChild(slot);
-        slots.set(name, slot);
-        return slot;
+        if (inflight.has(name)) return inflight.get(name);
+
+        const pending = (async () => {
+            const host = app();
+            if (!host) throw new Error("[router] Falta #rv-app en el shell");
+            // Reutilizar slot ya presente en el DOM (p. ej. carrera previa)
+            const existing = host.querySelector(`[data-rv-route="${name}"]`);
+            if (existing) {
+                slots.set(name, existing);
+                return existing;
+            }
+            const html = await fetchHtml(viewUrl(name));
+            if (slots.has(name)) return slots.get(name);
+            const again = host.querySelector(`[data-rv-route="${name}"]`);
+            if (again) {
+                slots.set(name, again);
+                return again;
+            }
+            const slot = wrapSlot(name, html);
+            host.appendChild(slot);
+            slots.set(name, slot);
+            return slot;
+        })();
+
+        inflight.set(name, pending);
+        try {
+            return await pending;
+        } finally {
+            inflight.delete(name);
+        }
     }
 
     /**
@@ -127,20 +152,45 @@
         return host;
     }
 
+    function dedupeRouteSlots(name) {
+        const host = app();
+        if (!host) return null;
+        const nodes = [...host.querySelectorAll(`[data-rv-route="${name}"]`)];
+        if (!nodes.length) return slots.get(name) || null;
+        const keep = nodes[0];
+        nodes.slice(1).forEach((el) => {
+            try { el.remove(); } catch { /* ignore */ }
+        });
+        slots.set(name, keep);
+        return keep;
+    }
+
     function show(name) {
+        // Sana duplicados por carrera de arranque (shell + main.js)
+        Object.keys(ROUTES).forEach((routeName) => dedupeRouteSlots(routeName));
         if (!slots.has(name)) {
-            console.warn(`[router] show('${name}') sin ensure — no-op`);
-            return Promise.resolve(null);
+            const found = dedupeRouteSlots(name);
+            if (!found) {
+                console.warn(`[router] show('${name}') sin ensure — no-op`);
+                return Promise.resolve(null);
+            }
         }
         for (const [key, el] of slots) {
             el.hidden = key !== name;
+        }
+        // Cualquier huérfano fuera del Map también se oculta
+        const host = app();
+        if (host) {
+            host.querySelectorAll("[data-rv-route]").forEach((el) => {
+                const route = el.getAttribute("data-rv-route");
+                el.hidden = route !== name;
+            });
         }
         current = name;
         applyBodyFor(name);
         try {
             global.dispatchEvent(new CustomEvent("rv:route", { detail: { name, current } }));
         } catch { /* ignore */ }
-        // Hooks de capa (estudio-app los registra)
         try {
             if (name === "dashboard") RV.navigation?.onDashboardReady?.();
             if (name === "estudio") RV.navigation?.onEstudioReady?.();

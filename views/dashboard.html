@@ -1,38 +1,88 @@
-<div id="rv-home" class="rv-home" role="main" aria-label="Umbral de Éfata RevelatiO">
-        <div class="rv-home-bg" aria-hidden="true"></div>
-        <div class="rv-home-inner">
-            <section class="rv-dual-hero" aria-labelledby="home-titulo">
-                <div class="rv-dual-brand">
-                    <img src="brand/revelatio-lockup-clear.png" alt="REVELATIO by Éfata" width="867" height="889">
-                    <p class="rv-dual-kicker">Éfata RevelatiO · sin fines de lucro</p>
-                    <h1 id="home-titulo" class="rv-dual-title">Éfata RevelatiO<br><em>Dos puertas. Una sola cruz.</em>
-                    </h1>
-                </div>
-                <div class="rv-dual-doors" role="navigation" aria-label="Puertas de entrada">
-                    <a href="#lectura/Romanos/12" class="rv-door" id="entrar-texto" data-ir="estudio-profundo"
-                        role="button" tabindex="0" aria-label="Estudio Profundo de las Escrituras">
-                        <div>
-                            <p class="rv-door-kicker">Puerta I · Exégesis</p>
-                            <h2 class="rv-door-title">Estudio Profundo de las Escrituras</h2>
-                            <p class="rv-door-copy">Motor exegético, cruce de perspectivas, léxico Strong y profundidad
-                                teológica bajo la autoridad de la Palabra.</p>
-                        </div>
-                        <span class="rv-door-cta">Abrir el estudio →</span>
-                    </a>
-                    <a href="#acompanamiento" class="rv-door" id="entrar-acompanamiento" data-ir="acompanamiento"
-                        role="button" tabindex="0" aria-label="Acompañamiento Ministerial">
-                        <div>
-                            <p class="rv-door-kicker">Puerta II · Pastoral</p>
-                            <h2 class="rv-door-title">Acompañamiento Ministerial</h2>
-                            <p class="rv-door-copy">Consejería espiritual, contención y guía pastoral para las crisis
-                                del alma — siempre hacia la cruz de Cristo.</p>
-                        </div>
-                        <span class="rv-door-cta">Abrir el acompañamiento →</span>
-                    </a>
-                </div>
-            </section>
+    <div id="rv-home" class="rv-home" role="main" aria-label="Umbral de Éfata RevelatiO">
+        <section id="welcome-screen" class="rv-welcome-screen min-h-screen w-full flex flex-col items-center justify-between px-4 py-8 bg-[#07101E] text-stone-100">
 
-            <section id="rv-auth-card" class="rv-home-span rv-glass rv-home-card rv-auth"
+          <div class="w-full max-w-4xl flex items-center justify-between pb-4 border-b border-[#C59B27]/20">
+            <div class="flex items-center gap-2">
+              <img src="assets/branding/cielo-efata.jpg" alt="Cielo Éfata"
+                class="w-8 h-8 rounded-full border border-[#C59B27]/40 object-cover"
+                onerror="this.onerror=null;this.src='brand/cielo-efata-full.jpg'">
+              <span class="text-xs font-serif tracking-widest text-[#DFB743] uppercase font-semibold">Cielo Éfata</span>
+            </div>
+            <span class="text-[11px] font-mono text-stone-400">Sin Fines de Lucro · Inerrancia Bíblica</span>
+          </div>
+
+          <div class="w-full max-w-2xl flex flex-col items-center text-center my-auto py-8">
+            <div class="relative w-full max-w-[340px] sm:max-w-[420px] mx-auto my-6 flex items-center justify-center bg-transparent border-0 shadow-none select-none rv-welcome-logo">
+              <!-- Halo de resplandor dorado difuso de fondo -->
+              <div class="absolute inset-0 bg-[#C59B27]/15 blur-3xl rounded-full pointer-events-none scale-75" aria-hidden="true"></div>
+
+              <!-- Imagen con desvanecimiento radial periférico (0% bordes visibles) -->
+              <img
+                src="assets/branding/revelatio-logo-master.jpeg"
+                alt="Éfata RevelatiO"
+                class="relative z-10 w-full h-auto object-contain bg-transparent border-0 shadow-none pointer-events-none"
+                style="
+                  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 42%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 80%);
+                  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 42%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 80%);
+                "
+                onerror="this.onerror=null;this.src='assets/branding/revelatio-logo-full-new.jpeg'"
+              />
+            </div>
+
+            <h1 id="home-titulo" class="text-3xl sm:text-4xl font-serif font-bold text-white tracking-wide">Éfata RevelatiO</h1>
+            <p class="rv-welcome-tagline text-sm font-serif italic text-[#DFB743] mt-2 mb-8">Dos puertas. Una sola cruz.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full" role="navigation" aria-label="Puertas de entrada">
+              <button type="button" id="entrar-texto" data-ir="estudio-profundo"
+                class="rv-door rv-welcome-door cursor-pointer bg-[#0A192F] border border-[#C59B27]/40 hover:border-[#DFB743] rounded-2xl p-5 text-left transition-all hover:scale-[1.02] shadow-xl group"
+                aria-label="Entrar a la Cátedra de Estudio">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="rv-door-kicker text-[10px] font-mono text-[#DFB743] uppercase tracking-widest font-bold">Puerta I</span>
+                  <span class="text-base" aria-hidden="true">🏛️</span>
+                </div>
+                <h2 class="rv-door-title text-base font-serif font-bold text-white group-hover:text-[#DFB743] transition-colors">Cátedra &amp; Estudio Profundo</h2>
+                <p class="rv-door-copy text-xs text-stone-300 mt-1 font-serif">Exégesis, léxico Strong, comentarios clásicos y referencias cruzadas canónicas.</p>
+                <span class="rv-door-cta inline-block text-xs font-serif font-bold text-[#DFB743] mt-3">Abrir la Cátedra &rarr;</span>
+              </button>
+
+              <button type="button" id="entrar-renovacion" data-ir="renovacion-vida"
+                class="rv-door rv-welcome-door cursor-pointer bg-[#0A192F] border border-[#C59B27]/40 hover:border-[#DFB743] rounded-2xl p-5 text-left transition-all hover:scale-[1.02] shadow-xl group"
+                aria-label="Entrar a Renovación y Vida">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="rv-door-kicker text-[10px] font-mono text-[#DFB743] uppercase tracking-widest font-bold">Puerta II</span>
+                  <img src="assets/branding/revelatio-symbol-master.jpeg" class="w-6 h-6 rounded-full object-cover" alt="Símbolo"
+                    onerror="this.onerror=null;this.src='assets/branding/revelatio-symbol.jpg'">
+                </div>
+                <h2 class="rv-door-title text-base font-serif font-bold text-white group-hover:text-[#DFB743] transition-colors">Renovación &amp; Vida</h2>
+                <p class="rv-door-copy text-xs text-stone-300 mt-1 font-serif">Neuroplasticidad bíblica, regulación de ansiedad y hábitos del nuevo hombre.</p>
+                <span class="rv-door-cta inline-block text-xs font-serif font-bold text-[#DFB743] mt-3">Abrir Renovación &rarr;</span>
+              </button>
+            </div>
+
+            <p class="rv-auth-switch-user-wrap mt-6">
+              <button type="button" id="rv-auth-switch-user" class="rv-auth-switch-user" hidden>
+                « Cambiar usuario / Cerrar sesión »
+              </button>
+            </p>
+          </div>
+
+          <footer class="w-full max-w-4xl pt-4 border-t border-[#C59B27]/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-stone-400 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-serif">Un ministerio de Cielo Éfata</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] text-stone-400">Arquitectura tecnológica:</span>
+              <img src="assets/branding/xtrametrik-logo.jpg" alt="XtraMetrik"
+                class="h-5 w-auto rounded object-contain opacity-80 hover:opacity-100 transition-opacity"
+                onerror="this.onerror=null;this.src='brand/xtrametrik.png'">
+            </div>
+          </footer>
+
+        </section>
+
+        <div class="rv-home-inner rv-home-inner--secondary">
+            <!-- BLOQUE 3 · Registro unificado -->
+            <section id="rv-auth-card" class="rv-home-span rv-glass rv-home-card rv-auth rv-home-block rv-home-auth-card"
                 aria-labelledby="home-suscripcion">
                 <p class="rv-home-kicker">Círculo de Estudios Exegéticos</p>
                 <h3 id="home-suscripcion">Registro de entrada</h3>
@@ -56,7 +106,7 @@
                 </div>
 
                 <div id="rv-auth-forms">
-                    <form id="form-registro" class="rv-auth-grid" autocomplete="on" method="post" action="#">
+                    <form id="form-registro" class="rv-auth-grid" autocomplete="on" method="post" action="#" novalidate>
                         <div class="rv-auth-field">
                             <label for="reg-email">Correo Electrónico</label>
                             <input id="reg-email" name="email" type="email" autocomplete="email" required
@@ -78,9 +128,9 @@
                                     <option value="+1">US/CA +1</option>
                                     <option value="+34">ES +34</option>
                                 </select>
-                                <input id="reg-whatsapp" name="whatsapp" type="tel" inputmode="tel"
+                                <input id="reg-whatsapp" name="whatsapp" type="tel" inputmode="numeric"
                                     autocomplete="tel-national" required placeholder="310 786 0864"
-                                    pattern="[0-9\s\-]{7,15}" aria-required="true" aria-describedby="reg-whatsapp-hint">
+                                    aria-required="true" aria-describedby="reg-whatsapp-hint">
                             </div>
                             <p id="reg-whatsapp-hint" class="rv-auth-field-hint">Incluye solo el número local; el código
                                 de país va a la izquierda.</p>
@@ -95,7 +145,7 @@
                             quedan vinculadas a tu correo y WhatsApp en este dispositivo.</p>
                     </form>
 
-                    <form id="form-login" class="rv-auth-grid" hidden autocomplete="on" method="post" action="#">
+                    <form id="form-login" class="rv-auth-grid" hidden autocomplete="on" method="post" action="#" novalidate>
                         <div class="rv-auth-field">
                             <label for="login-email">Correo Electrónico</label>
                             <input id="login-email" name="email" type="email" autocomplete="username" required
@@ -117,9 +167,9 @@
                                     <option value="+1">US/CA +1</option>
                                     <option value="+34">ES +34</option>
                                 </select>
-                                <input id="login-whatsapp" name="whatsapp" type="tel" inputmode="tel"
+                                <input id="login-whatsapp" name="whatsapp" type="tel" inputmode="numeric"
                                     autocomplete="tel-national" required placeholder="310 786 0864"
-                                    pattern="[0-9\s\-]{7,15}" aria-required="true">
+                                    aria-required="true">
                             </div>
                         </div>
                         <div class="rv-auth-actions rv-auth-full">
@@ -135,7 +185,34 @@
                 <p id="estado-suscripcion" class="rv-home-status" role="status"></p>
             </section>
 
-            <section class="rv-home-span rv-glass rv-home-card rv-aporte" aria-labelledby="home-aporte">
+            <!-- BLOQUE 4 · Chips discretos (pie; la IA principal es el FAB) -->
+            <section class="rv-home-span rv-home-chips-foot rv-home-block" aria-labelledby="rv-quick-chips-label">
+                <p class="rv-home-kicker" id="rv-quick-chips-label">Acceso rápido · temas frecuentes</p>
+                <div class="rv-quick-chips rv-quick-chips--home" role="list">
+                    <button type="button" class="rv-chip" role="listitem" data-rv-chip data-mode="vida"
+                        data-prompt="Siento ansiedad alta y cortisol disparado. Ayúdame con diagnóstico del diseño humano y la raíz bíblica para renovar la mente.">
+                        ⚡ Ansiedad
+                    </button>
+                    <button type="button" class="rv-chip" role="listitem" data-rv-chip data-mode="vida"
+                        data-prompt="Enfrento incertidumbre laboral y miedo a perder el trabajo. Guía un Protocolo Vital RevelatiO anclado en la Providencia.">
+                        💼 Laboral
+                    </button>
+                    <button type="button" class="rv-chip" role="listitem" data-rv-chip data-mode="vida"
+                        data-prompt="Necesito ayuda con matrimonio y comunicación: conflicto en el hogar, empatía bíblica y pasos concretos para hoy.">
+                        💍 Matrimonio
+                    </button>
+                    <button type="button" class="rv-chip" role="listitem" data-rv-chip data-mode="vida"
+                        data-prompt="Quiero romper hábitos destructivos mediante metanoia y neuroplasticidad bíblica. Dame un plan de acción de hoy.">
+                        🧠 Hábitos
+                    </button>
+                    <button type="button" class="rv-chip" role="listitem" data-rv-chip data-mode="exegesis"
+                        data-prompt="Exégesis histórico-gramatical de Juan 14:6 con léxico Strong, nexo canónico y articulación doctrinal.">
+                        📖 Juan 14:6
+                    </button>
+                </div>
+            </section>
+
+            <section class="rv-home-span rv-glass rv-home-card rv-aporte rv-home-block" aria-labelledby="home-aporte">
                 <p class="rv-home-kicker">Semilla Ministerial</p>
                 <h3 id="home-aporte">Aporte Voluntario</h3>
                 <p class="rv-aporte-leyenda">Somos una organización sin fines de lucro dedicada a la revelación de las
