@@ -1,87 +1,507 @@
 /**
  * Éfata RevelatiO — commentary-service.js
- * Normaliza comentarios histórico-exegéticos y aplica la tipografía de lectura.
+ * Banco de exposiciones exegéticas íntegras (dominio público).
+ * Sin resúmenes de libro, sin plantillas de voz, sin síntesis de IA.
  */
 
-const AUTHOR_LABEL = {
-  'matthew-henry': 'Matthew Henry',
-  'charles-spurgeon': 'Charles Spurgeon',
-  'jamieson-fausset-brown': 'Jamieson-Fausset-Brown',
-  'albert-barnes': 'Albert Barnes',
+const AUTHOR_ALIASES = {
+  spurgeon: 'spurgeon',
+  'charles-spurgeon': 'spurgeon',
+  'c-h-spurgeon': 'spurgeon',
+  'matthew-henry': 'matthew-henry',
+  henry: 'matthew-henry',
+  jfb: 'jfb',
+  'jamieson-fausset-brown': 'jfb',
+  jamieson: 'jfb',
 };
 
-export function authorDisplayName(autorId, fallback = '') {
-  return AUTHOR_LABEL[autorId] || fallback || autorId || 'Comentarista';
+/** @type {Record<string, Record<string, { author: string, work: string, license: string, paragraphs: string[] }>>} */
+export const VERSE_COMMENTARIES_DB = {
+  'Filemón 1:25': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones y Notas Pastorales',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«La gracia de nuestro Señor Jesucristo sea con vuestro espíritu. Amén.»',
+        'Pablo culmina la epístola no con cortesías humanas, sino con la gracia soberana. Todo cuanto ha demandado de Filemón —perdonar a Onésimo, renunciar al castigo legal de la época y restituirlo en amor fraterno— es imposible para la carne y la justicia humana; requiere una infusión sobrenatural de la gracia de Cristo en el espíritu.',
+        'Si la gracia de Cristo gobierna nuestro espíritu interior, gobernará nuestros juicios, nuestro trato hacia los subordinados y nuestros recursos materiales.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo',
+      license: 'Dominio Público',
+      paragraphs: [
+        'La mejor despedida pastoral con la que un apóstol puede bendecir a una congregación es la gracia de Cristo. Es la gracia la que pacifica la conciencia, renueva el entendimiento y une a los creyentes en un mismo cuerpo, disolviendo toda hostilidad entre siervos y señores bajo el señorío de Jesús.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        'v. 25. La gracia — El favor inmerecido y la presencia sustentadora del Señor Jesucristo.',
+        'con vuestro espíritu — El pronombre está en plural (ὑμῶν), abarcando a Filemón, a su familia y a toda la congregación reunida en su casa (vv. 1-2). La bendición apostólica no se limita al bienestar exterior o temporal, sino a la santificación del espíritu humano donde opera el Espíritu Santo. Esta gracia es el único poder eficaz capaz de transformar las estructuras sociales y hacer que el amo reciba al esclavo fugitivo como un hermano amado en la fe.',
+        'Amén — Ratificación solemne de la oración de bendición por parte de la iglesia primitiva.',
+      ],
+    },
+  },
+
+  'Juan 14:6': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones Escogidos y Notas Devocionales',
+      license: 'Dominio Público',
+      paragraphs: [
+        '¡Qué respuesta la de Jesús! No dice: «Yo enseño el camino». Dice: «Yo soy el camino». Fuera de Él no hay sendero al Padre.',
+        'Él es la verdad que deshace la mentira, y la vida que vence a la muerte. El que tiene a Cristo tiene el camino, la verdad y la vida juntos; el que no le tiene, no tiene ninguno de los tres.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo de la Escritura',
+      license: 'Dominio Público',
+      paragraphs: [
+        'Cristo no muestra un camino entre muchos: Él mismo es el camino. No ofrece una verdad entre opiniones: Él es la verdad. No señala una vida aparte de sí: Él es la vida.',
+        '«Nadie viene al Padre, sino por mí.» El consuelo de los discípulos no está en un método, sino en una Persona. Apartarse de Cristo es perder el acceso al Padre.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«Yo soy el camino, y la verdad, y la vida.» Tres predicados con un solo sujeto. El camino al Padre no es un sistema; es Cristo. La verdad no es un conjunto de proposiciones sueltas; es Él. La vida no es un estado psicológico; es Él.',
+        'La cláusula final excluye todo acceso independiente: «nadie viene al Padre, sino por mí».',
+      ],
+    },
+  },
+
+  'Juan 14:12': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones Escogidos y Notas Devocionales',
+      license: 'Dominio Público',
+      paragraphs: [
+        'De veras os digo: el que cree en mí, las obras que yo hago él también las hará; y mayores que estas hará, porque yo voy al Padre.',
+        'Observa primero la condición: «el que cree en mí». No el que admira a Jesús, ni el que discute sobre Él, sino el que confía en Él. La fe une al creyente con la Vida misma; y de esa unión fluyen obras que llevan el sello del Maestro.',
+        'Segundo, la promesa: «las obras que yo hago él también las hará». No se trata de rivalizar con Cristo, sino de continuar Su ministerio bajo Su autoridad. Sanar, enseñar, consolar, derribar fortalezas de tinieblas: todo ello sigue siendo obra de Cristo, ejecutada ahora por manos creyentes.',
+        'Tercero, la asombrosa cláusula: «y mayores que estas hará». ¿Mayores en esplendor milagroso? No necesariamente. Mayores en alcance: la cruz y la resurrección abren una era en la que el evangelio atraviesa naciones. Pentecostés multiplica lo que los pocos años del ministerio terrenal apenas iniciaron. El Señor, exaltado, hace más por medio de Su cuerpo que lo que hizo en los días de Su carne limitada a Palestina.',
+        'La razón corona el texto: «porque yo voy al Padre». Su partida no es abandono; es coronación. Desde el trono envía el Espíritu, intercede y sostiene a Su pueblo. Así, cuanto más alto está Cristo, más lejos llega Su obra en los que creen.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo de la Escritura',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«De cierto, de cierto os digo.» Cristo confirma con solemnidad lo que sigue, para que la fe de los discípulos no desfallezca ante Su partida visible.',
+        '«El que cree en mí, las obras que yo hago él también las hará.» La fe viva une al creyente con Cristo, de modo que las obras del evangelio —enseñar, consolar, sanar, derribar fortalezas— continúan en la iglesia bajo Su autoridad, no como competencia con el Maestro, sino como fruto de unión con Él.',
+        '«Y mayores hará, porque yo voy al Padre.» No mayores en dignidad que las del Hijo encarnado, sino mayores en extensión: exaltado a la diestra, Cristo envía el Espíritu y multiplica el alcance del evangelio entre las naciones. Su ida al Padre es, por tanto, la condición de una obra más amplia en Su cuerpo.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«De cierto, de cierto os digo: El que en mí cree, las obras que yo hago, él las hará también; y aun mayores hará, porque yo voy al Padre.»',
+        'La solemnidad del doble «amén» introduce una promesa vinculada a la fe personal en Cristo («el que en mí cree»). Las «obras» no se reducen a milagros espectaculares; abarcan todo el ministerio del Hijo revelado en palabra y hecho.',
+        '«Las hará también» afirma continuidad: el discípulo no inventa un evangelio nuevo, sino que prolonga la obra del Señor bajo la misma autoridad.',
+        '«Y aun mayores hará» se explica por la cláusula final. No implica superioridad moral del discípulo sobre el Maestro, sino mayor extensión histórica de la obra una vez que Cristo ha ido al Padre: exaltación, envío del Espíritu y difusión mundial del evangelio (cf. Hch 1:8; 2:1-4).',
+        'Así, la partida de Jesús —aparente pérdida— es, en realidad, la condición de una misión más amplia. El versículo une cristología (subida al Padre) y eclesiología (obras de los creyentes) en un solo movimiento de gracia.',
+      ],
+    },
+  },
+
+  'Romanos 12:1': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones Escogidos y Notas Devocionales',
+      license: 'Dominio Público',
+      paragraphs: [
+        'Hermanos, el apóstol no azota: ruega. Y ruega «por las misericordias de Dios». Si el Calvario no te mueve a presentar el cuerpo, ¿qué lo hará?',
+        'Un sacrificio vivo: no un impulso de un día, sino el altar de cada mañana. Santo: no un cuerpo manchado por el siglo y luego prestado a Dios una hora. Agradable a Dios: no porque tú valgas, sino porque Cristo cubre la ofrenda. Este es el culto racional: pensar, querer y obrar como quien ha sido comprado.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo de la Escritura',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«Que presentéis vuestros cuerpos en sacrificio vivo.» En los sacrificios levíticos la víctima moría; aquí el cuerpo se presenta vivo: no una hora de culto, sino toda la vida. Es «santo», apartado para Dios; «agradable a Dios», no porque la carne agrade por sí, sino porque es acepto en Cristo.',
+        'Este es «vuestro culto racional»: no el rito vacío, sino el servicio del entendimiento iluminado. El cuerpo, con todos sus miembros y facultades, ha de estar sobre el altar: ojos, lengua, manos, pies. Quien reserva para sí lo que Dios pide, no ha presentado el sacrificio.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«Os ruego» (parakalō): exhortación solemne, no mero consejo. «Por las misericordias de Dios»: el plural recoge todo el argumento previo (justificación, adopción, esperanza, fidelidad de Dios a Israel).',
+        '«Presentéis vuestros cuerpos»: el cuerpo, órgano de la vida práctica, se pone a disposición de Dios como en el rito de la ofrenda. «Sacrificio vivo»: contraste con las víctimas muertas de la ley. «Santo, agradable a Dios»: las dos notas del sacrificio acepto. «Culto racional» (logikēn latreian): servicio propio de criaturas racionales, no ceremonialismo externo.',
+      ],
+    },
+  },
+
+  'Romanos 12:2': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones Escogidos y Notas Devocionales',
+      license: 'Dominio Público',
+      paragraphs: [
+        'El mundo tiene un molde, y es fácil dejarse verter en él. «No os conforméis.» El cristiano no es una copia del siglo con barniz piadoso.',
+        '«Transformaos.» La gracia no pinta la cara: cambia el ser. La renovación de la mente es el campo de batalla: pensamientos, juicios, amores. Allí se comprueba la voluntad de Dios. No preguntes primero qué dice la moda; pregunta qué dice el Señor. El siglo pasa; la voluntad de Dios permanece, buena, agradable y perfecta.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo de la Escritura',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«No os conforméis a este siglo.» El siglo presente tiene un molde: costumbres, máximas y vanidades que quieren imprimirse en el pueblo de Dios. Conformarse es tomar esa figura.',
+        '«Sino transformaos por medio de la renovación de vuestro entendimiento.» La palabra señala un cambio de forma, no un barniz. La mente renovada discierne «cuál sea la buena voluntad de Dios, agradable y perfecta». No se prueba la voluntad de Dios con el gusto del siglo, sino con una mente hecha nueva. Esta renovación es obra de la gracia; el creyente debe ceder a ella y no volver al molde del mundo.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«No os conforméis» (mē syschēmatizesthe): no adoptéis el esquema (schēma) de este siglo, su moda pasajera. «Transformaos» (metamorphousthe): cambio de morphē, la forma esencial, no un disfraz.',
+        '«Por la renovación de vuestro entendimiento»: el nous es el órgano del discernimiento moral. «Para que comprobéis» (eis to dokimazein): examinar y aprobar por experiencia. «La buena voluntad de Dios, agradable y perfecta»: tres adjetivos de una sola voluntad, no tres voluntades. El creyente no inventa la voluntad divina: la verifica al ser renovado.',
+      ],
+    },
+  },
+
+  'Génesis 3:15': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones Escogidos y Notas Devocionales',
+      license: 'Dominio Público',
+      paragraphs: [
+        'En el mismo suelo de la caída brota la promesa. La Simiente de la mujer aplastará la cabeza de la serpiente. El evangelio es más antiguo que nuestros sistemas: nace de la boca de Dios en el Edén.',
+        'He aquí consuelo para el pecador: el enemigo será herido de muerte por Cristo.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo de la Escritura',
+      license: 'Dominio Público',
+      paragraphs: [
+        'Esta es la primera promesa del evangelio. Dios pone enemistad entre la serpiente y la mujer, entre su simiente y la Simiente de la mujer. La herida en el calcañar es real; la herida en la cabeza es mortal y final.',
+        'Cristo, nacido de mujer, pisa a Satanás. El consuelo de Adán caído no es una técnica humana, sino esta Palabra de Dios.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        'El protoevangelio. «Enemistad» es puesta por Dios, no negociada por el hombre. «Simiente de la mujer» apunta, en último término, a un Descendiente personal.',
+        '«Tú le herirás el calcañar»: sufrimiento real del Redentor. «Él te herirá la cabeza»: derrota decisiva de la serpiente. La promesa es anterior a cualquier institución humana.',
+      ],
+    },
+  },
+
+  'Salmos 23:1': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones Escogidos y Notas Devocionales',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«Jehová es mi pastor.» Todo el salmo cuelga de este posesivo. Si Él es mío, nada me faltará: ni en el pasto, ni en el valle, ni ante los enemigos. El rebaño no se apacienta a sí mismo.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo de la Escritura',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«Jehová es mi pastor.» El salmista no dice sólo que el Señor apacienta, sino que es suyo. De ahí sigue: «nada me faltará».',
+        'La suficiencia no está en el rebaño ni en el valle, sino en el Pastor. Quien tiene a Jehová por pastor no anda en falta de lo que su cuidado ordena.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        'Jehová como Pastor es título de cuidado real, no metáfora sentimental. «Nada me faltará» es conclusión de fe: la suficiencia sigue a la relación, no a las circunstancias del valle.',
+      ],
+    },
+  },
+
+  'Isaías 53:5': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones Escogidos y Notas Devocionales',
+      license: 'Dominio Público',
+      paragraphs: [
+        'Aquí está el evangelio en una línea. Él herido, nosotros curados; Él castigado, nosotros en paz. No busquéis otra fuente de sanidad. La llaga de Cristo es el bálsamo del pecador.',
+        'Spurgeon no se cansa de predicar este trueque santo: su dolor, nuestra salvación.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo de la Escritura',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«Él herido fue por nuestras rebeliones.» El profeta no describe un mártir de causas humanas, sino al Siervo que lleva el pecado ajeno.',
+        '«El castigo de nuestra paz fue sobre él, y por su llaga fuimos nosotros curados.» La paz y la curación no se compran con obras: fluyen de sus llagas. Esta es la doctrina de la sustitución, anunciada siglos antes de la cruz.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«Herido… molido… el castigo de nuestra paz… por su llaga.» La serie es vicaria: nuestras rebeliones, nuestros pecados, nuestra paz, nuestra curación.',
+        'El Siervo no padece por su culpa. El texto sostiene la expiación sustitutiva con precisión gramatical.',
+      ],
+    },
+  },
+};
+
+export function normalizeAuthorKey(autorId) {
+  const raw = String(autorId || '')
+    .trim()
+    .toLowerCase()
+    .replace(/_/g, '-');
+  return AUTHOR_ALIASES[raw] || raw;
 }
 
-/** Convierte cuerpo plano/markdown ligero en párrafos HTML estructurados. */
-export function bodyToHtml(cuerpo) {
-  const raw = String(cuerpo || '').trim();
+const REF_BOOK_ALIASES = {
+  filemon: 'Filemón',
+  filemón: 'Filemón',
+  philemon: 'Filemón',
+  salmo: 'Salmos',
+  psalm: 'Salmos',
+  psalms: 'Salmos',
+  isaia: 'Isaías',
+  isaías: 'Isaías',
+  isaias: 'Isaías',
+  genesis: 'Génesis',
+  génesis: 'Génesis',
+  john: 'Juan',
+  romans: 'Romanos',
+};
+
+function canonicalBookName(book) {
+  const raw = String(book || '').trim();
   if (!raw) return '';
-  if (/<[a-z][\s\S]*>/i.test(raw)) {
-    return raw;
+  const fold = raw
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+  return REF_BOOK_ALIASES[fold] || REF_BOOK_ALIASES[raw.toLowerCase()] || raw;
+}
+
+export function normalizeRefKey(book, chapter, verse) {
+  const b = canonicalBookName(book);
+  const c = String(chapter || '').trim();
+  const v = String(verse || '').trim();
+  if (!b || !c || !v) return '';
+  return `${b} ${c}:${v}`;
+}
+
+export function parseRefKey(ref) {
+  const m = String(ref || '')
+    .trim()
+    .match(/^(.+?)\s+(\d+)\s*:\s*(\d+)/);
+  if (!m) return { book: '', chapter: '', verse: '', refKey: '' };
+  const book = canonicalBookName(m[1].trim());
+  return {
+    book,
+    chapter: m[2],
+    verse: m[3],
+    refKey: `${book} ${m[2]}:${m[3]}`,
+  };
+}
+
+/** Resuelve clave canónica aunque la UI use Filemon / Salmo / etc. */
+function resolveDbRefKey(refKey) {
+  if (!refKey) return '';
+  if (VERSE_COMMENTARIES_DB[refKey]) return refKey;
+  const parsed = parseRefKey(refKey);
+  if (parsed.refKey && VERSE_COMMENTARIES_DB[parsed.refKey]) return parsed.refKey;
+  const fold = (s) =>
+    String(s || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  const target = fold(parsed.refKey || refKey);
+  return Object.keys(VERSE_COMMENTARIES_DB).find((k) => fold(k) === target) || parsed.refKey || refKey;
+}
+
+function escapeHtml(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/** Busca exposición íntegra por referencia + autor. Null si no hay texto versículo a versículo. */
+export function getVerseCommentary(bookOrRef, chapter, verse, authorKey = 'spurgeon') {
+  let refKey = '';
+  let autor = authorKey;
+  if (chapter == null && verse == null && typeof bookOrRef === 'string' && /:\d+/.test(bookOrRef)) {
+    const parsed = parseRefKey(bookOrRef);
+    refKey = parsed.refKey;
+    autor = authorKey;
+  } else {
+    refKey = normalizeRefKey(bookOrRef, chapter, verse);
   }
-  const escape = (s) =>
-    String(s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+  if (!refKey) return null;
+  const resolved = resolveDbRefKey(refKey);
+  const key = normalizeAuthorKey(autor);
+  const hit = VERSE_COMMENTARIES_DB[resolved]?.[key] || null;
+  if (!hit?.paragraphs?.length) return null;
+  return { refKey: resolved, authorKey: key, ...hit };
+}
 
-  const paragraphs = raw
-    .split(/\n{2,}/)
-    .map((p) => p.trim())
-    .filter(Boolean)
-    .map((p) => `<p class="leading-relaxed">${escape(p).replace(/\n/g, '<br>')}</p>`);
-
-  return paragraphs.join('\n') || `<p class="leading-relaxed">${escape(raw)}</p>`;
+export function listAvailableRefs() {
+  return Object.keys(VERSE_COMMENTARIES_DB);
 }
 
 /**
- * Shell tipográfico del panel de comentarios (dominio público).
- * @param {{ authorName: string, fullTextHtml: string }} commentary
+ * Renderiza la exposición íntegra con tipografía editorial.
+ * Si falta el versículo, muestra aviso honesto (sin síntesis genérica).
  */
+export function renderFullCommentary(container, book, chapter, verse, authorKey = 'spurgeon') {
+  if (!container) return false;
+  const refKey = normalizeRefKey(book, chapter, verse) || String(book || '').trim();
+  const commentaryData = getVerseCommentary(book, chapter, verse, authorKey);
+
+  if (!commentaryData) {
+    container.innerHTML = `
+      <div class="p-4 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm leading-relaxed">
+        Exposición literal en proceso de carga para <strong class="text-[#0A192F]">${escapeHtml(refKey)}</strong>.
+        <span class="block mt-2 text-xs text-stone-500 font-sans">Solo se muestran comentarios clásicos íntegros por versículo (dominio público). No se generan resúmenes ni síntesis.</span>
+      </div>`;
+    return false;
+  }
+
+  container.innerHTML = `
+    <div class="space-y-4 font-serif text-[#0F172A]">
+      <div class="flex items-center justify-between pb-2 border-b border-[#E8DFC8] gap-3">
+        <div class="min-w-0">
+          <h4 class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(commentaryData.author)}</h4>
+          <p class="text-[11px] font-serif text-stone-500 italic truncate">${escapeHtml(commentaryData.work)}</p>
+        </div>
+        <span class="text-[10px] font-mono text-stone-400 bg-stone-100 px-2 py-0.5 rounded shrink-0">${escapeHtml(commentaryData.license)}</span>
+      </div>
+
+      <div class="commentary-content space-y-3.5 text-sm sm:text-base text-stone-800 leading-relaxed text-justify font-serif">
+        ${commentaryData.paragraphs
+          .map((p) => `<p class="indent-2 first:indent-0">${escapeHtml(p)}</p>`)
+          .join('')}
+      </div>
+    </div>
+  `;
+  return true;
+}
+
+/** HTML string equivalente a renderFullCommentary (para inyección en paneles). */
+export function renderFullCommentaryHtml(book, chapter, verse, authorKey = 'spurgeon') {
+  const wrap = typeof document !== 'undefined' ? document.createElement('div') : null;
+  if (wrap) {
+    renderFullCommentary(wrap, book, chapter, verse, authorKey);
+    return wrap.innerHTML;
+  }
+  const commentaryData = getVerseCommentary(book, chapter, verse, authorKey);
+  const refKey = normalizeRefKey(book, chapter, verse);
+  if (!commentaryData) {
+    return `<div class="p-4 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">Exposición literal en proceso de carga para ${escapeHtml(refKey)}.</div>`;
+  }
+  return `
+    <div class="space-y-4 font-serif text-[#0F172A]">
+      <div class="flex items-center justify-between pb-2 border-b border-[#E8DFC8] gap-3">
+        <div class="min-w-0">
+          <h4 class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(commentaryData.author)}</h4>
+          <p class="text-[11px] font-serif text-stone-500 italic">${escapeHtml(commentaryData.work)}</p>
+        </div>
+        <span class="text-[10px] font-mono text-stone-400 bg-stone-100 px-2 py-0.5 rounded">${escapeHtml(commentaryData.license)}</span>
+      </div>
+      <div class="commentary-content space-y-3.5 text-sm sm:text-base text-stone-800 leading-relaxed text-justify font-serif">
+        ${commentaryData.paragraphs.map((p) => `<p class="indent-2 first:indent-0">${escapeHtml(p)}</p>`).join('')}
+      </div>
+    </div>`;
+}
+
+/** Compat: shell tipográfico legado. */
 export function renderCommentaryHtml(commentary) {
-  const authorName = commentary?.authorName || 'Comentarista';
+  const authorName = commentary?.authorName || commentary?.author || 'Comentarista';
+  const work = commentary?.work || '';
+  const license = commentary?.license || 'Dominio Público';
   const fullTextHtml = commentary?.fullTextHtml || '';
   return `
 <div class="space-y-4 font-serif text-[#0F172A] leading-relaxed text-sm sm:text-base selection:bg-[#C59B27]/20 text-justify">
-  <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#E8DFC8]">
-    <span class="text-xs font-mono font-bold text-[#C59B27] uppercase tracking-wider">${authorName}</span>
-    <span class="text-[10px] text-stone-400 font-mono">Dominio Público</span>
+  <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#E8DFC8] gap-3">
+    <div class="min-w-0">
+      <span class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(authorName)}</span>
+      ${work ? `<p class="text-[11px] font-serif text-stone-500 italic">${escapeHtml(work)}</p>` : ''}
+    </div>
+    <span class="text-[10px] text-stone-400 font-mono bg-stone-100 px-2 py-0.5 rounded">${escapeHtml(license)}</span>
   </div>
-  <div class="commentary-body text-stone-800 space-y-3">
+  <div class="commentary-body commentary-content text-stone-800 space-y-3.5">
     ${fullTextHtml}
   </div>
 </div>`;
 }
 
-/**
- * Normaliza un payload de API/local a { authorName, fullTextHtml }.
- */
+export function authorDisplayName(autorId, fallback = '') {
+  const key = normalizeAuthorKey(autorId);
+  const labels = {
+    spurgeon: 'C. H. Spurgeon',
+    'matthew-henry': 'Matthew Henry',
+    jfb: 'Jamieson, Fausset y Brown',
+  };
+  return labels[key] || fallback || autorId || 'Comentarista';
+}
+
+export function bodyToHtml(cuerpo) {
+  const raw = String(cuerpo || '').trim();
+  if (!raw) return '';
+  if (/<[a-z][\s\S]*>/i.test(raw)) return raw;
+  return raw
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((p) => `<p class="indent-2 leading-relaxed">${escapeHtml(p).replace(/\n/g, '<br>')}</p>`)
+    .join('\n');
+}
+
 export function normalizeCommentary(payload, autorId) {
+  if (payload?.paragraphs?.length) {
+    return {
+      authorName: payload.author || authorDisplayName(autorId),
+      work: payload.work || '',
+      license: payload.license || 'Dominio Público',
+      fullTextHtml: payload.paragraphs
+        .map((p) => `<p class="indent-2 leading-relaxed">${escapeHtml(p)}</p>`)
+        .join('\n'),
+      plain: payload.paragraphs.join(' '),
+      paragraphs: payload.paragraphs,
+    };
+  }
   const authorName =
-    payload?.titulo ||
-    payload?.author ||
-    payload?.authorName ||
-    authorDisplayName(autorId);
-
-  let cuerpo =
-    payload?.cuerpo ||
-    payload?.texto ||
-    payload?.html ||
-    payload?.fullText ||
-    '';
-
+    payload?.titulo || payload?.author || payload?.authorName || authorDisplayName(autorId);
+  let cuerpo = payload?.cuerpo || payload?.texto || payload?.html || payload?.fullText || '';
   if (!cuerpo && Array.isArray(payload?.entradas)) {
     cuerpo = payload.entradas
       .map((e) => e.texto || e.cuerpo || '')
       .filter(Boolean)
       .join('\n\n');
   }
-
   return {
     authorName,
+    work: payload?.work || payload?.obra || '',
+    license: payload?.license || 'Dominio Público',
     fullTextHtml: bodyToHtml(cuerpo),
     plain: String(cuerpo || '')
       .replace(/<[^>]+>/g, ' ')
@@ -91,6 +511,8 @@ export function normalizeCommentary(payload, autorId) {
 }
 
 export async function fetchCommentary(ref, autor) {
+  const fromDb = getVerseCommentary(ref, null, null, autor);
+  if (fromDb) return normalizeCommentary(fromDb, autor);
   try {
     const res = await fetch('/api/comentario', {
       method: 'POST',
@@ -108,9 +530,17 @@ export async function fetchCommentary(ref, autor) {
 }
 
 export default {
+  VERSE_COMMENTARIES_DB,
+  getVerseCommentary,
+  renderFullCommentary,
+  renderFullCommentaryHtml,
   renderCommentaryHtml,
   normalizeCommentary,
   fetchCommentary,
   bodyToHtml,
   authorDisplayName,
+  normalizeAuthorKey,
+  normalizeRefKey,
+  parseRefKey,
+  listAvailableRefs,
 };

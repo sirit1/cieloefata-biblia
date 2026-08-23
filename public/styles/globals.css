@@ -486,7 +486,7 @@ body.is-verse-study #texto-biblico .rv-verse-surface:not(.is-verse-on) {
   color: #0F172A !important;
 }
 
-/* —— 3. Ficha metadatos · pergamino refinado —— */
+/* —— 3. Ficha metadatos · pergamino refinado (jerarquía & contraste) —— */
 #contexto-historico-header,
 .rv-contexto-historico,
 .rv-meta-scroll,
@@ -494,33 +494,58 @@ body.is-santuario #contexto-historico-header,
 body.is-santuario .rv-contexto-historico,
 body.is-santuario #contexto-historico-header:not([hidden]) {
   margin: 0 0 1.5rem !important;
-  padding: 1rem !important;
-  background: #F4EFE6 !important;
-  border: 1px solid #E2D7C3 !important;
-  border-radius: 0.5rem !important;
+  padding: 1rem 1.1rem 1.15rem !important;
+  background: #FAF6EE !important;
+  border: 1px solid #E8DFC8 !important;
+  border-radius: 0.75rem !important;
   box-shadow: 0 1px 3px rgba(10, 25, 47, 0.06) !important;
   position: relative !important;
   top: auto !important;
   z-index: 1 !important;
 }
 
+@media (min-width: 640px) {
+  #contexto-historico-header,
+  .rv-contexto-historico,
+  body.is-santuario #contexto-historico-header,
+  body.is-santuario .rv-contexto-historico {
+    padding: 1.25rem 1.35rem 1.35rem !important;
+  }
+}
+
 .rv-contexto-meta {
   display: grid !important;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 1rem !important;
-  margin: 0 0 0.5rem !important;
-  font-family: Cinzel, "Playfair Display", Georgia, serif !important;
-  font-size: 0.75rem !important;
+  grid-template-columns: 1fr !important;
+  gap: 0.75rem !important;
+  margin: 0 !important;
+  padding: 0 0 0.9rem !important;
+  border-bottom: 1px solid #E8DFC8 !important;
+  font-size: inherit !important;
+}
+
+@media (min-width: 640px) {
+  .rv-contexto-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.85rem 1.25rem !important;
+    padding-bottom: 1rem !important;
+  }
 }
 
 .rv-contexto-label {
   display: block !important;
-  color: #5C4508 !important;
+  color: #855D10 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.12em !important;
   font-size: 10px !important;
-  margin-bottom: 0.2rem !important;
+  margin-bottom: 0.15rem !important;
+}
+
+@media (min-width: 640px) {
+  .rv-contexto-label {
+    font-size: 11px !important;
+  }
 }
 
 .rv-contexto-value,
@@ -529,23 +554,50 @@ body.is-santuario #contexto-historico-header:not([hidden]) {
 #ctx-destinatarios,
 body.is-santuario .rv-contexto-value {
   color: #0A192F !important;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
   font-weight: 700 !important;
-  font-size: 0.8rem !important;
+  font-size: 0.8125rem !important;
   letter-spacing: 0.01em !important;
+  line-height: 1.35 !important;
+}
+
+@media (min-width: 640px) {
+  .rv-contexto-value,
+  #ctx-autor,
+  #ctx-fecha,
+  #ctx-destinatarios,
+  body.is-santuario .rv-contexto-value {
+    font-size: 0.9375rem !important;
+  }
+}
+
+.rv-contexto-resumen-wrap {
+  padding-top: 0.85rem !important;
 }
 
 .rv-contexto-resumen,
 #ctx-resumen,
 body.is-santuario .rv-contexto-resumen {
-  margin: 0.5rem 0 0 !important;
-  padding-top: 0.5rem !important;
-  border-top: 1px solid #E8DFC8 !important;
-  font-size: 0.75rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-top: 0 !important;
+  font-size: 0.9375rem !important;
   font-style: italic !important;
-  color: #334155 !important;
+  font-weight: 500 !important;
+  color: #1C1917 !important;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
-  line-height: 1.55 !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0.02em !important;
   max-width: none !important;
+}
+
+@media (min-width: 640px) {
+  .rv-contexto-resumen,
+  #ctx-resumen,
+  body.is-santuario .rv-contexto-resumen {
+    font-size: 1.0625rem !important;
+    line-height: 1.7 !important;
+  }
 }
 
 #rv-ficha-academica,
@@ -847,7 +899,7 @@ body.is-santuario .rv-contexto-label,
 body.is-santuario .rv-ficha-kicker,
 .rv-ficha-grid dt,
 body.is-santuario .rv-ficha-grid dt {
-  color: var(--bronze-strong) !important;
+  color: #855D10 !important;
 }
 
 .rv-contexto-value,
@@ -855,13 +907,13 @@ body.is-santuario .rv-ficha-grid dt {
 #ctx-fecha,
 #ctx-destinatarios,
 body.is-santuario .rv-contexto-value {
-  color: var(--ink-on-parchment) !important;
+  color: #0A192F !important;
 }
 
 .rv-contexto-resumen,
 #ctx-resumen,
 body.is-santuario .rv-contexto-resumen {
-  color: var(--muted-on-parchment) !important;
+  color: #1C1917 !important;
 }
 
 .rv-ficha-title,

@@ -14,17 +14,17 @@
     {
       id: "matthew-henry",
       label: "Matthew Henry",
-      subtitle: "Comentario Exegético-Devocional Completo",
+      subtitle: "Exposición íntegra · Dominio Público",
     },
     {
       id: "charles-spurgeon",
-      label: "Charles Spurgeon",
-      subtitle: "El Tesoro de David / Sermones Expositivos",
+      label: "C. H. Spurgeon",
+      subtitle: "Exposición íntegra · Dominio Público",
     },
     {
       id: "jamieson-fausset-brown",
       label: "Jamieson-Fausset-Brown",
-      subtitle: "Comentario Crítico y Explicativo",
+      subtitle: "Exposición íntegra · Dominio Público",
     },
   ];
 
@@ -568,82 +568,153 @@
     return Array.isArray(groups) && groups.some((g) => Array.isArray(g.refs) && g.refs.length > 0);
   }
 
-  /* —— Comentarios —— */
+  /* —— Comentarios (solo exposiciones íntegras por versículo) —— */
   function commentatorLabel(id) {
     return COMMENTATORS.find((c) => c.id === id)?.label || global.RV_DATA?.AUTOR_LABEL?.[id] || id;
   }
 
-  async function fetchApiComment(ref, autor) {
+  function commentaryService() {
+    return global.RV?.CommentaryService || null;
+  }
+
+  /** Detecta resúmenes de libro / plantillas / síntesis (nunca mostrarlos). */
+  function isGenericCommentaryText(text) {
+    const t = String(text || "").trim();
+    if (!t) return true;
+    return /predica\s+\S+\s+para llevar al pecador|Henry lee\s+\S+\s+como|sitúan\s+\S+\s+en su marco histórico-gramatical|Este libro se medita|El libro no es adorno doctrinal|La doctrina de este pasaje no es ornamento|componerVoz|s[íi]ntesis de IA|nota general del comentarista|este panel no admite|expone .+ a la luz de la Escritura, para que el lector crea/i.test(
+      t
+    );
+  }
+
+  function renderPendingExposition(refKey) {
+    return `
+      <div class="p-4 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm leading-relaxed">
+        Exposición literal en proceso de carga para <strong class="text-[#0A192F]">${escapeHtml(refKey || "este pasaje")}</strong>.
+        <span class="block mt-2 text-xs text-stone-500 font-sans">Solo se muestran comentarios clásicos íntegros por versículo (dominio público). No se generan resúmenes ni síntesis.</span>
+      </div>`;
+  }
+
+  /** Tipografía editorial: autor + obra + párrafos íntegros. */
+  function renderFullCommentaryMarkup(data, refKey) {
+    if (!data?.paragraphs?.length) return renderPendingExposition(refKey);
+    return `
+    <div class="space-y-4 font-serif text-[#0F172A]">
+      <div class="flex items-center justify-between pb-2 border-b border-[#E8DFC8] gap-3">
+        <div class="min-w-0">
+          <h4 class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(data.author)}</h4>
+          <p class="text-[11px] font-serif text-stone-500 italic truncate">${escapeHtml(data.work || "")}</p>
+        </div>
+        <span class="text-[10px] font-mono text-stone-400 bg-stone-100 px-2 py-0.5 rounded shrink-0">${escapeHtml(data.license || "Dominio Público")}</span>
+      </div>
+      <div class="commentary-content space-y-3.5 text-sm sm:text-base text-stone-800 leading-relaxed text-justify font-serif">
+        ${data.paragraphs
+          .map((p) => `<p class="indent-2 first:indent-0">${escapeHtml(p)}</p>`)
+          .join("")}
+      </div>
+    </div>`;
+  }
+
+  function getDbExposition(ref, autor) {
+    const svc = commentaryService();
+    if (svc?.getVerseCommentary) {
+      return svc.getVerseCommentary(ref, null, null, autor);
+    }
+    return null;
+  }
+
+  async function fetchApiVerseComment(ref, autor) {
     try {
       const res = await fetch("/api/comentario", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ referencia: ref, autor, author: autor, ref }),
+        body: JSON.stringify({ referencia: ref, autor, author: autor, ref, verseOnly: true }),
       });
       if (!res.ok) return null;
       const json = await res.json().catch(() => null);
       const data = json?.data || json;
       if (!data) return null;
-      let cuerpo = String(data.cuerpo || data.texto || data.html || "").trim();
+      if (Array.isArray(data.paragraphs) && data.paragraphs.length) {
+        return {
+          author: data.author || data.titulo || commentatorLabel(autor),
+          work: data.work || data.obra || "",
+          license: data.license || "Dominio Público",
+          paragraphs: data.paragraphs.map((p) => String(p).trim()).filter(Boolean),
+        };
+      }
+      let cuerpo = String(data.cuerpo || data.texto || "").trim();
       if (!cuerpo && Array.isArray(data.entradas)) {
         cuerpo = data.entradas
           .map((e) => e.texto || e.cuerpo || "")
           .filter(Boolean)
           .join("\n\n");
       }
-      if (!cuerpo) return null;
+      if (!cuerpo || isGenericCommentaryText(cuerpo) || data.vacio || data.nivel === "libro") {
+        return null;
+      }
+      const paragraphs = cuerpo
+        .split(/\n{2,}/)
+        .map((p) => p.trim())
+        .filter(Boolean);
+      if (!paragraphs.length) return null;
       return {
-        titulo: data.titulo || commentatorLabel(autor),
-        cuerpo,
-        plain: plainText(cuerpo),
+        author: data.titulo || data.author || commentatorLabel(autor),
+        work: data.work || data.obra || "",
+        license: data.license || "Dominio Público",
+        paragraphs,
       };
     } catch {
       return null;
     }
   }
 
-  async function loadLocalComment(ref, autor) {
-    let cuerpo = "";
-    let titulo = commentatorLabel(autor);
+  async function loadLocalVerseComment(ref, autor) {
     try {
-      if (global.revelatioLectura?.fetchComentario) {
-        const data = await global.revelatioLectura.fetchComentario(ref, autor);
-        cuerpo = data?.cuerpo || data?.texto || data?.html || "";
-        if (data?.titulo) titulo = data.titulo;
-        if (Array.isArray(data?.entradas) && data.entradas.length) {
-          cuerpo =
-            data.entradas
-              .map((e) => e.texto || e.cuerpo || "")
-              .filter(Boolean)
-              .join("\n\n") || cuerpo;
-        }
+      if (!global.revelatioLectura?.fetchComentario) return null;
+      const data = await global.revelatioLectura.fetchComentario(ref, autor);
+      if (!data || data.vacio || data.nivel === "libro" || data.generico) return null;
+      if (Array.isArray(data.paragraphs) && data.paragraphs.length) {
+        const paragraphs = data.paragraphs.map((p) => String(p).trim()).filter(Boolean);
+        if (!paragraphs.length || isGenericCommentaryText(paragraphs.join(" "))) return null;
+        return {
+          author: data.author || data.titulo || commentatorLabel(autor),
+          work: data.work || data.obra || "",
+          license: data.license || "Dominio Público",
+          paragraphs,
+        };
       }
-      if (plainText(cuerpo).length < MIN_FULL_COMMENT && global.revelatioLectura?.comentarioInmediato) {
-        const data = global.revelatioLectura.comentarioInmediato(ref, autor);
-        const alt = data?.cuerpo || "";
-        if (plainText(alt).length > plainText(cuerpo).length) {
-          cuerpo = alt;
-          if (data?.titulo) titulo = data.titulo;
-        }
+      let cuerpo = data?.cuerpo || data?.texto || "";
+      if (Array.isArray(data?.entradas) && data.entradas.length) {
+        // Solo entradas de versículo concreto (con número), nunca "capítulo"/libro
+        const verseEntries = data.entradas.filter(
+          (e) => e?.n && /^\d+$/.test(String(e.n)) && e.texto && !isGenericCommentaryText(e.texto)
+        );
+        if (!verseEntries.length) return null;
+        cuerpo = verseEntries.map((e) => e.texto).join("\n\n");
       }
+      if (!cuerpo || isGenericCommentaryText(cuerpo)) return null;
+      const paragraphs = String(cuerpo)
+        .split(/\n{2,}/)
+        .map((p) => p.trim())
+        .filter(Boolean);
+      if (!paragraphs.length) return null;
+      return {
+        author: data.titulo || data.author || commentatorLabel(autor),
+        work: data.work || data.obra || "",
+        license: "Dominio Público",
+        paragraphs,
+      };
     } catch {
-      /* ignore */
+      return null;
     }
-    return { titulo, cuerpo, plain: plainText(cuerpo) };
   }
 
-  function commentToHtml(cuerpo) {
-    if (/<[a-z][\s\S]*>/i.test(cuerpo)) {
-      return String(cuerpo);
-    }
-    return mdToHtml(cuerpo);
-  }
-
-  /** Tipografía natural del panel de comentarios (dominio público). */
+  /** Compat shell (legado). Preferir renderFullCommentaryMarkup. */
   function renderCommentaryShell(commentary) {
+    if (commentary?.paragraphs?.length) {
+      return renderFullCommentaryMarkup(commentary, commentary.refKey || "");
+    }
     const authorName = commentary?.authorName || commentary?.label || "Comentarista";
     let fullTextHtml = commentary?.fullTextHtml || commentary?.html || "";
-    // Extraer prosa interna si viene envuelta en wrappers legacy
     fullTextHtml = String(fullTextHtml)
       .replace(/^<div class="rv-sp-comment-prose">/i, "")
       .replace(/<\/div>$/i, "");
@@ -652,76 +723,104 @@
         .split(/\n{2,}/)
         .map((p) => p.trim())
         .filter(Boolean)
-        .map((p) => `<p class="leading-relaxed">${p}</p>`)
+        .map((p) => `<p class="indent-2 leading-relaxed">${p}</p>`)
         .join("\n");
+    }
+    if (!fullTextHtml || isGenericCommentaryText(plainText(fullTextHtml))) {
+      return renderPendingExposition(commentary?.refKey || "");
     }
     return `
 <div class="space-y-4 font-serif text-[#0F172A] leading-relaxed text-sm sm:text-base selection:bg-[#C59B27]/20 text-justify">
-  <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#E8DFC8]">
-    <span class="text-xs font-mono font-bold text-[#C59B27] uppercase tracking-wider">${escapeHtml(authorName)}</span>
-    <span class="text-[10px] text-stone-400 font-mono">Dominio Público</span>
+  <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#E8DFC8] gap-3">
+    <div class="min-w-0">
+      <span class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(authorName)}</span>
+      ${commentary?.work ? `<p class="text-[11px] font-serif text-stone-500 italic">${escapeHtml(commentary.work)}</p>` : ""}
+    </div>
+    <span class="text-[10px] text-stone-400 font-mono bg-stone-100 px-2 py-0.5 rounded">Dominio Público</span>
   </div>
-  <div class="commentary-body text-stone-800 space-y-3">
+  <div class="commentary-body commentary-content text-stone-800 space-y-3.5">
     ${fullTextHtml}
   </div>
 </div>`;
   }
 
   async function loadFullComment(ref, autor) {
-    const cacheKey = `${autor}__${ref}`;
+    const parts = parsePassageParts(ref);
+    const refKey =
+      parts.book && parts.chapter && parts.verse
+        ? `${parts.book} ${parts.chapter}:${parts.verse}`
+        : String(ref || "").trim();
+    const cacheKey = `${autor}__${refKey}`;
+
+    // 1) Banco íntegro en commentary-service (prioridad absoluta)
+    const fromDb = getDbExposition(refKey, autor);
+    if (fromDb?.paragraphs?.length) {
+      const html = renderFullCommentaryMarkup(fromDb, refKey);
+      cacheSet("comment", cacheKey, {
+        label: fromDb.author,
+        html,
+        paragraphs: fromDb.paragraphs,
+        work: fromDb.work,
+        license: fromDb.license,
+      });
+      return {
+        label: fromDb.author,
+        html,
+        work: fromDb.work,
+        license: fromDb.license,
+        paragraphs: fromDb.paragraphs,
+        source: "db",
+      };
+    }
+
+    // 2) Caché solo si ya es exposición íntegra (no genérica)
     const cached = cacheGet("comment", cacheKey);
-    if (cached?.html && plainText(cached.html).length >= MIN_FULL_COMMENT) {
-      return { label: cached.label || commentatorLabel(autor), html: cached.html, source: "cache" };
+    if (cached?.html && !isGenericCommentaryText(plainText(cached.html)) && plainText(cached.html).length >= MIN_FULL_COMMENT) {
+      return {
+        label: cached.label || commentatorLabel(autor),
+        html: cached.html,
+        work: cached.work,
+        license: cached.license,
+        paragraphs: cached.paragraphs,
+        source: "cache",
+      };
     }
 
-    const local = await loadLocalComment(ref, autor);
-    const api = await fetchApiComment(ref, autor);
+    // 3) Pack local / API: solo si es texto de versículo (nunca libro/voz/IA)
+    const local = await loadLocalVerseComment(refKey, autor);
+    const api = await fetchApiVerseComment(refKey, autor);
     const best =
-      (api?.plain?.length || 0) >= (local.plain?.length || 0) ? api || local : local;
+      (api?.paragraphs?.join(" ").length || 0) >= (local?.paragraphs?.join(" ").length || 0)
+        ? api || local
+        : local;
 
-    // Prioridad: contenido local/API aunque sea breve — no depender del agente
-    if (best?.plain?.length >= MIN_SHOW_COMMENT) {
-      const html = commentToHtml(best.cuerpo);
-      cacheSet("comment", cacheKey, { label: best.titulo, html });
-      // Enriquecer en background solo si es muy corto
-      if (best.plain.length < 480) {
-        callAgente(
-          `Amplía el comentario exegético de ${commentatorLabel(autor)} sobre ${ref} en español, respetando su estilo histórico. No inventes citas falsas.`,
-          ref,
-          "exegesis"
-        )
-          .then((text) => {
-            if (plainText(text).length > best.plain.length) {
-              cacheSet("comment", cacheKey, {
-                label: commentatorLabel(autor),
-                html: mdToHtml(text),
-              });
-            }
-          })
-          .catch(() => {});
-      }
-      return { label: best.titulo, html, source: api ? "api" : "local" };
+    if (best?.paragraphs?.length) {
+      const html = renderFullCommentaryMarkup(best, refKey);
+      cacheSet("comment", cacheKey, {
+        label: best.author,
+        html,
+        paragraphs: best.paragraphs,
+        work: best.work,
+        license: best.license,
+      });
+      return {
+        label: best.author,
+        html,
+        work: best.work,
+        license: best.license,
+        paragraphs: best.paragraphs,
+        source: api ? "api" : "local",
+      };
     }
 
-    const label = commentatorLabel(autor);
-    try {
-      const prompt = `Entrega el comentario exegético completo y sin abreviar de ${label} sobre ${ref}, respetando su enfoque histórico original en párrafos profundos. No resumas: desarrolla el tratado con la densidad del autor. Si el comentario original está en inglés, tradúcelo fielmente al español.`;
-      const text = await callAgente(prompt, ref, "exegesis");
-      if (!text) throw new Error("Comentario vacío");
-      const html = mdToHtml(text);
-      cacheSet("comment", cacheKey, { label, html });
-      return { label, html, source: "agent" };
-    } catch (err) {
-      if (best?.plain) {
-        return {
-          label: best.titulo || label,
-          html: commentToHtml(best.cuerpo),
-          source: "partial",
-          note: err?.message,
-        };
-      }
-      throw err;
-    }
+    // 4) Sin inventar: aviso honesto (prohibido agente / resumen de libro)
+    const pending = renderPendingExposition(refKey);
+    return {
+      label: commentatorLabel(autor),
+      html: pending,
+      source: "pending",
+      pending: true,
+    };
   }
 
   /* —— TSK —— */
@@ -1322,7 +1421,17 @@
             </select>
           </div>
           <article class="rv-sp-card rv-sp-card--comment border-0 shadow-none bg-transparent p-0">
-            ${renderCommentaryShell({ authorName: com.label, fullTextHtml: com.html })}
+            ${com.paragraphs?.length
+              ? renderFullCommentaryMarkup(
+                  {
+                    author: com.label,
+                    work: com.work,
+                    license: com.license || "Dominio Público",
+                    paragraphs: com.paragraphs,
+                  },
+                  ref
+                )
+              : com.html}
           </article>`;
       } catch (err) {
         if (token !== loadToken) return;

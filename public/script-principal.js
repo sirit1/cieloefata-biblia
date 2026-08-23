@@ -24,14 +24,6 @@
     window.REVELATIO_AUTORES = AUTORES;
 
     const comentarioMemoria = {};
-    const VOCES_GARANTIA = {
-        matthew_henry: 'Henry lee {libro} como {nucleo}. El capítulo {capitulo} se medita para que el lector tema a Dios y se consuele en el Redentor. La doctrina de este pasaje no es ornamento: impulsa el deber, llama a la fe y presenta la vida entera como culto racional delante de Cristo.',
-        jfb: 'Jamieson, Fausset y Brown sitúan {libro} en su marco histórico-gramatical: {nucleo}. El capítulo {capitulo} se explica por el sentido del autor inspirado y se ancla en la unidad de la Escritura, que conduce al Mesías sin violentar el texto.',
-        barnes: 'Barnes expone {libro} siguiendo el orden del pasaje: {nucleo}. En el capítulo {capitulo} pregunta qué dice el texto, a quién se dirige y con qué fin, para que la explicación sirva a la fe y no sustituya la autoridad de la Escritura.',
-        spurgeon: 'Spurgeon predica {libro} para llevar al pecador a Cristo y al santo al altar: {nucleo}. El capítulo {capitulo} no es adorno doctrinal; es llamamiento. Fuera de Cristo no hay consuelo, y en Él la doctrina se vuelve consagración.'
-    };
-    let nucleosMemo = null;
-    let vocesMemo = null;
     let precargaComentarios = null;
 
     function parseRefComentario(referencia) {
@@ -67,87 +59,61 @@
             `public/${clave}.json`,
             `/${clave}.json`
         ]);
+        // Purga defensiva: nunca usar resúmenes por libro
+        if (data && typeof data === 'object') {
+            delete data.libros;
+        }
         comentarioMemoria[clave] = data || null;
         return data;
     }
 
     function esRuidoEditorial(texto) {
-        return /no hay transcripci[oó]n|nota general del comentarista|este panel no admite|s[íi]ntesis de IA|texto hist[oó]rico de dominio público/i.test(String(texto || ''));
+        return /no hay transcripci[oó]n|nota general del comentarista|este panel no admite|s[íi]ntesis de IA|texto hist[oó]rico de dominio público|sitúan .+ en su marco histórico-gramatical|predica .+ para llevar al pecador|Henry lee .+ como |Este libro se medita|El libro no es adorno doctrinal|expone .+ a la luz de la Escritura, para que el lector crea/i.test(String(texto || ''));
     }
 
-    function interpolarVoz(molde, libro, cap, nucleo) {
-        let t = String(molde || '');
-        if (!cap) {
-            t = t
-                .replace(/El capítulo \{capitulo\} se/g, 'Este libro se')
-                .replace(/el capítulo \{capitulo\} se/g, 'este libro se')
-                .replace(/capítulo \{capitulo\}/g, 'libro');
-        }
-        return t
-            .replace(/\{libro\}/g, libro || 'este libro')
-            .replace(/\{capitulo\}/g, cap || '')
-            .replace(/\{nucleo\}/g, nucleo || 'el consejo de Dios que conduce a Cristo')
-            .replace(/\s{2,}/g, ' ')
-            .trim();
-    }
-
-    function componerVoz(archivo, libro, cap) {
-        const clave = String(archivo || '').replace(/\.json$/i, '');
-        const molde = (vocesMemo && vocesMemo[clave]) || VOCES_GARANTIA[clave] || '';
-        const nucleo = (nucleosMemo && nucleosMemo[libro]) || 'el consejo de Dios que conduce a Cristo';
-        return interpolarVoz(molde, libro, cap, nucleo);
-    }
-
-    function extraerEntradas(pack, referencia, archivo) {
-        const { libro, cap, slug } = parseRefComentario(referencia);
-        const root = pack?.entries || {};
-        const nodo = root[slug];
+    function extraerEntradas(pack, referencia) {
+        const { slug } = parseRefComentario(referencia);
+        const nodo = pack?.entries?.[slug];
         const versoPedido = String(referencia || '').match(/:(\d+)/)?.[1] || '';
-        const versosDe = (obj) => Object.keys(obj || {})
-            .filter(k => k !== 'capitulo' && k !== 'completo' && typeof obj[k] === 'string' && String(obj[k]).trim())
-            .sort((a, b) => Number(a) - Number(b));
         const limpio = (texto) => {
             const t = String(texto || '').trim();
             return t && !esRuidoEditorial(t) ? t : '';
         };
-        if (nodo && typeof nodo === 'object') {
-            if (versoPedido && limpio(nodo[versoPedido])) {
-                return [{ n: versoPedido, texto: limpio(nodo[versoPedido]) }];
-            }
-            const capTxt = limpio(nodo.capitulo);
-            if (capTxt) return [{ n: 'capítulo', texto: capTxt }];
-            const delCapitulo = [];
-            versosDe(nodo).forEach(k => {
-                const t = limpio(nodo[k]);
-                if (t) delCapitulo.push({ n: k, texto: t });
-            });
-            if (delCapitulo.length) return delCapitulo;
+        if (nodo && typeof nodo === 'object' && versoPedido && limpio(nodo[versoPedido])) {
+            return [{ n: versoPedido, texto: limpio(nodo[versoPedido]) }];
         }
-        const deLibro = limpio(pack?.libros?.[libro]);
-        if (deLibro) return [{ texto: deLibro }];
-        const compuesto = componerVoz(archivo, libro, cap);
-        return compuesto ? [{ texto: compuesto }] : [];
+        return [];
     }
 
     function armarComentario(referencia, autorKey, pack) {
         const meta = AUTORES.find(a => a.key === autorKey) || AUTORES[0];
-        const archivo = meta?.json;
-        let entradas = extraerEntradas(pack || {}, referencia, archivo)
+        const entradas = extraerEntradas(pack || {}, referencia)
             .map(item => ({ n: item.n, texto: String(item.texto || '').trim() }))
             .filter(item => item.texto && !esRuidoEditorial(item.texto));
         if (!entradas.length) {
-            const { libro, cap } = parseRefComentario(referencia);
-            const t = componerVoz(archivo, libro, cap)
-                || `${meta?.etiqueta || 'El comentarista'} expone ${libro} ${cap} a la luz de la Escritura, para que el lector crea y obedezca en Cristo.`;
-            entradas = [{ texto: t }];
+            return {
+                ia: false,
+                vacio: true,
+                generico: false,
+                nivel: 'ninguno',
+                titulo: pack?.author || meta?.etiqueta || '',
+                obra: pack?.obra || '',
+                entradas: [],
+                cuerpo: '',
+                paragraphs: []
+            };
         }
+        const cuerpo = entradas.map(e => e.texto).join('\n\n');
         return {
             ia: false,
             vacio: false,
+            generico: false,
+            nivel: 'versiculo',
             titulo: pack?.author || meta?.etiqueta || '',
-            obra: '',
+            obra: pack?.obra || '',
             entradas,
-            cuerpo: entradas.map(e => e.texto).join('\n\n')
+            cuerpo,
+            paragraphs: cuerpo.split(/\n{2,}/).map(p => p.trim()).filter(Boolean)
         };
     }
 
@@ -160,14 +126,6 @@
     async function precargarComentarios() {
         if (precargaComentarios) return precargaComentarios;
         precargaComentarios = (async () => {
-            nucleosMemo = await fetchJsonCandidatos([
-                'data/commentaries/canon-libros.json',
-                '/data/commentaries/canon-libros.json'
-            ]) || nucleosMemo;
-            vocesMemo = await fetchJsonCandidatos([
-                'data/commentaries/voces.json',
-                '/data/commentaries/voces.json'
-            ]) || vocesMemo;
             const cat = await fetchJsonCandidatos([
                 'data/commentaries/catalogo.json',
                 '/data/commentaries/catalogo.json'
@@ -212,11 +170,26 @@
 
     async function fetchComentario(referencia, autorKey) {
         await precargarComentarios();
+        // Preferir banco íntegro del commentary-service si está disponible
+        const svc = window.RV?.CommentaryService;
+        const fromDb = svc?.getVerseCommentary?.(referencia, null, null, autorKey);
+        if (fromDb?.paragraphs?.length) {
+            return {
+                ia: false,
+                vacio: false,
+                generico: false,
+                nivel: 'versiculo',
+                titulo: fromDb.author,
+                obra: fromDb.work || '',
+                entradas: fromDb.paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
+                cuerpo: fromDb.paragraphs.join('\n\n'),
+                paragraphs: fromDb.paragraphs,
+            };
+        }
         const meta = AUTORES.find(a => a.key === autorKey) || AUTORES[0];
         const pack = meta?.json ? await cargarJsonComentarista(meta.json) : null;
         const local = armarComentario(referencia, autorKey, pack || {});
-        const localLen = String(local?.cuerpo || '').trim().length;
-        if (localLen >= 120 && !local?.vacio) return local;
+        if (local?.cuerpo && !local?.vacio && !esRuidoEditorial(local.cuerpo)) return local;
         try {
             const res = await fetch('/api/comentario', {
                 method: 'POST',
@@ -226,13 +199,19 @@
             if (res.ok) {
                 const json = await res.json();
                 const data = json?.data || json;
-                if (data?.cuerpo || data?.entradas?.length) {
+                if (data?.vacio) return local;
+                const cuerpo = data?.cuerpo || (data?.entradas || []).map(e => e.texto).join('\n\n');
+                if (cuerpo && !esRuidoEditorial(cuerpo) && (data?.entradas?.length || data?.paragraphs?.length)) {
                     return {
                         ia: false,
                         vacio: false,
+                        generico: false,
+                        nivel: 'versiculo',
                         titulo: data.titulo || meta?.etiqueta || autorKey,
-                        entradas: data.entradas || [{ texto: data.cuerpo }],
-                        cuerpo: data.cuerpo || (data.entradas || []).map(e => e.texto).join('\n\n')
+                        obra: data.obra || '',
+                        entradas: data.entradas || data.paragraphs?.map((t) => ({ texto: t })) || [{ texto: cuerpo }],
+                        cuerpo,
+                        paragraphs: data.paragraphs || String(cuerpo).split(/\n{2,}/).map(p => p.trim()).filter(Boolean),
                     };
                 }
             }

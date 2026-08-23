@@ -437,11 +437,23 @@
     }
 
     async function cargarComentario(referencia, autor) {
+        const svc = window.RV?.CommentaryService;
+        const fromDb = svc?.getVerseCommentary?.(referencia, null, null, autor);
+        if (fromDb?.paragraphs?.length) {
+            return {
+                ia: false,
+                vacio: false,
+                titulo: fromDb.author,
+                obra: fromDb.work || '',
+                entradas: fromDb.paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
+                cuerpo: fromDb.paragraphs.join('\n\n'),
+                paragraphs: fromDb.paragraphs,
+            };
+        }
         if (window.revelatioLectura?.fetchComentario) return window.revelatioLectura.fetchComentario(referencia, autor);
         if (window.revelatioLectura?.comentarioInmediato) return window.revelatioLectura.comentarioInmediato(referencia, autor);
         const nombre = AUTOR_LABEL[autor] || autor || 'El comentarista';
-        const texto = `${nombre} expone ${referencia || 'este pasaje'} a la luz de la Escritura, para que el lector crea y obedezca en Cristo.`;
-        return { ia: false, vacio: false, titulo: nombre, entradas: [{ texto }], cuerpo: texto };
+        return { ia: false, vacio: true, titulo: nombre, entradas: [], cuerpo: '', paragraphs: [] };
     }
 
     function claveMotor(version) {
@@ -690,13 +702,31 @@
     async function refrescarComentario(libro) {
         const autor = autorActivo();
         const ref = referenciaComentario(libro);
+        const svc = window.RV?.CommentaryService;
+        const fromDb = svc?.getVerseCommentary?.(ref, null, null, autor);
+        if (fromDb?.paragraphs?.length) {
+            pintarComentario(libro, autor, {
+                titulo: fromDb.author,
+                obra: fromDb.work,
+                paragraphs: fromDb.paragraphs,
+                cuerpo: fromDb.paragraphs.join('\n\n'),
+                entradas: fromDb.paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
+            });
+            return;
+        }
         const inmediato = window.revelatioLectura?.comentarioInmediato?.(ref, autor);
-        if (inmediato?.cuerpo) pintarComentario(libro, autor, inmediato);
+        if (inmediato?.cuerpo && !inmediato?.vacio) pintarComentario(libro, autor, inmediato);
         try {
             const comentario = await cargarComentario(ref, autor);
-            pintarComentario(libro, autor, comentario || inmediato || { titulo: AUTOR_LABEL[autor] || autor });
+            if (comentario?.cuerpo && !comentario?.vacio) {
+                pintarComentario(libro, autor, comentario);
+            } else if (!inmediato?.cuerpo || inmediato?.vacio) {
+                pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor, vacio: true });
+            }
         } catch {
-            if (!inmediato?.cuerpo) pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor });
+            if (!inmediato?.cuerpo || inmediato?.vacio) {
+                pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor, vacio: true });
+            }
         }
     }
 
@@ -705,23 +735,40 @@
         if (etiqueta) etiqueta.textContent = extra?.titulo || AUTOR_LABEL[autor] || autor || '';
         const neuro = document.getElementById('analisis-neuro');
         if (!neuro) return;
-        const textos = (extra?.entradas || [])
-            .map(item => String(item?.texto || '').trim())
-            .filter(t => t && !esRuidoEditorial(t));
+        const ref = referenciaComentario(libro) || extra?.referencia || '';
+
+        const svc = window.RV?.CommentaryService;
+        const fromDb = svc?.getVerseCommentary?.(ref, null, null, autor);
+        if (fromDb?.paragraphs?.length) {
+            if (etiqueta) etiqueta.textContent = fromDb.author;
+            const refEl = document.getElementById('ref-comentario');
+            if (refEl) refEl.textContent = ref;
+            neuro.innerHTML = fromDb.paragraphs
+                .map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`)
+                .join('');
+            return;
+        }
+
+        const textos = (extra?.paragraphs || extra?.entradas || [])
+            .map((item) => String(typeof item === 'string' ? item : item?.texto || '').trim())
+            .filter((t) => t && !esRuidoEditorial(t));
         const cuerpo = String(extra?.cuerpo || '').trim();
-        let bloques = textos.length ? textos : (cuerpo && !esRuidoEditorial(cuerpo) ? [cuerpo] : []);
-        if (!bloques.length) {
-            const rescue = window.revelatioLectura?.comentarioInmediato?.(referenciaComentario(libro), autor);
-            bloques = (rescue?.entradas || []).map(e => String(e.texto || '').trim()).filter(t => t && !esRuidoEditorial(t));
-            if (!bloques.length && rescue?.cuerpo) bloques = [String(rescue.cuerpo).trim()];
-        }
-        if (!bloques.length) {
-            const nombre = extra?.titulo || AUTOR_LABEL[autor] || 'El comentarista';
-            bloques = [`${nombre} expone ${libro?.n || 'este libro'} ${libro?.cap || ''} a la luz de la Escritura, para que el lector crea y obedezca en Cristo.`.replace(/\s{2,}/g, ' ')];
-        }
+        let bloques = textos.length ? textos : (cuerpo && !esRuidoEditorial(cuerpo) && !extra?.vacio ? [cuerpo] : []);
+        // Prohibido: síntesis de libro / plantillas / frases genéricas
+        bloques = bloques.filter(
+            (t) =>
+                !/predica\s+\S+\s+para llevar|Henry lee\s+|sitúan\s+\S+\s+en su marco|expone .+ a la luz de la Escritura, para que el lector crea/i.test(
+                    t
+                )
+        );
+
         const refEl = document.getElementById('ref-comentario');
-        if (refEl) refEl.textContent = referenciaComentario(libro) || extra?.referencia || '';
-        neuro.innerHTML = bloques.map(t => `<p class="rv-exegesis">${escapeHtml(t)}</p>`).join('');
+        if (refEl) refEl.textContent = ref;
+        if (!bloques.length) {
+            neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">Exposición literal en proceso de carga para <strong>${escapeHtml(ref || 'este pasaje')}</strong>. Solo se muestran comentarios clásicos íntegros por versículo.</div>`;
+            return;
+        }
+        neuro.innerHTML = bloques.map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`).join('');
     }
 
 
