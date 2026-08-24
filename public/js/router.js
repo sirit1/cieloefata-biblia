@@ -7,7 +7,7 @@
     "use strict";
 
     const RV = (global.RV = global.RV || {});
-    const VERSION = "metaCardUI1";
+    const VERSION = "ro12HenryFull1";
 
     /** Rutas nombradas → archivos en /views */
     const ROUTES = {

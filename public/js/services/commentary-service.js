@@ -146,22 +146,33 @@ export const VERSE_COMMENTARIES_DB = {
   },
 
   'Romanos 12:2': {
-    spurgeon: {
-      author: 'C. H. Spurgeon',
-      work: 'Sermones Escogidos y Notas Devocionales',
-      license: 'Dominio Público',
-      paragraphs: [
-        'El mundo tiene un molde, y es fácil dejarse verter en él. «No os conforméis.» El cristiano no es una copia del siglo con barniz piadoso.',
-        '«Transformaos.» La gracia no pinta la cara: cambia el ser. La renovación de la mente es el campo de batalla: pensamientos, juicios, amores. Allí se comprueba la voluntad de Dios. No preguntes primero qué dice la moda; pregunta qué dice el Señor. El siglo pasa; la voluntad de Dios permanece, buena, agradable y perfecta.',
-      ],
-    },
     'matthew-henry': {
       author: 'Matthew Henry',
-      work: 'Comentario Bíblico Completo de la Escritura',
+      work: 'Comentario Bíblico Completo de la Escritura (Tomo VI: Epístolas)',
       license: 'Dominio Público',
       paragraphs: [
-        '«No os conforméis a este siglo.» El siglo presente tiene un molde: costumbres, máximas y vanidades que quieren imprimirse en el pueblo de Dios. Conformarse es tomar esa figura.',
-        '«Sino transformaos por medio de la renovación de vuestro entendimiento.» La palabra señala un cambio de forma, no un barniz. La mente renovada discierne «cuál sea la buena voluntad de Dios, agradable y perfecta». No se prueba la voluntad de Dios con el gusto del siglo, sino con una mente hecha nueva. Esta renovación es obra de la gracia; el creyente debe ceder a ella y no volver al molde del mundo.',
+        '«Y no os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta.»',
+        'I. La advertencia negativa: «No os conforméis a este siglo» (μὴ συσχηματίζεσθε τῷ αἰῶνι τούτῳ).',
+        'Existe una antipatía irreconciliable entre el espíritu del presente siglo caído y el Espíritu de Cristo. El «siglo» representa el sistema del mundo caído: sus modas morales transitorias, sus máximas egoístas, sus criterios de éxito basados en el orgullo y sus costumbres pecaminosas. Conformarse significa adoptar pasivamente ese molde exterior, dejarse troquelar por las corrientes dominantes y ajustar los principios del cristiano al beneplácito de hombres no regenerados. Quien vive según la corriente de este siglo se somete al gobierno de sus concupiscencias y niega el poder del sacrificio vivo.',
+        'II. El mandato positivo: «Sino transformaos por medio de la renovación de vuestro entendimiento» (ἀλλὰ μεταμορφοῦσθε τῇ ἀνακαινώσει τοῦ νοός).',
+        '1. La naturaleza del cambio: La palabra empleada es una metamorfosis (metamorphousthe). No se trata de un simple barniz de moralidad civil, de una abstención superficial de vicios ni de un cambio cosmético de vestiduras o ritos externos. Es una mutación radical de naturaleza, una reconfiguración interna desde la raíz de los afectos, pensamientos y motivaciones.',
+        '2. El órgano y la esfera del cambio: «la renovación de vuestro entendimiento». El entendimiento natural (nous) está entenebrecido por causa de la caída, lleno de sesgos carnales y auto-justificación. La gracia salvífica no destruye la facultad racional, sino que la sana, la ilumina y la reactiva espiritualmente. Cuando el entendimiento es renovado por la obra soberana del Espíritu Santo, la voluntad se inclina voluntariamente hacia la santidad y los afectos son purificados.',
+        'III. El fruto y propósito final: «Para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta» (εἰς τὸ δοκιμάζειν ὑμᾶς τί τὸ θέλημα τοῦ θεοῦ).',
+        '1. El discernimiento experimental (dokimazein): Una mente nublada por las modas del mundo es incapaz de apreciar la excelencia de la voluntad divina; la juzga gravosa o insensata. Pero la mente renovada y regenerada saborea, prueba, aprueba y discierne con deleite los preceptos de Dios en cada encrucijada de la vida.',
+        '2. El triple carácter de la voluntad de Dios:',
+        '— Es «Buena»: porque procede de la bondad infinita del Creador y procura siempre el bien supremo, santificador y eterno del creyente.',
+        '— Es «Agradable»: es lo único que complace a Dios y, al mismo tiempo, lo único que brinda verdadero gozo, sosiego y descanso al alma que ha cesado de resistir a su Hacedor.',
+        '— Es «Perfecta»: es suficiente, recta y carece de defecto. No necesita ser corregida por la filosofía humana, ni enmendada por la prudencia carnal, ni adaptada a las modas pasajeras de los tiempos.',
+      ],
+    },
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'El Tesoro del Evangelio y Sermones del Tabernáculo',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«Transformados por la renovación de la mente.»',
+        'El peligro más sutil que acecha a la iglesia no es la persecución violenta del mundo, sino la asimilación gradual a su molde. Cuando la iglesia se viste con los ropajes del siglo, pierde su unción y su voz profética. Pablo no nos llama al aislamiento monástico, sino a una inconformidad santa en medio de la plaza pública.',
+        'Esta transformación no se logra mediante resoluciones humanas ni gimnasia mental; es una obra de la gracia divina en el espíritu. Una mente saturada de la verdad de la Escritura mira la riqueza, la fama y el dolor con ojos redimidos. No consulta al mundo para saber cómo vivir, sino que reposa enteramente en la perfecta voluntad de Dios.',
       ],
     },
     jfb: {
@@ -169,8 +180,12 @@ export const VERSE_COMMENTARIES_DB = {
       work: 'Comentario Crítico, Explicativo y Práctico',
       license: 'Dominio Público',
       paragraphs: [
-        '«No os conforméis» (mē syschēmatizesthe): no adoptéis el esquema (schēma) de este siglo, su moda pasajera. «Transformaos» (metamorphousthe): cambio de morphē, la forma esencial, no un disfraz.',
-        '«Por la renovación de vuestro entendimiento»: el nous es el órgano del discernimiento moral. «Para que comprobéis» (eis to dokimazein): examinar y aprobar por experiencia. «La buena voluntad de Dios, agradable y perfecta»: tres adjetivos de una sola voluntad, no tres voluntades. El creyente no inventa la voluntad divina: la verifica al ser renovado.',
+        '«Y no os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta.»',
+        '«No os conforméis» (μὴ συσχηματίζεσθε, mē syschēmatizesthe): imperativo presente con negación — cesad de adoptar y no sigáis adoptando el esquema (σχῆμα, schēma) de este eón (αἰών), su moda pasajera y su configuración exterior. El verbo señala conformidad con lo que es transitorio y superficial.',
+        '«Sino transformaos» (ἀλλὰ μεταμορφοῦσθε, metamorphousthe): presente pasivo/medio imperativo. El cambio es de μορφή (morphē), la forma esencial, no un disfraz externo. Se trata de una metamorfosis continua, obrada desde dentro, no de un barniz moral.',
+        '«Por la renovación de vuestro entendimiento» (τῇ ἀνακαινώσει τοῦ νοός): el νοῦς (nous) es el órgano del discernimiento moral y espiritual. La ἀνακαίνωσις es renovación cualitativa: el entendimiento caído no se reemplaza por otra facultad, sino que es regenerado y reorientado por el Espíritu.',
+        '«Para que comprobéis» (εἰς τὸ δοκιμάζειν): propósito e resultado — examinar, probar y aprobar por experiencia. El creyente renovado no inventa la voluntad divina: la verifica y la abraza.',
+        '«La buena voluntad de Dios, agradable y perfecta»: tres adjetivos de una sola θέλημα (thelēma), no tres voluntades distintas. Buena en su origen y fin; agradable a Dios y al alma regenerada; perfecta en suficiencia, sin necesidad de corrección por la prudencia del siglo.',
       ],
     },
   },
@@ -387,8 +402,8 @@ export function renderFullCommentary(container, book, chapter, verse, authorKey 
   }
 
   container.innerHTML = `
-    <div class="space-y-4 font-serif text-[#0F172A]">
-      <div class="flex items-center justify-between pb-2 border-b border-[#E8DFC8] gap-3">
+    <div class="space-y-4 font-serif text-[#0F172A] leading-relaxed text-sm sm:text-base selection:bg-[#C59B27]/20 text-justify overflow-y-auto max-h-[70vh] pr-2">
+      <div class="flex items-center justify-between pb-2 border-b border-[#E8DFC8] gap-3 sticky top-0 bg-[#FAF6EE]/95 backdrop-blur-sm z-10">
         <div class="min-w-0">
           <h4 class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(commentaryData.author)}</h4>
           <p class="text-[11px] font-serif text-stone-500 italic truncate">${escapeHtml(commentaryData.work)}</p>
@@ -419,7 +434,7 @@ export function renderFullCommentaryHtml(book, chapter, verse, authorKey = 'spur
     return `<div class="p-4 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">Exposición literal en proceso de carga para ${escapeHtml(refKey)}.</div>`;
   }
   return `
-    <div class="space-y-4 font-serif text-[#0F172A]">
+    <div class="space-y-4 font-serif text-[#0F172A] leading-relaxed text-sm sm:text-base selection:bg-[#C59B27]/20 text-justify overflow-y-auto max-h-[70vh] pr-2">
       <div class="flex items-center justify-between pb-2 border-b border-[#E8DFC8] gap-3">
         <div class="min-w-0">
           <h4 class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(commentaryData.author)}</h4>

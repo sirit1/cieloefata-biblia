@@ -594,12 +594,12 @@
       </div>`;
   }
 
-  /** Tipografía editorial: autor + obra + párrafos íntegros. */
+  /** Tipografía editorial: autor + obra + párrafos íntegros (scroll fluido). */
   function renderFullCommentaryMarkup(data, refKey) {
     if (!data?.paragraphs?.length) return renderPendingExposition(refKey);
     return `
-    <div class="space-y-4 font-serif text-[#0F172A]">
-      <div class="flex items-center justify-between pb-2 border-b border-[#E8DFC8] gap-3">
+    <div class="space-y-4 font-serif text-[#0F172A] leading-relaxed text-sm sm:text-base selection:bg-[#C59B27]/20 text-justify overflow-y-auto max-h-[70vh] pr-2">
+      <div class="flex items-center justify-between pb-2 border-b border-[#E8DFC8] gap-3 sticky top-0 bg-[#FAF6EE]/95 backdrop-blur-sm z-10">
         <div class="min-w-0">
           <h4 class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(data.author)}</h4>
           <p class="text-[11px] font-serif text-stone-500 italic truncate">${escapeHtml(data.work || "")}</p>
@@ -730,8 +730,8 @@
       return renderPendingExposition(commentary?.refKey || "");
     }
     return `
-<div class="space-y-4 font-serif text-[#0F172A] leading-relaxed text-sm sm:text-base selection:bg-[#C59B27]/20 text-justify">
-  <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#E8DFC8] gap-3">
+<div class="space-y-4 font-serif text-[#0F172A] leading-relaxed text-sm sm:text-base selection:bg-[#C59B27]/20 text-justify overflow-y-auto max-h-[70vh] pr-2">
+  <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#E8DFC8] gap-3 sticky top-0 bg-[#FAF6EE]/95 backdrop-blur-sm z-10">
     <div class="min-w-0">
       <span class="text-xs font-mono font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(authorName)}</span>
       ${commentary?.work ? `<p class="text-[11px] font-serif text-stone-500 italic">${escapeHtml(commentary.work)}</p>` : ""}

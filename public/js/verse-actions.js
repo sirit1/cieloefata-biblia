@@ -435,8 +435,11 @@
     const hide = () => {
       bar.hidden = true;
       bar.classList.remove("is-on");
-      activeEl?.classList.remove("is-va-active");
+      activeEl?.classList.remove("is-va-active", "is-verse-on");
       activeEl = null;
+      activeRef = "";
+      activeText = "";
+      document.body.classList.remove("is-verse-study");
     };
 
     const place = (el) => {
@@ -453,20 +456,41 @@
       bar.style.top = `${Math.round(top)}px`;
     };
 
-    const show = (el) => {
+    const show = (el, passageRef, verseText) => {
       if (!el) return;
+      document
+        .querySelectorAll(
+          "#texto-biblico .is-verse-on, #texto-biblico .is-va-active, #verses-container .is-verse-on, #verses-container .is-va-active"
+        )
+        .forEach((n) => {
+          if (n !== el) n.classList.remove("is-verse-on", "is-va-active");
+        });
       activeEl?.classList.remove("is-va-active");
       activeEl = el;
       activeEl.classList.add("is-va-active", "is-verse-on");
-      activeRef = el.dataset.reference || "";
-      const textNode = el.querySelector(".rv-verse-text") || el;
-      activeText = verseTextFromEl(textNode);
+      activeRef =
+        passageRef ||
+        el.dataset.reference ||
+        el.dataset.passage ||
+        "";
+      if (activeRef) el.dataset.reference = activeRef;
+      const textNode = el.querySelector(".rv-verse-text, .verse-text") || el;
+      activeText =
+        (verseText != null && String(verseText).trim()) ||
+        el.dataset.text ||
+        verseTextFromEl(textNode);
       place(el);
+      document.body.classList.add("is-verse-study");
       document.dispatchEvent(
         new CustomEvent("revelatio:verse-selected", {
           detail: { ref: activeRef, text: activeText, el },
         })
       );
+    };
+
+    /** API pública usada por reader-view.js */
+    const selectVerseForAction = (el, passageRef, verseText) => {
+      show(el, passageRef, verseText);
     };
 
     bar.addEventListener("click", async (event) => {
@@ -538,33 +562,40 @@
             "#texto-biblico .is-verse-on, #texto-biblico .is-va-active, #verses-container .is-verse-on, #verses-container .is-va-active"
           )
           .forEach((n) => n.classList.remove("is-verse-on", "is-va-active"));
+        document.body.classList.remove("is-verse-study");
         hide();
       }
     });
+
+    const VERSE_SELECTOR =
+      "#texto-biblico .rv-verse-surface, #verses-container .rv-verse-surface, #texto-biblico .verse-item, #verses-container .verse-item, #texto-biblico [data-versiculo], #verses-container [data-versiculo]";
 
     document.addEventListener("click", (event) => {
       const inVisor =
         document.body?.classList?.contains("is-santuario") ||
         document.body?.classList?.contains("visor-active") ||
-        document.body?.classList?.contains("aposento-active");
+        document.body?.classList?.contains("aposento-active") ||
+        Boolean(document.getElementById("texto-biblico")?.contains?.(event.target));
       if (!inVisor) return;
 
       if (event.target.closest?.("#rv-verse-actions, #study-drawer, #rv-study-panel, #panel-asistente-ia")) {
         return;
       }
       if (event.target.closest?.("button, a, select, input, textarea, #rv-bible-nav")) {
-        if (!event.target.closest?.("#texto-biblico .rv-verse-surface, #verses-container .rv-verse-surface")) {
-          if (!event.target.closest?.("#rv-verse-actions")) hide();
+        if (!event.target.closest?.(VERSE_SELECTOR)) {
+          if (!event.target.closest?.("#rv-verse-actions")) {
+            document.body.classList.remove("is-verse-study");
+            hide();
+          }
         }
         return;
       }
-      const verse = event.target.closest?.(
-        "#texto-biblico .rv-verse-surface[data-versiculo], #verses-container .rv-verse-surface[data-versiculo]"
-      );
+      const verse = event.target.closest?.(VERSE_SELECTOR);
       if (verse) {
         show(verse);
         return;
       }
+      document.body.classList.remove("is-verse-study");
       hide();
     });
 
@@ -582,7 +613,11 @@
     document.addEventListener("rv:route", () => setTimeout(restoreHighlights, 400));
     document.addEventListener("revelatio:passage-ready", () => setTimeout(restoreHighlights, 200));
 
-    return { show, hide, restoreHighlights };
+    // Exponer puente global para reader-view / legacy
+    global.selectVerseForAction = selectVerseForAction;
+    global.handleVerseClick = (el, ref, text) => show(el, ref, text);
+
+    return { show, hide, restoreHighlights, selectVerseForAction };
   }
 
   let api = null;
@@ -591,6 +626,7 @@
     api = createApi();
     setTimeout(restoreHighlights, 600);
     RV.verseActions = api;
+    global.selectVerseForAction = api.selectVerseForAction;
     return api;
   }
 
