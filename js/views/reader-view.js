@@ -16,6 +16,49 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+/**
+ * Sincroniza estado global del pasaje activo con el panel de estudio.
+ */
+export function updateActivePassageState(book, chapter, verse = 1) {
+  const b = String(book || '').trim();
+  const c = Number(chapter) || 1;
+  const v = Number(verse) || 1;
+  const ref = b ? `${b} ${c}:${v}` : '';
+
+  globalThis.currentStudyState = { book: b, chapter: c, verse: v, ref };
+  if (globalThis.RV) {
+    globalThis.RV.currentStudyState = globalThis.currentStudyState;
+  }
+
+  const headerVerse =
+    document.getElementById('study-panel-verse-title') ||
+    document.getElementById('rv-sp-ref');
+  if (headerVerse && ref) headerVerse.textContent = ref;
+
+  const titleEl = document.getElementById('rv-sp-title');
+  if (titleEl && ref) titleEl.textContent = `Estudio · ${ref}`;
+
+  try {
+    document.dispatchEvent(
+      new CustomEvent('revelatio:active-passage', {
+        detail: { book: b, chapter: c, verse: v, ref },
+      })
+    );
+  } catch {
+    /* ignore */
+  }
+
+  if (typeof globalThis.loadVerseCommentary === 'function' && b) {
+    try {
+      globalThis.loadVerseCommentary(b, c, v);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  return globalThis.currentStudyState;
+}
+
 function paintHeader(data) {
   const header = document.getElementById('chapter-header');
   const titleEl = document.getElementById('chapter-title');
@@ -59,6 +102,9 @@ function handleVerseClick(verseEl, passageRef, verseText) {
   verseEl.classList.add('is-verse-on', 'is-va-active');
   if (passageRef) verseEl.dataset.reference = passageRef;
   if (verseText != null) verseEl.dataset.text = verseText;
+
+  const m = String(passageRef || '').match(/^(.+?)\s+(\d+)\s*:\s*(\d+)/);
+  if (m) updateActivePassageState(m[1], m[2], m[3]);
 
   const api = globalThis.RV?.verseActions;
   if (api?.show) {
@@ -121,9 +167,11 @@ export function initReader() {
       active: true,
       initReader,
       handleVerseClick,
+      updateActivePassageState,
     };
   }
   globalThis.handleVerseClick = handleVerseClick;
+  globalThis.updateActivePassageState = updateActivePassageState;
 
   AppState.subscribe(async (state) => {
     paintHeader({
@@ -131,6 +179,9 @@ export function initReader() {
       chapter: state.currentChapter,
       version: state.currentVersion,
     });
+
+    // Sincronizar panel ANTES de la carga para evitar referencias residuales (p. ej. Hageo)
+    updateActivePassageState(state.currentBook, state.currentChapter, 1);
 
     container.innerHTML =
       '<div class="py-12 text-center text-stone-400 font-serif">Cargando Sagradas Escrituras...</div>';
@@ -147,6 +198,7 @@ export function initReader() {
         chapter: state.currentChapter,
         version: state.currentVersion,
       });
+      updateActivePassageState(state.currentBook, state.currentChapter, 1);
       container.innerHTML = `
         <div class="p-6 bg-amber-50 border border-[#E8DFC8] rounded-xl text-center font-serif text-[#0A192F]">
           <p class="font-bold">No se pudo cargar el pasaje.</p>
@@ -168,9 +220,18 @@ export function initReader() {
 
     container.appendChild(fragment);
 
+    updateActivePassageState(book, chapter, 1);
+
     document.dispatchEvent(
       new CustomEvent('revelatio:passage-ready', {
-        detail: { book, chapter, version: data.version, count: data.verses.length },
+        detail: {
+          book,
+          chapter,
+          verse: 1,
+          version: data.version,
+          count: data.verses.length,
+          ref: `${book} ${chapter}:1`,
+        },
       })
     );
 

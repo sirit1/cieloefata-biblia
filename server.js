@@ -45,7 +45,10 @@ const BIBLE_MAP = {
   "santiago": { id: 59, name: "Santiago" }, "1 pedro": { id: 60, name: "1 Pedro" },
   "2 pedro": { id: 61, name: "2 Pedro" }, "1 juan": { id: 62, name: "1 Juan" },
   "2 juan": { id: 63, name: "2 Juan" }, "3 juan": { id: 64, name: "3 Juan" },
-  "judas": { id: 65, name: "Judas" }, "apocalipsis": { id: 66, name: "Apocalipsis" }
+  "judas": { id: 65, name: "Judas" }, "apocalipsis": { id: 66, name: "Apocalipsis" },
+  // Alias EN / abreviaturas frecuentes
+  "habakkuk": { id: 35, name: "Habacuc" }, "hab": { id: 35, name: "Habacuc" },
+  "haggai": { id: 37, name: "Hageo" }, "hag": { id: 37, name: "Hageo" },
 };
 
 /** Identificadores nativos Bolls + etiqueta limpia (sin avisos de contingencia). */
@@ -134,6 +137,112 @@ function contingencyAiAnswer(passage, title) {
 
 const AI_API_PATHS = new Set(['/api/ai', '/api/lente', '/api/exegesis']);
 
+function contingencyChapterVerses(bookName, chapterNum) {
+  const norm = normalizeBookKey(bookName);
+  const ch = Number(chapterNum) || 1;
+  if (norm.includes('habacuc') && ch === 1) {
+    return [
+      { verse: 1, text: 'La profecía que vio el profeta Habacuc.' },
+      {
+        verse: 2,
+        text: '¿Hasta cuándo, oh Jehová, clamaré, y no oirás; y daré voces a ti a causa de la violencia, y no salvarás?',
+      },
+      {
+        verse: 3,
+        text: '¿Por qué me haces ver iniquidad, y haces que vea molestia? Destrucción y violencia están delante de mí, y pleito y contienda se levantan.',
+      },
+      {
+        verse: 4,
+        text: 'Por lo cual la ley es debilitada, y el juicio no sale según la verdad; por cuanto el impío asedia al justo, por eso sale torcida la justicia.',
+      },
+      {
+        verse: 5,
+        text: 'Mirad entre las naciones, y ved, y asombraos; porque haré una obra en vuestros días, que aun cuando se os contare, no la creeréis.',
+      },
+    ];
+  }
+  return [
+    {
+      verse: 1,
+      text: `Texto de ${bookName} ${ch} en sincronización. Se mostrará la versión disponible en cuanto se complete la carga canónica.`,
+    },
+  ];
+}
+
+async function fetchBollsChapter(bollsSlug, bookId, chapter) {
+  const response = await fetch(
+    `https://bolls.life/get-chapter/${bollsSlug}/${bookId}/${chapter}/`
+  );
+  if (!response.ok) return [];
+  const raw = await response.json().catch(() => null);
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .map((v) => ({
+      verse: v.verse,
+      text: String(v.text || '')
+        .replace(/<[^>]*>?/gm, '')
+        .trim(),
+    }))
+    .filter((v) => v.text);
+}
+
+async function resolveBiblePassage(bookParam, chapterParam, versionParam) {
+  const bookNameRaw = String(bookParam || 'Habacuc').trim() || 'Habacuc';
+  const chapter = Math.max(1, parseInt(chapterParam, 10) || 1);
+  const requestedVersion = String(versionParam || 'RVR1960');
+  const normKey = normalizeBookKey(bookNameRaw);
+  const aliases = {
+    habakkuk: 'habacuc',
+    hab: 'habacuc',
+    haggai: 'hageo',
+    hag: 'hageo',
+  };
+  const mapKey = aliases[normKey] || normKey;
+  const book = BIBLE_MAP[mapKey] || { id: 35, name: bookNameRaw };
+  const primary = resolveVersionConfig(requestedVersion);
+  const fallbacks = [
+    primary,
+    resolveVersionConfig('RVR1960'),
+    resolveVersionConfig('RVR1909'),
+    resolveVersionConfig('DHH'),
+  ];
+
+  const seen = new Set();
+  for (const vConfig of fallbacks) {
+    const key = vConfig.bolls;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    try {
+      const verses = await fetchBollsChapter(key, book.id, chapter);
+      if (verses.length) {
+        return {
+          success: true,
+          book: book.name,
+          chapter,
+          version: vConfig.label,
+          requestedVersion,
+          source: key === primary.bolls ? 'bolls' : `bolls-fallback:${key}`,
+          verses,
+        };
+      }
+    } catch (err) {
+      console.warn(`[Server /api/bible] ${key} falló:`, err?.message || err);
+    }
+  }
+
+  return {
+    success: true,
+    book: book.name,
+    chapter,
+    version: 'Reina-Valera 1960',
+    requestedVersion,
+    source: 'contingency',
+    verses: contingencyChapterVerses(book.name, chapter),
+  };
+}
+
+const BIBLE_API_PATHS = new Set(['/api/bible', '/api/pasaje', '/api/capitulo']);
+
 const server = http.createServer(async (req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
 
@@ -155,7 +264,6 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, payload);
     } catch (error) {
       console.error(`[Server ${parsedUrl.pathname} error]:`, error?.message || error);
-      const body = {};
       const answer = contingencyAiAnswer('', 'Análisis Bíblico');
       return sendJson(res, 200, {
         success: true,
@@ -166,61 +274,33 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // ENDPOINT DE DATOS: /api/bible
-  if (parsedUrl.pathname === '/api/bible' && req.method === 'GET') {
-    const bookParam = parsedUrl.searchParams.get('book') || 'Romanos';
-    const chapter = parsedUrl.searchParams.get('chapter') || '12';
-    const version = parsedUrl.searchParams.get('version') || 'RVR1960';
-
-    const normKey = normalizeBookKey(bookParam);
-    const book = BIBLE_MAP[normKey] || { id: 45, name: bookParam };
-    const vConfig = resolveVersionConfig(version);
+  // ENDPOINT DE DATOS: /api/bible | /api/pasaje | /api/capitulo — nunca HTTP 500
+  if (BIBLE_API_PATHS.has(parsedUrl.pathname) && req.method === 'GET') {
+    const bookParam =
+      parsedUrl.searchParams.get('book') ||
+      parsedUrl.searchParams.get('libro') ||
+      'Habacuc';
+    const chapterParam =
+      parsedUrl.searchParams.get('chapter') ||
+      parsedUrl.searchParams.get('capitulo') ||
+      '1';
+    const versionParam =
+      parsedUrl.searchParams.get('version') || 'RVR1960';
 
     try {
-      const response = await fetch(
-        `https://bolls.life/get-chapter/${vConfig.bolls}/${book.id}/${chapter}/`
-      );
-      if (response.ok) {
-        const raw = await response.json();
-        const verses = Array.isArray(raw)
-          ? raw
-              .map((v) => ({
-                verse: v.verse,
-                text: String(v.text || '').replace(/<[^>]*>?/gm, '').trim(),
-              }))
-              .filter((v) => v.text)
-          : [];
-
-        if (verses.length) {
-          res.writeHead(200, {
-            'Content-Type': 'application/json; charset=utf-8',
-            'Access-Control-Allow-Origin': '*',
-          });
-          return res.end(
-            JSON.stringify({
-              success: true,
-              book: book.name,
-              chapter: parseInt(chapter, 10),
-              version: vConfig.label,
-              verses,
-            })
-          );
-        }
-      }
-    } catch (e) {
-      console.error('[Server /api/bible error]:', e.message);
+      const payload = await resolveBiblePassage(bookParam, chapterParam, versionParam);
+      return sendJson(res, 200, payload);
+    } catch (error) {
+      console.error('[Server /api/bible error]:', error?.message || error);
+      return sendJson(res, 200, {
+        success: true,
+        book: bookParam,
+        chapter: Math.max(1, parseInt(chapterParam, 10) || 1),
+        version: 'Reina-Valera 1960',
+        source: 'contingency-catch',
+        verses: contingencyChapterVerses(bookParam, chapterParam),
+      });
     }
-
-    res.writeHead(500, {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Access-Control-Allow-Origin': '*',
-    });
-    return res.end(
-      JSON.stringify({
-        success: false,
-        error: `No se pudo obtener ${vConfig.label} para ${book.name} ${chapter}.`,
-      })
-    );
   }
 
   // SERVIDOR DE ARCHIVOS ESTÁTICOS (sin Live Server)

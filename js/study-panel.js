@@ -1900,10 +1900,16 @@
       document.body.classList.add("has-study-panel");
       if (ref) currentRef = ref;
       else {
-        const on = document.querySelector(
-          "#texto-biblico .rv-verse-surface.is-verse-on, #texto-biblico .is-va-active"
-        );
-        currentRef = on?.dataset?.reference || currentRef;
+        const study = global.currentStudyState || global.RV?.currentStudyState;
+        if (study?.ref) currentRef = study.ref;
+        else if (study?.book) {
+          currentRef = `${study.book} ${study.chapter || 1}:${study.verse || 1}`;
+        } else {
+          const on = document.querySelector(
+            "#texto-biblico .rv-verse-surface.is-verse-on, #texto-biblico .is-va-active"
+          );
+          currentRef = on?.dataset?.reference || currentRef;
+        }
       }
       // Compat: antiguos callers enviaban tab:'tsk' esperando dogmática; ahora tsk es real
       setTab(tab === "xref" ? "tsk" : tab);
@@ -2043,6 +2049,28 @@
       if (root.classList.contains("is-open") && event.detail?.ref) {
         render(event.detail.ref, { keepLens: true });
       }
+    });
+    const syncStudyRef = (detail = {}) => {
+      const ref =
+        detail.ref ||
+        (detail.book
+          ? `${detail.book} ${detail.chapter || 1}:${detail.verse || 1}`
+          : "");
+      if (!ref) return;
+      currentRef = ref;
+      const refEl = document.getElementById("rv-sp-ref");
+      const titleEl = document.getElementById("rv-sp-title");
+      if (refEl) refEl.textContent = ref;
+      if (titleEl) titleEl.textContent = `Estudio · ${ref}`;
+      if (root.classList.contains("is-open")) {
+        render(ref, { keepLens: true });
+      }
+    };
+    document.addEventListener("revelatio:passage-ready", (event) => {
+      syncStudyRef(event.detail || {});
+    });
+    document.addEventListener("revelatio:active-passage", (event) => {
+      syncStudyRef(event.detail || {});
     });
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && root?.classList?.contains("is-open")) close();

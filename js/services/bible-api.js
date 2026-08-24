@@ -1,6 +1,7 @@
 /**
  * Éfata RevelatiO — bible-api.js
  * Cliente limpio: un solo endpoint `/api/bible` + claves de versión nativas.
+ * Reintenta RVR1960 si la versión pedida falla; nunca propaga HTTP 500 crudo.
  */
 
 export const VERSION_MAP = {
@@ -35,18 +36,49 @@ export function normalizeVersionKey(raw) {
   return 'RVR1960';
 }
 
+async function fetchPassageOnce(book, chapter, verKey) {
+  const res = await fetch(
+    `/api/bible?book=${encodeURIComponent(book)}&chapter=${chapter}&version=${encodeURIComponent(verKey)}`
+  );
+  const json = await res.json().catch(() => null);
+  if (json?.success && Array.isArray(json.verses) && json.verses.length) {
+    return json;
+  }
+  if (!res.ok) {
+    throw new Error(json?.error || `HTTP Error: ${res.status}`);
+  }
+  throw new Error(json?.error || 'Respuesta vacía del endpoint bíblico');
+}
+
 export async function getPassageData(book, chapter, version = 'RVR1960') {
   const verKey = normalizeVersionKey(version);
-  try {
-    const res = await fetch(
-      `/api/bible?book=${encodeURIComponent(book)}&chapter=${chapter}&version=${encodeURIComponent(verKey)}`
-    );
-    if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
-    return await res.json();
-  } catch (err) {
-    console.error('[BibleAPI Service]', err);
-    return { success: false, error: err.message };
+  const tries = [verKey];
+  if (verKey !== 'RVR1960') tries.push('RVR1960');
+  if (!tries.includes('RVR1909')) tries.push('RVR1909');
+
+  let lastErr = null;
+  for (const key of tries) {
+    try {
+      const data = await fetchPassageOnce(book, chapter, key);
+      if (key !== verKey) {
+        data.note = data.note || `Mostrando ${data.version} (fallback desde ${verKey})`;
+      }
+      return data;
+    } catch (err) {
+      lastErr = err;
+      console.warn(`[BibleAPI] ${book} ${chapter} @ ${key}:`, err?.message || err);
+    }
   }
+
+  console.error('[BibleAPI Service]', lastErr);
+  return {
+    success: false,
+    error: lastErr?.message || 'No se pudo obtener el pasaje',
+    book,
+    chapter: Number(chapter) || 1,
+    version: verKey,
+    verses: [],
+  };
 }
 
 export default getPassageData;

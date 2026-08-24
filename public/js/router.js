@@ -7,7 +7,7 @@
     "use strict";
 
     const RV = (global.RV = global.RV || {});
-    const VERSION = "lensAiFallback1";
+    const VERSION = "habacucBibleSafe1";
 
     /** Rutas nombradas → archivos en /views */
     const ROUTES = {
