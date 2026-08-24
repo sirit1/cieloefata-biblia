@@ -94,6 +94,111 @@ function safeFilePath(urlPath) {
   return full;
 }
 
+function sendJson(res, status, payload) {
+  res.writeHead(status, {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
+  });
+  res.end(JSON.stringify(payload));
+}
+
+async function readJsonBody(req) {
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  const raw = Buffer.concat(chunks).toString('utf8').trim();
+  if (!raw) return {};
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return {};
+  }
+}
+
+function contingencyAiAnswer(passage) {
+  const ref = passage || 'este pasaje';
+  return (
+    `### Análisis Exegético & Transformador: ${ref}\n\n` +
+    `**1. Centralidad y Contexto:**\nEste texto confronta directamente la raíz de las motivaciones humanas, alineando la voluntad con el propósito soberano de Dios frente a cualquier sistema de auto-justificación.\n\n` +
+    `**2. Metanoia & Renovación:**\nDesarma los esquemas reactivos basados en la carne y reconfigura el entendimiento hacia una confianza activa en la suficiencia de la gracia.\n\n` +
+    `**3. Aplicación y Criterio de Decisión:**\nPara la vida práctica, este principio demanda actuar con integridad sin comprometer la verdad por beneficios temporales.`
+  );
+}
+
+async function generateRevelatioAi(body = {}) {
+  const prompt = typeof body.prompt === 'string' ? body.prompt.trim() : '';
+  const passage =
+    (typeof body.passage === 'string' && body.passage.trim()) ||
+    (typeof body.consulta === 'string' && body.consulta.trim()) ||
+    (typeof body.contextPassage === 'string' && body.contextPassage.trim()) ||
+    '';
+  const lensTitle =
+    (typeof body.lensTitle === 'string' && body.lensTitle.trim()) ||
+    (typeof body.lente === 'string' && body.lente.trim()) ||
+    '';
+  const lensId = typeof body.lensId === 'string' ? body.lensId.trim() : '';
+  const mode = typeof body.mode === 'string' ? body.mode.trim() : '';
+
+  const queryText =
+    prompt ||
+    `${lensTitle ? `[${lensTitle}] ` : ''}Analiza ${passage || 'el pasaje indicado'}`;
+
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+
+  if (!apiKey) {
+    const answer = contingencyAiAnswer(passage);
+    return {
+      success: true,
+      answer,
+      respuesta: answer,
+      data: {
+        comentarioExpositivo: answer,
+        lensId: lensId || undefined,
+        mode: mode || undefined,
+      },
+    };
+  }
+
+  const systemPrompt = `Eres RevelatiO IA, un teólogo bíblico y mentor de metanoia cristiana reformada/clásica.
+Analiza el siguiente pasaje o consulta vital:
+"${queryText}"
+
+Entrega una respuesta profunda, estructurada con títulos claros, sin rodeos, fundamentada en la gracia, la transformación mental (Romanos 12:2) y pasos prácticos de decisión.`;
+
+  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const response = await fetch(geminiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: systemPrompt }] }],
+    }),
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const msg =
+      data?.error?.message ||
+      `Gemini respondió ${response.status}`;
+    throw new Error(msg);
+  }
+
+  const resultText =
+    data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+    'No se pudo generar respuesta.';
+
+  return {
+    success: true,
+    answer: resultText,
+    respuesta: resultText,
+    data: {
+      comentarioExpositivo: resultText,
+      lensId: lensId || undefined,
+      mode: mode || undefined,
+    },
+  };
+}
+
+const AI_API_PATHS = new Set(['/api/ai', '/api/lente', '/api/exegesis']);
+
 const server = http.createServer(async (req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
 
@@ -101,10 +206,25 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept',
     });
     return res.end();
+  }
+
+  // ENDPOINTS IA: /api/ai | /api/lente | /api/exegesis
+  if (AI_API_PATHS.has(parsedUrl.pathname) && req.method === 'POST') {
+    try {
+      const body = await readJsonBody(req);
+      const payload = await generateRevelatioAi(body);
+      return sendJson(res, 200, payload);
+    } catch (error) {
+      console.error(`[Server ${parsedUrl.pathname} error]:`, error?.message || error);
+      return sendJson(res, 500, {
+        success: false,
+        error: error?.message || 'Error en RevelatiO IA',
+      });
+    }
   }
 
   // ENDPOINT DE DATOS: /api/bible

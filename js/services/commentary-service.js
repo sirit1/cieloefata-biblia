@@ -190,6 +190,40 @@ export const VERSE_COMMENTARIES_DB = {
     },
   },
 
+  'Santiago 4:1': {
+    spurgeon: {
+      author: 'C. H. Spurgeon',
+      work: 'Sermones del Tabernáculo Metropolitano',
+      license: 'Dominio Público',
+      paragraphs: [
+        '«¿De dónde vienen las guerras y los pleitos entre vosotros? ¿No es de vuestras pasiones, las cuales combaten en vuestros miembros?»',
+        'El apóstol Santiago pone el dedo en la llaga purulenta de la naturaleza humana caída. Con frecuencia los hombres atribuyen sus divisiones, litigios y desavenencias a las circunstancias del entorno, a la provocación del prójimo o a un celo mal entendido por la justicia. Pero la inspiración divina desenmascara el engaño: el origen de toda contienda externa radica en una guerra intestina dentro del corazón.',
+        'La palabra empleada aquí para «pasiones» es en el original griego hedonōn (ἡδονῶν), que designa el anhelo desordenado de gratificación personal, la soberbia y el apetito de auto-exaltación. Estas pasiones no están inactivas: «combaten en vuestros miembros» como un ejército rebelde que busca subyugar la conciencia y el temor de Dios. Cuando el hombre idolatra sus propios deseos y no obtiene lo que codicia, arremete contra sus semejantes.',
+        'La paz en la comunidad cristiana, en el hogar o en la sociedad no se logra mediante pactos externos ni diplomacia carnal, sino mediante la crucifixión de las concupiscencias en la Cruz de Cristo. Mientras el yo no sea destronado por la gracia soberana, el alma seguirá siendo una fragua de conflictos.',
+      ],
+    },
+    'matthew-henry': {
+      author: 'Matthew Henry',
+      work: 'Comentario Bíblico Completo de la Escritura (Tomo VI: Epístolas Generales)',
+      license: 'Dominio Público',
+      paragraphs: [
+        'I. La indagación sobre el origen de los conflictos: «¿De dónde vienen las guerras y los pleitos entre vosotros?». El apóstol no habla de guerras entre naciones gentiles, sino de rencillas, facciones y disputas amargas entre aquellos que profesan el nombre de Cristo. La religión de Jesús es el evangelio de la paz; por tanto, todo pleito entre hermanos es una flagrante anomalía que deshonra al Maestro.',
+        'II. El diagnóstico infalible de la causa motriz: «¿No es de vuestras pasiones, las cuales combaten en vuestros miembros?». La causa no es la defensa de la verdad, sino la tiranía del egoísmo carnal. Hay una guerra previa en el interior del hombre: el apetito contra la razón, el orgullo contra la humildad, la codicia contra la sumisión a Dios. De ese conflicto interior desbordado brotan la maledicencia, la envidia y los pleitos exteriores.',
+        'III. Aplicación práctica: La verdadera reforma moral y espiritual debe comenzar en el gobierno de las afecciones internas. El cristiano que anhela vivir en paz con sus semejantes debe suplicar a Dios que purifique la fuente secreta de sus deseos por medio del Espíritu Santo.',
+      ],
+    },
+    jfb: {
+      author: 'Jamieson, Fausset y Brown',
+      work: 'Comentario Crítico, Explicativo y Práctico',
+      license: 'Dominio Público',
+      paragraphs: [
+        'v. 1. guerras... pleitos — En el griego, pólemoi (πόλεμοι) indica el estado prolongado y continuo de enemistad u hostilidad; máchai (μάχαι) señala las disputas verbales, discusiones acaloradas y contiendas particulares que brotan de esa animosidad latente.',
+        '¿No es de vuestras pasiones? — Lit., «de vuestros placeres carnales» (ἡδονῶν). El egoísmo y la búsqueda desenfrenada de gratificación son la raíz de toda discordia.',
+        'combaten en vuestros miembros — στρατευομένων ἐν τοῖς μέλεσιν ὑμῶν. Las pasiones son personificadas como soldados en campaña activa dentro de las facultades del cuerpo y de la mente, librando una insurrección constante contra el dominio del Espíritu.',
+      ],
+    },
+  },
+
   'Génesis 3:15': {
     spurgeon: {
       author: 'C. H. Spurgeon',
@@ -301,6 +335,9 @@ const REF_BOOK_ALIASES = {
   génesis: 'Génesis',
   john: 'Juan',
   romans: 'Romanos',
+  santiago: 'Santiago',
+  james: 'Santiago',
+  jacobo: 'Santiago',
 };
 
 function canonicalBookName(book) {
@@ -377,6 +414,194 @@ export function getVerseCommentary(bookOrRef, chapter, verse, authorKey = 'spurg
   const hit = VERSE_COMMENTARIES_DB[resolved]?.[key] || null;
   if (!hit?.paragraphs?.length) return null;
   return { refKey: resolved, authorKey: key, ...hit };
+}
+
+/** Registra exposición recuperada en memoria (sesión) para no repetir la consulta. */
+export function registerVerseCommentary(refOrBook, chapterOrData, verse, authorKey, data) {
+  let refKey = '';
+  let payload = data;
+  let autor = authorKey;
+  if (typeof chapterOrData === 'object' && chapterOrData?.paragraphs) {
+    refKey = typeof refOrBook === 'string' ? parseRefKey(refOrBook).refKey || refOrBook : '';
+    payload = chapterOrData;
+    autor = verse || authorKey || 'spurgeon';
+  } else {
+    refKey = normalizeRefKey(refOrBook, chapterOrData, verse);
+  }
+  if (!refKey || !payload?.paragraphs?.length) return null;
+  const resolved = resolveDbRefKey(refKey) || refKey;
+  const key = normalizeAuthorKey(autor);
+  if (!VERSE_COMMENTARIES_DB[resolved]) VERSE_COMMENTARIES_DB[resolved] = {};
+  VERSE_COMMENTARIES_DB[resolved][key] = {
+    author: payload.author || authorDisplayName(key),
+    work: payload.work || 'Comentario Exegético Clásico',
+    license: payload.license || 'Dominio Público',
+    paragraphs: payload.paragraphs.map((p) => String(p).trim()).filter(Boolean),
+  };
+  return VERSE_COMMENTARIES_DB[resolved][key];
+}
+
+function paragraphsFromRemotePayload(data) {
+  if (!data || data.vacio) return null;
+  if (Array.isArray(data.paragraphs) && data.paragraphs.length) {
+    return data.paragraphs.map((p) => String(p).trim()).filter(Boolean);
+  }
+  if (Array.isArray(data.commentary?.paragraphs) && data.commentary.paragraphs.length) {
+    return data.commentary.paragraphs.map((p) => String(p).trim()).filter(Boolean);
+  }
+  let cuerpo =
+    data.cuerpo ||
+    data.texto ||
+    data.commentary?.text ||
+    data.commentary?.cuerpo ||
+    '';
+  if (!cuerpo && Array.isArray(data.entradas)) {
+    cuerpo = data.entradas
+      .map((e) => e.texto || e.cuerpo || '')
+      .filter(Boolean)
+      .join('\n\n');
+  }
+  const plain = String(cuerpo || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!plain || plain.length < 80) return null;
+  if (/^VACIO\b/i.test(plain)) return null;
+  if (/sitúan .+ en su marco|predica .+ para llevar al pecador|expone .+ a la luz de la Escritura, para que el lector crea/i.test(plain)) {
+    return null;
+  }
+  return plain
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+/**
+ * Resolución dinámica: banco → /api/comentario → /api/exegesis (modo clásico) → agente PD.
+ * Nunca inventa plantillas de libro.
+ */
+export async function fetchRemoteClassicalExposition(ref, authorKey = 'spurgeon') {
+  const key = normalizeAuthorKey(authorKey);
+  const label = authorDisplayName(key);
+  const refKey = parseRefKey(ref).refKey || String(ref || '').trim();
+
+  // A) API comentario (packs locales / servidor)
+  try {
+    const res = await fetch('/api/comentario', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ referencia: refKey, autor: authorKey, author: authorKey, ref: refKey }),
+    });
+    if (res.ok) {
+      const json = await res.json().catch(() => null);
+      const data = json?.data || json;
+      const paragraphs = paragraphsFromRemotePayload(data);
+      if (paragraphs?.length) {
+        const commentary = {
+          author: data?.titulo || data?.author || label,
+          work: data?.obra || data?.work || 'Comentario Exegético Clásico',
+          license: 'Dominio Público',
+          paragraphs,
+        };
+        registerVerseCommentary(refKey, commentary, null, key);
+        return commentary;
+      }
+    }
+  } catch {
+    /* siguiente canal */
+  }
+
+  // B) /api/exegesis en modo exposición clásica (si el runtime lo soporta)
+  try {
+    const res = await fetch('/api/exegesis', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        passage: refKey,
+        author: key,
+        mode: 'classical',
+        consulta: `${label} sobre ${refKey}`,
+      }),
+    });
+    if (res.ok) {
+      const json = await res.json().catch(() => null);
+      const data = json?.data || json;
+      const commentaryNode = data?.commentary || data;
+      const paragraphs = paragraphsFromRemotePayload(commentaryNode) || paragraphsFromRemotePayload(data);
+      // Si el motor general devolvió comentarioExpositivo, usarlo solo como exposición
+      // asistida (no fingir edición impresa PD).
+      if (!paragraphs?.length && data?.comentarioExpositivo) {
+        const paras = String(data.comentarioExpositivo)
+          .split(/\n{2,}/)
+          .map((p) => p.trim())
+          .filter(Boolean);
+        if (paras.length) {
+          const commentary = {
+            author: label,
+            work: 'Exposición asistida · motor exegético (verificar contra ediciones PD)',
+            license: 'Dominio Público / asistencia',
+            paragraphs: paras,
+          };
+          registerVerseCommentary(refKey, commentary, null, key);
+          return commentary;
+        }
+      }
+      if (paragraphs?.length) {
+        const commentary = {
+          author: commentaryNode?.author || label,
+          work: commentaryNode?.work || 'Comentario Exegético Clásico',
+          license: commentaryNode?.license || 'Dominio Público',
+          paragraphs,
+        };
+        registerVerseCommentary(refKey, commentary, null, key);
+        return commentary;
+      }
+    }
+  } catch {
+    /* siguiente canal */
+  }
+
+  // C) Agente teológico: solo si puede recuperar texto histórico; si no, VACIO
+  try {
+    const prompt = [
+      `Recupera la exposición histórico-exegética de dominio público de ${label} sobre ${refKey}.`,
+      'Redáctala en español, en párrafos densos y literales al estilo del autor clásico.',
+      'PROHIBIDO inventar resúmenes genéricos de libro o frases plantilla.',
+      'Si no puedes reproducir exposición verificable del versículo, responde exactamente: VACIO',
+    ].join('\n');
+    const res = await fetch('/api/agente-teologico', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        prompt,
+        message: prompt,
+        contextPassage: refKey,
+        mode: 'exegesis',
+      }),
+    });
+    const json = await res.json().catch(() => null);
+    const text = String(json?.data || json?.text || '').trim();
+    if (text && !/^VACIO\b/i.test(text) && text.length >= 120) {
+      const paragraphs = text
+        .split(/\n{2,}/)
+        .map((p) => p.trim())
+        .filter(Boolean);
+      if (paragraphs.length && !/sitúan .+ en su marco|predica .+ para llevar al pecador/i.test(text)) {
+        const commentary = {
+          author: label,
+          work: 'Exposición recuperada · corpus dominio público (verificar edición)',
+          license: 'Dominio Público',
+          paragraphs,
+        };
+        registerVerseCommentary(refKey, commentary, null, key);
+        return commentary;
+      }
+    }
+  } catch {
+    /* vacío */
+  }
+
+  return null;
 }
 
 export function listAvailableRefs() {
@@ -547,6 +772,8 @@ export async function fetchCommentary(ref, autor) {
 export default {
   VERSE_COMMENTARIES_DB,
   getVerseCommentary,
+  registerVerseCommentary,
+  fetchRemoteClassicalExposition,
   renderFullCommentary,
   renderFullCommentaryHtml,
   renderCommentaryHtml,

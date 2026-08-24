@@ -452,9 +452,9 @@ body.is-santuario #texto-biblico .rv-verse-surface.is-verse-on .rv-verse-text,
   color: #0F172A !important;
 }
 
-#texto-biblico .rv-verse-surface.is-verse-on,
-body.is-verse-study #texto-biblico .rv-verse-surface.is-verse-on,
-body.is-santuario #texto-biblico .rv-verse-surface.is-verse-on {
+#texto-biblico .rv-verse-surface.is-verse-on:not([class*="rv-hl-"]),
+body.is-verse-study #texto-biblico .rv-verse-surface.is-verse-on:not([class*="rv-hl-"]),
+body.is-santuario #texto-biblico .rv-verse-surface.is-verse-on:not([class*="rv-hl-"]) {
   background-color: rgba(197, 155, 39, 0.14) !important;
   background-image: none !important;
   border-left: 4px solid #C59B27 !important;
@@ -462,6 +462,89 @@ body.is-santuario #texto-biblico .rv-verse-surface.is-verse-on {
   outline: none !important;
   opacity: 1 !important;
   filter: none !important;
+}
+
+/* Resaltados Frutos ganan sobre la selección activa */
+#texto-biblico .rv-verse-surface.rv-hl-gozo,
+#texto-biblico .rv-verse-surface.rv-hl-gozo.is-verse-on,
+#texto-biblico .rv-verse-surface.rv-hl-oro,
+#texto-biblico .rv-verse-surface.rv-hl-oro.is-verse-on {
+  background-color: rgba(197, 155, 39, 0.32) !important;
+  border-left: 4px solid #C59B27 !important;
+}
+#texto-biblico .rv-verse-surface.rv-hl-bondad,
+#texto-biblico .rv-verse-surface.rv-hl-bondad.is-verse-on,
+#texto-biblico .rv-verse-surface.rv-hl-verde,
+#texto-biblico .rv-verse-surface.rv-hl-verde.is-verse-on {
+  background-color: rgba(21, 128, 61, 0.28) !important;
+  border-left: 4px solid #15803D !important;
+}
+#texto-biblico .rv-verse-surface.rv-hl-paz,
+#texto-biblico .rv-verse-surface.rv-hl-paz.is-verse-on,
+#texto-biblico .rv-verse-surface.rv-hl-azul,
+#texto-biblico .rv-verse-surface.rv-hl-azul.is-verse-on {
+  background-color: rgba(29, 78, 216, 0.28) !important;
+  border-left: 4px solid #1D4ED8 !important;
+}
+#texto-biblico .rv-verse-surface.rv-hl-amor,
+#texto-biblico .rv-verse-surface.rv-hl-amor.is-verse-on,
+#texto-biblico .rv-verse-surface.rv-hl-rubi,
+#texto-biblico .rv-verse-surface.rv-hl-rubi.is-verse-on {
+  background-color: rgba(168, 32, 26, 0.28) !important;
+  border-left: 4px solid #A8201A !important;
+}
+#texto-biblico .rv-verse-surface.rv-hl-paciencia,
+#texto-biblico .rv-verse-surface.rv-hl-paciencia.is-verse-on,
+#texto-biblico .rv-verse-surface.rv-hl-purpura,
+#texto-biblico .rv-verse-surface.rv-hl-purpura.is-verse-on {
+  background-color: rgba(126, 34, 206, 0.28) !important;
+  border-left: 4px solid #7E22CE !important;
+}
+
+#texto-biblico .rv-verse-text.rv-hl-gozo,
+#texto-biblico .verse-text.rv-hl-gozo,
+#texto-biblico .rv-verse-text.rv-hl-oro,
+#texto-biblico .verse-text.rv-hl-oro {
+  background-color: rgba(197, 155, 39, 0.38) !important;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+#texto-biblico .rv-verse-text.rv-hl-bondad,
+#texto-biblico .verse-text.rv-hl-bondad,
+#texto-biblico .rv-verse-text.rv-hl-verde,
+#texto-biblico .verse-text.rv-hl-verde {
+  background-color: rgba(21, 128, 61, 0.34) !important;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+#texto-biblico .rv-verse-text.rv-hl-paz,
+#texto-biblico .verse-text.rv-hl-paz,
+#texto-biblico .rv-verse-text.rv-hl-azul,
+#texto-biblico .verse-text.rv-hl-azul {
+  background-color: rgba(29, 78, 216, 0.34) !important;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+#texto-biblico .rv-verse-text.rv-hl-amor,
+#texto-biblico .verse-text.rv-hl-amor,
+#texto-biblico .rv-verse-text.rv-hl-rubi,
+#texto-biblico .verse-text.rv-hl-rubi {
+  background-color: rgba(168, 32, 26, 0.34) !important;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+#texto-biblico .rv-verse-text.rv-hl-paciencia,
+#texto-biblico .verse-text.rv-hl-paciencia,
+#texto-biblico .rv-verse-text.rv-hl-purpura,
+#texto-biblico .verse-text.rv-hl-purpura {
+  background-color: rgba(126, 34, 206, 0.34) !important;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 body.is-verse-study #texto-biblico .rv-verse-surface:not(.is-verse-on) {

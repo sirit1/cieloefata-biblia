@@ -3102,6 +3102,23 @@ function descargarBackup(kind) {
             document.querySelectorAll('#filtros-cuaderno [data-filtro]').forEach(el => el.classList.toggle('is-on', el === tab));
             pintarListaCuaderno();
         });
+        document.addEventListener('revelatio:cuaderno-refresh', (event) => {
+            const filtro = event.detail?.filtro;
+            if (filtro) {
+                cuadernoFiltro = filtro;
+                document.querySelectorAll('#filtros-cuaderno [data-filtro]').forEach((el) => {
+                    el.classList.toggle('is-on', el.dataset.filtro === filtro);
+                });
+            }
+            try { leerCuaderno(); } catch { /* ignore */ }
+            pintarListaCuaderno();
+            pintarCuota(leerCuaderno());
+        });
+        document.addEventListener('revelatio:cuaderno-add', () => {
+            try { leerCuaderno(); } catch { /* ignore */ }
+            pintarListaCuaderno();
+            pintarCuota(leerCuaderno());
+        });
         document.getElementById('lista-cuaderno')?.addEventListener('click', event => {
             const tagBtn = event.target.closest('[data-cuaderno-tag]');
             if (tagBtn) {

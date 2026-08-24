@@ -181,16 +181,153 @@
   }
 
   function clearHighlightClasses(verseEl) {
+    if (!verseEl) return;
     ALL_HL_CLASSES.forEach((c) => verseEl.classList.remove(c));
     delete verseEl.dataset.hl;
+    verseEl.querySelectorAll(".rv-verse-text, .verse-text").forEach((span) => {
+      ALL_HL_CLASSES.forEach((c) => span.classList.remove(c));
+      delete span.dataset.hl;
+    });
   }
 
   function applyHighlightClass(verseEl, colorId) {
+    if (!verseEl) return;
     const css = CLASS_MAP[colorId] || colorId;
     clearHighlightClasses(verseEl);
     verseEl.classList.add(`rv-hl-${css}`);
     verseEl.dataset.hl = css;
+    const textSpan = verseEl.querySelector(".rv-verse-text, .verse-text");
+    if (textSpan) {
+      textSpan.classList.add(`rv-hl-${css}`);
+      textSpan.dataset.hl = css;
+    }
   }
+
+  function findVerseEl(passage) {
+    const ref = String(passage || "").trim();
+    if (!ref) return null;
+    const esc = typeof CSS !== "undefined" && CSS.escape ? CSS.escape(ref) : ref.replace(/"/g, '\\"');
+    return (
+      document.querySelector(`#texto-biblico .rv-verse-surface[data-reference="${esc}"]`) ||
+      document.querySelector(`#verses-container .rv-verse-surface[data-reference="${esc}"]`) ||
+      document.querySelector(`#texto-biblico .rv-verse-surface[data-passage="${esc}"]`) ||
+      document.querySelector(`#verses-container .rv-verse-surface[data-passage="${esc}"]`) ||
+      document.querySelector(`.rv-verse-surface.is-va-active, .rv-verse-surface.is-verse-on`)
+    );
+  }
+
+  function saveHighlightToNotebook(passage, text, colorId) {
+    const save = global.saveNotebookEntry || RV.notebook?.saveNotebookEntry;
+    if (typeof save !== "function") return null;
+    return save({
+      passage,
+      text,
+      category: "RESALTADOS",
+      color: colorId,
+      source: "highlight",
+    });
+  }
+
+  function saveCopyToNotebook(passage, text) {
+    const save = global.saveNotebookEntry || RV.notebook?.saveNotebookEntry;
+    if (typeof save !== "function") return null;
+    return save({
+      passage,
+      text,
+      category: "NOTAS",
+      customNote: "Copiado al portapapeles",
+      source: "copy",
+    });
+  }
+
+  function openNotebook(filter) {
+    const open = global.openNotebookDrawer || RV.notebook?.openNotebookDrawer || RV.ui?.abrirCuaderno;
+    if (typeof open === "function") open(filter);
+    else document.getElementById("abrir-cuaderno")?.click();
+  }
+
+  function openIaWithVerse(ref, text) {
+    const prompt = `Analiza y aplica ${ref || "este pasaje"}:\n«${text || ""}»`;
+    if (typeof global.openAiModal === "function") {
+      global.openAiModal("exegesis", prompt);
+      return;
+    }
+    if (typeof RV.ai?.open === "function") {
+      RV.ai.open(prompt, "exegesis");
+      return;
+    }
+    document.dispatchEvent(new CustomEvent("revelatio:ask-ai", { detail: { prompt, mode: "exegesis" } }));
+    document.getElementById("btn-asistente-ia")?.click();
+  }
+
+  /** API pública: resaltar versículo activo y registrar en Cuaderno → RESALTADOS */
+  global.applyHighlight = function applyHighlight(colorName) {
+    const passage = global.currentSelectedPassage || "";
+    const text = global.currentSelectedText || "";
+    if (!passage && !text) return;
+
+    const colorId = CLASS_MAP[colorName] || colorName || "gozo";
+    const el = findVerseEl(passage);
+    if (el) applyHighlightClass(el, colorId);
+
+    const map = readHighlights();
+    if (passage) {
+      map[passage] = colorId;
+      writeHighlights(map);
+    }
+
+    if (passage && text) saveHighlightToNotebook(passage, text, colorId);
+
+    const api = RV.verseActions;
+    if (api?.hide) api.hide();
+    else global.clearVerseSelection?.();
+  };
+
+  /** API pública: copiar + apunte en Cuaderno → NOTAS + abrir panel */
+  global.copySelectedVerse = async function copySelectedVerse() {
+    const passage = global.currentSelectedPassage || "";
+    const text = global.currentSelectedText || "";
+    if (!passage && !text) return;
+
+    const fullText = `«${text}» — ${passage} (${versionLabel()}) · Éfata RevelatiO`;
+    try {
+      await navigator.clipboard.writeText(fullText);
+    } catch {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = fullText;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      } catch {
+        /* ignore */
+      }
+    }
+
+    if (passage && text) saveCopyToNotebook(passage, text);
+    openNotebook("NOTAS");
+
+    const api = RV.verseActions;
+    if (api?.hide) api.hide();
+    else global.clearVerseSelection?.();
+  };
+
+  global.clearVerseSelection = function clearVerseSelection() {
+    document
+      .querySelectorAll(
+        "#texto-biblico .is-verse-on, #texto-biblico .is-va-active, #verses-container .is-verse-on, #verses-container .is-va-active"
+      )
+      .forEach((n) => n.classList.remove("is-verse-on", "is-va-active"));
+    document.body.classList.remove("is-verse-study");
+    global.currentSelectedPassage = "";
+    global.currentSelectedText = "";
+    const bar = document.getElementById("rv-verse-actions");
+    if (bar) {
+      bar.hidden = true;
+      bar.classList.remove("is-on");
+    }
+  };
 
   function restoreHighlights() {
     const map = readHighlights();
@@ -201,6 +338,9 @@
         ) ||
         document.querySelector(
           `#verses-container .rv-verse-surface[data-reference="${CSS.escape(ref)}"]`
+        ) ||
+        document.querySelector(
+          `#texto-biblico .rv-verse-surface[data-passage="${CSS.escape(ref)}"]`
         );
       if (el) applyHighlightClass(el, colorId);
     });
@@ -439,6 +579,8 @@
       activeEl = null;
       activeRef = "";
       activeText = "";
+      global.currentSelectedPassage = "";
+      global.currentSelectedText = "";
       document.body.classList.remove("is-verse-study");
     };
 
@@ -479,6 +621,8 @@
         (verseText != null && String(verseText).trim()) ||
         el.dataset.text ||
         verseTextFromEl(textNode);
+      global.currentSelectedPassage = activeRef;
+      global.currentSelectedText = activeText;
       place(el);
       document.body.classList.add("is-verse-study");
       document.dispatchEvent(
@@ -494,33 +638,55 @@
     };
 
     bar.addEventListener("click", async (event) => {
+      event.preventDefault();
       event.stopPropagation();
       const hl = event.target.closest("[data-va-hl]");
-      if (hl && activeEl) {
+      if (hl) {
         const colorId = hl.dataset.vaHl;
         const mapped = CLASS_MAP[colorId] || colorId;
+        if (!activeEl) {
+          activeEl = findVerseEl(global.currentSelectedPassage || activeRef);
+        }
+        if (!activeEl) return;
+        if (!activeRef) {
+          activeRef =
+            activeEl.dataset.reference ||
+            activeEl.dataset.passage ||
+            global.currentSelectedPassage ||
+            "";
+        }
+        if (!activeText) {
+          activeText =
+            activeEl.dataset.text ||
+            global.currentSelectedText ||
+            verseTextFromEl(activeEl);
+        }
+        global.currentSelectedPassage = activeRef;
+        global.currentSelectedText = activeText;
+
         const current = activeEl.dataset.hl;
         const map = readHighlights();
         if (current === mapped) {
           clearHighlightClasses(activeEl);
           delete map[activeRef];
+          writeHighlights(map);
         } else {
           applyHighlightClass(activeEl, mapped);
           map[activeRef] = mapped;
+          writeHighlights(map);
+          if (activeRef && activeText) {
+            saveHighlightToNotebook(activeRef, activeText, mapped);
+          }
         }
-        writeHighlights(map);
         return;
       }
       const act = event.target.closest("[data-va-act]")?.dataset?.vaAct;
       if (!act) return;
 
       if (act === "copy") {
-        const payload = `«${activeText}» — ${activeRef} (${versionLabel()}) · Éfata RevelatiO`;
-        try {
-          await navigator.clipboard.writeText(payload);
-        } catch {
-          /* ignore */
-        }
+        global.currentSelectedPassage = activeRef || global.currentSelectedPassage;
+        global.currentSelectedText = activeText || global.currentSelectedText;
+        await global.copySelectedVerse();
         return;
       }
       if (act === "card") {
@@ -557,12 +723,7 @@
         return;
       }
       if (act === "clear") {
-        document
-          .querySelectorAll(
-            "#texto-biblico .is-verse-on, #texto-biblico .is-va-active, #verses-container .is-verse-on, #verses-container .is-va-active"
-          )
-          .forEach((n) => n.classList.remove("is-verse-on", "is-va-active"));
-        document.body.classList.remove("is-verse-study");
+        global.clearVerseSelection?.();
         hide();
       }
     });

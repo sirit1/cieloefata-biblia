@@ -62,7 +62,7 @@ function handleVerseClick(verseEl, passageRef, verseText) {
 
   const api = globalThis.RV?.verseActions;
   if (api?.show) {
-    api.show(verseEl);
+    api.show(verseEl, passageRef, verseText);
     return;
   }
   if (typeof globalThis.selectVerseForAction === 'function') {

@@ -186,6 +186,66 @@
         refs: ["Efesios 5:10", "Efesios 5:17", "1 Tesalonicenses 5:21", "1 Juan 2:17"],
       },
     ],
+    "santiago 4:1": [
+      {
+        phrase: "¿De dónde vienen las guerras y los pleitos entre vosotros?",
+        theme: "Origen de las contiendas y división carnal",
+        refs: [
+          {
+            passage: "Santiago 3:14-18",
+            text: "Pero si tenéis celos amargos y contención en vuestro corazón, no os jactéis… la sabiduría que es de lo alto es primeramente pura, después pacífica.",
+          },
+          {
+            passage: "1 Corintios 3:3",
+            text: "Porque aún sois carnales; pues habiendo entre vosotros celos, contiendas y disensiones, ¿no sois carnales, y andáis como hombres?",
+          },
+          {
+            passage: "Gálatas 5:19-21",
+            text: "Y manifiestas son las obras de la carne, que son: … enemistades, pleitos, celos, iras, contiendas, disensiones, herejías.",
+          },
+          {
+            passage: "Génesis 13:7-8",
+            text: "Y hubo contienda entre los pastores del ganado de Abram y los pastores del ganado de Lot.",
+          },
+        ],
+      },
+      {
+        phrase: "¿No es de vuestras pasiones (hedonōn)?",
+        theme: "La tiranía del egoísmo y placeres desordenados",
+        refs: [
+          {
+            passage: "1 Pedro 2:11",
+            text: "Amados, yo os ruego como a extranjeros y peregrinos, que os abstengáis de los deseos carnales que batallan contra el alma.",
+          },
+          {
+            passage: "Tito 3:3",
+            text: "Porque nosotros también éramos en otro tiempo insensatos, rebeldes, extraviados, esclavos de concupiscencias y deleites diversos…",
+          },
+          {
+            passage: "Lucas 22:24",
+            text: "Hubo también entre ellos una disputa sobre quién de ellos sería el mayor.",
+          },
+        ],
+      },
+      {
+        phrase: "Las cuales combaten en vuestros miembros",
+        theme: "Conflicto interior: la carne contra el Espíritu",
+        refs: [
+          {
+            passage: "Romanos 7:23",
+            text: "Pero veo otra ley en mis miembros, que se rebela contra la ley de mi mente, y que me lleva cautivo a la ley del pecado que está en mis miembros.",
+          },
+          {
+            passage: "Gálatas 5:17",
+            text: "Porque el deseo de la carne es contra el Espíritu, y el del Espíritu es contra la carne; y éstos se oponen entre sí.",
+          },
+          {
+            passage: "Colosenses 3:5",
+            text: "Haced morir, pues, lo terrenal en vuestros miembros: fornicación, impureza, pasiones desordenadas, malos deseos y avaricia, que es idolatría.",
+          },
+        ],
+      },
+    ],
   };
 
   /** Léxico seed para pasajes clave (sin depender del agente) */
@@ -565,7 +625,14 @@
   }
 
   function tskGroupsHaveRefs(groups) {
-    return Array.isArray(groups) && groups.some((g) => Array.isArray(g.refs) && g.refs.length > 0);
+    return (
+      Array.isArray(groups) &&
+      groups.some(
+        (g) =>
+          Array.isArray(g.refs) &&
+          g.refs.some((r) => (typeof r === "string" ? Boolean(r) : Boolean(r?.passage || r?.ref)))
+      )
+    );
   }
 
   /* —— Comentarios (solo exposiciones íntegras por versículo) —— */
@@ -786,7 +853,7 @@
       };
     }
 
-    // 3) Pack local / API: solo si es texto de versículo (nunca libro/voz/IA)
+    // 3) Pack local / API comentario
     const local = await loadLocalVerseComment(refKey, autor);
     const api = await fetchApiVerseComment(refKey, autor);
     const best =
@@ -813,7 +880,35 @@
       };
     }
 
-    // 4) Sin inventar: aviso honesto (prohibido agente / resumen de libro)
+    // 4) Resolución dinámica en tiempo real (comentario → exegesis → agente PD)
+    const svc = commentaryService();
+    if (svc?.fetchRemoteClassicalExposition) {
+      try {
+        const remote = await svc.fetchRemoteClassicalExposition(refKey, autor);
+        if (remote?.paragraphs?.length && !isGenericCommentaryText(remote.paragraphs.join(" "))) {
+          const html = renderFullCommentaryMarkup(remote, refKey);
+          cacheSet("comment", cacheKey, {
+            label: remote.author,
+            html,
+            paragraphs: remote.paragraphs,
+            work: remote.work,
+            license: remote.license,
+          });
+          return {
+            label: remote.author,
+            html,
+            work: remote.work,
+            license: remote.license,
+            paragraphs: remote.paragraphs,
+            source: "remote",
+          };
+        }
+      } catch {
+        /* pending */
+      }
+    }
+
+    // 5) Sin inventar plantillas: aviso honesto (panel no queda vacío)
     const pending = renderPendingExposition(refKey);
     return {
       label: commentatorLabel(autor),
@@ -840,6 +935,8 @@
   }
 
   function seedTsk(ref) {
+    const fromService = global.RV?.TskService?.getTskSections?.(ref);
+    if (tskGroupsHaveRefs(fromService)) return fromService;
     return TSK_SEED[passageKey(ref)] || [];
   }
 
@@ -1167,21 +1264,118 @@
     }, 120);
   }
 
-  /** Abre RevelatiO IA precargada con la lente de vida seleccionada. */
-  function openAiWithLens(promptSeed, passageRef, lensTitle) {
-    const prompt = `${promptSeed || ""} ${passageRef || ""}`.trim();
-    openIa(prompt, "vida");
+  /** Inyecta la respuesta de RevelatiO IA debajo de la tarjeta de lente (sin modal). */
+  async function openAiWithLens(promptSeed, passageRef, lensTitle, lensId) {
+    const id = String(lensId || "").trim();
+    if (!id) return;
+
+    // Cerrar otros resultados inline del panel
+    document.querySelectorAll("[id^='lens-result-']").forEach((el) => {
+      if (el.id !== `lens-result-${id}`) el.remove();
+    });
+    document.querySelectorAll("[id^='lens-card-']").forEach((el) => {
+      el.classList.toggle("ring-2", el.id === `lens-card-${id}`);
+      el.classList.toggle("ring-[#C59B27]/40", el.id === `lens-card-${id}`);
+      el.classList.toggle("border-[#C59B27]", el.id === `lens-card-${id}`);
+    });
+
+    const cardEl = document.getElementById(`lens-card-${id}`);
+    let resultContainer = document.getElementById(`lens-result-${id}`);
+
+    if (!resultContainer && cardEl) {
+      resultContainer = document.createElement("div");
+      resultContainer.id = `lens-result-${id}`;
+      resultContainer.className =
+        "mt-3 pt-3 border-t border-[#C59B27]/30 text-stone-800 text-xs font-serif leading-relaxed";
+      cardEl.appendChild(resultContainer);
+    }
+
+    // Fallback: slot data-sp-lens-answer del bloque
+    if (!resultContainer) {
+      const block = document.querySelector(`[data-sp-lens-block="${CSS.escape(id)}"]`);
+      resultContainer = block?.querySelector("[data-sp-lens-answer]") || null;
+      if (resultContainer) {
+        resultContainer.id = `lens-result-${id}`;
+        resultContainer.className =
+          "mt-3 pt-3 border-t border-[#C59B27]/30 text-stone-800 text-xs font-serif leading-relaxed";
+      }
+    }
+
+    if (!resultContainer) return;
+    resultContainer.hidden = false;
+    resultContainer.removeAttribute("hidden");
+
+    resultContainer.innerHTML = `
+      <div class="p-3 bg-[#0A192F] text-amber-100 rounded-lg flex items-center gap-2.5">
+        <span class="inline-block animate-spin text-sm" aria-hidden="true">⏳</span>
+        <span class="font-sans text-[11px]">Consultando RevelatiO IA para ${escapeHtml(passageRef || "este pasaje")}…</span>
+      </div>`;
+
     try {
-      document.dispatchEvent(
-        new CustomEvent("revelatio:lens", {
-          detail: { title: lensTitle, prompt, ref: passageRef },
-        })
-      );
-    } catch {
-      /* ignore */
+      const res = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          prompt: `${promptSeed || ""} ${passageRef || ""}`.trim(),
+          passage: passageRef,
+          lensTitle,
+          lensId: id,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (data.success && data.answer) {
+        const formattedAnswer = mdToHtml(data.answer);
+        resultContainer.innerHTML = `
+          <div class="p-4 bg-amber-50/80 border border-[#C59B27]/40 rounded-xl space-y-2 text-[#0F172A]">
+            <div class="flex items-center justify-between pb-1 border-b border-[#C59B27]/20 gap-2">
+              <span class="text-[10px] font-mono font-bold text-[#855D10] uppercase tracking-wider truncate">RevelatiO IA · ${escapeHtml(lensTitle || "Lente")}</span>
+              <button type="button" data-sp-lens-result-close="${escapeHtml(id)}" class="text-stone-400 hover:text-stone-700 text-sm font-bold leading-none shrink-0" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="text-xs font-serif leading-relaxed text-justify space-y-2 [&_h3]:text-sm [&_h3]:font-bold [&_h4]:text-xs [&_h4]:font-bold [&_h4]:text-[#855D10] [&_h5]:font-bold [&_h5]:text-[#855D10] [&_h5]:uppercase [&_h5]:tracking-wide [&_h5]:my-1">
+              ${formattedAnswer}
+            </div>
+          </div>`;
+        resultContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        try {
+          document.dispatchEvent(
+            new CustomEvent("revelatio:lens", {
+              detail: {
+                title: lensTitle,
+                prompt: `${promptSeed || ""} ${passageRef || ""}`.trim(),
+                ref: passageRef,
+                lensId: id,
+                inline: true,
+              },
+            })
+          );
+        } catch {
+          /* ignore */
+        }
+      } else {
+        throw new Error(data.error || "Error al procesar");
+      }
+    } catch (err) {
+      resultContainer.innerHTML = `
+        <div class="p-3 bg-red-50 border border-red-200 text-red-800 text-xs rounded-lg space-y-2">
+          <p>No se pudo obtener la respuesta. Verifica la conexión con el servidor.</p>
+          <p class="text-[10px] text-red-600/80">${escapeHtml(err?.message || "")}</p>
+          <button type="button" data-sp-lens-retry-id="${escapeHtml(id)}" class="underline text-red-700 text-[10px] font-sans">Reintentar</button>
+        </div>`;
     }
   }
   global.openAiWithLens = openAiWithLens;
+
+  async function runLensInline(lensBtn) {
+    if (!lensBtn) return;
+    await openAiWithLens(
+      lensBtn.dataset.spLensPrompt || "",
+      lensBtn.dataset.spLensRef || "",
+      lensBtn.dataset.spLensTitle || "",
+      lensBtn.dataset.spLensId || ""
+    );
+  }
+  global.runLensInline = runLensInline;
 
   const TABS_HTML = `
     <button type="button" class="is-on" data-sp-tab="comentarios" role="tab" aria-selected="true" title="Comentarios histórico-exegéticos de dominio público">📖 Comentarios</button>
@@ -1340,45 +1534,49 @@
       <div class="space-y-3">
         ${REVELATIO_LENSES.map(
           (l) => `
-          <button
-            type="button"
-            data-sp-lens
-            data-sp-lens-id="${escapeHtml(l.id)}"
-            data-sp-lens-prompt="${escapeHtml(l.promptSeed)}"
-            data-sp-lens-title="${escapeHtml(l.title)}"
-            data-sp-lens-ref="${escapeHtml(passageRef)}"
-            class="group cursor-pointer bg-white hover:bg-amber-50/40 border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl p-4 transition-all duration-200 shadow-sm hover:shadow-md text-left w-full"
-          >
-            <div class="flex items-start gap-3">
-              <span class="text-xl p-2 rounded-lg bg-stone-100 group-hover:bg-[#C59B27]/15 transition-colors flex-shrink-0 select-none" aria-hidden="true">
-                ${l.icon}
-              </span>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center justify-between gap-2">
-                  <h4 class="text-sm font-bold text-[#0A192F] group-hover:text-[#C59B27] transition-colors">
-                    ${escapeHtml(l.title)}
-                  </h4>
-                  <span class="text-xs text-[#C59B27] opacity-0 group-hover:opacity-100 transition-opacity font-mono font-bold" aria-hidden="true">&rarr;</span>
-                </div>
+          <div class="rv-sp-lens-block" data-sp-lens-block="${escapeHtml(l.id)}" id="lens-card-${escapeHtml(l.id)}">
+            <button
+              type="button"
+              data-sp-lens
+              data-sp-lens-id="${escapeHtml(l.id)}"
+              data-sp-lens-prompt="${escapeHtml(l.promptSeed)}"
+              data-sp-lens-title="${escapeHtml(l.title)}"
+              data-sp-lens-ref="${escapeHtml(passageRef)}"
+              aria-expanded="false"
+              class="group cursor-pointer bg-white hover:bg-amber-50/40 border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl p-4 transition-all duration-200 shadow-sm hover:shadow-md text-left w-full"
+            >
+              <div class="flex items-start gap-3">
+                <span class="text-xl p-2 rounded-lg bg-stone-100 group-hover:bg-[#C59B27]/15 transition-colors flex-shrink-0 select-none" aria-hidden="true">
+                  ${l.icon}
+                </span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <h4 class="text-sm font-bold text-[#0A192F] group-hover:text-[#C59B27] transition-colors">
+                      ${escapeHtml(l.title)}
+                    </h4>
+                    <span class="text-xs text-[#C59B27] opacity-0 group-hover:opacity-100 transition-opacity font-mono font-bold" aria-hidden="true">&rarr;</span>
+                  </div>
 
-                <div class="mt-1">
-                  <span class="inline-block text-[10px] font-mono font-bold px-2 py-0.5 bg-[#0A192F] text-[#DFB743] rounded border border-[#C59B27]/30 tracking-wide">
-                    ${escapeHtml(l.discipline)}
-                  </span>
-                </div>
+                  <div class="mt-1">
+                    <span class="inline-block text-[10px] font-mono font-bold px-2 py-0.5 bg-[#0A192F] text-[#DFB743] rounded border border-[#C59B27]/30 tracking-wide">
+                      ${escapeHtml(l.discipline)}
+                    </span>
+                  </div>
 
-                <p class="text-xs text-stone-700 mt-2 font-serif leading-relaxed">
-                  ${escapeHtml(l.studyArea)}
-                </p>
-
-                <div class="mt-2.5 pt-2 border-t border-stone-100 bg-amber-50/60 -mx-1 px-2.5 py-1.5 rounded-lg border-l-2 border-[#C59B27]">
-                  <p class="text-[11px] font-sans text-[#855D10] font-semibold leading-tight">
-                    🎯 ${escapeHtml(l.decisionValue)}
+                  <p class="text-xs text-stone-700 mt-2 font-serif leading-relaxed">
+                    ${escapeHtml(l.studyArea)}
                   </p>
+
+                  <div class="mt-2.5 pt-2 border-t border-stone-100 bg-amber-50/60 -mx-1 px-2.5 py-1.5 rounded-lg border-l-2 border-[#C59B27]">
+                    <p class="text-[11px] font-sans text-[#855D10] font-semibold leading-tight">
+                      🎯 ${escapeHtml(l.decisionValue)}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </button>`
+            </button>
+            <div data-sp-lens-answer hidden class="rv-sp-lens-answer" id="lens-result-${escapeHtml(l.id)}"></div>
+          </div>`
         ).join("")}
       </div>
     </div>`;
@@ -1405,7 +1603,11 @@
             ).join("")}
           </select>
         </div>
-        <p class="rv-sp-loading">⏳ Cargando comentario exegético completo…</p>`;
+        <p class="rv-sp-loading py-10 text-center text-[#855D10] font-serif space-y-2">
+          <span class="block text-2xl" aria-hidden="true">⏳</span>
+          <span class="block text-sm font-semibold">Consultando exposición exegética literal para ${escapeHtml(ref)}…</span>
+          <span class="block text-xs text-stone-500 italic">Extrayendo corpus clásico (Dominio Público)</span>
+        </p>`;
 
       try {
         const com = await loadFullComment(ref, autor);
@@ -1461,6 +1663,45 @@
     }
 
     function tskGroupsMarkup(groups) {
+      const rich = (groups || []).some(
+        (g) => g.theme || (g.refs || []).some((r) => typeof r === "object" && r?.text)
+      );
+      if (rich) {
+        return `
+        <div class="space-y-4 font-serif text-[#0F172A]">
+          ${(groups || [])
+            .map(
+              (g) => `
+            <div class="bg-white border border-[#E8DFC8] rounded-xl p-4 shadow-sm">
+              <div class="mb-3 pb-2 border-b border-stone-100">
+                <span class="text-xs font-serif font-bold text-[#0A192F] block">«${escapeHtml(g.phrase)}»</span>
+                ${
+                  g.theme
+                    ? `<span class="text-[10px] font-mono font-semibold text-[#C59B27] uppercase tracking-wide block mt-0.5">${escapeHtml(g.theme)}</span>`
+                    : ""
+                }
+              </div>
+              <div class="space-y-2.5">
+                ${(g.refs || [])
+                  .map((r) => {
+                    const passage = typeof r === "string" ? r : r.passage || r.ref || "";
+                    const text = typeof r === "string" ? "" : r.text || "";
+                    return `
+                  <div class="p-2.5 rounded-lg bg-amber-50/40 hover:bg-amber-50 border border-transparent hover:border-[#C59B27]/30 transition-all text-left">
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                      <button type="button" class="text-xs font-mono font-bold text-[#855D10] hover:underline text-left" data-sp-tsk-ref="${escapeHtml(passage)}">${escapeHtml(passage)}</button>
+                      <button type="button" data-sp-tsk-ref="${escapeHtml(passage)}" class="text-[10px] font-sans text-stone-500 hover:text-[#0A192F] underline shrink-0">Ver contexto</button>
+                    </div>
+                    ${text ? `<p class="text-xs font-serif text-stone-700 leading-relaxed">${escapeHtml(text)}</p>` : ""}
+                  </div>`;
+                  })
+                  .join("")}
+              </div>
+            </div>`
+            )
+            .join("")}
+        </div>`;
+      }
       return `
         <div class="rv-sp-tsk-groups">
           ${(groups || [])
@@ -1470,10 +1711,10 @@
               <h3 class="rv-sp-tsk-phrase">«${escapeHtml(g.phrase)}»</h3>
               <div class="rv-sp-tsk-refs">
                 ${(g.refs || [])
-                  .map(
-                    (r) =>
-                      `<button type="button" class="rv-sp-tsk-ref" data-sp-tsk-ref="${escapeHtml(r)}" title="Vista previa / ir al pasaje">${escapeHtml(r)}</button>`
-                  )
+                  .map((r) => {
+                    const passage = typeof r === "string" ? r : r.passage || r.ref || "";
+                    return `<button type="button" class="rv-sp-tsk-ref" data-sp-tsk-ref="${escapeHtml(passage)}" title="Vista previa / ir al pasaje">${escapeHtml(passage)}</button>`;
+                  })
                   .join("")}
               </div>
             </section>`
@@ -1486,13 +1727,27 @@
       const el = document.getElementById("rv-sp-tsk");
       if (!el) return;
       const token = ++loadToken;
+      const parts = parsePassageParts(ref);
+      const svc = global.RV?.TskService;
+
+      if (svc?.renderTskCrossReferences && parts.book && parts.chapter && parts.verse) {
+        const painted = svc.renderTskCrossReferences(el, parts.book, parts.chapter, parts.verse);
+        if (painted) {
+          enrichTskInBackground(ref);
+          return;
+        }
+      }
+
       const seeded = seedTsk(ref);
       if (tskGroupsHaveRefs(seeded)) {
         el.innerHTML = `${tskPaneHeader(ref)}${tskGroupsMarkup(seeded)}`;
         enrichTskInBackground(ref);
         return;
       }
-      el.innerHTML = `${tskPaneHeader(ref)}<p class="rv-sp-loading">⏳ Compilando referencias TSK…</p>`;
+      el.innerHTML = `${tskPaneHeader(ref)}
+        <div class="py-8 text-center text-stone-500 font-serif">
+          <p class="text-sm">Buscando referencias cruzadas en el canon para ${escapeHtml(ref)}…</p>
+        </div>`;
       try {
         const { groups } = await loadTskGroups(ref);
         if (token !== loadToken) return;
@@ -1576,6 +1831,10 @@
         box.style.left = "0.75rem";
         box.style.right = "0.75rem";
       }
+    };
+
+    global.openPassagePreview = (passage) => {
+      showPreview(String(passage || "").trim());
     };
 
     const open = async ({ tab = "comentarios", ref } = {}) => {
@@ -1667,19 +1926,57 @@
         openIa(`Analiza ${currentRef || "este pasaje"} bajo una lente de transformación y vida.`);
         return;
       }
+      if (event.target.closest("[data-sp-lens-close]")) {
+        const block = event.target.closest("[data-sp-lens-block]");
+        const answerEl = block?.querySelector("[data-sp-lens-answer], [id^='lens-result-']");
+        const btn = block?.querySelector("[data-sp-lens]");
+        if (answerEl) {
+          answerEl.remove();
+        }
+        block?.classList.remove("ring-2", "ring-[#C59B27]/40", "border-[#C59B27]");
+        btn?.setAttribute("aria-expanded", "false");
+        return;
+      }
+      const closeResult = event.target.closest("[data-sp-lens-result-close]");
+      if (closeResult) {
+        const rid = closeResult.getAttribute("data-sp-lens-result-close");
+        document.getElementById(`lens-result-${rid}`)?.remove();
+        document.getElementById(`lens-card-${rid}`)?.classList.remove(
+          "ring-2",
+          "ring-[#C59B27]/40",
+          "border-[#C59B27]"
+        );
+        return;
+      }
+      const retryId = event.target.closest("[data-sp-lens-retry-id]");
+      if (retryId) {
+        const id = retryId.getAttribute("data-sp-lens-retry-id");
+        const btn = document.querySelector(`[data-sp-lens-id="${CSS.escape(id)}"]`);
+        if (btn) runLensInline(btn);
+        return;
+      }
+      if (event.target.closest("[data-sp-lens-retry]")) {
+        const block = event.target.closest("[data-sp-lens-block]");
+        const btn = block?.querySelector("[data-sp-lens]");
+        if (btn) runLensInline(btn);
+        return;
+      }
       const lensBtn = event.target.closest("[data-sp-lens]");
       if (lensBtn) {
         openAiWithLens(
           lensBtn.dataset.spLensPrompt || "",
           lensBtn.dataset.spLensRef || currentRef || "",
-          lensBtn.dataset.spLensTitle || ""
+          lensBtn.dataset.spLensTitle || "",
+          lensBtn.dataset.spLensId || ""
         );
         return;
       }
       const dogmaBtn = event.target.closest("[data-sp-dogma]");
       if (dogmaBtn) {
         const lens = REVELATIO_LENSES.find((d) => d.id === dogmaBtn.dataset.spDogma);
-        if (lens) openAiWithLens(lens.promptSeed, currentRef, lens.title);
+        if (lens) {
+          openAiWithLens(lens.promptSeed, currentRef, lens.title, lens.id);
+        }
       }
     });
 
