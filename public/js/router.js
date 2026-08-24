@@ -7,7 +7,7 @@
     "use strict";
 
     const RV = (global.RV = global.RV || {});
-    const VERSION = "verseNotebook1";
+    const VERSION = "lensAiFallback1";
 
     /** Rutas nombradas → archivos en /views */
     const ROUTES = {

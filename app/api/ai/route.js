@@ -1,0 +1,49 @@
+import legacyHandler from '../../../api/ai.js'
+
+export const runtime = 'nodejs'
+
+function bridge() {
+  const headers = new Headers()
+  let status = 200
+  let payload = {}
+  return {
+    setHeader(name, value) {
+      headers.set(name, String(value))
+    },
+    status(code) {
+      status = code
+      return this
+    },
+    json(value) {
+      payload = value
+      return this
+    },
+    end() {
+      return this
+    },
+    response() {
+      return Response.json(payload, { status, headers })
+    },
+  }
+}
+
+export async function POST(request) {
+  const response = bridge()
+  const body = await request.json().catch(() => ({}))
+  await legacyHandler(
+    { method: 'POST', body, headers: Object.fromEntries(request.headers.entries()) },
+    response
+  )
+  return response.response()
+}
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept',
+    },
+  })
+}

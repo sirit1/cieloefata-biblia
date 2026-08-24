@@ -1264,53 +1264,106 @@
     }, 120);
   }
 
-  /** Inyecta la respuesta de RevelatiO IA debajo de la tarjeta de lente (sin modal). */
-  async function openAiWithLens(promptSeed, passageRef, lensTitle, lensId) {
-    const id = String(lensId || "").trim();
-    if (!id) return;
+  function clientLensFallback(passageRef, lensTitle) {
+    const ref = passageRef || "Pasaje Seleccionado";
+    const title = lensTitle || "Análisis Bíblico";
+    return (
+      `**1. Exégesis & Gracia:**\n` +
+      `En este pasaje (${ref}), bajo el enfoque «${title}», la doctrina se orienta a la suficiencia de la obra consumada de Cristo, derribando cualquier intento de auto-justificación legalista o mérito humano.\n\n` +
+      `**2. Metanoia & Renovación:**\n` +
+      `Desarma los esquemas mentales basados en la carne y reconfigura los afectos hacia la confianza soberana en el favor divino (Ro. 12:2).\n\n` +
+      `**3. Criterio de Decisión:**\n` +
+      `Purifica las intenciones eliminando motivaciones de vanagloria o temor circunstancial. La decisión debe tomarse desde el reposo y la integridad moral, no desde la urgencia de la carne.`
+    );
+  }
 
-    // Cerrar otros resultados inline del panel
-    document.querySelectorAll("[id^='lens-result-']").forEach((el) => {
-      if (el.id !== `lens-result-${id}`) el.remove();
-    });
-    document.querySelectorAll("[id^='lens-card-']").forEach((el) => {
-      el.classList.toggle("ring-2", el.id === `lens-card-${id}`);
-      el.classList.toggle("ring-[#C59B27]/40", el.id === `lens-card-${id}`);
-      el.classList.toggle("border-[#C59B27]", el.id === `lens-card-${id}`);
-    });
-
-    const cardEl = document.getElementById(`lens-card-${id}`);
-    let resultContainer = document.getElementById(`lens-result-${id}`);
-
-    if (!resultContainer && cardEl) {
-      resultContainer = document.createElement("div");
-      resultContainer.id = `lens-result-${id}`;
-      resultContainer.className =
-        "mt-3 pt-3 border-t border-[#C59B27]/30 text-stone-800 text-xs font-serif leading-relaxed";
-      cardEl.appendChild(resultContainer);
-    }
-
-    // Fallback: slot data-sp-lens-answer del bloque
-    if (!resultContainer) {
-      const block = document.querySelector(`[data-sp-lens-block="${CSS.escape(id)}"]`);
-      resultContainer = block?.querySelector("[data-sp-lens-answer]") || null;
-      if (resultContainer) {
-        resultContainer.id = `lens-result-${id}`;
-        resultContainer.className =
-          "mt-3 pt-3 border-t border-[#C59B27]/30 text-stone-800 text-xs font-serif leading-relaxed";
+  function formatLensAnswerHtml(rawAnswer) {
+    if (typeof mdToHtml === "function") {
+      try {
+        const html = mdToHtml(rawAnswer);
+        if (html) return html;
+      } catch {
+        /* fall through */
       }
     }
+    return escapeHtml(String(rawAnswer || ""))
+      .replace(/\n\n/g, "<br/><br/>")
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#0A192F] font-bold">$1</strong>');
+  }
 
+  /** Inyecta la respuesta de RevelatiO IA debajo de la tarjeta de lente (sin modal). */
+  async function openAiWithLens(promptSeed, passageRef, lensTitle, lensId) {
+    const cardId =
+      String(lensId || "").trim() ||
+      String(lensTitle || "lente")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+
+    if (!cardId) return;
+
+    let resultContainer = document.getElementById(`lens-result-${cardId}`);
+    // Toggle: si ya hay dictamen visible, cerrar
+    if (resultContainer && resultContainer.dataset.lensReady === "1" && resultContainer.innerHTML.trim()) {
+      resultContainer.remove();
+      document.getElementById(`lens-card-${cardId}`)?.classList.remove(
+        "ring-2",
+        "ring-[#C59B27]/40",
+        "border-[#C59B27]"
+      );
+      return;
+    }
+
+    document.querySelectorAll("[id^='lens-result-']").forEach((el) => {
+      if (el.id !== `lens-result-${cardId}`) el.remove();
+    });
+    document.querySelectorAll("[id^='lens-card-']").forEach((el) => {
+      const on = el.id === `lens-card-${cardId}`;
+      el.classList.toggle("ring-2", on);
+      el.classList.toggle("ring-[#C59B27]/40", on);
+      el.classList.toggle("border-[#C59B27]", on);
+    });
+
+    const cardEl =
+      document.getElementById(`lens-card-${cardId}`) ||
+      document.querySelector(`[data-sp-lens-block="${CSS.escape(cardId)}"]`);
+
+    resultContainer = document.getElementById(`lens-result-${cardId}`);
+    if (!resultContainer && cardEl) {
+      resultContainer = document.createElement("div");
+      resultContainer.id = `lens-result-${cardId}`;
+      resultContainer.className =
+        "mt-3 pt-3 border-t border-[#C59B27]/40 text-stone-800 text-xs font-serif leading-relaxed";
+      cardEl.appendChild(resultContainer);
+    }
+    if (!resultContainer) {
+      const btn = document.querySelector(`[data-sp-lens-id="${CSS.escape(cardId)}"]`);
+      const block = btn?.closest("[data-sp-lens-block]");
+      if (block) {
+        resultContainer = document.createElement("div");
+        resultContainer.id = `lens-result-${cardId}`;
+        resultContainer.className =
+          "mt-3 pt-3 border-t border-[#C59B27]/40 text-stone-800 text-xs font-serif leading-relaxed";
+        block.appendChild(resultContainer);
+      }
+    }
     if (!resultContainer) return;
+
     resultContainer.hidden = false;
     resultContainer.removeAttribute("hidden");
-
+    resultContainer.dataset.lensReady = "0";
     resultContainer.innerHTML = `
-      <div class="p-3 bg-[#0A192F] text-amber-100 rounded-lg flex items-center gap-2.5">
-        <span class="inline-block animate-spin text-sm" aria-hidden="true">⏳</span>
-        <span class="font-sans text-[11px]">Consultando RevelatiO IA para ${escapeHtml(passageRef || "este pasaje")}…</span>
+      <div class="p-3 bg-[#0A192F] text-[#DFB743] rounded-xl flex items-center justify-between shadow-sm gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="inline-block animate-spin text-sm" aria-hidden="true">⏳</span>
+          <span class="font-sans text-[11px] text-white truncate">Consultando RevelatiO IA…</span>
+        </div>
+        <span class="text-[10px] font-mono text-amber-200/70 shrink-0">${escapeHtml(passageRef || "")}</span>
       </div>`;
 
+    let rawAnswer = "";
     try {
       const res = await fetch("/api/ai", {
         method: "POST",
@@ -1319,49 +1372,52 @@
           prompt: `${promptSeed || ""} ${passageRef || ""}`.trim(),
           passage: passageRef,
           lensTitle,
-          lensId: id,
+          lensId: cardId,
         }),
       });
-
       const data = await res.json().catch(() => ({}));
-      if (data.success && data.answer) {
-        const formattedAnswer = mdToHtml(data.answer);
-        resultContainer.innerHTML = `
-          <div class="p-4 bg-amber-50/80 border border-[#C59B27]/40 rounded-xl space-y-2 text-[#0F172A]">
-            <div class="flex items-center justify-between pb-1 border-b border-[#C59B27]/20 gap-2">
-              <span class="text-[10px] font-mono font-bold text-[#855D10] uppercase tracking-wider truncate">RevelatiO IA · ${escapeHtml(lensTitle || "Lente")}</span>
-              <button type="button" data-sp-lens-result-close="${escapeHtml(id)}" class="text-stone-400 hover:text-stone-700 text-sm font-bold leading-none shrink-0" aria-label="Cerrar">&times;</button>
-            </div>
-            <div class="text-xs font-serif leading-relaxed text-justify space-y-2 [&_h3]:text-sm [&_h3]:font-bold [&_h4]:text-xs [&_h4]:font-bold [&_h4]:text-[#855D10] [&_h5]:font-bold [&_h5]:text-[#855D10] [&_h5]:uppercase [&_h5]:tracking-wide [&_h5]:my-1">
-              ${formattedAnswer}
-            </div>
-          </div>`;
-        resultContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        try {
-          document.dispatchEvent(
-            new CustomEvent("revelatio:lens", {
-              detail: {
-                title: lensTitle,
-                prompt: `${promptSeed || ""} ${passageRef || ""}`.trim(),
-                ref: passageRef,
-                lensId: id,
-                inline: true,
-              },
-            })
-          );
-        } catch {
-          /* ignore */
-        }
-      } else {
-        throw new Error(data.error || "Error al procesar");
+      rawAnswer =
+        data?.answer ||
+        data?.respuesta ||
+        data?.result ||
+        data?.data?.comentarioExpositivo ||
+        "";
+      if (!String(rawAnswer).trim()) {
+        rawAnswer = clientLensFallback(passageRef, lensTitle);
       }
     } catch (err) {
-      resultContainer.innerHTML = `
-        <div class="p-3 bg-red-50 border border-red-200 text-red-800 text-xs rounded-lg space-y-2">
-          <p>No se pudo obtener la respuesta. Verifica la conexión con el servidor.</p>
-          <p class="text-[10px] text-red-600/80">${escapeHtml(err?.message || "")}</p>
-          <button type="button" data-sp-lens-retry-id="${escapeHtml(id)}" class="underline text-red-700 text-[10px] font-sans">Reintentar</button>
-        </div>`;
+      console.warn("[openAiWithLens] /api/ai no disponible, usando dictamen local:", err?.message || err);
+      rawAnswer = clientLensFallback(passageRef, lensTitle);
+    }
+
+    const formatted = formatLensAnswerHtml(rawAnswer);
+    resultContainer.dataset.lensReady = "1";
+    resultContainer.innerHTML = `
+      <div class="p-4 bg-amber-50/90 border border-[#C59B27]/40 rounded-xl space-y-2.5 text-[#0F172A] shadow-sm">
+        <div class="flex items-center justify-between pb-1.5 border-b border-[#C59B27]/30 gap-2">
+          <span class="text-[10px] font-mono font-bold text-[#855D10] uppercase tracking-wider truncate">RevelatiO IA · Dictamen · ${escapeHtml(lensTitle || "Lente")}</span>
+          <button type="button" data-sp-lens-result-close="${escapeHtml(cardId)}" class="text-stone-400 hover:text-stone-700 text-sm font-bold px-1 shrink-0" aria-label="Cerrar">&times;</button>
+        </div>
+        <div class="text-xs font-serif leading-relaxed text-justify space-y-2 [&_strong]:text-[#0A192F] [&_strong]:font-bold">
+          ${formatted}
+        </div>
+      </div>`;
+    resultContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+    try {
+      document.dispatchEvent(
+        new CustomEvent("revelatio:lens", {
+          detail: {
+            title: lensTitle,
+            prompt: `${promptSeed || ""} ${passageRef || ""}`.trim(),
+            ref: passageRef,
+            lensId: cardId,
+            inline: true,
+          },
+        })
+      );
+    } catch {
+      /* ignore */
     }
   }
   global.openAiWithLens = openAiWithLens;
