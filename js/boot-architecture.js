@@ -7,6 +7,7 @@ import { initReader, initReaderView } from './views/reader-view.js';
 import { getPassageData } from './services/bible-api.js';
 import * as CommentaryService from './services/commentary-service.js';
 import * as TskService from './services/tsk-service.js';
+import * as DynamicStudy from './services/dynamic-study-service.js';
 
 function mapUiVersion(version) {
   const v = String(version || '').toLowerCase();
@@ -54,6 +55,7 @@ function exposeGlobals() {
   g.RV.getPassageData = getPassageData;
   g.RV.CommentaryService = CommentaryService;
   g.RV.TskService = TskService;
+  g.RV.DynamicStudy = DynamicStudy;
   g.RV.setPassage = (book, chapter, version) =>
     AppState.setPassage(book, chapter, version ? mapUiVersion(version) : null);
   g.RV.bootArchitecture = bootArchitecture;

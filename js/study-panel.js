@@ -908,7 +908,45 @@
       }
     }
 
-    // 5) Sin inventar plantillas: aviso honesto (panel no queda vacío)
+    // 5) Motor universal dinámico (exposición asistida — no fingir edición PD)
+    try {
+      const dyn = global.RV?.DynamicStudy;
+      if (dyn?.fetchDynamicCommentary) {
+        const hit = await dyn.fetchDynamicCommentary(refKey, autor);
+        if (hit?.answer) {
+          const paragraphs = String(hit.answer)
+            .split(/\n{2,}/)
+            .map((p) => p.trim())
+            .filter(Boolean);
+          const commentary = {
+            author: `${commentatorLabel(autor)} · exposición asistida`,
+            work: "Motor exegético dinámico · verificar contra ediciones de dominio público",
+            license: "Asistencia IA",
+            paragraphs: paragraphs.length ? paragraphs : [hit.answer],
+          };
+          const html = renderFullCommentaryMarkup(commentary, refKey);
+          cacheSet("comment", cacheKey, {
+            label: commentary.author,
+            html,
+            paragraphs: commentary.paragraphs,
+            work: commentary.work,
+            license: commentary.license,
+          });
+          return {
+            label: commentary.author,
+            html,
+            work: commentary.work,
+            license: commentary.license,
+            paragraphs: commentary.paragraphs,
+            source: "dynamic",
+          };
+        }
+      }
+    } catch {
+      /* pending */
+    }
+
+    // 6) Aviso honesto (panel no queda vacío)
     const pending = renderPendingExposition(refKey);
     return {
       label: commentatorLabel(autor),
@@ -1029,6 +1067,60 @@
     document.dispatchEvent(new CustomEvent("revelatio:goto", { detail: dest }));
   }
 
+  /** Texto del versículo activo (DOM / dataset). Corrige ReferenceError de verseTextFor. */
+  function verseTextFor(ref) {
+    const r = String(ref || "").trim();
+    if (!r) return "";
+    try {
+      const exact = document.querySelector(
+        `#texto-biblico .rv-verse-surface[data-reference="${CSS.escape(r)}"], #verses-container .rv-verse-surface[data-reference="${CSS.escape(r)}"]`
+      );
+      if (exact) {
+        return String(
+          exact.dataset.text ||
+            exact.querySelector(".rv-verse-text, .verse-text")?.textContent ||
+            ""
+        )
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+      const parts = parsePassageParts(r);
+      if (parts.book && parts.chapter && parts.verse) {
+        const key = `${parts.book} ${parts.chapter}:${parts.verse}`;
+        const el = document.querySelector(
+          `#texto-biblico .rv-verse-surface[data-reference="${CSS.escape(key)}"]`
+        );
+        if (el) {
+          return String(el.dataset.text || el.querySelector(".rv-verse-text")?.textContent || "")
+            .replace(/\s+/g, " ")
+            .trim();
+        }
+        const byNum = document.querySelector(
+          `#texto-biblico .rv-verse-surface[data-versiculo="${CSS.escape(String(parts.verse))}"]`
+        );
+        if (byNum) {
+          return String(byNum.dataset.text || byNum.querySelector(".rv-verse-text")?.textContent || "")
+            .replace(/\s+/g, " ")
+            .trim();
+        }
+      }
+    } catch {
+      /* ignore */
+    }
+    const study = global.currentStudyState;
+    if (study?.ref && foldKey(study.ref) === foldKey(r) && study.text) return String(study.text);
+    return "";
+  }
+
+  function foldKey(s) {
+    return String(s || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function previewTextForRef(refStr) {
     const dest = parseGoto(String(refStr).split(/[-–]/)[0].trim());
     if (!dest) return "";
@@ -1040,10 +1132,20 @@
       const hit = (vv || []).find((v) => Number(v.n || v.verse) === n);
       if (hit?.texto) return String(hit.texto).slice(0, 220);
     }
+    const refGuess = dest.verso
+      ? `${dest.libro} ${dest.cap}:${dest.verso}`
+      : `${dest.libro} ${dest.cap}`;
+    const fromDom = verseTextFor(refGuess);
+    if (fromDom) return fromDom.slice(0, 220);
     const el = document.querySelector(
-      `#texto-biblico .rv-verse-surface[data-reference="${CSS.escape(`${dest.libro} ${dest.cap}:${dest.verso || ""}`)}"]`
+      `#texto-biblico .rv-verse-surface[data-reference="${CSS.escape(refGuess)}"]`
     );
-    if (el) return verseTextFor(el.dataset.reference).slice(0, 220);
+    if (el) {
+      return String(el.dataset.text || el.querySelector(".rv-verse-text")?.textContent || "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 220);
+    }
     return "";
   }
 
@@ -1152,6 +1254,22 @@
 
     const verse = verseTextFor(ref);
     try {
+      const dyn = global.RV?.DynamicStudy;
+      if (dyn?.fetchDynamicLexicon) {
+        const hit = await dyn.fetchDynamicLexicon(ref);
+        if (hit?.answer) {
+          // Intentar JSON; si no, devolver marcador especial markdown
+          const parsed = extractJsonArray(hit.answer);
+          const tokens = dedupeTokens(parsed || []);
+          if (tokens.length) {
+            const map = readStrongCache();
+            map[strongCacheKey(ref)] = tokens;
+            writeStrongCache(map);
+            return tokens;
+          }
+          return { __markdown: hit.answer, ref };
+        }
+      }
       const prompt = [
         `Entrega el desglose léxico palabra por palabra para ${ref}${verse ? ` («${verse.slice(0, 160)}»)` : ""} en JSON estricto:`,
         `[ { "original": "...", "translit": "...", "strong": "G...", "morph": "...", "meaning": "..." } ]`,
@@ -1172,7 +1290,7 @@
           translit: "",
           strong: "—",
           morph: "Léxico pendiente",
-          meaning: `No hay desglose Strong local para ${ref}. ${err?.message || ""} Activa el Agente Teológico o abre otro versículo con seed léxico.`,
+          meaning: `Desglose Strong en curso para ${ref}. ${err?.message || ""}`,
         },
       ];
       throw Object.assign(err || new Error("Sin léxico"), { fallback });
@@ -1293,6 +1411,12 @@
 
   /** Inyecta la respuesta de RevelatiO IA debajo de la tarjeta de lente (sin modal). */
   async function openAiWithLens(promptSeed, passageRef, lensTitle, lensId) {
+    const active =
+      global.currentStudyState?.ref ||
+      global.activePassage ||
+      currentRefSafe() ||
+      passageRef ||
+      "Génesis 1:1";
     const cardId =
       String(lensId || "").trim() ||
       String(lensTitle || "lente")
@@ -1305,7 +1429,6 @@
     if (!cardId) return;
 
     let resultContainer = document.getElementById(`lens-result-${cardId}`);
-    // Toggle: si ya hay dictamen visible, cerrar
     if (resultContainer && resultContainer.dataset.lensReady === "1" && resultContainer.innerHTML.trim()) {
       resultContainer.remove();
       document.getElementById(`lens-card-${cardId}`)?.classList.remove(
@@ -1360,34 +1483,41 @@
           <span class="inline-block animate-spin text-sm" aria-hidden="true">⏳</span>
           <span class="font-sans text-[11px] text-white truncate">Consultando RevelatiO IA…</span>
         </div>
-        <span class="text-[10px] font-mono text-amber-200/70 shrink-0">${escapeHtml(passageRef || "")}</span>
+        <span class="text-[10px] font-mono text-amber-200/70 shrink-0">${escapeHtml(active)}</span>
       </div>`;
 
     let rawAnswer = "";
     try {
-      const res = await fetch("/api/ai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          prompt: `${promptSeed || ""} ${passageRef || ""}`.trim(),
-          passage: passageRef,
+      const dyn = global.RV?.DynamicStudy;
+      if (dyn?.fetchDynamicLens) {
+        const hit = await dyn.fetchDynamicLens({
+          prompt: `${promptSeed || ""} ${active}`.trim(),
+          passage: active,
           lensTitle,
           lensId: cardId,
-        }),
-      });
-      const data = await res.json().catch(() => ({}));
-      rawAnswer =
-        data?.answer ||
-        data?.respuesta ||
-        data?.result ||
-        data?.data?.comentarioExpositivo ||
-        "";
+        });
+        rawAnswer = hit?.answer || "";
+      } else {
+        const res = await fetch("/api/lente", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            prompt: `${promptSeed || ""} ${active}`.trim(),
+            passage: active,
+            lensTitle,
+            lensId: cardId,
+            type: "lens",
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        rawAnswer = data?.answer || data?.respuesta || data?.result || "";
+      }
       if (!String(rawAnswer).trim()) {
-        rawAnswer = clientLensFallback(passageRef, lensTitle);
+        rawAnswer = clientLensFallback(active, lensTitle);
       }
     } catch (err) {
-      console.warn("[openAiWithLens] /api/ai no disponible, usando dictamen local:", err?.message || err);
-      rawAnswer = clientLensFallback(passageRef, lensTitle);
+      console.warn("[openAiWithLens]", err?.message || err);
+      rawAnswer = clientLensFallback(active, lensTitle);
     }
 
     const formatted = formatLensAnswerHtml(rawAnswer);
@@ -1403,24 +1533,20 @@
         </div>
       </div>`;
     resultContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
-
-    try {
-      document.dispatchEvent(
-        new CustomEvent("revelatio:lens", {
-          detail: {
-            title: lensTitle,
-            prompt: `${promptSeed || ""} ${passageRef || ""}`.trim(),
-            ref: passageRef,
-            lensId: cardId,
-            inline: true,
-          },
-        })
-      );
-    } catch {
-      /* ignore */
-    }
   }
   global.openAiWithLens = openAiWithLens;
+
+  function currentRefSafe() {
+    try {
+      return (
+        document.getElementById("rv-sp-ref")?.textContent?.trim() ||
+        document.querySelector("#texto-biblico .rv-verse-surface.is-verse-on")?.dataset?.reference ||
+        ""
+      );
+    } catch {
+      return "";
+    }
+  }
 
   async function runLensInline(lensBtn) {
     if (!lensBtn) return;
@@ -1807,11 +1933,25 @@
       try {
         const { groups } = await loadTskGroups(ref);
         if (token !== loadToken) return;
-        if (!tskGroupsHaveRefs(groups)) {
-          el.innerHTML = `${tskPaneHeader(ref)}<p class="rv-sp-empty">Sin referencias TSK catalogadas para <strong>${escapeHtml(ref || "este pasaje")}</strong>.</p>`;
+        if (tskGroupsHaveRefs(groups)) {
+          el.innerHTML = `${tskPaneHeader(ref)}${tskGroupsMarkup(groups)}`;
           return;
         }
-        el.innerHTML = `${tskPaneHeader(ref)}${tskGroupsMarkup(groups)}`;
+        // Motor universal TSK
+        const dyn = global.RV?.DynamicStudy;
+        if (dyn?.fetchDynamicTsk) {
+          const hit = await dyn.fetchDynamicTsk(ref);
+          if (token !== loadToken) return;
+          if (hit?.answer) {
+            el.innerHTML = `${tskPaneHeader(ref)}
+              <div class="p-4 bg-white border border-[#E8DFC8] rounded-xl font-serif text-xs leading-relaxed text-[#0F172A] space-y-2">
+                <p class="text-[10px] font-mono font-bold text-[#855D10] uppercase tracking-wider">TSK · motor dinámico</p>
+                <div class="whitespace-pre-line text-justify">${mdToHtml(hit.answer)}</div>
+              </div>`;
+            return;
+          }
+        }
+        el.innerHTML = `${tskPaneHeader(ref)}<p class="rv-sp-empty">Sin referencias TSK catalogadas para <strong>${escapeHtml(ref || "este pasaje")}</strong>.</p>`;
       } catch (err) {
         if (token !== loadToken) return;
         el.innerHTML = `${tskPaneHeader(ref)}<p class="rv-sp-empty">Error al cargar TSK. ${escapeHtml(err?.message || "")}</p>`;
@@ -1835,11 +1975,19 @@
         renderStrongLexicon(el, local);
         return;
       }
-      el.innerHTML = `<p class="rv-sp-loading">⏳ Desglosando raíces en Griego/Hebreo…</p>`;
+      el.innerHTML = `<p class="rv-sp-loading">⏳ Desglosando raíces en Griego/Hebreo para ${escapeHtml(ref)}…</p>`;
       try {
         const tokens = await resolveStrongLexicon(ref);
         if (token !== loadToken) return;
-        if (tokens.length) renderStrongLexicon(el, tokens);
+        if (tokens?.__markdown) {
+          el.innerHTML = `
+            <div class="p-4 font-serif text-xs leading-relaxed text-stone-800 whitespace-pre-line bg-amber-50/50 rounded-xl border border-[#E8DFC8]">
+              <p class="text-[10px] font-mono font-bold text-[#855D10] uppercase tracking-wider mb-2">Léxico Strong · motor dinámico</p>
+              ${mdToHtml(tokens.__markdown)}
+            </div>`;
+          return;
+        }
+        if (Array.isArray(tokens) && tokens.length) renderStrongLexicon(el, tokens);
         else el.innerHTML = `<p class="rv-sp-empty">Sin tokens Strong para este versículo.</p>`;
       } catch (err) {
         if (token !== loadToken) return;
@@ -2058,6 +2206,9 @@
           : "");
       if (!ref) return;
       currentRef = ref;
+      global.activePassage = ref;
+      if (global.currentStudyState) global.currentStudyState.ref = ref;
+      else global.currentStudyState = { ref, book: detail.book, chapter: detail.chapter, verse: detail.verse || 1 };
       const refEl = document.getElementById("rv-sp-ref");
       const titleEl = document.getElementById("rv-sp-title");
       if (refEl) refEl.textContent = ref;

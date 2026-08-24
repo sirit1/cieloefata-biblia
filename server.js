@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { config as loadEnv } from 'dotenv';
-import { generateLensAnswer } from './api/ai.js';
+import { generateUniversalAnswer, generateLensAnswer } from './api/ai.js';
 
 loadEnv();
 
@@ -135,7 +135,14 @@ function contingencyAiAnswer(passage, title) {
   );
 }
 
-const AI_API_PATHS = new Set(['/api/ai', '/api/lente', '/api/exegesis']);
+const AI_API_PATHS = new Set([
+  '/api/ai',
+  '/api/lente',
+  '/api/exegesis',
+  '/api/tsk',
+  '/api/lexicon',
+  '/api/lexico',
+]);
 
 function contingencyChapterVerses(bookName, chapterNum) {
   const norm = normalizeBookKey(bookName);
@@ -256,21 +263,35 @@ const server = http.createServer(async (req, res) => {
     return res.end();
   }
 
-  // ENDPOINTS IA: /api/ai | /api/lente | /api/exegesis — nunca 500 al cliente de lentes
+  // ENDPOINTS IA universales — tipados por path/body.type
   if (AI_API_PATHS.has(parsedUrl.pathname) && req.method === 'POST') {
     try {
       const body = await readJsonBody(req);
-      const payload = await generateLensAnswer(body);
+      if (!body.type) {
+        if (parsedUrl.pathname.includes('tsk')) body.type = 'tsk';
+        else if (parsedUrl.pathname.includes('lexic')) body.type = 'lexicon';
+        else if (parsedUrl.pathname.includes('exegesis')) body.type = 'commentary';
+        else if (parsedUrl.pathname.includes('lente')) body.type = 'lens';
+      }
+      const payload = await generateUniversalAnswer(body, parsedUrl.pathname);
       return sendJson(res, 200, payload);
     } catch (error) {
       console.error(`[Server ${parsedUrl.pathname} error]:`, error?.message || error);
-      const answer = contingencyAiAnswer('', 'Análisis Bíblico');
-      return sendJson(res, 200, {
-        success: true,
-        answer,
-        respuesta: answer,
-        result: answer,
-      });
+      try {
+        const payload = await generateLensAnswer(
+          { passage: 'Escritura', type: 'lens' },
+          parsedUrl.pathname
+        );
+        return sendJson(res, 200, payload);
+      } catch {
+        const answer = contingencyAiAnswer('', 'Análisis Bíblico');
+        return sendJson(res, 200, {
+          success: true,
+          answer,
+          respuesta: answer,
+          result: answer,
+        });
+      }
     }
   }
 

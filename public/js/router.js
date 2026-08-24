@@ -7,7 +7,7 @@
     "use strict";
 
     const RV = (global.RV = global.RV || {});
-    const VERSION = "habacucBibleSafe1";
+    const VERSION = "dynamicMotor1";
 
     /** Rutas nombradas → archivos en /views */
     const ROUTES = {
