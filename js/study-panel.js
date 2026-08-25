@@ -371,8 +371,12 @@
       if (!res.ok && res.status !== 200) {
         throw new Error(httpErrorMessage(data, res.status));
       }
-      const text = data.text || data.answer || data.respuesta || '';
-      const found = data.found === true && String(text).trim() && data.source !== 'corpus-miss' && data.source !== 'theological-engine-fallback' && !/^No hay nota/i.test(String(text));
+      const textEs = String(data.textEs || '').trim();
+      const textEn = String(data.textEn || '').trim();
+      const apiText = String(data.text || data.answer || data.respuesta || '').trim();
+      const spanishBody = textEs || (data.translated === true ? apiText : '');
+      const englishBody = textEn || (!spanishBody ? apiText : '');
+      const found = data.found === true && (spanishBody || englishBody) && data.source !== 'corpus-miss' && data.source !== 'theological-engine-fallback' && !/^No hay nota/i.test(spanishBody || apiText);
       const displayAuthor = authorObj.label;
       const nombreCorto = authorObj.label.split('(')[0].trim();
       const wrap = (inner) => `
@@ -383,38 +387,37 @@
             ${inner}
           </div>`;
       if (!found) {
-        const raw = String(text).trim();
+        const raw = String(apiText || spanishBody).trim();
         const miss = /^No hay nota/i.test(raw) && !/respaldo teol[oó]gico|gemini|\.env/i.test(raw)
           ? raw
           : `No hay nota de ${nombreCorto} para ${passage}.`;
         container.innerHTML = wrap(`<p class="text-xs">${escapeHtml(miss)}</p>`);
         return;
       }
-      const formatted = formatAnswerHtml(text);
-      const translated = data.translated === true && String(data.textEn || '').trim();
-      if (translated) {
-        const disclaimer = String(data.disclaimer || 'Traducción automática del original inglés (dominio público). No es la edición de CLIE.').trim();
-        const formattedEn = formatAnswerHtml(data.textEn);
+      const disclaimer = String(data.disclaimer || 'Traducción automática del original inglés (dominio público). No es la edición de CLIE.').trim();
+      if (spanishBody) {
+        const formattedEs = formatAnswerHtml(spanishBody);
+        const formattedEn = formatAnswerHtml(englishBody);
         container.innerHTML = wrap(`
           <div data-rv-tr-root>
             <div data-rv-tr-pane="es">
-              <div class="text-xs leading-relaxed text-justify space-y-2">${formatted}</div>
+              <div class="text-xs leading-relaxed text-justify space-y-2">${formattedEs}</div>
               <p class="text-[10px] leading-snug mt-2" style="color:#2C3E4A">${escapeHtml(disclaimer)}</p>
-              <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg cursor-pointer" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver original (inglés)</button>
+              ${englishBody ? `<button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg cursor-pointer" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver original (inglés)</button>` : ''}
             </div>
-            <div data-rv-tr-pane="en" hidden>
+            ${englishBody ? `<div data-rv-tr-pane="en" hidden>
               <p class="text-[10px] font-mono mb-2" style="color:#2C3E4A">Texto original en inglés (dominio público). No es una traducción de IA.</p>
               <div class="text-xs leading-relaxed text-justify space-y-2">${formattedEn}</div>
               <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg cursor-pointer" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver traducción (español)</button>
-            </div>
+            </div>` : ''}
           </div>`);
         return;
       }
       const originalEn = /spurgeon|henry|calvin|calvino|gill|clarke|jamieson|jfb|wesley/i.test(`${authorObj.id} ${authorObj.label}`)
-        || (/\b(the|and|that|which|this|from|but|not)\b/i.test(text) && !/[áéíóúñü¿¡]/.test(String(text).slice(0, 500)));
+        || (/\b(the|and|that|which|this|from|but|not)\b/i.test(englishBody) && !/[áéíóúñü¿¡]/.test(String(englishBody).slice(0, 500)));
       container.innerHTML = wrap(`
           ${originalEn ? `<p class="text-[10px] font-mono">Texto original en inglés (dominio público). No es una traducción de IA.</p>` : ''}
-          <div class="text-xs leading-relaxed text-justify space-y-2">${formatted}</div>`);
+          <div class="text-xs leading-relaxed text-justify space-y-2">${formatAnswerHtml(englishBody)}</div>`);
     } catch (err) {
       clearTimeout(timer);
       if (stamp !== commentaryStamp) return;

@@ -3,7 +3,8 @@
  * Nunca Gemini, nunca «Actúa como Spurgeon», nunca el respaldo teológico fingiendo autor.
  *
  * Fuentes:
- * - helloao (JFB, Henry, Calvino, Gill, Clarke)
+ * - helloao (JFB, Henry, Calvino, Gill, Clarke when the book exists)
+ * - Adam Clarke PD fallback (truthaccordingtoscripture ACC / StudyLight) when helloao omits a book (e.g. Mateo)
  * - Spurgeon Verse Expositions (truthaccordingtoscripture / SPE) + Treasury of David (Salmos, CrossWire TDavid)
  * - Wesley: CrossWire `Wesley` + Christianity.com
  * - Lutero / Agustín: CrossWire cuando hay nota real; si no, found:false
@@ -16,6 +17,8 @@ const CROSSWIRE = 'https://www.crosswire.org/study/passagestudy.jsp';
 const SPE_BASE = 'https://www.truthaccordingtoscripture.com/commentaries/spe';
 const SPE_PRAYERREQUEST = 'https://bible.prayerrequest.com/9131-spurgeons-verse-expositions-of-the-bible-3-vols';
 const SPE_STUDYLIGHT = 'https://www.studylight.org/commentaries/eng/spe';
+const ACC_BASE = 'https://www.truthaccordingtoscripture.com/commentaries/acc';
+const ACC_STUDYLIGHT = 'https://www.studylight.org/commentaries/eng/acc';
 const WESLEY_HTML = 'https://www.christianity.com/bible/commentary/john-wesley';
 const WESLEY_BIBLEHUB = 'https://biblehub.com/commentaries/wes';
 const GOSPEL_EN = { Matt: 'Matthew', Mark: 'Mark', Luke: 'Luke', John: 'John' };
@@ -400,23 +403,93 @@ function stripSpeChrome(plain) {
   return t.trim();
 }
 
+async function loadSpeIndexHtml(slug) {
+  const key = `speidx:${slug}`;
+  return cached(key, async () => {
+    const idx = await fetchText(`${SPE_PRAYERREQUEST}/${slug}/`);
+    return idx.ok ? idx.text : '';
+  }, { cacheEmpty: false });
+}
+
 async function loadSpePrayerRequest(slug, chapter, verse, bookLabel) {
   const key = `spepr:${slug}:${chapter}:${verse}`;
   return cached(key, async () => {
-    const idx = await fetchText(`${SPE_PRAYERREQUEST}/${slug}/`);
-    if (!idx.ok) return [];
-    const ranges = parseSpeIndexRanges(idx.text, chapter, verse);
+    const idxText = await loadSpeIndexHtml(slug);
+    if (!idxText) return [];
+    const ranges = parseSpeIndexRanges(idxText, chapter, verse);
     if (!ranges.length) return [];
     const best = ranges[0];
-    const page = await fetchText(
-      `${SPE_PRAYERREQUEST}/${slug}/${best.sc}/${best.sv}/${best.ec}/${best.ev}/`,
-    );
-    if (!page.ok) return [];
-    const notes = parseSpeNotes(page.text, bookLabel, chapter);
-    if (notes.length) return notes;
-    const body = stripSpeChrome(htmlToText(page.text));
-    if (body.length > 80) {
-      return [{ start: best.sv, end: best.ev, text: body }];
+    const pageKey = `spepage:${slug}:${best.sc}:${best.sv}:${best.ec}:${best.ev}`;
+    return cached(pageKey, async () => {
+      const page = await fetchText(
+        `${SPE_PRAYERREQUEST}/${slug}/${best.sc}/${best.sv}/${best.ec}/${best.ev}/`,
+      );
+      if (!page.ok) return [];
+      const notes = parseSpeNotes(page.text, bookLabel, chapter);
+      if (notes.length) return notes;
+      const body = stripSpeChrome(htmlToText(page.text));
+      if (body.length > 80) {
+        return [{ start: best.sv, end: best.ev, text: body }];
+      }
+      return [];
+    }, { cacheEmpty: false });
+  }, { cacheEmpty: false });
+}
+
+function parseClarkeAccNotes(html) {
+  const source = String(html || '');
+  const re = /(?:name="(?:verse-)?(\d+)"|data-entry="verse-(\d+)")/gi;
+  const hits = [];
+  const seenAt = new Set();
+  let m;
+  while ((m = re.exec(source))) {
+    const start = Number(m[1] || m[2]);
+    if (!start) continue;
+    const key = `${start}@${m.index}`;
+    if (seenAt.has(key)) continue;
+    seenAt.add(key);
+    hits.push({ start, index: m.index, length: m[0].length });
+  }
+  if (!hits.length) return [];
+  hits.sort((a, b) => a.index - b.index);
+  const firstByVerse = [];
+  const seenVerse = new Set();
+  for (const hit of hits) {
+    if (seenVerse.has(hit.start)) continue;
+    seenVerse.add(hit.start);
+    firstByVerse.push(hit);
+  }
+  const notes = [];
+  for (let i = 0; i < firstByVerse.length; i++) {
+    const from = firstByVerse[i].index + firstByVerse[i].length;
+    const to = i + 1 < firstByVerse.length ? firstByVerse[i + 1].index : source.length;
+    const text = htmlToText(source.slice(from, to))
+      .replace(/^>+\s*/g, '')
+      .replace(/^Verse\s+\d+\s*/i, '')
+      .replace(/^return to[\s\S]{0,80}Top of Page/i, '')
+      .trim();
+    if (text.length < 40) continue;
+    notes.push({
+      start: firstByVerse[i].start,
+      end: firstByVerse[i].start,
+      text,
+    });
+  }
+  return notes;
+}
+
+async function loadClarkeAccNotes(slug, chapter) {
+  const key = `acc:${slug}:${chapter}`;
+  return cached(key, async () => {
+    const urls = [
+      `${ACC_BASE}/${slug}-${chapter}.php`,
+      `${ACC_STUDYLIGHT}/${slug}-${chapter}.html`,
+    ];
+    for (const url of urls) {
+      const got = await fetchText(url, 18000);
+      if (!got.ok) continue;
+      const notes = parseClarkeAccNotes(got.text);
+      if (notes.length) return notes;
     }
     return [];
   }, { cacheEmpty: false });
@@ -716,6 +789,15 @@ export async function obtenerComentarioCorpus({ passage, author } = {}) {
           ? recortarNotaSinoptica(note.text, ref.osis, ref.capitulo, ref.verse)
           : note.text;
         return attachStoredSpanish(hitPayload(authorName, etiqueta, authorId, `corpus:${helloaoId}`, text));
+      }
+      if (authorId === 'adam-clarke') {
+        const acc = await loadClarkeAccNotes(ref.slug, ref.capitulo);
+        const accNote = pickNote(acc, ref.verse);
+        if (accNote?.text) {
+          return attachStoredSpanish(
+            hitPayload(authorName, etiqueta, authorId, 'corpus:adam-clarke', accNote.text),
+          );
+        }
       }
       return missPayload(authorName, etiqueta, authorId);
     }

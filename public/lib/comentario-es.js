@@ -77,6 +77,31 @@ function resolveVerseRow(layer, vKey) {
   return row;
 }
 
+function blobMatchesEnglish(blob, english, digest) {
+  if (!blob) return false;
+  const es = String(blob.es || '').trim();
+  if (!es) return false;
+  const storedEn = String(blob.en || '').trim();
+  if (blob.enHash && blob.enHash === digest) return true;
+  if (storedEn && storedEn === english) return true;
+  return false;
+}
+
+function resolveBlob(layer, vKey, english) {
+  const digest = hashEnglish(english);
+  const row = resolveVerseRow(layer, vKey);
+  if (blobMatchesEnglish(row, english, digest)) return row;
+  const blobs = layer?.blobs && typeof layer.blobs === 'object' ? Object.values(layer.blobs) : [];
+  for (const blob of blobs) {
+    if (blobMatchesEnglish(blob, english, digest)) return blob;
+  }
+  return null;
+}
+
+export function clearCommentaryEsCache() {
+  fileCache.clear();
+}
+
 /**
  * Attach stored Spanish when the English blob matches.
  * If there is no stored row, leave English as `text` (no live translation).
@@ -97,13 +122,10 @@ export function attachStoredSpanish(result) {
   const book = bookFromPassage(result.passage);
   const vKey = verseKeyFromPassage(result.passage);
   const layer = loadAuthorLayer(book, authorId);
-  const row = resolveVerseRow(layer, vKey);
+  const row = resolveBlob(layer, vKey, english);
   const es = String(row?.es || '').trim();
   const storedEn = String(row?.en || '').trim();
-  const ok =
-    es &&
-    (!storedEn || storedEn === english || row?.enHash === hashEnglish(english));
-  if (!ok) {
+  if (!es) {
     return {
       ...result,
       translated: false,

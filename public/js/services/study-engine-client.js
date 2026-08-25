@@ -72,7 +72,7 @@
           author: resolveAuthor(author),
           verseText: global.activeStudyText || '',
         }, 18000);
-        const answer = String(data?.text || extractAnswer(data) || '').trim();
+        const answer = String(data?.textEs || data?.text || extractAnswer(data) || '').trim();
         if (ok && data?.success && answer) {
           return { success: true, answer, source: data.source || 'corpus', raw: data };
         }

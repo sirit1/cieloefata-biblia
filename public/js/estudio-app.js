@@ -537,25 +537,32 @@
                 };
             }
             const json = await res.json().catch(() => ({}));
-            const text = String(json?.text || json?.answer || json?.data?.cuerpo || '').trim();
+            const textEs = String(json?.textEs || '').trim();
+            const textEn = String(json?.textEn || json?.data?.cuerpoEn || '').trim();
+            const apiText = String(json?.text || json?.answer || '').trim();
+            const spanish = textEs || (json.translated === true ? apiText : '');
+            const english = textEn || (!spanish ? apiText : '');
+            const text = spanish || apiText;
             const found = json.found === true && json.source !== 'corpus-miss' && json.source !== 'theological-engine-fallback';
             if (json.success && found && text && !esRuidoEditorial(text) && !/^No hay nota/i.test(text)) {
-                const paragraphs = text.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
+                const bodyForPane = spanish || text;
+                const paragraphs = bodyForPane.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
                 return {
                     ia: false,
                     vacio: false,
                     titulo: nombre,
                     obra: '',
                     entradas: paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
-                    cuerpo: text,
-                    cuerpoEn: String(json.textEn || '').trim(),
-                    traducido: json.translated === true,
+                    cuerpo: bodyForPane,
+                    cuerpoEs: spanish,
+                    cuerpoEn: english,
+                    traducido: Boolean(spanish),
                     disclaimer: String(json.disclaimer || '').trim(),
                     paragraphs,
                 };
             }
-            const miss = /^No hay nota/i.test(text)
-                ? text
+            const miss = /^No hay nota/i.test(apiText || text)
+                ? (apiText || text)
                 : `No hay nota de ${nombre} para ${ref}.`;
             return {
                 ia: false,
@@ -951,22 +958,24 @@
             neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">${escapeHtml(miss)}</div>`;
             return;
         }
-        const traducido = extra?.traducido === true && extra?.cuerpoEn;
-        if (traducido) {
+        const spanishCuerpo = String(extra?.cuerpoEs || (extra?.traducido ? extra?.cuerpo : '') || '').trim();
+        const englishCuerpo = String(extra?.cuerpoEn || '').trim();
+        if (spanishCuerpo) {
+            const esBloques = spanishCuerpo.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
             const disclaimer = extra?.disclaimer || LABEL_TR_ES;
-            const enBloques = String(extra.cuerpoEn).split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
+            const enBloques = englishCuerpo.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
             neuro.innerHTML = `
                 <div data-rv-tr-root>
                   <div data-rv-tr-pane="es">
-                    ${bloquesHtml(bloques)}
+                    ${bloquesHtml(esBloques)}
                     <p class="text-[11px] leading-snug mt-3" style="color:#2C3E4A">${escapeHtml(disclaimer)}</p>
-                    <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver original (inglés)</button>
+                    ${englishCuerpo ? `<button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver original (inglés)</button>` : ''}
                   </div>
-                  <div data-rv-tr-pane="en" hidden>
+                  ${englishCuerpo ? `<div data-rv-tr-pane="en" hidden>
                     <p class="rv-pd-en text-[11px] font-mono mb-2" style="color:#2C3E4A">${LABEL_PD_EN}</p>
                     ${bloquesHtml(enBloques)}
                     <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver traducción (español)</button>
-                  </div>
+                  </div>` : ''}
                 </div>`;
             return;
         }

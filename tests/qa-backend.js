@@ -126,7 +126,13 @@ async function startQA() {
     assert(mt.status === 200, `Status HTTP ${mt.status}`);
     const mtData = await mt.json();
     assert(mtData.found === true, 'POST author=charles-spurgeon Mateo 9:12 debe found:true');
-    assert(/physician|sick|whole|ἰατρ|iatro/i.test(String(mtData.text || '')), 'La nota de Spurgeon en Mateo 9:12 debe ser la exposición SPE real');
+    const mtEn = String(mtData.textEn || (!mtData.translated ? mtData.text : '') || '');
+    const mtEs = String(mtData.textEs || (mtData.translated ? mtData.text : '') || '');
+    assert(/physician|sick|whole|ἰατρ|iatro/i.test(mtEn), 'La nota de Spurgeon en Mateo 9:12 debe ser la exposición SPE real (inglés en textEn)');
+    if (mtData.translated) {
+      assert(mtEs.length > 40, 'Spurgeon Mateo 9:12 traducido debe tener textEs');
+      assert(/[áéíóúñü¿¡]|médico|enferm|sano/i.test(mtEs), 'textEs de Spurgeon Mateo 9:12 debe ser español');
+    }
     assert(/corpus:charles-spurgeon/.test(String(mtData.source || '')), `Fuente inesperada: ${mtData.source}`);
 
     const miss = await fetch(`${BASE_URL}/api/commentary`, {

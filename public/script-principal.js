@@ -184,11 +184,12 @@
                 });
                 clearTimeout(timer);
                 const json = await res.json().catch(() => ({}));
-                const cuerpo = String(json?.text || json?.answer || json?.data?.cuerpo || '').trim();
-                if (json.success && cuerpo && !esRuidoEditorial(cuerpo)) {
+                const textEs = String(json?.textEs || '').trim();
+                const cuerpo = String(textEs || json?.text || json?.answer || json?.data?.cuerpo || '').trim();
+                if (json.success && cuerpo && !esRuidoEditorial(cuerpo) && !/^No hay nota/i.test(cuerpo)) {
                     const paragraphs = cuerpo.split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
                     return {
-                        ia: true,
+                        ia: false,
                         vacio: false,
                         generico: false,
                         nivel: 'versiculo',
@@ -196,6 +197,10 @@
                         obra: '',
                         entradas: paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
                         cuerpo,
+                        cuerpoEs: textEs,
+                        cuerpoEn: String(json?.textEn || '').trim(),
+                        traducido: Boolean(textEs || json?.translated),
+                        disclaimer: String(json?.disclaimer || '').trim(),
                         paragraphs,
                     };
                 }
