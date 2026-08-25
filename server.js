@@ -2,17 +2,13 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadProjectEnv } from './lib/load-env.js';
-import { generateUniversalAnswer } from './ai.js';
 import agenteTeologicoHandler from './api/agente-teologico.js';
 import bibleHandler from './api/bible.js';
 import pasajeHandler from './api/pasaje.js';
 import comentarioHandler from './api/comentario.js';
 import commentaryHandler from './api/commentary.js';
 import lenteEliteHandler from './api/lente-elite.js';
-import {
-  generarFallbackLente,
-  generarFallbackConcordancia
-} from './lib/theological-fallback.js';
+import studyEngineHandler from './api/study-engine.js';
 import referenciasHandler from './api/referencias.js';
 import tskHandler from './api/tsk.js';
 import concordanciaHandler from './api/concordancia.js';
@@ -58,87 +54,19 @@ function mount(handler) {
   };
 }
 
-function envelope(payload = {}) {
-  const answer =
-    payload.answer || payload.respuesta || payload.result || payload.data || payload.text || '';
-  return {
-    ...payload,
-    success: true,
-    ok: true,
-    answer,
-    respuesta: answer,
-    result: answer,
-    text: answer,
-    commentary: payload.commentary?.text ? payload.commentary : { text: answer },
-  };
-}
-
-async function studyEngineHandler(req, res) {
-  try {
-    const body = req.body && typeof req.body === 'object' ? req.body : {};
-    if (!body.passage && body.ref) body.passage = body.ref;
-    if (!body.passage && body.referencia) body.passage = body.referencia;
-    if (!body.passage && body.consulta) body.passage = body.consulta;
-    if (!body.passage && body.contextPassage) body.passage = body.contextPassage;
-    if (!body.prompt && body.message) body.prompt = body.message;
-    if (!body.mode && !body.type) {
-      const p = String(req.path || req.url || '');
-      if (p.includes('lente-elite')) body.type = 'elite_lens';
-      else if (p.includes('tsk')) body.type = 'tsk';
-      else if (p.includes('lexic')) body.type = 'lexicon';
-      else if (p.includes('concordanc')) body.type = 'concordance';
-      else if (p.includes('exegesis') || p.includes('comentario')) body.type = 'commentary';
-      else if (p.includes('lente')) body.type = 'lens';
-    }
-    const payload = await generateUniversalAnswer(body, req.path || req.url || '');
-    return res.status(200).json(envelope(payload));
-  } catch (error) {
-    console.error(`[study-engine] Error en ${req.path}:`, error.message);
-    const body = req.body || {};
-    const mode = String(body.mode || body.type || (req.path?.includes('concordanc') ? 'concordance' : '')).toLowerCase();
-    let fallbackAnswer = '';
-    if (mode === 'concordance' || mode === 'concordancia') {
-      fallbackAnswer = generarFallbackConcordancia({
-        keyword: body.keyword || body.searchTerm || body.termino,
-        passage: body.passage || body.referencia || 'Pasaje Bíblico',
-        verseText: body.verseText,
-      });
-    } else if (mode === 'elite_lens' || body.subLensId || (body.lensId && (body.lensId.startsWith('biblica_') || body.lensId.startsWith('mental_') || body.lensId === 'dictamen_maestro')) || req.path?.includes('lente-elite')) {
-      fallbackAnswer = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
-      return res.status(200).json({
-        success: false,
-        ok: false,
-        error: fallbackAnswer,
-        answer: fallbackAnswer,
-        text: fallbackAnswer,
-        source: 'ai-unavailable',
-        meta: { error: error?.message },
-      });
-    } else {
-      fallbackAnswer = generarFallbackLente({
-        passage: body.passage || body.referencia || 'Pasaje Bíblico',
-        lensTitle: body.lensTitle || body.lente || 'Análisis Bíblico',
-        prompt: body.prompt,
-        verseText: body.verseText,
-      });
-    }
-    return res.status(200).json(envelope({
-      success: true,
-      ok: true,
-      answer: fallbackAnswer,
-      text: fallbackAnswer,
-      source: 'theological-engine-fallback',
-    }));
-  }
-}
-
 async function iaAssistantHandler(req, res) {
   try {
     await agenteTeologicoHandler(req, res);
-    if (!res.headersSent) return studyEngineHandler(req, res);
   } catch (error) {
     console.warn('[ia-assistant]', error?.message || error);
-    if (!res.headersSent) return studyEngineHandler(req, res);
+    if (!res.headersSent) {
+      return res.status(502).json({
+        success: false,
+        ok: false,
+        error: 'RevelatiO IA no pudo responder. Reintenta. No se inventará un comentario clásico.',
+        source: 'ai-unavailable',
+      });
+    }
   }
 }
 
@@ -163,9 +91,9 @@ app.post('/api/referencias', mount(referenciasHandler));
 app.get('/api/tsk', mount(tskHandler));
 app.post('/api/tsk', mount(tskHandler));
 app.get('/api/concordancia', mount(concordanciaHandler));
-app.post('/api/concordancia', studyEngineHandler);
-app.get('/api/concordance', studyEngineHandler);
-app.post('/api/concordance', studyEngineHandler);
+app.post('/api/concordancia', mount(concordanciaHandler));
+app.get('/api/concordance', mount(concordanciaHandler));
+app.post('/api/concordance', mount(concordanciaHandler));
 app.get('/api/strong', mount(strongHandler));
 app.post('/api/strong', mount(strongHandler));
 app.get('/api/lexico', mount(lexicoHandler));
@@ -173,10 +101,10 @@ app.post('/api/lexico', mount(lexicoHandler));
 app.get('/api/lexicon', mount(lexicoHandler));
 app.post('/api/lexicon', mount(lexicoHandler));
 
-const STUDY_PATHS = ['/api/study-engine', '/api/lente-elite', '/api/ai', '/api/exegesis', '/api/lente', '/api/recursos', '/api/concordance', '/api/concordancia'];
+const STUDY_PATHS = ['/api/study-engine', '/api/ai', '/api/exegesis', '/api/lente', '/api/recursos'];
 for (const route of STUDY_PATHS) {
-  app.post(route, studyEngineHandler);
-  app.get(route, studyEngineHandler);
+  app.post(route, mount(studyEngineHandler));
+  app.get(route, mount(studyEngineHandler));
 }
 
 const IA_PATHS = ['/api/agente-teologico', '/api/chat-global', '/api/chat', '/api/ai-synthesis'];
@@ -187,7 +115,14 @@ for (const route of IA_PATHS) {
 
 app.use(express.static(__dirname, { index: false, dotfiles: 'ignore' }));
 
-app.post(/^\/api\//, studyEngineHandler);
+app.post(/^\/api\//, (req, res) => {
+  return res.status(404).json({
+    success: false,
+    ok: false,
+    error: 'Ruta no encontrada.',
+    source: 'not-found',
+  });
+});
 
 app.use((req, res, next) => {
   if (req.method !== 'GET') return next();

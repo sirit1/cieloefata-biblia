@@ -8,10 +8,9 @@
 
     const VERSIONES = [
         { key: 'rv1960', etiqueta: 'RVR1960', licencia: 'sbu' },
-        { key: 'kjv', etiqueta: 'KJV', licencia: 'public' },
+        { key: 'nvi', etiqueta: 'NVI', licencia: 'pending' },
         { key: 'tla', etiqueta: 'TLA', licencia: 'sbu' },
         { key: 'dhh', etiqueta: 'DHH', licencia: 'sbu' },
-        { key: 'septuaginta', etiqueta: 'Septuaginta (Rahlfs)', licencia: 'public' }
     ];
     const AUTORES = [
         { key: 'charles-spurgeon', etiqueta: 'C. H. Spurgeon', json: 'spurgeon' },

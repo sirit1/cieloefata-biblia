@@ -1,7 +1,7 @@
 {
   "schema": "revelatio.versiones.v1",
   "producto": "Éfata RevelatiO",
-  "activa": ["rv1960", "kjv", "tla", "dhh", "septuaginta"],
+  "activa": ["rv1960", "nvi", "tla", "dhh"],
   "versiones": [
     {
       "key": "rv1960",
@@ -14,14 +14,14 @@
       "fuente_remota": "RV1960"
     },
     {
-      "key": "kjv",
-      "etiqueta": "KJV",
-      "nombre": "King James Version",
-      "licencia": "public",
-      "titular": "Public domain (1611/1769)",
-      "archivo": "kjv.json",
+      "key": "nvi",
+      "etiqueta": "NVI",
+      "nombre": "Nueva Versión Internacional",
+      "licencia": "pending",
+      "titular": "",
+      "archivo": "nvi.json",
       "aviso": null,
-      "fuente_remota": "KJV"
+      "fuente_remota": "NVI"
     },
     {
       "key": "tla",
@@ -55,7 +55,6 @@
     }
   ],
   "reservadas_v2": [
-    { "key": "nvi", "etiqueta": "NVI", "nombre": "Nueva Versión Internacional", "licencia": "pending", "archivo": "nvi.json" },
     { "key": "ntv", "etiqueta": "NTV", "nombre": "Nueva Traducción Viviente", "licencia": "pending", "archivo": "ntv.json" }
   ]
 }

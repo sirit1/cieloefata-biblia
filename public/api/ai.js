@@ -5,18 +5,8 @@
  * y síntesis teológica profunda inmediata (<50ms).
  */
 import { resolveGeminiApiKey } from '../lib/load-env.js';
-import { hayMotorIA, generarTexto } from '../lib/ai.js';
-import {
-  contextoConsulta,
-  formatearLexico,
-  formatearTsk,
-} from '../lib/consulta-contexto.js';
 import { obtenerComentarioCorpus } from '../lib/comentario-corpus.js';
-import {
-  generarFallbackLente,
-  generarFallbackLexico,
-  generarFallbackConcordancia,
-} from '../lib/theological-fallback.js';
+import { hayMotorIA, generarTexto } from '../lib/ai.js';
 
 const GOBERNANZA_REVELATIO = `GOBERNANZA REVELATIO (no negociable):
 1. El versículo recibido es soberano. Cítalo TAL CUAL entre comillas (el verseText que te pasan). Nunca parafrasees la Escritura ni recites de memoria otro versículo. Si necesitas otra referencia y no tienes su texto en el contexto, nombra solo la cita (p. ej. Ro. 12:2) sin inventar las palabras.
@@ -45,7 +35,7 @@ function foldType(raw, pathname = '') {
   if (pathname.includes('lexicon') || pathname.includes('lexico')) return 'lexicon';
   if (pathname.includes('exegesis') || pathname.includes('comentario')) return 'commentary';
   if (pathname.includes('lente')) return 'lens';
-  return 'lens';
+  return 'unspecified';
 }
 
 function resolveSubLensKey(subLensId = '', lensId = '', lensTitle = '', prompt = '') {
@@ -396,88 +386,27 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
     '';
   const lensId = subLensId || (typeof body.lensId === 'string' ? body.lensId.trim() : '');
   const type = foldType(body.type || body.mode, pathname);
-
-  const ctx = await contextoConsulta(
-    {
-      passage: passage || prompt,
-      referencia: body.referencia,
-      book: body.book || body.libro,
-      chapter: body.chapter || body.capitulo,
-      verse: body.verse || body.verso,
-    },
-    { version: body.version }
-  ).catch(() => null);
-  const ref = ctx?.etiqueta || passage || prompt || 'Pasaje Seleccionado';
+  const ref = passage || prompt || 'Pasaje Seleccionado';
   const clientVerseText = typeof body.verseText === 'string' ? body.verseText.trim() : '';
-  const verseText = clientVerseText || (ctx?.texto ? String(ctx.texto).trim() : '');
 
-  // 0. MODO CONCORDANCIA BÍBLICA Y TEMÁTICA
-  if (type === 'concordance') {
-    const searchTerm = keyword || (prompt && prompt !== ref ? prompt : '');
-    const systemInstruction = buildSystemInstruction({
-      type: 'concordance',
-      passage: ref,
-      keyword: searchTerm,
-      verseText,
-      prompt: searchTerm || prompt || ref,
-    }) + (ctx?.texto ? `\nTEXTO CANÓNICO DE REFERENCIA: «${ctx.texto}»\n` : '');
-
-    let answer = '';
-    let source = 'gemini';
-
-    if (hayMotorIA()) {
-      try {
-        const text = await generarTexto(systemInstruction, { maxOutputTokens: 2000 });
-        if (String(text).trim() && !pareceCortado(text)) {
-          answer = text;
-          source = 'gateway';
-        }
-      } catch (err) {
-        console.warn('[api/ai] Gateway error en concordancia:', err?.message || err);
-      }
-    }
-
-    const apiKey = resolveGeminiApiKey();
-    if (!String(answer || '').trim() && apiKey) {
-      try {
-        answer = await callGemini(apiKey, systemInstruction, GEMINI_TIMEOUT_MS);
-        if (String(answer || '').trim()) source = 'gemini';
-      } catch (geminiError) {
-        console.warn('[api/ai] Gemini no completó concordancia a tiempo:', geminiError?.message || geminiError);
-      }
-    }
-
-    if (!String(answer || '').trim() || pareceCortado(answer)) {
-      console.log(`[api/ai] Generando fallback teológico para concordancia (${searchTerm || ref})`);
-      answer = generarFallbackConcordancia({
-        keyword: searchTerm,
-        passage: ref,
-        verseText,
-        ctx,
-      });
-      source = 'theological-engine-fallback';
-    }
-
+  function corpusRequired(msg) {
+    const text = msg || 'El estudio canónico (TSK, comentarios, léxico, concordancia) usa corpus. La IA solo opera en lentes y el chat.';
     return {
-      success: true,
-      ok: true,
-      answer,
-      respuesta: answer,
-      result: answer,
-      data: answer,
-      text: answer,
-      commentary: { text: answer },
+      success: false,
+      ok: false,
+      error: text,
+      answer: text,
+      respuesta: text,
+      result: text,
+      data: text,
+      text,
+      commentary: { text },
       type,
-      source,
-      meta: {
-        passage: ref,
-        keyword: searchTerm || undefined,
-        verseText: ctx?.texto || undefined,
-      },
+      source: 'corpus-required',
+      meta: { passage: ref },
     };
   }
 
-  // 1. MODO COMENTARIO CLÁSICO — corpus real, nunca IA
   if (type === 'commentary') {
     const result = await obtenerComentarioCorpus({ passage: ref, author });
     const text = result.text || `No hay nota de ${result.author || author || 'este autor'} para ${ref}.`;
@@ -494,12 +423,46 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
       type,
       source: result.source || 'corpus-miss',
       author: result.author || author,
+      authorId: result.authorId,
       meta: { passage: ref, author: result.author || author || undefined, assisted: false },
     };
   }
 
-  // 2. MODO LÉXICO STRONG
+  if (type === 'tsk') {
+    const { obtenerTsk } = await import('../lib/tsk.js');
+    const tsk = await obtenerTsk({ passage: ref, version: body.version || 'RV1960' });
+    const refs = tsk?.data?.referencias || [];
+    const answer = refs.length
+      ? refs.map((r) => `- **${r.ref}**\n  «${r.texto || ''}»`).join('\n')
+      : `No hay referencias TSK catalogadas para ${ref}.`;
+    return {
+      success: true,
+      ok: true,
+      found: refs.length > 0,
+      answer,
+      respuesta: answer,
+      result: answer,
+      data: tsk?.data || { referencias: [], fuente: 'tsk-open-cross-ref' },
+      text: answer,
+      commentary: { text: answer },
+      type,
+      source: 'tsk-open-cross-ref',
+      meta: { passage: ref },
+    };
+  }
+
   if (type === 'lexicon') {
+    const { contextoConsulta, formatearLexico } = await import('../lib/consulta-contexto.js');
+    const ctx = await contextoConsulta(
+      {
+        passage: passage || prompt,
+        referencia: body.referencia,
+        book: body.book || body.libro,
+        chapter: body.chapter || body.capitulo,
+        verse: body.verse || body.verso,
+      },
+      { version: body.version },
+    ).catch(() => null);
     if (ctx && Array.isArray(ctx.strongs) && ctx.strongs.length > 0) {
       const lex = formatearLexico(ctx);
       return {
@@ -516,60 +479,49 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
         meta: { passage: ref, strongs: ctx.strongs.map((s) => s.codigo) },
       };
     }
-    const lexFallback = generarFallbackLexico({ passage: ref, ctx });
+    const miss = `No hay glosas Strong catalogadas para ${ref}.`;
     return {
       success: true,
       ok: true,
-      answer: lexFallback,
-      respuesta: lexFallback,
-      result: lexFallback,
-      data: lexFallback,
-      text: lexFallback,
-      commentary: { text: lexFallback },
-      type,
-      source: 'strong-lexicon-fallback',
-      meta: { passage: ref },
-    };
-  }
-
-  // 3. MODO REFERENCIAS CRUZADAS (TSK) — corpus verse-keyed, nunca Bolls keyword
-  if (type === 'tsk') {
-    const { obtenerTsk } = await import('../lib/tsk.js');
-    const tsk = await obtenerTsk({ passage: ref, version: 'RV1960' });
-    const refs = tsk?.data?.referencias || [];
-    if (refs.length) {
-      const answer = formatearTsk(ctx || { etiqueta: ref }, refs);
-      return {
-        success: true,
-        ok: true,
-        answer,
-        respuesta: answer,
-        result: answer,
-        data: tsk.data,
-        text: answer,
-        commentary: { text: answer },
-        type,
-        source: 'tsk-open-cross-ref',
-        meta: { passage: ref },
-      };
-    }
-    const miss = `No hay referencias TSK catalogadas para ${ref}.`;
-    return {
-      success: true,
-      ok: true,
+      found: false,
       answer: miss,
       respuesta: miss,
       result: miss,
-      data: tsk?.data || { referencias: [], fuente: 'tsk-open-cross-ref' },
+      data: { entradas: [], resultados: [], referencia: ref },
       text: miss,
       commentary: { text: miss },
       type,
-      source: 'tsk-open-cross-ref',
+      source: 'corpus-miss',
       meta: { passage: ref },
     };
   }
 
-  // 4. MODO LENTES REVELATIO IA / LENTE ÉLITE
+  if (type === 'concordance') {
+    return corpusRequired('La concordancia usa GET /api/concordancia sobre el texto canónico. La IA no inventa coincidencias.');
+  }
+
+  if (type !== 'lens' && type !== 'elite_lens') {
+    return corpusRequired();
+  }
+
+  let ctx = null;
+  try {
+    const { contextoConsulta } = await import('../lib/consulta-contexto.js');
+    ctx = await contextoConsulta(
+      {
+        passage: passage || prompt,
+        referencia: body.referencia,
+        book: body.book || body.libro,
+        chapter: body.chapter || body.capitulo,
+        verse: body.verse || body.verso,
+      },
+      { version: body.version },
+    );
+  } catch {
+    ctx = null;
+  }
+  const verseText = clientVerseText || (ctx?.texto ? String(ctx.texto).trim() : '');
+
   const isElite = type === 'elite_lens' || Boolean(subLensId) || (lensId && (lensId.startsWith('biblica_') || lensId.startsWith('mental_') || lensId === 'dictamen_maestro'));
 
   if (isElite && !clientVerseText) {
@@ -691,16 +643,21 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
         meta: { passage: ref, subLensId: subLensId || undefined, lensTitle },
       };
     }
-    console.log(`[api/ai] Generando fallback teológico inmediato para lente "${lensTitle}" (${subLensId || lensId}) en ${ref}`);
-    answer = generarFallbackLente({
-      passage: ref,
-      lensTitle,
-      lensId,
-      prompt,
-      verseText,
-      ctx,
-    });
-    source = 'theological-engine-fallback';
+    const msg = `No se pudo generar el dictamen de «${lensTitle || 'Lente'}» para ${ref}. Reintenta. No se inventará un comentario clásico ni el texto del versículo.`;
+    return {
+      success: false,
+      ok: false,
+      error: msg,
+      answer: msg,
+      respuesta: msg,
+      result: msg,
+      data: msg,
+      text: msg,
+      commentary: { text: msg },
+      type: isElite ? 'elite_lens' : type,
+      source: 'ai-unavailable',
+      meta: { passage: ref, subLensId: subLensId || undefined, lensTitle },
+    };
   }
 
   return {
@@ -760,37 +717,15 @@ export default async function handler(req, res) {
     console.error('[api/ai] Error capturado:', error?.message || error);
     const body = req.body || {};
     const type = foldType(body.type || body.mode, req.url || req.path || '');
-    let fallbackAnswer = '';
-    if (type === 'concordance') {
-      fallbackAnswer = generarFallbackConcordancia({
-        keyword: body.keyword || body.searchTerm || body.termino,
-        passage: body.passage || body.referencia || 'Pasaje Seleccionado',
-        verseText: body.verseText,
-      });
-    } else if (type === 'elite_lens' || body.subLensId || (body.lensId && (body.lensId.startsWith('biblica_') || body.lensId.startsWith('mental_') || body.lensId === 'dictamen_maestro'))) {
-      fallbackAnswer = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
-      return res.status(200).json({
-        success: false,
-        ok: false,
-        error: fallbackAnswer,
-        answer: fallbackAnswer,
-        text: fallbackAnswer,
-        source: 'ai-unavailable',
-        meta: { error: error?.message },
-      });
-    } else {
-      fallbackAnswer = generarFallbackLente({
-        passage: body.passage || body.referencia || 'Pasaje Seleccionado',
-        lensTitle: body.lensTitle || body.lente || 'Análisis Bíblico',
-        prompt: body.prompt,
-      });
-    }
+    const fallbackAnswer = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
+    const corpusTypes = type === 'tsk' || type === 'commentary' || type === 'lexicon' || type === 'concordance' || type === 'unspecified';
     return res.status(200).json({
-      success: true,
-      ok: true,
+      success: false,
+      ok: false,
+      error: fallbackAnswer,
       answer: fallbackAnswer,
       text: fallbackAnswer,
-      source: 'theological-engine-fallback',
+      source: corpusTypes ? 'corpus-required' : 'ai-unavailable',
       meta: { error: error?.message },
     });
   }

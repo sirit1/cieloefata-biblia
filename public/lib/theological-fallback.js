@@ -5,8 +5,6 @@
  */
 import {
   formatearLexico,
-  formatearTsk,
-  paralelosReales
 } from './consulta-contexto.js';
 
 function normalizarTexto(texto) {
@@ -405,53 +403,22 @@ El pasaje se engarza orgánicamente dentro de la secuencia del libro sagrado, ma
 La enseñanza fundamental del texto apela tanto al intelecto como al corazón del creyente: exige un discernimiento espiritual genuino y rechaza el formalismo religioso, instando a fundamentar la fe viva en el conocimiento sólido de la verdad revelada.`;
   }
 
-  // 5. C. H. SPURGEON (Default)
-  return `### Exposición Pastoral en el Tabernáculo Metropolitano — C. H. Spurgeon
+  // Respaldo honesto: nunca se atribuye a un comentarista clásico.
+  return `### Respaldo teológico
 
-Al contemplar con asombro reverente las palabras de **${ref}**${citaTexto}, el corazón del predicador arde con el fuego del Evangelio. ¡Cuán claramente se manifiesta aquí el contraste entre la ceguera humana y la gloriosa revelación de la gracia divina! Los hombres son veloces para juzgar las apariencias temporales, pero ¡ay!, cuán lentos son sus corazones para discernir los tiempos de la bendita visitación de Dios.
+Al contemplar las palabras de **${ref}**${citaTexto}, el texto sagrado permanece como autoridad. Este párrafo no es un comentario histórico verificado: es un respaldo teológico cuando el motor de exposición no está disponible.
 
-Este texto sagrado nos toma de la mano y nos conduce con urgencia irresistible hacia la persona y obra de nuestro Señor Jesucristo. En Él, y solo en Él, se hallan todos los tesoros de la sabiduría y del perdón. Su sangre bendita limpia la mancha más oscura de pecado, y su amor sin límites acoge al pecador arrepentido que acude con las manos vacías para recibir el don inefable de la vida eterna.
+Lee el pasaje en su contexto inmediato. Compara con el testimonio canónico (Ley, Profetas, Evangelios y Epístolas). La fe no se apoya en una atribución inventada, sino en la Escritura misma.
 
-¡Oh, alma cansada que lees estas líneas, no te conformes con una religión de ritos vacíos o palabras fingidas! Rinde hoy tu voluntad a los pies del Salvador de la gloria. Cree en su palabra todopoderosa, refúgiate en su gracia inagotable y comprobarás que el Señor es tu fortaleza, tu cántico y tu salvación eterna. Amén.`;
+Si puedes, vuelve a consultar el comentario cuando el corpus o el motor de IA estén disponibles.`;
 }
 
 /**
  * Generador de árbol de referencias cruzadas canónicas (TSK).
  */
-export async function generarFallbackTsk({ passage, verseText, ctx } = {}) {
-  const ref = String(passage || ctx?.etiqueta || 'Pasaje Bíblico').trim();
-  const texto = normalizarTexto(verseText || ctx?.texto || '');
-
-  try {
-    if (texto) {
-      const paralelos = await paralelosReales(texto, { excludeRef: ref }).catch(() => []);
-      if (paralelos.length) {
-        return formatearTsk(ctx || { etiqueta: ref, texto }, paralelos);
-      }
-    }
-  } catch { /* continuar a síntesis canónica */ }
-
-  return `### Referencias Cruzadas Canónicas (TSK) para ${ref}
-${texto ? `*Texto canónico:* «${texto}»\n` : ''}
-- **Romanos 12:2**
-  «No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta.»
-  — Conexión: Renovación de la mente, discernimiento de la soberanía divina y ortopraxis.
-
-- **Efesios 4:23-24**
-  «Y renovaos en el espíritu de vuestra mente, y vestíos del nuevo hombre, creado según Dios en la justicia y santidad de la verdad.»
-  — Conexión: Regeneración por el Espíritu y santificación del entendimiento en Cristo.
-
-- **Filipenses 4:7-8**
-  «Y la paz de Dios, que sobrepasa todo entendimiento, guardará vuestros corazones y vuestros pensamientos en Cristo Jesús.»
-  — Conexión: El reposo del corazón y el gobierno de los pensamientos bajo la gracia.
-
-- **2 Timoteo 3:16-17**
-  «Toda la Escritura es inspirada por Dios, y útil para enseñar, para redargüir, para corregir, para instruir en justicia...»
-  — Conexión: Autoridad canónica inerrante y suficiencia de la revelación de Dios.
-
-- **Hebreos 4:12**
-  «Porque la palabra de Dios es viva y eficaz, y más cortante que toda espada de dos filos; y penetra hasta partir el alma y el espíritu...»
-  — Conexión: El poder transformador de la Palabra sobre los pensamientos y afectos.`;
+export async function generarFallbackTsk({ passage, ctx } = {}) {
+  const ref = String(passage || ctx?.etiqueta || 'este pasaje').trim();
+  return `No hay referencias TSK catalogadas para ${ref}.`;
 }
 
 /**
@@ -741,7 +708,7 @@ ${texto ? `*Texto canónico:* «${texto}»\n` : ''}
 - **Significado:** La obra continua del Espíritu Santo que purifica los afectos, pensamientos y conducta del creyente.
 - **Frecuencia bíblica:** Más de 200 llamadas a la santidad y pureza interior en el canon.
 - **Tres versículos paralelos fundamentales:**
-  1. **1 Tesalonicenses 5:23** — «Y el mismo Dios de paz os santifique por completo; y todo vuestro ser, espíritu, alma y cuerpo, sea guardado irreprensible para la venida de nuestro del Señor Jesucristo.»
+  1. **1 Tesalonicenses 5:23** — «Y el mismo Dios de paz os santifique por completo; y todo vuestro ser, espíritu, alma y cuerpo, sea guardado irreprensible para la venida de nuestro Señor Jesucristo.»
   2. **2 Corintios 3:18** — «Por tanto, nosotros todos, mirando a cara descubierta como en un espejo la gloria del Señor, somos transformados de gloria en gloria en la misma imagen, como por el Espíritu del Señor.»
   3. **1 Pedro 1:15-16** — «Sino, como aquel que os llamó es santo, sed también vosotros santos en toda vuestra manera de vivir; porque escrito está: Sed santos, porque yo soy santo.»
 

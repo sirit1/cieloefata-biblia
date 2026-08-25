@@ -111,8 +111,8 @@ function resolveVersion(version, bookMeta) {
   if (upper.includes('1909') || lower === 'rv1909' || lower === 'rvr1909') {
     return { bolls: 'RV1909', packKey: 'rv1960', label: 'Reina-Valera 1909', note: null, requested: raw };
   }
-  if (upper.includes('KJV')) {
-    return { bolls: 'KJV', packKey: 'kjv', label: 'King James Version', note: null, requested: raw };
+  if (upper.includes('KJV') || lower === 'kingjames' || lower === 'av') {
+    return { bolls: 'RV1960', packKey: 'rv1960', label: 'Reina-Valera 1960', note: 'La lectura cita la versión española consultada, no la King James.', requested: raw };
   }
   if (upper.includes('NVI')) {
     return { bolls: 'NVI', packKey: 'nvi', label: 'Nueva Versión Internacional', note: null, requested: raw };

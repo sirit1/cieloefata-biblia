@@ -115,6 +115,20 @@ async function startQA() {
     assert(/corpus:charles-spurgeon/.test(String(hitData.source || '')), `Fuente inesperada: ${hitData.source}`);
     assertNoMocks(hitData.text);
 
+    const mt = await fetch(`${BASE_URL}/api/commentary`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        passage: 'Mateo 9:12',
+        author: 'charles-spurgeon',
+      }),
+    });
+    assert(mt.status === 200, `Status HTTP ${mt.status}`);
+    const mtData = await mt.json();
+    assert(mtData.found === true, 'POST author=charles-spurgeon Mateo 9:12 debe found:true');
+    assert(/physician|sick|whole|ἰατρ|iatro/i.test(String(mtData.text || '')), 'La nota de Spurgeon en Mateo 9:12 debe ser la exposición SPE real');
+    assert(/corpus:charles-spurgeon/.test(String(mtData.source || '')), `Fuente inesperada: ${mtData.source}`);
+
     const miss = await fetch(`${BASE_URL}/api/commentary`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

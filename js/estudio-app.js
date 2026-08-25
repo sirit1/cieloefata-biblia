@@ -517,15 +517,21 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                 signal: controller.signal,
-                body: JSON.stringify({ passage: ref, author: nombre, verseText: String(verseText || '').trim() }),
+                body: JSON.stringify({
+                    passage: ref,
+                    author: autor || nombre,
+                    autor: autor || nombre,
+                    verseText: String(verseText || '').trim(),
+                }),
             });
             clearTimeout(timer);
             const json = await res.json().catch(() => ({}));
             const text = String(json?.text || json?.answer || json?.data?.cuerpo || '').trim();
-            if (json.success && text && !esRuidoEditorial(text)) {
+            const found = json.found !== false && json.source !== 'corpus-miss' && json.source !== 'theological-engine-fallback';
+            if (json.success && found && text && !esRuidoEditorial(text)) {
                 const paragraphs = text.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
                 return {
-                    ia: true,
+                    ia: false,
                     vacio: false,
                     titulo: nombre,
                     obra: '',
@@ -710,7 +716,7 @@
 
     function elegirVersosPasaje(libro, version, passage) {
         const key = claveMotor(version);
-        const orden = [key, 'rv1960', 'rv1909', 'kjv', 'tla', 'dhh'];
+        const orden = [key, 'rv1960', 'nvi', 'tla', 'dhh'].filter((k) => k && k !== 'kjv' && k !== 'kingjames');
         const seen = new Set();
         for (const k of orden) {
             if (!k || seen.has(k)) continue;
@@ -808,7 +814,7 @@
         if (v === 'dhh') return 'DHH';
         if (v === 'tla') return 'TLA';
         if (v === 'nvi') return 'NVI';
-        if (v === 'kjv') return 'KJV';
+        if (v === 'kjv' || v === 'kingjames') return 'RVR1960';
         if (v === 'lxx' || v === 'septuaginta' || v === 'textual' || v === 'rahlfs') return 'LXX';
         return String(version || 'RVR1960').toUpperCase();
     }
@@ -3599,10 +3605,9 @@ function descargarBackup(kind) {
         const autor = document.getElementById('selector-autor');
         const VERSIONES_FIJAS = [
             { key: 'rv1960', etiqueta: 'RVR1960' },
-            { key: 'kjv', etiqueta: 'KJV' },
+            { key: 'nvi', etiqueta: 'NVI' },
             { key: 'tla', etiqueta: 'TLA' },
             { key: 'dhh', etiqueta: 'DHH' },
-            { key: 'septuaginta', etiqueta: 'Septuaginta (Rahlfs)' }
         ];
         if (version) {
             version.innerHTML = VERSIONES_FIJAS.map(v =>

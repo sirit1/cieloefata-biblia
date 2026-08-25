@@ -97,14 +97,14 @@
     };
 
     const VERSION_LABEL = {
-        rv1960: 'RVR1909',
+        rv1960: 'RVR1960',
         rv1909: 'RVR1909',
-        kjv: 'KJV',
+        nvi: 'NVI',
         tla: 'TLA',
         dhh: 'DHH',
-        septuaginta: 'Biblia Textual',
-        textual: 'Biblia Textual',
-        lxx: 'Biblia Textual'
+        septuaginta: 'Septuaginta',
+        textual: 'Septuaginta',
+        lxx: 'Septuaginta'
     };
 
     const FICHAS_ACADEMICAS = {
