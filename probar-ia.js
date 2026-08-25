@@ -1,6 +1,7 @@
-import 'dotenv/config';
+import { loadProjectEnv, resolveGeminiApiKey } from './lib/load-env.js';
 
-const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+loadProjectEnv();
+const apiKey = resolveGeminiApiKey();
 
 console.log(
   '1. Verificando API Key:',

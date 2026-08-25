@@ -14,10 +14,11 @@
         { key: 'septuaginta', etiqueta: 'Septuaginta (Rahlfs)', licencia: 'public' }
     ];
     const AUTORES = [
+        { key: 'charles-spurgeon', etiqueta: 'C. H. Spurgeon', json: 'spurgeon' },
         { key: 'matthew-henry', etiqueta: 'Matthew Henry', json: 'matthew_henry' },
-        { key: 'jamieson-fausset-brown', etiqueta: 'Jamieson, Fausset y Brown', json: 'jfb' },
-        { key: 'albert-barnes', etiqueta: 'Albert Barnes', json: 'barnes' },
-        { key: 'charles-spurgeon', etiqueta: 'Charles Spurgeon', json: 'spurgeon' }
+        { key: 'juan-calvino', etiqueta: 'Juan Calvino', json: 'calvino' },
+        { key: 'jamieson-fausset-brown', etiqueta: 'Jamieson-Fausset-Brown', json: 'jfb' },
+        { key: 'john-gill', etiqueta: 'John Gill', json: 'gill' }
     ];
 
     window.REVELATIO_VERSIONES = VERSIONES;
@@ -39,10 +40,10 @@
         return parseRefComentario(referencia).slug;
     }
 
-    async function fetchJsonCandidatos(rutas) {
+    async function fetchJsonCandidatos(rutas, opts = {}) {
         for (const ruta of rutas) {
             try {
-                const res = await fetch(ruta, { cache: 'force-cache' });
+                const res = await fetch(ruta, { cache: opts.cache || 'force-cache' });
                 if (!res.ok) continue;
                 return await res.json();
             } catch (_e) { /* siguiente ruta */ }
@@ -68,7 +69,7 @@
     }
 
     function esRuidoEditorial(texto) {
-        return /no hay transcripci[oó]n|nota general del comentarista|este panel no admite|s[íi]ntesis de IA|texto hist[oó]rico de dominio público|sitúan .+ en su marco histórico-gramatical|predica .+ para llevar al pecador|Henry lee .+ como |Este libro se medita|El libro no es adorno doctrinal|expone .+ a la luz de la Escritura, para que el lector crea/i.test(String(texto || ''));
+        return /no hay transcripci[oó]n|nota general del comentarista|este panel no admite|s[íi]ntesis de IA|texto hist[oó]rico de dominio público|sitúan .+ en su marco histórico-gramatical|predica .+ para llevar al pecador|Henry lee .+ como |Este libro se medita|El libro no es adorno doctrinal|expone .+ a la luz de la Escritura, para que el lector crea|consigna gen[eé]rica de otro libro/i.test(String(texto || ''));
     }
 
     function extraerEntradas(pack, referencia) {
@@ -127,9 +128,9 @@
         if (precargaComentarios) return precargaComentarios;
         precargaComentarios = (async () => {
             const cat = await fetchJsonCandidatos([
-                'data/commentaries/catalogo.json',
-                '/data/commentaries/catalogo.json'
-            ]);
+                'data/commentaries/catalogo.json?v=comentarioRapido2',
+                '/data/commentaries/catalogo.json?v=comentarioRapido2'
+            ], { cache: 'no-store' });
             if (cat?.autores?.length) {
                 const activa = new Set(cat.activa || AUTORES.map(a => a.key));
                 const mapped = cat.autores
@@ -169,54 +170,43 @@
     }
 
     async function fetchComentario(referencia, autorKey) {
-        await precargarComentarios();
-        // Preferir banco íntegro del commentary-service si está disponible
-        const svc = window.RV?.CommentaryService;
-        const fromDb = svc?.getVerseCommentary?.(referencia, null, null, autorKey);
-        if (fromDb?.paragraphs?.length) {
-            return {
-                ia: false,
-                vacio: false,
-                generico: false,
-                nivel: 'versiculo',
-                titulo: fromDb.author,
-                obra: fromDb.work || '',
-                entradas: fromDb.paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
-                cuerpo: fromDb.paragraphs.join('\n\n'),
-                paragraphs: fromDb.paragraphs,
-            };
-        }
+        const ref = String(referencia || '').trim();
         const meta = AUTORES.find(a => a.key === autorKey) || AUTORES[0];
-        const pack = meta?.json ? await cargarJsonComentarista(meta.json) : null;
-        const local = armarComentario(referencia, autorKey, pack || {});
-        if (local?.cuerpo && !local?.vacio && !esRuidoEditorial(local.cuerpo)) return local;
-        try {
-            const res = await fetch('/api/comentario', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify({ referencia, autor: autorKey, author: autorKey, ref: referencia })
-            });
-            if (res.ok) {
-                const json = await res.json();
-                const data = json?.data || json;
-                if (data?.vacio) return local;
-                const cuerpo = data?.cuerpo || (data?.entradas || []).map(e => e.texto).join('\n\n');
-                if (cuerpo && !esRuidoEditorial(cuerpo) && (data?.entradas?.length || data?.paragraphs?.length)) {
+        const nombre = meta?.etiqueta || autorKey || 'Matthew Henry';
+        if (ref) {
+            try {
+                const controller = new AbortController();
+                const timer = setTimeout(() => controller.abort(), 37000);
+                const res = await fetch('/api/commentary', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    signal: controller.signal,
+                    body: JSON.stringify({ passage: ref, author: nombre, verseText: window.activeStudyText || '' }),
+                });
+                clearTimeout(timer);
+                const json = await res.json().catch(() => ({}));
+                const cuerpo = String(json?.text || json?.answer || json?.data?.cuerpo || '').trim();
+                if (json.success && cuerpo && !esRuidoEditorial(cuerpo)) {
+                    const paragraphs = cuerpo.split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
                     return {
-                        ia: false,
+                        ia: true,
                         vacio: false,
                         generico: false,
                         nivel: 'versiculo',
-                        titulo: data.titulo || meta?.etiqueta || autorKey,
-                        obra: data.obra || '',
-                        entradas: data.entradas || data.paragraphs?.map((t) => ({ texto: t })) || [{ texto: cuerpo }],
+                        titulo: nombre,
+                        obra: '',
+                        entradas: paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
                         cuerpo,
-                        paragraphs: data.paragraphs || String(cuerpo).split(/\n{2,}/).map(p => p.trim()).filter(Boolean),
+                        paragraphs,
                     };
                 }
-            }
-        } catch (_e) { /* keep local */ }
-        return local;
+            } catch { /* sin plantilla de respaldo */ }
+        }
+        await precargarComentarios();
+        const pack = meta?.json ? await cargarJsonComentarista(meta.json) : null;
+        const local = armarComentario(referencia, autorKey, pack || {});
+        if (local?.cuerpo && !local?.vacio && !esRuidoEditorial(local.cuerpo)) return local;
+        return local || { ia: false, vacio: true, titulo: nombre, entradas: [], cuerpo: '', paragraphs: [] };
     }
 
 
@@ -345,7 +335,11 @@
     function normalizarListaVersos(lista) {
         if (!Array.isArray(lista)) return [];
         return lista
-            .map((v, i) => ({ n: verseNumOf(v, i), texto: verseTextOf(v) }))
+            .map((v, i) => ({
+                n: verseNumOf(v, i),
+                texto: verseTextOf(v),
+                textoEs: String(v?.textoEs || v?.textEs || v?.es || '').trim() || undefined,
+            }))
             .filter((v) => v.n > 0 && !esTextoVacioOPlaceholder(v.texto));
     }
 
@@ -365,7 +359,7 @@
         if (token) headers.Authorization = `Bearer ${token}`;
         const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
         // Bolls + varias versiones en paralelo suele tardar 3–8s; no abortar prematuro.
-        const timer = ctrl ? setTimeout(() => ctrl.abort(), 20000) : null;
+        const timer = ctrl ? setTimeout(() => ctrl.abort(), 25000) : null;
         try {
             const res = await fetch('/api/pasaje', {
                 method: 'POST',
@@ -375,7 +369,21 @@
             });
             if (!res.ok) return null;
             const json = await res.json();
-            return json?.success ? (json.data || {}) : null;
+            if (json?.success && json.data) return json.data;
+            if (json?.success && Array.isArray(json.verses) && json.verses.length) {
+                return json.data || {
+                    referencia: `${json.book || ''} ${json.chapter || ''}`.trim(),
+                    versionesVersos: {
+                        rv1960: json.verses.map((v) => ({ n: v.verse, texto: v.text })),
+                    },
+                    versiones: {
+                        rv1960: json.verses.map((v) => `${v.verse} ${v.text}`).join(' '),
+                    },
+                    versionesLista: [{ key: 'rv1960', etiqueta: json.version, licencia: 'remote' }],
+                    original: null,
+                };
+            }
+            return null;
         } catch {
             return null;
         } finally {
