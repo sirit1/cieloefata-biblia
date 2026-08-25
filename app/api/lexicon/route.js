@@ -1,4 +1,4 @@
-import legacyHandler from '../../../api/ai.js'
+import legacyHandler from '../../../api/lexico.js'
 
 export const runtime = 'nodejs'
 
@@ -30,7 +30,6 @@ function bridge() {
 export async function POST(request) {
   const response = bridge()
   const body = await request.json().catch(() => ({}))
-  body.type = body.type || 'lexicon'
   await legacyHandler(
     {
       method: 'POST',

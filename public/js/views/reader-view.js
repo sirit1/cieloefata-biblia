@@ -228,10 +228,14 @@ export function initReader() {
         version: wantVer,
       });
       updateActivePassageState(wantBook, wantChap, 1);
+      const rawErr = String(data.error || '');
+      const safeErr = /HTTP\s*Error:\s*404|HTTP\s*404/i.test(rawErr)
+        ? 'No se pudo cargar el capítulo. Revisa la conexión.'
+        : (rawErr || 'Revisa la conexión.');
       container.innerHTML = `
         <div class="p-6 bg-amber-50 border border-[#E8DFC8] rounded-xl text-center font-serif text-[#0A192F]">
           <p class="font-bold">No se pudo cargar ${escapeHtml(wantBook)} ${wantChap}.</p>
-          <p class="text-xs text-stone-500 mt-1">${escapeHtml(data.error || 'Revisa la conexión.')}</p>
+          <p class="text-xs text-stone-500 mt-1">${escapeHtml(safeErr)}</p>
         </div>`;
       return;
     }
@@ -243,6 +247,13 @@ export function initReader() {
     });
 
     container.innerHTML = '';
+    if (data.note) {
+      const note = document.createElement('p');
+      note.className =
+        'rv-lectura-note mb-4 text-[13px] leading-relaxed text-[#0F172A]/85 border-l-2 border-[#C59B27] pl-3 font-serif';
+      note.textContent = data.note;
+      container.appendChild(note);
+    }
     const fragment = document.createDocumentFragment();
     data.verses.forEach((v) => {
       fragment.appendChild(renderVerseElement(wantBook, wantChap, v));

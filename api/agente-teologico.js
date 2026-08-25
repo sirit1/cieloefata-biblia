@@ -258,8 +258,23 @@ function okPayload(data, extra = {}) {
   }
 }
 
-function errPayload(message, extra = {}) {
-  return { ok: false, error: message, ...extra }
+function respuestaSinCorpus({ prompt, contextPassage }) {
+  const ref = String(contextPassage || '').trim()
+  const q = String(prompt || '').trim()
+  const ancla = ref || 'las Escrituras'
+  return `### Respaldo teológico
+
+RevelatiO IA no tiene ahora un corpus clásico verificado para esta consulta (sin atribución a comentaristas históricos).
+
+**Ancla:** ${ancla}${q ? `\n**Consulta:** ${q}` : ''}
+
+La Escritura permanece como pilar. Lee el pasaje en su contexto inmediato y compara con el testimonio canónico. Si el motor de IA está disponible, vuelve a intentar.`
+}
+
+function pareceAtribucionClasica(text) {
+  return /c\.\s*h\.\s*spurgeon|charles spurgeon|tabernáculo metropolitano|juan calvino|matthew henry|john wesley|martín lutero/i.test(
+    String(text || ''),
+  )
 }
 
 export default async function handler(req, res) {
@@ -338,15 +353,31 @@ export default async function handler(req, res) {
         {
           passage: contextPassage || 'Escritura',
           prompt,
-          mode: mode === 'exegesis' ? 'commentary' : 'lens',
+          mode: 'lens',
+          type: 'lens',
           lensTitle: mode === 'exegesis' ? 'Cátedra Exegética' : 'Renovación & Vida',
         },
         '/api/agente-teologico',
       )
+      const source = fallback.source || 'fallback'
       data = sanitizeMarkdown(fallback.answer || '', mode) || fallback.answer
-      usedModel = fallback.source || 'fallback'
+      if (
+        source === 'theological-engine-fallback' ||
+        pareceAtribucionClasica(data) ||
+        !String(data || '').trim()
+      ) {
+        data = respuestaSinCorpus({ prompt, contextPassage })
+        usedModel = 'theological-engine-fallback'
+      } else {
+        usedModel = source
+      }
     }
 
+    if (pareceAtribucionClasica(data) && usedModel === 'theological-engine-fallback') {
+      data = respuestaSinCorpus({ prompt, contextPassage })
+    }
+
+    const isFallback = usedModel === 'theological-engine-fallback'
     return sendJson(
       res,
       200,
@@ -358,6 +389,8 @@ export default async function handler(req, res) {
         success: true,
         answer: data,
         commentary: { text: data },
+        source: isFallback ? 'theological-engine-fallback' : usedModel,
+        author: isFallback ? 'Respaldo teológico' : undefined,
       }),
     )
   } catch (error) {

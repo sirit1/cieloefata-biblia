@@ -240,25 +240,80 @@
     }
   }
 
+  function httpErrorMessage(data, status) {
+    if (typeof data?.error === 'string' && data.error.trim()) return data.error;
+    if (data?.error && typeof data.error === 'object') {
+      return data.error.message || data.error.code || `HTTP ${status}`;
+    }
+    if (typeof data?.message === 'string' && data.message.trim()) return data.message;
+    return `HTTP ${status}`;
+  }
+
+  async function postEngine(url, bodyPayload, signal) {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(bodyPayload),
+      signal,
+    });
+    const data = await res.json().catch(() => ({}));
+    return { res, data };
+  }
+
   async function askEngine(bodyPayload, timeoutMs = 18000) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const mode = String(bodyPayload.mode || bodyPayload.type || '').toLowerCase();
+    const urls = ['/api/study-engine'];
+    if (mode === 'lexicon' || mode === 'lexico' || mode === 'strong') {
+      urls.push('/api/ai', '/api/lexico', '/api/lexicon');
+    } else {
+      urls.push('/api/ai');
+    }
+
+    let lastErr = null;
     try {
-      const res = await fetch('/api/study-engine', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(bodyPayload),
-        signal: controller.signal,
-      });
-      clearTimeout(timer);
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok && res.status !== 200) {
-        throw new Error(data.error || `HTTP ${res.status}`);
+      for (const url of urls) {
+        try {
+          const { res, data } = await postEngine(url, bodyPayload, controller.signal);
+          if (res.status === 404) {
+            lastErr = new Error(httpErrorMessage(data, 404));
+            continue;
+          }
+          if (!res.ok && res.status !== 200) {
+            throw new Error(httpErrorMessage(data, res.status));
+          }
+          return data;
+        } catch (err) {
+          if (err?.name === 'AbortError') throw err;
+          lastErr = err;
+          if (!/404/.test(String(err?.message || ''))) {
+            /* keep trying remaining fallbacks only on 404 */
+          }
+        }
       }
-      return data;
-    } catch (err) {
+
+      if (mode === 'concordance' || mode === 'concordancia') {
+        const q = String(
+          bodyPayload.keyword || bodyPayload.searchTerm || bodyPayload.termino || bodyPayload.q || '',
+        ).trim();
+        if (q.length >= 3) {
+          const res = await fetch(
+            `/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(bodyPayload.version || 'rv1960')}`,
+            { method: 'GET', headers: { Accept: 'application/json' }, signal: controller.signal },
+          );
+          const data = await res.json().catch(() => ({}));
+          if (res.status === 404) throw new Error(httpErrorMessage(data, 404));
+          if (!res.ok && res.status !== 200) {
+            throw new Error(httpErrorMessage(data, res.status));
+          }
+          return data;
+        }
+      }
+
+      throw lastErr || new Error('HTTP 404');
+    } finally {
       clearTimeout(timer);
-      throw err;
     }
   }
 
@@ -292,12 +347,21 @@
       if (stamp !== commentaryStamp || currentActivePassage !== passage) return;
 
       const data = await res.json().catch(() => ({}));
+      if (!res.ok && res.status !== 200) {
+        throw new Error(httpErrorMessage(data, res.status));
+      }
       const text = data.text || data.answer || data.respuesta || '';
+      const isFallback = data.source === 'theological-engine-fallback';
+      const displayAuthor = isFallback
+        ? (data.author && !/spurgeon|calvino|calvin|henry|wesley|lutero|agust[ií]n/i.test(data.author)
+            ? data.author
+            : 'Respaldo teológico')
+        : authorObj.label;
       const formatted = formatAnswerHtml(text);
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
           <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
-            <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(authorObj.label)}</span>
+            <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(displayAuthor)}</span>
             <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
           </div>
           <div class="text-xs leading-relaxed text-justify space-y-2 text-stone-800">${formatted}</div>
@@ -350,17 +414,39 @@
       </div>`;
 
     try {
-      const res = await fetch('/api/tsk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        signal: tskAbort.signal,
-        body: JSON.stringify({ passage, consulta: passage }),
-      });
+      const endpoints = ['/api/referencias', '/api/tsk'];
+      let data = {};
+      let lastStatus = 0;
+      for (const url of endpoints) {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          signal: tskAbort.signal,
+          body: JSON.stringify({ passage, consulta: passage, referencia: passage }),
+        });
+        lastStatus = res.status;
+        data = await res.json().catch(() => ({}));
+        if (res.status === 404) continue;
+        if (!res.ok && res.status !== 200) {
+          throw new Error(httpErrorMessage(data, res.status));
+        }
+        break;
+      }
       clearTimeout(timer);
       if (stamp !== tskStamp || currentActivePassage !== passage) return;
+      if (lastStatus === 404) {
+        throw new Error(httpErrorMessage(data, 404));
+      }
 
-      const data = await res.json().catch(() => ({}));
-      const refs = Array.isArray(data.referencias) ? data.referencias : (Array.isArray(data.references) ? data.references : []);
+      if (data?.error && !data?.success && !data?.data?.referencias && !data?.referencias) {
+        throw new Error(httpErrorMessage(data, lastStatus || 502));
+      }
+
+      const refs = Array.isArray(data.data?.referencias)
+        ? data.data.referencias
+        : (Array.isArray(data.referencias)
+            ? data.referencias
+            : (Array.isArray(data.references) ? data.references : []));
 
       if (refs.length === 0) {
         const answer = data.answer || data.text || '';
@@ -415,6 +501,36 @@
     }
   }
 
+  function keywordFromVerse(text) {
+    const stop = /^(para|como|que|los|las|del|una|uno|por|con|sin|sus|este|esta|the|and|from|that|this|el|la|de|en|y|o|un|al|lo|se|su|tu|mi|nos|les|mas|más|pero|porque|pues)$/i;
+    const words = String(text || '')
+      .replace(/[^\p{L}\s]/gu, ' ')
+      .split(/\s+/)
+      .filter((w) => w.length >= 4 && !stop.test(w));
+    return words[0] || '';
+  }
+
+  function renderConcordanceHits(container, term, passage, resultados) {
+    container.innerHTML = `
+      <div class="space-y-2">
+        <div class="flex items-center justify-between pb-1.5 border-b border-[#E8DFC8]">
+          <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(term)}" (${resultados.length})</span>
+          <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
+        </div>
+        <div class="space-y-2">
+          ${resultados.map((r) => {
+            const rRef = r.ref || (r.libro ? `${r.libro} ${r.capitulo}:${r.verso}` : '');
+            const html = r.html || escapeHtml(r.texto || r.text || '');
+            return `
+              <div class="p-3 bg-white border border-[#E8DFC8] rounded-xl text-xs font-serif space-y-1">
+                <div class="font-mono font-bold text-[#855D10]">${escapeHtml(rRef)}</div>
+                <p class="text-stone-700 text-[11px] leading-relaxed">${html}</p>
+              </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  }
+
   function getConcordanceSuggestions(passage) {
     const s = String(passage || '').toLowerCase();
     if (s.includes('juan') || s.includes('amor') || s.includes('gracia')) {
@@ -467,7 +583,8 @@
 
   async function loadConcordance(passageRef = currentActivePassage, customTerm = '') {
     const passage = String(passageRef || currentActivePassage || 'Romanos 12:2').trim();
-    const term = String(customTerm || '').trim();
+    let term = String(customTerm || '').trim();
+    if (!term) term = keywordFromVerse(currentVerseText);
 
     renderConcordanceShell(term, passage);
     const container = document.getElementById('concordance-content-area');
@@ -486,6 +603,25 @@
       </div>`;
 
     try {
+      if (term.length >= 3) {
+        const res = await fetch(
+          `/api/concordancia?q=${encodeURIComponent(term)}`,
+          { method: 'GET', headers: { Accept: 'application/json' }, signal: concordanceAbort.signal },
+        );
+        const data = await res.json().catch(() => ({}));
+        if (stamp !== concordanceStamp) return;
+        if (res.status !== 404 && res.ok) {
+          const hits = data.data?.resultados || data.resultados || [];
+          if (Array.isArray(hits) && hits.length) {
+            clearTimeout(timer);
+            renderConcordanceHits(container, term, passage, hits);
+            return;
+          }
+        } else if (!res.ok && res.status !== 404) {
+          throw new Error(httpErrorMessage(data, res.status));
+        }
+      }
+
       const data = await askEngine({
         passage,
         mode: 'concordance',
@@ -495,6 +631,12 @@
       }, 18000);
       clearTimeout(timer);
       if (stamp !== concordanceStamp) return;
+
+      const hits = data.data?.resultados || data.resultados || [];
+      if (Array.isArray(hits) && hits.length) {
+        renderConcordanceHits(container, term, passage, hits);
+        return;
+      }
 
       const answer = data.answer || data.respuesta || data.text || '';
       const formatted = formatAnswerHtml(answer);
@@ -673,7 +815,7 @@
       const data = await res.json().catch(() => ({}));
       const answer = data.answer || data.respuesta || data.result || data.text || '';
       if (!answer) {
-        throw new Error(data.error || 'No se recibió respuesta del análisis.');
+        throw new Error(httpErrorMessage(data, res.status || 502) || 'No se recibió respuesta del análisis.');
       }
 
       const formatted = formatAnswerHtml(answer);
@@ -929,6 +1071,10 @@
       xref: 'tsk',
     };
     currentTab = map[tabId] || tabId || 'comentarios';
+    if (currentTab === 'dogmatica' || currentTab === 'lentes' || tabId === 'lentes') {
+      currentTab = 'dogmatica';
+      renderDualLensPanel();
+    }
     const root = ensurePanel();
     root.querySelectorAll('[data-sp-tab]').forEach((btn) => {
       const tabKey = btn.dataset.spTab;

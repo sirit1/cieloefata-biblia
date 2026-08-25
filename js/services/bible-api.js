@@ -1,7 +1,7 @@
 /**
  * Éfata RevelatiO — bible-api.js
- * Cliente limpio: un solo endpoint `/api/bible` + claves de versión nativas.
- * Reintenta RVR1960 si la versión pedida falla; nunca propaga HTTP 500 crudo.
+ * Cliente: /api/bible + fallback directo a bolls.life get-chapter.
+ * Nunca pinta "HTTP Error: 404". TLA/DHH vacíos → RVR1960 con nota visible.
  */
 
 export const VERSION_MAP = {
@@ -17,6 +17,31 @@ export const VERSION_MAP = {
   SEPTUAGINTA: { bolls: 'LXX', label: 'Septuaginta (Griego)' },
   TEXTUAL: { bolls: 'LXX', label: 'Septuaginta (Griego)' },
 };
+
+/** Orden protestante 1–66 = numeración Bolls. Juan=43, Santiago=59. */
+const BOLLS_BOOKS = [
+  'Génesis', 'Éxodo', 'Levítico', 'Números', 'Deuteronomio', 'Josué', 'Jueces', 'Rut', '1 Samuel', '2 Samuel',
+  '1 Reyes', '2 Reyes', '1 Crónicas', '2 Crónicas', 'Esdras', 'Nehemías', 'Ester', 'Job', 'Salmos', 'Proverbios',
+  'Eclesiastés', 'Cantares', 'Isaías', 'Jeremías', 'Lamentaciones', 'Ezequiel', 'Daniel', 'Oseas', 'Joel', 'Amós',
+  'Abdías', 'Jonás', 'Miqueas', 'Nahúm', 'Habacuc', 'Sofonías', 'Hageo', 'Zacarías', 'Malaquías',
+  'Mateo', 'Marcos', 'Lucas', 'Juan', 'Hechos', 'Romanos', '1 Corintios', '2 Corintios', 'Gálatas', 'Efesios',
+  'Filipenses', 'Colosenses', '1 Tesalonicenses', '2 Tesalonicenses', '1 Timoteo', '2 Timoteo', 'Tito', 'Filemón',
+  'Hebreos', 'Santiago', '1 Pedro', '2 Pedro', '1 Juan', '2 Juan', '3 Juan', 'Judas', 'Apocalipsis',
+];
+
+function foldName(s) {
+  return String(s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+export function bollsBookId(book) {
+  const want = foldName(book);
+  const idx = BOLLS_BOOKS.findIndex((name) => foldName(name) === want);
+  return idx >= 0 ? idx + 1 : 0;
+}
 
 /** Normaliza selectores UI (rv1960, dhh, …) → clave canónica para `/api/bible`. */
 export function normalizeVersionKey(raw) {
@@ -36,19 +61,52 @@ export function normalizeVersionKey(raw) {
   return 'RVR1960';
 }
 
+function mapBollsVerses(data) {
+  if (!Array.isArray(data) || !data.length) return [];
+  return data
+    .map((v) => ({
+      verse: Number(v.verse || v.n || v.number || 0),
+      text: String(v.text || v.texto || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(),
+    }))
+    .filter((v) => v.verse > 0 && v.text);
+}
+
+async function fetchBollsChapter(book, chapter, verKey, signal = null) {
+  const bookId = bollsBookId(book);
+  if (!bookId) return null;
+  const meta = VERSION_MAP[verKey] || VERSION_MAP.RVR1960;
+  const url = `https://bolls.life/get-chapter/${meta.bolls}/${bookId}/${chapter}/`;
+  try {
+    const res = await fetch(url, signal ? { signal } : undefined);
+    if (!res.ok) return null;
+    const json = await res.json().catch(() => null);
+    const verses = mapBollsVerses(json);
+    if (!verses.length) return null;
+    return {
+      success: true,
+      book,
+      chapter: Number(chapter) || 1,
+      version: meta.label,
+      verses,
+      source: 'bolls-client',
+    };
+  } catch (err) {
+    if (err?.name === 'AbortError') throw err;
+    return null;
+  }
+}
+
 async function fetchPassageOnce(book, chapter, verKey, signal = null) {
   const res = await fetch(
     `/api/bible?book=${encodeURIComponent(book)}&chapter=${chapter}&version=${encodeURIComponent(verKey)}`,
     signal ? { signal } : undefined
   );
-  const json = await res.json().catch(() => null);
-  if (json?.success && Array.isArray(json.verses) && json.verses.length) {
+  const ctype = (res.headers.get('content-type') || '').toLowerCase();
+  const json = ctype.includes('application/json') ? await res.json().catch(() => null) : null;
+  if (res.ok && json?.success && Array.isArray(json.verses) && json.verses.length) {
     return json;
   }
-  if (!res.ok) {
-    throw new Error(json?.error || `HTTP Error: ${res.status}`);
-  }
-  throw new Error(json?.error || 'Respuesta vacía del endpoint bíblico');
+  return null;
 }
 
 export async function getPassageData(book, chapter, version = 'RVR1960', signal = null) {
@@ -57,25 +115,45 @@ export async function getPassageData(book, chapter, version = 'RVR1960', signal 
   if (verKey !== 'RVR1960') tries.push('RVR1960');
   if (!tries.includes('RVR1909')) tries.push('RVR1909');
 
-  let lastErr = null;
   for (const key of tries) {
     try {
       const data = await fetchPassageOnce(book, chapter, key, signal);
-      if (key !== verKey) {
-        data.note = data.note || `Mostrando ${data.version} (fallback desde ${verKey})`;
+      if (data?.verses?.length) {
+        if (key !== verKey) {
+          data.note =
+            data.note ||
+            `Mostrando ${data.version || 'RVR1960'} (el texto ${verKey} no está disponible en este momento).`;
+          if (verKey === 'TLA' || verKey === 'DHH') {
+            data.version = data.version && !/tla|dhh/i.test(String(data.version))
+              ? data.version
+              : 'RVR1960';
+          }
+        }
+        return data;
       }
-      return data;
     } catch (err) {
       if (err?.name === 'AbortError') throw err;
-      lastErr = err;
       console.warn(`[BibleAPI] ${book} ${chapter} @ ${key}:`, err?.message || err);
     }
   }
 
-  console.error('[BibleAPI Service]', lastErr);
+  for (const key of tries) {
+    try {
+      const remote = await fetchBollsChapter(book, chapter, key, signal);
+      if (remote?.verses?.length) {
+        if (key !== verKey) {
+          remote.note = `Mostrando ${remote.version} (el texto ${verKey} no está disponible en este momento).`;
+        }
+        return remote;
+      }
+    } catch (err) {
+      if (err?.name === 'AbortError') throw err;
+    }
+  }
+
   return {
     success: false,
-    error: lastErr?.message || 'No se pudo obtener el pasaje',
+    error: `No se pudo cargar ${book} ${chapter}. Revisa la conexión.`,
     book,
     chapter: Number(chapter) || 1,
     version: verKey,
