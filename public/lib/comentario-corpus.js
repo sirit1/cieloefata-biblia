@@ -231,6 +231,8 @@ function htmlToText(html) {
     .replace(/&gt;/g, '>')
     .replace(/&ldquo;|&rdquo;|&#8220;|&#8221;/gi, '"')
     .replace(/&lsquo;|&rsquo;|&#8216;|&#8217;/gi, "'")
+    .replace(/&mdash;|&#8212;|&#x2014;/gi, '—')
+    .replace(/&ndash;|&#8211;|&#x2013;/gi, '–')
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
     .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)))
     .replace(/\r/g, '')
