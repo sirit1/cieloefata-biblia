@@ -27,6 +27,20 @@ export function hashEnglish(text) {
   return createHash('sha256').update(String(text || '').trim(), 'utf8').digest('hex');
 }
 
+/** Collapse PD chrome so StudyLight leftovers still match the stored blob. */
+export function normalizeCommentaryEnglish(text) {
+  return String(text || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\b(?:class|id|style|data-[\w-]+|name)=["'][^"']*["']/gi, ' ')
+    .replace(/^[\s>]+/, '')
+    .replace(/^Verse\s+\d+\s*/i, '')
+    .replace(/return to[\s\S]{0,80}Top of Page/gi, ' ')
+    .replace(/<a\s*$/g, '')
+    .replace(/[–—]/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function layerPath(bookSlug, authorId) {
   const file = join('data', 'commentaries', 'es', bookSlug, `${authorId}.json`);
   const candidates = [
@@ -82,8 +96,12 @@ function blobMatchesEnglish(blob, english, digest) {
   const es = String(blob.es || '').trim();
   if (!es) return false;
   const storedEn = String(blob.en || '').trim();
+  const liveNorm = normalizeCommentaryEnglish(english);
+  const storedNorm = normalizeCommentaryEnglish(storedEn);
   if (blob.enHash && blob.enHash === digest) return true;
   if (storedEn && storedEn === english) return true;
+  if (liveNorm && storedNorm && liveNorm === storedNorm) return true;
+  if (blob.enHash && liveNorm && blob.enHash === hashEnglish(liveNorm)) return true;
   return false;
 }
 
@@ -92,8 +110,14 @@ function resolveBlob(layer, vKey, english) {
   const row = resolveVerseRow(layer, vKey);
   if (blobMatchesEnglish(row, english, digest)) return row;
   const blobs = layer?.blobs && typeof layer.blobs === 'object' ? Object.values(layer.blobs) : [];
+  const liveNorm = normalizeCommentaryEnglish(english);
   for (const blob of blobs) {
     if (blobMatchesEnglish(blob, english, digest)) return blob;
+  }
+  if (liveNorm) {
+    for (const blob of blobs) {
+      if (normalizeCommentaryEnglish(blob?.en) === liveNorm && String(blob?.es || '').trim()) return blob;
+    }
   }
   return null;
 }

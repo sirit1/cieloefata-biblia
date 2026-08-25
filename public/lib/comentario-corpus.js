@@ -461,12 +461,17 @@ function parseClarkeAccNotes(html) {
   }
   const notes = [];
   for (let i = 0; i < firstByVerse.length; i++) {
-    const from = firstByVerse[i].index + firstByVerse[i].length;
+    let from = firstByVerse[i].index + firstByVerse[i].length;
+    const gt = source.indexOf('>', from);
+    if (gt !== -1 && gt - from < 240) from = gt + 1;
     const to = i + 1 < firstByVerse.length ? firstByVerse[i + 1].index : source.length;
     const text = htmlToText(source.slice(from, to))
-      .replace(/^>+\s*/g, '')
+      .replace(/^(?:class|id|style|data-[\w-]+|name)=["'][^"']*["'][\s>]*/gi, '')
+      .replace(/^["'\s>]+/, '')
       .replace(/^Verse\s+\d+\s*/i, '')
-      .replace(/^return to[\s\S]{0,80}Top of Page/i, '')
+      .replace(/return to[\s\S]{0,80}Top of Page/gi, ' ')
+      .replace(/<a\s*$/g, '')
+      .replace(/\s+/g, ' ')
       .trim();
     if (text.length < 40) continue;
     notes.push({
