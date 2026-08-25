@@ -1,68 +1,93 @@
-import { generateText, streamText } from 'ai';
+import { generateText } from 'ai';
 import {
   SYSTEM_PROMPT,
   AI_TEMPERATURE,
   FALLBACK_FUERA_DE_MARCO,
   respuestaSiFueraDeMarco,
 } from '../lib/prompts/revelatio-system-prompt.js';
+import {
+  CHAT_MODEL,
+  extractUserText,
+  optionsResponse,
+  chatJson,
+  chatError,
+  chatOk,
+} from '../lib/chat-contract.js';
 
 export const runtime = 'edge';
 
-// Mismo modelo Gateway que lib/ai.js (ai@7 spec v2). No usar @ai-sdk/google.
-const MODELO_GATEWAY = 'openai/gpt-4.1-mini';
+export async function OPTIONS() {
+  return optionsResponse();
+}
 
 export async function POST(req) {
   try {
-    const { prompt, context, type } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const userText = extractUserText(body);
+    const context = body?.context;
+    const type = body?.type;
 
-    if (!prompt && !context) {
-      return new Response(JSON.stringify({ error: 'Parámetros insuficientes' }), { status: 400 });
+    if (!userText) {
+      return chatError('Parámetros insuficientes', 400);
     }
 
-    // Léxico interlinear: precisión filológica (no es consulta pastoral abierta).
     if (type === 'interlinear_resolve') {
       const result = await generateText({
-        model: MODELO_GATEWAY,
+        model: CHAT_MODEL,
         system: 'Eres un diccionario léxico morfológico de precisión en Griego/Hebreo al servicio de la exégesis bíblica. Responde exclusivamente JSON válido, sin markdown ni comentarios.',
-        prompt: `Analiza exactamente el término ${String(prompt).slice(0, 120)} en el contexto del versículo ${String(context || 'no indicado').slice(0, 240)}. Devuelve SOLO este JSON: {"original":"grafía griega o hebrea","transliteration":"transliteración y pronunciación","strong":"G0000 o H0000","morphology":"análisis gramatical formal","meaning":"definición exegética y traducción literal al español","metanoia":"aplicación bajo la cruz y la Escritura, sin autoayuda"}. No dejes campos vacíos.`,
+        prompt: `Analiza exactamente el término ${userText.slice(0, 120)} en el contexto del versículo ${String(context || 'no indicado').slice(0, 240)}. Devuelve SOLO este JSON: {"original":"grafía griega o hebrea","transliteration":"transliteración y pronunciación","strong":"G0000 o H0000","morphology":"análisis gramatical formal","meaning":"definición exegética y traducción literal al español","metanoia":"aplicación bajo la cruz y la Escritura, sin autoayuda"}. No dejes campos vacíos.`,
         temperature: AI_TEMPERATURE,
         maxOutputTokens: 700,
       });
-      const cleaned = result.text.replace(/^```(?:json)?\s*|\s*```$/gi, '').trim();
+      const cleaned = String(result.text || '').replace(/^```(?:json)?\s*|\s*```$/gi, '').trim();
+      if (!cleaned) return chatError('El modelo no devolvió análisis léxico.', 502);
       let data;
-      try { data = JSON.parse(cleaned); } catch (_) { data = { original: String(prompt), transliteration: 'No se pudo estructurar la transliteración.', strong: '', morphology: 'No se pudo estructurar la morfología.', meaning: cleaned, metanoia: 'Vuelve al texto y discierne qué pensamiento necesita ser renovado bajo la cruz.' }; }
-      return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+      try {
+        data = JSON.parse(cleaned);
+      } catch {
+        data = {
+          original: userText,
+          transliteration: 'No se pudo estructurar la transliteración.',
+          strong: '',
+          morphology: 'No se pudo estructurar la morfología.',
+          meaning: cleaned,
+          metanoia: 'Vuelve al texto y discierne qué pensamiento necesita ser renovado bajo la cruz.',
+        };
+      }
+      return chatJson(data);
     }
 
-    const cleanMessage = String(prompt || '').trim();
-    const fuera = respuestaSiFueraDeMarco(cleanMessage);
+    const fuera = respuestaSiFueraDeMarco(userText);
     if (fuera) {
-      return new Response(FALLBACK_FUERA_DE_MARCO, {
-        status: 200,
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'X-Revelatio-Gated': 'fuera_de_marco',
-        },
-      });
+      return chatOk(FALLBACK_FUERA_DE_MARCO, { gated: true, reason: 'fuera_de_marco' });
     }
 
-    let dynamicPrompt = prompt;
+    let dynamicPrompt = userText;
     if (context) {
-      dynamicPrompt = `[Contexto Bíblico: ${context}]\nConsulta: ${prompt}`;
+      const ctx =
+        typeof context === 'string'
+          ? context
+          : [context.reference, context.module, context.version].filter(Boolean).join(' · ');
+      if (ctx) dynamicPrompt = `[Contexto Bíblico: ${ctx}]\nConsulta: ${userText}`;
     }
 
-    const result = streamText({
-      model: MODELO_GATEWAY,
+    const result = await generateText({
+      model: CHAT_MODEL,
       system: SYSTEM_PROMPT,
       prompt: dynamicPrompt,
       temperature: AI_TEMPERATURE,
+      maxOutputTokens: 900,
     });
-
-    return result.toTextStreamResponse();
+    const text = String(result.text || '').trim();
+    if (!text) {
+      return chatError('El modelo no devolvió texto.', 502);
+    }
+    return chatOk(text, { gated: false, temperature: AI_TEMPERATURE });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message || 'Error en el servidor' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const raw = String(error?.message || 'Error en el servidor').replace(/\u001b\[[0-9;]*m/g, '').trim();
+    const safe = /unauthenticated|api key|gateway/i.test(raw)
+      ? 'No pude responder ahora. Inténtalo de nuevo en un momento.'
+      : raw;
+    return chatError(safe, 500);
   }
 }

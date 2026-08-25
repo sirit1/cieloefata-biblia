@@ -2730,7 +2730,11 @@ function descargarBackup(kind) {
                 });
                 if (res.ok) {
                     let raw = '';
-                    if (res.body && typeof res.body.getReader === 'function' && window.revelatioLectura?.leerStream) {
+                    const ctype = (res.headers.get('content-type') || '').toLowerCase();
+                    if (ctype.includes('application/json')) {
+                        const json = await res.json().catch(() => ({}));
+                        raw = String(json.text || json.answer || '');
+                    } else if (res.body && typeof res.body.getReader === 'function' && window.revelatioLectura?.leerStream) {
                         raw = await window.revelatioLectura.leerStream(res);
                     } else {
                         raw = await res.text();
@@ -3824,16 +3828,14 @@ function descargarBackup(kind) {
                 }),
             });
             let raw = '';
-            if (res.ok && res.body && typeof res.body.getReader === 'function' && window.revelatioLectura?.leerStream) {
+            const ctype = (res.headers.get('content-type') || '').toLowerCase();
+            if (res.ok && ctype.includes('application/json')) {
+                const json = await res.json().catch(() => ({}));
+                raw = json.text || json.answer || json.error || '';
+            } else if (res.ok && res.body && typeof res.body.getReader === 'function' && window.revelatioLectura?.leerStream) {
                 raw = await window.revelatioLectura.leerStream(res);
             } else if (res.ok) {
-                const ctype = (res.headers.get('content-type') || '').toLowerCase();
-                if (ctype.includes('application/json')) {
-                    const json = await res.json();
-                    raw = json.text || json.error || '';
-                } else {
-                    raw = await res.text();
-                }
+                raw = await res.text();
             }
             if (!String(raw || '').trim()) {
                 raw = [

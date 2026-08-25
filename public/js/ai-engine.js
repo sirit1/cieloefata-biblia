@@ -58,19 +58,20 @@
                 history: Array.isArray(history) ? history : [],
             }),
         });
-        if (res.ok && res.body && typeof res.body.getReader === "function") {
+        const ctype = (res.headers.get("content-type") || "").toLowerCase();
+        if (ctype.includes("application/json")) {
+            const json = await res.json().catch(() => ({}));
+            const text = String(json.text || json.answer || json.error || "").trim();
+            if (!res.ok) throw new Error(text || `chat-global ${res.status}`);
+            if (!text) throw new Error("Respuesta vacía del chat");
+            return text;
+        }
+        if (!res.ok) throw new Error(`chat-global ${res.status}`);
+        if (res.body && typeof res.body.getReader === "function") {
             const raw = await readStream(res);
             if (String(raw || "").trim()) return String(raw).trim();
         }
-        if (res.ok) {
-            const ctype = (res.headers.get("content-type") || "").toLowerCase();
-            if (ctype.includes("application/json")) {
-                const json = await res.json();
-                return String(json.text || json.error || "").trim();
-            }
-            return String(await res.text()).trim();
-        }
-        throw new Error(`chat-global ${res.status}`);
+        return String(await res.text()).trim();
     }
 
     /**
