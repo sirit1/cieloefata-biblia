@@ -546,6 +546,8 @@
         'juan-calvino': 'Juan Calvino',
         'john-calvin': 'Juan Calvino',
         'john-gill': 'John Gill',
+        'adam-clarke': 'Adam Clarke',
+        'john-wesley': 'John Wesley',
     };
 
     const GLOSA = {

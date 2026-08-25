@@ -1,0 +1,17 @@
+{
+  "book": "Lucas",
+  "usfm": "LUK",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Luke 15:18\n I will arise and go to my father - How accurately are the first steps of true repentance here pointed out! Against Heaven - Against God.",
+      "es": "Lucas 15:18\n Me levantaré e iré a mi padre - ¡Con cuánta exactitud se señalan aquí los primeros pasos del verdadero arrepentimiento! Contra el cielo - Contra Dios.",
+      "enHash": "9113df74075ed36b116e49cc4792ea0664dc2b3fedb45278fbc0f98532d8058b",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "15:18": "b1"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "book": "Lucas",
+  "usfm": "LUK",
+  "authorId": "charles-spurgeon",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "And when he came to himself, he said, How many hired servants of my father's have bread enough and to spare, and I perish with hunger! I will arise and go to my father, and will say unto him, Father I have sinned against heaven, and before thee, And am no more worthy to be called thy son: make me as one of thy hired servants. And he arose, and came to his father. But when he was yet a great way off, his father saw him.\n\n Remember Matthew Henry's paraphrase &mdash; here were eyes of mercy.",
+      "es": "Y volviendo en sí, dijo: ¡Cuántos jornaleros de mi padre tienen pan de sobra, y yo perezco de hambre! Me levantaré e iré a mi padre, y le diré: Padre, he pecado contra el cielo y contra ti, y ya no soy digno de ser llamado tu hijo; hazme como a uno de tus jornaleros. Y levantándose, vino a su padre. Pero cuando aún estaba lejos, lo vio su padre.\n\n Acuérdate de la paráfrasis de Matthew Henry — aquí había ojos de misericordia.",
+      "enHash": "aeb3a765a4f9709655532b73de8b29ad486b629716f7fc88ac417ac73e45ee16",
+      "source": "corpus:charles-spurgeon"
+    }
+  },
+  "verses": {
+    "15:18": "b1"
+  }
+}

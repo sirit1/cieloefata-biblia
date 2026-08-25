@@ -1,0 +1,17 @@
+{
+  "book": "Lucas",
+  "usfm": "LUK",
+  "authorId": "adam-clarke",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Against heaven - Εις τον ουρανον; that is, against God. The Jews often make use of this periphrasis in order to avoid mentioning the name of God, which they have ever treated with the utmost reverence. But some contend that it should be translated, even unto heaven; a Hebraism for, I have sinned exceedingly - beyond all description.",
+      "es": "Contra el cielo - Εις τον ουρανον; esto es, contra Dios. Los judíos suelen usar esta perífrasis para evitar mencionar el nombre de Dios, al cual siempre han tratado con la máxima reverencia. Pero algunos sostienen que debería traducirse, aun hasta el cielo; un hebraísmo por, he pecado en extremo — más allá de toda descripción.",
+      "enHash": "2e506bbe9bec389dd3bd90a3505794e62a4cb1cb640e262aa1118b9284fb541b",
+      "source": "corpus:adam-clarke"
+    }
+  },
+  "verses": {
+    "15:18": "b1"
+  }
+}

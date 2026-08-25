@@ -548,6 +548,9 @@
                     obra: '',
                     entradas: paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
                     cuerpo: text,
+                    cuerpoEn: String(json.textEn || '').trim(),
+                    traducido: json.translated === true,
+                    disclaimer: String(json.disclaimer || '').trim(),
                     paragraphs,
                 };
             }
@@ -833,7 +836,12 @@
             && !/[áéíóúñü¿¡]/.test(t.slice(0, 500));
     }
 
+    const LABEL_TR_ES = 'Traducción automática del original inglés (dominio público). No es la edición de CLIE.';
     const LABEL_PD_EN = 'Texto original en inglés (dominio público). No es una traducción de IA.';
+
+    function bloquesHtml(bloques) {
+        return bloques.map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`).join('');
+    }
 
     function referenciaComentario(libro) {
         const n = Number(libro?.verso || 0);
@@ -943,10 +951,29 @@
             neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">${escapeHtml(miss)}</div>`;
             return;
         }
+        const traducido = extra?.traducido === true && extra?.cuerpoEn;
+        if (traducido) {
+            const disclaimer = extra?.disclaimer || LABEL_TR_ES;
+            const enBloques = String(extra.cuerpoEn).split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
+            neuro.innerHTML = `
+                <div data-rv-tr-root>
+                  <div data-rv-tr-pane="es">
+                    ${bloquesHtml(bloques)}
+                    <p class="text-[11px] leading-snug mt-3" style="color:#2C3E4A">${escapeHtml(disclaimer)}</p>
+                    <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver original (inglés)</button>
+                  </div>
+                  <div data-rv-tr-pane="en" hidden>
+                    <p class="rv-pd-en text-[11px] font-mono mb-2" style="color:#2C3E4A">${LABEL_PD_EN}</p>
+                    ${bloquesHtml(enBloques)}
+                    <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver traducción (español)</button>
+                  </div>
+                </div>`;
+            return;
+        }
         const pd = (esAutorInglesPd(autor) || esAutorInglesPd(extra?.titulo) || pareceInglesPd(bloques.join(' ')))
             ? `<p class="rv-pd-en text-[11px] text-stone-500 font-mono mb-2">${LABEL_PD_EN}</p>`
             : '';
-        neuro.innerHTML = pd + bloques.map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`).join('');
+        neuro.innerHTML = pd + bloquesHtml(bloques);
     }
 
 
@@ -3029,6 +3056,18 @@ function descargarBackup(kind) {
             if (!event.target.closest('[data-rv-retry-comentario]')) return;
             refrescarComentario(estado());
         });
+        document.getElementById('analisis-neuro')?.addEventListener('click', (event) => {
+            const btn = event.target.closest('[data-rv-tr-toggle]');
+            if (!btn) return;
+            const root = btn.closest('[data-rv-tr-root]');
+            if (!root) return;
+            const es = root.querySelector('[data-rv-tr-pane="es"]');
+            const en = root.querySelector('[data-rv-tr-pane="en"]');
+            if (!es || !en) return;
+            const showEn = Boolean(es.hidden);
+            es.hidden = !showEn;
+            en.hidden = showEn;
+        });
         document.getElementById('texto-biblico')?.addEventListener('click', (event) => {
             const retry = event.target.closest('[data-rv-retry-pasaje]');
             if (!retry) return;
@@ -3738,6 +3777,8 @@ function descargarBackup(kind) {
                 { key: 'john-calvin', etiqueta: 'Juan Calvino' },
                 { key: 'jamieson-fausset-brown', etiqueta: 'Jamieson-Fausset-Brown' },
                 { key: 'john-gill', etiqueta: 'John Gill' },
+                { key: 'adam-clarke', etiqueta: 'Adam Clarke' },
+                { key: 'john-wesley', etiqueta: 'John Wesley' },
             ];
             const seen = new Set();
             const merged = [...lista, ...extras].filter((a) => {

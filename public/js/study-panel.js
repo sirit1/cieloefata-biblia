@@ -14,6 +14,7 @@
     { id: 'john-wesley', label: 'John Wesley (Notas Explicativas)' },
     { id: 'jamieson-fausset-brown', label: 'Jamieson-Fausset-Brown (Crítico y Explicativo)' },
     { id: 'john-gill', label: 'John Gill (Exposición)' },
+    { id: 'adam-clarke', label: 'Adam Clarke (Comentario)' },
     { id: 'martin-luther', label: 'Martín Lutero (Comentarios Reformados)' },
     { id: 'agustin-de-hipona', label: 'Agustín de Hipona (Padres de la Iglesia)' },
   ];
@@ -374,31 +375,46 @@
       const found = data.found === true && String(text).trim() && data.source !== 'corpus-miss' && data.source !== 'theological-engine-fallback' && !/^No hay nota/i.test(String(text));
       const displayAuthor = authorObj.label;
       const nombreCorto = authorObj.label.split('(')[0].trim();
+      const wrap = (inner) => `
+          <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 rounded-xl border shadow-sm space-y-2" style="background:#EEF2F4;border-color:#C9A84C;color:#2C3E4A">
+            <div class="flex items-center justify-between pb-1.5 mb-2" style="border-bottom:1px solid #C9A84C">
+              <span class="font-mono text-[10px] font-bold uppercase tracking-wider" style="color:#2C3E4A">${escapeHtml(displayAuthor)}</span>
+            </div>
+            ${inner}
+          </div>`;
       if (!found) {
         const raw = String(text).trim();
         const miss = /^No hay nota/i.test(raw) && !/respaldo teol[oó]gico|gemini|\.env/i.test(raw)
           ? raw
           : `No hay nota de ${nombreCorto} para ${passage}.`;
-        container.innerHTML = `
-          <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
-            <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
-              <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(displayAuthor)}</span>
-            </div>
-            <p class="text-xs text-stone-700">${escapeHtml(miss)}</p>
-          </div>`;
+        container.innerHTML = wrap(`<p class="text-xs">${escapeHtml(miss)}</p>`);
         return;
       }
       const formatted = formatAnswerHtml(text);
+      const translated = data.translated === true && String(data.textEn || '').trim();
+      if (translated) {
+        const disclaimer = String(data.disclaimer || 'Traducción automática del original inglés (dominio público). No es la edición de CLIE.').trim();
+        const formattedEn = formatAnswerHtml(data.textEn);
+        container.innerHTML = wrap(`
+          <div data-rv-tr-root>
+            <div data-rv-tr-pane="es">
+              <div class="text-xs leading-relaxed text-justify space-y-2">${formatted}</div>
+              <p class="text-[10px] leading-snug mt-2" style="color:#2C3E4A">${escapeHtml(disclaimer)}</p>
+              <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg cursor-pointer" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver original (inglés)</button>
+            </div>
+            <div data-rv-tr-pane="en" hidden>
+              <p class="text-[10px] font-mono mb-2" style="color:#2C3E4A">Texto original en inglés (dominio público). No es una traducción de IA.</p>
+              <div class="text-xs leading-relaxed text-justify space-y-2">${formattedEn}</div>
+              <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg cursor-pointer" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver traducción (español)</button>
+            </div>
+          </div>`);
+        return;
+      }
       const originalEn = /spurgeon|henry|calvin|calvino|gill|clarke|jamieson|jfb|wesley/i.test(`${authorObj.id} ${authorObj.label}`)
         || (/\b(the|and|that|which|this|from|but|not)\b/i.test(text) && !/[áéíóúñü¿¡]/.test(String(text).slice(0, 500)));
-      container.innerHTML = `
-        <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
-          <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
-            <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(displayAuthor)}</span>
-          </div>
-          ${originalEn ? `<p class="text-[10px] text-stone-500 font-mono">Texto original en inglés (dominio público). No es una traducción de IA.</p>` : ''}
-          <div class="text-xs leading-relaxed text-justify space-y-2 text-stone-800">${formatted}</div>
-        </div>`;
+      container.innerHTML = wrap(`
+          ${originalEn ? `<p class="text-[10px] font-mono">Texto original en inglés (dominio público). No es una traducción de IA.</p>` : ''}
+          <div class="text-xs leading-relaxed text-justify space-y-2">${formatted}</div>`);
     } catch (err) {
       clearTimeout(timer);
       if (stamp !== commentaryStamp) return;
@@ -1291,6 +1307,18 @@
       const retry = event.target.closest('[data-sp-retry-commentary]');
       if (retry) {
         loadCommentaryForVerse(retry.dataset.ref, retry.dataset.author, retry.dataset.text || '');
+        return;
+      }
+      const trBtn = event.target.closest('[data-rv-tr-toggle]');
+      if (trBtn) {
+        const trRoot = trBtn.closest('[data-rv-tr-root]');
+        const es = trRoot?.querySelector('[data-rv-tr-pane="es"]');
+        const en = trRoot?.querySelector('[data-rv-tr-pane="en"]');
+        if (es && en) {
+          const showEn = Boolean(es.hidden);
+          es.hidden = !showEn;
+          en.hidden = showEn;
+        }
         return;
       }
       const closeLens = event.target.closest('[data-sp-lens-close]');
