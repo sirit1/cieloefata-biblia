@@ -26,6 +26,7 @@
     let selectedText = '';
     let selectedRef = '';
     let panelStamp = 0;
+    let commentaryFetchAbort = null;
     let navLockUntil = 0;
     let gotoTimer = 0;
     let lastGotoKey = '';
@@ -292,9 +293,10 @@
     }
 
     function autorActivo() {
-        const saved = document.getElementById('selector-autor')?.value || localStorage.getItem('revelatio_autor') || 'matthew-henry';
+        const saved = document.getElementById('selector-autor')?.value || localStorage.getItem('revelatio_autor') || 'charles-spurgeon';
+        if (AUTOR_LABEL[saved]) return saved;
         const known = (window.REVELATIO_AUTORES || []).some(a => a.key === saved);
-        return known ? saved : 'matthew-henry';
+        return known ? saved : 'charles-spurgeon';
     }
 
     function lentes(libro, autor) {
@@ -378,6 +380,7 @@
             const pack = await cargarPackLocal(key);
             const versos = versosDePackLocal(pack, libro);
             if (!versos.length) continue;
+            if ((base.versionesVersos[key]?.length || 0) >= versos.length) continue;
             base.versiones[key] = versos.map(v => `${v.n} ${v.texto}`).join(' ');
             base.versionesVersos[key] = versos;
             if (!base.versionesLista.some(v => v.key === key)) {
@@ -385,6 +388,51 @@
             }
         }
         return base;
+    }
+
+    async function completarTraduccionLxx(libro, passage) {
+        const actuales = normalizarVersos(passage?.versionesVersos?.septuaginta);
+        const faltaEs = !actuales.length || actuales.some((v) => !v.textoEs);
+        if (!faltaEs) return passage;
+        try {
+            const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+            const timer = ctrl ? setTimeout(() => ctrl.abort(), 90000) : null;
+            const res = await fetch(
+                `/api/bible?book=${encodeURIComponent(libro.n)}&chapter=${encodeURIComponent(libro.cap)}&version=LXX`,
+                { headers: { Accept: 'application/json' }, signal: ctrl?.signal }
+            );
+            if (timer) clearTimeout(timer);
+            const json = await res.json().catch(() => null);
+            const crudos = json?.data?.versionesVersos?.septuaginta
+                || (Array.isArray(json?.verses)
+                    ? json.verses.map((v) => ({
+                        n: v.verse || v.n,
+                        texto: v.text || v.texto,
+                        textoEs: v.textoEs || v.textEs || '',
+                    }))
+                    : []);
+            const versos = normalizarVersos(crudos);
+            if (!versos.length) return passage;
+            const next = {
+                ...(passage || {}),
+                versionesVersos: { ...(passage?.versionesVersos || {}), septuaginta: versos },
+                versiones: {
+                    ...(passage?.versiones || {}),
+                    septuaginta: versos.map((v) => `${v.n} ${v.texto}`).join(' '),
+                },
+                versionesLista: Array.isArray(passage?.versionesLista) ? [...passage.versionesLista] : [],
+            };
+            if (!next.versionesLista.some((v) => v.key === 'septuaginta')) {
+                next.versionesLista.push({
+                    key: 'septuaginta',
+                    etiqueta: json?.version || 'Septuaginta (Rahlfs) · griego y español',
+                    licencia: 'public',
+                });
+            }
+            return next;
+        } catch {
+            return passage;
+        }
     }
 
     async function cargarPasaje(referencia) {
@@ -409,7 +457,7 @@
         if (!tieneVersos) {
             try {
                 const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-                const timer = ctrl ? setTimeout(() => ctrl.abort(), 20000) : null;
+        const timer = ctrl ? setTimeout(() => ctrl.abort(), 25000) : null;
                 const res = await fetch('/api/pasaje', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -420,6 +468,20 @@
                 if (res.ok) {
                     const json = await res.json();
                     if (json?.success && json.data) data = json.data;
+                    else if (json?.success && Array.isArray(json.verses) && json.verses.length) {
+                        const key = claveMotor(version);
+                        const versos = json.verses.map((v) => ({
+                            n: Number(v.verse || v.n || v.number),
+                            texto: String(v.text || v.texto || '').trim(),
+                        })).filter((v) => v.n > 0 && v.texto);
+                        data = {
+                            referencia: `${json.book || loc?.n} ${json.chapter || loc?.cap}`,
+                            versiones: { [key]: versos.map((v) => `${v.n} ${v.texto}`).join(' ') },
+                            versionesVersos: { [key]: versos },
+                            versionesLista: [{ key, etiqueta: json.version, licencia: 'remote' }],
+                            original: null,
+                        };
+                    }
                 }
             } catch { /* keep prior */ }
         }
@@ -437,23 +499,53 @@
     }
 
     async function cargarComentario(referencia, autor) {
-        const svc = window.RV?.CommentaryService;
-        const fromDb = svc?.getVerseCommentary?.(referencia, null, null, autor);
-        if (fromDb?.paragraphs?.length) {
+        const ref = String(referencia || '').trim();
+        const nombre = AUTOR_LABEL[autor] || autor || 'Matthew Henry';
+        if (!ref) {
+            return { ia: false, vacio: true, titulo: nombre, entradas: [], cuerpo: '', paragraphs: [] };
+        }
+        try {
+            if (commentaryFetchAbort) commentaryFetchAbort.abort();
+            commentaryFetchAbort = new AbortController();
+            const controller = commentaryFetchAbort;
+            const timer = setTimeout(() => controller.abort(), 37000);
+            const verseText =
+                window.activeStudyText ||
+                document.querySelector('.rv-verse-surface.is-verse-on .rv-verse-text, [data-verse].is-verse-on .rv-verse-text')?.textContent ||
+                '';
+            const res = await fetch('/api/commentary', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                signal: controller.signal,
+                body: JSON.stringify({ passage: ref, author: nombre, verseText: String(verseText || '').trim() }),
+            });
+            clearTimeout(timer);
+            const json = await res.json().catch(() => ({}));
+            const text = String(json?.text || json?.answer || json?.data?.cuerpo || '').trim();
+            if (json.success && text && !esRuidoEditorial(text)) {
+                const paragraphs = text.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
+                return {
+                    ia: true,
+                    vacio: false,
+                    titulo: nombre,
+                    obra: '',
+                    entradas: paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
+                    cuerpo: text,
+                    paragraphs,
+                };
+            }
+            throw new Error(json.error || 'Error al procesar la solicitud');
+        } catch (err) {
             return {
                 ia: false,
-                vacio: false,
-                titulo: fromDb.author,
-                obra: fromDb.work || '',
-                entradas: fromDb.paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
-                cuerpo: fromDb.paragraphs.join('\n\n'),
-                paragraphs: fromDb.paragraphs,
+                vacio: true,
+                titulo: nombre,
+                entradas: [],
+                cuerpo: '',
+                paragraphs: [],
+                error: err?.name === 'AbortError' ? 'El motor tardó demasiado. Reintenta.' : err.message,
             };
         }
-        if (window.revelatioLectura?.fetchComentario) return window.revelatioLectura.fetchComentario(referencia, autor);
-        if (window.revelatioLectura?.comentarioInmediato) return window.revelatioLectura.comentarioInmediato(referencia, autor);
-        const nombre = AUTOR_LABEL[autor] || autor || 'El comentarista';
-        return { ia: false, vacio: true, titulo: nombre, entradas: [], cuerpo: '', paragraphs: [] };
     }
 
     function claveMotor(version) {
@@ -559,9 +651,14 @@
             const inner = Array.isArray(v.tokens) && v.tokens.length
                 ? tokensHtml(v.tokens, n, libro)
                 : escapeHtml(body);
+            const es = String(v.textoEs || v.textEs || '').trim();
+            const esBlock = es
+                ? `<span class="rv-lxx-es">${escapeHtml(es)}</span>`
+                : '';
             const strong = strongsHtml(n, v.tokens);
             return `<p class="rv-verse-surface" data-verse data-versiculo="${n}" data-reference="${escapeHtml(ref)}" tabindex="0" role="button" aria-label="Versículo ${n}">
                 <span class="rv-verse-text"><sup class="rv-verse-num">${n}</sup>${inner}</span>
+                ${esBlock}
                 ${strong}
             </p>`;
         }).join('');
@@ -588,6 +685,7 @@
                     || (typeof v.verse === 'string' ? v.verse : '')
                     || ''
                 ).trim(),
+                textoEs: String(v.textoEs || v.textEs || v.es || '').trim() || undefined,
                 tokens: Array.isArray(v.tokens) ? v.tokens : undefined
             }))
             .filter((v) => v.n > 0 && ((v.texto && !esTextoPlaceholder(v.texto)) || (v.tokens && v.tokens.length)))
@@ -657,7 +755,11 @@
             const lxxVersos = normalizarVersos(passage?.versionesVersos?.septuaginta);
             const lxxTexto = passage?.versiones?.septuaginta || original?.septuaginta?.texto;
             if (lxxVersos.length) {
-                return `<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(lxxVersos, libro)}</div>`;
+                const hayEs = lxxVersos.some((v) => v.textoEs);
+                const notaEs = hayEs
+                    ? `<p class="rv-lectura-note text-[13px] leading-relaxed text-[#0F172A]/85 mb-4 border-l-2 border-[#C59B27] pl-3">Septuaginta (Rahlfs): griego LXX completo y traducción al español de este griego, no de la Reina-Valera ni del texto masorético.</p>`
+                    : `<p class="rv-lectura-note text-[13px] leading-relaxed text-[#0F172A]/85 mb-4 border-l-2 border-[#C59B27] pl-3">Septuaginta (Rahlfs): capítulo griego completo. La traducción al español se está completando…</p>`;
+                return `${notaEs}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(lxxVersos, libro)}</div>`;
             }
             if (lxxTexto && !esTextoPlaceholder(lxxTexto)) {
                 return `<div class="rv-lectura-cuerpo text-[#0F172A]">${textoComoVersos(lxxTexto, libro)}</div>`;
@@ -690,43 +792,60 @@
     }
 
     function esRuidoEditorial(texto) {
-        return /no hay transcripci[oó]n|nota general del comentarista|este panel no admite|s[íi]ntesis de IA|texto hist[oó]rico de dominio público/i.test(String(texto || ''));
+        return /no hay transcripci[oó]n|nota general del comentarista|este panel no admite|s[íi]ntesis de IA|texto hist[oó]rico de dominio público|consigna gen[eé]rica de otro libro/i.test(String(texto || ''));
     }
 
     function referenciaComentario(libro) {
         const n = Number(libro?.verso || 0);
         if (!libro?.n) return '';
-        return n ? `${libro.n} ${libro.cap}:${n}` : `${libro.n} ${libro.cap}`;
+        return `${libro.n} ${libro.cap}:${n || 1}`;
+    }
+
+    function mapUiVersion(version) {
+        const v = String(version || '').toLowerCase();
+        if (!v || v === 'rv1960' || v === 'rvr1960') return 'RVR1960';
+        if (v === 'rv1909' || v === 'rvr1909' || v.includes('1909')) return 'RVR1909';
+        if (v === 'dhh') return 'DHH';
+        if (v === 'tla') return 'TLA';
+        if (v === 'nvi') return 'NVI';
+        if (v === 'kjv') return 'KJV';
+        if (v === 'lxx' || v === 'septuaginta' || v === 'textual' || v === 'rahlfs') return 'LXX';
+        return String(version || 'RVR1960').toUpperCase();
+    }
+
+    function syncLecturaHash(libro) {
+        const next = urlLectura({
+            libro: libro.n,
+            cap: libro.cap,
+            verso: libro.verso,
+            canon: true,
+        });
+        if (String(location.hash || '') === next) return;
+        try {
+            history.replaceState({ revelatio: 'lectura' }, '', next);
+        } catch {
+            /* ignore */
+        }
     }
 
     async function refrescarComentario(libro) {
+        const panel = document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
+        if (panel?.classList.contains('is-open')) return;
         const autor = autorActivo();
         const ref = referenciaComentario(libro);
-        const svc = window.RV?.CommentaryService;
-        const fromDb = svc?.getVerseCommentary?.(ref, null, null, autor);
-        if (fromDb?.paragraphs?.length) {
-            pintarComentario(libro, autor, {
-                titulo: fromDb.author,
-                obra: fromDb.work,
-                paragraphs: fromDb.paragraphs,
-                cuerpo: fromDb.paragraphs.join('\n\n'),
-                entradas: fromDb.paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
-            });
-            return;
+        const neuro = document.getElementById('analisis-neuro');
+        if (neuro) {
+            neuro.innerHTML = `<div class="py-8 text-center font-serif text-amber-800 text-sm"><span class="animate-spin inline-block mr-1">⏳</span> Generando exposición para <strong>${escapeHtml(ref)}</strong>...</div>`;
         }
-        const inmediato = window.revelatioLectura?.comentarioInmediato?.(ref, autor);
-        if (inmediato?.cuerpo && !inmediato?.vacio) pintarComentario(libro, autor, inmediato);
         try {
             const comentario = await cargarComentario(ref, autor);
             if (comentario?.cuerpo && !comentario?.vacio) {
                 pintarComentario(libro, autor, comentario);
-            } else if (!inmediato?.cuerpo || inmediato?.vacio) {
+            } else {
                 pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor, vacio: true });
             }
         } catch {
-            if (!inmediato?.cuerpo || inmediato?.vacio) {
-                pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor, vacio: true });
-            }
+            pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor, vacio: true });
         }
     }
 
@@ -736,18 +855,6 @@
         const neuro = document.getElementById('analisis-neuro');
         if (!neuro) return;
         const ref = referenciaComentario(libro) || extra?.referencia || '';
-
-        const svc = window.RV?.CommentaryService;
-        const fromDb = svc?.getVerseCommentary?.(ref, null, null, autor);
-        if (fromDb?.paragraphs?.length) {
-            if (etiqueta) etiqueta.textContent = fromDb.author;
-            const refEl = document.getElementById('ref-comentario');
-            if (refEl) refEl.textContent = ref;
-            neuro.innerHTML = fromDb.paragraphs
-                .map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`)
-                .join('');
-            return;
-        }
 
         const textos = (extra?.paragraphs || extra?.entradas || [])
             .map((item) => String(typeof item === 'string' ? item : item?.texto || '').trim())
@@ -765,7 +872,10 @@
         const refEl = document.getElementById('ref-comentario');
         if (refEl) refEl.textContent = ref;
         if (!bloques.length) {
-            neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">Exposición literal en proceso de carga para <strong>${escapeHtml(ref || 'este pasaje')}</strong>. Solo se muestran comentarios clásicos íntegros por versículo.</div>`;
+            const detalle = extra?.error
+                ? `Error al obtener la exposición: ${escapeHtml(extra.error)}. Verifica la conexión con el servidor.`
+                : `No hay exposición disponible para <strong>${escapeHtml(ref || 'este pasaje')}</strong>. Verifica que el servidor esté activo y la clave Gemini en <code>.env.local</code>.`;
+            neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">${detalle}</div>`;
             return;
         }
         neuro.innerHTML = bloques.map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`).join('');
@@ -853,7 +963,21 @@
         const header = document.getElementById('chapter-header');
         const versesBox = document.getElementById('verses-container');
         const texto = document.getElementById('texto-biblico') || versesBox;
-        const readerOwns = Boolean(window.RV?.readerView?.active && window.RV?.AppState?.setPassage);
+        const appState = window.RV?.AppState;
+        const readerOwns = Boolean(window.RV?.readerView?.active && appState?.setPassage);
+        try { actualizarBreadcrumbs(libro); } catch { /* ignore */ }
+        try { syncLecturaHash(libro); } catch { /* ignore */ }
+        if (appState?.setPassage) {
+            try {
+                await appState.setPassage(libro.n, libro.cap, mapUiVersion(version));
+            } catch (err) {
+                console.warn('[estudio] AppState.setPassage', err);
+            }
+        }
+        const prevRef = String(window.__revelatioPassageData?.referencia || '');
+        if (prevRef && !prevRef.startsWith(`${libro.n} ${libro.cap}`)) {
+            window.__revelatioPassageData = null;
+        }
         if (header && !document.getElementById('chapter-title')) {
             header.innerHTML = `
                 <p id="chapter-title" class="rv-lectura-title mb-1 font-display text-3xl text-[#0F172A]">${escapeHtml(libro.n)} ${libro.cap}</p>
@@ -872,11 +996,13 @@
             pintarComentario(libro, autor, window.revelatioLectura?.comentarioInmediato?.(referenciaComentario(libro), autor) || { titulo: AUTOR_LABEL[autor] || autor });
         } catch { /* ignore */ }
         try { refrescarConcordancia(libro); } catch { /* ignore */ }
+
         let passage = window.__revelatioPassageData;
         try {
             const fetched = await cargarPasaje(`${libro.n} ${libro.cap}`);
             if (stamp !== panelStamp) return;
-            if (fetched) {
+            const fetchedRef = String(fetched?.referencia || '');
+            if (fetched && (!fetchedRef || fetchedRef.startsWith(`${libro.n} ${libro.cap}`))) {
                 window.__revelatioPassageData = fetched;
                 passage = fetched;
             }
@@ -894,7 +1020,6 @@
                 <p id="chapter-title" class="rv-lectura-title mb-1 font-display text-3xl text-[#0F172A]">${escapeHtml(libro.n)} ${libro.cap}</p>
                 <p id="chapter-version-label" class="rv-lectura-meta text-[11px] tracking-[0.14em] text-[#0F172A]/80">${escapeHtml(etiquetaVersion(version, passage))}${badge}</p>`;
             }
-            // Con reader-view activo, la etiqueta de versión la pinta SOLO res.version de /api/bible
             if (!readerOwns) {
                 const meta = versionNode || header.querySelector('.rv-lectura-meta');
                 if (meta) {
@@ -910,20 +1035,21 @@
             }
         }
 
-        // Si reader-view está activo, el DOM de versículos lo pinta AppState (sin acoplar CSS aquí)
-        if (readerOwns) {
-            const uiVer = version === 'septuaginta' || version === 'lxx'
-                ? 'septuaginta'
-                : (version === 'rv1960' || version === 'rv1909' ? 'RVR1960' : version);
-            try {
-                await window.RV.AppState.setPassage(libro.n, libro.cap, uiVer);
-            } catch (err) {
-                console.warn('[estudio] AppState.setPassage', err);
+        if (!readerOwns) {
+            if (texto) texto.innerHTML = cuerpoLectura(libro, version, passage);
+            else if (versesBox) versesBox.innerHTML = cuerpoLectura(libro, version, passage);
+        }
+        if ((version === 'lxx' || version === 'septuaginta') && stamp === panelStamp) {
+            const withEs = await completarTraduccionLxx(libro, passage);
+            if (stamp !== panelStamp) return;
+            if (withEs) {
+                window.__revelatioPassageData = withEs;
+                passage = withEs;
+                if (!readerOwns) {
+                    if (texto) texto.innerHTML = cuerpoLectura(libro, version, passage);
+                    else if (versesBox) versesBox.innerHTML = cuerpoLectura(libro, version, passage);
+                }
             }
-        } else if (texto) {
-            texto.innerHTML = cuerpoLectura(libro, version, passage);
-        } else if (versesBox) {
-            versesBox.innerHTML = cuerpoLectura(libro, version, passage);
         }
         try {
             const comentario = await cargarComentario(referenciaComentario(libro), autor);
@@ -943,6 +1069,11 @@
             const sameBook = btn.closest('[data-libro-item]')?.dataset.libroItem === libro.n;
             btn.classList.toggle('is-active', sameBook && Number(btn.dataset.cap) === Number(libro.cap));
         });
+        document.querySelectorAll('.libro-item')?.forEach?.((item) => {
+            const on = item.dataset.libroItem === libro.n;
+            item.classList.toggle('is-active', on);
+            item.querySelector('.libro-btn')?.classList.toggle('is-active', on);
+        });
         try { pintarIndiceVersiculos(libro, numerosDelPasaje(passage, version)); } catch { /* ignore */ }
         try { restaurarMarcasCapitulo(libro); } catch { /* ignore */ }
         try { refrescarConcordancia(libro); } catch { /* ignore */ }
@@ -950,26 +1081,26 @@
         if (libro.verso) requestAnimationFrame(() => { try { irAVersiculo(Number(libro.verso)); } catch { /* ignore */ } });
         try {
             document.dispatchEvent(new CustomEvent('revelatio:passage-ready', {
-                detail: { libro: libro.n, cap: libro.cap, version, passage },
+                detail: { libro: libro.n, cap: libro.cap, version, passage, book: libro.n, chapter: libro.cap, ref: referenciaComentario(libro) },
             }));
         } catch { /* ignore */ }
     }
 
     function capitulosHtml(libro) {
         return Array.from({ length: libro.c }, (_, i) => i + 1).map(n =>
-            `<button type="button" data-cap="${n}" class="cap-btn" aria-label="Capítulo ${n}">${n}</button>`
+            `<button type="button" data-cap="${n}" class="cap-btn bg-[#0F172A] text-[#CBD5E1] border border-[#334155] hover:border-[#DFB743] hover:text-[#DFB743] text-xs font-bold rounded-lg w-7 h-7 flex items-center justify-center" aria-label="Capítulo ${n}">${n}</button>`
         ).join('');
     }
 
     function renderGrupo(titulo, libros, testamento) {
         return `
             <section data-grupo="${testamento}" class="mb-5">
-                <h3 class="rv-canon-section mb-2 px-2 text-[11px] font-bold uppercase tracking-widest text-[#C59B27]">${titulo}</h3>
+                <h3 class="rv-canon-section mb-2 px-2 text-[11px] font-mono font-bold uppercase tracking-widest text-[#DFB743] pb-2 border-b border-[#DFB743]/20">${titulo}</h3>
                 ${libros.map(libro => `
                     <div class="libro-item" data-libro-item="${libro.n}" data-testamento="${testamento}" data-capitulos="${libro.c}">
-                        <button type="button" class="libro-btn" data-libro="${libro.n}">
+                        <button type="button" class="libro-btn text-[#E2E8F0] hover:text-[#DFB743] font-serif text-sm font-medium transition-colors cursor-pointer" data-libro="${libro.n}">
                             <span class="libro-nombre">${libro.n}</span>
-                            <span class="libro-caps">${libro.c}</span>
+                            <span class="libro-caps text-[#94A3B8] font-mono text-xs">${libro.c}</span>
                         </button>
                         <div class="caps-grid">${capitulosHtml(libro)}</div>
                     </div>`).join('')}
@@ -1060,12 +1191,48 @@
             sec.hidden = ![...sec.querySelectorAll('.libro-item')].some(i => !i.hidden);
         });
         const nombre = resolverLibro(parsed?.libroQ || '');
-        if (!nombre || !parsed) return;
+        if (!nombre || !parsed) {
+            if (opts.inmediato && String(query || '').trim().length >= 3 && !parsed?.cap) {
+                buscarPalabraOTema(query);
+            }
+            return;
+        }
         const go = () => irGoto(nombre, parsed.cap, parsed.verso);
         clearTimeout(gotoTimer);
         if (parsed.verso && parsed.cap) go();
         else if (opts.inmediato && parsed.cap) go();
         else if (parsed.cap) gotoTimer = setTimeout(go, 360);
+        else if (opts.inmediato) buscarPalabraOTema(query);
+    }
+
+    async function buscarPalabraOTema(query) {
+        const term = String(query || '').trim();
+        if (term.length < 3) return;
+        try { abrirEstudioTab('concordancia'); } catch { /* ignore */ }
+        const cruzadasEl = document.getElementById('lista-cruzadas');
+        const refEl = document.getElementById('ref-concordancia');
+        if (refEl) refEl.textContent = `Búsqueda: ${term}`;
+        if (cruzadasEl) {
+            cruzadasEl.innerHTML = `<p class="rv-estudio-vacio py-6 text-center text-amber-800 text-sm"><span class="animate-spin inline-block mr-1">⏳</span> Buscando «${escapeHtml(term)}» en toda la Escritura…</p>`;
+        }
+        try {
+            const ver = claveMotor(versionActiva());
+            const res = await fetch(`/api/concordancia?q=${encodeURIComponent(term)}&version=${encodeURIComponent(ver)}`);
+            const json = await res.json().catch(() => null);
+            const resultados = json?.data?.resultados || [];
+            if (!cruzadasEl) return;
+            if (!resultados.length) {
+                cruzadasEl.innerHTML = `<p class="rv-estudio-vacio">No hay coincidencias de «${escapeHtml(term)}» en esta versión.</p>`;
+                return;
+            }
+            cruzadasEl.innerHTML = resultados.map((item) => {
+                const cita = item.ref || '';
+                const nota = String(item.html || '').replace(/<[^>]+>/g, '');
+                return `<button type="button" class="rv-xref-item" data-ir-ref="${escapeHtml(cita)}"><span class="rv-xref-ref">${escapeHtml(cita)}</span>${nota ? `<span class="rv-xref-nota">${escapeHtml(nota)}</span>` : ''}</button>`;
+            }).join('');
+        } catch {
+            if (cruzadasEl) cruzadasEl.innerHTML = `<p class="rv-estudio-vacio">No se pudo buscar «${escapeHtml(term)}» ahora.</p>`;
+        }
     }
 
     function montarCanon() {
@@ -1128,7 +1295,8 @@
             root.querySelectorAll('[data-grupo]').forEach(sec => { sec.hidden = sec.dataset.grupo !== key; });
         });
 
-        abrirLibro('Romanos', 12);
+        const dest = destinoDesdeQuery();
+        abrirLibro(dest.libro || 'Romanos', dest.cap || 1, dest.verso);
 
         const btnCanon = document.getElementById('btn-canon');
         const panelCanon = document.getElementById('panel-canon');
@@ -1285,7 +1453,11 @@
         ctx.closePath();
     }
 
-    async function abrirEfataCard({ text, ref, version, brandLogo, brandWatermark }) {
+    async function abrirEfataCard(detail = {}) {
+        if (typeof window !== 'undefined' && typeof window.openCardGenerator === 'function') {
+            return window.openCardGenerator(detail.passage || detail.ref, detail.text || detail.verseText, detail.version);
+        }
+        const { text, ref, version, brandLogo, brandWatermark } = detail;
         cardState.text = String(text || '').replace(/\s+/g, ' ').trim();
         cardState.ref = ref || '';
         cardState.version = version || '';
@@ -2258,7 +2430,17 @@ function descargarBackup(kind) {
     }
 
     async function cargarCruzadas(ref) {
-        const local = (window.TSK_LOCAL || {})[String(ref || '').toLowerCase()] || [];
+        const passage = String(ref || '').trim();
+        if (!passage) return [];
+        try {
+            const engine = window.RV?.StudyEngine;
+            if (engine?.askStudyEngine) {
+                const payload = await engine.askStudyEngine({ passage, mode: 'tsk' });
+                const parsed = engine.parseTskItems?.(payload.answer) || [];
+                if (parsed.length) return parsed;
+                if (payload.answer) return [{ ref: passage, nota: payload.answer }];
+            }
+        } catch { /* fallback */ }
         try {
             const token = await tokenAuth();
             const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
@@ -2266,21 +2448,25 @@ function descargarBackup(kind) {
             const res = await fetch('/api/referencias', {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({ consulta: ref })
+                body: JSON.stringify({ consulta: passage })
             });
-            if (!res.ok) return local;
+            if (!res.ok) return [];
             const json = await res.json();
             const lista = json.data?.referencias || json.referencias || [];
-            if (!lista.length) return local;
+            if (!lista.length) return [];
             return lista.map(x => ({ ref: x.ref || x.reference, nota: x.nota || x.description || x.text || '' }));
         } catch {
-            return local;
+            return [];
         }
     }
 
     async function refrescarConcordancia(libro) {
         const ref = referenciaComentario(libro);
-        pintarConcordancia(libro, (window.TSK_LOCAL || {})[String(ref).toLowerCase()] || []);
+        const cruzadasEl = document.getElementById('lista-cruzadas');
+        if (cruzadasEl) {
+            cruzadasEl.innerHTML = `<p class="rv-estudio-vacio py-6 text-center text-amber-800 text-sm"><span class="animate-spin inline-block mr-1">⏳</span> Construyendo referencias cruzadas para ${escapeHtml(ref)}...</p>`;
+        }
+        pintarConcordancia(libro, []);
         const lista = await cargarCruzadas(ref);
         if (referenciaComentario(estado()) === ref) pintarConcordancia(libro, lista);
     }
@@ -2763,11 +2949,16 @@ function descargarBackup(kind) {
                 navigator.clipboard?.writeText(payload).catch(() => {});
             }
             if (act === 'card' || act === 'share') {
-                abrirEfataCard({
-                    text: selectedText,
-                    ref,
-                    version: VERSION_LABEL[versionActiva()] || 'Reina-Valera'
-                });
+                const ver = VERSION_LABEL[versionActiva()] || 'RVR1960';
+                if (typeof window.openCardGenerator === 'function') {
+                    window.openCardGenerator(ref, selectedText, ver);
+                } else {
+                    abrirEfataCard({
+                        text: selectedText,
+                        ref,
+                        version: ver
+                    });
+                }
             }
             if (act === 'clear') {
                 document.querySelectorAll('#texto-biblico .is-verse-on, #texto-biblico .is-va-active').forEach((n) => {
@@ -2932,6 +3123,7 @@ function descargarBackup(kind) {
             verse.classList.add('is-verse-on');
             navLockUntil = Date.now() + 280;
             place(verse.getBoundingClientRect());
+            window.syncStudyPanelToVerse?.(selectedRef, selectedText);
         };
 
         if (!window.__RV_POP_SELECTS__) {
@@ -3366,13 +3558,26 @@ function descargarBackup(kind) {
             version.value = savedV;
         }
         if (autor) {
-            const lista = (window.REVELATIO_AUTORES || []).filter(a => a?.key && a.json);
-            if (lista.length) {
-                autor.innerHTML = lista.map(a =>
+            const lista = (window.REVELATIO_AUTORES || []).filter(a => a?.key);
+            const extras = [
+                { key: 'charles-spurgeon', etiqueta: 'C. H. Spurgeon' },
+                { key: 'matthew-henry', etiqueta: 'Matthew Henry' },
+                { key: 'juan-calvino', etiqueta: 'Juan Calvino' },
+                { key: 'jamieson-fausset-brown', etiqueta: 'Jamieson-Fausset-Brown' },
+                { key: 'john-gill', etiqueta: 'John Gill' },
+            ];
+            const seen = new Set();
+            const merged = [...lista, ...extras].filter((a) => {
+                if (!a?.key || seen.has(a.key)) return false;
+                seen.add(a.key);
+                return a.key !== 'albert-barnes';
+            });
+            if (merged.length) {
+                autor.innerHTML = merged.map(a =>
                     `<option value="${escapeHtml(a.key)}">${escapeHtml(a.etiqueta || a.key)}</option>`
                 ).join('');
             }
-            const savedA = localStorage.getItem('revelatio_autor') || 'matthew-henry';
+            const savedA = localStorage.getItem('revelatio_autor') || 'charles-spurgeon';
             if ([...autor.options].some(o => o.value === savedA)) autor.value = savedA;
             else if (autor.options.length) autor.value = autor.options[0].value;
         }
@@ -3508,18 +3713,21 @@ function descargarBackup(kind) {
                 cuaderno: ir === 'cuaderno',
             };
         }
-        if (ir === 'canon') return { libro: libro || 'Romanos', cap: cap || 12, canon: true };
-        if (ir === 'cuaderno') return { libro: libro || 'Romanos', cap: cap || 12, cuaderno: true };
-        if (ir === 'estudio' || ir === 'estudio-mes' || ir === 'santuario') return { libro: 'Romanos', cap: 12 };
+        if (ir === 'canon') return { libro: libro || estado()?.n || 'Romanos', cap: cap || estado()?.cap || 1, canon: true };
+        if (ir === 'cuaderno') return { libro: libro || estado()?.n || 'Romanos', cap: cap || estado()?.cap || 1, cuaderno: true };
+        if (ir === 'estudio' || ir === 'estudio-mes' || ir === 'santuario') {
+            return { libro: estado()?.n || 'Romanos', cap: estado()?.cap || 1 };
+        }
         if (ir === 'devocional') return { ...devoDestino };
         if (libro) return { libro, cap: cap || 1, verso };
-        return { libro: 'Romanos', cap: 12 };
+        return { libro: estado()?.n || 'Romanos', cap: estado()?.cap || 12 };
     }
 
     function urlLectura(opts = {}) {
         const ir = opts.canon ? 'canon' : opts.cuaderno ? 'cuaderno' : opts.ir || '';
-        const libro = encodeURIComponent(opts.libro || 'Romanos');
-        const cap = Number(opts.cap) || 12;
+        const libro = encodeURIComponent(opts.libro || estado()?.n || 'Romanos');
+        const capNum = Number(opts.cap);
+        const cap = Number.isFinite(capNum) && capNum > 0 ? capNum : 1;
         const verso = opts.verso ? `/${Number(opts.verso)}` : '';
         const q = ir ? `?ir=${encodeURIComponent(ir)}` : '';
         return `#lectura/${libro}/${cap}${verso}${q}`;
@@ -3712,9 +3920,10 @@ function descargarBackup(kind) {
         document.getElementById('rv-home')?.classList.add('is-hidden');
         document.body.classList.add('is-santuario', 'visor-active');
         document.body.classList.remove('is-acompanamiento');
+        const capOpt = Number(opts.cap);
         const destino = {
-            libro: opts.libro || 'Romanos',
-            cap: Number(opts.cap) || 12,
+            libro: opts.libro || estado()?.n || 'Romanos',
+            cap: Number.isFinite(capOpt) && capOpt > 0 ? capOpt : (opts.libro ? 1 : (Number(estado()?.cap) || 1)),
             verso: opts.verso ? Number(opts.verso) : null,
             canon: Boolean(opts.canon),
             cuaderno: Boolean(opts.cuaderno),
@@ -4692,13 +4901,17 @@ function descargarBackup(kind) {
         seguro(() => {
             document.addEventListener('revelatio:open-card', (event) => {
                 const d = event.detail || {};
-                abrirEfataCard({
-                    text: d.text,
-                    ref: d.ref,
-                    version: d.version,
-                    brandLogo: d.brandLogo,
-                    brandWatermark: d.brandWatermark,
-                });
+                if (typeof window.openCardGenerator === 'function') {
+                    window.openCardGenerator(d.passage || d.ref, d.text || d.verseText, d.version);
+                } else {
+                    abrirEfataCard({
+                        text: d.text,
+                        ref: d.ref,
+                        version: d.version,
+                        brandLogo: d.brandLogo,
+                        brandWatermark: d.brandWatermark,
+                    });
+                }
             });
             document.addEventListener('revelatio:goto', (event) => {
                 const d = event.detail || {};
@@ -4718,7 +4931,12 @@ function descargarBackup(kind) {
                     canon: true,
                 }),
             });
-            window.abrirEfataCard = abrirEfataCard;
+            window.abrirEfataCard = (detail = {}) => {
+                if (typeof window.openCardGenerator === 'function') {
+                    return window.openCardGenerator(detail.passage || detail.ref, detail.text || detail.verseText, detail.version);
+                }
+                return abrirEfataCard(detail);
+            };
         });
     }
 

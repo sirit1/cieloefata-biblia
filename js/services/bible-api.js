@@ -36,9 +36,10 @@ export function normalizeVersionKey(raw) {
   return 'RVR1960';
 }
 
-async function fetchPassageOnce(book, chapter, verKey) {
+async function fetchPassageOnce(book, chapter, verKey, signal = null) {
   const res = await fetch(
-    `/api/bible?book=${encodeURIComponent(book)}&chapter=${chapter}&version=${encodeURIComponent(verKey)}`
+    `/api/bible?book=${encodeURIComponent(book)}&chapter=${chapter}&version=${encodeURIComponent(verKey)}`,
+    signal ? { signal } : undefined
   );
   const json = await res.json().catch(() => null);
   if (json?.success && Array.isArray(json.verses) && json.verses.length) {
@@ -50,7 +51,7 @@ async function fetchPassageOnce(book, chapter, verKey) {
   throw new Error(json?.error || 'Respuesta vacía del endpoint bíblico');
 }
 
-export async function getPassageData(book, chapter, version = 'RVR1960') {
+export async function getPassageData(book, chapter, version = 'RVR1960', signal = null) {
   const verKey = normalizeVersionKey(version);
   const tries = [verKey];
   if (verKey !== 'RVR1960') tries.push('RVR1960');
@@ -59,12 +60,13 @@ export async function getPassageData(book, chapter, version = 'RVR1960') {
   let lastErr = null;
   for (const key of tries) {
     try {
-      const data = await fetchPassageOnce(book, chapter, key);
+      const data = await fetchPassageOnce(book, chapter, key, signal);
       if (key !== verKey) {
         data.note = data.note || `Mostrando ${data.version} (fallback desde ${verKey})`;
       }
       return data;
     } catch (err) {
+      if (err?.name === 'AbortError') throw err;
       lastErr = err;
       console.warn(`[BibleAPI] ${book} ${chapter} @ ${key}:`, err?.message || err);
     }

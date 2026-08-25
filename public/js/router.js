@@ -7,7 +7,7 @@
     "use strict";
 
     const RV = (global.RV = global.RV || {});
-    const VERSION = "dynamicMotor1";
+    const VERSION = "lxxEs1";
 
     /** Rutas nombradas → archivos en /views */
     const ROUTES = {

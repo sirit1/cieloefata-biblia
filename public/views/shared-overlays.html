@@ -53,10 +53,11 @@
             <div>
                 <label for="pop-selector-autor">Comentarista</label>
                 <select id="pop-selector-autor" aria-label="Cambiar comentarista">
-                    <option value="matthew-henry">Matthew Henry</option>
-                    <option value="jamieson-fausset-brown">Jamieson, Fausset y Brown</option>
-                    <option value="albert-barnes">Albert Barnes</option>
-                    <option value="charles-spurgeon">Charles Spurgeon</option>
+                    <option value="charles-spurgeon">C. H. Spurgeon (Tabernáculo Metropolitano)</option>
+                    <option value="matthew-henry">Matthew Henry (Exposición Completa)</option>
+                    <option value="juan-calvino">Juan Calvino (Comentarios Bíblicos)</option>
+                    <option value="jamieson-fausset-brown">Jamieson-Fausset-Brown (Crítico y Explicativo)</option>
+                    <option value="john-gill">John Gill (Exposition of the Bible)</option>
                 </select>
             </div>
         </div>
@@ -213,13 +214,21 @@
 
     <div id="rv-popover-legacy-stub" hidden aria-hidden="true"></div>
 
-    <footer id="rv-audio-dock" class="rv-reader-footer" aria-label="Barra de lectura">
+    <footer id="rv-audio-dock" class="rv-reader-footer" aria-label="Barra de lectura y audio">
         <div class="rv-reader-footer-left">
+            <label class="rv-ambient-switch" for="ambient-audio-toggle" title="Ambiente de oración instrumental">
+                <input type="checkbox" id="ambient-audio-toggle" />
+                <span>Oración Instrumental</span>
+            </label>
             <button type="button" id="reader-audio-play" class="rv-reader-play" aria-pressed="false"
-                title="Pad ambiental 432Hz">▶</button>
-            <span id="dock-track-title" class="rv-reader-track">Pad de Adoración 432Hz</span>
-            <input id="reader-audio-vol" type="range" min="0" max="0.8" step="0.05" value="0.3"
-                class="rv-reader-vol" aria-label="Volumen ambiental">
+                title="Reproducir o pausar instrumental">▶</button>
+            <span id="dock-track-title" class="rv-reader-track">Oración Instrumental</span>
+            <input id="reader-audio-vol" type="range" min="0" max="1" step="0.05" value="0.28"
+                class="rv-reader-vol" aria-label="Volumen instrumental">
+            <button type="button" id="reader-listen-passage" class="rv-reader-listen" data-listen="chapter"
+                title="Leer el pasaje en voz alta">🔊 Leer</button>
+            <input id="dock-vol-voz" type="range" min="0" max="100" step="1" value="100"
+                class="rv-reader-vol" aria-label="Volumen de lectura">
         </div>
         <p id="estado-audio" class="rv-reader-legal text-[11px] text-stone-500 truncate max-w-md">
             Textos © SBU · Uso con permiso · Éfata RevelatiO · sin fines de lucro
@@ -227,10 +236,8 @@
         <button type="button" id="reader-ia-open" class="rv-reader-ia" title="RevelatiO IA">
             🧠 RevelatiO IA
         </button>
-        <!-- IDs legacy no visibles para no romper audio-engine -->
         <button type="button" id="dock-musica" hidden aria-hidden="true"></button>
         <input type="range" id="dock-vol-musica" hidden aria-hidden="true" value="28">
-        <input type="range" id="dock-vol-voz" hidden aria-hidden="true" value="100">
     </footer>
 
     <button type="button" id="btn-asistente-ia" class="rv-fab rv-fab-omni rv-fab-brand"
@@ -337,41 +344,49 @@
                     <p id="titulo-efata-card" class="text-[10px] uppercase tracking-[0.22em] text-[#C5A059]">Éfata Cards
                     </p>
                 </div>
-                <button type="button" id="cerrar-efata-card" class="text-[#C5A059]">✕</button>
+                <button type="button" id="cerrar-efata-card" class="text-[#C5A059] cursor-pointer text-lg font-bold hover:text-white transition-colors" aria-label="Cerrar modal">✕</button>
             </header>
             <div class="grid gap-0 lg:grid-cols-[minmax(0,1fr)_16.5rem]">
-                <div class="efata-preview-wrap">
-                    <canvas id="canvas-efata-card" width="1080" height="1350"
+                <div id="efata-card-preview" class="efata-preview-wrap card-preview-wrapper flex items-center justify-center p-4">
+                    <canvas id="canvas-efata-card" class="canvas-efata-card max-w-full h-auto rounded-xl shadow-2xl" width="1080" height="1350"
                         aria-label="Vista previa de la tarjeta"></canvas>
                 </div>
-                <div class="space-y-5 border-t border-[#C5A059]/15 p-4 lg:border-l lg:border-t-0">
+                <div class="space-y-5 border-t border-[#C5A059]/15 p-4 lg:border-l lg:border-t-0 bg-[#0F172A]/40">
                     <div>
-                        <p class="mb-2 text-[10px] uppercase tracking-[0.18em] text-[#C5A059]">Fondo</p>
-                        <div class="flex gap-2">
-                            <button type="button" class="efata-swatch sw-marmol is-on" data-fondo="marmol"
-                                title="Mármol negro" aria-label="Mármol negro"></button>
-                            <button type="button" class="efata-swatch sw-papiro" data-fondo="papiro"
-                                title="Papiro envejecido" aria-label="Papiro envejecido"></button>
-                            <button type="button" class="efata-swatch sw-jerusalem" data-fondo="jerusalem"
-                                title="Jerusalén" aria-label="Paisaje de Jerusalén"></button>
+                        <p class="mb-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#DFB743]">Fondo</p>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button type="button" class="efata-swatch sw-midnight is-on cursor-pointer flex flex-col items-center justify-center p-1 rounded-lg border border-[#C59B27]/40 text-center transition-all" data-fondo="midnight" onclick="window.setCardBackground('midnight')"
+                                title="Midnight" aria-label="Midnight">
+                                <span class="w-full h-4 rounded bg-gradient-to-br from-[#0A192F] to-[#07101E] border border-white/20 mb-1"></span>
+                                <span class="text-[9px] font-mono font-semibold text-stone-200">Midnight</span>
+                            </button>
+                            <button type="button" class="efata-swatch sw-pergamino cursor-pointer flex flex-col items-center justify-center p-1 rounded-lg border border-[#C59B27]/40 text-center transition-all" data-fondo="pergamino" onclick="window.setCardBackground('pergamino')"
+                                title="Pergamino" aria-label="Pergamino">
+                                <span class="w-full h-4 rounded bg-gradient-to-br from-[#FBF6EB] to-[#EFE3CA] border border-stone-400 mb-1"></span>
+                                <span class="text-[9px] font-mono font-semibold text-stone-200">Pergamino</span>
+                            </button>
+                            <button type="button" class="efata-swatch sw-obsidian cursor-pointer flex flex-col items-center justify-center p-1 rounded-lg border border-[#C59B27]/40 text-center transition-all" data-fondo="obsidian" onclick="window.setCardBackground('obsidian')"
+                                title="Obsidian" aria-label="Obsidian">
+                                <span class="w-full h-4 rounded bg-gradient-to-br from-[#0C0D11] to-[#020304] border border-white/20 mb-1"></span>
+                                <span class="text-[9px] font-mono font-semibold text-stone-200">Obsidian</span>
+                            </button>
                         </div>
                     </div>
                     <div>
-                        <p class="mb-2 text-[10px] uppercase tracking-[0.18em] text-[#C5A059]">Tipografía</p>
+                        <p class="mb-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#DFB743]">Tipografía</p>
                         <div class="flex flex-col gap-2">
-                            <button type="button" class="efata-tipo is-on" data-tipo="editorial">Editorial
-                                itálica</button>
-                            <button type="button" class="efata-tipo" data-tipo="monumental">Monumental Cinzel</button>
-                            <button type="button" class="efata-tipo" data-tipo="lectura">Lectura serif</button>
+                            <button type="button" class="efata-tipo is-on cursor-pointer font-serif italic text-xs py-2 px-3 rounded-lg border border-[#C59B27]/40 text-stone-200 text-left hover:border-[#DFB743] transition-colors" data-tipo="editorial" onclick="window.setCardTypography('editorial')">Editorial Itálica</button>
+                            <button type="button" class="efata-tipo cursor-pointer font-serif font-bold text-xs py-2 px-3 rounded-lg border border-[#C59B27]/40 text-stone-200 text-left hover:border-[#DFB743] transition-colors" data-tipo="cinzel" onclick="window.setCardTypography('cinzel')">Monumental Cinzel</button>
+                            <button type="button" class="efata-tipo cursor-pointer font-serif text-xs py-2 px-3 rounded-lg border border-[#C59B27]/40 text-stone-200 text-left hover:border-[#DFB743] transition-colors" data-tipo="serif" onclick="window.setCardTypography('serif')">Lectura Serif</button>
                         </div>
                     </div>
-                    <div class="flex flex-col gap-2 pt-1">
-                        <button type="button" id="descargar-efata-card"
-                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Descargar PNG</button>
-                        <button type="button" id="copiar-efata-card"
-                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Copiar Imagen</button>
-                        <button type="button" id="publicar-efata-card"
-                            class="rv-btn-gold py-2 text-[11px] uppercase tracking-[0.18em]">Compartir en redes</button>
+                    <div class="flex flex-col gap-2.5 pt-2">
+                        <button type="button" id="btn-card-download" onclick="window.downloadCardImage()"
+                            class="w-full py-2.5 px-4 bg-[#0A192F] text-[#DFB743] hover:bg-[#1E293B] border border-[#DFB743]/60 font-mono font-bold text-xs rounded-lg shadow-md transition-all cursor-pointer text-center">DESCARGAR PNG</button>
+                        <button type="button" id="btn-card-copy" onclick="window.copyCardImageToClipboard()"
+                            class="w-full py-2.5 px-4 bg-[#DFB743] text-[#0A192F] hover:bg-[#C59B27] font-mono font-bold text-xs rounded-lg shadow-md transition-all cursor-pointer text-center">COPIAR IMAGEN</button>
+                        <button type="button" id="btn-card-share" onclick="window.shareCardOnSocial()"
+                            class="w-full py-2.5 px-4 bg-white text-stone-900 hover:bg-amber-50 border border-[#C59B27] font-mono font-bold text-xs rounded-lg shadow-md transition-all cursor-pointer text-center">COMPARTIR EN REDES</button>
                     </div>
                 </div>
             </div>

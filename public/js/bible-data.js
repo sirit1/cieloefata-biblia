@@ -539,10 +539,12 @@
     };
 
     const AUTOR_LABEL = {
-        'jamieson-fausset-brown': 'Jamieson, Fausset y Brown',
+        'jamieson-fausset-brown': 'Jamieson-Fausset-Brown',
         'matthew-henry': 'Matthew Henry',
         'albert-barnes': 'Albert Barnes',
-        'charles-spurgeon': 'Charles Spurgeon'
+        'charles-spurgeon': 'C. H. Spurgeon',
+        'juan-calvino': 'Juan Calvino',
+        'john-gill': 'John Gill',
     };
 
     const GLOSA = {

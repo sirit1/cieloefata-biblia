@@ -8,12 +8,12 @@
 
     const RV = (global.RV = global.RV || {});
 
-    /** Pack local de ambiente instrumental cristiano (BGM). */
+    /** Pack de ambiente instrumental cristiano (BGM). CDN + contingencia local. */
     const bgmPack = [
-        { id: 1, name: "Oración instrumental", src: "audio/oracion-instrumental.m4a" },
-        { id: 2, name: "Piano Aposento", src: "audio/oracion-instrumental.m4a" },
-        { id: 3, name: "Cuerdas de Adoración", src: "audio/oracion-instrumental.m4a" },
-        { id: 4, name: "Sosiego sagrado", src: "audio/oracion-instrumental.m4a" },
+        { id: 1, name: "Oración instrumental", src: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-piano-ambient-112191.mp3" },
+        { id: 2, name: "Piano de meditación", src: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" },
+        { id: 3, name: "Pista local", src: "audio/oracion-instrumental.m4a" },
+        { id: 4, name: "Sosiego sagrado", src: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-piano-ambient-112191.mp3" },
     ];
 
     const PREFS_KEY = "revelatio_audio_dual_v1";
@@ -147,6 +147,10 @@
         };
 
         const playMusic = async () => {
+            if (global.ambientAudio?.play) {
+                global.ambientAudio.play();
+                return;
+            }
             loadTrack(prefs.trackId);
             applyVolumes();
             try {
@@ -161,6 +165,10 @@
         };
 
         const pauseMusic = () => {
+            if (global.ambientAudio?.pause) {
+                global.ambientAudio.pause();
+                return;
+            }
             music.pause();
             state.musicOn = false;
             setStatus(state.speaking ? "Narrando…" : "En silencio");

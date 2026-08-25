@@ -12,7 +12,7 @@ var HOLD_MS = 7000;
 var assetUrl = function (rel) {
     try { return new URL(rel, location.href).href; } catch (e) { return rel; }
 };
-var PISTA = assetUrl('audio/oracion-instrumental.m4a');
+var PISTA = 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-piano-ambient-112191.mp3';
 var BIENVENIDA_LOCAL = assetUrl('audio/bienvenida-varon.wav?v=jorge12');
 var SPLASH_DONE_KEY = 'rv_splash_done_v4';
 
@@ -222,12 +222,6 @@ if (!window.__RV_SPLASH_MUSIC_CB__) {
 if (yaHecho() || rutaLectura()) {
     forzarCierreSplash();
     silenciarBienvenida();
-    detenerMusicaIntro();
-    try {
-        var cb = document.getElementById('entrar-con-musica');
-        if (cb) cb.checked = false;
-        localStorage.setItem('revelatio_musica_on', '0');
-    } catch (e4) { }
     return;
 }
 })();

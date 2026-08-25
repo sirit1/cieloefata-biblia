@@ -68,17 +68,38 @@ async function authenticate(req) {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
+  if (req.method !== 'POST' && req.method !== 'GET') {
+    res.setHeader('Allow', 'GET, POST');
     return res.status(405).json({ error: 'Método no permitido.' });
   }
 
   const user = await authenticate(req);
-  if (!user) return res.status(401).json({ error: 'Sesión inválida o vencida.' });
-  const cuota = await consumirCuota(req, user, 'lexico');
-  if (!cuota.allowed) return cuota.reason ? respuestaCuotaAgotada(res, cuota) : res.status(cuota.status || 503).json({ error: cuota.error });
+  if (user) {
+    const cuota = await consumirCuota(req, user, 'lexico');
+    if (!cuota.allowed) {
+      return cuota.reason
+        ? respuestaCuotaAgotada(res, cuota)
+        : res.status(cuota.status || 503).json({ error: cuota.error });
+    }
+  }
 
-  const codigo = typeof req.body?.codigo === 'string' ? req.body.codigo.trim().toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2') : '';
+  const q = { ...(req.query || {}), ...((req.body && typeof req.body === 'object') ? req.body : {}) };
+  const codigo = String(q.codigo || q.c || '').trim().toUpperCase().replace(/^([GH])0*(\d+)$/, '$1$2');
+  const passage = String(q.passage || q.referencia || q.ref || '').trim();
+
+  if (passage && !/^[GH]\d{1,5}$/.test(codigo)) {
+    const { generateUniversalAnswer } = await import('./ai.js');
+    const payload = await generateUniversalAnswer(
+      { passage, mode: 'lexicon', type: 'lexicon' },
+      '/api/lexicon'
+    );
+    return res.status(200).json({
+      success: true,
+      answer: payload.answer,
+      data: payload,
+    });
+  }
+
   if (!/^[GH]\d{1,5}$/.test(codigo)) {
     return res.status(400).json({ error: 'Código de Strong inválido.' });
   }

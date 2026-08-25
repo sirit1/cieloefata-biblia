@@ -3,8 +3,9 @@
  * Endpoint oficial del lector: packs locales + Bolls + Deno.
  * Sin acoplar al DOM. Serverless Node / Vercel.
  */
-import { LIBROS, INDICE_NT_INICIO, fetchConTimeout } from '../lib/biblia.js';
+import { LIBROS, INDICE_NT_INICIO, fetchConTimeout, parsearReferencia } from '../lib/biblia.js';
 import { cargarPack, versosDesdePack } from '../lib/versiones.js';
+import { traducirLxxAlEspanol, anexarTextoEs } from '../lib/lxx-es.js';
 
 const ENGLISH_SLUGS = [
   'genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy', 'joshua', 'judges', 'ruth',
@@ -101,7 +102,7 @@ function resolveVersion(version, bookMeta) {
     return {
       bolls: 'LXX',
       packKey: 'septuaginta',
-      label: 'Septuaginta (Griego)',
+      label: 'Septuaginta (Rahlfs) · griego y español',
       note: null,
       requested: raw,
     };
@@ -156,15 +157,23 @@ function mapPackVerses(list) {
 }
 
 async function fetchBolls(bolls, bookId, chapter) {
-  const url = `https://bolls.life/get-chapter/${bolls}/${bookId}/${chapter}/`;
-  const data = await fetchConTimeout(url, {}, 14000);
-  return mapBollsVerses(data);
+  try {
+    const url = `https://bolls.life/get-chapter/${bolls}/${bookId}/${chapter}/`;
+    const data = await fetchConTimeout(url, {}, 8000);
+    return mapBollsVerses(data);
+  } catch {
+    return [];
+  }
 }
 
 async function fetchDeno(enSlug, chapter) {
-  const url = `https://bible-api.deno.dev/api/read/rv1909/${encodeURIComponent(enSlug)}/${chapter}`;
-  const data = await fetchConTimeout(url, {}, 14000);
-  return mapDenoVerses(data);
+  try {
+    const url = `https://bible-api.deno.dev/api/read/rv1909/${encodeURIComponent(enSlug)}/${chapter}`;
+    const data = await fetchConTimeout(url, {}, 8000);
+    return mapDenoVerses(data);
+  } catch {
+    return [];
+  }
 }
 
 function fetchLocalPack(packKey, bookName, chapter) {
@@ -178,12 +187,27 @@ function fetchLocalPack(packKey, bookName, chapter) {
 }
 
 function okPayload(bookMeta, chapter, label, verses, source, extra = {}) {
+  const packKey = extra.packKey || 'rv1960';
+  const versos = verses.map((v) => {
+    const item = { n: v.verse, texto: v.text };
+    const es = v.textoEs || v.textEs || '';
+    if (es) item.textoEs = es;
+    return item;
+  });
+  const bloque = versos.map((v) => `${v.n} ${v.texto}`).join(' ');
   return {
     success: true,
     book: bookMeta.name,
     chapter,
     version: label,
     verses,
+    data: {
+      referencia: `${bookMeta.name} ${chapter}`,
+      versiones: { [packKey]: bloque },
+      versionesVersos: { [packKey]: versos },
+      versionesLista: [{ key: packKey, etiqueta: label, licencia: 'remote' }],
+      original: null,
+    },
     metadata: {
       book: bookMeta.name,
       chapter,
@@ -197,7 +221,7 @@ function okPayload(bookMeta, chapter, label, verses, source, extra = {}) {
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
   res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
 
@@ -205,20 +229,28 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', 'GET, OPTIONS');
+  if (req.method !== 'GET' && req.method !== 'POST') {
+    res.setHeader('Allow', 'GET, POST, OPTIONS');
     return res.status(405).json({ success: false, error: 'Método no permitido.' });
   }
 
-  const q = req.query || {};
-  const book = typeof q.book === 'string' ? q.book.trim() : '';
-  const chapter = Number.parseInt(q.chapter, 10);
+  const q = { ...(req.query || {}), ...((req.body && typeof req.body === 'object') ? req.body : {}) };
+  let book = typeof q.book === 'string' ? q.book.trim() : String(q.libro || '').trim();
+  let chapter = Number.parseInt(q.chapter || q.capitulo, 10);
   const version = typeof q.version === 'string' ? q.version : 'RVR1960';
+  const refRaw = String(q.referencia || q.passage || q.ref || '').trim();
+  if (refRaw) {
+    const parsed = parsearReferencia(refRaw);
+    if (parsed) {
+      book = parsed.libro;
+      chapter = parsed.capitulo;
+    }
+  }
 
   if (!book || !Number.isInteger(chapter) || chapter < 1) {
     return res.status(400).json({
       success: false,
-      error: 'Parámetros "book" y "chapter" requeridos.',
+      error: 'Parámetros "book" y "chapter" (o referencia) requeridos.',
     });
   }
 
@@ -233,13 +265,25 @@ export default async function handler(req, res) {
   const ver = resolveVersion(version, bookMeta);
 
   try {
-    let verses = fetchLocalPack(ver.packKey, bookMeta.name, chapter);
+    let verses = [];
     let resolvedLabel = ver.label;
-    let source = 'local-pack';
+    let source = 'none';
 
-    if (!verses.length) {
+    if (ver.bolls === 'LXX') {
       verses = await fetchBolls(ver.bolls, bookMeta.id, chapter);
-      source = 'bolls';
+      source = verses.length ? 'bolls' : 'none';
+      if (!verses.length) {
+        verses = fetchLocalPack(ver.packKey, bookMeta.name, chapter);
+        if (verses.length) source = 'local-pack';
+      }
+    } else {
+      verses = fetchLocalPack(ver.packKey, bookMeta.name, chapter);
+      source = verses.length ? 'local-pack' : 'none';
+
+      if (!verses.length) {
+        verses = await fetchBolls(ver.bolls, bookMeta.id, chapter);
+        source = 'bolls';
+      }
     }
 
     if (!verses.length && ver.fallbackBolls) {
@@ -253,6 +297,14 @@ export default async function handler(req, res) {
           resolvedLabel = ver.fallbackLabel || 'Reina-Valera 1960';
           source = 'local-pack-fallback';
         }
+      }
+    }
+
+    if (!verses.length && ver.bolls !== 'RV1960' && ver.bolls !== 'LXX') {
+      verses = await fetchBolls('RV1960', bookMeta.id, chapter);
+      if (verses.length) {
+        resolvedLabel = 'Reina-Valera 1960';
+        source = 'bolls-rv1960';
       }
     }
 
@@ -271,10 +323,21 @@ export default async function handler(req, res) {
     }
 
     if (verses.length) {
+      if (ver.packKey === 'septuaginta' && ver.bolls === 'LXX') {
+        const paraTraducir = verses.map((v) => ({ n: v.verse, texto: v.text }));
+        const mapaEs = await traducirLxxAlEspanol(bookMeta.name, chapter, paraTraducir);
+        verses = anexarTextoEs(paraTraducir, mapaEs).map((v) => ({
+          verse: v.n,
+          text: v.texto,
+          textoEs: v.textoEs || '',
+        }));
+        source = `${source}+lxx-es`;
+      }
       return res.status(200).json(
         okPayload(bookMeta, chapter, resolvedLabel, verses, source, {
           requestedVersion: ver.requested,
           note: ver.note || null,
+          packKey: ver.packKey,
         })
       );
     }
@@ -284,6 +347,7 @@ export default async function handler(req, res) {
       return res.status(200).json(
         okPayload(bookMeta, chapter, 'Reina-Valera 1909', denoVerses, 'deno', {
           requestedVersion: ver.requested,
+          packKey: 'rv1960',
         })
       );
     }
@@ -291,45 +355,16 @@ export default async function handler(req, res) {
     throw new Error('No se pudo recuperar el texto bíblico de las fuentes canónicas.');
   } catch (err) {
     console.error('[api/bible]', err?.message || err);
-    // Nunca 500 al lector: respuesta segura con contingencia canónica
-    const safeBook = bookMeta?.name || book || 'Habacuc';
+    const safeBook = bookMeta?.name || book || '';
     const safeChapter = Number.isInteger(chapter) && chapter > 0 ? chapter : 1;
-    const contingency =
-      normalizeBookName(safeBook).includes('habacuc') && safeChapter === 1
-        ? [
-            { verse: 1, text: 'La profecía que vio el profeta Habacuc.' },
-            {
-              verse: 2,
-              text: '¿Hasta cuándo, oh Jehová, clamaré, y no oirás; y daré voces a ti a causa de la violencia, y no salvarás?',
-            },
-            {
-              verse: 3,
-              text: '¿Por qué me haces ver iniquidad, y haces que vea molestia? Destrucción y violencia están delante de mí, y pleito y contienda se levantan.',
-            },
-            {
-              verse: 4,
-              text: 'Por lo cual la ley es debilitada, y el juicio no sale según la verdad; por cuanto el impío asedia al justo, por eso sale torcida la justicia.',
-            },
-            {
-              verse: 5,
-              text: 'Mirad entre las naciones, y ved, y asombraos; porque haré una obra en vuestros días, que aun cuando se os contare, no la creeréis.',
-            },
-          ]
-        : [
-            {
-              verse: 1,
-              text: `Texto de ${safeBook} ${safeChapter} en sincronización. Se mostrará la versión disponible en cuanto se complete la carga canónica.`,
-            },
-          ];
-
     return res.status(200).json({
-      success: true,
+      success: false,
       book: safeBook,
       chapter: safeChapter,
-      version: 'Reina-Valera 1960',
-      verses: contingency,
-      source: 'contingency',
-      note: err?.message || 'Fuente remota temporalmente no disponible',
+      version: ver?.label || 'Reina-Valera 1960',
+      verses: [],
+      source: 'error',
+      error: err?.message || 'Fuente remota temporalmente no disponible',
     });
   }
 }

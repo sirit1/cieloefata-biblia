@@ -1,4 +1,5 @@
 import { entradaStrongLocal } from './strong.js';
+import { glosaEspanol } from './glosa-es.js';
 
 // Helpers compartidos para trabajar con texto bíblico REAL (no generado por
 // IA) desde Bolls Bible (bolls.life), API pública gratuita y sin clave.
@@ -194,7 +195,7 @@ export async function obtenerOriginal(ref) {
     if (filtradosLxx.length) {
       resultado.septuaginta = {
         etiqueta: SEPTUAGINTA.etiqueta,
-        nota: 'Se muestra en griego: no existe una traducción al español de la Septuaginta verificable en fuente libre. Las versiones en español de este lector siguen el texto hebreo masorético, no la LXX.',
+        nota: 'Griego LXX (Rahlfs / Bolls). El español del lector, cuando aparece, traduce este griego y no sustituye la Reina-Valera ni el texto masorético.',
         texto: filtradosLxx.map((v) => `${v.verse} ${String(v.text || '').replace(/\s+/g, ' ').trim()}`).join(' ')
       };
     }
@@ -306,14 +307,17 @@ export async function obtenerDefinicionStrong(codigo) {
   const data = await fetchConTimeout(`https://bolls.life/dictionary-definition/${DICCIONARIO_STRONG.bolls}/${limpio}/`);
   if (!Array.isArray(data) || !data.length) return null;
   const d = data[0];
+  const glosa = glosaEspanol(d.short_definition || (d.definition || '').replace(/<[^>]+>/g, ' ').split(/[.;]/)[0], limpio);
   const resultado = {
     codigo: limpio,
     lexema: d.lexeme || '',
     transliteracion: d.transliteration || '',
     pronunciacion: d.pronunciation || '',
-    definicionCorta: d.short_definition || '',
-    definicion: limpiarHtmlDiccionario(d.definition || ''),
+    definicionCorta: glosa,
+    definicion: glosa,
     fuente: 'Strong / Thayer / BDB · dominio público',
+    definicionEs: glosa,
+    traduccionEstricta: glosa,
   };
   cacheStrong.set(limpio, { data: resultado, t: Date.now() });
   return resultado;

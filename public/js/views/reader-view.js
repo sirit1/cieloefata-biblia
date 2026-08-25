@@ -155,6 +155,15 @@ function renderVerseElement(book, chapter, v) {
   return verseEl;
 }
 
+function foldName(s) {
+  return String(s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 export function initReader() {
   const shell = document.getElementById('verses-container');
   const container = document.getElementById('texto-biblico') || shell;
@@ -173,70 +182,90 @@ export function initReader() {
   globalThis.handleVerseClick = handleVerseClick;
   globalThis.updateActivePassageState = updateActivePassageState;
 
-  AppState.subscribe(async (state) => {
-    paintHeader({
-      book: state.currentBook,
-      chapter: state.currentChapter,
-      version: state.currentVersion,
-    });
+  let abortCtrl = null;
 
-    // Sincronizar panel ANTES de la carga para evitar referencias residuales (p. ej. Hageo)
-    updateActivePassageState(state.currentBook, state.currentChapter, 1);
+  AppState.subscribe(async (state, gen) => {
+    const wantBook = state.currentBook;
+    const wantChap = Number(state.currentChapter) || 1;
+    const wantVer = state.currentVersion;
+    const token = gen || state.generation;
+
+    paintHeader({
+      book: wantBook,
+      chapter: wantChap,
+      version: wantVer,
+    });
+    updateActivePassageState(wantBook, wantChap, 1);
 
     container.innerHTML =
       '<div class="py-12 text-center text-stone-400 font-serif">Cargando Sagradas Escrituras...</div>';
 
-    const data = await getPassageData(
-      state.currentBook,
-      state.currentChapter,
-      state.currentVersion
-    );
+    if (abortCtrl) abortCtrl.abort();
+    abortCtrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+
+    let data;
+    try {
+      data = await getPassageData(wantBook, wantChap, wantVer, abortCtrl?.signal);
+    } catch (err) {
+      if (err?.name === 'AbortError') return;
+      data = { success: false, verses: [], error: err?.message || 'Error de red' };
+    }
+
+    if (token !== AppState.generation) return;
+    if (foldName(AppState.currentBook) !== foldName(wantBook) || Number(AppState.currentChapter) !== wantChap) {
+      return;
+    }
+
+    const returnedBook = foldName(data.book || wantBook);
+    if (data.success && data.verses?.length && returnedBook && returnedBook !== foldName(wantBook)) {
+      return;
+    }
 
     if (!data.success || !data.verses?.length) {
       paintHeader({
-        book: state.currentBook,
-        chapter: state.currentChapter,
-        version: state.currentVersion,
+        book: wantBook,
+        chapter: wantChap,
+        version: wantVer,
       });
-      updateActivePassageState(state.currentBook, state.currentChapter, 1);
+      updateActivePassageState(wantBook, wantChap, 1);
       container.innerHTML = `
         <div class="p-6 bg-amber-50 border border-[#E8DFC8] rounded-xl text-center font-serif text-[#0A192F]">
-          <p class="font-bold">No se pudo cargar el pasaje.</p>
+          <p class="font-bold">No se pudo cargar ${escapeHtml(wantBook)} ${wantChap}.</p>
           <p class="text-xs text-stone-500 mt-1">${escapeHtml(data.error || 'Revisa la conexión.')}</p>
         </div>`;
       return;
     }
 
-    paintHeader(data);
+    paintHeader({
+      book: wantBook,
+      chapter: wantChap,
+      version: data.version || wantVer,
+    });
 
     container.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    const book = data.book || state.currentBook;
-    const chapter = data.chapter ?? state.currentChapter;
-
     data.verses.forEach((v) => {
-      fragment.appendChild(renderVerseElement(book, chapter, v));
+      fragment.appendChild(renderVerseElement(wantBook, wantChap, v));
     });
-
     container.appendChild(fragment);
 
-    updateActivePassageState(book, chapter, 1);
+    updateActivePassageState(wantBook, wantChap, 1);
 
     document.dispatchEvent(
       new CustomEvent('revelatio:passage-ready', {
         detail: {
-          book,
-          chapter,
+          book: wantBook,
+          chapter: wantChap,
           verse: 1,
           version: data.version,
           count: data.verses.length,
-          ref: `${book} ${chapter}:1`,
+          ref: `${wantBook} ${wantChap}:1`,
         },
       })
     );
 
-    // Restaurar resaltados Frutos del Espíritu tras pintar
     setTimeout(() => {
+      if (token !== AppState.generation) return;
       globalThis.RV?.verseActions?.restoreHighlights?.();
       globalThis.RV?.verseActions?.restore?.();
     }, 80);

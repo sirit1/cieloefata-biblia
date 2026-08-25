@@ -6,6 +6,23 @@ import { AppState } from './core/app-state.js';
 import { initReader, initReaderView } from './views/reader-view.js';
 import { getPassageData } from './services/bible-api.js';
 
+function passageFromHash() {
+  const hash = String(location.hash || '').replace(/^#/, '');
+  const parts = hash.split('?')[0].split('/').filter(Boolean);
+  if (parts[0] === 'lectura' && parts[1]) {
+    try {
+      return {
+        book: decodeURIComponent(parts[1]),
+        chapter: Number(parts[2]) || 1,
+        verse: parts[3] ? Number(parts[3]) : 1,
+      };
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
 function mapUiVersion(version) {
   const v = String(version || '').toLowerCase();
   if (!v || v === 'rv1960' || v === 'rvr1960') return 'RVR1960';
@@ -57,7 +74,19 @@ function exposeGlobals() {
 
 export function bootArchitecture() {
   exposeGlobals();
+  const fromHash = passageFromHash();
+  const ver =
+    document.getElementById('selector-version')?.value ||
+    AppState.currentVersion;
+  if (fromHash?.book) {
+    AppState.currentBook = fromHash.book;
+    AppState.currentChapter = fromHash.chapter;
+    AppState.currentVersion = mapUiVersion(ver);
+  }
   ensureReaderMounted();
+  if (fromHash?.book) {
+    AppState.setPassage(fromHash.book, fromHash.chapter, mapUiVersion(ver));
+  }
   bridgeLegacyNavigation();
   return { AppState, initReader, initReaderView };
 }

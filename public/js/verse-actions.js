@@ -698,7 +698,9 @@
           brandWatermark: BRAND.cieloBw,
           brandNavy: BRAND.navy,
         };
-        if (typeof global.abrirEfataCard === "function") {
+        if (typeof global.openCardGenerator === "function") {
+          global.openCardGenerator(cardDetail.ref, cardDetail.text, cardDetail.version);
+        } else if (typeof global.abrirEfataCard === "function") {
           global.abrirEfataCard(cardDetail);
         } else {
           document.dispatchEvent(

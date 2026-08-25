@@ -294,22 +294,24 @@
                 <span class="text-xs font-serif font-semibold text-[#C59B27] tracking-wider uppercase">${escapeHtml((mapped || "RVR1960").toUpperCase())}</span>`;
         }
 
-        const versesHtml = versos.length
-            ? versos
-                  .map((v) => {
-                      const n = Number(v.n || v.number || 0);
-                      const text = String(v.texto || v.text || "").trim();
-                      const ref = `${libro} ${cap}:${n}`;
-                      return `<p class="rv-verse-surface" data-verse data-versiculo="${n}" data-reference="${escapeAttr(ref)}" tabindex="0" role="button" aria-label="Versículo ${n}">
-                <span class="rv-verse-text"><sup class="rv-verse-num" style="color:#C59B27">${n}</sup><span style="color:#0F172A">${escapeHtml(text)}</span></span>
-            </p>`;
-                  })
-                  .join("")
-            : lxxNtNotice
-              ? ""
-              : `<p class="rv-lectura-muted text-[#0F172A]">No se pudo obtener el texto de esta versión.</p>`;
+        const versesHtml = renderVersesHtml(versos, libro, cap, {
+            lxx: lxxSelected && bookIsOT,
+            pendingEs: lxxSelected && bookIsOT && versos.some((v) => !String(v.textoEs || "").trim()),
+        });
 
         injectTarget.innerHTML = `${lxxNtNotice}${versesHtml}`;
+
+        if (lxxSelected && bookIsOT) {
+            completarLxxEspanol(libro, cap, data)
+                .then((next) => {
+                    if (!next) return;
+                    global.__revelatioPassageData = next;
+                    const withEs = pickVersesForRender(next, mapped, { preferLxx: true });
+                    if (!withEs.length) return;
+                    injectTarget.innerHTML = `${lxxNtNotice}${renderVersesHtml(withEs, libro, cap, { lxx: true, pendingEs: false })}`;
+                })
+                .catch(() => {});
+        }
 
         // Selectores opcionales: no tumbar la carga
         document.getElementById("selector-autor")?.dispatchEvent?.(new Event("change", { bubbles: true }));
@@ -336,6 +338,69 @@
         return escapeHtml(s).replace(/`/g, "");
     }
 
+    function renderVersesHtml(versos, libro, cap, opts = {}) {
+        if (!versos?.length) {
+            return opts.lxxNtEmpty
+                ? ""
+                : `<p class="rv-lectura-muted text-[#0F172A]">No se pudo obtener el texto de esta versión.</p>`;
+        }
+        const nota = opts.lxx
+            ? (opts.pendingEs
+                ? `<p class="rv-lectura-note text-[13px] leading-relaxed text-[#0F172A]/85 mb-4 border-l-2 border-[#C59B27] pl-3">Septuaginta (Rahlfs): capítulo griego completo (${versos.length} versículos). Traducción al español en curso…</p>`
+                : `<p class="rv-lectura-note text-[13px] leading-relaxed text-[#0F172A]/85 mb-4 border-l-2 border-[#C59B27] pl-3">Septuaginta (Rahlfs): griego LXX completo y traducción al español de este griego, no de la Reina-Valera ni del texto masorético.</p>`)
+            : "";
+        const body = versos
+            .map((v) => {
+                const n = Number(v.n || v.number || 0);
+                const text = String(v.texto || v.text || "").trim();
+                const es = String(v.textoEs || v.textEs || "").trim();
+                const ref = `${libro} ${cap}:${n}`;
+                const esBlock = es ? `<span class="rv-lxx-es">${escapeHtml(es)}</span>` : "";
+                return `<p class="rv-verse-surface" data-verse data-versiculo="${n}" data-reference="${escapeAttr(ref)}" tabindex="0" role="button" aria-label="Versículo ${n}">
+                <span class="rv-verse-text"><sup class="rv-verse-num" style="color:#C59B27">${n}</sup><span style="color:#0F172A">${escapeHtml(text)}</span></span>
+                ${esBlock}
+            </p>`;
+            })
+            .join("");
+        return `${nota}${body}`;
+    }
+
+    async function completarLxxEspanol(libro, cap, passage) {
+        const actuales = passage?.versionesVersos?.septuaginta || [];
+        const faltaEs = !actuales.length || actuales.some((v) => !String(v.textoEs || v.textEs || "").trim());
+        if (!faltaEs) return passage;
+        const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+        const timer = ctrl ? setTimeout(() => ctrl.abort(), 90000) : null;
+        try {
+            const res = await fetch(
+                `/api/bible?book=${encodeURIComponent(libro)}&chapter=${encodeURIComponent(cap)}&version=LXX`,
+                { headers: { Accept: "application/json" }, signal: ctrl?.signal }
+            );
+            const json = await res.json().catch(() => null);
+            const versos = json?.data?.versionesVersos?.septuaginta
+                || (Array.isArray(json?.verses)
+                    ? json.verses.map((v) => ({
+                        n: v.verse || v.n,
+                        texto: v.text || v.texto,
+                        textoEs: v.textoEs || v.textEs || "",
+                    }))
+                    : []);
+            if (!versos.length) return null;
+            return {
+                ...(passage || {}),
+                versionesVersos: { ...(passage?.versionesVersos || {}), septuaginta: versos },
+                versiones: {
+                    ...(passage?.versiones || {}),
+                    septuaginta: versos.map((v) => `${v.n} ${v.texto || v.text || ""}`).join(" "),
+                },
+            };
+        } catch {
+            return null;
+        } finally {
+            if (timer) clearTimeout(timer);
+        }
+    }
+
     function pickVersesForRender(data, version, opts = {}) {
         let key = version === "rv1909" ? "rv1960" : version;
         if (key === "textual" || key === "lxx" || key === "rahlfs") key = "septuaginta";
@@ -354,6 +419,7 @@
                     .map((v, i) => ({
                         n: Number(v.n || v.number || v.verse || i + 1),
                         texto: String(v.texto || v.text || v.content || v.body || "").trim(),
+                        textoEs: String(v.textoEs || v.textEs || "").trim() || undefined,
                     }))
                     .filter((v) => v.n > 0 && v.texto && !/^(?:\.{1,6}|…+)$/.test(v.texto));
             }

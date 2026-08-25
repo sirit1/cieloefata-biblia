@@ -808,7 +808,7 @@ body.is-santuario #breadcrumbs .text-\[\#D4AF37\] {
 body.is-santuario .rv-sidebar,
 body.is-santuario #panel-canon {
   background-color: #0A192F !important;
-  color: #E7E5E4 !important;
+  color: #F1E7DB !important;
   border-right: 1px solid rgba(197, 155, 39, 0.3) !important;
   border-color: rgba(197, 155, 39, 0.3) !important;
 }
@@ -816,7 +816,7 @@ body.is-santuario #panel-canon {
 .rv-sidebar-home,
 body.is-santuario .rv-sidebar-home,
 #panel-canon .rv-sidebar-home {
-  color: #E7E5E4 !important;
+  color: #FFFFFF !important;
   border-bottom-color: rgba(197, 155, 39, 0.28) !important;
 }
 
@@ -841,14 +841,18 @@ body.is-santuario .rv-sidebar input::placeholder {
 /* Títulos AT / NT */
 #panel-canon h3,
 #selector-libros h3,
+.rv-canon-section,
 body.is-santuario .rv-sidebar h3,
 body.is-santuario #selector-libros h3 {
-  color: #C59B27 !important;
+  color: #DFB743 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
   font-size: 11px !important;
   font-weight: 700 !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   opacity: 1 !important;
+  padding-bottom: 0.5rem !important;
+  border-bottom: 1px solid rgba(223, 183, 67, 0.2) !important;
 }
 
 /* Nombres de libros */
@@ -856,61 +860,85 @@ body.is-santuario #selector-libros h3 {
 .libro-btn .libro-nombre,
 body.is-santuario .rv-sidebar .libro-btn,
 body.is-santuario .rv-sidebar .libro-nombre {
-  color: #E7E5E4 !important; /* stone-200 */
+  color: #E2E8F0 !important;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
   font-size: 0.875rem !important;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  font-weight: 500 !important;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .libro-btn > .libro-caps,
 .libro-btn > span:last-child,
 body.is-santuario .rv-sidebar .libro-caps {
-  color: rgba(197, 155, 39, 0.75) !important;
+  color: #94A3B8 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 0.75rem !important;
   opacity: 1 !important;
 }
 
 .libro-btn:hover,
-.libro-btn.is-open,
-body.is-santuario .rv-sidebar .libro-btn:hover,
-body.is-santuario .rv-sidebar .libro-btn.is-open {
+body.is-santuario .rv-sidebar .libro-btn:hover {
   color: #DFB743 !important;
   background: rgba(255, 255, 255, 0.05) !important;
 }
 
 .libro-btn:hover .libro-nombre,
-.libro-btn.is-open .libro-nombre,
-.libro-btn:hover .libro-caps,
-.libro-btn.is-open .libro-caps {
+.libro-btn:hover .libro-caps {
   color: #DFB743 !important;
 }
 
+.libro-btn.is-open,
 .libro-btn.is-active,
-.libro-item.is-active > .libro-btn {
-  background: rgba(197, 155, 39, 0.18) !important;
+.libro-item.is-active > .libro-btn,
+body.is-santuario .rv-sidebar .libro-btn.is-open,
+body.is-santuario .rv-sidebar .libro-btn.is-active {
   color: #DFB743 !important;
+  font-weight: 700 !important;
+  background: rgba(30, 41, 59, 0.7) !important;
+  border-radius: 0.5rem !important;
+  border-left: 2px solid #DFB743 !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
 }
 
 .libro-btn.is-active .libro-nombre,
+.libro-btn.is-open .libro-nombre,
 .libro-btn.is-active .libro-caps,
+.libro-btn.is-open .libro-caps,
 .libro-btn.is-active > span {
   color: #DFB743 !important;
 }
 
 .cap-btn,
 body.is-santuario .rv-sidebar .cap-btn {
-  background: #13233D !important;
-  color: #E7E5E4 !important;
-  border-color: rgba(197, 155, 39, 0.28) !important;
+  background: #0F172A !important;
+  color: #CBD5E1 !important;
+  border: 1px solid #334155 !important;
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  min-width: 1.75rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cap-btn:hover,
+body.is-santuario .rv-sidebar .cap-btn:hover {
+  background: #0F172A !important;
+  color: #DFB743 !important;
+  border-color: #DFB743 !important;
 }
 
 .cap-btn.is-active,
-.cap-btn:hover,
-body.is-santuario .rv-sidebar .cap-btn.is-active,
-body.is-santuario .rv-sidebar .cap-btn:hover {
-  background: #C59B27 !important;
+body.is-santuario .rv-sidebar .cap-btn.is-active {
+  background: #DFB743 !important;
   color: #0A192F !important;
-  border-color: #C59B27 !important;
-  font-weight: 700;
+  border-color: #DFB743 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25);
 }
 
 .rv-nav-cuaderno,
@@ -1106,8 +1134,8 @@ body.is-santuario #texto-biblico .text-\[\#F4F5F7\] {
 #study-drawer #study-drawer-tabs,
 #study-drawer-tabs.rv-sp-tabs {
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 0.35rem !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.25rem !important;
   overflow: visible !important;
   background: rgba(10, 25, 47, 0.05) !important;
   border-bottom: 1px solid #E8DFC8 !important;
@@ -1116,7 +1144,7 @@ body.is-santuario #texto-biblico .text-\[\#F4F5F7\] {
 @media (min-width: 640px) {
   #study-drawer .rv-sp-tabs,
   #study-drawer #study-drawer-tabs {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
   }
 }
 
@@ -1127,15 +1155,15 @@ body.is-santuario #texto-biblico .text-\[\#F4F5F7\] {
   white-space: normal !important;
   text-align: center !important;
   line-height: 1.2 !important;
-  font-size: 11px !important;
+  font-size: 10px !important;
   font-weight: 600 !important;
-  padding: 0.4rem 0.3rem !important;
+  padding: 0.4rem 0.25rem !important;
 }
 
 @media (min-width: 640px) {
   #study-drawer .rv-sp-tabs button,
   #study-drawer #study-drawer-tabs button {
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
 }
 
@@ -1572,9 +1600,30 @@ body:not(.is-santuario):not(.is-acompanamiento):not(.visor-active) #btn-asistent
 }
 
 /* Tipografía de lectura · contingencia */
-#texto-biblico .rv-lectura-cuerpo,
-#texto-biblico .rv-verse-surface {
-  color: #0F172A;
+#texto-biblico .rv-lxx-es,
+.rv-lxx-es {
+  display: block;
+  margin: 0.45rem 0 0.15rem;
+  padding: 0.35rem 0 0.15rem 0.75rem;
+  border-left: 2px solid #C59B27;
+  color: #334155;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 0.95em;
+  line-height: 1.55;
+  white-space: normal;
+  overflow: visible;
+}
+
+#study-drawer [id^="lens-result-"],
+#study-drawer [id^="lens-result-"] > div {
+  max-height: none !important;
+  overflow: visible !important;
+  white-space: normal;
+}
+
+#study-drawer .rv-sp-body {
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #texto-biblico .rv-fallback-badge {
@@ -1966,6 +2015,68 @@ header.rv-chrome .rv-lockup-btn img {
 #panel-asistente-ia .rv-ia-quick-chips .rv-chip:hover {
   background: rgba(197, 155, 39, 0.2) !important;
   color: #F0D56A !important;
+}
+
+/* —— Restauración de contraste canónico (Marfil / Oro / Blanco sobre #0A192F) —— */
+#panel-canon.rv-sidebar,
+.rv-sidebar {
+  background-color: #0A192F !important;
+  color: #F1E7DB !important;
+}
+.rv-canon-section,
+#panel-canon h3,
+#selector-libros h3 {
+  color: #DFB743 !important;
+}
+.libro-btn .libro-nombre {
+  color: #E2E8F0 !important;
+}
+.libro-btn:hover .libro-nombre,
+.libro-btn.is-active .libro-nombre,
+.libro-btn.is-open .libro-nombre {
+  color: #DFB743 !important;
+}
+.libro-btn .libro-caps {
+  color: #94A3B8 !important;
+}
+.libro-btn.is-active,
+.libro-btn.is-open {
+  color: #DFB743 !important;
+  background: rgba(30, 41, 59, 0.7) !important;
+  border-left: 2px solid #DFB743 !important;
+}
+
+.rv-ambient-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #F1E7DB !important;
+  font-size: 0.68rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+.rv-ambient-switch input {
+  accent-color: #DFB743;
+  width: 0.95rem;
+  height: 0.95rem;
+  cursor: pointer;
+}
+.rv-reader-listen {
+  border: 1px solid rgba(223, 183, 67, 0.4);
+  background: transparent;
+  color: #F1E7DB;
+  border-radius: 999px;
+  padding: 0.22rem 0.55rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.rv-reader-listen:hover,
+.rv-reader-listen.is-speaking {
+  border-color: #DFB743;
+  color: #DFB743;
 }
 
 

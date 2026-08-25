@@ -99,10 +99,11 @@
                         <label class="block">
                             <span class="mb-1 block text-[10px] uppercase tracking-[0.18em]">Comentarista</span>
                             <select id="selector-autor" class="rv-select" aria-label="Autor del comentario">
-                                <option value="matthew-henry">Matthew Henry</option>
-                                <option value="jamieson-fausset-brown">Jamieson, Fausset y Brown</option>
-                                <option value="albert-barnes">Albert Barnes</option>
-                                <option value="charles-spurgeon">Charles Spurgeon</option>
+                                <option value="charles-spurgeon">C. H. Spurgeon (Tabernáculo Metropolitano)</option>
+                                <option value="matthew-henry">Matthew Henry (Exposición Completa)</option>
+                                <option value="juan-calvino">Juan Calvino (Comentarios Bíblicos)</option>
+                                <option value="jamieson-fausset-brown">Jamieson-Fausset-Brown (Crítico y Explicativo)</option>
+                                <option value="john-gill">John Gill (Exposition of the Bible)</option>
                             </select>
                         </label>
                         <div class="rv-exp-wrap">
@@ -241,6 +242,9 @@
                     <section id="panel-perspectivas" class="rv-comentario is-hidden-tab" role="tabpanel"
                         aria-label="Lentes de estudio profundo">
                         <p id="ref-perspectivas" class="rv-comentario-ref"></p>
+                        <div id="tab-lentes">
+                            <div id="lentes-content-area"></div>
+                        </div>
                         <div id="rv-persp-tip" class="rv-persp-tip" hidden>
                             <h4 id="rv-persp-tip-title"></h4>
                             <p id="rv-persp-tip-body"></p>
@@ -256,6 +260,9 @@
                     <section id="panel-concordancia" class="rv-concordancia is-hidden-tab" role="tabpanel"
                         aria-label="Concordancia" hidden>
                         <p id="ref-concordancia" class="rv-comentario-ref"></p>
+                        <div id="tab-concordancia">
+                            <div id="concordance-content-area"></div>
+                        </div>
                         <div id="lista-cruzadas" class="rv-xref-list"></div>
                         <div id="lista-strong-verso" class="rv-interlineal-grid"></div>
                     </section>

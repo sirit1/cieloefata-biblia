@@ -435,5 +435,131 @@
     "definicion": "Clamar por auxilio, gritar pidiendo socorro.",
     "part": "Verbo",
     "idioma": "hebreo"
+  },
+  "G40": {
+    "lemma": "ἅγιος",
+    "translit": "hagios",
+    "raiz": "ἅγιος",
+    "idioma": "griego",
+    "definicion": "Santo, consagrado, separado para Dios."
+  },
+  "G444": {
+    "lemma": "ἄνθρωπος",
+    "translit": "anthrōpos",
+    "raiz": "ἀνήρ",
+    "idioma": "griego",
+    "definicion": "Hombre, ser humano."
+  },
+  "G1063": {
+    "lemma": "γάρ",
+    "translit": "gar",
+    "raiz": "γάρ",
+    "idioma": "griego",
+    "definicion": "Porque, pues; introduce la razón o explicación."
+  },
+  "G2316": {
+    "lemma": "θεός",
+    "translit": "theos",
+    "raiz": "θεός",
+    "idioma": "griego",
+    "definicion": "Dios; el Dios verdadero."
+  },
+  "G2980": {
+    "lemma": "λαλέω",
+    "translit": "laleō",
+    "raiz": "λαλέω",
+    "idioma": "griego",
+    "definicion": "Hablar, decir, declarar."
+  },
+  "G3756": {
+    "lemma": "οὐ",
+    "translit": "ou",
+    "raiz": "οὐ",
+    "idioma": "griego",
+    "definicion": "No, jamás; negación absoluta."
+  },
+  "G4218": {
+    "lemma": "ποτέ",
+    "translit": "pote",
+    "raiz": "ποτέ",
+    "idioma": "griego",
+    "definicion": "Alguna vez, jamás, en tiempo alguno."
+  },
+  "G4394": {
+    "lemma": "προφητεία",
+    "translit": "prophēteía",
+    "raiz": "προφήτης",
+    "idioma": "griego",
+    "definicion": "Profecía; mensaje inspirado, proclamación profética."
+  },
+  "G5259": {
+    "lemma": "ὑπό",
+    "translit": "hypó",
+    "raiz": "ὑπό",
+    "idioma": "griego",
+    "definicion": "Por, bajo, de parte de (agente)."
+  },
+  "G5342": {
+    "lemma": "φέρω",
+    "translit": "pherō",
+    "raiz": "φέρω",
+    "idioma": "griego",
+    "definicion": "Llevar, traer, portar."
+  },
+  "G212": {
+    "lemma": "ἀλαζονεία",
+    "translit": "alazoneía",
+    "raiz": "ἀλαζών",
+    "idioma": "griego",
+    "definicion": "Jactancia, arrogancia, presunción vanagloriosa."
+  },
+  "G1161": {
+    "lemma": "δέ",
+    "translit": "de",
+    "raiz": "δέ",
+    "idioma": "griego",
+    "definicion": "Y, pero, por otra parte (partícula de transición)."
+  },
+  "G1722": {
+    "lemma": "ἐν",
+    "translit": "en",
+    "raiz": "ἐν",
+    "idioma": "griego",
+    "definicion": "En, dentro de, entre; en el ámbito de."
+  },
+  "G2744": {
+    "lemma": "καυχάομαι",
+    "translit": "kaucháomai",
+    "raiz": "καυχάομαι",
+    "idioma": "griego",
+    "definicion": "Jactarse, gloriarse, alardear."
+  },
+  "G2746": {
+    "lemma": "καύχησις",
+    "translit": "kaúchēsis",
+    "raiz": "καυχάομαι",
+    "idioma": "griego",
+    "definicion": "Jactancia, gloria; el acto de gloriarse."
+  },
+  "G3568": {
+    "lemma": "νῦν",
+    "translit": "nŷn",
+    "raiz": "νῦν",
+    "idioma": "griego",
+    "definicion": "Ahora, en este momento; de ahora en adelante."
+  },
+  "G3956": {
+    "lemma": "πᾶς",
+    "translit": "pâs",
+    "raiz": "πᾶς",
+    "idioma": "griego",
+    "definicion": "Todo, cada, entero, todos."
+  },
+  "G5108": {
+    "lemma": "τοιοῦτος",
+    "translit": "toioûtos",
+    "raiz": "τοιοῦτος",
+    "idioma": "griego",
+    "definicion": "Tal, semejante, de esa clase."
   }
 }

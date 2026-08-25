@@ -14,9 +14,11 @@
 
     const AUTOR_LABEL = {
         "matthew-henry": "Matthew Henry",
-        "jamieson-fausset-brown": "Jamieson, Fausset y Brown",
+        "jamieson-fausset-brown": "Jamieson-Fausset-Brown",
         "albert-barnes": "Albert Barnes",
-        "charles-spurgeon": "Charles Spurgeon",
+        "charles-spurgeon": "C. H. Spurgeon",
+        "juan-calvino": "Juan Calvino",
+        "john-gill": "John Gill",
     };
 
     async function authToken() {
@@ -133,7 +135,7 @@
             ok: true,
             gated: Boolean(json?.gated),
             mode: json?.mode || resolvedMode,
-            model: json?.model || "gemini-3.6-flash",
+            model: json?.model || "gemini-1.5-flash",
             governance: json?.governance || "revelatio_dual_v1",
             audit: json?.audit || context?.audit || null,
             error: null,

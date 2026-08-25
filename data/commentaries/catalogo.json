@@ -1,10 +1,11 @@
 {
   "schema": "revelatio.comentarios.v1",
   "activa": [
+    "charles-spurgeon",
     "matthew-henry",
+    "juan-calvino",
     "jamieson-fausset-brown",
-    "albert-barnes",
-    "charles-spurgeon"
+    "john-gill"
   ],
   "autores": [
     {
@@ -30,9 +31,23 @@
     },
     {
       "key": "charles-spurgeon",
-      "etiqueta": "Charles Spurgeon",
+      "etiqueta": "C. H. Spurgeon",
       "archivo": "spurgeon.json",
       "obra": "Treasury of David y exposiciones",
+      "licencia": "public"
+    },
+    {
+      "key": "juan-calvino",
+      "etiqueta": "Juan Calvino",
+      "archivo": "calvino.json",
+      "obra": "Comentarios Bíblicos",
+      "licencia": "public"
+    },
+    {
+      "key": "john-gill",
+      "etiqueta": "John Gill",
+      "archivo": "gill.json",
+      "obra": "Exposition of the Old and New Testament",
       "licencia": "public"
     }
   ],

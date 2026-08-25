@@ -166,7 +166,7 @@ function wireReaderFooter() {
   const syncPlayUi = () => {
     const btn = document.getElementById("reader-audio-play");
     if (!btn) return;
-    const on = Boolean(aposentoSound.isPlaying);
+    const on = Boolean(window.ambientAudio?.isPlaying || aposentoSound.isPlaying);
     btn.textContent = on ? "⏸" : "▶";
     btn.setAttribute("aria-pressed", on ? "true" : "false");
     btn.classList.toggle("is-on", on);
@@ -174,13 +174,6 @@ function wireReaderFooter() {
 
   document.addEventListener("click", (e) => {
     if (e.target.closest?.("#reader-audio-play")) {
-      e.preventDefault();
-      const volEl = document.getElementById("reader-audio-vol");
-      const vol = volEl ? parseFloat(volEl.value) : 0.3;
-      if (aposentoSound.isPlaying) aposentoSound.stop();
-      else aposentoSound.start(vol);
-      setTimeout(syncPlayUi, 40);
-      setTimeout(syncPlayUi, 2000);
       return;
     }
     if (e.target.closest?.("#reader-ia-open")) {
@@ -192,8 +185,13 @@ function wireReaderFooter() {
   });
 
   document.addEventListener("input", (e) => {
-    if (e.target?.id !== "reader-audio-vol") return;
-    aposentoSound.setVolume(parseFloat(e.target.value) || 0);
+    if (e.target?.id === "aposento-volume-slider") {
+      aposentoSound.setVolume(parseFloat(e.target.value) || 0);
+      return;
+    }
+    if (e.target?.id === "reader-audio-vol") {
+      window.ambientAudio?.setVolume?.(parseFloat(e.target.value) || 0);
+    }
   });
 
   document.addEventListener("rv:route", () => setTimeout(syncPlayUi, 80));

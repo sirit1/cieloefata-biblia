@@ -20,7 +20,7 @@ export async function POST(req) {
     // Léxico interlinear: precisión filológica (no es consulta pastoral abierta).
     if (type === 'interlinear_resolve') {
       const result = await generateText({
-        model: google('gemini-3.6-flash'),
+        model: google('gemini-1.5-flash'),
         system: 'Eres un diccionario léxico morfológico de precisión en Griego/Hebreo al servicio de la exégesis bíblica. Responde exclusivamente JSON válido, sin markdown ni comentarios.',
         prompt: `Analiza exactamente el término ${String(prompt).slice(0, 120)} en el contexto del versículo ${String(context || 'no indicado').slice(0, 240)}. Devuelve SOLO este JSON: {"original":"grafía griega o hebrea","transliteration":"transliteración y pronunciación","strong":"G0000 o H0000","morphology":"análisis gramatical formal","meaning":"definición exegética y traducción literal al español","metanoia":"aplicación bajo la cruz y la Escritura, sin autoayuda"}. No dejes campos vacíos.`,
         temperature: AI_TEMPERATURE,
@@ -50,7 +50,7 @@ export async function POST(req) {
     }
 
     const result = streamText({
-      model: google('gemini-3.6-flash'),
+      model: google('gemini-1.5-flash'),
       system: SYSTEM_PROMPT,
       prompt: dynamicPrompt,
       temperature: AI_TEMPERATURE,
