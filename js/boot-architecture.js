@@ -56,6 +56,14 @@ function bridgeLegacyNavigation() {
     AppState.setPassage(AppState.currentBook, AppState.currentChapter, mapUiVersion(event.target.value));
   });
 
+  window.addEventListener('hashchange', () => {
+    const next = passageFromHash();
+    if (!next?.book) return;
+    const ver =
+      document.getElementById('selector-version')?.value || AppState.currentVersion;
+    AppState.setPassage(next.book, next.chapter, mapUiVersion(ver));
+  });
+
   document.addEventListener('rv:route', (event) => {
     const name = event.detail?.name || event.detail?.route;
     if (name === 'estudio') ensureReaderMounted();

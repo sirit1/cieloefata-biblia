@@ -22,16 +22,14 @@ async function authenticate(request) {
   return error ? null : data.user
 }
 
-export async function GET(request) {
-  // Concordancia pública vía Bolls; auth opcional.
+async function buscar(request, params) {
   await authenticate(request)
 
-  const { searchParams } = new URL(request.url)
-  const termino = searchParams.get('q')?.trim() || ''
+  const termino = String(params.q || params.keyword || params.searchTerm || params.termino || params.term || '').trim()
   if (termino.length < 3) return Response.json({ error: 'Escribe al menos 3 letras para buscar en la Biblia.' }, { status: 400 })
   if (termino.length > 60) return Response.json({ error: 'La búsqueda es demasiado larga.' }, { status: 400 })
 
-  const versionKey = searchParams.get('version') || 'rv1960'
+  const versionKey = params.version || 'rv1960'
   const version = VERSIONES.find((item) => item.key === versionKey) || VERSIONES[0]
 
   try {
@@ -58,4 +56,32 @@ export async function GET(request) {
     console.error('[v0] Error en concordancia:', error?.message)
     return Response.json({ error: 'No fue posible buscar en la Biblia en este momento. Intenta de nuevo.' }, { status: 502 })
   }
+}
+
+export async function GET(request) {
+  const { searchParams } = new URL(request.url)
+  return buscar(request, {
+    q: searchParams.get('q') || '',
+    version: searchParams.get('version') || 'rv1960',
+  })
+}
+
+export async function POST(request) {
+  const body = await request.json().catch(() => ({}))
+  const { searchParams } = new URL(request.url)
+  return buscar(request, {
+    q: body.q || body.keyword || body.searchTerm || body.termino || body.term || searchParams.get('q') || '',
+    version: body.version || searchParams.get('version') || 'rv1960',
+  })
+}
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept',
+    },
+  })
 }

@@ -1,4 +1,4 @@
-import legacyHandler from '../../../api/ai.js'
+import legacyHandler from '../../../api/referencias.js'
 
 export const runtime = 'nodejs'
 
@@ -30,7 +30,9 @@ function bridge() {
 export async function POST(request) {
   const response = bridge()
   const body = await request.json().catch(() => ({}))
-  body.type = body.type || 'tsk'
+  if (!body.consulta) {
+    body.consulta = body.passage || body.referencia || body.ref || ''
+  }
   await legacyHandler(
     {
       method: 'POST',

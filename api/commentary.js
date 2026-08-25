@@ -34,14 +34,14 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error('Error al generar comentario en backend:', err?.message || err);
-    const fallbackText = generarFallbackComentario({ passage, author, verseText });
-    const data = envelopeComentario(fallbackText, author, 'theological-engine-fallback');
+    const fallbackText = generarFallbackComentario({ passage, author: 'Respaldo teológico', verseText });
+    const data = envelopeComentario(fallbackText, 'Respaldo teológico', 'theological-engine-fallback');
     return res.status(200).json({
       success: true,
       ok: true,
       text: fallbackText,
       answer: fallbackText,
-      author,
+      author: 'Respaldo teológico',
       source: 'theological-engine-fallback',
       data,
     });

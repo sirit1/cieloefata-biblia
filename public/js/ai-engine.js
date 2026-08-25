@@ -124,18 +124,31 @@
 
         const text = String(json?.data || json?.text || "").trim();
         if (!text) {
-            const err = new Error(json?.error || "Respuesta vacía del Agente Teológico.");
+            const err = new Error(typeof json?.error === "string" ? json.error : "Respuesta vacía del Agente Teológico.");
             err.code = "EMPTY";
             throw err;
         }
 
+        const source = json?.source || json?.model || "";
+        const looksFake =
+            source === "theological-engine-fallback" ||
+            /c\.\s*h\.\s*spurgeon|charles spurgeon|tabernáculo metropolitano/i.test(text);
+        const honest = looksFake && /c\.\s*h\.\s*spurgeon|charles spurgeon|tabernáculo metropolitano/i.test(text)
+            ? String(json?.answer && !/spurgeon/i.test(json.answer) ? json.answer : text).replace(
+                /c\.\s*h\.\s*spurgeon|charles spurgeon/gi,
+                "Respaldo teológico",
+              )
+            : text;
+
         return {
-            text,
-            data: text,
+            text: honest,
+            data: honest,
             ok: true,
             gated: Boolean(json?.gated),
             mode: json?.mode || resolvedMode,
             model: json?.model || "gemini-1.5-flash",
+            source: json?.source || null,
+            author: looksFake ? "Respaldo teológico" : json?.author || null,
             governance: json?.governance || "revelatio_dual_v1",
             audit: json?.audit || context?.audit || null,
             error: null,
