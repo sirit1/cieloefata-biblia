@@ -439,23 +439,24 @@
       </div>`;
 
     try {
-      const endpoints = ['/api/referencias', '/api/tsk'];
       let data = {};
       let lastStatus = 0;
-      for (const url of endpoints) {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          signal: tskAbort.signal,
-          body: JSON.stringify({ passage, consulta: passage, referencia: passage }),
-        });
-        lastStatus = res.status;
-        data = await res.json().catch(() => ({}));
-        if (res.status === 404) continue;
-        if (!res.ok && res.status !== 200) {
-          throw new Error(httpErrorMessage(data, res.status));
-        }
-        break;
+      const version = (typeof localStorage !== 'undefined' && localStorage.getItem('revelatio_version')) || 'rv1960';
+      const res = await fetch('/api/tsk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        signal: tskAbort.signal,
+        body: JSON.stringify({
+          passage,
+          consulta: passage,
+          referencia: passage,
+          version,
+        }),
+      });
+      lastStatus = res.status;
+      data = await res.json().catch(() => ({}));
+      if (!res.ok && res.status !== 200) {
+        throw new Error(httpErrorMessage(data, res.status));
       }
       clearTimeout(timer);
       if (stamp !== tskStamp || currentActivePassage !== passage) return;

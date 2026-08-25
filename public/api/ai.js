@@ -8,14 +8,12 @@ import { resolveGeminiApiKey } from '../lib/load-env.js';
 import { hayMotorIA, generarTexto } from '../lib/ai.js';
 import {
   contextoConsulta,
-  paralelosReales,
   formatearLexico,
   formatearTsk,
 } from '../lib/consulta-contexto.js';
 import { obtenerComentarioCorpus } from '../lib/comentario-corpus.js';
 import {
   generarFallbackLente,
-  generarFallbackTsk,
   generarFallbackLexico,
   generarFallbackConcordancia,
 } from '../lib/theological-fallback.js';
@@ -534,39 +532,39 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
     };
   }
 
-  // 3. MODO REFERENCIAS CRUZADAS (TSK)
+  // 3. MODO REFERENCIAS CRUZADAS (TSK) — corpus verse-keyed, nunca Bolls keyword
   if (type === 'tsk') {
-    if (ctx?.texto) {
-      const paralelos = await paralelosReales(ctx.texto, { excludeRef: ref }).catch(() => []);
-      if (paralelos.length) {
-        const answer = formatearTsk(ctx, paralelos);
-        return {
-          success: true,
-          ok: true,
-          answer,
-          respuesta: answer,
-          result: answer,
-          data: answer,
-          text: answer,
-          commentary: { text: answer },
-          type,
-          source: 'concordancia-bolls',
-          meta: { passage: ref },
-        };
-      }
+    const { obtenerTsk } = await import('../lib/tsk.js');
+    const tsk = await obtenerTsk({ passage: ref, version: 'RV1960' });
+    const refs = tsk?.data?.referencias || [];
+    if (refs.length) {
+      const answer = formatearTsk(ctx || { etiqueta: ref }, refs);
+      return {
+        success: true,
+        ok: true,
+        answer,
+        respuesta: answer,
+        result: answer,
+        data: tsk.data,
+        text: answer,
+        commentary: { text: answer },
+        type,
+        source: 'tsk-open-cross-ref',
+        meta: { passage: ref },
+      };
     }
-    const tskFallback = await generarFallbackTsk({ passage: ref, verseText, ctx });
+    const miss = `No hay referencias TSK catalogadas para ${ref}.`;
     return {
       success: true,
       ok: true,
-      answer: tskFallback,
-      respuesta: tskFallback,
-      result: tskFallback,
-      data: tskFallback,
-      text: tskFallback,
-      commentary: { text: tskFallback },
+      answer: miss,
+      respuesta: miss,
+      result: miss,
+      data: tsk?.data || { referencias: [], fuente: 'tsk-open-cross-ref' },
+      text: miss,
+      commentary: { text: miss },
       type,
-      source: 'tsk-canonical-fallback',
+      source: 'tsk-open-cross-ref',
       meta: { passage: ref },
     };
   }

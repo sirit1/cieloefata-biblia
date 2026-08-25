@@ -1,4 +1,4 @@
-import legacyHandler from '../../../api/referencias.js'
+import legacyHandler from '../../../api/tsk.js'
 
 export const runtime = 'nodejs'
 
@@ -27,22 +27,33 @@ function bridge() {
   }
 }
 
-export async function POST(request) {
+async function run(request, method) {
   const response = bridge()
-  const body = await request.json().catch(() => ({}))
+  const body = method === 'GET'
+    ? Object.fromEntries(new URL(request.url).searchParams.entries())
+    : await request.json().catch(() => ({}))
   if (!body.consulta) {
     body.consulta = body.passage || body.referencia || body.ref || ''
   }
   await legacyHandler(
     {
-      method: 'POST',
+      method,
       body,
+      query: body,
       url: '/api/tsk',
       headers: Object.fromEntries(request.headers.entries()),
     },
     response
   )
   return response.response()
+}
+
+export async function GET(request) {
+  return run(request, 'GET')
+}
+
+export async function POST(request) {
+  return run(request, 'POST')
 }
 
 export async function OPTIONS() {

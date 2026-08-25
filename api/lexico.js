@@ -3,7 +3,6 @@ import { obtenerDefinicionStrong, DICCIONARIO_STRONG } from '../lib/biblia.js';
 import { consultarDiccionario } from '../lib/diccionario.js';
 import { entradaStrongLocal } from '../lib/strong.js';
 import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
-import { pareceIngles } from '../lib/glosa-es.js';
 
 // Diccionario léxico REAL (Brown-Driver-Briggs para hebreo, Thayer para
 // griego, vía Bolls Bible) para consultar el significado exacto de una
@@ -48,11 +47,11 @@ export default async function handler(req, res) {
     const ctx = await contextoConsulta({ passage, referencia: passage });
     const entradas = (Array.isArray(ctx?.strongs) ? ctx.strongs : []).map((e) => {
       const catalogada = String(e.definicionEs || e.traduccionEstricta || '').trim();
-      const sin = !catalogada || pareceIngles(catalogada);
+      const sin = !catalogada;
       return {
         ...e,
-        definicionEs: sin ? '' : catalogada,
-        traduccionEstricta: sin ? '' : catalogada,
+        definicionEs: catalogada,
+        traduccionEstricta: catalogada,
         sinGlosaEs: sin,
       };
     });
@@ -105,13 +104,13 @@ export default async function handler(req, res) {
     const contexto = await consultarDiccionario(codigo);
     const merged = { ...definicion, ...contexto };
     const catalogada = String(merged.definicionEs || merged.traduccionEstricta || '').trim();
-    const sinGlosaEs = !catalogada || pareceIngles(catalogada);
+    const sinGlosaEs = !catalogada;
     return res.status(200).json({
       success: true,
       data: {
         ...merged,
-        definicionEs: sinGlosaEs ? '' : catalogada,
-        traduccionEstricta: sinGlosaEs ? '' : catalogada,
+        definicionEs: catalogada,
+        traduccionEstricta: catalogada,
         sinGlosaEs,
         nota: sinGlosaEs ? 'sin glosa ES catalogada' : undefined,
       },

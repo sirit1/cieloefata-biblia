@@ -53,6 +53,17 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Consulta inválida.' });
   }
 
+  const { parseConsultaFlexible } = await import('../lib/consulta-contexto.js');
+  const verseRef = parseConsultaFlexible(consulta);
+  if (verseRef?.versoInicio) {
+    const { obtenerTsk } = await import('../lib/tsk.js');
+    const tsk = await obtenerTsk({
+      passage: consulta,
+      version: q.version || q.traduccion || 'RV1960',
+    });
+    return res.status(200).json(tsk);
+  }
+
   const { contextoConsulta, paralelosReales, enriquecerReferenciasConTexto } = await import('../lib/consulta-contexto.js');
   const ctx = await contextoConsulta(consulta).catch(() => null);
 

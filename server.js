@@ -14,6 +14,7 @@ import {
   generarFallbackConcordancia
 } from './lib/theological-fallback.js';
 import referenciasHandler from './api/referencias.js';
+import tskHandler from './api/tsk.js';
 import concordanciaHandler from './api/concordancia.js';
 import strongHandler from './api/strong.js';
 import lexicoHandler from './api/lexico.js';
@@ -129,14 +130,6 @@ async function studyEngineHandler(req, res) {
       source: 'theological-engine-fallback',
     }));
   }
-}
-
-async function tskHandler(req, res) {
-  if (!req.body || typeof req.body !== 'object') req.body = {};
-  if (!req.body.consulta) {
-    req.body.consulta = req.body.passage || req.body.referencia || req.body.ref || req.query?.q || '';
-  }
-  return referenciasHandler(req, res);
 }
 
 async function iaAssistantHandler(req, res) {

@@ -223,9 +223,9 @@ export function formatearLexico(ctx) {
     );
   }
   const bloques = ctx.strongs.map((d, i) => {
-    const catalogada = traducirGlosa(d.definicionEs || d.traduccionEstricta || '', d.codigo);
+    const catalogada = traducirGlosa(d.definicionEs || d.traduccionEstricta || d.definicionCorta || d.definicion || '', d.codigo);
     const original = String(d.definicionCorta || d.definicion || '').split('\n')[0] || '';
-    const glosaEs = catalogada && !pareceIngles(catalogada) ? catalogada : '';
+    const glosaEs = catalogada || '';
     const en = original && pareceIngles(original) ? original : '';
     return (
       `${i + 1}. **${d.codigo}** · ${d.lexema || d.lemma || ''} (${d.transliteracion || d.translit || ''})\n` +

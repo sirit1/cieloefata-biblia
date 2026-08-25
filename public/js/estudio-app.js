@@ -2448,16 +2448,19 @@ function descargarBackup(kind) {
             const token = await tokenAuth();
             const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
             if (token) headers.Authorization = `Bearer ${token}`;
-            const res = await fetch('/api/referencias', {
+            const res = await fetch('/api/tsk', {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({ consulta: passage })
+                body: JSON.stringify({ consulta: passage, passage, version: versionActiva() })
             });
             if (!res.ok) return [];
             const json = await res.json();
             const lista = json.data?.referencias || json.referencias || [];
             if (!lista.length) return [];
-            return lista.map(x => ({ ref: x.ref || x.reference, nota: x.nota || x.description || x.text || '' }));
+            return lista.map(x => ({
+                ref: x.ref || x.reference,
+                nota: x.texto || x.text || x.nota || x.description || '',
+            }));
         } catch {
             return [];
         }

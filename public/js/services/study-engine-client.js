@@ -1,7 +1,7 @@
 /**
  * Cliente unificado del motor de estudio.
  * Comentario → /api/commentary (Gemini / Síntesis Teológica)
- * TSK → /api/referencias / /api/study-engine
+ * TSK → /api/tsk
  * Léxico → /api/lexicon / /api/study-engine
  * Lentes → /api/study-engine
  */
@@ -87,10 +87,12 @@
 
     if (type === 'tsk' || type === 'xref' || type === 'cross') {
       try {
-        const { ok, data } = await postJson('/api/referencias', {
+        const version = (typeof localStorage !== 'undefined' && localStorage.getItem('revelatio_version')) || 'rv1960';
+        const { ok, data } = await postJson('/api/tsk', {
           consulta: ref,
           passage: ref,
           referencia: ref,
+          version,
         }, 18000);
         const lista = data?.data?.referencias || data?.referencias || [];
         if (ok && lista.length) {
@@ -102,7 +104,7 @@
               return `- **${cita}** — ${x.nota || x.description || ''}`;
             })
             .join('\n');
-          return { success: true, answer, source: 'referencias', raw: data };
+          return { success: true, answer, source: data?.fuente || 'tsk-open-cross-ref', raw: data };
         }
       } catch (err) {
         lastError = err;
