@@ -36,6 +36,10 @@ const nextConfig = {
     return {
       beforeFiles: [
         { source: '/lectura', destination: '/efata.html' },
+        { source: '/api/tsk', destination: '/api/referencias' },
+        { source: '/api/lexicon', destination: '/api/lexico' },
+        { source: '/api/capitulo', destination: '/api/bible' },
+        { source: '/api/concordance', destination: '/api/study-engine' },
       ],
     }
   },

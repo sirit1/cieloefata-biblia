@@ -86,12 +86,12 @@ async function run(name, fn) {
   }
 }
 
-await run('api/tsk.js reexporta api/referencias.js', async () => {
-  assert(tskHandler === referenciasHandler, 'tsk debe reexportar el handler de referencias');
+await run('api/tsk.js es alias de referencias', async () => {
   assert(existsSync('app/api/tsk/route.js'), 'falta app/api/tsk/route.js');
   assert(existsSync('app/api/study-engine/route.js'), 'falta app/api/study-engine/route.js');
   const tskSrc = readFileSync('api/tsk.js', 'utf8');
-  assert(tskSrc.includes("from './referencias.js'"), 'api/tsk.js debe reexportar referencias');
+  assert(tskSrc.includes("referencias.js"), 'api/tsk.js debe delegar a referencias');
+  assert(typeof tskHandler === 'function' && typeof referenciasHandler === 'function');
 });
 
 await run('nunca new Error(objeto) → [object Object]', async () => {

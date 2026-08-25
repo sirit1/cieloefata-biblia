@@ -1,48 +1,9 @@
-import legacyHandler from '../../../api/ai.js'
+import { nodeHandlers } from '../../../lib/node-api-bridge.js'
+import legacyHandler from '../../../api/lexico.js'
 
 export const runtime = 'nodejs'
 
-function bridge() {
-  const headers = new Headers()
-  let status = 200
-  let payload = {}
-  return {
-    setHeader(name, value) {
-      headers.set(name, String(value))
-    },
-    status(code) {
-      status = code
-      return this
-    },
-    json(value) {
-      payload = value
-      return this
-    },
-    end() {
-      return this
-    },
-    response() {
-      return Response.json(payload, { status, headers })
-    },
-  }
-}
-
-export async function POST(request) {
-  const response = bridge()
-  const body = await request.json().catch(() => ({}))
-  body.type = body.type || 'lexicon'
-  await legacyHandler(
-    {
-      method: 'POST',
-      body,
-      url: '/api/lexicon',
-      headers: Object.fromEntries(request.headers.entries()),
-    },
-    response
-  )
-  return response.response()
-}
-
-export async function OPTIONS() {
-  return new Response(null, { status: 204 })
-}
+const handlers = nodeHandlers(legacyHandler, '/api/lexicon')
+export const GET = handlers.GET
+export const POST = handlers.POST
+export const OPTIONS = handlers.OPTIONS

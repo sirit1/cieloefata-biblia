@@ -20,6 +20,15 @@ export async function OPTIONS() {
   return optionsResponse();
 }
 
+export async function GET() {
+  return chatJson({
+    success: true,
+    ok: true,
+    ready: true,
+    answer: 'Endpoint activo. Usa POST con { message } o { prompt }.',
+  });
+}
+
 export async function POST(req) {
   try {
     const body = await req.json().catch(() => ({}));

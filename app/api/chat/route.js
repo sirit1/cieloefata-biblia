@@ -1,3 +1,3 @@
 export const runtime = 'edge'
 
-export { POST, OPTIONS } from '../../../api/chat.js'
+export { GET, POST, OPTIONS } from '../../../api/chat.js'

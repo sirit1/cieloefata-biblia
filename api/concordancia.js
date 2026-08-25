@@ -23,23 +23,42 @@ async function authenticate(req) {
 const MAX_RESULTADOS = 40;
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', 'GET');
+  res.setHeader?.('Access-Control-Allow-Origin', '*');
+  if (req.method === 'OPTIONS') {
+    res.setHeader?.('Allow', 'GET, POST, OPTIONS');
+    res.setHeader?.('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader?.('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
+    return res.status(204).end();
+  }
+
+  if (req.method !== 'GET' && req.method !== 'POST') {
+    res.setHeader('Allow', 'GET, POST, OPTIONS');
     return res.status(405).json({ error: 'Método no permitido.' });
   }
 
   // Lectura pública: la concordancia usa Bolls (texto real). Auth opcional.
   await authenticate(req);
 
-  const termino = typeof req.query?.q === 'string' ? req.query.q.trim() : '';
+  const q = { ...(req.query || {}), ...((req.body && typeof req.body === 'object') ? req.body : {}) };
+  const termino = String(q.q || q.keyword || q.searchTerm || q.termino || q.palabra || '').trim();
+
   if (termino.length < 3) {
+    if (req.method === 'POST') {
+      const studyEngine = (await import('./study-engine.js')).default;
+      if (!req.body || typeof req.body !== 'object') req.body = {};
+      if (!req.body.mode && !req.body.type) {
+        req.body.mode = 'concordance';
+        req.body.type = 'concordance';
+      }
+      return studyEngine(req, res);
+    }
     return res.status(400).json({ error: 'Escribe al menos 3 letras para buscar en la Biblia.' });
   }
   if (termino.length > 60) {
     return res.status(400).json({ error: 'La búsqueda es demasiado larga.' });
   }
 
-  const versionKey = typeof req.query?.version === 'string' ? req.query.version : 'rv1960';
+  const versionKey = typeof q.version === 'string' && q.version.trim() ? q.version.trim() : 'rv1960';
   const version = VERSIONES.find((v) => v.key === versionKey) || VERSIONES[0];
 
   try {
