@@ -223,6 +223,11 @@
     state.text = currentVerseText;
     global.currentStudyState = state;
     RV.currentStudyState = state;
+
+    const listenBtn = document.getElementById('sp-listen-verse');
+    if (listenBtn && currentVerseText) {
+      listenBtn.setAttribute('data-listen-text', currentVerseText);
+    }
   }
 
   function syncStudyPanelToVerse(passageRef, verseText = '') {
@@ -1028,7 +1033,10 @@
               <p class="study-panel-subtitle rv-sp-ref" hidden></p>
               <p id="rv-sp-ref" class="rv-sp-ref" hidden></p>
             </div>
-            <button type="button" data-sp-close aria-label="Cerrar panel" class="cursor-pointer">✕</button>
+            <div class="rv-sp-head-actions">
+              <button type="button" id="sp-listen-verse" data-listen="verse" class="cursor-pointer" title="Escuchar el versículo">🔊 Escuchar</button>
+              <button type="button" data-sp-close aria-label="Cerrar panel" class="cursor-pointer">✕</button>
+            </div>
           </header>
           <div id="study-drawer-tabs" class="rv-sp-tabs grid grid-cols-5 gap-1 text-center select-none" role="tablist">${TABS_HTML}</div>
         </div>
@@ -1048,6 +1056,24 @@
           </section>
         </div>`;
       document.body.appendChild(root);
+    }
+    if (root && !root.querySelector('#sp-listen-verse')) {
+      const head = root.querySelector('.rv-sp-head');
+      const closeBtn = head?.querySelector('[data-sp-close]');
+      if (head && closeBtn) {
+        const wrap = document.createElement('div');
+        wrap.className = 'rv-sp-head-actions';
+        const listen = document.createElement('button');
+        listen.type = 'button';
+        listen.id = 'sp-listen-verse';
+        listen.setAttribute('data-listen', 'verse');
+        listen.className = 'cursor-pointer';
+        listen.title = 'Escuchar el versículo';
+        listen.textContent = '🔊 Escuchar';
+        closeBtn.replaceWith(wrap);
+        wrap.appendChild(listen);
+        wrap.appendChild(closeBtn);
+      }
     }
     return root;
   }

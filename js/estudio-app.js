@@ -3515,14 +3515,10 @@ function descargarBackup(kind) {
         }
         // Re-wire controles legacy del panel experiencia si existen
         document.getElementById("narrar-capitulo")?.addEventListener("click", () => {
-            document.querySelector('[data-listen="chapter"]')?.click();
+            window.revelatioAudio?.speakChapter?.() || window.RV?.audio?.speakChapter?.();
         });
         document.getElementById("pausa-narracion")?.addEventListener("click", () => {
             window.revelatioAudio?.pausarVoz?.() || window.RV?.audio?.pauseVoice?.();
-        });
-        document.getElementById("toggle-musica")?.addEventListener("change", (e) => {
-            if (e.target.checked) window.revelatioAudio?.reproducirMusica?.();
-            else window.revelatioAudio?.detenerMusica?.();
         });
         const volM = document.getElementById("vol-musica");
         const volV = document.getElementById("vol-voz");

@@ -153,6 +153,17 @@
             `<button type="button" class="rv-va-swatch rv-va-swatch--dot rv-va-swatch--${c.css}" data-va-hl="${c.id}" title="${c.title}" aria-label="${c.label}">${c.emoji}</button>`
         ).join("");
       }
+      const acts = bar.querySelector(".rv-va-acts");
+      if (acts && !acts.querySelector("[data-va-act='listen']")) {
+        const listen = document.createElement("button");
+        listen.type = "button";
+        listen.dataset.vaAct = "listen";
+        listen.title = "Escuchar el versículo";
+        listen.textContent = "🔊 Oír";
+        const studyBtn = acts.querySelector("[data-va-act='study']");
+        if (studyBtn) acts.insertBefore(listen, studyBtn);
+        else acts.appendChild(listen);
+      }
       return bar;
     }
     bar = document.createElement("div");
@@ -172,6 +183,7 @@
       <div class="rv-va-acts">
         <button type="button" data-va-act="copy">📋 Copiar</button>
         <button type="button" data-va-act="card">🖼️ Tarjeta</button>
+        <button type="button" data-va-act="listen" title="Escuchar el versículo">🔊 Oír</button>
         <button type="button" data-va-act="study">📖 Estudio</button>
         <button type="button" data-va-act="ia">🧠 RevelatiO IA</button>
         <button type="button" data-va-act="clear" title="Deseleccionar">✕</button>
@@ -709,6 +721,15 @@
             })
           );
         }
+        return;
+      }
+      if (act === "listen") {
+        const text = activeText || verseTextFromEl(activeEl) || global.currentSelectedText;
+        (global.RV?.audio || global.revelatioAudio)?.speak?.(text, {
+          button: event.target.closest("[data-va-act='listen']"),
+          contextId: "verse",
+          passage: activeRef || global.currentSelectedPassage,
+        });
         return;
       }
       if (act === "study") {

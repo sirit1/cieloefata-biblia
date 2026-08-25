@@ -775,12 +775,11 @@
             if (!btn) return;
             const act = btn.getAttribute("data-ia-act");
             const text = String(rawText || "").trim();
-            if (!text) return;
             if (act === "listen") {
-                if (RV.audio?.speak) RV.audio.speak(text, { contextId: "ia", button: btn });
-                else if (global.revelatioAudio?.narrar) global.revelatioAudio.narrar(text);
+                (RV.audio || global.revelatioAudio)?.speakCurrentVerse?.({ button: btn, contextId: "verse" });
                 return;
             }
+            if (!text) return;
             if (act === "copy") {
                 try {
                     await navigator.clipboard.writeText(text);

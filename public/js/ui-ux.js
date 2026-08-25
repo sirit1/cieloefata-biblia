@@ -12,7 +12,6 @@ var HOLD_MS = 7000;
 var assetUrl = function (rel) {
     try { return new URL(rel, location.href).href; } catch (e) { return rel; }
 };
-var PISTA = 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-piano-ambient-112191.mp3';
 var BIENVENIDA_LOCAL = assetUrl('audio/bienvenida-varon.wav?v=jorge12');
 var SPLASH_DONE_KEY = 'rv_splash_done_v4';
 
@@ -66,13 +65,16 @@ var quiereMusicaHome = function () {
     return !cb || cb.checked;
 };
 var detenerMusicaIntro = function () {
-    if (!music) return;
-    try {
-        music.pause();
-        music.muted = true;
-        music.volume = 0;
-    } catch (e2) { /* ignore */ }
     try { window.revelatioAudio?.detenerMusica?.(); } catch (e3) { /* ignore */ }
+};
+var playMusicaSuave = function () {
+    if (!quiereMusicaHome()) return;
+    try {
+        if (window.revelatioAudio?.reproducirMusica) {
+            window.revelatioAudio.reproducirMusica();
+            return;
+        }
+    } catch (e3) { }
 };
 var forzarCierreSplash = function () {
     if (!splash) return;
@@ -158,18 +160,6 @@ var playVoz = function () {
     }
 };
 
-var playMusicaSuave = function () {
-    if (!music || !quiereMusicaHome()) return;
-    try {
-        music.loop = false;
-        music.muted = false;
-        music.volume = 0.05;
-        if (!music.src || music.src.indexOf('oracion-instrumental') === -1) music.src = PISTA;
-        var p = music.play();
-        if (p && p.catch) p.catch(function () { });
-    } catch (e3) { }
-};
-
 var iniciarExperiencia = function (event) {
     if (event) {
         event.preventDefault();
@@ -208,8 +198,7 @@ if (!window.__RV_SPLASH_MUSIC_CB__) {
     document.addEventListener('change', function (ev) {
         if (!ev.target || ev.target.id !== 'entrar-con-musica') return;
         if (ev.target.checked) {
-            try { playMusicaSuave(); } catch (e) { }
-            try { window.revelatioAudio && window.revelatioAudio.reproducirMusica && window.revelatioAudio.reproducirMusica(true); } catch (e2) { }
+            try { window.revelatioAudio && window.revelatioAudio.reproducirMusica && window.revelatioAudio.reproducirMusica(); } catch (e2) { }
         } else {
             silenciarBienvenida();
             detenerMusicaIntro();
