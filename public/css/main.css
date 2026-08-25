@@ -1,19 +1,19 @@
 /* ==========================================================================
    Éfata RevelatiO — css/main.css
-   Bloques: Reset/Tokens · Layout · Components · Premium Obsidiana
+   Bloques: Reset/Tokens · Layout · Components · Niebla marina
    ========================================================================== */
 
-/* --- Reset & Tokens · Premium Obsidiana (Dark Luxury legible) ------------ */
+/* --- Reset & Tokens · Niebla marina (premium, light, sacred) ------------- */
 :root {
-    /* Editorial · Luz Celestial / Azul Imperial / Oro Sacro */
-    --color-primary-navy: #0A192F;
-    --color-sacred-gold: #C59B27;
-    --color-gold-light: #DFB743;
-    --color-bg-celestial: #FAF8F5;
+    /* Editorial · Niebla marina / pizarra / oro sacro */
+    --color-primary-navy: #3A5364;
+    --color-sacred-gold: #C9A84C;
+    --color-gold-light: #D4B85E;
+    --color-bg-celestial: #EEF2F4;
     --color-card-surface: #FFFFFF;
-    --color-border-subtle: #E8DFC8;
-    --color-text-main: #1E293B;
-    --color-text-muted: #64748B;
+    --color-border-subtle: #D5DDE3;
+    --color-text-main: #2C3E4A;
+    --color-text-muted: #5A6B78;
     --fruto-amor: #A8201A;
     --fruto-gozo: #C59B27;
     --fruto-paz: #1D4ED8;
@@ -21,28 +21,29 @@
     --fruto-bondad: #15803D;
     --fruto-templanza: #9A3412;
 
-    --obsidian: #0A192F;
-    --obsidian-mid: #0F2744;
+    --obsidian: #2C3E4A;
+    --obsidian-mid: #3A5364;
     --pearl: #FFFFFF;
-    --paper: #FAF8F5;
-    --sidebar: #F4EFE6;
-    --graphite: #1E293B;
-    --graphite-soft: rgba(30, 41, 59, 0.88);
-    --chrome-ink: #1E293B;
-    --chrome-muted: #64748B;
-    --gold: #C59B27;
-    --gold-bright: #DFB743;
-    --gold-soft: rgba(197, 155, 39, 0.18);
-    --gold-line: rgba(197, 155, 39, 0.35);
+    --paper: #EEF2F4;
+    --sidebar: #F8FAFB;
+    --graphite: #2C3E4A;
+    --graphite-soft: rgba(44, 62, 74, 0.88);
+    --chrome-ink: #2C3E4A;
+    --chrome-muted: #5A6B78;
+    --gold: #C9A84C;
+    --gold-bright: #D4B85E;
+    --gold-soft: rgba(201, 168, 76, 0.18);
+    --gold-line: rgba(201, 168, 76, 0.35);
     --panel: #FFFFFF;
-    --panel-elevated: #FFFEFA;
+    --panel-elevated: #F8FAFB;
     --radius: 14px;
-    --shadow-card: 0 10px 28px -12px rgba(10, 25, 47, 0.14), 0 4px 10px -6px rgba(10, 25, 47, 0.08);
-    --shadow-deep: 0 18px 40px -16px rgba(10, 25, 47, 0.22);
-    --ink: #1E293B;
-    --ink-soft: #334155;
-    --ink-muted: #64748B;
-    --chrome-dark: #0A192F;
+    --shadow-card: 0 10px 28px -12px rgba(58, 83, 100, 0.14), 0 4px 10px -6px rgba(58, 83, 100, 0.08);
+    --shadow-deep: 0 18px 40px -16px rgba(58, 83, 100, 0.22);
+    --ink: #2C3E4A;
+    --ink-soft: #3D5464;
+    --ink-muted: #5A6B78;
+    --chrome-dark: #3A5364;
+    --night: #3A5364;
     --reading-lh: 1.8;
 }
 
@@ -58,11 +59,12 @@ html,
 body {
     height: 100%;
     margin: 0;
+    background: var(--paper, #EEF2F4);
 }
 
 body {
-    background: var(--color-bg-celestial, #FAF8F5);
-    color: var(--color-text-main, #1E293B);
+    background: var(--color-bg-celestial, #EEF2F4);
+    color: var(--color-text-main, #2C3E4A);
     font-family: Cinzel, "Playfair Display", "Source Serif 4", Georgia, serif;
     display: flex;
     flex-direction: column;
@@ -220,22 +222,22 @@ body {
 }
 
 .rv-stage {
-    background: var(--obsidian);
+    background: var(--paper);
     color: var(--ink);
 }
 
 /* --- Layout · Estudio shell ---------------------------------------------- */
 .rv-chrome {
-    background: var(--obsidian);
-    color: var(--chrome-ink);
+    background: var(--chrome-dark);
+    color: #F8FAFC;
     border-color: var(--gold-line);
 }
 
 /* --- Components · Sidebar / Canon ---------------------------------------- */
 .rv-sidebar {
-    background: #0A192F;
+    background: var(--chrome-dark);
     color: #F1E7DB;
-    border-right: 1px solid rgba(197, 155, 39, 0.3);
+    border-right: 1px solid rgba(201, 168, 76, 0.3);
 }
 
 .rv-shell {
@@ -1961,9 +1963,9 @@ body.is-santuario #contexto-historico-header:not([hidden]) {
     text-align: left;
     padding: .7rem .85rem;
     border-radius: 12px;
-    border: 1px solid rgba(212, 175, 55, 0.5);
-    color: #D4AF37;
-    background: #0a0a0a;
+    border: 1px solid rgba(201, 168, 76, 0.5);
+    color: var(--gold-bright);
+    background: var(--chrome-dark);
     font-size: 11px;
     letter-spacing: .16em;
     text-transform: uppercase;
@@ -1972,14 +1974,14 @@ body.is-santuario #contexto-historico-header:not([hidden]) {
 }
 
 .rv-nav-cuaderno:hover {
-    background: rgba(212, 175, 55, 0.14);
+    background: rgba(201, 168, 76, 0.14);
     color: #FFFFFF;
-    border-color: #D4AF37;
+    border-color: var(--gold-bright);
 }
 
 .rv-nav-cuaderno.is-on {
-    background: #D4AF37;
-    color: #000000;
+    background: var(--gold-bright);
+    color: var(--chrome-dark);
     border-color: #D4AF37;
 }
 
@@ -2009,10 +2011,10 @@ body.is-santuario #contexto-historico-header:not([hidden]) {
 /* Contraste editorial del menú lateral de estudio · Azul Noche Imperial */
 body.is-santuario .rv-sidebar,
 #panel-canon.rv-sidebar {
-    background-color: #0A192F !important;
+    background-color: var(--chrome-dark) !important;
     color: #E7E5E4 !important;
-    border-right: 1px solid rgba(197, 155, 39, 0.3) !important;
-    border-color: rgba(197, 155, 39, 0.3) !important;
+    border-right: 1px solid rgba(201, 168, 76, 0.3) !important;
+    border-color: rgba(201, 168, 76, 0.3) !important;
 }
 
 body.is-santuario .rv-sidebar input,
@@ -2041,20 +2043,20 @@ body.is-santuario .rv-sidebar .libro-caps {
 
 body.is-santuario .rv-sidebar .cap-btn {
     color: #CBD5E1 !important;
-    border-color: #334155 !important;
-    background: #0F172A !important;
+    border-color: rgba(213, 221, 227, 0.35) !important;
+    background: #2C3E4A !important;
 }
 
 body.is-santuario .rv-sidebar .cap-btn.is-active {
-    background: #DFB743 !important;
-    color: #0A192F !important;
-    border-color: #DFB743 !important;
+    background: var(--gold-bright) !important;
+    color: var(--chrome-dark) !important;
+    border-color: var(--gold-bright) !important;
 }
 
 body.is-santuario .rv-sidebar .cap-btn:hover {
-    background: #0F172A !important;
-    color: #DFB743 !important;
-    border-color: #DFB743 !important;
+    background: #2C3E4A !important;
+    color: var(--gold-bright) !important;
+    border-color: var(--gold-bright) !important;
 }
 
 /* --- Components · Cuaderno del Peregrino (panel derecho) ----------------- */
@@ -2614,10 +2616,10 @@ body:not(.is-santuario) {
 }
 
 .rv-glass {
-    background: rgba(14, 16, 22, 0.62);
-    border: 1px solid rgba(197, 160, 89, 0.18);
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 18px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
 }
@@ -3209,9 +3211,9 @@ body:not(.is-registrado) #rv-home .rv-home-actions .rv-btn-gold::after {
 
 .rv-home-pills button,
 .rv-home-pills a {
-    border: 1px solid rgba(197, 160, 89, 0.28);
-    color: #E8D5A3;
-    background: rgba(9, 10, 15, 0.35);
+    border: 1px solid rgba(201, 168, 76, 0.45);
+    color: var(--chrome-dark);
+    background: var(--panel);
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -3229,15 +3231,15 @@ body:not(.is-registrado) #rv-home .rv-home-actions .rv-btn-gold::after {
 }
 
 
-/* —— Umbral doble vía · Premium Obsidiana —— */
+/* —— Umbral doble vía · Niebla marina —— */
 #rv-home.rv-home {
-    background: var(--obsidian);
+    background: var(--paper);
     background-image: none;
-    color: #F1F5F9;
+    color: var(--ink);
 }
 
 body:not(.is-santuario):not(.is-acompanamiento) {
-    background: var(--obsidian);
+    background: var(--paper);
     color: var(--ink);
 }
 
@@ -3276,7 +3278,7 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-size: 10px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: #D4AF37;
+    color: var(--chrome-dark);
     text-align: center;
 }
 
@@ -3287,7 +3289,7 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-size: clamp(1.85rem, 4.2vw, 2.65rem);
     font-weight: 600;
     line-height: 1.12;
-    color: #E0E6ED;
+    color: var(--ink);
 }
 
 .rv-dual-subtitle {
@@ -3297,13 +3299,13 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     font-size: clamp(1.15rem, 2.6vw, 1.55rem);
     font-style: italic;
     font-weight: 500;
-    color: #C5A059;
+    color: var(--ink-soft);
     line-height: 1.3;
 }
 
 .rv-dual-title em {
     font-style: italic;
-    color: #C5A059;
+    color: var(--chrome-dark);
 }
 
 .rv-dual-doors {
@@ -3384,13 +3386,13 @@ body:not(.is-santuario):not(.is-acompanamiento) {
     min-height: 14.5rem;
     padding: 1.7rem 1.55rem 1.5rem;
     border-radius: 18px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    background: #121212;
+    border: 1px solid rgba(201, 168, 76, 0.45);
+    background: var(--chrome-dark);
     box-shadow:
-        0 22px 48px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        0 22px 48px rgba(58, 83, 100, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     text-decoration: none;
-    color: #E0E6ED;
+    color: #F8FAFC;
     overflow: hidden;
     transition: border-color .28s ease, transform .28s ease, box-shadow .28s ease;
     cursor: pointer;
@@ -3727,8 +3729,8 @@ body.is-acompanamiento #breadcrumbs {
 
 .rv-footer {
     flex-shrink: 0;
-    border-top: 1px solid rgba(154, 151, 144, 0.18);
-    background: #0A192F;
+    border-top: 1px solid rgba(201, 168, 76, 0.28);
+    background: var(--chrome-dark);
     padding: 0.45rem 1rem;
     z-index: 40;
     min-height: 0;
@@ -4393,7 +4395,7 @@ body.is-aposento .rv-footer {
     min-width: 0;
     min-height: 0;
     width: 100%;
-    background: var(--obsidian) !important;
+    background: var(--paper) !important;
     color: var(--ink) !important;
 }
 
@@ -4441,7 +4443,7 @@ body.is-aposento .rv-footer {
         left: 0;
         width: min(22rem, 88vw);
         max-height: min(78vh, 38rem);
-        background: var(--obsidian);
+        background: var(--chrome-dark);
         border-right: 1px solid rgba(197, 160, 89, 0.22);
         box-shadow: var(--shadow-deep);
     }
@@ -5206,7 +5208,7 @@ body.is-aposento .rv-footer {
     display: grid;
     place-items: center;
     overflow: hidden;
-    background: linear-gradient(180deg, #FAF8F5 0%, #F3ECE1 100%);
+    background: linear-gradient(180deg, #EEF2F4 0%, #F8FAFB 100%);
     opacity: 1;
     cursor: pointer;
     transition: opacity 1.5s ease;
@@ -5242,7 +5244,7 @@ body.is-aposento .rv-footer {
     position: absolute;
     inset: -12%;
     pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 52%, rgba(243, 236, 225, 0.55) 82%);
+    background: radial-gradient(ellipse at center, transparent 52%, rgba(238, 242, 244, 0.55) 82%);
 }
 
 .rv-splash-logo {
@@ -5338,8 +5340,8 @@ body.is-aposento .rv-footer {
 }
 
 /* =========================================================
- --- Premium Obsidiana · Dark Luxury legible (capa final) --------------- */
-/* PREMIUM OBSIDIANA · multicapa, tipografía suavizada, oro restaurado
+ --- Niebla marina · capa final (papel / pizarra / oro) --- */
+/* Superficies de página en niebla; chrome en pizarra media
    ========================================================= */
 
 body.is-santuario,
@@ -5348,7 +5350,7 @@ body.is-santuario .rv-estudio-modulo,
 body.is-santuario #panel-neuro,
 body.is-santuario #panel-perspectivas,
 body.is-santuario #panel-concordancia {
-    background-color: var(--obsidian) !important;
+    background-color: var(--paper) !important;
     color: var(--ink) !important;
 }
 
@@ -5506,23 +5508,23 @@ body.is-santuario .text-\[\#9E7B35\] {
 }
 
 body.is-santuario .rv-sidebar {
-    background-color: #0A192F !important;
+    background-color: var(--chrome-dark) !important;
     color: #E7E5E4 !important;
-    border-right: 1px solid rgba(197, 155, 39, 0.3) !important;
-    border-color: rgba(197, 155, 39, 0.3) !important;
+    border-right: 1px solid rgba(201, 168, 76, 0.3) !important;
+    border-color: rgba(201, 168, 76, 0.3) !important;
 }
 
 body.is-santuario .rv-chrome {
-    background: var(--obsidian) !important;
+    background: var(--chrome-dark) !important;
     color: #F8FAFC !important;
-    border-color: rgba(197, 155, 39, 0.3) !important;
+    border-color: rgba(201, 168, 76, 0.3) !important;
 }
 
 body.is-santuario .rv-select,
 body.is-santuario select.rv-select {
-    background: #121212 !important;
-    color: #E0E6ED !important;
-    border-color: rgba(212, 175, 55, 0.4) !important;
+    background: #2C3E4A !important;
+    color: #F8FAFC !important;
+    border-color: rgba(201, 168, 76, 0.4) !important;
 }
 
 body.is-santuario .rv-verse-surface,
@@ -5552,24 +5554,22 @@ body.is-santuario .rv-il-cell {
   color: #0F172A !important;
 }
 body.is-santuario .rv-interlineal-grid {
-    background: #FAF8F5 !important;
-    border-color: rgba(197, 155, 39, 0.35) !important;
+    background: var(--paper) !important;
+    border-color: rgba(201, 168, 76, 0.35) !important;
 }
 
 /* Superficies globales */
 #rv-app,
-.rv-home,
-body.is-acompanamiento,
-#rv-acompanamiento {
-    background: var(--obsidian);
+.rv-home {
+    background: var(--paper);
     color: var(--ink);
 }
 
 .rv-btn-gold,
 button.rv-btn-gold {
-    background: #D4AF37 !important;
-    border-color: #D4AF37 !important;
-    color: #0B0C10 !important;
+    background: var(--gold-bright) !important;
+    border-color: var(--gold-bright) !important;
+    color: var(--chrome-dark) !important;
 }
 
 .rv-toolbar,
@@ -5588,9 +5588,9 @@ button.rv-btn-gold {
 .rv-select,
 select.rv-select,
 #buscador-canon {
-    background: #0E1014;
-    color: #E0E6ED;
-    border-color: rgba(212, 175, 55, 0.35);
+    background: #2C3E4A;
+    color: #F8FAFC;
+    border-color: rgba(201, 168, 76, 0.35);
 }
 
 .rv-chrome,
@@ -5653,8 +5653,8 @@ select.rv-select,
     background: transparent;
     border: none;
     box-shadow: none;
-    mix-blend-mode: screen;
-    filter: drop-shadow(0 2px 8px rgba(197, 155, 39, 0.3));
+    mix-blend-mode: multiply;
+    filter: drop-shadow(0 2px 8px rgba(201, 168, 76, 0.28));
     image-rendering: auto;
 }
 
@@ -5720,8 +5720,8 @@ img.rv-splash-logo[src*="lockup-clear"] {
 }
 
 #rv-splash {
-    background: linear-gradient(180deg, #FAF8F5 0%, #F3ECE1 100%) !important;
-    color: #0A192F !important;
+    background: var(--paper, #EEF2F4) !important;
+    color: var(--ink, #2C3E4A) !important;
 }
 
 /* —— Lectura avanzada: bible-nav, verse-actions, study-panel, aposento —— */
@@ -6487,7 +6487,7 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
 
 body.aposento-active,
 body.is-aposento {
-    background-color: #0c0a09 !important;
+    background-color: var(--paper) !important;
     transition: background-color 0.5s ease;
 }
 
