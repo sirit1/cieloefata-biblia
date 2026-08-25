@@ -3600,15 +3600,19 @@ function descargarBackup(kind) {
             { key: 'tla', etiqueta: 'TLA' },
             { key: 'dhh', etiqueta: 'DHH' },
         ];
+        const htmlOpts = VERSIONES_FIJAS.map(v =>
+            `<option value="${v.key}">${v.etiqueta}</option>`
+        ).join('');
+        const raw = String(localStorage.getItem('revelatio_version') || 'rv1960').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const savedV = VERSIONES_FIJAS.some(v => v.key === raw) ? raw : 'rv1960';
         if (version) {
-            version.innerHTML = VERSIONES_FIJAS.map(v =>
-                `<option value="${v.key}">${v.etiqueta}</option>`
-            ).join('');
-            const raw = localStorage.getItem('revelatio_version') || 'rv1960';
-            const savedV = VERSIONES_FIJAS.some(v => v.key === raw)
-                ? raw
-                : (raw === 'lxx' ? 'septuaginta' : 'rv1960');
+            version.innerHTML = htmlOpts;
             version.value = savedV;
+        }
+        const popVer = document.getElementById('pop-selector-version');
+        if (popVer) {
+            popVer.innerHTML = htmlOpts;
+            popVer.value = savedV;
         }
         if (autor) {
             const lista = (window.REVELATIO_AUTORES || []).filter(a => a?.key);
