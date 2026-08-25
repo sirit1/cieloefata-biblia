@@ -527,8 +527,8 @@
             clearTimeout(timer);
             const json = await res.json().catch(() => ({}));
             const text = String(json?.text || json?.answer || json?.data?.cuerpo || '').trim();
-            const found = json.found !== false && json.source !== 'corpus-miss' && json.source !== 'theological-engine-fallback';
-            if (json.success && found && text && !esRuidoEditorial(text)) {
+            const found = json.found === true && json.source !== 'corpus-miss' && json.source !== 'theological-engine-fallback';
+            if (json.success && found && text && !esRuidoEditorial(text) && !/^No hay nota/i.test(text)) {
                 const paragraphs = text.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
                 return {
                     ia: false,
@@ -540,7 +540,17 @@
                     paragraphs,
                 };
             }
-            throw new Error(json.error || 'Error al procesar la solicitud');
+            const miss = /^No hay nota/i.test(text)
+                ? text
+                : `No hay nota de ${nombre} para ${ref}.`;
+            return {
+                ia: false,
+                vacio: true,
+                titulo: nombre,
+                entradas: [],
+                cuerpo: miss,
+                paragraphs: [],
+            };
         } catch (err) {
             return {
                 ia: false,
@@ -801,6 +811,19 @@
         return /no hay transcripci[oó]n|nota general del comentarista|este panel no admite|s[íi]ntesis de IA|texto hist[oó]rico de dominio público|consigna gen[eé]rica de otro libro/i.test(String(texto || ''));
     }
 
+    function esAutorInglesPd(autor) {
+        return /spurgeon|henry|calvin|calvino|gill|clarke|jamieson|jfb|wesley/i.test(String(autor || ''));
+    }
+
+    function pareceInglesPd(texto) {
+        const t = String(texto || '');
+        if (!t) return false;
+        return /\b(the|and|that|which|this|from|but|not)\b/i.test(t)
+            && !/[áéíóúñü¿¡]/.test(t.slice(0, 500));
+    }
+
+    const LABEL_PD_EN = 'Texto original en inglés (dominio público). No es una traducción de IA.';
+
     function referenciaComentario(libro) {
         const n = Number(libro?.verso || 0);
         if (!libro?.n) return '';
@@ -848,7 +871,11 @@
             if (comentario?.cuerpo && !comentario?.vacio) {
                 pintarComentario(libro, autor, comentario);
             } else {
-                pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor, vacio: true });
+                pintarComentario(libro, autor, {
+                    titulo: AUTOR_LABEL[autor] || autor,
+                    vacio: true,
+                    cuerpo: comentario?.cuerpo || '',
+                });
             }
         } catch {
             pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor, vacio: true });
@@ -878,13 +905,17 @@
         const refEl = document.getElementById('ref-comentario');
         if (refEl) refEl.textContent = ref;
         if (!bloques.length) {
-            const detalle = extra?.error
-                ? `Error al obtener la exposición: ${escapeHtml(extra.error)}. Verifica la conexión con el servidor.`
-                : `No hay exposición disponible para <strong>${escapeHtml(ref || 'este pasaje')}</strong>. Verifica que el servidor esté activo y la clave Gemini en <code>.env.local</code>.`;
-            neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">${detalle}</div>`;
+            const nombre = extra?.titulo || AUTOR_LABEL[autor] || autor || 'este autor';
+            const miss = extra?.cuerpo && /^No hay nota/i.test(String(extra.cuerpo))
+                ? String(extra.cuerpo).trim()
+                : `No hay nota de ${nombre} para ${ref || 'este pasaje'}.`;
+            neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">${escapeHtml(miss)}</div>`;
             return;
         }
-        neuro.innerHTML = bloques.map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`).join('');
+        const pd = (esAutorInglesPd(autor) || esAutorInglesPd(extra?.titulo) || pareceInglesPd(bloques.join(' ')))
+            ? `<p class="rv-pd-en text-[11px] text-stone-500 font-mono mb-2">${LABEL_PD_EN}</p>`
+            : '';
+        neuro.innerHTML = pd + bloques.map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`).join('');
     }
 
 
@@ -1002,6 +1033,7 @@
             pintarComentario(libro, autor, window.revelatioLectura?.comentarioInmediato?.(referenciaComentario(libro), autor) || { titulo: AUTOR_LABEL[autor] || autor });
         } catch { /* ignore */ }
         try { refrescarConcordancia(libro); } catch { /* ignore */ }
+        try { refrescarTsk(libro); } catch { /* ignore */ }
 
         let passage = window.__revelatioPassageData;
         try {
@@ -1081,6 +1113,7 @@
         try { pintarIndiceVersiculos(libro, numerosDelPasaje(passage, version)); } catch { /* ignore */ }
         try { restaurarMarcasCapitulo(libro); } catch { /* ignore */ }
         try { refrescarConcordancia(libro); } catch { /* ignore */ }
+        try { refrescarTsk(libro); } catch { /* ignore */ }
         try { refrescarPerspectivas(libro); } catch { /* ignore */ }
         if (libro.verso) requestAnimationFrame(() => { try { irAVersiculo(Number(libro.verso)); } catch { /* ignore */ } });
         try {
@@ -2180,6 +2213,7 @@ function descargarBackup(kind) {
         const next = { ...loc, verso: n };
         refrescarComentario(next);
         refrescarConcordancia(next);
+        refrescarTsk(next);
         refrescarPerspectivas(next);
         if (opts.entrarModo || document.body.classList.contains('is-verse-study')) {
             pintarModoVersiculo(n);
@@ -2302,13 +2336,23 @@ function descargarBackup(kind) {
             btn.setAttribute('aria-selected', String(on));
         });
         document.getElementById('panel-neuro')?.classList.toggle('is-hidden-tab', tab !== 'comentario');
+        document.getElementById('panel-tsk')?.classList.toggle('is-hidden-tab', tab !== 'tsk');
         document.getElementById('panel-perspectivas')?.classList.toggle('is-hidden-tab', tab !== 'perspectivas');
         document.getElementById('panel-concordancia')?.classList.toggle('is-hidden-tab', tab !== 'concordancia');
-        if (tab === 'perspectivas' || tab === 'concordancia') {
+        const neuroPanel = document.getElementById('panel-neuro');
+        if (neuroPanel) neuroPanel.hidden = tab !== 'comentario';
+        const tskPanel = document.getElementById('panel-tsk');
+        if (tskPanel) tskPanel.hidden = tab !== 'tsk';
+        const perspPanel = document.getElementById('panel-perspectivas');
+        if (perspPanel) perspPanel.hidden = tab !== 'perspectivas';
+        const concPanel = document.getElementById('panel-concordancia');
+        if (concPanel) concPanel.hidden = tab !== 'concordancia';
+        if (tab === 'perspectivas' || tab === 'concordancia' || tab === 'tsk') {
             document.getElementById('modulo-estudio')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         if (tab === 'perspectivas') refrescarPerspectivas(estado());
         if (tab === 'concordancia') refrescarConcordancia(estado());
+        if (tab === 'tsk') refrescarTsk(estado());
     }
 
     function strongsDelVersoSeleccionado(n) {
@@ -2455,12 +2499,40 @@ function descargarBackup(kind) {
             const lista = json.data?.referencias || json.referencias || [];
             if (!lista.length) return [];
             return lista.map(x => ({
-                ref: x.ref || x.reference,
-                nota: x.texto || x.text || x.nota || x.description || '',
+                ref: x.ref || x.referencia || x.reference || x.cita || '',
+                texto: x.texto || x.text || '',
             }));
         } catch {
             return [];
         }
+    }
+
+    function pintarTsk(libro, refs) {
+        const refEl = document.getElementById('ref-tsk');
+        const listEl = document.getElementById('lista-tsk');
+        const passage = referenciaComentario(libro);
+        if (refEl) refEl.textContent = passage;
+        if (!listEl) return;
+        if (!Array.isArray(refs) || !refs.length) {
+            listEl.innerHTML = `<p class="rv-estudio-vacio">No hay referencias TSK catalogadas para ${escapeHtml(passage)}.</p>`;
+            return;
+        }
+        listEl.innerHTML = refs.map((item) => {
+            const cita = item.ref || '';
+            const texto = String(item.texto || '').trim();
+            return `<button type="button" class="rv-xref-item" data-ir-ref="${escapeHtml(cita)}">
+                <span class="rv-xref-ref">${escapeHtml(cita)}</span>
+                ${texto ? `<span class="rv-xref-texto">«${escapeHtml(texto)}»</span>` : ''}
+            </button>`;
+        }).join('');
+    }
+
+    async function refrescarTsk(libro) {
+        const listEl = document.getElementById('lista-tsk');
+        const passage = referenciaComentario(libro);
+        if (listEl) listEl.innerHTML = `<p class="rv-estudio-vacio">Cargando TSK para ${escapeHtml(passage)}…</p>`;
+        const refs = await cargarCruzadas(passage);
+        pintarTsk(libro, refs);
     }
 
     function palabrasClaveConcordancia(texto) {
@@ -2915,6 +2987,13 @@ function descargarBackup(kind) {
             const nombre = resolverLibro(parsed?.libroQ || '');
             if (nombre && parsed?.cap) irGoto(nombre, parsed.cap, parsed.verso);
         });
+        document.getElementById('lista-tsk')?.addEventListener('click', event => {
+            const btn = event.target.closest('[data-ir-ref]');
+            if (!btn?.dataset.irRef) return;
+            const parsed = parseGoto(btn.dataset.irRef);
+            const nombre = resolverLibro(parsed?.libroQ || '');
+            if (nombre && parsed?.cap) irGoto(nombre, parsed.cap, parsed.verso);
+        });
         document.getElementById('texto-biblico')?.addEventListener('click', (event) => {
             const retry = event.target.closest('[data-rv-retry-pasaje]');
             if (!retry) return;
@@ -3225,6 +3304,7 @@ function descargarBackup(kind) {
                 window.__revelatioLibroActivo = { ...loc, verso: 0 };
                 refrescarComentario({ ...loc, verso: 0 });
                 refrescarConcordancia({ ...loc, verso: 0 });
+                refrescarTsk({ ...loc, verso: 0 });
                 return;
             }
             captureFromVerse(verse);
@@ -3232,6 +3312,7 @@ function descargarBackup(kind) {
                 window.__revelatioLibroActivo = { ...loc, verso: n };
                 refrescarComentario({ ...loc, verso: n });
                 refrescarConcordancia({ ...loc, verso: n });
+                refrescarTsk({ ...loc, verso: n });
                 refrescarPerspectivas({ ...loc, verso: n });
             }
         };
@@ -3619,7 +3700,7 @@ function descargarBackup(kind) {
             const extras = [
                 { key: 'charles-spurgeon', etiqueta: 'C. H. Spurgeon' },
                 { key: 'matthew-henry', etiqueta: 'Matthew Henry' },
-                { key: 'juan-calvino', etiqueta: 'Juan Calvino' },
+                { key: 'john-calvin', etiqueta: 'Juan Calvino' },
                 { key: 'jamieson-fausset-brown', etiqueta: 'Jamieson-Fausset-Brown' },
                 { key: 'john-gill', etiqueta: 'John Gill' },
             ];

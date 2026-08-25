@@ -13,6 +13,7 @@
     { id: 'john-calvin', label: 'Juan Calvino (Comentarios Exegéticos)' },
     { id: 'john-wesley', label: 'John Wesley (Notas Explicativas)' },
     { id: 'jamieson-fausset-brown', label: 'Jamieson-Fausset-Brown (Crítico y Explicativo)' },
+    { id: 'john-gill', label: 'John Gill (Exposición)' },
     { id: 'martin-luther', label: 'Martín Lutero (Comentarios Reformados)' },
     { id: 'agustin-de-hipona', label: 'Agustín de Hipona (Padres de la Iglesia)' },
   ];
@@ -370,10 +371,14 @@
         throw new Error(httpErrorMessage(data, res.status));
       }
       const text = data.text || data.answer || data.respuesta || '';
-      const found = data.found !== false && String(text).trim() && data.source !== 'corpus-miss' && data.source !== 'theological-engine-fallback';
+      const found = data.found === true && String(text).trim() && data.source !== 'corpus-miss' && data.source !== 'theological-engine-fallback' && !/^No hay nota/i.test(String(text));
       const displayAuthor = authorObj.label;
+      const nombreCorto = authorObj.label.split('(')[0].trim();
       if (!found) {
-        const miss = String(text).trim() || `No hay nota de ${authorObj.label.split('(')[0].trim()} para ${passage}.`;
+        const raw = String(text).trim();
+        const miss = /^No hay nota/i.test(raw) && !/respaldo teol[oó]gico|gemini|\.env/i.test(raw)
+          ? raw
+          : `No hay nota de ${nombreCorto} para ${passage}.`;
         container.innerHTML = `
           <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
             <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
@@ -384,14 +389,14 @@
         return;
       }
       const formatted = formatAnswerHtml(text);
-      const originalEn = /\b(the|and|that|which|this|from|but|not)\b/i.test(text)
-        && !/[áéíóúñü¿¡]/.test(String(text).slice(0, 500));
+      const originalEn = /spurgeon|henry|calvin|calvino|gill|clarke|jamieson|jfb|wesley/i.test(`${authorObj.id} ${authorObj.label}`)
+        || (/\b(the|and|that|which|this|from|but|not)\b/i.test(text) && !/[áéíóúñü¿¡]/.test(String(text).slice(0, 500)));
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
           <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
             <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(displayAuthor)}</span>
           </div>
-          ${originalEn ? `<p class="text-[10px] text-stone-500 font-mono">Texto original (inglés, dominio público)</p>` : ''}
+          ${originalEn ? `<p class="text-[10px] text-stone-500 font-mono">Texto original en inglés (dominio público). No es una traducción de IA.</p>` : ''}
           <div class="text-xs leading-relaxed text-justify space-y-2 text-stone-800">${formatted}</div>
         </div>`;
     } catch (err) {
@@ -424,7 +429,17 @@
     await fetchCommentary(currentAutor);
   }
 
+  function ensureStudyPanelRoot() {
+    const root = ensurePanel();
+    const tskPane = document.getElementById('rv-sp-tsk');
+    if (tskPane && !document.getElementById('tsk-content-area')) {
+      tskPane.innerHTML = '<div id="tsk-content-area"></div>';
+    }
+    return root;
+  }
+
   async function loadTskReferences(passageRef = currentActivePassage) {
+    ensureStudyPanelRoot();
     const container = document.getElementById('tsk-content-area');
     if (!container) return;
     const passage = String(passageRef || currentActivePassage || 'Mateo 16:2').trim();
@@ -1195,7 +1210,7 @@
     if (currentTab === 'dogmatica' || currentTab === 'lentes' || tabId === 'lentes') {
       currentTab = 'dogmatica';
     }
-    const root = ensurePanel();
+    const root = ensureStudyPanelRoot();
     root.querySelectorAll('[data-sp-tab]').forEach((btn) => {
       const tabKey = btn.dataset.spTab;
       const on = tabKey === currentTab || map[tabKey] === currentTab || (tabKey === 'lentes' && currentTab === 'dogmatica');
@@ -1228,7 +1243,7 @@
   }
 
   function createApi() {
-    const root = ensurePanel();
+    const root = ensureStudyPanelRoot();
 
     const setTab = switchStudyTab;
 

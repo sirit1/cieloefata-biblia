@@ -544,6 +544,7 @@
         'albert-barnes': 'Albert Barnes',
         'charles-spurgeon': 'C. H. Spurgeon',
         'juan-calvino': 'Juan Calvino',
+        'john-calvin': 'Juan Calvino',
         'john-gill': 'John Gill',
     };
 
