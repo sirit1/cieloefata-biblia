@@ -3,7 +3,6 @@
  * Endpoint para Lentes Hermenéuticas y Cognitivas de Nivel Élite.
  */
 import { generateEliteLensAnswer } from './ai.js';
-import { generarFallbackLenteElite } from '../lib/theological-fallback.js';
 
 export default async function handler(req, res) {
   res.setHeader?.('Content-Type', 'application/json; charset=utf-8');
@@ -56,23 +55,17 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('[api/lente-elite] Error:', error?.message || error);
-    const fallback = generarFallbackLenteElite({
-      passage,
-      subLensId,
-      lensId: subLensId,
-      lensTitle,
-      prompt,
-      verseText,
-    });
+    const msg = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
     return res.status(200).json({
-      success: true,
-      ok: true,
-      answer: fallback,
-      text: fallback,
-      result: fallback,
-      respuesta: fallback,
-      commentary: { text: fallback },
-      source: 'theological-engine-fallback',
+      success: false,
+      ok: false,
+      error: msg,
+      answer: msg,
+      text: msg,
+      result: msg,
+      respuesta: msg,
+      commentary: { text: msg },
+      source: 'ai-unavailable',
       meta: {
         passage,
         subLensId,

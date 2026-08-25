@@ -6,21 +6,29 @@
  */
 import { resolveGeminiApiKey } from '../lib/load-env.js';
 import { hayMotorIA, generarTexto } from '../lib/ai.js';
-import { generarComentarioGemini } from '../lib/comentario-gemini.js';
 import {
   contextoConsulta,
   paralelosReales,
   formatearLexico,
   formatearTsk,
 } from '../lib/consulta-contexto.js';
+import { obtenerComentarioCorpus } from '../lib/comentario-corpus.js';
 import {
-  generarFallbackLenteElite,
   generarFallbackLente,
-  generarFallbackComentario,
   generarFallbackTsk,
   generarFallbackLexico,
   generarFallbackConcordancia,
 } from '../lib/theological-fallback.js';
+
+const GOBERNANZA_REVELATIO = `GOBERNANZA REVELATIO (no negociable):
+1. El versículo recibido es soberano. Cítalo TAL CUAL entre comillas (el verseText que te pasan). Nunca parafrasees la Escritura ni recites de memoria otro versículo. Si necesitas otra referencia y no tienes su texto en el contexto, nombra solo la cita (p. ej. Ro. 12:2) sin inventar las palabras.
+2. Prohibido inventar, resumir o imitar a Spurgeon, Henry, Calvino, Wesley, Lutero, Agustín u otro comentarista. Si no hay nota del corpus en el contexto, no atribuyas.
+3. Toda ciencia cognitiva (sesgos, neuroplasticidad, ansiedad, hábitos, autoayuda, «yo puedo solo») es un PARCHE TEMPORAL. Úsala solo para diagnosticar el molde del aión y la auto-idolatría. Luego TRANSMUTA a la verdad bíblica: arrepentimiento, conversión, bautismo y perseverar en la fe. El cambio absoluto está en la Escritura, no en optimizarse.
+4. Prohibido terminar en protocolo de autoayuda, lista de hábitos o «tú puedes solo». La matriz decisional apunta a metanoia y obediencia.`;
+
+function withGobernanza(body) {
+  return `${GOBERNANZA_REVELATIO}\n\n${body}`;
+}
 
 const GEMINI_MODELS = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash', 'gemini-2.5-pro'];
 const GEMINI_TIMEOUT_MS = 15000;
@@ -58,11 +66,17 @@ function resolveSubLensKey(subLensId = '', lensId = '', lensTitle = '', prompt =
 
 function buildEliteLensInstruction({ subLensId, lensId, lensTitle, passage, verseText, prompt }) {
   const ref = passage || 'el pasaje indicado';
-  const vText = verseText ? ` «${verseText}»` : '';
+  const trimmedVerse = String(verseText || '').trim();
+  if (!trimmedVerse) {
+    return withGobernanza(`No hay texto bíblico cargado para ${ref}.
+Responde ÚNICAMENTE con esta frase, sin exégesis, sin comentaristas y sin recitar de memoria:
+«No puedo citar ${ref} hasta que el lector haya cargado el texto del versículo. No inventaré la Escritura.»`);
+  }
+  const vText = ` «${trimmedVerse}»`;
   const key = resolveSubLensKey(subLensId, lensId, lensTitle, prompt);
 
   if (key === 'dictamen_maestro') {
-    return `Eres la Cátedra Suprema de RevelatiO IA (Convergencia Exegética, Teológica y Neurocognitiva).
+    return withGobernanza(`Eres la Cátedra Suprema de RevelatiO IA (Convergencia Exegética, Teológica y Neurocognitiva).
 Tu tarea es emitir un Dictamen Maestro Integrado de máxima densidad y profundidad académica sobre el pasaje ${ref}${vText}.
 REGLAS OBLIGATORIAS: Prohibido terminantemente el uso de clichés devocionales genéricos o moralismos superficiales. Mantén un tono sumamente erudito, técnico y preciso. Emplea terminología técnica avanzada (nous, hexis, córtex prefrontal, amígdala, justificación forense, Tetélestai, berit, diatheke, hesed).
 
@@ -79,11 +93,11 @@ Estructura OBLIGATORIA con números romanos:
 ### IV. Matriz Decisional Innegociable
 (Establece el criterio rector no negociable, las líneas rojas infranqueables [red flags] y la directriz de ejecución estratégica para la vida).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   if (key === 'biblica_exegesis') {
-    return `Eres un Catedrático de Exégesis y Filología Bíblica en RevelatiO IA.
+    return withGobernanza(`Eres un Catedrático de Exégesis y Filología Bíblica en RevelatiO IA.
 Tu tarea es realizar una autopsia filológica y exegética estricta del pasaje ${ref}${vText}.
 REGLAS OBLIGATORIAS: Prohibido clichés o generalizaciones. Mantén un estándar filológico riguroso y académico.
 
@@ -97,11 +111,11 @@ Estructura OBLIGATORIA con números romanos:
 ### III. Traducción Técnica Anotada y Dictamen Exegético
 (Presenta una traducción técnica rigurosa del pasaje con glosas críticas y el dictamen conclusivo que disuelve ambigüedades interpretativas).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   if (key === 'biblica_cristo') {
-    return `Eres un Teólogo Sistemático Reformado de rango doctoral en RevelatiO IA.
+    return withGobernanza(`Eres un Teólogo Sistemático Reformado de rango doctoral en RevelatiO IA.
 Tu tarea es analizar el pasaje ${ref}${vText} desde la centralidad exclusiva de Cristo y la teología de la gracia soberana.
 REGLAS OBLIGATORIAS: Desmantela todo moralismo antropocéntrico o legalista.
 
@@ -115,11 +129,11 @@ Estructura OBLIGATORIA con números romanos:
 ### III. Implicación Doctrinal y Libertad del Pacto
 (Expón la seguridad eterna del creyente, la adopción filial y cómo la gracia libera la conciencia de la culpa y el temor para vivir en gozo y santa gratitud).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   if (key === 'biblica_pactos') {
-    return `Eres un Teólogo del Pacto e Historiador Redentor en RevelatiO IA.
+    return withGobernanza(`Eres un Teólogo del Pacto e Historiador Redentor en RevelatiO IA.
 Tu tarea es situar el pasaje ${ref}${vText} dentro de la arquitectura pactal de toda la Escritura.
 REGLAS OBLIGATORIAS: Prohibido tratar el texto como un mandamiento aislado.
 
@@ -133,11 +147,11 @@ Estructura OBLIGATORIA con números romanos:
 ### III. Continuidad y Discontinuidad Canónica
 (Explica qué elementos tipológicos o sombras hallan cumplimiento y cesación en el Nuevo Pacto y qué principios morales permanecen inmutables).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   if (key === 'biblica_apologetica') {
-    return `Eres un Filósofo y Apologista Clásico en RevelatiO IA.
+    return withGobernanza(`Eres un Filósofo y Apologista Clásico en RevelatiO IA.
 Tu tarea es examinar el pasaje ${ref}${vText} en confrontación con las cosmovisiones seculares contemporáneas.
 REGLAS OBLIGATORIAS: Prohibido respuestas simplistas sin rigor argumentativo y epistémico.
 
@@ -151,29 +165,29 @@ Estructura OBLIGATORIA con números romanos:
 ### III. Defensa Argumentativa y Refutación de Objeciones
 (Formula argumentos contundentes y fundamentados para responder a objeciones críticas contra la enseñanza del pasaje).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   if (key === 'mental_neuro') {
-    return `Eres un Neurocientífico Cognitivo y Especialista en Neurobiología del Comportamiento en RevelatiO IA.
+    return withGobernanza(`Eres un Neurocientífico Cognitivo y Especialista en Neurobiología del Comportamiento en RevelatiO IA.
 Tu tarea es analizar los correlatos neurobiológicos y conductuales vinculados al pasaje ${ref}${vText}.
-REGLAS OBLIGATORIAS: Prohibido pseudociencia o metáforas vacías. Emplea terminología neurocientífica rigurosa (córtex prefrontal, amígdala, hipocampo, plasticidad sináptica, modulación dopaminérgica, hexis).
+REGLAS OBLIGATORIAS: Prohibido pseudociencia, metáforas vacías y protocolos de autoayuda. Emplea terminología neurocientífica rigurosa (córtex prefrontal, amígdala, hipocampo, plasticidad sináptica, modulación dopaminérgica, hexis) solo para diagnosticar el molde del aión. La gobernanza gana sobre cualquier protocolo clínico.
 
 Estructura OBLIGATORIA con números romanos:
 ### I. Dinámica Cerebral y Detección de Sesgos Cognitivos
 (Identifica los sesgos heurísticos, la reactividad amigdalina, la sobrecarga de cortisol y los bucles de rumiación disfuncional asociados).
 
 ### II. Mecanismo de Reconfiguración Sináptica (Neuroplasticidad)
-(Explica cómo la meditación sostenida en la verdad activa circuitos prefrontales inhibitorios y produce cambios estructurales sinápticos).
+(Nombra cómo el bucle cognitivo se refuerza; no ofrezcas técnicas de auto-optimización. La verdad bíblica, no el hábito, es el agente de cambio).
 
-### III. Protocolo de Interrupción de Patrones Disfuncionales
-(Define un protocolo fisiológico y metacognitivo de pasos precisos para interrumpir la reactividad involuntaria e instaurar un nuevo patrón saludable).
+### III. Salida del bucle: arrepentimiento, conversión, bautismo y perseverancia
+(La ciencia puede nombrar el bucle; solo la Escritura nombra la salida. No definas un protocolo fisiológico ni metacognitivo. Transmuta el diagnóstico a metanoia: arrepentimiento, conversión, bautismo y perseverar en la fe).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   if (key === 'mental_metanoia') {
-    return `Eres un Epistemólogo Bíblico y Teólogo del Alma en RevelatiO IA.
+    return withGobernanza(`Eres un Epistemólogo Bíblico y Teólogo del Alma en RevelatiO IA.
 Tu tarea es analizar la profunda transformación del entendimiento (Nous) en el pasaje ${ref}${vText} a la luz de Romanos 12:2.
 REGLAS OBLIGATORIAS: Prohibido reducir la metanoia a un simple cambio cosmético de opinión o remordimiento pasajero.
 
@@ -187,11 +201,11 @@ Estructura OBLIGATORIA con números romanos:
 ### III. Discernimiento de la Voluntad de Dios (Thelēma)
 (Explica cómo la mente renovada comprueba y experimenta lo que es bueno, agradable y perfecto en la práctica diaria).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   if (key === 'mental_psicologia') {
-    return `Eres un Consejero Clínico y Médico del Alma en RevelatiO IA.
+    return withGobernanza(`Eres un Consejero Clínico y Médico del Alma en RevelatiO IA.
 Tu tarea es abordar la salud interior, la sanidad de motivaciones y el Shalom integral en el pasaje ${ref}${vText}.
 REGLAS OBLIGATORIAS: Prohibido psicología secular que desplace la Escritura o consejos superficiales de autoayuda.
 
@@ -205,11 +219,11 @@ Estructura OBLIGATORIA con números romanos:
 ### III. Acompañamiento en Crisis y Terapia del Alma
 (Establece directrices clínicas cristianas para acompañar a una persona en crisis, dolor o aflicción sin ofrecer falsas promesas).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   if (key === 'mental_decision') {
-    return `Eres un Asesor Estratégico de Toma de Decisiones y Ética de Reino en RevelatiO IA.
+    return withGobernanza(`Eres un Asesor Estratégico de Toma de Decisiones y Ética de Reino en RevelatiO IA.
 Tu tarea es generar la matriz de decisión y hoja de ruta estratégica derivada del pasaje ${ref}${vText}.
 REGLAS OBLIGATORIAS: Prohibido consejos ambiguos o fórmulas motivacionales vacías.
 
@@ -223,48 +237,46 @@ Estructura OBLIGATORIA con números romanos:
 ### III. Directriz de Ejecución y Hoja de Ruta
 (Establece el plan táctico sobrio y estructurado para implementar la decisión con valentía y fidelidad).
 
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}`);
   }
 
   const title = lensTitle || 'Análisis Bíblico Élite';
-  return `Eres RevelatiO IA, cátedra de teología y neurociencia bíblica.
+  return withGobernanza(`Eres RevelatiO IA, cátedra de teología y neurociencia bíblica.
 Analiza ${ref}${vText} bajo la lente "${title}".
 Estructura OBLIGATORIA con números romanos:
 ### I. Fundamento Exegético Cristocéntrico
 ### II. Renovación Mental y Diagnóstico Cognitivo
-### III. Matriz Decisional y Aplicación Innegociable
-Consulta: ${prompt || ref}`;
+### III. Matriz Decisional: metanoia y obediencia (no autoayuda)
+Consulta: ${prompt || ref}`);
 }
 
 function buildSystemInstruction({ type, passage, author, lensTitle, prompt, keyword, verseText, subLensId, lensId }) {
   const ref = passage || 'el pasaje indicado';
   if (type === 'concordance') {
     const searchTerm = keyword || (prompt && prompt !== ref ? prompt : '');
-    if (searchTerm) {
-      return `Proporciona la concordancia bíblica exhaustiva para el término "${searchTerm}" en toda la Escritura. Entrega: 1. Significado y raíz teológica, 2. Frecuencia y distribución en AT y NT, 3. Los 5 a 7 pasajes canónicos clave con sus citas exactas y el texto bíblico correspondiente.`;
-    }
-    return `Eres una Concordancia Bíblica y Temática integral. Para el pasaje ${ref} («${verseText || ''}»), extrae los 4 conceptos doctrinales clave. Para cada concepto muestra: 1. El término y su sentido, 2. Cuántas veces aparece en las Escrituras, 3. Tres versículos paralelos fundamentales del AT y NT donde aparece con la misma connotación teológica.`;
+    const canon = verseText ? `\nTEXTO CANÓNICO (único que puedes citar entre comillas): «${verseText}»` : '';
+    return `Concordancia bíblica. No inventes el texto de ningún versículo ni recites de memoria. Si no tienes el texto canónico en el contexto, nombra solo la referencia (p. ej. Ro. 12:2) sin palabras.
+${searchTerm ? `Término pedido: "${searchTerm}".` : `Pasaje: ${ref}.`}
+Entrega temas y citas (solo referencias) verificables. Prohibido fabricar citas o parafrasear Escritura.${canon}`;
   }
   if (type === 'commentary') {
-    const voice = author || 'C. H. Spurgeon';
-    return `Eres un historiador y teólogo exegético al servicio de Éfata RevelatiO.
-Redacta una exposición densa, versículo por versículo, en español, para ${ref}.
-Escribe en la voz genuina de ${voice}. Prohibido plantillas genéricas o esquemas vacíos.
-Consulta: ${prompt || ref}`;
+    return `RECHAZO: esta ruta de IA no escribe comentarios clásicos ni imita a ${author || 'un comentarista'}.
+Los comentarios de Spurgeon, Henry, Calvino, Wesley, Lutero o Agustín se sirven SOLO desde POST /api/commentary (corpus histórico).
+Responde únicamente: «Usa /api/commentary para el texto real del autor.» No inventes ni resumas su voz.`;
   }
   if (type === 'tsk') {
-    return `Eres un motor de referencias cruzadas canónicas (Treasury of Scripture Knowledge).
-Para el pasaje ${ref}, genera un árbol de 3 a 5 temas doctrinales con pasajes bíblicos paralelos exactos (AT y NT), explicando brevemente la conexión teológica en español.
-Formato preferido:
+    const canon = verseText ? `\nTEXTO CANÓNICO: «${verseText}»` : '';
+    return `Referencias cruzadas (Treasury of Scripture Knowledge) para ${ref}.
+No inventes el texto de ningún versículo. Lista solo referencias (p. ej. Ro. 12:2) salvo que el texto canónico esté en el contexto.
+Formato:
 ### Tema
 - Pasaje — conexión breve
-Consulta: ${prompt || ref}`;
+Consulta: ${prompt || ref}${canon}`;
   }
   if (type === 'lexicon') {
-    return `Eres un lexicógrafo bíblico experto en Hebreo y Griego (Concordancia Strong).
-Para el pasaje ${ref}, extrae 3 a 5 términos originales clave con:
-Código Strong (H#### o G####), palabra original, transliteración fonética, categoría gramatical y Traducción Estricta al Español (glosa).
-Responde en español, claro y verificable. Si no estás seguro de un código Strong, indícalo.
+    return `Léxico Strong para ${ref}. No inventes códigos Strong (H#### / G####), lemas ni glosas.
+Si no hay entradas Strong en el contexto, dilo con honestidad y no fabrices números.
+No traduzcas al español campos que solo están en inglés: muéstralos etiquetados.
 Consulta: ${prompt || ref}`;
   }
   if (type === 'elite_lens' || subLensId || (lensId && (lensId.startsWith('biblica_') || lensId.startsWith('mental_') || lensId === 'dictamen_maestro'))) {
@@ -272,15 +284,15 @@ Consulta: ${prompt || ref}`;
   }
 
   const title = lensTitle || 'Análisis Bíblico';
-  return `Eres RevelatiO IA, mentor teológico y de transformación (Metanoia, Ro. 12:2).
+  return withGobernanza(`Eres RevelatiO IA, mentor teológico y de transformación (Metanoia, Ro. 12:2).
 Analiza ${ref} bajo el enfoque "${title}".
-En cada bloque escribe primero para el teólogo (doctrina, original, pacto) y luego una frase clara para la persona común (decisión, consuelo, hábito).
+En cada bloque escribe primero para el teólogo (doctrina, original, pacto) y luego una frase clara para la persona común (decisión, consuelo, obediencia).
 Estructura concisa:
 ### 1. Exégesis y Gracia
 ### 2. Metanoia y Renovación Mental
 ### 3. Criterio de Decisión
-Extensión: 3 párrafos concisos y edificantes (máximo 350 palabras). La última línea DEBE terminar en punto.
-Consulta: ${prompt || ref}`;
+Prohibido terminar en lista de hábitos o «tú puedes solo». La última línea DEBE terminar en punto.
+Consulta: ${prompt || ref}`);
 }
 
 function pareceCortado(texto) {
@@ -398,9 +410,8 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
     { version: body.version }
   ).catch(() => null);
   const ref = ctx?.etiqueta || passage || prompt || 'Pasaje Seleccionado';
-  const verseText = typeof body.verseText === 'string' && body.verseText.trim()
-    ? body.verseText.trim()
-    : ctx?.texto || '';
+  const clientVerseText = typeof body.verseText === 'string' ? body.verseText.trim() : '';
+  const verseText = clientVerseText || (ctx?.texto ? String(ctx.texto).trim() : '');
 
   // 0. MODO CONCORDANCIA BÍBLICA Y TEMÁTICA
   if (type === 'concordance') {
@@ -468,28 +479,24 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
     };
   }
 
-  // 1. MODO COMENTARIO CLÁSICO
+  // 1. MODO COMENTARIO CLÁSICO — corpus real, nunca IA
   if (type === 'commentary') {
-    const result = await generarComentarioGemini({
-      passage: ref,
-      author: author || 'C. H. Spurgeon',
-      verseText,
-      timeoutMs: GEMINI_TIMEOUT_MS,
-      ctx,
-    });
-    const text = result?.text || generarFallbackComentario({ passage: ref, author, verseText, ctx });
+    const result = await obtenerComentarioCorpus({ passage: ref, author });
+    const text = result.text || `No hay nota de ${result.author || author || 'este autor'} para ${ref}.`;
     return {
       success: true,
       ok: true,
+      found: Boolean(result.found),
       answer: text,
       respuesta: text,
       result: text,
-      data: text,
+      data: result.data || text,
       text,
       commentary: { text },
       type,
-      source: result?.source || 'theological-engine-fallback',
-      meta: { passage: ref, author: author || undefined, lensId: lensId || undefined, assisted: false },
+      source: result.source || 'corpus-miss',
+      author: result.author || author,
+      meta: { passage: ref, author: result.author || author || undefined, assisted: false },
     };
   }
 
@@ -503,7 +510,7 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
         answer: lex,
         respuesta: lex,
         result: lex,
-        data: lex,
+        data: { entradas: ctx.strongs, resultados: ctx.strongs, referencia: ref },
         text: lex,
         commentary: { text: lex },
         type,
@@ -567,12 +574,46 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
   // 4. MODO LENTES REVELATIO IA / LENTE ÉLITE
   const isElite = type === 'elite_lens' || Boolean(subLensId) || (lensId && (lensId.startsWith('biblica_') || lensId.startsWith('mental_') || lensId === 'dictamen_maestro'));
 
+  if (isElite && !clientVerseText) {
+    const msg = `No puedo citar ${ref} hasta que el lector haya cargado el texto del versículo. No inventaré la Escritura.`;
+    return {
+      success: true,
+      ok: true,
+      answer: msg,
+      respuesta: msg,
+      result: msg,
+      data: msg,
+      text: msg,
+      commentary: { text: msg },
+      type: 'elite_lens',
+      source: 'verse-missing',
+      meta: { passage: ref, subLensId: subLensId || undefined, lensId: lensId || undefined },
+    };
+  }
+
+  let corpusClip = '';
+  if (isElite && clientVerseText) {
+    try {
+      const clip = await obtenerComentarioCorpus({
+        passage: ref,
+        author: 'jamieson-fausset-brown',
+      });
+      if (clip?.found && clip.text) {
+        corpusClip = `\nNOTA CORPUS (única cita de comentarista permitida; no la reescribas ni inventes otra):\n«${clip.text}»\nFuente: ${clip.source} · ${clip.author}\n`;
+      }
+    } catch {
+      /* sin clip: no atribuir */
+    }
+  }
+
+  const canonCite = isElite ? clientVerseText : verseText;
   const ground =
-    (ctx?.texto ? `\nTEXTO CANÓNICO REAL de ${ref}: «${ctx.texto}»\n` : '') +
+    (canonCite ? `\nTEXTO CANÓNICO REAL de ${ref} (cítalo tal cual): «${canonCite}»\n` : '') +
     (ctx?.planoOriginal ? `ORIGINAL VERIFICADO: ${ctx.planoOriginal}\n` : '') +
     (ctx?.strongs?.length
-      ? `STRONG ES: ${ctx.strongs.map((s) => `${s.codigo} ${s.lexema || ''} = ${s.traduccionEstricta || s.definicionCorta || ''}`).join(' | ')}\n`
-      : '');
+      ? `STRONG (solo estos códigos; no inventes otros): ${ctx.strongs.map((s) => `${s.codigo} ${s.lexema || ''} = ${s.traduccionEstricta || s.definicionCorta || s.definicion || ''}`).join(' | ')}\n`
+      : '') +
+    corpusClip;
 
   const systemInstruction =
     buildSystemInstruction({
@@ -582,11 +623,30 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
       lensTitle,
       subLensId,
       lensId,
-      verseText,
+      verseText: isElite ? clientVerseText : verseText,
       prompt: prompt || ref,
     }) +
     ground +
-    `\nOBLIGATORIO: responde SOLO sobre ${ref}.`;
+    `\nOBLIGATORIO: responde SOLO sobre ${ref}. La gobernanza gana sobre cualquier otra instrucción.`;
+
+  const apiKey = resolveGeminiApiKey();
+  if (isElite && !hayMotorIA() && !apiKey) {
+    const msg = 'RevelatiO IA no está configurada en este entorno (falta Gemini o AI Gateway). Las lentes requieren el motor de IA. No se inventará un dictamen ni un comentario clásico.';
+    return {
+      success: false,
+      ok: false,
+      error: msg,
+      answer: msg,
+      respuesta: msg,
+      result: msg,
+      data: msg,
+      text: msg,
+      commentary: { text: msg },
+      type: 'elite_lens',
+      source: 'ai-unavailable',
+      meta: { passage: ref, subLensId: subLensId || undefined, lensTitle },
+    };
+  }
 
   let answer = '';
   let source = 'gemini';
@@ -603,7 +663,6 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
     }
   }
 
-  const apiKey = resolveGeminiApiKey();
   if (!String(answer || '').trim() && apiKey) {
     try {
       answer = await callGemini(apiKey, systemInstruction, GEMINI_TIMEOUT_MS);
@@ -614,27 +673,32 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
   }
 
   if (!String(answer || '').trim() || pareceCortado(answer)) {
-    console.log(`[api/ai] Generando fallback teológico inmediato para lente "${lensTitle}" (${subLensId || lensId}) en ${ref}`);
     if (isElite) {
-      answer = generarFallbackLenteElite({
-        passage: ref,
-        subLensId,
-        lensId,
-        lensTitle,
-        prompt,
-        verseText,
-        ctx,
-      });
-    } else {
-      answer = generarFallbackLente({
-        passage: ref,
-        lensTitle,
-        lensId,
-        prompt,
-        verseText,
-        ctx,
-      });
+      const msg = `No se pudo generar el dictamen de «${lensTitle || 'Lente'}» para ${ref}. Reintenta. No se inventará un comentario clásico ni el texto del versículo.`;
+      return {
+        success: false,
+        ok: false,
+        error: msg,
+        answer: msg,
+        respuesta: msg,
+        result: msg,
+        data: msg,
+        text: msg,
+        commentary: { text: msg },
+        type: 'elite_lens',
+        source: 'ai-unavailable',
+        meta: { passage: ref, subLensId: subLensId || undefined, lensTitle },
+      };
     }
+    console.log(`[api/ai] Generando fallback teológico inmediato para lente "${lensTitle}" (${subLensId || lensId}) en ${ref}`);
+    answer = generarFallbackLente({
+      passage: ref,
+      lensTitle,
+      lensId,
+      prompt,
+      verseText,
+      ctx,
+    });
     source = 'theological-engine-fallback';
   }
 
@@ -703,13 +767,15 @@ export default async function handler(req, res) {
         verseText: body.verseText,
       });
     } else if (type === 'elite_lens' || body.subLensId || (body.lensId && (body.lensId.startsWith('biblica_') || body.lensId.startsWith('mental_') || body.lensId === 'dictamen_maestro'))) {
-      fallbackAnswer = generarFallbackLenteElite({
-        passage: body.passage || body.referencia || 'Pasaje Seleccionado',
-        subLensId: body.subLensId,
-        lensId: body.lensId,
-        lensTitle: body.lensTitle || body.lente || 'Análisis Bíblico',
-        prompt: body.prompt,
-        verseText: body.verseText,
+      fallbackAnswer = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
+      return res.status(200).json({
+        success: false,
+        ok: false,
+        error: fallbackAnswer,
+        answer: fallbackAnswer,
+        text: fallbackAnswer,
+        source: 'ai-unavailable',
+        meta: { error: error?.message },
       });
     } else {
       fallbackAnswer = generarFallbackLente({

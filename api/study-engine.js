@@ -5,7 +5,6 @@
 import { generateUniversalAnswer } from './ai.js';
 import {
   generarFallbackLente,
-  generarFallbackLenteElite,
   generarFallbackConcordancia,
 } from '../lib/theological-fallback.js';
 
@@ -86,13 +85,15 @@ export default async function handler(req, res) {
           String(body.lensId).startsWith('mental_') ||
           body.lensId === 'dictamen_maestro'))
     ) {
-      fallbackAnswer = generarFallbackLenteElite({
-        passage: body.passage || body.referencia || 'Pasaje Bíblico',
-        subLensId: body.subLensId,
-        lensId: body.lensId,
-        lensTitle: body.lensTitle || body.lente || 'Análisis Bíblico',
-        prompt: body.prompt,
-        verseText: body.verseText,
+      fallbackAnswer = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
+      return res.status(200).json({
+        success: false,
+        ok: false,
+        error: fallbackAnswer,
+        answer: fallbackAnswer,
+        text: fallbackAnswer,
+        source: 'ai-unavailable',
+        meta: { error: error?.message },
       });
     } else {
       fallbackAnswer = generarFallbackLente({

@@ -2,18 +2,15 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadProjectEnv } from './lib/load-env.js';
-import { generateUniversalAnswer, generateEliteLensAnswer } from './api/ai.js';
+import { generateUniversalAnswer } from './ai.js';
 import agenteTeologicoHandler from './api/agente-teologico.js';
 import bibleHandler from './api/bible.js';
 import pasajeHandler from './api/pasaje.js';
 import comentarioHandler from './api/comentario.js';
 import commentaryHandler from './api/commentary.js';
 import lenteEliteHandler from './api/lente-elite.js';
-import { generarComentarioGemini, envelopeComentario } from './lib/comentario-gemini.js';
 import {
-  generarFallbackComentario,
   generarFallbackLente,
-  generarFallbackLenteElite,
   generarFallbackConcordancia
 } from './lib/theological-fallback.js';
 import referenciasHandler from './api/referencias.js';
@@ -106,13 +103,15 @@ async function studyEngineHandler(req, res) {
         verseText: body.verseText,
       });
     } else if (mode === 'elite_lens' || body.subLensId || (body.lensId && (body.lensId.startsWith('biblica_') || body.lensId.startsWith('mental_') || body.lensId === 'dictamen_maestro')) || req.path?.includes('lente-elite')) {
-      fallbackAnswer = generarFallbackLenteElite({
-        passage: body.passage || body.referencia || 'Pasaje Bíblico',
-        subLensId: body.subLensId,
-        lensId: body.lensId,
-        lensTitle: body.lensTitle || body.lente || 'Análisis Bíblico',
-        prompt: body.prompt,
-        verseText: body.verseText,
+      fallbackAnswer = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
+      return res.status(200).json({
+        success: false,
+        ok: false,
+        error: fallbackAnswer,
+        answer: fallbackAnswer,
+        text: fallbackAnswer,
+        source: 'ai-unavailable',
+        meta: { error: error?.message },
       });
     } else {
       fallbackAnswer = generarFallbackLente({
@@ -165,46 +164,7 @@ app.post('/api/lente-elite', mount(lenteEliteHandler));
 app.get('/api/comentario', mount(comentarioHandler));
 app.post('/api/comentario', mount(comentarioHandler));
 app.get('/api/commentary', mount(commentaryHandler));
-app.post('/api/commentary', async (req, res) => {
-  const { passage, author, verseText } = req.body || {};
-  const passageRef = passage || 'Mateo 16:2';
-  const authorName = author || 'C. H. Spurgeon';
-  try {
-    console.log(`[api/commentary] ${authorName} · ${passageRef}`);
-    const result = await generarComentarioGemini({
-      passage: passageRef,
-      author: authorName,
-      verseText: verseText || '',
-      timeoutMs: 15000,
-    });
-    const text = result?.text || generarFallbackComentario({ passage: passageRef, author: authorName, verseText });
-    const auth = result?.author || authorName;
-    const src = result?.source || 'theological-engine-fallback';
-    const data = envelopeComentario(text, auth, src);
-    return res.status(200).json({
-      success: true,
-      ok: true,
-      text,
-      answer: text,
-      author: auth,
-      source: src,
-      data,
-    });
-  } catch (error) {
-    console.error('Error al generar comentario en backend:', error?.message || error);
-    const fallbackText = generarFallbackComentario({ passage: passageRef, author: authorName, verseText });
-    const data = envelopeComentario(fallbackText, authorName, 'theological-engine-fallback');
-    return res.status(200).json({
-      success: true,
-      ok: true,
-      text,
-      answer: fallbackText,
-      author: authorName,
-      source: 'theological-engine-fallback',
-      data,
-    });
-  }
-});
+app.post('/api/commentary', mount(commentaryHandler));
 app.get('/api/referencias', mount(referenciasHandler));
 app.post('/api/referencias', mount(referenciasHandler));
 app.get('/api/tsk', mount(tskHandler));

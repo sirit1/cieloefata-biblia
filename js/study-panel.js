@@ -67,8 +67,8 @@
         icon: '🔬',
         title: 'Neurociencia Cognitiva & Sinapsis',
         discipline: 'Neurobiología · Córtex Prefrontal · Hexis',
-        blurb: 'Dinámica Cerebral & Sesgos Heurísticos, Reconfiguración Sináptica y Protocolo de Interrupción de Patrones.',
-        prompt: 'Analiza la dinámica cerebral, sesgos cognitivos, neuroplasticidad y el protocolo de interrupción de patrones en'
+        blurb: 'Dinámica Cerebral & Sesgos Heurísticos: la ciencia nombra el bucle; la Escritura nombra la salida (arrepentimiento, conversión, bautismo y perseverancia).',
+        prompt: 'Diagnostica el bucle cognitivo y transmuta a arrepentimiento, conversión, bautismo y perseverancia en'
       },
       {
         id: 'mental_metanoia',
@@ -127,8 +127,8 @@
       icon: '🔬',
       title: 'Neurociencia Cognitiva',
       discipline: 'Neurobiología · Dinámica Sináptica',
-      blurb: 'Dinámica cerebral, sesgos cognitivos y protocolo de interrupción de patrones.',
-      prompt: 'Analiza la dinámica cerebral y neuroplasticidad en'
+      blurb: 'Dinámica cerebral y sesgos cognitivos; la salida es metanoia, no un protocolo de autoayuda.',
+      prompt: 'Diagnostica el bucle cognitivo y transmuta a metanoia y obediencia en'
     },
     {
       id: 'mental_metanoia',
@@ -215,7 +215,7 @@
     const refEl = document.getElementById('rv-sp-ref');
     if (refEl) {
       refEl.textContent = currentActivePassage;
-      refEl.hidden = false;
+      refEl.hidden = true;
     }
 
     const state = global.currentStudyState || RV.currentStudyState || {};
@@ -341,7 +341,13 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         signal: commentaryAbort.signal,
-        body: JSON.stringify({ passage, author: authorObj.label, verseText: currentVerseText }),
+        body: JSON.stringify({
+          passage,
+          referencia: passage,
+          author: authorObj.id,
+          autor: authorObj.id,
+          verseText: currentVerseText,
+        }),
       });
       clearTimeout(timer);
       if (stamp !== commentaryStamp || currentActivePassage !== passage) return;
@@ -351,18 +357,24 @@
         throw new Error(httpErrorMessage(data, res.status));
       }
       const text = data.text || data.answer || data.respuesta || '';
-      const isFallback = data.source === 'theological-engine-fallback';
-      const displayAuthor = isFallback
-        ? (data.author && !/spurgeon|calvino|calvin|henry|wesley|lutero|agust[ií]n/i.test(data.author)
-            ? data.author
-            : 'Respaldo teológico')
-        : authorObj.label;
+      const found = data.found !== false && String(text).trim() && data.source !== 'corpus-miss' && data.source !== 'theological-engine-fallback';
+      const displayAuthor = authorObj.label;
+      if (!found) {
+        const miss = String(text).trim() || `No hay nota de ${authorObj.label.split('(')[0].trim()} para ${passage}.`;
+        container.innerHTML = `
+          <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
+            <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
+              <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(displayAuthor)}</span>
+            </div>
+            <p class="text-xs text-stone-700">${escapeHtml(miss)}</p>
+          </div>`;
+        return;
+      }
       const formatted = formatAnswerHtml(text);
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
           <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
             <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(displayAuthor)}</span>
-            <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
           </div>
           <div class="text-xs leading-relaxed text-justify space-y-2 text-stone-800">${formatted}</div>
         </div>`;
@@ -502,11 +514,11 @@
   }
 
   function keywordFromVerse(text) {
-    const stop = /^(para|como|que|los|las|del|una|uno|por|con|sin|sus|este|esta|the|and|from|that|this|el|la|de|en|y|o|un|al|lo|se|su|tu|mi|nos|les|mas|más|pero|porque|pues)$/i;
+    const stop = /^(para|como|que|los|las|del|una|uno|por|con|sin|sus|este|esta|the|and|from|that|this|el|la|de|en|y|o|un|al|lo|se|su|tu|mi|nos|les|mas|más|pero|porque|pues|cuando|donde|quien|cual|fue|son|hay)$/i;
     const words = String(text || '')
       .replace(/[^\p{L}\s]/gu, ' ')
       .split(/\s+/)
-      .filter((w) => w.length >= 4 && !stop.test(w));
+      .filter((w) => w.length >= 3 && !stop.test(w));
     return words[0] || '';
   }
 
@@ -585,6 +597,7 @@
     const passage = String(passageRef || currentActivePassage || 'Romanos 12:2').trim();
     let term = String(customTerm || '').trim();
     if (!term) term = keywordFromVerse(currentVerseText);
+    if (!term || term.length < 3) term = keywordFromVerse(passage.replace(/\d+/g, ' '));
 
     renderConcordanceShell(term, passage);
     const container = document.getElementById('concordance-content-area');
@@ -595,60 +608,45 @@
     concordanceAbort = new AbortController();
     const timer = setTimeout(() => concordanceAbort.abort(), 18000);
 
+    if (term.length < 3) {
+      clearTimeout(timer);
+      container.innerHTML = `
+        <div class="p-4 bg-amber-50/90 border border-[#C59B27]/40 text-stone-900 rounded-xl text-xs font-serif text-center space-y-2">
+          <p class="font-bold text-[#855D10]">Concordancia Bíblica</p>
+          <p class="text-[11px] text-stone-600">Escribe al menos 3 letras para buscar en la Biblia.</p>
+        </div>`;
+      return;
+    }
+
     container.innerHTML = `
       <div class="py-8 px-4 text-center font-serif text-[#855D10] space-y-2 animate-pulse">
         <span class="inline-block text-xl">⏳</span>
-        <p class="text-xs font-semibold tracking-wide uppercase">Indexando concordancia bíblica${term ? ` para "${escapeHtml(term)}"` : ''}...</p>
+        <p class="text-xs font-semibold tracking-wide uppercase">Indexando concordancia bíblica para "${escapeHtml(term)}"...</p>
         <p class="text-[11px] text-stone-500 font-mono">${escapeHtml(passage)}</p>
       </div>`;
 
     try {
-      if (term.length >= 3) {
-        const res = await fetch(
-          `/api/concordancia?q=${encodeURIComponent(term)}`,
-          { method: 'GET', headers: { Accept: 'application/json' }, signal: concordanceAbort.signal },
-        );
-        const data = await res.json().catch(() => ({}));
-        if (stamp !== concordanceStamp) return;
-        if (res.status !== 404 && res.ok) {
-          const hits = data.data?.resultados || data.resultados || [];
-          if (Array.isArray(hits) && hits.length) {
-            clearTimeout(timer);
-            renderConcordanceHits(container, term, passage, hits);
-            return;
-          }
-        } else if (!res.ok && res.status !== 404) {
-          throw new Error(httpErrorMessage(data, res.status));
-        }
-      }
-
-      const data = await askEngine({
-        passage,
-        mode: 'concordance',
-        keyword: term,
-        searchTerm: term,
-        verseText: currentVerseText
-      }, 18000);
+      const res = await fetch(
+        `/api/concordancia?q=${encodeURIComponent(term)}`,
+        { method: 'GET', headers: { Accept: 'application/json' }, signal: concordanceAbort.signal },
+      );
+      const data = await res.json().catch(() => ({}));
       clearTimeout(timer);
       if (stamp !== concordanceStamp) return;
-
+      if (!res.ok) {
+        throw new Error(httpErrorMessage(data, res.status));
+      }
       const hits = data.data?.resultados || data.resultados || [];
       if (Array.isArray(hits) && hits.length) {
         renderConcordanceHits(container, term, passage, hits);
         return;
       }
-
-      const answer = data.answer || data.respuesta || data.text || '';
-      const formatted = formatAnswerHtml(answer);
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
-          ${term ? `
-            <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
-              <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(term)}"</span>
-              <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
-            </div>
-          ` : ''}
-          <div class="text-xs leading-relaxed text-justify space-y-2 text-stone-800">${formatted}</div>
+          <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
+            <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(term)}"</span>
+          </div>
+          <p class="text-xs text-stone-700">No hay coincidencias para «${escapeHtml(term)}».</p>
         </div>`;
     } catch (err) {
       clearTimeout(timer);
@@ -676,6 +674,61 @@
     loadConcordance(currentActivePassage, tag);
   }
 
+  function fieldLabel(key) {
+    const map = {
+      codigo: 'Strong',
+      lexema: 'Lexema',
+      lemma: 'Lema',
+      transliteracion: 'Transliteración',
+      translit: 'Transliteración',
+      pronunciacion: 'Pronunciación',
+      definicionEs: 'Glosa ES',
+      traduccionEstricta: 'Traducción',
+      definicionCorta: 'Definición corta',
+      definicion: 'Definición',
+      idioma: 'Idioma',
+      fuente: 'Fuente',
+      raiz: 'Raíz',
+    };
+    return map[key] || key;
+  }
+
+  function looksSpanish(s) {
+    return /[áéíóúñü¿¡]|ción\b|dad\b|mente\b/i.test(String(s || ''));
+  }
+
+  function renderStrongEntries(container, passage, entradas) {
+    const cards = entradas.map((e) => {
+      if (!e || typeof e !== 'object') return '';
+      const codigo = e.codigo || e.code || '';
+      const lexema = e.lexema || e.lemma || e.raiz || '';
+      const translit = e.transliteracion || e.translit || '';
+      const glosaEs = e.definicionEs || e.traduccionEstricta || e.glosa || '';
+      const definicion = e.definicion || e.definicionCorta || e.definition || '';
+      const extra = [];
+      if (glosaEs) extra.push(`<p><span class="font-mono text-[10px] text-[#855D10] uppercase">${looksSpanish(glosaEs) ? 'Glosa ES' : 'Glosa'}:</span> ${escapeHtml(glosaEs)}</p>`);
+      if (definicion && definicion !== glosaEs) {
+        extra.push(`<p><span class="font-mono text-[10px] text-[#855D10] uppercase">${looksSpanish(definicion) ? 'Definición' : 'Definición (EN)'}:</span> ${escapeHtml(definicion)}</p>`);
+      }
+      ['idioma', 'fuente'].forEach((k) => {
+        if (e[k]) extra.push(`<p class="text-[10px] text-stone-500">${escapeHtml(fieldLabel(k))}: ${escapeHtml(e[k])}</p>`);
+      });
+      return `
+        <div class="p-3 bg-white border border-[#E8DFC8] rounded-xl text-xs font-serif space-y-1">
+          <div class="font-mono font-bold text-[#855D10]">${escapeHtml(codigo)} · ${escapeHtml(lexema)} ${translit ? `(${escapeHtml(translit)})` : ''}</div>
+          ${extra.join('') || '<p class="text-stone-500">Sin glosa disponible.</p>'}
+        </div>`;
+    }).join('');
+    container.innerHTML = `
+      <div class="space-y-2">
+        <div class="flex items-center justify-between pb-1.5 border-b border-[#E8DFC8]">
+          <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Léxico Strong</span>
+          <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
+        </div>
+        <div class="space-y-2">${cards}</div>
+      </div>`;
+  }
+
   async function loadStrongLexicon(passageRef = currentActivePassage) {
     const container = document.getElementById('strong-content-area');
     if (!container) return;
@@ -694,13 +747,28 @@
       </div>`;
 
     try {
-      const data = await askEngine({ passage, mode: 'lexicon', verseText: currentVerseText }, 18000);
+      const res = await fetch(
+        `/api/lexico?referencia=${encodeURIComponent(passage)}`,
+        { method: 'GET', headers: { Accept: 'application/json' }, signal: strongAbort.signal },
+      );
+      const data = await res.json().catch(() => ({}));
       clearTimeout(timer);
       if (stamp !== strongStamp || currentActivePassage !== passage) return;
+      if (!res.ok) throw new Error(httpErrorMessage(data, res.status));
 
+      const entradas =
+        data.data?.entradas ||
+        data.data?.resultados ||
+        data.entradas ||
+        (Array.isArray(data.data) ? data.data : null) ||
+        [];
+      if (Array.isArray(entradas) && entradas.length && typeof entradas[0] === 'object' && !Array.isArray(entradas[0])) {
+        renderStrongEntries(container, passage, entradas);
+        return;
+      }
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
-          ${formatAnswerHtml(data.answer)}
+          <p class="text-xs text-stone-700">No hay entradas Strong estructuradas para ${escapeHtml(passage)}.</p>
         </div>`;
     } catch (err) {
       clearTimeout(timer);
@@ -874,7 +942,7 @@
         <div id="lentes-content-area" class="space-y-3">
           <!-- Tarjeta Prominente: DICTAMEN MAESTRO INTEGRADO -->
           <div id="lens-card-${m.id}" class="rv-sp-lens-block">
-            <button type="button" onclick="window.triggerEliteLens('${m.id}', '${escapeJsParam(m.title)}')"
+            <button type="button" data-sp-lens-id="${m.id}" data-sp-lens-title="${escapeHtml(m.title)}" onclick="window.triggerEliteLens('${m.id}', '${escapeJsParam(m.title)}')"
               class="group cursor-pointer p-4 bg-gradient-to-br from-[#071324] via-[#0A192F] to-[#132238] border-2 border-[#C59B27] hover:border-[#DFB743] rounded-xl shadow-md transition-all hover:shadow-lg text-left w-full text-white">
               <div class="flex items-start gap-3.5">
                 <div class="w-10 h-10 rounded-lg bg-[#C59B27]/20 border border-[#C59B27]/50 flex items-center justify-center text-xl shrink-0">
@@ -908,7 +976,7 @@
           <div id="optic-section-biblica" class="space-y-2.5" ${currentOpticTab === 'biblica' ? '' : 'hidden'}>
             ${ELITE_LENSES.biblica.map(l => `
               <div id="lens-card-${l.id}" class="rv-sp-lens-block">
-                <button type="button" onclick="window.triggerEliteLens('${l.id}', '${escapeJsParam(l.title)}')"
+                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}" onclick="window.triggerEliteLens('${l.id}', '${escapeJsParam(l.title)}')"
                   class="group cursor-pointer p-3.5 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all hover:shadow-md text-left w-full">
                   <div class="flex items-start gap-3">
                     <span class="text-2xl select-none" aria-hidden="true">${l.icon}</span>
@@ -927,7 +995,7 @@
           <div id="optic-section-mental" class="space-y-2.5" ${currentOpticTab === 'mental' ? '' : 'hidden'}>
             ${ELITE_LENSES.mental.map(l => `
               <div id="lens-card-${l.id}" class="rv-sp-lens-block">
-                <button type="button" onclick="window.triggerEliteLens('${l.id}', '${escapeJsParam(l.title)}')"
+                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}" onclick="window.triggerEliteLens('${l.id}', '${escapeJsParam(l.title)}')"
                   class="group cursor-pointer p-3.5 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all hover:shadow-md text-left w-full">
                   <div class="flex items-start gap-3">
                     <span class="text-2xl select-none" aria-hidden="true">${l.icon}</span>

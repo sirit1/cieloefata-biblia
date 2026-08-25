@@ -88,15 +88,18 @@ export default async function handler(req, res) {
   const passage = String(q.passage || q.referencia || q.ref || '').trim();
 
   if (passage && !/^[GH]\d{1,5}$/.test(codigo)) {
-    const { generateUniversalAnswer } = await import('./ai.js');
-    const payload = await generateUniversalAnswer(
-      { passage, mode: 'lexicon', type: 'lexicon' },
-      '/api/lexicon'
-    );
+    const { contextoConsulta, formatearLexico } = await import('../lib/consulta-contexto.js');
+    const ctx = await contextoConsulta({ passage, referencia: passage });
+    const entradas = Array.isArray(ctx?.strongs) ? ctx.strongs : [];
     return res.status(200).json({
       success: true,
-      answer: payload.answer,
-      data: payload,
+      found: entradas.length > 0,
+      answer: formatearLexico(ctx || {}),
+      data: {
+        referencia: ctx?.etiqueta || passage,
+        entradas,
+        resultados: entradas,
+      },
     });
   }
 
