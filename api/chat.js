@@ -12,6 +12,7 @@ import {
   chatJson,
   chatError,
   chatOk,
+  CHAT_GATEWAY_FALLBACK,
 } from '../lib/chat-contract.js';
 
 export const runtime = 'edge';
@@ -89,14 +90,11 @@ export async function POST(req) {
     });
     const text = String(result.text || '').trim();
     if (!text) {
-      return chatError('El modelo no devolvió texto.', 502);
+      return chatOk(CHAT_GATEWAY_FALLBACK, { source: 'empty-model-fallback' });
     }
     return chatOk(text, { gated: false, temperature: AI_TEMPERATURE });
   } catch (error) {
-    const raw = String(error?.message || 'Error en el servidor').replace(/\u001b\[[0-9;]*m/g, '').trim();
-    const safe = /unauthenticated|api key|gateway/i.test(raw)
-      ? 'No pude responder ahora. Inténtalo de nuevo en un momento.'
-      : raw;
-    return chatError(safe, 500);
+    console.error('[api/chat]', String(error?.message || error).replace(/\u001b\[[0-9;]*m/g, ''));
+    return chatOk(CHAT_GATEWAY_FALLBACK, { source: 'gateway-fallback' });
   }
 }

@@ -12,6 +12,7 @@ import {
   chatError,
   chatOk,
   chatJson,
+  CHAT_GATEWAY_FALLBACK,
 } from '../../../lib/chat-contract.js'
 
 export const runtime = 'edge'
@@ -64,7 +65,7 @@ export async function POST(request) {
     })
     const text = String(result.text || '').trim()
     if (!text) {
-      return chatError('El modelo no devolvió texto.', 502)
+      return chatOk(CHAT_GATEWAY_FALLBACK, { source: 'empty-model-fallback' })
     }
     return chatOk(text, {
       gated: false,
@@ -74,6 +75,6 @@ export async function POST(request) {
     })
   } catch (error) {
     console.error('[v0] Error en chat global:', error)
-    return chatError('No pude responder ahora. Inténtalo de nuevo en un momento.', 500)
+    return chatOk(CHAT_GATEWAY_FALLBACK, { source: 'gateway-fallback' })
   }
 }

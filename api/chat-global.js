@@ -5,7 +5,7 @@ import {
   FALLBACK_FUERA_DE_MARCO,
   respuestaSiFueraDeMarco,
 } from '../lib/prompts/revelatio-system-prompt.js'
-import { CHAT_MODEL, extractUserText } from '../lib/chat-contract.js'
+import { CHAT_MODEL, extractUserText, CHAT_GATEWAY_FALLBACK } from '../lib/chat-contract.js'
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
