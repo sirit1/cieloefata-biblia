@@ -1,0 +1,136 @@
+{
+  "book": "Filemón",
+  "usfm": "PHM",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "This single epistle infinitely transcends all the wisdom of the world. And it gives us a specimen how Christians ought to treat of secular affairs from higher principles.\n\n Paul a prisoner of Christ — To whom, as such, Philemon could deny nothing.\n\n And Timotheus — This was written before the second epistle to Timothy, Philemon 22 .",
+      "es": "Esta única epístola trasciende infinitamente toda la sabiduría del mundo. Y nos da una muestra de cómo los cristianos deberían tratar los asuntos seculares desde principios más elevados.\n\n Pablo, prisionero de Cristo, a quien, como tal, Filemón no podía negar nada.\n\n Y Timoteo - Esto fue escrito antes de la segunda epístola a Timoteo, Filemón 22.",
+      "enHash": "dd8d21ba216571220055c944a23da4c7316e26a202bdedfc5dcdc3e8a087d5c6",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "To Apphia — His wife, to whom also the business in part belonged.\n\n And the church in thy house — The Christians who meet there.",
+      "es": "A Apphia: su esposa, a quien también pertenecía en parte el negocio.\n\n Y la iglesia en tu casa - Los cristianos que allí se reúnen.",
+      "enHash": "3a88e8f071b333409dd2672f73c61c49b1078874525be4fe1a25b3fb4aa83cab",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "Hearing — Probably from Onesimus.",
+      "es": "Audiencia: probablemente de Onésimo.",
+      "enHash": "6ca0cfa803041d9a0a64421265d1951ae1da8f10abc12e1f45acb404c8639d75",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "I pray that the communication of thy faith may become effectual - That is, that thy faith may be effectually communicated to others, who see and acknowledge thy piety and charity.",
+      "es": "Oro para que la comunicación de tu fe sea eficaz - Es decir, que tu fe pueda comunicarse eficazmente a otros, que vean y reconozcan tu piedad y caridad.",
+      "enHash": "e4b0b12248e679a99a58fed96ce2f107da2e6c77620e1860188852f1bd4b5f72",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "The saints — To whom Philemon's house was open, Philemon 2 .",
+      "es": "Los santos para quienes estaba abierta la casa de Filemón, Filemón 2 .",
+      "enHash": "9e1fc5cae9c680cf7452115de94e0eb08bad89c5d47817c1064a00d11b5290b5",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "I might be bold in Christ — Through the authority he hath given me.",
+      "es": "Podría ser valiente en Cristo mediante la autoridad que él me ha dado.",
+      "enHash": "bec7ea4a0fe974ef07ca878f2807dd32391daccafa48111db646d6fdbd6a7288",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "Yet out of love I rather entreat thee — In how handsome a manner does the apostle just hint, and immediately drop, the consideration of his power to command, and tenderly entreat Philemon to hearken to his friend, his aged friend, and now prisoner for Christ! With what endearment, in the next verse, does he call Onesimus his son, before he names his name! And as soon as he had mentioned it, with what fine address does he just touch on his former faults, and instantly pass on to the happy change that was now made upon him! So disposing Philemon to attend to his request, and the motives wherewith he was going to enforce it.",
+      "es": "Sin embargo, por amor te suplico: ¡De qué manera hermosa el apóstol simplemente insinúa, e inmediatamente abandona, la consideración de su poder para mandar, y tiernamente suplica a Filemón que escuche a su amigo, su anciano amigo y ahora prisionero por Cristo! ¡Con qué cariño, en el siguiente verso, llama a Onésimo su hijo, antes de pronunciar su nombre! Y tan pronto como lo mencionó, ¡con qué hermosa dirección simplemente toca sus faltas anteriores y pasa instantáneamente al feliz cambio que ahora se ha producido en él! Disponiendo así a Filemón para atender su solicitud y los motivos con los que iba a hacerla cumplir.",
+      "enHash": "472f88c9e19aa4eb84f473f6a1adbbbfc64c058ca15902d9c6247395a1b815b6",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "Whom I have begotten in my bonds — The son of my age.",
+      "es": "A quien engendré en mis prisiones, el hijo de mi época.",
+      "enHash": "3ac3c079e77cf33cca4b216c86c12e3dbae34917fc108f1a6f38192bba92e3bc",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "Now profitable — None should be expected to be a good servant before he is a good man. He manifestly alludes to his name, Onesimus, which signifies profitable.",
+      "es": "Ahora rentable: nadie debe esperar que sea un buen siervo antes de ser un buen hombre. Alude manifiestamente a su nombre, Onésimo, que significa provechoso.",
+      "enHash": "295fa2c7b6dd85f92d0b78c6ee35df02c7808228752ccc9cd242557b360df8d4",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "Receive him, that is, my own bowels — Whom I love as my own soul. Such is the natural affection of a father in Christ toward his spiritual children.",
+      "es": "Recíbelo, es decir, mis propias entrañas, a quien amo como a mi propia alma. Tal es el afecto natural de un padre en Cristo hacia sus hijos espirituales.",
+      "enHash": "9a229f3b546148c3ea7688bd973cc20e50e2a314dd57302595d3905db6016e2c",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "To serve me in thy stead — To do those services for me which thou, if present, wouldest gladly have done thyself.",
+      "es": "Servirme en tu lugar Para hacerme aquellos servicios que tú, si estuvieras presente, con gusto habrías hecho tú mismo.",
+      "enHash": "f62776a964cb1ee04ec2e5fb205f0a4bbbdcd2adb38a127cc125bc5c6bf110aa",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "That thy benefit might not be by constraint — For Philemon could not have refused it.",
+      "es": "Para que tu beneficio no sea por obligación, porque Filemón no podría haberlo rechazado.",
+      "enHash": "584440cddde9feb0d83a9071c017da130911fa49c57a8c779bdbde61c895b514",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "God might permit him to be separated (a soft word) for a season, that thou mightest have him for ever - Both on earth and in heaven.",
+      "es": "Dios podría permitir que esté separado (una palabra suave) por un tiempo, para que puedas tenerlo para siempre - Tanto en la tierra como en el cielo.",
+      "enHash": "28e864969907ca9bdf74315117d610c32b6493fba208c0f64ad370b8ee3e679c",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "In the flesh — As a dutiful servant.\n\n In the Lord — As a fellow-Christian.",
+      "es": "En la carne: como un sirviente obediente.\n\n En el Señor: como hermano cristiano.",
+      "enHash": "c7eea6578fd2a4c30d7cd302cfe9125143d53fe23f36ec9881b2f321b120ab4f",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "If thou accountest me a partner — So that thy things are mine, and mine are thine.",
+      "es": "Si me tienes por socio, para que tus cosas sean mías y las mías sean tuyas.",
+      "enHash": "fe45e8d43f92e86cc7c1b4ca86b18699746fdca474838a40e7440e4c653dd22e",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "I will repay it — If thou requirest it.\n\n Not to say, that then owest me thyself — It cannot be expressed, how great our obligation is to those who have gained our souls to Christ.\n\n Beside — Receiving Onesimus.",
+      "es": "Te lo pagaré si lo requieres.\n\n Por no decir que tú mismo me debes a mí. No se puede expresar cuán grande es nuestra obligación para con aquellos que han ganado nuestras almas para Cristo.\n\n Al lado - Recibiendo a Onésimo.",
+      "enHash": "dc0c4a7c5ea13589bb2a822de0d06cfa38f8bc35479be0d042cd97521b76a861",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "Refresh my bowels in Christ — Give me the most exquisite and Christian pleasure.",
+      "es": "Refresca mis entrañas en Cristo. Dame el placer más exquisito y cristiano.",
+      "enHash": "ebb680bc222057acface83bb75dea6c4f09fb951f331bb81beb4bf59d34f4f9e",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "Given to you — Restored to liberty.\n\n << Titus 3 | Philemon 1 | Hebrews 1 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Philemon Philemon 1\n\n Related Commentaries\n Philemon 1\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Dado a ti - Restaurado a la libertad.\n\n << Tito 3 | Filemón 1 | Hebreos 1 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Filemón Filemón 1\n\n Comentarios relacionados\n Filemón 1\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "4e3080ee0e6b340fa74393a5914b5c62056c8a466eab445d7f07191544041696",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:5": "b3",
+    "1:6": "b4",
+    "1:7": "b5",
+    "1:8": "b6",
+    "1:9": "b7",
+    "1:10": "b8",
+    "1:11": "b9",
+    "1:12": "b10",
+    "1:13": "b11",
+    "1:14": "b12",
+    "1:15": "b13",
+    "1:16": "b14",
+    "1:17": "b15",
+    "1:19": "b16",
+    "1:20": "b17",
+    "1:22": "b18"
+  }
+}
