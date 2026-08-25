@@ -2442,15 +2442,6 @@ function descargarBackup(kind) {
         const passage = String(ref || '').trim();
         if (!passage) return [];
         try {
-            const engine = window.RV?.StudyEngine;
-            if (engine?.askStudyEngine) {
-                const payload = await engine.askStudyEngine({ passage, mode: 'tsk' });
-                const parsed = engine.parseTskItems?.(payload.answer) || [];
-                if (parsed.length) return parsed;
-                if (payload.answer) return [{ ref: passage, nota: payload.answer }];
-            }
-        } catch { /* fallback */ }
-        try {
             const token = await tokenAuth();
             const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
             if (token) headers.Authorization = `Bearer ${token}`;

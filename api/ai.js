@@ -238,34 +238,10 @@ Estructura OBLIGATORIA con números romanos:
 Consulta: ${prompt || ref}`);
 }
 
-function buildSystemInstruction({ type, passage, author, lensTitle, prompt, keyword, verseText, subLensId, lensId }) {
+function buildSystemInstruction({ type, passage, author, lensTitle, prompt, verseText, subLensId, lensId }) {
   const ref = passage || 'el pasaje indicado';
-  if (type === 'concordance') {
-    const searchTerm = keyword || (prompt && prompt !== ref ? prompt : '');
-    const canon = verseText ? `\nTEXTO CANÓNICO (único que puedes citar entre comillas): «${verseText}»` : '';
-    return `Concordancia bíblica. No inventes el texto de ningún versículo ni recites de memoria. Si no tienes el texto canónico en el contexto, nombra solo la referencia (p. ej. Ro. 12:2) sin palabras.
-${searchTerm ? `Término pedido: "${searchTerm}".` : `Pasaje: ${ref}.`}
-Entrega temas y citas (solo referencias) verificables. Prohibido fabricar citas o parafrasear Escritura.${canon}`;
-  }
-  if (type === 'commentary') {
-    return `RECHAZO: esta ruta de IA no escribe comentarios clásicos ni imita a ${author || 'un comentarista'}.
-Los comentarios de Spurgeon, Henry, Calvino, Wesley, Lutero o Agustín se sirven SOLO desde POST /api/commentary (corpus histórico).
-Responde únicamente: «Usa /api/commentary para el texto real del autor.» No inventes ni resumas su voz.`;
-  }
-  if (type === 'tsk') {
-    const canon = verseText ? `\nTEXTO CANÓNICO: «${verseText}»` : '';
-    return `Referencias cruzadas (Treasury of Scripture Knowledge) para ${ref}.
-No inventes el texto de ningún versículo. Lista solo referencias (p. ej. Ro. 12:2) salvo que el texto canónico esté en el contexto.
-Formato:
-### Tema
-- Pasaje — conexión breve
-Consulta: ${prompt || ref}${canon}`;
-  }
-  if (type === 'lexicon') {
-    return `Léxico Strong para ${ref}. No inventes códigos Strong (H#### / G####), lemas ni glosas.
-Si no hay entradas Strong en el contexto, dilo con honestidad y no fabrices números.
-No traduzcas al español campos que solo están en inglés: muéstralos etiquetados.
-Consulta: ${prompt || ref}`;
+  if (type === 'concordance' || type === 'tsk' || type === 'lexicon' || type === 'commentary') {
+    return `RECHAZO: esta ruta de IA no escribe TSK, concordancias, léxico Strong ni comentarios clásicos (${author || 'corpus'}). Usa /api/tsk, /api/concordancia, /api/lexico o /api/commentary.`;
   }
   if (type === 'elite_lens' || subLensId || (lensId && (lensId.startsWith('biblica_') || lensId.startsWith('mental_') || lensId === 'dictamen_maestro'))) {
     return buildEliteLensInstruction({ subLensId, lensId, lensTitle, passage: ref, verseText, prompt });

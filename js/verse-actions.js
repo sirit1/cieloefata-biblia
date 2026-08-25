@@ -125,7 +125,7 @@
       DHH: "Dios Habla Hoy",
       TLA: "Traducción en Lenguaje Actual",
       NVI: "Nueva Versión Internacional",
-      KJV: "King James Version",
+      KJV: "Reina-Valera 1960",
       LXX: "Septuaginta (Griego)",
       SEPTUAGINTA: "Septuaginta (Griego)",
     };
