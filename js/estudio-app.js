@@ -525,6 +525,17 @@
                 }),
             });
             clearTimeout(timer);
+            if (!res.ok) {
+                return {
+                    ia: false,
+                    vacio: true,
+                    titulo: nombre,
+                    entradas: [],
+                    cuerpo: '',
+                    paragraphs: [],
+                    error: `No se pudo consultar el comentario (${res.status}). Reintenta.`,
+                };
+            }
             const json = await res.json().catch(() => ({}));
             const text = String(json?.text || json?.answer || json?.data?.cuerpo || '').trim();
             const found = json.found === true && json.source !== 'corpus-miss' && json.source !== 'theological-engine-fallback';
@@ -868,7 +879,13 @@
         }
         try {
             const comentario = await cargarComentario(ref, autor);
-            if (comentario?.cuerpo && !comentario?.vacio) {
+            if (comentario?.error) {
+                pintarComentario(libro, autor, {
+                    titulo: AUTOR_LABEL[autor] || autor,
+                    vacio: true,
+                    error: comentario.error,
+                });
+            } else if (comentario?.cuerpo && !comentario?.vacio) {
                 pintarComentario(libro, autor, comentario);
             } else {
                 pintarComentario(libro, autor, {
@@ -877,8 +894,12 @@
                     cuerpo: comentario?.cuerpo || '',
                 });
             }
-        } catch {
-            pintarComentario(libro, autor, { titulo: AUTOR_LABEL[autor] || autor, vacio: true });
+        } catch (err) {
+            pintarComentario(libro, autor, {
+                titulo: AUTOR_LABEL[autor] || autor,
+                vacio: true,
+                error: err?.name === 'AbortError' ? 'El motor tardó demasiado. Reintenta.' : (err.message || 'No se pudo consultar el comentario. Reintenta.'),
+            });
         }
     }
 
@@ -904,6 +925,16 @@
 
         const refEl = document.getElementById('ref-comentario');
         if (refEl) refEl.textContent = ref;
+        if (extra?.error) {
+            const fallo = /respaldo teol[oó]gico|gemini|\.env/i.test(String(extra.error))
+                ? 'No se pudo consultar el comentario. Reintenta.'
+                : String(extra.error).trim();
+            neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm space-y-2">
+                <p>${escapeHtml(fallo)}</p>
+                <button type="button" class="rv-sp-retry" data-rv-retry-comentario>Reintentar</button>
+            </div>`;
+            return;
+        }
         if (!bloques.length) {
             const nombre = extra?.titulo || AUTOR_LABEL[autor] || autor || 'este autor';
             const miss = extra?.cuerpo && /^No hay nota/i.test(String(extra.cuerpo))
@@ -2993,6 +3024,10 @@ function descargarBackup(kind) {
             const parsed = parseGoto(btn.dataset.irRef);
             const nombre = resolverLibro(parsed?.libroQ || '');
             if (nombre && parsed?.cap) irGoto(nombre, parsed.cap, parsed.verso);
+        });
+        document.getElementById('analisis-neuro')?.addEventListener('click', (event) => {
+            if (!event.target.closest('[data-rv-retry-comentario]')) return;
+            refrescarComentario(estado());
         });
         document.getElementById('texto-biblico')?.addEventListener('click', (event) => {
             const retry = event.target.closest('[data-rv-retry-pasaje]');
