@@ -9,7 +9,7 @@ dotenv.config({ path: '.env', quiet: true })
 
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { loadProjectEnv, resolveGeminiApiKey } from '../lib/load-env.js'
-import { generateUniversalAnswer } from './ai.js'
+import { answerUserQuestion } from '../lib/answer-user-question.js'
 import {
   FALLBACK_FUERA_DE_MARCO,
   respuestaSiFueraDeMarco,
@@ -334,17 +334,18 @@ export default async function handler(req, res) {
     }
 
     if (!data) {
-      const fallback = await generateUniversalAnswer(
-        {
-          passage: contextPassage || 'Escritura',
-          prompt,
-          mode: mode === 'exegesis' ? 'commentary' : 'lens',
-          lensTitle: mode === 'exegesis' ? 'Cátedra Exegética' : 'Renovación & Vida',
-        },
-        '/api/agente-teologico',
-      )
-      data = sanitizeMarkdown(fallback.answer || '', mode) || fallback.answer
-      usedModel = fallback.source || 'fallback'
+      const fallback = await answerUserQuestion({
+        message: prompt,
+        prompt,
+        contextPassage,
+        context,
+        history,
+      })
+      data = sanitizeMarkdown(fallback.json?.answer || fallback.json?.text || '', mode) ||
+        fallback.json?.answer ||
+        fallback.json?.text ||
+        ''
+      usedModel = fallback.json?.source || 'engine'
     }
 
     return sendJson(
@@ -357,7 +358,6 @@ export default async function handler(req, res) {
         audit: context.audit || null,
         success: true,
         answer: data,
-        commentary: { text: data },
       }),
     )
   } catch (error) {

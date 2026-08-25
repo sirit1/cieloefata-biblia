@@ -90,6 +90,8 @@ await run('mapa de rutas cubre server.js', async () => {
   assert(typeof tsk === 'function' && typeof refs === 'function');
   const lex = await handlerForApiPath('/api/lexicon');
   assert(lex === lexicoHandler);
+  const chat = await handlerForApiPath('/api/chat');
+  assert(typeof chat === 'function', 'chat debe estar en el mapa');
 });
 
 await run('chat acepta message y prompt', async () => {

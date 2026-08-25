@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import { loadProjectEnv } from './lib/load-env.js';
 import { generateUniversalAnswer, generateEliteLensAnswer } from './api/ai.js';
 import agenteTeologicoHandler from './api/agente-teologico.js';
+import chatHandler from './api/chat.js';
+import chatGlobalHandler from './api/chat-global.js';
 import bibleHandler from './api/bible.js';
 import pasajeHandler from './api/pasaje.js';
 import comentarioHandler from './api/comentario.js';
@@ -226,7 +228,12 @@ for (const route of STUDY_PATHS) {
   app.get(route, studyEngineHandler);
 }
 
-const IA_PATHS = ['/api/agente-teologico', '/api/chat-global', '/api/chat', '/api/ai-synthesis'];
+app.post('/api/chat', mount(chatHandler));
+app.get('/api/chat', mount(chatHandler));
+app.post('/api/chat-global', mount(chatGlobalHandler));
+app.get('/api/chat-global', mount(chatGlobalHandler));
+
+const IA_PATHS = ['/api/agente-teologico', '/api/ai-synthesis'];
 for (const route of IA_PATHS) {
   app.post(route, iaAssistantHandler);
   app.get(route, iaAssistantHandler);

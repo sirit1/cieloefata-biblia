@@ -1,3 +1,9 @@
-export const runtime = 'edge'
+/**
+ * Next.js App Router → /api/chat (mismo handler Node que Express).
+ */
+import handler from '../../../api/chat.js'
+import { nodeHandlers } from '../../../lib/node-api-bridge.js'
 
-export { GET, POST, OPTIONS } from '../../../api/chat.js'
+export const runtime = 'nodejs'
+
+export const { GET, POST, OPTIONS } = nodeHandlers(handler, '/api/chat')

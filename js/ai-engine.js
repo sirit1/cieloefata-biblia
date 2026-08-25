@@ -75,8 +75,85 @@
     }
 
     /**
-     * Cerebro externo: Gemini vía /api/agente-teologico.
-     * Contrato: POST { prompt, contextPassage, mode } → { ok, data }
+     * Chat UI de RevelatiO IA → un solo handler: POST /api/chat
+     * Contrato: { message|prompt, contextPassage } → { ok, success, text, answer, data }
+     */
+    async function revelatioChat({ prompt, message, contextPassage, context, history }) {
+        const token = await authToken();
+        const headers = { "Content-Type": "application/json", Accept: "application/json" };
+        if (token) headers.Authorization = `Bearer ${token}`;
+        const userPrompt = String(prompt || message || "").trim();
+        const passage = String(contextPassage || context?.reference || "").trim();
+        let res;
+        try {
+            res = await fetch("/api/chat", {
+                method: "POST",
+                headers,
+                body: JSON.stringify({
+                    message: userPrompt,
+                    prompt: userPrompt,
+                    contextPassage: passage,
+                    passage,
+                    context: { ...(context || {}), reference: passage || context?.reference || "" },
+                    history: Array.isArray(history) ? history : [],
+                }),
+            });
+        } catch (networkErr) {
+            const err = new Error("No hay conexión con RevelatiO IA. Revisa tu red o el servidor.");
+            err.cause = networkErr;
+            err.code = "NETWORK";
+            throw err;
+        }
+
+        let json = null;
+        try {
+            json = await res.json();
+        } catch {
+            json = null;
+        }
+
+        if (!res.ok || json?.ok === false) {
+            const msg =
+                (json && (json.error || json.message)) ||
+                `El servidor respondió ${res.status}. Inténtalo de nuevo.`;
+            const err = new Error(msg);
+            err.status = res.status;
+            err.code = "HTTP";
+            throw err;
+        }
+
+        const rawData = json?.data;
+        const fromData =
+            typeof rawData === "string"
+                ? rawData
+                : rawData && typeof rawData === "object"
+                  ? String(rawData.text || rawData.answer || "")
+                  : "";
+        const text = String(json?.answer || json?.text || fromData).trim();
+        if (!text) {
+            const err = new Error(json?.error || "Respuesta vacía de RevelatiO IA.");
+            err.code = "EMPTY";
+            throw err;
+        }
+
+        return {
+            text,
+            data: text,
+            answer: text,
+            ok: true,
+            gated: Boolean(json?.gated),
+            mode: json?.mode || context?.mode || "vida",
+            model: json?.model || json?.source || "chat",
+            governance: json?.governance || "revelatio_dual_v1",
+            audit: json?.audit || context?.audit || null,
+            source: json?.source || null,
+            error: null,
+        };
+    }
+
+    /**
+     * Contingencia de capítulo (script-principal get_chapter): Gemini vía /api/agente-teologico.
+     * No usar para el FAB de chat.
      */
     async function agenteTeologico({ prompt, message, contextPassage, context, history, mode }) {
         const token = await authToken();
@@ -1124,10 +1201,10 @@
                     auditHint: ctxForApi.auditHint,
                 };
 
-                const result = await agenteTeologico({
+                const result = await revelatioChat({
                     prompt: message,
+                    message,
                     contextPassage: effectiveRef,
-                    mode: currentMode,
                     context: apiContext,
                     history,
                 });
@@ -1150,7 +1227,7 @@
                     String(err?.message || "").trim() ||
                         "No pude contactar al Agente Teológico. La Palabra permanece; reintenta en un momento."
                 );
-                console.warn("[revelatio] agente-teologico", err);
+                console.warn("[revelatio] /api/chat", err);
             } finally {
                 form.dataset.busy = "0";
                 setFormLoading(form, false);
@@ -1201,6 +1278,7 @@
         authToken,
         readStream,
         chatGlobal,
+        revelatioChat,
         agenteTeologico,
         synthesizePerspectives,
         getStudyContext,

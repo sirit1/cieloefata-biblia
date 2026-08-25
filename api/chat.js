@@ -1,56 +1,53 @@
 import { generateText } from 'ai';
+import { answerUserQuestion } from '../lib/answer-user-question.js';
 import {
-  SYSTEM_PROMPT,
   AI_TEMPERATURE,
-  FALLBACK_FUERA_DE_MARCO,
-  respuestaSiFueraDeMarco,
 } from '../lib/prompts/revelatio-system-prompt.js';
-import {
-  CHAT_MODEL,
-  extractUserText,
-  optionsResponse,
-  chatJson,
-  chatError,
-  chatOk,
-  CHAT_GATEWAY_FALLBACK,
-} from '../lib/chat-contract.js';
+import { CHAT_MODEL, extractUserText } from '../lib/chat-contract.js';
 
-export const runtime = 'edge';
+export default async function handler(req, res) {
+  res.setHeader?.('Access-Control-Allow-Origin', '*');
+  res.setHeader?.('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader?.('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
 
-export async function OPTIONS() {
-  return optionsResponse();
-}
+  if (req.method === 'OPTIONS') {
+    res.setHeader?.('Allow', 'GET, POST, OPTIONS');
+    return res.status(204).end();
+  }
 
-export async function GET() {
-  return chatJson({
-    success: true,
-    ok: true,
-    ready: true,
-    answer: 'Endpoint activo. Usa POST con { message } o { prompt }.',
-  });
-}
+  if (req.method === 'GET') {
+    return res.status(200).json({
+      success: true,
+      ok: true,
+      ready: true,
+      answer: 'Endpoint activo. Usa POST con { message } o { prompt }.',
+      text: 'Endpoint activo. Usa POST con { message } o { prompt }.',
+      data: 'Endpoint activo. Usa POST con { message } o { prompt }.',
+    });
+  }
 
-export async function POST(req) {
-  try {
-    const body = await req.json().catch(() => ({}));
+  if (req.method !== 'POST') {
+    return res.status(405).json({ success: false, ok: false, error: 'Método no permitido' });
+  }
+
+  const body = req.body && typeof req.body === 'object' ? req.body : {};
+
+  if (body.type === 'interlinear_resolve') {
     const userText = extractUserText(body);
     const context = body?.context;
-    const type = body?.type;
-
-    if (!userText) {
-      return chatError('Parámetros insuficientes', 400);
-    }
-
-    if (type === 'interlinear_resolve') {
+    try {
       const result = await generateText({
         model: CHAT_MODEL,
-        system: 'Eres un diccionario léxico morfológico de precisión en Griego/Hebreo al servicio de la exégesis bíblica. Responde exclusivamente JSON válido, sin markdown ni comentarios.',
-        prompt: `Analiza exactamente el término ${userText.slice(0, 120)} en el contexto del versículo ${String(context || 'no indicado').slice(0, 240)}. Devuelve SOLO este JSON: {"original":"grafía griega o hebrea","transliteration":"transliteración y pronunciación","strong":"G0000 o H0000","morphology":"análisis gramatical formal","meaning":"definición exegética y traducción literal al español","metanoia":"aplicación bajo la cruz y la Escritura, sin autoayuda"}. No dejes campos vacíos.`,
+        system:
+          'Eres un diccionario léxico morfológico de precisión en Griego/Hebreo al servicio de la exégesis bíblica. Responde exclusivamente JSON válido, sin markdown ni comentarios.',
+        prompt: `Analiza exactamente el término ${String(userText || '').slice(0, 120)} en el contexto del versículo ${String(context || 'no indicado').slice(0, 240)}. Devuelve SOLO este JSON: {"original":"grafía griega o hebrea","transliteration":"transliteración y pronunciación","strong":"G0000 o H0000","morphology":"análisis gramatical formal","meaning":"definición exegética y traducción literal al español","metanoia":"aplicación bajo la cruz y la Escritura, sin autoayuda"}. No dejes campos vacíos.`,
         temperature: AI_TEMPERATURE,
         maxOutputTokens: 700,
       });
       const cleaned = String(result.text || '').replace(/^```(?:json)?\s*|\s*```$/gi, '').trim();
-      if (!cleaned) return chatError('El modelo no devolvió análisis léxico.', 502);
+      if (!cleaned) {
+        return res.status(502).json({ success: false, ok: false, error: 'El modelo no devolvió análisis léxico.' });
+      }
       let data;
       try {
         data = JSON.parse(cleaned);
@@ -64,37 +61,13 @@ export async function POST(req) {
           metanoia: 'Vuelve al texto y discierne qué pensamiento necesita ser renovado bajo la cruz.',
         };
       }
-      return chatJson(data);
+      return res.status(200).json(data);
+    } catch (error) {
+      console.error('[api/chat] interlinear:', error?.message || error);
+      return res.status(502).json({ success: false, ok: false, error: 'No pude resolver el término ahora.' });
     }
-
-    const fuera = respuestaSiFueraDeMarco(userText);
-    if (fuera) {
-      return chatOk(FALLBACK_FUERA_DE_MARCO, { gated: true, reason: 'fuera_de_marco' });
-    }
-
-    let dynamicPrompt = userText;
-    if (context) {
-      const ctx =
-        typeof context === 'string'
-          ? context
-          : [context.reference, context.module, context.version].filter(Boolean).join(' · ');
-      if (ctx) dynamicPrompt = `[Contexto Bíblico: ${ctx}]\nConsulta: ${userText}`;
-    }
-
-    const result = await generateText({
-      model: CHAT_MODEL,
-      system: SYSTEM_PROMPT,
-      prompt: dynamicPrompt,
-      temperature: AI_TEMPERATURE,
-      maxOutputTokens: 900,
-    });
-    const text = String(result.text || '').trim();
-    if (!text) {
-      return chatOk(CHAT_GATEWAY_FALLBACK, { source: 'empty-model-fallback' });
-    }
-    return chatOk(text, { gated: false, temperature: AI_TEMPERATURE });
-  } catch (error) {
-    console.error('[api/chat]', String(error?.message || error).replace(/\u001b\[[0-9;]*m/g, ''));
-    return chatOk(CHAT_GATEWAY_FALLBACK, { source: 'gateway-fallback' });
   }
+
+  const { status, json } = await answerUserQuestion(body);
+  return res.status(status).json(json);
 }
