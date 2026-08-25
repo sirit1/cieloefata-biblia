@@ -384,11 +384,14 @@
         return;
       }
       const formatted = formatAnswerHtml(text);
+      const originalEn = /\b(the|and|that|which|this|from|but|not)\b/i.test(text)
+        && !/[áéíóúñü¿¡]/.test(String(text).slice(0, 500));
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
           <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
             <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(displayAuthor)}</span>
           </div>
+          ${originalEn ? `<p class="text-[10px] text-stone-500 font-mono">Texto original (inglés, dominio público)</p>` : ''}
           <div class="text-xs leading-relaxed text-justify space-y-2 text-stone-800">${formatted}</div>
         </div>`;
     } catch (err) {
