@@ -170,6 +170,73 @@ function renderVerseElement(book, chapter, v) {
   return verseEl;
 }
 
+const STRONG_PARTICLE = /^(ὁ|ἡ|τό|τὸ|τοῦ|τῆς|τῷ|τῇ|καί|καὶ|δέ|δὲ|τε|οὖν|γάρ|γὰρ|εἰς|ἐν|ἐκ|ἀπό|διά|μή|μὴ|οὐ|οὐκ|ו|ה|את|ל|ב|מ|כ)$/i;
+
+function strongRowFromTokens(tokens) {
+  const seen = new Set();
+  const keys = [];
+  for (const t of tokens || []) {
+    const s = String(t.strong || '');
+    const p = String(t.palabra || t.texto || '').trim();
+    if (!s || seen.has(s) || STRONG_PARTICLE.test(p)) continue;
+    seen.add(s);
+    keys.push({ strong: s, palabra: p });
+    if (keys.length >= 8) break;
+  }
+  if (!keys.length) return null;
+  const span = document.createElement('span');
+  span.className = 'rv-strong-row';
+  span.innerHTML = keys
+    .map(
+      (t) =>
+        `<button type="button" class="rv-strong" data-strong="${escapeHtml(t.strong)}" data-lemma="${escapeHtml(t.palabra)}" aria-label="Strong ${escapeHtml(t.strong)}">${escapeHtml(t.palabra)}<sup>${escapeHtml(t.strong)}</sup></button>`
+    )
+    .join('');
+  return span;
+}
+
+function paintStrongRows(original, root) {
+  const versos = original?.versos || [];
+  if (!root || !versos.length) return 0;
+  let painted = 0;
+  for (const v of versos) {
+    const n = Number(v.verso || v.n || v.verse);
+    if (!n) continue;
+    const el =
+      root.querySelector(`[data-versiculo="${n}"]`) ||
+      root.querySelector(`.verse-item[data-verse="${n}"]`);
+    if (!el) continue;
+    el.querySelector('.rv-strong-row')?.remove();
+    const row = strongRowFromTokens(v.tokens);
+    if (row) {
+      el.appendChild(row);
+      painted += 1;
+    }
+  }
+  return painted;
+}
+
+async function attachOriginalChips(book, chapter, token, signal) {
+  const ref = `${book} ${chapter}`;
+  const res = await fetch(`/api/pasaje?referencia=${encodeURIComponent(ref)}`, {
+    headers: { Accept: 'application/json' },
+    signal,
+  });
+  if (!res.ok) return;
+  const json = await res.json().catch(() => ({}));
+  const original = json.data?.original || json.original;
+  if (!original?.versos?.length) return;
+
+  const prev = globalThis.__revelatioPassageData && typeof globalThis.__revelatioPassageData === 'object'
+    ? globalThis.__revelatioPassageData
+    : {};
+  globalThis.__revelatioPassageData = { ...prev, original, referencia: prev.referencia || ref };
+
+  if (token != null && token !== AppState.generation) return;
+  const root = document.getElementById('texto-biblico') || document.getElementById('verses-container');
+  paintStrongRows(original, root);
+}
+
 function foldName(s) {
   return String(s || '')
     .toLowerCase()
@@ -266,6 +333,8 @@ export function initReader() {
     container.appendChild(fragment);
 
     updateActivePassageState(wantBook, wantChap, 1);
+
+    attachOriginalChips(wantBook, wantChap, token, abortCtrl?.signal).catch(() => {});
 
     document.dispatchEvent(
       new CustomEvent('revelatio:passage-ready', {

@@ -488,14 +488,31 @@
 
         try {
             const fused = await fusionarPacksLocales(data, loc);
-            // Si packs locales vacíos no aportan, conservar contingencia del fetch.
             window.__revelatioPassageData = fused;
-            return fused;
+            data = fused;
         } catch {
             const out = data || { versiones: {}, versionesVersos: {}, versionesLista: [], original: null };
             window.__revelatioPassageData = out;
-            return out;
+            data = out;
         }
+
+        if (!data?.original?.versos?.length) {
+            try {
+                const res = await fetch(`/api/pasaje?referencia=${encodeURIComponent(referencia)}`, {
+                    headers: { Accept: 'application/json' },
+                });
+                if (res.ok) {
+                    const json = await res.json();
+                    const original = json?.data?.original || json?.original;
+                    if (original?.versos?.length) {
+                        data = { ...(data || {}), original };
+                        window.__revelatioPassageData = { ...(window.__revelatioPassageData || {}), ...data, original };
+                    }
+                }
+            } catch { /* keep prior */ }
+        }
+        try { pintarChipsStrongDesdeOriginal(data?.original); } catch { /* ignore */ }
+        return data;
     }
 
     async function cargarComentario(referencia, autor) {
@@ -634,6 +651,23 @@
         return `<span class="rv-strong-row">${keys.map(t =>
             `<button type="button" class="rv-strong" data-strong="${escapeHtml(t.strong)}" data-lemma="${escapeHtml(t.palabra)}" aria-label="Strong ${escapeHtml(t.strong)}">${escapeHtml(t.palabra)}<sup>${escapeHtml(t.strong)}</sup></button>`
         ).join('')}</span>`;
+    }
+
+    function pintarChipsStrongDesdeOriginal(original) {
+        const root = document.getElementById('texto-biblico') || document.getElementById('verses-container');
+        const versos = original?.versos || [];
+        if (!root || !versos.length) return;
+        for (const v of versos) {
+            const n = Number(v.verso || v.n || v.verse);
+            if (!n) continue;
+            const el = root.querySelector(`[data-versiculo="${n}"]`);
+            if (!el) continue;
+            const html = strongsHtml(n, v.tokens);
+            if (!html) continue;
+            const prev = el.querySelector('.rv-strong-row');
+            if (prev) prev.outerHTML = html;
+            else el.insertAdjacentHTML('beforeend', html);
+        }
     }
 
     function textoVersoLimpio(texto, n) {
@@ -1045,10 +1079,8 @@
             if (withEs) {
                 window.__revelatioPassageData = withEs;
                 passage = withEs;
-                if (!readerOwns) {
-                    if (texto) texto.innerHTML = cuerpoLectura(libro, version, passage);
-                    else if (versesBox) versesBox.innerHTML = cuerpoLectura(libro, version, passage);
-                }
+                if (texto) texto.innerHTML = cuerpoLectura(libro, version, passage);
+                else if (versesBox) versesBox.innerHTML = cuerpoLectura(libro, version, passage);
             }
         }
         try {

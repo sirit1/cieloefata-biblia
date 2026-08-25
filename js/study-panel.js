@@ -240,22 +240,96 @@
     }
   }
 
+  function engineErrorMessage(data, status) {
+    const err = data && data.error;
+    if (typeof err === 'string' && err.trim()) return err;
+    if (err && typeof err === 'object') {
+      const msg = err.message || err.code;
+      if (msg) return String(msg);
+    }
+    if (typeof data?.message === 'string' && data.message.trim()) return data.message;
+    return `HTTP ${status}`;
+  }
+
+  function extractEngineAnswer(data) {
+    if (!data || typeof data !== 'object') return '';
+    const nested = data.data && typeof data.data === 'object' ? data.data : null;
+    return String(
+      data.answer ||
+        data.respuesta ||
+        data.result ||
+        data.text ||
+        nested?.answer ||
+        nested?.text ||
+        ''
+    ).trim();
+  }
+
   async function askEngine(bodyPayload, timeoutMs = 18000) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
-    try {
-      const res = await fetch('/api/study-engine', {
+    const mode = String(bodyPayload?.mode || bodyPayload?.type || '').toLowerCase();
+    const passage = String(
+      bodyPayload?.passage || bodyPayload?.referencia || bodyPayload?.ref || currentActivePassage || ''
+    ).trim();
+    const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
+
+    async function postJson(url) {
+      const res = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers,
         body: JSON.stringify(bodyPayload),
         signal: controller.signal,
       });
-      clearTimeout(timer);
       const data = await res.json().catch(() => ({}));
-      if (!res.ok && res.status !== 200) {
-        throw new Error(data.error || `HTTP ${res.status}`);
+      return { res, data };
+    }
+
+    try {
+      if (mode === 'lexicon' || mode === 'lexico' || mode === 'strong') {
+        const url = `/api/lexico?referencia=${encodeURIComponent(passage)}`;
+        const res = await fetch(url, { headers: { Accept: 'application/json' }, signal: controller.signal });
+        const data = await res.json().catch(() => ({}));
+        const answer = extractEngineAnswer(data);
+        if (res.ok && answer) {
+          clearTimeout(timer);
+          return { ...data, answer };
+        }
       }
-      return data;
+
+      if (mode === 'concordance' || mode === 'concordancia') {
+        const q = String(
+          bodyPayload.keyword || bodyPayload.searchTerm || bodyPayload.query || bodyPayload.q || ''
+        ).trim();
+        if (q.length >= 3) {
+          const res = await fetch(`/api/concordancia?q=${encodeURIComponent(q)}`, {
+            headers: { Accept: 'application/json' },
+            signal: controller.signal,
+          });
+          const data = await res.json().catch(() => ({}));
+          const resultados = data.data?.resultados || data.resultados || [];
+          if (res.ok && Array.isArray(resultados) && resultados.length) {
+            clearTimeout(timer);
+            const answer = resultados
+              .map((r) => {
+                const ref = escapeHtml(r.ref || r.referencia || '');
+                const html = r.html || escapeHtml(r.texto || r.text || '');
+                return `<p><strong>${ref}</strong> ${html}</p>`;
+              })
+              .join('');
+            return { ...data, answer, resultados };
+          }
+        }
+      }
+
+      let { res, data } = await postJson('/api/study-engine');
+      if (res.status === 404) {
+        ({ res, data } = await postJson('/api/ai'));
+      }
+      clearTimeout(timer);
+      if (!res.ok) throw new Error(engineErrorMessage(data, res.status));
+      const answer = extractEngineAnswer(data);
+      return { ...data, answer };
     } catch (err) {
       clearTimeout(timer);
       throw err;
@@ -350,17 +424,34 @@
       </div>`;
 
     try {
-      const res = await fetch('/api/tsk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        signal: tskAbort.signal,
-        body: JSON.stringify({ passage, consulta: passage }),
+      const payload = JSON.stringify({
+        consulta: passage,
+        passage,
+        referencia: passage,
+        ref: passage,
       });
+      const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
+      let res = await fetch('/api/referencias', {
+        method: 'POST',
+        headers,
+        signal: tskAbort.signal,
+        body: payload,
+      });
+      if (!res.ok) {
+        res = await fetch('/api/tsk', {
+          method: 'POST',
+          headers,
+          signal: tskAbort.signal,
+          body: payload,
+        });
+      }
       clearTimeout(timer);
       if (stamp !== tskStamp || currentActivePassage !== passage) return;
 
       const data = await res.json().catch(() => ({}));
-      const refs = Array.isArray(data.referencias) ? data.referencias : (Array.isArray(data.references) ? data.references : []);
+      if (!res.ok) throw new Error(engineErrorMessage(data, res.status));
+      const rawRefs = data.data?.referencias || data.referencias || data.data?.references || data.references || [];
+      const refs = Array.isArray(rawRefs) ? rawRefs : [];
 
       if (refs.length === 0) {
         const answer = data.answer || data.text || '';
@@ -415,6 +506,25 @@
     }
   }
 
+  function firstWordFromVerse(text) {
+    const skip = new Set([
+      'porque', 'entonces', 'tambien', 'cuando', 'sobre', 'entre', 'hacia', 'desde',
+      'para', 'como', 'esta', 'este', 'estos', 'estas', 'dijo', 'dice', 'senor',
+      'dios', 'jesus', 'pues', 'pero', 'sino', 'hasta', 'todos', 'todas', 'vuestro',
+      'vuestra', 'vuestros', 'vuestras', 'corazon', 'tambien',
+    ]);
+    const words = String(text || '')
+      .replace(/[«»""¿?¡!.,;:()]/g, ' ')
+      .split(/\s+/)
+      .map((w) => w.replace(/^[^\p{L}]+|[^\p{L}]+$/gu, ''))
+      .filter((w) => w.length >= 4);
+    const found = words.find((w) => {
+      const fold = w.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      return !skip.has(fold);
+    });
+    return found || words[0] || '';
+  }
+
   function getConcordanceSuggestions(passage) {
     const s = String(passage || '').toLowerCase();
     if (s.includes('juan') || s.includes('amor') || s.includes('gracia')) {
@@ -467,11 +577,25 @@
 
   async function loadConcordance(passageRef = currentActivePassage, customTerm = '') {
     const passage = String(passageRef || currentActivePassage || 'Romanos 12:2').trim();
-    const term = String(customTerm || '').trim();
+    let term = String(customTerm || '').trim();
+    if (!term) {
+      const active = document.querySelector(
+        '#texto-biblico .is-verse-on, #verses-container .is-verse-on, .verse-item.is-verse-on'
+      );
+      term = firstWordFromVerse(currentVerseText || active?.dataset?.text || '');
+    }
 
     renderConcordanceShell(term, passage);
     const container = document.getElementById('concordance-content-area');
     if (!container) return;
+
+    if (term.length < 3) {
+      container.innerHTML = `
+        <div class="p-4 bg-stone-50 border border-[#E8DFC8] rounded-xl text-xs font-serif text-center text-stone-600">
+          Escribe un término de al menos 3 letras para buscar en las Escrituras.
+        </div>`;
+      return;
+    }
 
     const stamp = ++concordanceStamp;
     if (concordanceAbort) concordanceAbort.abort();
@@ -496,8 +620,8 @@
       clearTimeout(timer);
       if (stamp !== concordanceStamp) return;
 
-      const answer = data.answer || data.respuesta || data.text || '';
-      const formatted = formatAnswerHtml(answer);
+      const answer = extractEngineAnswer(data);
+      const formatted = /<[a-z][\s\S]*>/i.test(answer) ? answer : formatAnswerHtml(answer);
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
           ${term ? `
@@ -556,9 +680,10 @@
       clearTimeout(timer);
       if (stamp !== strongStamp || currentActivePassage !== passage) return;
 
+      const answer = extractEngineAnswer(data);
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
-          ${formatAnswerHtml(data.answer)}
+          ${formatAnswerHtml(answer)}
         </div>`;
     } catch (err) {
       clearTimeout(timer);
@@ -671,9 +796,9 @@
 
       clearTimeout(timer);
       const data = await res.json().catch(() => ({}));
-      const answer = data.answer || data.respuesta || data.result || data.text || '';
+      const answer = extractEngineAnswer(data);
       if (!answer) {
-        throw new Error(data.error || 'No se recibió respuesta del análisis.');
+        throw new Error(engineErrorMessage(data, res.status) || 'No se recibió respuesta del análisis.');
       }
 
       const formatted = formatAnswerHtml(answer);
@@ -930,6 +1055,9 @@
     };
     currentTab = map[tabId] || tabId || 'comentarios';
     const root = ensurePanel();
+    if (currentTab === 'dogmatica' || tabId === 'lentes' || tabId === 'dogmatica') {
+      renderDualLensPanel();
+    }
     root.querySelectorAll('[data-sp-tab]').forEach((btn) => {
       const tabKey = btn.dataset.spTab;
       const on = tabKey === currentTab || map[tabKey] === currentTab || (tabKey === 'lentes' && currentTab === 'dogmatica');

@@ -20,6 +20,20 @@ export async function POST(request) {
   const req = {
     method: 'POST',
     body,
+    query: body,
+    headers: Object.fromEntries(request.headers.entries()),
+  }
+  await legacyHandler(req, response)
+  return response.toResponse()
+}
+
+export async function GET(request) {
+  const response = createResponse()
+  const query = Object.fromEntries(new URL(request.url).searchParams.entries())
+  const req = {
+    method: 'GET',
+    query,
+    body: query,
     headers: Object.fromEntries(request.headers.entries()),
   }
   await legacyHandler(req, response)
