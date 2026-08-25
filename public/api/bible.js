@@ -38,6 +38,8 @@ const ALIASES = {
   '2sam': '2 samuel',
   'i samuel': '1 samuel',
   'ii samuel': '2 samuel',
+  james: 'santiago',
+  stg: 'santiago',
   '1reyes': '1 reyes',
   '2reyes': '2 reyes',
   '1cronicas': '1 cronicas',
@@ -118,10 +120,28 @@ function resolveVersion(version, bookMeta) {
     return { bolls: 'NVI', packKey: 'nvi', label: 'Nueva Versión Internacional', note: null, requested: raw };
   }
   if (upper.includes('TLA')) {
-    return { bolls: 'TLA', packKey: 'tla', label: 'Traducción en Lenguaje Actual', note: null, requested: raw };
+    return {
+      bolls: 'TLA',
+      packKey: 'tla',
+      label: 'Traducción en Lenguaje Actual',
+      note: null,
+      requested: raw,
+      fallbackBolls: 'RV1960',
+      fallbackLabel: 'Reina-Valera 1960',
+      fallbackPack: 'rv1960',
+    };
   }
   if (upper.includes('DHH')) {
-    return { bolls: 'DHH', packKey: 'dhh', label: 'Dios Habla Hoy', note: null, requested: raw };
+    return {
+      bolls: 'DHH',
+      packKey: 'dhh',
+      label: 'Dios Habla Hoy',
+      note: null,
+      requested: raw,
+      fallbackBolls: 'RV1960',
+      fallbackLabel: 'Reina-Valera 1960',
+      fallbackPack: 'rv1960',
+    };
   }
 
   return { bolls: 'RV1960', packKey: 'rv1960', label: 'Reina-Valera 1960', note: null, requested: raw };
@@ -200,6 +220,7 @@ function okPayload(bookMeta, chapter, label, verses, source, extra = {}) {
     book: bookMeta.name,
     chapter,
     version: label,
+    note: extra.note || null,
     verses,
     data: {
       referencia: `${bookMeta.name} ${chapter}`,
@@ -323,6 +344,25 @@ export default async function handler(req, res) {
     }
 
     if (verses.length) {
+      const requestedUpper = String(ver.requested || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+      const stubFallback =
+        source === 'bolls-rv1960' ||
+        source === 'bolls-rv1909' ||
+        source === 'bolls-fallback' ||
+        source === 'local-pack-fallback' ||
+        source === 'local-pack-rv1960' ||
+        source === 'deno';
+      let visibleNote = ver.note || null;
+      if (stubFallback && requestedUpper.includes('TLA')) {
+        visibleNote = 'TLA no está disponible en el catálogo local (pack vacío). Mostrando Reina-Valera 1960.';
+      } else if (
+        stubFallback &&
+        requestedUpper.includes('DHH') &&
+        !String(resolvedLabel).toUpperCase().includes('DHH')
+      ) {
+        visibleNote = `DHH no está disponible en el catálogo local. Mostrando ${resolvedLabel}.`;
+      }
+
       if (ver.packKey === 'septuaginta' && ver.bolls === 'LXX') {
         const paraTraducir = verses.map((v) => ({ n: v.verse, texto: v.text }));
         const mapaEs = await traducirLxxAlEspanol(bookMeta.name, chapter, paraTraducir);
@@ -336,7 +376,7 @@ export default async function handler(req, res) {
       return res.status(200).json(
         okPayload(bookMeta, chapter, resolvedLabel, verses, source, {
           requestedVersion: ver.requested,
-          note: ver.note || null,
+          note: visibleNote,
           packKey: ver.packKey,
         })
       );
@@ -344,9 +384,16 @@ export default async function handler(req, res) {
 
     const denoVerses = await fetchDeno(bookMeta.en, chapter);
     if (denoVerses.length) {
+      const requestedUpper = String(ver.requested || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+      const denoNote = requestedUpper.includes('TLA')
+        ? 'TLA no está disponible en el catálogo local (pack vacío). Mostrando Reina-Valera 1909.'
+        : requestedUpper.includes('DHH')
+          ? 'DHH no está disponible en el catálogo local. Mostrando Reina-Valera 1909.'
+          : null;
       return res.status(200).json(
         okPayload(bookMeta, chapter, 'Reina-Valera 1909', denoVerses, 'deno', {
           requestedVersion: ver.requested,
+          note: denoNote,
           packKey: 'rv1960',
         })
       );

@@ -1,7 +1,7 @@
 {
   "schema": "revelatio.versiones.v1",
   "producto": "Éfata RevelatiO",
-  "activa": ["rv1960", "kjv", "tla", "dhh", "septuaginta"],
+  "activa": ["rv1960", "kjv", "septuaginta"],
   "versiones": [
     {
       "key": "rv1960",

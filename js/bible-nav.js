@@ -14,7 +14,6 @@
         { id: "RVR1960", label: "Reina-Valera 1960" },
         { id: "RVR1909", label: "Reina-Valera 1909" },
         { id: "DHH", label: "Dios Habla Hoy" },
-        { id: "TLA", label: "Traducción en Lenguaje Actual" },
         { id: "NVI", label: "Nueva Versión Internacional" },
         { id: "KJV", label: "King James Version" },
         { id: "LXX", label: "Septuaginta (Griego)" },

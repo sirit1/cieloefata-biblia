@@ -28,7 +28,7 @@ function mapUiVersion(version) {
   if (!v || v === 'rv1960' || v === 'rvr1960') return 'RVR1960';
   if (v === 'rv1909' || v === 'rvr1909' || v.includes('1909')) return 'RVR1909';
   if (v === 'dhh') return 'DHH';
-  if (v === 'tla') return 'TLA';
+  if (v === 'tla') return 'RVR1960';
   if (v === 'nvi') return 'NVI';
   if (v === 'kjv') return 'KJV';
   if (v === 'lxx' || v === 'septuaginta' || v === 'textual' || v === 'rahlfs') return 'LXX';

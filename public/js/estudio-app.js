@@ -806,7 +806,7 @@
         if (!v || v === 'rv1960' || v === 'rvr1960') return 'RVR1960';
         if (v === 'rv1909' || v === 'rvr1909' || v.includes('1909')) return 'RVR1909';
         if (v === 'dhh') return 'DHH';
-        if (v === 'tla') return 'TLA';
+        if (v === 'tla') return 'RVR1960';
         if (v === 'nvi') return 'NVI';
         if (v === 'kjv') return 'KJV';
         if (v === 'lxx' || v === 'septuaginta' || v === 'textual' || v === 'rahlfs') return 'LXX';
@@ -3543,7 +3543,6 @@ function descargarBackup(kind) {
         const VERSIONES_FIJAS = [
             { key: 'rv1960', etiqueta: 'RVR1960' },
             { key: 'kjv', etiqueta: 'KJV' },
-            { key: 'tla', etiqueta: 'TLA' },
             { key: 'dhh', etiqueta: 'DHH' },
             { key: 'septuaginta', etiqueta: 'Septuaginta (Rahlfs)' }
         ];
@@ -3554,7 +3553,7 @@ function descargarBackup(kind) {
             const raw = localStorage.getItem('revelatio_version') || 'rv1960';
             const savedV = VERSIONES_FIJAS.some(v => v.key === raw)
                 ? raw
-                : (raw === 'lxx' ? 'septuaginta' : 'rv1960');
+                : (raw === 'lxx' ? 'septuaginta' : (raw === 'tla' || raw === 'TLA' ? 'rv1960' : 'rv1960'));
             version.value = savedV;
         }
         if (autor) {

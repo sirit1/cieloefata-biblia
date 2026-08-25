@@ -9,7 +9,6 @@
     const VERSIONES = [
         { key: 'rv1960', etiqueta: 'RVR1960', licencia: 'sbu' },
         { key: 'kjv', etiqueta: 'KJV', licencia: 'public' },
-        { key: 'tla', etiqueta: 'TLA', licencia: 'sbu' },
         { key: 'dhh', etiqueta: 'DHH', licencia: 'sbu' },
         { key: 'septuaginta', etiqueta: 'Septuaginta (Rahlfs)', licencia: 'public' }
     ];

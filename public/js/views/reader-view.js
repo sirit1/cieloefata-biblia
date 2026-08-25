@@ -73,6 +73,7 @@ function paintHeader(data) {
     header.innerHTML = `
       <h1 id="chapter-title" class="text-3xl font-serif font-bold text-[#0A192F]">${escapeHtml(book)} ${escapeHtml(String(chapter))}</h1>
       <span id="chapter-version-label" class="text-xs font-serif font-semibold text-[#C59B27] tracking-wider uppercase">${escapeHtml(String(version))}</span>
+      ${data?.note ? `<p id="chapter-version-note" class="mt-2 text-xs font-serif text-[#0A192F]/70">${escapeHtml(data.note)}</p>` : ''}
     `;
     return;
   }
@@ -82,6 +83,20 @@ function paintHeader(data) {
     versionEl.textContent = version;
     versionEl.className =
       'text-xs font-serif font-semibold text-[#C59B27] tracking-wider uppercase';
+  }
+  const existingNote = document.getElementById('chapter-version-note');
+  if (data?.note) {
+    if (existingNote) {
+      existingNote.textContent = data.note;
+    } else if (versionEl?.parentElement) {
+      const p = document.createElement('p');
+      p.id = 'chapter-version-note';
+      p.className = 'mt-2 text-xs font-serif text-[#0A192F]/70';
+      p.textContent = data.note;
+      versionEl.parentElement.appendChild(p);
+    }
+  } else if (existingNote) {
+    existingNote.remove();
   }
 }
 
@@ -231,7 +246,7 @@ export function initReader() {
       container.innerHTML = `
         <div class="p-6 bg-amber-50 border border-[#E8DFC8] rounded-xl text-center font-serif text-[#0A192F]">
           <p class="font-bold">No se pudo cargar ${escapeHtml(wantBook)} ${wantChap}.</p>
-          <p class="text-xs text-stone-500 mt-1">${escapeHtml(data.error || 'Revisa la conexión.')}</p>
+          <p class="text-xs text-stone-500 mt-1">${escapeHtml(/HTTP Error:\s*\d+/i.test(String(data.error || '')) ? 'Comprueba la conexión. Si abriste la app en un servidor estático, las rutas /api/* no existen.' : (data.error || 'Revisa la conexión.'))}</p>
         </div>`;
       return;
     }
@@ -240,6 +255,7 @@ export function initReader() {
       book: wantBook,
       chapter: wantChap,
       version: data.version || wantVer,
+      note: data.note || '',
     });
 
     container.innerHTML = '';
