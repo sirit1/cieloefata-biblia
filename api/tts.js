@@ -12,7 +12,9 @@
  *   Apta para narración en español con eleven_multilingual_v2.
  *   Override: ELEVENLABS_VOICE_ID
  */
-import { loadProjectEnv } from '../lib/load-env.js';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 export const TTS_VOICE_ID = 'onwK4e9ZLuTAKqWW03F9';
 export const TTS_VOICE_NAME = 'Daniel';
@@ -23,8 +25,56 @@ export const TTS_MISSING_KEY = 'ELEVENLABS_API_KEY no presente';
 
 const ELEVEN_URL = 'https://api.elevenlabs.io/v1/text-to-speech';
 
+let envLoaded = false;
+
+function parseEnvFile(raw) {
+  const out = {};
+  const text = String(raw || '').replace(/^\uFEFF/, '');
+  for (const line of text.split(/\r?\n/)) {
+    const t = line.trim();
+    if (!t || t.startsWith('#')) continue;
+    const cleaned = t.replace(/^export\s+/, '');
+    const i = cleaned.indexOf('=');
+    if (i < 1) continue;
+    const k = cleaned.slice(0, i).trim();
+    let v = cleaned.slice(i + 1).trim();
+    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
+    if (k) out[k] = v;
+  }
+  return out;
+}
+
+function loadEnvFiles() {
+  if (envLoaded) return;
+  envLoaded = true;
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const dirs = [join(here, '..'), process.cwd(), here];
+    const files = ['.env.local', '.env'];
+    const seen = new Set();
+    for (const dir of dirs) {
+      for (const file of files) {
+        const path = join(dir, file);
+        if (seen.has(path)) continue;
+        seen.add(path);
+        try {
+          const parsed = parseEnvFile(readFileSync(path, 'utf8'));
+          for (const [k, v] of Object.entries(parsed)) {
+            if (Object.prototype.hasOwnProperty.call(process.env, k)) continue;
+            process.env[k] = v;
+          }
+        } catch {
+          /* siguiente archivo */
+        }
+      }
+    }
+  } catch {
+    /* sin archivos de entorno */
+  }
+}
+
 function envTrim(name) {
-  loadProjectEnv();
+  loadEnvFiles();
   const v = process.env[name];
   if (typeof v !== 'string') return '';
   return v.trim().replace(/^['"]|['"]$/g, '');

@@ -2,7 +2,6 @@
  * Pruebas aisladas de /api/tts: texto estricto, sin Gemini, sin clave → 503.
  */
 import { handleTts, resolveSpeakText, TTS_MISSING_KEY, TTS_VOICE_ID } from '../api/tts.js';
-import { loadProjectEnv } from '../lib/load-env.js';
 
 const results = [];
 
@@ -55,7 +54,6 @@ async function run(name, fn) {
 }
 
 const savedKey = process.env.ELEVENLABS_API_KEY;
-loadProjectEnv();
 process.env.ELEVENLABS_API_KEY = '';
 
 await run('resolveSpeakText usa verseText, nunca passage solo', () => {
