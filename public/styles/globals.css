@@ -1,16 +1,16 @@
 /* Éfata RevelatiO — styles/globals.css
-   Paleta editorial: Luz Celestial · Azul Imperial · Oro Sacro · Frutos del Espíritu */
+   Paleta editorial: Niebla marina · pizarra · oro sacro · Frutos del Espíritu */
 
 :root {
-  /* Paleta Éfata RevelatiO Editorial */
-  --color-primary-navy: #0A192F;
-  --color-sacred-gold: #C59B27;
-  --color-gold-light: #DFB743;
-  --color-bg-celestial: #FAF8F5;
+  /* Paleta Éfata RevelatiO · Niebla marina */
+  --color-primary-navy: #3A5364;
+  --color-sacred-gold: #C9A84C;
+  --color-gold-light: #D4B85E;
+  --color-bg-celestial: #EEF2F4;
   --color-card-surface: #FFFFFF;
-  --color-border-subtle: #E8DFC8;
-  --color-text-main: #1E293B;
-  --color-text-muted: #64748B;
+  --color-border-subtle: #D5DDE3;
+  --color-text-main: #2C3E4A;
+  --color-text-muted: #5A6B78;
 
   /* Frutos del Espíritu (resaltados y lentes) */
   --fruto-amor: #A8201A;
@@ -21,27 +21,28 @@
   --fruto-templanza: #9A3412;
 
   /* Alias de compatibilidad con main.css */
-  --obsidian: var(--color-primary-navy);
-  --obsidian-mid: #0F2744;
+  --obsidian: #2C3E4A;
+  --obsidian-mid: #3A5364;
   --pearl: var(--color-card-surface);
   --paper: var(--color-bg-celestial);
-  --sidebar: #F4EFE6;
+  --sidebar: #F8FAFB;
   --graphite: var(--color-text-main);
-  --graphite-soft: rgba(30, 41, 59, 0.88);
+  --graphite-soft: rgba(44, 62, 74, 0.88);
   --chrome-ink: var(--color-text-main);
   --chrome-muted: var(--color-text-muted);
   --gold: var(--color-sacred-gold);
   --gold-bright: var(--color-gold-light);
-  --gold-soft: rgba(197, 155, 39, 0.18);
-  --gold-line: rgba(197, 155, 39, 0.35);
+  --gold-soft: rgba(201, 168, 76, 0.18);
+  --gold-line: rgba(201, 168, 76, 0.35);
   --panel: var(--color-card-surface);
-  --panel-elevated: #FFFEFA;
+  --panel-elevated: #F8FAFB;
   --ink: var(--color-text-main);
-  --ink-soft: #334155;
+  --ink-soft: #3D5464;
   --ink-muted: var(--color-text-muted);
-  --chrome-dark: var(--color-primary-navy);
-  --shadow-card: 0 10px 28px -12px rgba(10, 25, 47, 0.14), 0 4px 10px -6px rgba(10, 25, 47, 0.08);
-  --shadow-deep: 0 18px 40px -16px rgba(10, 25, 47, 0.22);
+  --chrome-dark: #3A5364;
+  --night: #3A5364;
+  --shadow-card: 0 10px 28px -12px rgba(58, 83, 100, 0.14), 0 4px 10px -6px rgba(58, 83, 100, 0.08);
+  --shadow-deep: 0 18px 40px -16px rgba(58, 83, 100, 0.22);
 }
 
 body {
@@ -53,8 +54,8 @@ body {
 body.aposento-active,
 body.is-aposento,
 body.dark-mode {
-  background-color: #060D1A !important;
-  color: #F8FAFC !important;
+  background-color: var(--paper) !important;
+  color: var(--ink) !important;
 }
 
 /* —— Resaltados · Frutos del Espíritu —— */
@@ -729,23 +730,23 @@ body.is-santuario .rv-ficha-grid dd {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --ink-on-parchment: #0F172A;
-  --muted-on-parchment: #334155;
-  --soft-on-parchment: #475569;
-  --bronze-on-parchment: #7A5C0F; /* AA sobre #FAF7F0 / #F4EFE6 */
+  --ink-on-parchment: #2C3E4A;
+  --muted-on-parchment: #3D5464;
+  --soft-on-parchment: #5A6B78;
+  --bronze-on-parchment: #7A5C0F;
   --bronze-strong: #5C4508;
   --ink-on-navy: #F8FAFC;
-  --muted-on-navy: #CBD5E1;
-  --gold-on-navy: #E8C547;
-  --gold-bright-on-navy: #F0D56A;
-  --ink-on-gold: #0A192F;
+  --muted-on-navy: #D5DDE3;
+  --gold-on-navy: #D4B85E;
+  --gold-bright-on-navy: #D4B85E;
+  --ink-on-gold: #3A5364;
 }
 
 /* —— Cabecera navy —— */
 header.rv-chrome,
 body.is-santuario header.rv-chrome,
 body.visor-active header.rv-chrome {
-  background: #0A192F !important;
+  background: var(--chrome-dark) !important;
   color: var(--ink-on-navy) !important;
 }
 
@@ -769,9 +770,9 @@ header.rv-chrome .rv-aposento-toggle {
 #breadcrumbs.rv-chrome,
 .rv-breadcrumbs,
 body.is-santuario #breadcrumbs {
-  background: #0A192F !important;
+  background: var(--chrome-dark) !important;
   color: var(--muted-on-navy) !important;
-  border-color: rgba(232, 197, 71, 0.28) !important;
+  border-color: rgba(212, 184, 94, 0.28) !important;
 }
 
 #breadcrumbs .rv-crumb-sep,
@@ -807,10 +808,10 @@ body.is-santuario #breadcrumbs .text-\[\#D4AF37\] {
 #panel-canon.rv-sidebar,
 body.is-santuario .rv-sidebar,
 body.is-santuario #panel-canon {
-  background-color: #0A192F !important;
+  background-color: var(--chrome-dark) !important;
   color: #F1E7DB !important;
-  border-right: 1px solid rgba(197, 155, 39, 0.3) !important;
-  border-color: rgba(197, 155, 39, 0.3) !important;
+  border-right: 1px solid rgba(201, 168, 76, 0.3) !important;
+  border-color: rgba(201, 168, 76, 0.3) !important;
 }
 
 .rv-sidebar-home,
@@ -911,9 +912,9 @@ body.is-santuario .rv-sidebar .libro-btn.is-active {
 
 .cap-btn,
 body.is-santuario .rv-sidebar .cap-btn {
-  background: #0F172A !important;
+  background: #2C3E4A !important;
   color: #CBD5E1 !important;
-  border: 1px solid #334155 !important;
+  border: 1px solid rgba(213, 221, 227, 0.35) !important;
   width: 1.75rem !important;
   height: 1.75rem !important;
   min-width: 1.75rem !important;
@@ -927,25 +928,25 @@ body.is-santuario .rv-sidebar .cap-btn {
 
 .cap-btn:hover,
 body.is-santuario .rv-sidebar .cap-btn:hover {
-  background: #0F172A !important;
-  color: #DFB743 !important;
-  border-color: #DFB743 !important;
+  background: #2C3E4A !important;
+  color: var(--gold-bright) !important;
+  border-color: var(--gold-bright) !important;
 }
 
 .cap-btn.is-active,
 body.is-santuario .rv-sidebar .cap-btn.is-active {
-  background: #DFB743 !important;
-  color: #0A192F !important;
-  border-color: #DFB743 !important;
+  background: var(--gold-bright) !important;
+  color: var(--chrome-dark) !important;
+  border-color: var(--gold-bright) !important;
   font-weight: 700 !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25);
 }
 
 .rv-nav-cuaderno,
 #panel-canon .rv-nav-cuaderno {
-  background: #13233D !important;
-  color: #DFB743 !important;
-  border-color: rgba(197, 155, 39, 0.4) !important;
+  background: var(--chrome-dark) !important;
+  color: var(--gold-bright) !important;
+  border-color: rgba(201, 168, 76, 0.4) !important;
 }
 
 .rv-nav-cuaderno:hover {
@@ -954,8 +955,8 @@ body.is-santuario .rv-sidebar .cap-btn.is-active {
 }
 
 .rv-nav-cuaderno.is-on {
-  background: #C59B27 !important;
-  color: #0A192F !important;
+  background: var(--gold) !important;
+  color: var(--chrome-dark) !important;
 }
 
 /* Chips de acceso rápido */
@@ -998,9 +999,9 @@ body.is-santuario .rv-toolbar label span {
 select.rv-select,
 body.is-santuario .rv-select,
 body.is-santuario select.rv-select {
-  background: #0A192F !important;
+  background: var(--chrome-dark) !important;
   color: #F8FAFC !important;
-  border-color: rgba(232, 197, 71, 0.4) !important;
+  border-color: rgba(212, 184, 94, 0.4) !important;
 }
 
 /* —— Ficha metadatos: bronce oscuro, no oro claro —— */
@@ -1416,8 +1417,8 @@ button.rv-btn-gold {
    ═══════════════════════════════════════════════════════════════════════════ */
 #rv-splash,
 .rv-splash {
-  background: #07101E !important;
-  color: #FAF8F5 !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
 }
 
 #rv-splash .rv-brand-lockup,
@@ -1442,7 +1443,7 @@ button.rv-btn-gold {
 
 #rv-splash .rv-splash-hint,
 .rv-splash-hint {
-  color: rgba(223, 183, 67, 0.75) !important;
+  color: var(--chrome-dark) !important;
 }
 
 .rv-auth-switch-user-wrap {
@@ -1634,14 +1635,14 @@ body:not(.is-santuario):not(.is-acompanamiento):not(.visor-active) #btn-asistent
   border: 1px solid rgba(197, 155, 39, 0.35);
 }
 #welcome-screen {
-  background-color: #07101E !important;
+  background-color: var(--paper) !important;
 }
 
 #welcome-screen.rv-welcome-screen,
 .rv-welcome-screen {
-  background-color: #07101E !important;
+  background-color: var(--paper) !important;
   background-image: none !important;
-  background: #07101E !important;
+  background: var(--paper) !important;
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
@@ -1705,9 +1706,9 @@ header.rv-chrome .rv-lockup-btn img {
 
 #rv-splash,
 .rv-splash {
-  background-color: #07101E !important;
-  background: #07101E !important;
-  color: #FAF8F5 !important;
+  background-color: var(--paper) !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
 }
 
 #rv-splash .rv-splash-logo.rv-welcome-logo,
@@ -1755,7 +1756,7 @@ header.rv-chrome .rv-lockup-btn img {
 
 #rv-splash .rv-splash-hint,
 .rv-splash-hint {
-  color: rgba(223, 183, 67, 0.75) !important;
+  color: var(--chrome-dark) !important;
 }
 
 .rv-welcome-door.rv-door {
@@ -1765,26 +1766,26 @@ header.rv-chrome .rv-lockup-btn img {
   font: inherit;
   appearance: none;
   -webkit-appearance: none;
-  color: #E8EDF5 !important;
-  background: #0A192F !important;
-  border: 1px solid rgba(197, 155, 39, 0.45) !important;
+  color: #F8FAFC !important;
+  background: var(--chrome-dark) !important;
+  border: 1px solid rgba(201, 168, 76, 0.45) !important;
 }
 
-/* Contraste forzado: umbral noche (no heredar --ink #1E293B) */
+/* Contraste forzado: umbral niebla (tinta sobre papel) */
 #rv-home.rv-home:has(#welcome-screen),
 #welcome-screen.rv-welcome-screen,
 .rv-welcome-screen {
-  color: #F1F5F9 !important;
+  color: var(--ink) !important;
 }
 
 #welcome-screen #home-titulo,
 #welcome-screen h1 {
-  color: #FFFFFF !important;
+  color: var(--ink) !important;
 }
 
 #welcome-screen .rv-welcome-tagline,
 #welcome-screen p.font-serif.italic {
-  color: #DFB743 !important;
+  color: var(--chrome-dark) !important;
 }
 
 #welcome-screen .rv-welcome-door h2,
@@ -1794,7 +1795,7 @@ header.rv-chrome .rv-lockup-btn img {
 
 #welcome-screen .rv-welcome-door p,
 #welcome-screen .rv-welcome-door .rv-door-copy {
-  color: #CBD5E1 !important; /* slate-300 legible sobre navy */
+  color: #D5DDE3 !important;
 }
 
 #welcome-screen .rv-welcome-door .rv-door-kicker,
@@ -1822,20 +1823,20 @@ header.rv-chrome .rv-lockup-btn img {
 #welcome-screen .text-stone-400,
 #welcome-screen header span,
 #welcome-screen > div:first-child > span {
-  color: #94A3B8 !important;
+  color: var(--ink-muted) !important;
 }
 
 .rv-home-inner--secondary {
   max-width: 48rem;
   margin: 0 auto;
   padding: 1.5rem 1rem 3rem;
-  background: #FAF8F5;
+  background: var(--paper);
 }
 
-/* Cabecera visor · navy brand */
+/* Cabecera visor · pizarra Niebla marina */
 header.rv-chrome {
-  background: #07101E !important;
-  border-bottom: 1px solid rgba(197, 155, 39, 0.3) !important;
+  background: var(--chrome-dark) !important;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.3) !important;
 }
 
 header.rv-chrome .rv-lockup-btn img {
@@ -1860,8 +1861,8 @@ header.rv-chrome .rv-lockup-btn img {
 /* FAB branding oficial */
 #btn-asistente-ia.rv-fab-brand,
 .rv-fab.rv-fab-brand {
-  background: #0A192F !important;
-  border: 2px solid #C59B27 !important;
+  background: var(--chrome-dark) !important;
+  border: 2px solid var(--gold) !important;
   border-radius: 9999px !important;
   padding: 0.375rem 1rem 0.375rem 0.375rem !important;
   gap: 0.625rem !important;
@@ -2017,10 +2018,10 @@ header.rv-chrome .rv-lockup-btn img {
   color: #F0D56A !important;
 }
 
-/* —— Restauración de contraste canónico (Marfil / Oro / Blanco sobre #0A192F) —— */
+/* —— Restauración de contraste canónico (Marfil / Oro / Blanco sobre pizarra) —— */
 #panel-canon.rv-sidebar,
 .rv-sidebar {
-  background-color: #0A192F !important;
+  background-color: var(--chrome-dark) !important;
   color: #F1E7DB !important;
 }
 .rv-canon-section,
