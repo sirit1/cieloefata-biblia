@@ -1045,10 +1045,8 @@
             if (withEs) {
                 window.__revelatioPassageData = withEs;
                 passage = withEs;
-                if (!readerOwns) {
-                    if (texto) texto.innerHTML = cuerpoLectura(libro, version, passage);
-                    else if (versesBox) versesBox.innerHTML = cuerpoLectura(libro, version, passage);
-                }
+                if (texto) texto.innerHTML = cuerpoLectura(libro, version, passage);
+                else if (versesBox) versesBox.innerHTML = cuerpoLectura(libro, version, passage);
             }
         }
         try {
@@ -2304,6 +2302,7 @@ function descargarBackup(kind) {
             document.getElementById('modulo-estudio')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         if (tab === 'perspectivas') refrescarPerspectivas(estado());
+        if (tab === 'concordancia') refrescarConcordancia(estado());
     }
 
     function strongsDelVersoSeleccionado(n) {
@@ -2396,12 +2395,16 @@ function descargarBackup(kind) {
         });
     }
 
-    function pintarConcordancia(libro, cruzadas) {
+    function pintarConcordancia(libro, cruzadas, termino = '') {
         const refEl = document.getElementById('ref-concordancia');
         const cruzadasEl = document.getElementById('lista-cruzadas');
         const strongEl = document.getElementById('lista-strong-verso');
         const ref = referenciaComentario(libro);
-        if (refEl) refEl.textContent = ref || `${libro?.n || ''} ${libro?.cap || ''}`.trim();
+        if (refEl) {
+            refEl.textContent = termino
+                ? `${ref || ''} · «${termino}»`.trim()
+                : (ref || `${libro?.n || ''} ${libro?.cap || ''}`.trim());
+        }
         const n = Number(libro?.verso || 0);
         const keys = n ? strongsDelVersoSeleccionado(n) : [];
         if (strongEl) {
@@ -2425,7 +2428,7 @@ function descargarBackup(kind) {
                     const nota = item.nota || item.description || item.text || '';
                     return `<button type="button" class="rv-xref-item" data-ir-ref="${escapeHtml(cita)}"><span class="rv-xref-ref">${escapeHtml(cita)}</span>${nota ? `<span class="rv-xref-nota">${escapeHtml(nota)}</span>` : ''}</button>`;
                 }).join('')
-                : `<p class="rv-estudio-vacio">${n ? 'No hay referencias cruzadas catalogadas para este versículo.' : 'Elige un versículo para ver paralelos y concordancia.'}</p>`;
+                : `<p class="rv-estudio-vacio">${termino ? `No hay coincidencias para «${escapeHtml(termino)}».` : (n ? 'No hay un término de 5+ letras en este versículo para concordancia. Usa la búsqueda del canon.' : 'Elige un versículo o busca una palabra de al menos 3 letras.')}</p>`;
         }
     }
 
@@ -2460,19 +2463,107 @@ function descargarBackup(kind) {
         }
     }
 
+    function palabrasClaveConcordancia(texto) {
+        const stop = new Set(
+            `el la los las un una unos unas de del al a en y o u que se su sus le les lo
+             por para con sin sobre entre hasta desde como cuando donde porque pues asi
+             este esta estos estas ese esa eso aquel aquella hay ser son fue eran muy
+             mas pero sino tambien ya no ni me te nos os yo tu el oh jehova
+             nunca jamas siempre todos todas este esta`.split(/\s+/).filter(Boolean)
+        );
+        return String(texto || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9ñ\s]/g, ' ')
+            .split(/\s+/)
+            .filter((w) => w.length >= 5 && !stop.has(w));
+    }
+
+    async function cargarConcordanciaHits(term) {
+        const q = String(term || '').trim();
+        if (q.length < 3) return [];
+        const ver = claveMotor(versionActiva());
+        const res = await fetch(`/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(ver)}`);
+        const json = await res.json().catch(() => null);
+        if (!res.ok) return [];
+        return json?.data?.resultados || json?.resultados || [];
+    }
+
     async function refrescarConcordancia(libro) {
         const ref = referenciaComentario(libro);
+        const texto = versoTextoActual(libro);
+        const keys = palabrasClaveConcordancia(texto);
         const cruzadasEl = document.getElementById('lista-cruzadas');
-        if (cruzadasEl) {
-            cruzadasEl.innerHTML = `<p class="rv-estudio-vacio py-6 text-center text-amber-800 text-sm"><span class="animate-spin inline-block mr-1">⏳</span> Construyendo referencias cruzadas para ${escapeHtml(ref)}...</p>`;
+        const contentEl = document.getElementById('concordance-content-area');
+        const loading = `<p class="rv-estudio-vacio py-6 text-center text-amber-800 text-sm"><span class="animate-spin inline-block mr-1">⏳</span> Buscando concordancia para ${escapeHtml(ref)}...</p>`;
+        if (cruzadasEl) cruzadasEl.innerHTML = loading;
+        if (contentEl && contentEl !== cruzadasEl) contentEl.innerHTML = loading;
+
+        let hits = [];
+        let used = keys[0] || '';
+        try {
+            for (const term of keys) {
+                const got = await cargarConcordanciaHits(term);
+                used = term;
+                if (got.length) {
+                    hits = got;
+                    break;
+                }
+            }
+        } catch {
+            hits = [];
         }
-        pintarConcordancia(libro, []);
-        const lista = await cargarCruzadas(ref);
-        if (referenciaComentario(estado()) === ref) pintarConcordancia(libro, lista);
+
+        if (referenciaComentario(estado()) !== ref && referenciaComentario(libro) !== ref) {
+            /* stale */
+        }
+        const mapped = hits.map((item) => ({
+            ref: item.ref || (item.libro ? `${item.libro} ${item.capitulo}:${item.verso}` : ''),
+            nota: String(item.html || item.texto || item.text || '').replace(/<[^>]+>/g, ''),
+            html: item.html || '',
+        }));
+        pintarConcordancia(libro, mapped, used);
     }
 
 
     const PERSPECTIVAS = (window.RV_DATA && window.RV_DATA.PERSPECTIVAS) || {};
+    const PERSP_TO_LENS = {
+        exegesis: { id: 'biblica_exegesis', title: 'Exégesis Filológica & Textual' },
+        hermeneutica: { id: 'biblica_pactos', title: 'Teología del Pacto & Metarrelato' },
+        apologetica: { id: 'biblica_apologetica', title: 'Apologética Clásica & Cosmovisión' },
+        mente: { id: 'mental_metanoia', title: 'Metanoia & Renovación del Nous' },
+        alma: { id: 'mental_psicologia', title: 'Psicología del Alma & Shalom' },
+    };
+
+    async function pedirLenteElite(subLensId, lensTitle, libro) {
+        const loc = libro || estado();
+        const ref = referenciaComentario(loc);
+        const verseText = versoTextoActual(loc);
+        const res = await fetch('/api/lente-elite', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+                passage: ref,
+                subLensId,
+                lensId: subLensId,
+                lensTitle,
+                verseText,
+                mode: 'elite_lens',
+                type: 'elite_lens',
+                prompt: `Analiza ${ref} bajo ${lensTitle}`,
+            }),
+        });
+        const data = await res.json().catch(() => ({}));
+        return String(data.answer || data.respuesta || data.text || data.error || '').trim();
+    }
+
+    function htmlDictamenLente(text) {
+        return escapeHtml(String(text || '').trim())
+            .replace(/^###\s+(.*?)$/gm, '<h5 class="font-bold text-[#855D10] my-2">$1</h5>')
+            .replace(/\n\n+/g, '</p><p>')
+            .replace(/\n/g, '<br/>');
+    }
 
     let perspState = {
         activa: 'exegesis',
@@ -2656,6 +2747,35 @@ function descargarBackup(kind) {
         });
         pintarTipPerspectiva(perspState.activa, 'activa');
         pintarPerspectivasUI();
+        cargarLentePerspectivaActiva(loc);
+    }
+
+    async function cargarLentePerspectivaActiva(libro) {
+        const loc = libro || estado();
+        const grid = document.getElementById('rv-persp-grid');
+        const mapped = PERSP_TO_LENS[perspState.activa] || PERSP_TO_LENS.exegesis;
+        if (grid) {
+            grid.innerHTML = `<p class="rv-persp-loading">Consultando lente «${escapeHtml(mapped.title)}»…</p>`;
+        }
+        try {
+            const answer = await pedirLenteElite(mapped.id, mapped.title, loc);
+            if (!grid) return;
+            if (!answer) {
+                grid.innerHTML = `<p class="rv-estudio-vacio">No se pudo generar el dictamen de la lente. Reintenta.</p>`;
+                return;
+            }
+            grid.innerHTML = `
+                <article class="rv-persp-card">
+                    <p class="rv-persp-card-kicker">${escapeHtml(mapped.id)}</p>
+                    <h3 class="rv-persp-card-title">${escapeHtml(mapped.title)}</h3>
+                    <div class="rv-persp-card-body"><p>${htmlDictamenLente(answer)}</p></div>
+                    <p class="rv-persp-meta">RevelatiO IA · /api/lente-elite</p>
+                </article>`;
+        } catch {
+            if (grid) {
+                grid.innerHTML = `<p class="rv-estudio-vacio">No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.</p>`;
+            }
+        }
     }
 
     function construirSintesisMaestra(libro) {
@@ -2682,81 +2802,18 @@ function descargarBackup(kind) {
                 <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
                 <div>
                     <strong>RevelatiO IA</strong>
-                    <span>Síntesis maestra en curso…</span>
+                    <span>Dictamen maestro en curso…</span>
                 </div>
             </div>
-            <p class="rv-persp-loading">Unificando las cinco lentes bajo el Manifiesto Teológico — Padre, cruz de Cristo y Espíritu Santo…</p>`;
-
-        const local = construirSintesisMaestra(loc);
-        let verdad = local.verdad;
-        let impacto = local.impacto;
-        let decreto = local.decreto;
+            <p class="rv-persp-loading">Consultando /api/lente-elite · dictamen_maestro…</p>`;
 
         try {
-            const token = await tokenAuth();
-            const ref = referenciaComentario(loc);
-            const texto = versoTextoActual(loc);
-            const prompt = [
-                `Sintetiza en español las cinco lentes de estudio de Éfata RevelatiO para ${ref}:`,
-                '1) Exégesis e Historia (Strong y contexto)',
-                '2) Hermenéutica y Teología (Biblia interpreta Biblia, gracia)',
-                '3) Apologética y Veracidad',
-                '4) Neuroplasticidad y Pensamiento (metanoia bíblica)',
-                '5) Inteligencia Emocional y Alma (corazón de carne por el Espíritu)',
-                texto ? `Texto: ${texto}` : '',
-                'Devuelve SOLO tres bloques con estos títulos exactos:',
-                '1) La Verdad Revelada (Bíblica)',
-                '2) El Impacto en la Mente y la Vida',
-                '3) Decreto de Aplicación Práctica',
-                'Manifiesto absoluto: todo conduce al Padre, a la cruz de Jesucristo y a la obra del Espíritu Santo. Máximo 120 palabras por bloque.',
-            ].filter(Boolean).join('\n');
-
-            if (token) {
-                const res = await fetch('/api/chat-global', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({
-                        message: prompt,
-                        context: {
-                            reference: ref,
-                            module: 'Perspectivas',
-                            version: versionActiva(),
-                        },
-                        history: [],
-                    }),
-                });
-                if (res.ok) {
-                    let raw = '';
-                    if (res.body && typeof res.body.getReader === 'function' && window.revelatioLectura?.leerStream) {
-                        raw = await window.revelatioLectura.leerStream(res);
-                    } else {
-                        raw = await res.text();
-                    }
-                    const partes = String(raw || '');
-                    const m1 = partes.split(/1\)\s*La Verdad Revelada[^\n]*/i);
-                    const m2 = partes.split(/2\)\s*El Impacto[^\n]*/i);
-                    const m3 = partes.split(/3\)\s*Decreto[^\n]*/i);
-                    if (m1.length > 1 && m2.length > 1) {
-                        verdad = m1[1].split(/2\)/i)[0].trim() || verdad;
-                    }
-                    if (m2.length > 1 && m3.length > 1) {
-                        impacto = m2[1].split(/3\)/i)[0].trim() || impacto;
-                    }
-                    if (m3.length > 1) {
-                        decreto = m3[1].trim() || decreto;
-                    } else if (partes.length > 120 && !partes.includes('<')) {
-                        impacto = partes.slice(0, 700);
-                    }
-                }
-            }
-        } catch {
-            /* fallback local */
-        }
-
-        report.innerHTML = `
+            const answer = await pedirLenteElite(
+                'dictamen_maestro',
+                'DICTAMEN MAESTRO INTEGRADO',
+                loc,
+            );
+            report.innerHTML = `
             <div class="rv-persp-synth-head">
                 <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
                 <div>
@@ -2765,17 +2822,18 @@ function descargarBackup(kind) {
                 </div>
             </div>
             <div class="rv-persp-block">
-                <h4>1 · La Verdad Revelada (Bíblica)</h4>
-                <p>${escapeHtml(verdad)}</p>
-            </div>
-            <div class="rv-persp-block">
-                <h4>2 · El Impacto en la Mente y la Vida</h4>
-                <p>${escapeHtml(impacto)}</p>
-            </div>
-            <div class="rv-persp-block">
-                <h4>3 · Decreto de Aplicación Práctica</h4>
-                <p>${escapeHtml(decreto)}</p>
+                <p>${htmlDictamenLente(answer || 'No se pudo generar el dictamen de la lente. Reintenta.')}</p>
             </div>`;
+        } catch {
+            report.innerHTML = `
+            <div class="rv-persp-synth-head">
+                <div>
+                    <strong>Síntesis maestra</strong>
+                    <span>${escapeHtml(referenciaComentario(loc) || 'Pasaje')}</span>
+                </div>
+            </div>
+            <p class="rv-estudio-vacio">No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.</p>`;
+        }
         perspState.sintetizando = false;
         report.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -2978,15 +3036,11 @@ function descargarBackup(kind) {
                 window.revelatioAudio?.narrar(selectedText);
             }
             if (act === 'xref') {
-                abrirEstudioTab('concordancia');
-                const n = Number(String(selectedRef || '').split(':').pop()) || loc.verso;
-                refrescarConcordancia({ ...loc, verso: n });
                 window.RV?.studyPanel?.open?.({ tab: 'tsk', ref });
             }
             if (act === 'strong') {
-                abrirEstudioTab('concordancia');
                 const n = Number(String(selectedRef || '').split(':').pop()) || loc.verso;
-                refrescarConcordancia({ ...loc, verso: n });
+                window.RV?.studyPanel?.open?.({ tab: 'strong', ref });
                 const first = strongsDelVersoSeleccionado(n)[0];
                 if (first?.strong) {
                     document.dispatchEvent(new CustomEvent('revelatio:open-strong', {

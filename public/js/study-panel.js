@@ -164,6 +164,19 @@
   let strongStamp = 0;
   const lensAbortMap = new Map();
 
+  function drawerRoot() {
+    return document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
+  }
+
+  function drawerEl(id) {
+    const root = drawerRoot();
+    if (root) {
+      const hit = root.querySelector(`#${id}`);
+      if (hit) return hit;
+    }
+    return document.getElementById(id);
+  }
+
   function escapeHtml(s) {
     return String(s || '')
       .replace(/&/g, '&amp;')
@@ -513,13 +526,18 @@
     }
   }
 
-  function keywordFromVerse(text) {
-    const stop = /^(para|como|que|los|las|del|una|uno|por|con|sin|sus|este|esta|the|and|from|that|this|el|la|de|en|y|o|un|al|lo|se|su|tu|mi|nos|les|mas|más|pero|porque|pues|cuando|donde|quien|cual|fue|son|hay)$/i;
-    const words = String(text || '')
+  function keywordsFromVerse(text) {
+    const stop = /^(para|como|que|los|las|del|una|uno|por|con|sin|sus|este|esta|the|and|from|that|this|el|la|de|en|y|o|un|al|lo|se|su|tu|mi|nos|les|mas|más|pero|porque|pues|cuando|donde|quien|cual|fue|son|hay|asi|así|muy|todos|todas|este|esta|eso)$/i;
+    return String(text || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^\p{L}\s]/gu, ' ')
       .split(/\s+/)
-      .filter((w) => w.length >= 3 && !stop.test(w));
-    return words[0] || '';
+      .filter((w) => w.length >= 5 && !stop.test(w));
+  }
+
+  function keywordFromVerse(text) {
+    return keywordsFromVerse(text)[0] || '';
   }
 
   function renderConcordanceHits(container, term, passage, resultados) {
@@ -545,35 +563,32 @@
 
   function getConcordanceSuggestions(passage) {
     const s = String(passage || '').toLowerCase();
+    let list = ['Gracia', 'Pacto', 'Creer', 'Justificación', 'Paz', 'Verdad'];
     if (s.includes('juan') || s.includes('amor') || s.includes('gracia')) {
-      return ['Amor', 'Gracia', 'Verdad', 'Luz', 'Vida Eterna', 'Creer'];
+      list = ['Amor', 'Gracia', 'Verdad', 'Luz', 'Vida Eterna', 'Creer'];
+    } else if (s.includes('rom') || s.includes('fe') || s.includes('justific')) {
+      list = ['Justificación', 'Creer', 'Paz', 'Espíritu', 'Ley', 'Gracia'];
+    } else if (s.includes('salm') || s.includes('alab')) {
+      list = ['Misericordia', 'Alabanza', 'Refugio', 'Paz', 'Justicia'];
+    } else if (s.includes('mat') || s.includes('mar') || s.includes('luc')) {
+      list = ['Reino de Dios', 'Creer', 'Discipulado', 'Oración', 'Perdón'];
     }
-    if (s.includes('rom') || s.includes('fe') || s.includes('justific')) {
-      return ['Justificación', 'Fe', 'Paz', 'Espíritu', 'Ley', 'Gracia'];
-    }
-    if (s.includes('salm') || s.includes('alab')) {
-      return ['Misericordia', 'Alabanza', 'Refugio', 'Paz', 'Justicia'];
-    }
-    if (s.includes('mat') || s.includes('mar') || s.includes('luc')) {
-      return ['Reino de Dios', 'Fe', 'Discipulado', 'Oración', 'Perdón'];
-    }
-    return ['Gracia', 'Pacto', 'Fe', 'Justificación', 'Paz', 'Verdad'];
+    return list.filter((tag) => String(tag).replace(/\s+/g, '').length >= 3);
   }
 
   function renderConcordanceShell(initialTerm = '', passage = currentActivePassage) {
     const pane = document.getElementById('rv-sp-concordancia');
     if (!pane) return;
-
-    let subContainer = document.getElementById('concordance-content-area');
-    if (!subContainer) {
-      pane.innerHTML = `
+    const prior = pane.querySelector('#concordance-search-input')?.value || '';
+    const term = initialTerm || prior || '';
+    pane.innerHTML = `
         <div id="tab-concordancia" class="space-y-3 font-serif text-[#0F172A]">
           <div class="pb-2 border-b border-[#E8DFC8]">
             <h3 class="text-sm font-bold text-[#0A192F] uppercase tracking-wider">Concordancia Temática & Léxica</h3>
             <p class="text-xs text-[#C59B27] font-sans mt-0.5">Exploración transversal en las Escrituras · ${escapeHtml(passage)}</p>
           </div>
           <form id="concordance-search-form" onsubmit="event.preventDefault(); RV.executeConcordanceSearch();" class="flex gap-1.5">
-            <input type="text" id="concordance-search-input" name="concordanceTerm" value="${escapeHtml(initialTerm)}" placeholder="Buscar término o doctrina (ej. Gracia, Pacto, Justificación)..."
+            <input type="text" id="concordance-search-input" name="concordanceTerm" value="${escapeHtml(term)}" placeholder="Buscar término o doctrina (ej. Gracia, Pacto, Justificación)..."
               class="flex-1 px-3 py-1.5 bg-white border border-[#E8DFC8] rounded-lg text-xs font-serif text-[#0A192F] focus:border-[#C59B27] focus:outline-none shadow-sm" />
             <button type="submit" id="concordance-search-btn" class="px-3 py-1.5 bg-[#0A192F] text-[#DFB743] font-mono text-xs font-bold rounded-lg hover:bg-[#1E293B] cursor-pointer transition-colors">
               Buscar
@@ -589,18 +604,18 @@
           </div>
           <div id="concordance-content-area" class="mt-3"></div>
         </div>
-      `;
-    }
+    `;
   }
 
   async function loadConcordance(passageRef = currentActivePassage, customTerm = '') {
     const passage = String(passageRef || currentActivePassage || 'Romanos 12:2').trim();
-    let term = String(customTerm || '').trim();
+    const typed = String(customTerm || '').trim();
+    let term = typed;
     if (!term) term = keywordFromVerse(currentVerseText);
-    if (!term || term.length < 3) term = keywordFromVerse(passage.replace(/\d+/g, ' '));
 
     renderConcordanceShell(term, passage);
-    const container = document.getElementById('concordance-content-area');
+    const pane = document.getElementById('rv-sp-concordancia');
+    const container = pane?.querySelector('#concordance-content-area');
     if (!container) return;
 
     const stamp = ++concordanceStamp;
@@ -608,7 +623,15 @@
     concordanceAbort = new AbortController();
     const timer = setTimeout(() => concordanceAbort.abort(), 18000);
 
-    if (term.length < 3) {
+    const candidates = [];
+    if (typed.length >= 3) candidates.push(typed);
+    else {
+      for (const w of keywordsFromVerse(currentVerseText)) {
+        if (!candidates.includes(w)) candidates.push(w);
+      }
+    }
+
+    if (!candidates.length) {
       clearTimeout(timer);
       container.innerHTML = `
         <div class="p-4 bg-amber-50/90 border border-[#C59B27]/40 text-stone-900 rounded-xl text-xs font-serif text-center space-y-2">
@@ -618,35 +641,47 @@
       return;
     }
 
-    container.innerHTML = `
+    try {
+      let hits = [];
+      let used = candidates[0];
+      for (const q of candidates) {
+        if (q.length < 3) continue;
+        container.innerHTML = `
       <div class="py-8 px-4 text-center font-serif text-[#855D10] space-y-2 animate-pulse">
         <span class="inline-block text-xl">⏳</span>
-        <p class="text-xs font-semibold tracking-wide uppercase">Indexando concordancia bíblica para "${escapeHtml(term)}"...</p>
+        <p class="text-xs font-semibold tracking-wide uppercase">Indexando concordancia bíblica para "${escapeHtml(q)}"...</p>
         <p class="text-[11px] text-stone-500 font-mono">${escapeHtml(passage)}</p>
       </div>`;
-
-    try {
-      const res = await fetch(
-        `/api/concordancia?q=${encodeURIComponent(term)}`,
-        { method: 'GET', headers: { Accept: 'application/json' }, signal: concordanceAbort.signal },
-      );
-      const data = await res.json().catch(() => ({}));
+        const res = await fetch(
+          `/api/concordancia?q=${encodeURIComponent(q)}`,
+          { method: 'GET', headers: { Accept: 'application/json' }, signal: concordanceAbort.signal },
+        );
+        const data = await res.json().catch(() => ({}));
+        if (stamp !== concordanceStamp) return;
+        if (!res.ok) {
+          throw new Error(httpErrorMessage(data, res.status));
+        }
+        const got = data.data?.resultados || data.resultados || [];
+        used = q;
+        if (Array.isArray(got) && got.length) {
+          hits = got;
+          break;
+        }
+      }
       clearTimeout(timer);
       if (stamp !== concordanceStamp) return;
-      if (!res.ok) {
-        throw new Error(httpErrorMessage(data, res.status));
-      }
-      const hits = data.data?.resultados || data.resultados || [];
-      if (Array.isArray(hits) && hits.length) {
-        renderConcordanceHits(container, term, passage, hits);
+      const input = pane.querySelector('#concordance-search-input');
+      if (input) input.value = used;
+      if (hits.length) {
+        renderConcordanceHits(container, used, passage, hits);
         return;
       }
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
           <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
-            <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(term)}"</span>
+            <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(used)}"</span>
           </div>
-          <p class="text-xs text-stone-700">No hay coincidencias para «${escapeHtml(term)}».</p>
+          <p class="text-xs text-stone-700">No hay coincidencias para «${escapeHtml(used)}».</p>
         </div>`;
     } catch (err) {
       clearTimeout(timer);
@@ -703,11 +738,19 @@
       const codigo = e.codigo || e.code || '';
       const lexema = e.lexema || e.lemma || e.raiz || '';
       const translit = e.transliteracion || e.translit || '';
-      const glosaEs = e.definicionEs || e.traduccionEstricta || e.glosa || '';
-      const definicion = e.definicion || e.definicionCorta || e.definition || '';
+      const rawEs = String(e.definicionEs || e.traduccionEstricta || e.glosa || '').trim();
+      const fake = /equivalente español no catalogado|glosa del original bíblico/i.test(rawEs);
+      const glosaEs = !e.sinGlosaEs && !fake && rawEs && !/\b(the|and|of|to|from|with|that|this)\b/i.test(rawEs)
+        ? rawEs
+        : '';
+      const definicion = String(e.definicion || e.definicionCorta || e.definition || '').trim();
       const extra = [];
-      if (glosaEs) extra.push(`<p><span class="font-mono text-[10px] text-[#855D10] uppercase">${looksSpanish(glosaEs) ? 'Glosa ES' : 'Glosa'}:</span> ${escapeHtml(glosaEs)}</p>`);
-      if (definicion && definicion !== glosaEs) {
+      extra.push(
+        glosaEs
+          ? `<p><span class="font-mono text-[10px] text-[#855D10] uppercase">Glosa ES:</span> ${escapeHtml(glosaEs)}</p>`
+          : `<p class="text-stone-600"><span class="font-mono text-[10px] text-[#855D10] uppercase">Glosa ES:</span> sin glosa ES catalogada</p>`
+      );
+      if (definicion && definicion !== glosaEs && !fake) {
         extra.push(`<p><span class="font-mono text-[10px] text-[#855D10] uppercase">${looksSpanish(definicion) ? 'Definición' : 'Definición (EN)'}:</span> ${escapeHtml(definicion)}</p>`);
       }
       ['idioma', 'fuente'].forEach((k) => {
@@ -716,7 +759,7 @@
       return `
         <div class="p-3 bg-white border border-[#E8DFC8] rounded-xl text-xs font-serif space-y-1">
           <div class="font-mono font-bold text-[#855D10]">${escapeHtml(codigo)} · ${escapeHtml(lexema)} ${translit ? `(${escapeHtml(translit)})` : ''}</div>
-          ${extra.join('') || '<p class="text-stone-500">Sin glosa disponible.</p>'}
+          ${extra.join('')}
         </div>`;
     }).join('');
     container.innerHTML = `
@@ -730,7 +773,7 @@
   }
 
   async function loadStrongLexicon(passageRef = currentActivePassage) {
-    const container = document.getElementById('strong-content-area');
+    const container = drawerEl('strong-content-area');
     if (!container) return;
     const passage = String(passageRef || currentActivePassage || 'Génesis 48:1').trim();
     const stamp = ++strongStamp;
@@ -812,16 +855,17 @@
     const cardId = id;
     const verseText = String(currentVerseText || global.activeStudyText || '').trim();
 
-    let resultBox = document.getElementById(`lens-result-${cardId}`);
+    let resultBox = drawerEl(`lens-result-${cardId}`);
     if (resultBox) {
-      resultBox.remove();
+      resultBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       return;
     }
 
+    const root = drawerRoot();
     const targetCard =
-      document.getElementById(`lens-card-${cardId}`) ||
-      document.querySelector(`[data-sp-lens-id="${id}"]`)?.closest('.rv-sp-lens-block') ||
-      document.getElementById('lentes-content-area');
+      (root && root.querySelector(`#lens-card-${cardId}`)) ||
+      (root && root.querySelector(`[data-sp-lens-id="${id}"]`)?.closest('.rv-sp-lens-block')) ||
+      drawerEl('lentes-content-area');
 
     if (!targetCard) return;
 
@@ -923,11 +967,14 @@
   }
 
   function renderDualLensPanel() {
-    const container =
-      document.getElementById('lentes-content-area') ||
-      document.getElementById('tab-lentes') ||
-      document.getElementById('rv-sp-dogmatica');
+    const pane = document.getElementById('rv-sp-dogmatica');
+    const container = pane || drawerEl('lentes-content-area');
     if (!container) return;
+
+    const saved = {};
+    container.querySelectorAll('[id^="lens-result-"]').forEach((el) => {
+      saved[el.id] = el;
+    });
 
     const m = ELITE_LENSES.maestro;
     const ref = currentActivePassage || global.activeStudyPassage || 'Romanos 12:2';
@@ -942,7 +989,7 @@
         <div id="lentes-content-area" class="space-y-3">
           <!-- Tarjeta Prominente: DICTAMEN MAESTRO INTEGRADO -->
           <div id="lens-card-${m.id}" class="rv-sp-lens-block">
-            <button type="button" data-sp-lens-id="${m.id}" data-sp-lens-title="${escapeHtml(m.title)}" onclick="window.triggerEliteLens('${m.id}', '${escapeJsParam(m.title)}')"
+            <button type="button" data-sp-lens-id="${m.id}" data-sp-lens-title="${escapeHtml(m.title)}"
               class="group cursor-pointer p-4 bg-gradient-to-br from-[#071324] via-[#0A192F] to-[#132238] border-2 border-[#C59B27] hover:border-[#DFB743] rounded-xl shadow-md transition-all hover:shadow-lg text-left w-full text-white">
               <div class="flex items-start gap-3.5">
                 <div class="w-10 h-10 rounded-lg bg-[#C59B27]/20 border border-[#C59B27]/50 flex items-center justify-center text-xl shrink-0">
@@ -976,7 +1023,7 @@
           <div id="optic-section-biblica" class="space-y-2.5" ${currentOpticTab === 'biblica' ? '' : 'hidden'}>
             ${ELITE_LENSES.biblica.map(l => `
               <div id="lens-card-${l.id}" class="rv-sp-lens-block">
-                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}" onclick="window.triggerEliteLens('${l.id}', '${escapeJsParam(l.title)}')"
+                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}"
                   class="group cursor-pointer p-3.5 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all hover:shadow-md text-left w-full">
                   <div class="flex items-start gap-3">
                     <span class="text-2xl select-none" aria-hidden="true">${l.icon}</span>
@@ -995,7 +1042,7 @@
           <div id="optic-section-mental" class="space-y-2.5" ${currentOpticTab === 'mental' ? '' : 'hidden'}>
             ${ELITE_LENSES.mental.map(l => `
               <div id="lens-card-${l.id}" class="rv-sp-lens-block">
-                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}" onclick="window.triggerEliteLens('${l.id}', '${escapeJsParam(l.title)}')"
+                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}"
                   class="group cursor-pointer p-3.5 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all hover:shadow-md text-left w-full">
                   <div class="flex items-start gap-3">
                     <span class="text-2xl select-none" aria-hidden="true">${l.icon}</span>
@@ -1014,6 +1061,13 @@
     `;
 
     container.innerHTML = html;
+    Object.values(saved).forEach((el) => {
+      const id = String(el.id || '').replace(/^lens-result-/, '');
+      const card =
+        container.querySelector(`#lens-card-${id}`) ||
+        container.querySelector(`[data-sp-lens-id="${id}"]`)?.closest('.rv-sp-lens-block');
+      if (card) card.appendChild(el);
+    });
   }
 
   const openAiWithLens = async function(promptSeed, passageRef, lensTitle, lensId) {
@@ -1064,7 +1118,10 @@
     else if (currentTab === 'tsk') await loadTskReferences();
     else if (currentTab === 'concordancia') await loadConcordance(currentActivePassage);
     else if (currentTab === 'strong') await loadStrongLexicon();
-    else if (currentTab === 'dogmatica' || currentTab === 'lentes') renderDualLensPanel();
+    else if (currentTab === 'dogmatica' || currentTab === 'lentes') {
+      const pane = document.getElementById('rv-sp-dogmatica');
+      if (!pane?.querySelector('[data-sp-lens-id]')) renderDualLensPanel();
+    }
   }
 
   const TABS_HTML = `
@@ -1103,17 +1160,9 @@
         <div class="rv-sp-body canon-scroll">
           <section id="rv-sp-comentarios" class="rv-sp-pane is-on" role="tabpanel"></section>
           <section id="rv-sp-tsk" class="rv-sp-pane" role="tabpanel" hidden></section>
-          <section id="rv-sp-concordancia" class="rv-sp-pane" role="tabpanel" hidden>
-            <div id="tab-concordancia">
-              <div id="concordance-content-area"></div>
-            </div>
-          </section>
+          <section id="rv-sp-concordancia" class="rv-sp-pane" role="tabpanel" hidden></section>
           <section id="rv-sp-strong" class="rv-sp-pane" role="tabpanel" hidden></section>
-          <section id="rv-sp-dogmatica" class="rv-sp-pane" role="tabpanel" hidden>
-            <div id="tab-lentes">
-              <div id="lentes-content-area"></div>
-            </div>
-          </section>
+          <section id="rv-sp-dogmatica" class="rv-sp-pane" role="tabpanel" hidden></section>
         </div>`;
       document.body.appendChild(root);
     }
@@ -1141,7 +1190,6 @@
     currentTab = map[tabId] || tabId || 'comentarios';
     if (currentTab === 'dogmatica' || currentTab === 'lentes' || tabId === 'lentes') {
       currentTab = 'dogmatica';
-      renderDualLensPanel();
     }
     const root = ensurePanel();
     root.querySelectorAll('[data-sp-tab]').forEach((btn) => {
