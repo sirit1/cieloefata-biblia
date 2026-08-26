@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T13:39:39.971Z",
+  "generatedAt": "2026-08-26T14:28:53.126Z",
   "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
   "coverage": [
     {
@@ -1330,6 +1330,45 @@
     },
     {
       "book": "Romanos",
+      "authorId": "jamieson-fausset-brown",
+      "uniqueEnglish": 367,
+      "blobs": 366,
+      "translatedBlobs": 366,
+      "versesMapped": 379,
+      "translatedNew": 366,
+      "skipped": 0,
+      "failed": 1,
+      "hits": 380,
+      "misses": 53
+    },
+    {
+      "book": "Romanos",
+      "authorId": "john-calvin",
+      "uniqueEnglish": 126,
+      "blobs": 126,
+      "translatedBlobs": 126,
+      "versesMapped": 433,
+      "translatedNew": 126,
+      "skipped": 0,
+      "failed": 0,
+      "hits": 433,
+      "misses": 0
+    },
+    {
+      "book": "Romanos",
+      "authorId": "john-gill",
+      "uniqueEnglish": 432,
+      "blobs": 432,
+      "translatedBlobs": 432,
+      "versesMapped": 432,
+      "translatedNew": 432,
+      "skipped": 0,
+      "failed": 0,
+      "hits": 432,
+      "misses": 1
+    },
+    {
+      "book": "Romanos",
       "authorId": "john-wesley",
       "uniqueEnglish": 433,
       "blobs": 433,
@@ -1340,6 +1379,19 @@
       "failed": 0,
       "hits": 433,
       "misses": 0
+    },
+    {
+      "book": "Romanos",
+      "authorId": "martin-luther",
+      "uniqueEnglish": 428,
+      "blobs": 428,
+      "translatedBlobs": 428,
+      "versesMapped": 428,
+      "translatedNew": 428,
+      "skipped": 0,
+      "failed": 0,
+      "hits": 428,
+      "misses": 5
     },
     {
       "book": "Romanos",
