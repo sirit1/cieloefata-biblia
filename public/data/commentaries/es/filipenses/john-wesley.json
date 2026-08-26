@@ -1,0 +1,626 @@
+{
+  "book": "Filipenses",
+  "usfm": "PHP",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Philippians 1:1\n Servants - St. Paul, writing familiarly to the Philippians, does not style himself an apostle. And under the common title of servants, he tenderly and modestly joins with himself his son Timotheus, who had come to Philippi not long after St. Paul had received him, Acts 16:3 ,12. To all the saints - The apostolic epistles were sent more directly to the churches, than to the pastors of them. With the bishops and deacons - The former properly took care of the internal state, the latter, of the externals, of the church, 1Tim 3:2 - 8; although these were not wholly confined to the one, neither those to the other. The word bishops here includes all the presbyters at Philippi, as well as the ruling presbyters: the names bishop and presbyter, or elder, being promiscuously used in the first ages.",
+      "es": "Filipenses 1:1\n Siervos - San Pablo, escribiendo familiarmente a los filipenses, no se autodenomina apóstol. Y bajo el título común de siervos, con ternura y modestia se une consigo mismo a su hijo Timoteo, que había llegado a Filipos poco después de que San Pablo lo recibiera, Hechos 16:3,12. A todos los santos - Las epístolas apostólicas fueron enviadas más directamente a las iglesias que a los pastores de las mismas. Con los obispos y diáconos - Los primeros cuidaban adecuadamente del estado interno, los segundos, de lo externo, de la iglesia, 1 Timoteo 3:2 - 8; aunque éstos no se limitaban del todo a uno, ni éstos al otro. La palabra obispos aquí incluye a todos los presbíteros de Filipos, así como a los presbíteros gobernantes: los nombres obispo y presbítero, o anciano, se usaban promiscuamente en las primeras edades.",
+      "enHash": "a734a2aadc730c462a807ad35c6ecdea6a942468484db6b4d632d78b3d8e9607",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "Philippians 1:4\n With joy - After the epistle to the Ephesians, wherein love reigns, follows this, wherein there is perpetual mention of joy. \"The fruit of the Spirit is love, joy.\" And joy peculiarly enlivens prayer. The sum of the whole epistle is, I rejoice. Rejoice ye.",
+      "es": "Filipenses 1:4\n Con alegría - Después de la epístola a los Efesios, donde reina el amor, sigue esta, en la que se menciona perpetuamente la alegría. \"El fruto del Espíritu es amor, alegría\". Y la alegría anima de manera peculiar la oración. La suma de toda la epístola es: Me regocijo. Alegraos.",
+      "enHash": "f2f0df57905f1eade7327785c7468644bb040246589e9947086dbd4cb1ec1829",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "Philippians 1:5\n The sense is, I thank God for your fellowship with us in all the blessings of the gospel, which I have done from the first day of your receiving it until now.",
+      "es": "Filipenses 1:5\n El sentido es: doy gracias a Dios por tu comunión con nosotros en todas las bendiciones del evangelio, que he hecho desde el primer día que lo recibiste hasta ahora.",
+      "enHash": "bf40314fcfc25ece99c84ddd22328d36571302b3e5d0bfe7e9b1d47f17b77bf0",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "Philippians 1:6\n Being persuaded - The grounds of which persuasion are set down in the following verse. That he who hath begun a good work in you, will perfect it until the day of Christ - That he who having justified, hath begun to sanctify you, will carry on this work, till it issue in glory.",
+      "es": "Filipenses 1:6\n Ser persuadido - Los motivos de la persuasión se establecen en el siguiente verso. Que el que comenzó en vosotros la buena obra, la perfeccionará hasta el día de Cristo; que el que, habiendo justificado, comenzó a santificaros, continuará esta obra hasta que resulte en gloria.",
+      "enHash": "0cba0e4a9badd47c68351c21f71559912edfe8a39cf87ff0d5cc78d8efa37f5c",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "Philippians 1:7\n As it is right for me to think this of you all - Why? He does not say, \"Because of an eternal decree;\" or, \"Because a saint must persevere;\" but, because I have you in my heart, who were all partakers of my grace - That is, because ye were all (for which I have you in my heart, I bear you the most grateful and tender affection) partakers of my grace - That is, sharers in the afflictions which God vouchsafed me as a grace or favour, Php 1:29 ,30; both in my bonds, and when I was called forth to answer for myself, and to confirm the gospel. It is not improbable that, after they had endured that great trial of affliction, God had sealed them unto full victory, of which the apostle had a prophetic sight.",
+      "es": "Filipenses 1:7\n Como es correcto para mí pensar esto de todos ustedes - ¿Por qué? No dice: \"Por un decreto eterno\"; o \"Porque un santo debe perseverar\"; pero, porque os tengo en mi corazón, que fuisteis todos partícipes de mi gracia - Es decir, porque todos vosotros fuisteis (por lo cual os tengo en mi corazón, os tengo el más agradecido y tierno cariño) partícipes de mi gracia - Es decir, partícipes de las aflicciones que Dios me concedió como gracia o favor, Filipenses 1:29,30; tanto en mis prisiones, como cuando fui llamado para responder por mí mismo y confirmar el evangelio. No es improbable que, después de haber soportado esa gran prueba de aflicción, Dios los hubiera sellado para la victoria total, de la cual el apóstol tuvo una visión profética.",
+      "enHash": "c357704617f0105769861b8d8ebee591c9227f7c802cde9a11661424ef2bf8b0",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "Philippians 1:8\n I long for you with the bowels of Jesus Christ - In Paul, not Paul lives, but Jesus Christ. Therefore he longs for them with the bowels, the tenderness, not of Paul, but of Jesus Christ.",
+      "es": "Filipenses 1:8\n Os anhelo con las entrañas de Jesucristo - En Pablo, no vive Pablo, sino Jesucristo. Por eso los añora con las entrañas, la ternura, no de Pablo, sino de Jesucristo.",
+      "enHash": "250e89109b9996561782d92ed1b2d67d7d00dad867ac8d8aa814b98460f037d9",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "Philippians 1:9\n And this I pray, that your love - Which they had already shown. May abound yet more and more - The fire which burned in the apostle never says, It is enough. In knowledge and in all spiritual sense - Which is the ground of all spiritual knowledge. We must be inwardly sensible of divine peace, joy, love; otherwise, we cannot know what they are.",
+      "es": "Filipenses 1:9\n Y esto pido, que vuestro amor - Que ya me habían demostrado. Que abunde aún más y más - El fuego que ardía en el apóstol nunca dice: Es suficiente. En conocimiento y en todo sentido espiritual - Que es la base de todo conocimiento espiritual. Debemos ser interiormente sensibles a la paz, la alegría y el amor divinos; de lo contrario, no podemos saber cuáles son.",
+      "enHash": "27bb2698c210f2bc22920dad733129900887e66876d90fd8560f716833000904",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "Philippians 1:10\n That ye may try - By that spiritual sense. The things that are excellent - Not only good, but the very best; the superior excellence of which is hardly discerned, but by the adult Christian. That ye may be inwardly sincere - Having a single eye to the very best things, and a pure heart. And outwardly without offence - Holy, unblamable in all things.",
+      "es": "Filipenses 1:10\n Para que puedas intentarlo - Por ese sentido espiritual. Las cosas que son excelentes: no sólo buenas, sino también las mejores; cuya excelencia superior apenas es discernida, excepto por el cristiano adulto. Para que seáis interiormente sinceros - Teniendo un solo ojo en las mejores cosas y un corazón puro. Y exteriormente sin ofensa - Santo, irreprochable en todas las cosas.",
+      "enHash": "c0a3d04e01b185eeab60320861f67c83841383b2537cf3e6a919af4bc7317ca2",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "Philippians 1:11\n Being filled with the fruits of righteousness, which are through Jesus Christ, to the glory and praise of God - Here are three properties of that sincerity which is acceptable to God: It must bear fruits, the fruits of righteousness, all inward and outward holiness, all good tempers, words, and works; and that so abundantly, that we may be filled with them. The branch and the fruits must derive both their virtue and their very being from the all - supporting, all - supplying root, Jesus Christ. As all these flow from the grace of Christ, so they must issue in the glory and praise of God.",
+      "es": "Filipenses 1:11\n Estar lleno de frutos de justicia, que son por medio de Jesucristo, para gloria y alabanza de Dios. Aquí hay tres propiedades de esa sinceridad que es aceptable a Dios: debe dar frutos, frutos de justicia, toda santidad interior y exterior, todo buen carácter, palabras y obras; y eso en abundancia, para que seamos saciados de ellos. La rama y los frutos deben derivar tanto su virtud como su ser mismo de la raíz que todo lo sustenta y todo lo suministra, Jesucristo. Así como todos estos fluyen de la gracia de Cristo, así deben resultar en la gloria y alabanza de Dios.",
+      "enHash": "484fbe3ef81fa49b082e3664116eb6ba43b36235d33eaf1eec41692dd1f24660",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "Philippians 1:12\n The things concerning me - My sufferings. Have fallen out rather to the furtherance, than, as you feared, the hinderance, of the gospel.",
+      "es": "Filipenses 1:12\n Las cosas que me conciernen - Mis sufrimientos. Se han peleado más por el avance del evangelio que, como temían, por el obstáculo.",
+      "enHash": "9667839b9120b13342bdf1f9c94604db54bde56bf4e691e710d270f2f4aeac3d",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "Philippians 1:13\n My bonds in Christ - Endured for his sake. Have been made manifest - Much taken notice of. In the whole palace - Of the Roman emperor.",
+      "es": "Filipenses 1:13\n Mis vínculos en Cristo - Soportados por él. Se han manifestado - Se ha prestado mucha atención. En todo el palacio - Del emperador romano.",
+      "enHash": "bb148b585ce9ed78eafaf068f58f99ee282631a8f0ac5ce5278ba19acb62dfb2",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "Philippians 1:14\n And many - Who were before afraid. Trusting in the Lord through my bonds - When they observed my constancy, and safety not withstanding, are more bold.",
+      "es": "Filipenses 1:14\n Y muchos - Que antes tenían miedo. Confiando en el Señor a través de mis ataduras - Cuando observaron mi constancia, y a pesar de mi seguridad, son más audaces.",
+      "enHash": "f275a7f6c396a5351a140b6dcb50dd444c1a180b7ebd041d004367f9cc32cd6c",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "Philippians 1:15\n Some indeed preach Christ out of contention - Envying St. Paul's success, and striving to hurt him thereby. Not sincerely - From a real desire to glorify God. But supposing - Though they were disappointed. To add more affliction to my bonds - By enraging the Romans against me.",
+      "es": "Filipenses 1:15\n De hecho, algunos predican a Cristo por motivos de discordia, envidiando el éxito de San Pablo y esforzándose por lastimarlo con ello. No sinceramente - De un deseo real de glorificar a Dios. Pero suponiendo - Aunque estaban decepcionados. Para agregar más aflicción a mis ataduras - Enfureciendo a los romanos contra mí.",
+      "enHash": "a8689607aef2065b18477893a97308f1e3db3324bccc8ecf8be56b1fb4175230",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "Philippians 1:16\n Some indeed preach Christ out of contention - Envying St. Paul's success, and striving to hurt him thereby. Not sincerely - From a real desire to glorify God. But supposing - Though they were disappointed. To add more affliction to my bonds - By enraging the Romans against me.",
+      "es": "Filipenses 1:16\n De hecho, algunos predican a Cristo por motivos de discordia, envidiando el éxito de San Pablo y esforzándose por lastimarlo con ello. No sinceramente - De un deseo real de glorificar a Dios. Pero suponiendo - Aunque estaban decepcionados. Para agregar más aflicción a mis ataduras - Enfureciendo a los romanos contra mí.",
+      "enHash": "9a0c81fa089ce9fd6189d504314b3e8fc5d946d89835adf171dc1d2d9a9dc6bc",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "Philippians 1:17\n But the others out of love - To Christ and me. Knowing - Not barely, supposing. That I am set - Literally, I lie; yet still going forward in his work. He remained at Rome as an ambassador in a place where he is employed on an important embassy.",
+      "es": "Filipenses 1:17\n Pero los demás por amor - A Cristo y a mí. Sabiendo - No apenas, suponiendo. Que estoy listo - Literalmente, miento; pero sigue avanzando en su trabajo. Permaneció en Roma como embajador en un lugar donde trabaja en una importante embajada.",
+      "enHash": "60f530e7af412591a59d0651803628d6f9a598b117463098b4cf7b93756ca294",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "In pretence — Under colour of propagating the gospel.\n\n In truth — With a real design so to do.",
+      "es": "Pretendiendo: bajo el pretexto de propagar el evangelio.\n\n En verdad, con un diseño real para hacerlo.",
+      "enHash": "261a9ddf1c53dcedda486a89d06d351c1ae793572773dadce184d8e3806fc4f5",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "Philippians 1:19\n This shall turn to my salvation - Shall procure me an higher degree of glory. Through your prayer - Obtaining for me a larger supply of the Spirit.",
+      "es": "Filipenses 1:19\n Esto se convertirá en mi salvación - Me procurará un mayor grado de gloria. A través de tu oración - Obteniendo para mí una mayor provisión del Espíritu.",
+      "enHash": "e2d89888bff15dc92ae93b8cacd901cdbd5942c8eec7e96c22c3ef65b908c5b2",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "Philippians 1:20\n As always - Since my call to the apostleship. In my body - however it may he disposed of. How that might be, he did not yet know. For the apostles did not know all things; particularly in things pertaining to themselves, they had room to exercise faith and patience.",
+      "es": "Filipenses 1:20\n Como siempre - Desde mi llamado al apostolado. En mi cuerpo, como sea que se deshaga de él. Cómo podría ser eso, todavía no lo sabía. Porque los apóstoles no sabían todas las cosas; particularmente en las cosas que les concernían a ellos mismos, tenían espacio para ejercitar la fe y la paciencia.",
+      "enHash": "404c09c4f732cdf95522c8a21d4225302529a8cd4af740e25019b9ef5a69c812",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "To me to live is Christ — To know, to love, to follow Christ, is my life, my glory, my joy.",
+      "es": "Para mí vivir es Cristo. Conocer, amar, seguir a Cristo, es mi vida, mi gloria, mi alegría.",
+      "enHash": "bc141433ad29bb97562abffd3df797d87ecff249dc8dde7c925ad071860067b0",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "Philippians 1:22\n Here he begins to treat of the former clause of the preceding verse. Of the latter he treats, Php 2:17 . But if I am to live is the flesh, this is the fruit of my labour - This is the fruit of my living longer, that I can labour more. Glorious labour! desirable fruit! in this view, long life is indeed a blessing. And what I should choose I know not - That is, if it were left to my choice.",
+      "es": "Filipenses 1:22\n Aquí comienza a tratar la cláusula anterior del verso anterior. De este último trata, Filipenses 2:17. Pero si he de vivir es la carne, este es el fruto de mi trabajo. Este es el fruto de que viva más, de que pueda trabajar más. ¡Glorioso trabajo! fruta deseable! Desde este punto de vista, una larga vida es ciertamente una bendición. Y qué debería elegir, no lo sé. Es decir, si se dejara a mi elección.",
+      "enHash": "3dcf064c2d8401d026bc5a2b4feb34187ddfd1f087037ebc4abc8cde78b427d9",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "Philippians 1:23\n To depart - Out of bonds, flesh, the world. And to be with Christ - In a nearer and fuller union. It is better to depart; it is far better to be with Christ.",
+      "es": "Filipenses 1:23\n Partir - Fuera de las ataduras, la carne, el mundo. Y estar con Cristo - En una unión más cercana y plena. Es mejor partir; es mucho mejor estar con Cristo.",
+      "enHash": "2338bfec67267ea7b27ec4fb531e21aaa5dd0459ace7d1a023cb1de54f785480",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "Philippians 1:25\n I know - By a prophetic notice given him while he was writing this. That I shall continue some time longer with you - And doubtless he did see them after this confinement.",
+      "es": "Filipenses 1:25\n Lo sé - Por un aviso profético que se le dio mientras escribía esto. Que continuaré algún tiempo más contigo - Y sin duda sí los vio después de este encierro.",
+      "enHash": "470e5859636858b29521d53f567b4e76789937d82624f3bcb42fff26d06fdcbd",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "Philippians 1:27\n Only - Be careful for this, and nothing else. Stand fast in one spirit - With the most perfect unanimity. Striving together - With united strength and endeavours. For the faith of the gospel - For all the blessings revealed and promised therein.",
+      "es": "Filipenses 1:27\n Sólo... Ten cuidado con esto y nada más. Manténganse firmes en un solo espíritu - Con la unanimidad más perfecta. Esforzándonos juntos - Con fuerzas y esfuerzos unidos. Por la fe del evangelio - Por todas las bendiciones reveladas y prometidas en él.",
+      "enHash": "86cce314b278008d272b3902c6ead51acc2f74c82ebd7f047c7ed63bd5e145e4",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "Philippians 1:28\n Which - Namely, their being adversaries to the word of God, and to you the messengers of God. Is an evident token - That they are in the high road to perdition; and you, in the way of salvation.",
+      "es": "Filipenses 1:28\n Lo cual - Es decir, son adversarios de la palabra de Dios y de ustedes, los mensajeros de Dios. Es una señal evidente: que están en el camino de la perdición; y tú, en el camino de la salvación.",
+      "enHash": "f3ad81a596ffdca5303bc91024f4581badfb5921d67bd3d638b35014e6cfa1c3",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "For to you it is given — As a special token of God's love, and of your being in the way of salvation.",
+      "es": "Porque a ti te es dado como muestra especial del amor de Dios y de que estás en el camino de la salvación.",
+      "enHash": "4abc0f933d1a7bff455bfdd02291937e974d097b69b728f9cdf05848561f7298",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "Philippians 1:30\n Having the same kind of conflict with your adversaries, which ye saw in me - When I was with you, Acts 16:12 ,19,",
+      "es": "Filipenses 1:30\n Teniendo con vuestros adversarios la misma clase de conflicto que habéis visto en mí - Cuando estaba con vosotros, Hechos 16:12,19,",
+      "enHash": "1250bb73cc19354fc4db6621a1a6f95e7c2f78ca377f3f3303c5482027f2d3a0",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "Philippians 2:1\n If there be therefore any consolation - In the grace of Christ. If any comfort - In the love of God. If any fellowship of the Holy Ghost; if any bowels of mercies - Resulting therefrom; any tender affection towards each other.",
+      "es": "Filipenses 2:1\n Por tanto, si hay algún consuelo - En la gracia de Cristo. Si hay algún consuelo - En el amor de Dios. Si alguna comunión del Espíritu Santo; si hay entrañas de misericordia - Como resultado de ello; cualquier tierno afecto mutuo.",
+      "enHash": "39ca0b187dd400cf6fda85b257ec937d7c3f3a965d72224729624d2e9906572d",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "Philippians 2:2\n Think the same thing - Seeing Christ is your common Head. Having the same love - To God, your common Father. Being of one soul - Animated with the same affections and tempers, as ye have all drank ill to one spirit. Of one mind - Tenderly rejoicing and grieving together.",
+      "es": "Filipenses 2:2\n Piensa lo mismo: ver a Cristo es tu Cabeza común. Teniendo el mismo amor - A Dios, vuestro Padre común. Ser de una sola alma - Animado con los mismos afectos y temperamentos, ya que todos habéis bebido mal de un solo espíritu. De una sola mente: tiernamente regocijándose y afligiéndose juntos.",
+      "enHash": "8cae9485260d41dc6fe95b70f301da55c35cc8f164d3795d74e9fe355eacb4af",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "Philippians 2:3\n Do nothing through contention - Which is inconsistent with your thinking the same thing. Or vainglory - Desire of praise, which is directly opposite to the love of God. But esteem each the others better than themselves - (For every one knows more evil of himself than he can of another:) Which is a glorious fruit of the Spirit, and an admirable help to your continuing \"of one soul.\"",
+      "es": "Filipenses 2:3\n No hagas nada mediante la contienda - Lo cual es inconsistente con que pienses lo mismo. O vanagloria - Deseo de alabanza, que es directamente opuesto al amor de Dios. Pero estimen a los demás mejor que a sí mismos - (Porque cada uno sabe más mal de sí mismo que de otro:) Lo cual es un fruto glorioso del Espíritu y una ayuda admirable para continuar \"de una sola alma\".",
+      "enHash": "949459e6ee2001e4ac0a0022fee2772ba3a2c5998e4337a439ca68139660ba7f",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "Aim not every one at his own things — Only. If so, ye have not bowels of mercies.",
+      "es": "No apuntéis cada uno a lo suyo. Sólo. Si es así, no tenéis entrañas de misericordia.",
+      "enHash": "4740dcc5639b4b14eac21ba895d2d9d752544d47346ed16c4a9ff11390c56f21",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "Philippians 2:6\n Who being in the essential form - The incommunicable nature. Of God - From eternity, as he was afterward in the form of man; real God, as real man. Counted it no act of robbery - That is the precise meaning of the words, - no invasion of another's prerogative, but his own strict and unquestionable right. To be equal with God - the word here translated equal, occurs in the adjective form five or six times in the New Testament, Mt 20:12 ; Lu 6:34; Joh 5:18; Ac 11:17; Re 21:16. In all which places it expresses not a bare resemblance, but a real and proper equalitg. It here implies both the fulness and the supreme height of the Godhead; to which are opposed, he emptied and he humbled himself.",
+      "es": "Filipenses 2:6\n Quien siendo en la forma esencial - La naturaleza incomunicable. De Dios - Desde la eternidad, como lo fue después en forma de hombre; Dios real, como hombre real. No se consideró un acto de robo - Ése es el significado preciso de las palabras - ninguna invasión de la prerrogativa ajena, sino su propio derecho estricto e incuestionable. Ser igual a Dios - la palabra aquí traducida igual, aparece en forma adjetiva cinco o seis veces en el Nuevo Testamento, Mt 20:12; Lucas 6:34; Juan 5:18; Hechos 11:17; Apocalipsis 21:16. En todos los lugares expresa no una mera semejanza, sino una igualdad real y adecuada. Aquí implica tanto la plenitud como la altura suprema de la Divinidad; a los cuales se oponen, se despojó y se humilló.",
+      "enHash": "b2e3e4cca1cd3149f70768de199ef193e51c16b806f93759a735f6552ad27884",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "Philippians 2:7\n Yet - He was so far from tenaciously insisting upon, that he willingly relinquished, his claim. He was content to forego the glories of the Creator, and to appear in the form of a creature; nay, to he made in the likeness of the fallen creatures; and not only to share the disgrace, but to suffer the punishment, due to the meanest and vilest among them all. He emptied himself - Of that divine fulness, which he received again at his exaltation. Though he remained full, John 1:14 , yet he appeared as if he had been empty; for he veiled his fulness from the sight of men and angels. Yea, he not only veiled, but, in some sense, renounced, the glory which he had before the world began. Taking - And by that very act emptying himself. The form of a servant - The form, the likeness, the fashion, though not exactly the same, are yet nearly related to each other. The form expresses something absolute; the likeness refers to other things of the same kind; the fashion respects what appears to sight and sense. Being made in the likeness of men - A real man, like other men. Hereby he took the form of a servant.",
+      "es": "Filipenses 2:7\n Sin embargo, estaba tan lejos de insistir tenazmente en que renunció voluntariamente a su reclamo. Se contentó con renunciar a las glorias del Creador y aparecer en forma de criatura; es más, a él hecho a semejanza de las criaturas caídas; y no sólo para compartir la desgracia, sino para sufrir el castigo, debido al más mezquino y vil de todos ellos. Se vació - De esa plenitud divina, que recibió nuevamente en su exaltación. Aunque permaneció lleno, Juan 1:14 , parecía como si hubiera estado vacío; porque ocultó su plenitud a la vista de hombres y ángeles. Sí, no sólo ocultó, sino que, en cierto sentido, renunció a la gloria que tenía antes de que el mundo comenzara. Tomar - Y con ese mismo acto vaciarse. La forma de un sirviente - La forma, la semejanza, la moda, aunque no son exactamente iguales, están casi relacionadas entre sí. La forma expresa algo absoluto; la semejanza se refiere a otras cosas del mismo tipo; la moda respeta lo que aparece a la vista y al sentido. Siendo hecho a semejanza de los hombres - Un hombre real, como los demás hombres. Por este medio tomó la forma de un siervo.",
+      "enHash": "97de9fbc358b2a4fb1ee8951642350cf48fc5f59ad0c26a1d9418b40dca47574",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "Philippians 2:8\n And being found in fashion as a man - A common man, without any peculiar excellence or comeliness. He humbled himself - To a still greater depth. Becoming obedient - To God, though equal with him. Even unto death - The greatest instance both of humiliation and obedience. Yea, the death of the cross - Inflicted on few but servants or slaves.",
+      "es": "Filipenses 2:8\n Y encontrarse a la moda como hombre - Un hombre común, sin ninguna excelencia o belleza peculiar. Se humilló a sí mismo - A una profundidad aún mayor. Volverse obediente - A Dios, aunque igual a él. Incluso hasta la muerte - El mayor ejemplo de humillación y obediencia. Sí, la muerte de la cruz - Infligida a unos pocos, excepto a los sirvientes o esclavos.",
+      "enHash": "c5377b7d03a9575dbfe74245b7a34db7db13a3f429b525508f5a454658de31e6",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "Philippians 2:9\n Wherefore - Because of his voluntary humiliation and obedience. He humbled himself; but God hath exalted him - So recompensing his humiliation. And hath given him - So recompensing his emptying himself. A name which is above every name - Dignity and majesty superior to every creature.",
+      "es": "Filipenses 2:9\n Por lo tanto - Por su humillación y obediencia voluntaria. Se humilló a sí mismo; pero Dios lo ha exaltado - Recompensando así su humillación. Y le ha dado - Así recompensando su vaciado. Un nombre que está por encima de todo nombre - Dignidad y majestad superior a toda criatura.",
+      "enHash": "b35401f5fe54170577befe02e825e6832d4cc83cafb110a99bece32916e2f2a3",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "Philippians 2:10\n That every knee - That divine honour might be paid in every possible manner by every creature. Might bow - Either with love or trembling. Of those in heaven, earth, under the earth - That is, through the whole universe.",
+      "es": "Filipenses 2:10\n Que cada rodilla - Ese honor divino pueda ser pagado de todas las formas posibles por cada criatura. Podría inclinarse - Ya sea con amor o temblando. De los que están en el cielo, la tierra, debajo de la tierra - Es decir, en todo el universo.",
+      "enHash": "619711feb8d505766b17162e3211789b5085b441854fac7dfefa4d0a64052f1f",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "Philippians 2:11\n And every tongue - Even of his enemies. Confess that Jesus Christ is Lord - Jehovah; not now \"in the form of a servant,\" but enthroned in the glory of God the Father.",
+      "es": "Filipenses 2:11\n Y cada lengua - Incluso de sus enemigos. Confiesa que Jesucristo es el Señor - Jehová; no ahora \"en forma de siervo\", sino entronizado en la gloria de Dios Padre.",
+      "enHash": "5721490436e56d98d1f258bc4c35cc21fbd22a6490c533bf8febf8c7f7149ed2",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "Philippians 2:12\n Wherefore - Having proposed Christ's example, he exhorts them to secure the salvation which Christ has purchased. As ye have always - Hitherto. Obeyed - Both God, and me his minister. Now in my absence - When ye have not me to instruct, assist, and direct you. Work out your own salvation - Herein let every man aim at his own things. With fear and trembling - With the utmost care and diligence.",
+      "es": "Filipenses 2:12\n Por lo tanto - Habiendo propuesto el ejemplo de Cristo, los exhorta a asegurar la salvación que Cristo ha comprado. Como siempre lo has hecho - Hasta ahora. Obedecido - Tanto Dios como yo su ministro. Ahora en mi ausencia - Cuando no me tenéis para instruiros, asistiros y dirigiros. Trabaja en tu propia salvación - En esto, que cada uno apunte a sus propias cosas. Con miedo y temblor - Con sumo cuidado y diligencia.",
+      "enHash": "76edf4b42b54630cf591b3f0975dac52f3c0d2c5a6cf0500a955d5f88578fc8b",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "Philippians 2:13\n For it is God - God alone, who is with you, though I am not. That worketh in you according to his good pleasure - Not for any merit of yours. Yet his influences are not to supersede, but to encourage, our own efforts. Work out your own salvation - Here is our duty. For it is God that worketh in you - Here is our encouragement. And O, what a glorious encouragement, to have the arm of Omnipotence stretched out for our support and our succour!",
+      "es": "Filipenses 2:13\n Porque es Dios, sólo Dios, quien está con vosotros, aunque yo no. Que obra en ti según su buena voluntad - No por ningún mérito tuyo. Sin embargo, sus influencias no reemplazan nuestros propios esfuerzos, sino que los alientan. Trabaja en tu propia salvación: este es nuestro deber. Porque es Dios el que obra en vosotros. Aquí está nuestro aliento. Y ¡oh, qué glorioso estímulo, tener el brazo de la Omnipotencia extendido para nuestro apoyo y socorro!",
+      "enHash": "28fbc18d31126e430b5b11fc1d29544f004732317f25e590a4d54a79c3cd44ea",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "Philippians 2:14\n Do all things - Not only without contention, Php 2:3 , but even without murmurings and disputings - Which are real, though smaller, hinderances of love.",
+      "es": "Filipenses 2:14\n Haz todas las cosas - No sólo sin contención, Filipenses 2:3, sino incluso sin murmuraciones y disputas - Que son obstáculos reales, aunque menores, del amor.",
+      "enHash": "421ed9436c035e480fd1b8ea956aa8eb735fdbf3026588af821aee663fbfdda1",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "Philippians 2:15\n That ye may be blameless - Before men. And simple - Before God, aiming at him alone. As the sons of God - The God of love; acting up to your high character. Unrebukable in the midst of a crooked - Guileful, serpentine, and perverse generation - Such as the bulk of mankind always were. Crooked - By a corrupt nature, and yet more perverse by custom and practice.",
+      "es": "Filipenses 2:15\n Para que seáis irreprochables - Ante los hombres. Y simple: ante Dios, apuntando solo a él. Como hijos de Dios - El Dios del amor; actuando a la altura de tu alto carácter. Irreprensible en medio de una generación torcida, astuta, serpentina y perversa, como siempre lo fue la mayor parte de la humanidad. Torcido: por naturaleza corrupta y aún más perverso por costumbre y práctica.",
+      "enHash": "dc943694e0c0614f0d38a4ad8d86874f98619fc1f3550ad735e491f2c5bfdc93",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "Philippians 2:17\n Here he begins to treat of the latter clause of Php 1:22 . Yea, and if I be offered - Literally, If I be poured out. Upon the sacrifice of your faith - The Philippians, as the other converted heathens, were a sacrifice to God through St. Paul's ministry, Rom 15:16 . And as in sacrificing, wine was poured at the foot of the altar, so he was willing that his blood should be poured out. The expression well agrees with that kind of martyrdom by which he was afterwards offered up to God.",
+      "es": "Filipenses 2:17\n Aquí comienza a tratar la última cláusula de Filipenses 1:22. Sí, y si me ofrecen - Literalmente, si me derraman. Sobre el sacrificio de vuestra fe - Los filipenses, como los otros paganos convertidos, fueron un sacrificio a Dios a través del ministerio de San Pablo, Romanos 15:16. Y así como en el sacrificio se vertía vino al pie del altar, así él quiso que se derramara su sangre. La expresión concuerda bien con esa especie de martirio por el que luego fue ofrecido a Dios.",
+      "enHash": "f1c32b13c4d2b81adf338ce21cae581a9db4c00087ed6466d33c73853d199f24",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "Congratulate me — When I am offered up.",
+      "es": "Felicítame, cuando me ofrezcan.",
+      "enHash": "f1696c987c3e05ecfd1506e9615851eb2f1210692c88cb544e63eb3eac62cfde",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "When I know — Upon my return, that ye stand steadfast.",
+      "es": "Cuando sepa, a mi regreso, que os mantendréis firmes.",
+      "enHash": "10a597bd1bb0ba66c6688a7231aded949df393aa6a5b636bb75b74809c5023df",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "I have none — Of those who are now with me.",
+      "es": "No tengo ninguno de los que ahora están conmigo.",
+      "enHash": "0b8443dc39110b1af967a19365db3f2205c4bcb765cd7a3e78ebb15c3a77c437",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "Philippians 2:21\n For all - But Timotheus. Seek their own - Ease, safety, pleasure, or profit. Amazing! In that golden age of the church, could St. Paul throughly approve of one only, among all the labourers that were with him? Php 1:14 ,17. And how many do we think can now approve themselves to God? Not the things of Jesus Christ - They who seek these alone, will sadly experience this. They will find few helpers likeminded with themselves, willing naked to follow a naked Master.",
+      "es": "Filipenses 2:21\n Para todos - Menos Timoteo. Buscar lo suyo: facilidad, seguridad, placer o beneficio. ¡Asombroso! En esa época dorada de la iglesia, ¿podría San Pablo aprobar plenamente a uno solo, entre todos los trabajadores que estaban con él? Fil 1:14, 17. ¿Y cuántos creemos que ahora pueden aprobarse ante Dios? No las cosas de Jesucristo - Aquellos que las buscan solos, tristemente experimentarán esto. Encontrarán pocos ayudantes que tengan ideas afines a ellos y que estén dispuestos a seguir desnudos a un Maestro desnudo.",
+      "enHash": "ae846c0460f374b745855a13b6165d64e4edd77f1bfbc2efac5619d1759ac495",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "As a son with his father — He uses an elegant peculiarity of phrase, speaking partly as of a son, partly as of a fellowlabourer.",
+      "es": "Como hijo con su padre Utiliza una elegante peculiaridad de frase, hablando en parte como de un hijo, en parte como de un compañero de trabajo.",
+      "enHash": "204ae2e196cfc4e29e76c3f1c7cbe37097a02fd8394fbe149c49acdebc7d215b",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "Philippians 2:25\n To send Epaphroditus - Back immediately. Your messenger - The Philippians had sent him to St. Paul with their liberal contribution.",
+      "es": "Filipenses 2:25\n Para enviar a Epafrodito - De regreso inmediatamente. Su mensajero - Los filipenses lo habían enviado a San Pablo con su generosa contribución.",
+      "enHash": "d1ccdc9ba08ae544957393ad43476cc2af2b6137a605e59209e431421acfd4f7",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "He was full of heaviness — Because he supposed you would be afflicted at hearing that he was sick.",
+      "es": "Estaba lleno de pesadez, porque suponía que os afligiríais al saber que estaba enfermo.",
+      "enHash": "6a413dbe6d70b2a3302190f4c3d2b0936f07dc439d732f76a40831ca5a5ba125",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "God had compassion on him — Restoring him to health.",
+      "es": "Dios tuvo compasión de él: le devolvió la salud.",
+      "enHash": "3216a64cff5894eeee46369d757e4f47eeb48903a445e9cd8640147536d71193",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "That I may be the less sorrowful — When I know you are rejoicing.",
+      "es": "Para que esté menos triste cuando sé que os regocijáis.",
+      "enHash": "477415265c1be8dcc527ca6a1f1e47991ddc969b35af3bd0d54223cd26b38137",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "To supply your deficiency of service — To do what you could not do in person.\n\n << Philippians 1 | Philippians 2 | Philippians 3 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Philippians Philippians 2\n\n Related Commentaries\n Philippians 2\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Para suplir su deficiencia de servicio: hacer lo que no pudo hacer en persona.\n\n << Filipenses 1 | Filipenses 2 | Filipenses 3 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Filipenses Filipenses 2\n\n Comentarios relacionados\n Filipenses 2\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "fc992a18f87be6f140a3ba612f8949e264a7edc760ec2844c730472ef699d486",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "The same things — Which you have heard before.",
+      "es": "Las mismas cosas que has oído antes.",
+      "enHash": "93f4e6d3150a4e208d75c6de11274b5584f24ea5daf9fde78edffa8a57c0ebd0",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "Philippians 3:2\n Beware of dogs - Unclean, unholy, rapacious men. The title which the Jews usually gave the gentiles, he returns upon themselves. The concision - Circumcision being now ceased, the apostle will not call them the circumcision, but coins a term on purpose, taken from a Greek word used by the LXX, Lev 21:5 , for such a cutting as God had forbidden.",
+      "es": "Filipenses 3:2\n Cuidado con los perros - Hombres inmundos, impíos y rapaces. El título que los judíos solían dar a los gentiles, vuelve sobre ellos mismos. La concisión - Habiendo cesado ahora la circuncisión, el apóstol no los llamará circuncisión, sino que acuña un término a propósito, tomado de una palabra griega utilizada por la LXX, Levítico 21:5, para un corte que Dios había prohibido.",
+      "enHash": "a63d6dac7c4fa8e9571220193f34134fba47e2f66533bdc3c7405ac78be7f9c1",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "Philippians 3:3\n For we - Christians. Are the only true circumcision - The people now in covenant with God. Who worship God in spirit - Not barely in the letter, but with the spiritual worship of inward holiness. And glory in Christ Jesus - As the only cause of all our blessings. And have no confidence in the flesh - In any outward advantage or prerogative.",
+      "es": "Filipenses 3:3\n Para nosotros, los cristianos. Son la única circuncisión verdadera - El pueblo ahora está en pacto con Dios. Que adoran a Dios en espíritu - No sólo en la letra, sino con la adoración espiritual de la santidad interior. Y gloria en Cristo Jesús - Como única causa de todas nuestras bendiciones. Y no confíe en la carne - En ninguna ventaja o prerrogativa externa.",
+      "enHash": "278c5b03478a0d30df51ae50687b83f1fb914e745c4f1fdb1980364841ffedf4",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "Though I — He subjoins this in the singular number, because the Philippians could not say thus.",
+      "es": "Aunque yo, añade esto en singular, porque los filipenses no podían decir así.",
+      "enHash": "50c224adf48caef6f0e1511bf7dad17d6643d2a36594f79d9cb0f309b3d7598f",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "Philippians 3:5\n Circumcised the eighth day - Not at ripe age, as a proselyte. Of the tribe of Benjamin - Sprung from the wife, not the handmaid. An Hebrew of Hebrews - By both my parents; in everything, nation, religion, language. Touching the law, a pharisee - One of that sect who most accurately observe it.",
+      "es": "Filipenses 3:5\n Circuncidado al octavo día - No en edad madura, como prosélito. De la tribu de Benjamín - Surgido de la esposa, no de la sierva. Un hebreo de hebreos - Por mis dos padres; en todo, nación, religión, idioma. Tocando la ley, un fariseo - Uno de esa secta que la observa con mayor precisión.",
+      "enHash": "6e4deed06f39c1744ac522c040a32dba73c25a38d9e216fd0bca785c63aef754",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "Philippians 3:6\n Having such a zeal for it as to persecute to the death those who did not observe it. Touching the righteousness which is described and enjoined by the Law - That is, external observances, blameless.",
+      "es": "Filipenses 3:6\n Teniendo tal celo por ello que perseguía hasta la muerte a quienes no lo observaban. Tocando la justicia que describe y prescribe la Ley - Es decir, observancias externas, irreprochables.",
+      "enHash": "b5d7afc625e6787c78f9df84ed2698cc161cc0c3bf94c0c716db542a9817e9a8",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "Philippians 3:7\n But all these things, which I then accounted gain, which were once my confidence, my glory, and joy, those, ever since I have believed, I have accounted loss, nothing worth in comparison of Christ.",
+      "es": "Filipenses 3:7\n Pero todas estas cosas que entonces consideraba ganancia, que en un tiempo eran mi confianza, mi gloria y gozo, las que desde que creí las he tenido por pérdida, nada valioso en comparación con Cristo.",
+      "enHash": "ba3811cc4568360ae33147bf08ca31c00446ed8173e68a250b613515e0178d05",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "Philippians 3:8\n Yea, I still account both all these and all things else to be mere loss, compared to the inward, experimental knowledge of Christ, as my Lord, as my prophet, priest, and king, as teaching me wisdom, atoning for my sins, and reigning in my heart. To refer this to justification only, is miserably to pervert the whole scope of the words. They manifestly relate to sanctification also; yea, to that chiefly. For whom I have actually suffered the loss of all things - Which the world loves, esteems, or admires; of which I am so far from repenting, that I still account them but dung - The discourse rises. Loss is sustained with patience, but dung is cast away with abhorrence. The Greek word signifies any, the vilest refuse of things, the dross of metals, the dregs of liquors, the excrements of animals, the most worthless scraps of meat, the basest offals, fit only for dogs. That I may gain Christ - He that loses all things, not excepting himself, gains Christ, and is gained by Christ. And still there is more; which even St. Paul speaks of his having not yet gained.",
+      "es": "Filipenses 3:8\n Sí, todavía considero que todo esto y todas las demás cosas son mera pérdida, en comparación con el conocimiento interno y experimental de Cristo, como mi Señor, como mi profeta, sacerdote y rey, que me enseña sabiduría, expía mis pecados y reina en mi corazón. Remitir esto únicamente a la justificación es pervertir miserablemente todo el alcance de las palabras. Manifiestamente se relacionan también con la santificación; sí, a eso principalmente. Por quien realmente he sufrido la pérdida de todas las cosas - Que el mundo ama, estima o admira; de lo cual estoy tan lejos de arrepentirme, que todavía los considero estiércol. El discurso se eleva. La pérdida se soporta con paciencia, pero el estiércol se tira con aborrecimiento. La palabra griega significa cualquiera, los desechos más viles de las cosas, la escoria de los metales, las heces de los licores, los excrementos de los animales, los restos de carne más inútiles, los despojos más viles, aptos sólo para los perros. Para ganar a Cristo - El que lo pierde todo, sin exceptuarse a sí mismo, gana a Cristo y es ganado por Cristo. Y todavía hay más; que incluso San Pablo dice que aún no ha obtenido.",
+      "enHash": "465585742d4ae4f2bd4f1775183cc4ea0ba450ae41fa46435f469dc66d820ac4",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "Philippians 3:9\n And be found by God ingrafted in him, not having my own righteousness, which is of the law - That merely outward righteousness prescribed by the law, and performed by my own strength. But that inward righteousness which is through faith - Which can flow from no other fountain. The righteousness which is from God - From his almighty Spirit, not by my own strength, but by faith alone. Here also the apostle is far from speaking of justification only.",
+      "es": "Filipenses 3:9\n Y ser encontrado por Dios injertado en él, sin tener mi propia justicia, que es de la ley - Esa simplemente justicia exterior prescrita por la ley y realizada por mi propia fuerza. Pero esa justicia interior que es por la fe, que no puede fluir de ninguna otra fuente. La justicia que viene de Dios - De su Espíritu todopoderoso, no por mi propia fuerza, sino solo por la fe. Aquí también el apóstol está lejos de hablar sólo de justificación.",
+      "enHash": "308f685cd103544344e4336e184bbd46fc23694dfe2d09e618c89fda054428de",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "Philippians 3:10\n The knowledge of Christ, mentioned in the eighth verse, is here more largely explained. That I may know him - As my complete Saviour. And the power of his resurrection - Raising me from the death of sin, into all the life of love. And the fellowship of his sufferings - Being crucified with him. And made conformable to his death - So as to be dead to all things here below.",
+      "es": "Filipenses 3:10\n El conocimiento de Cristo, mencionado en el versículo octavo, se explica aquí de manera más amplia. Para que pueda conocerlo - Como mi Salvador completo. Y el poder de su resurrección - Levantándome de la muerte del pecado, a toda la vida de amor. Y la comunión de sus sufrimientos - Ser crucificado con él. Y hecho conforme a su muerte - Para estar muerto para todas las cosas aquí abajo.",
+      "enHash": "e8aa992567db7ff237bc12fc9b53ca4fe8bccc2627d3fb895e2c188f033b48cd",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "The resurrection of the dead — That is, the resurrection to glory.",
+      "es": "La resurrección de los muertos, es decir, la resurrección a la gloria.",
+      "enHash": "2f2b2c6a6e1341ce5e4716e20e08a131499112641713ea163338e3fb945c1917",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "Philippians 3:12\n Not that I have already attained - The prize. He here enters on a new set of metaphors, taken from a race. But observe how, in the utmost fervour, he retains his sobriety of spirit. Or am already perfected - There is a difference between one that is perfect, and one that is perfected. The one is fitted for the race, Php 3:15 ; the other, ready to receive the prize. But I pursue, if I may apprehend that - Perfect holiness, preparatory to glory. For, in order to which I was apprehended by Christ Jesus - Appearing to me in the way, Acts 26:14 . The speaking conditionally both here and in the preceding verse, implies no uncertainty, but only the difficulty of attaining.",
+      "es": "Filipenses 3:12\n No es que ya lo haya conseguido... El premio. Aquí introduce un nuevo conjunto de metáforas, tomadas de una carrera. Pero obsérvese cómo, en el máximo fervor, conserva su sobriedad de espíritu. O ya soy perfecto - Hay una diferencia entre uno que es perfecto y otro que es perfecto. El que está preparado para la carrera, Filipenses 3:15; el otro, listo para recibir el premio. Pero sigo persiguiendo, si puedo comprender eso: santidad perfecta, preparatoria para la gloria. Porque para lo cual fui prendido por Cristo Jesús - Apareciéndoseme en el camino, Hechos 26:14 . Hablar condicionalmente tanto aquí como en el versículo anterior no implica incertidumbre, sino sólo la dificultad de lograrlo.",
+      "enHash": "755499d5c478e3bda29ad7c1fd8576572a4a91a725a96d8a393aafbe4c1cdff3",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "I do not account myself to have apprehended this already; to be already possessed of perfect holiness.",
+      "es": "No creo haberlo comprendido ya; estar ya poseído de la santidad perfecta.",
+      "enHash": "6b0ab027ca8ed2f1a5dc9060e9f7ada813dbbf13f753c84fc10688c39d31b6b9",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "Philippians 3:14\n Forgetting the things that are behind - Even that part of the race which is already run. And reaching forth unto - Literally, stretched out over the things that are before - Pursuing with the whole bent and vigour of my soul, perfect holiness and eternal glory. In Christ Jesus - The author and finisher of every good thing.",
+      "es": "Filipenses 3:14\n Olvidando las cosas que quedan atrás - Incluso aquella parte de la carrera que ya está corrida. Y extendiéndome a - Literalmente, extendido sobre las cosas que están antes - Persiguiendo con toda la inclinación y el vigor de mi alma, la santidad perfecta y la gloria eterna. En Cristo Jesús - El autor y consumador de todo bien.",
+      "enHash": "7fa39f65fcda47cbb2f1c04f5ca2ea07390bb03a8aece3f0be92eee0f70bed5a",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "Philippians 3:15\n Let us, as many as are perfect - Fit for the race, strong in faith; so it means here. Be thus minded - Apply wholly to this one thing. And if in anything ye - Who are not perfect, who are weak in faith. Be otherwise minded - Pursuing other things. God, if ye desire it, shall reveal even this unto you - Will convince you of it.",
+      "es": "Filipenses 3:15\n Seamos todos los perfectos - Aptos para la carrera, fuertes en la fe; entonces significa aquí. Tenga esta mentalidad: aplíquese completamente a esta única cosa. Y si en algo sois - Que no sois perfectos, que sois débiles en la fe. Tenga otra mentalidad: persiga otras cosas. Dios, si lo deseas, te revelará incluso esto - Te convencerá de ello.",
+      "enHash": "72c568de9afe08a464c37c552090593670e2f076d7cc71a331941a37e0515698",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "Philippians 3:16\n But let us take care not to lose the ground we have already gained. Let us walk by the same rule we have done hitherto.",
+      "es": "Filipenses 3:16\n Pero tengamos cuidado de no perder el terreno ya ganado. Caminemos con la misma regla que hemos seguido hasta ahora.",
+      "enHash": "fda6f4fabdf97c9fe4df47e88711756cc1fe616f522e61fd0aee512efae291c9",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "Mark them — For your imitation.",
+      "es": "Márcalos para tu imitación.",
+      "enHash": "1b10613bf69b2f13f69ab74565568ce5467210c5840f0fb94b7009d19f544e88",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "Weeping — As he wrote.\n\n Enemies of the cross of Christ — Such are all cowardly, all shamefaced, all delicate Christians.",
+      "es": "Llorando - Como él escribió.\n\n Enemigos de la cruz de Cristo: todos ellos son cristianos cobardes, todos avergonzados y todos delicados.",
+      "enHash": "576a20a0b3cbba4a07c2dfed696c60ef2235fe832c3d13b6663e10f9e3a46a9d",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "Philippians 3:19\n Whose end is destruction - This is placed in the front, that what follows may be read with the greater horror. Whose god is their belly - Whose supreme happiness lies in gratifying their sensual appetites. Who mind - Relish, desire, seek, earthly things.",
+      "es": "Filipenses 3:19\n Cuyo fin es la destrucción - Esto se coloca al frente, para que lo que sigue pueda leerse con mayor horror. Cuyo dios es su vientre - Cuya felicidad suprema radica en gratificar sus apetitos sensuales. A quién le importa - Disfrutar, desear, buscar, cosas terrenales.",
+      "enHash": "6373b163e0035ccd42eed718db2c16df7f4fe7a8641e8ec2e05e452871863420",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "Philippians 3:20\n Our conversation - The Greek word is of a very extenslve meaning: our citizenship, our thoughts, our affections, are already in heaven.",
+      "es": "Filipenses 3:20\n Nuestra conversación - La palabra griega tiene un significado muy extenso: nuestra ciudadanía, nuestros pensamientos, nuestros afectos, ya están en el cielo.",
+      "enHash": "30614821bc7861eac6769f7c206adaca320d6b7036ca727380b963e320d494fe",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "Philippians 3:21\n Who will transform our vile body - Into the most perfect state, and the most beauteous form. It will then be purer than the unspotted firmament, brighter than the lustre of the stars and, which exceeds all parallel, which comprehends all perfection, like unto his glorious body - Like that wonderfully glorious body which he wears in his heavenly kingdom, and on his triumphant throne.",
+      "es": "Filipenses 3:21\n ¿Quién transformará nuestro vil cuerpo? En el estado más perfecto y en la forma más hermosa. Entonces será más puro que el firmamento sin mancha, más brillante que el brillo de las estrellas y que excede todo paralelo, que comprende toda perfección, como su cuerpo glorioso - Como ese cuerpo maravillosamente glorioso que usa en su reino celestial y en su trono triunfante.",
+      "enHash": "ff17cc6844ae413d8ea0247c4048decc157e6f98048b48a4dda0485ecb04e081",
+      "source": "corpus:john-wesley"
+    },
+    "b73": {
+      "en": "So stand — As ye have done hitherto.",
+      "es": "Así que estad de pie, como lo habéis hecho hasta ahora.",
+      "enHash": "b779c68070a6535f22f2bfa23647fd213ac117481ec2c3a34605c667c6635f85",
+      "source": "corpus:john-wesley"
+    },
+    "b74": {
+      "en": "Philippians 4:2\n I beseech - He repeats this twice, as if speaking to each face to face, and that with the utmost tenderness.",
+      "es": "Filipenses 4:2\n Te lo ruego - Lo repite dos veces, como si hablara a cada uno cara a cara, y eso con la mayor ternura.",
+      "enHash": "3b888e94b8969013c4380902f85fe165df09900be57edd3c661a7153e0d2d04b",
+      "source": "corpus:john-wesley"
+    },
+    "b75": {
+      "en": "Philippians 4:3\n And I entreat thee also, true yokefellow - St. Paul had many fellowlabourers, but not many yokefellows. In this number was Barnabas first, and then Silas, whom he probably addresses here; for Silas had been his yokefellow at the very place, Acts 16:19 . Help those women who laboured together with me - Literally, who wrestled. The Greek word doth not imply preaching, or anything of that kind; but danger and toil endured for the sake of the gospel, which was also endured at the same time, probably at Philippi, by Clement and my other fellowlabourers - This is a different word from the former, and does properly imply fellowpreachers. Whose names, although not set down here, are in the book of life - As are those of all believers. An allusion to the wrestlers in the Olympic games, whose names were all enrolled in a book. Reader, is thy name there? Then walk circumspectly, lest the Lord blot thee out of his book!",
+      "es": "Filipenses 4:3\n Y te lo ruego también, verdadero compañero de yugo: San Pablo tuvo muchos compañeros de trabajo, pero no muchos compañeros de yugo. En este número estaba primero Bernabé y luego Silas, a quien probablemente se dirige aquí; porque Silas había sido su compañero de yugo en el mismo lugar, Hechos 16:19. Ayude a las mujeres que trabajaron conmigo - Literalmente, que lucharon. La palabra griega no implica predicación ni nada por el estilo; pero el peligro y el trabajo soportados por el bien del evangelio, que también fueron soportados al mismo tiempo, probablemente en Filipos, por Clemente y mis otros compañeros de trabajo. Esta es una palabra diferente de la anterior, y implica propiamente compañeros predicadores. Cuyos nombres, aunque no están escritos aquí, están en el libro de la vida - Como lo están los de todos los creyentes. Una alusión a los luchadores de los Juegos Olímpicos, cuyos nombres estaban todos inscritos en un libro. Lector, ¿está tu nombre ahí? ¡Entonces camina con cautela, no sea que el Señor te borre de su libro!",
+      "enHash": "f8b9aae35b18c6db3dfea0dfdd46d59864f10b344f060941158df4ad477dec11",
+      "source": "corpus:john-wesley"
+    },
+    "b76": {
+      "en": "Philippians 4:5\n Let your gentleness - Yieldingness, sweetness of temper, the result of joy in the Lord. Be known - By your whole behaviour. To all men - Good and bad, gentle and froward. Those of the roughest tempers are good natured to some, from natural sympathy and various motives; a Christian, to all. The Lord - The judge, the rewarder, the avenger. Is at hand - Standeth at the door.",
+      "es": "Filipenses 4:5\n Deja que tu gentileza - Ceder, dulzura de temperamento, resultado del gozo en el Señor. Sea conocido - Por todo su comportamiento. A todos los hombres: buenos y malos, gentiles y perversos. Los de temperamento más rudo son bondadosos con algunos, por simpatía natural y por diversos motivos; un cristiano, a todos. El Señor: el juez, el recompensador, el vengador. Está cerca - está parado en la puerta.",
+      "enHash": "35440839266814136573952990f36aff551d8929176bcad672a08cde00ee65ad",
+      "source": "corpus:john-wesley"
+    },
+    "b77": {
+      "en": "Philippians 4:6\n Be anxiously careful for nothing - If men are not gentle towards you, yet neither on this, nor any other account, be careful, but pray. Carefulness and prayer cannot stand together. In every thing - Great and small. Let your requests be made known - They who by a preposterous shame or distrustful modesty, cover, stifle, or keep in their desires, as if they were either too small or too great, must be racked with care; from which they are entirely delivered, who pour them out with a free and filial confidence. To God - It is not always proper to disclose them to men. By supplication - Which is the enlarging upon and pressing our petition. With thanksgiving - The surest mark of a soul free from care, and of prayer joined with true resignation. This is always followed by peace. Peace and thanksgiving are both coupled together, Col 3:15 .",
+      "es": "Filipenses 4:6\n Tenga mucho cuidado por nada - Si los hombres no son amables con usted, ni por esto ni por ningún otro motivo, tenga cuidado, pero ore. El cuidado y la oración no pueden ir juntos. En todo, grande y pequeño. Que se den a conocer sus peticiones - Aquellos que por una vergüenza absurda o una modestia desconfiada, cubren, reprimen o mantienen sus deseos, como si fueran demasiado pequeños o demasiado grandes, deben ser atormentados con cuidado; de la que quedan enteramente liberados, quienes las derraman con confianza libre y filial. A Dios - No siempre es apropiado revelarlos a los hombres. Por súplica - Que es ampliar y presionar nuestra petición. Con acción de gracias - La marca más segura de un alma libre de preocupaciones y de oración unida a verdadera resignación. A esto siempre le sigue la paz. La paz y la acción de gracias van juntas, Col 3:15.",
+      "enHash": "087f0f2082110b58b0aed6a5565382e403875416c1c8b3315298dc1b7e73d302",
+      "source": "corpus:john-wesley"
+    },
+    "b78": {
+      "en": "Philippians 4:7\n And the peace of God - That calm, heavenly repose, that tranquility of spirit, which God only can give. Which surpasseth all understanding - Which none can comprehend, save he that receiveth it. Shall keep - Shall guard, as a garrison does a city. Your hearts - Your affections. Your minds - Your understandings, and all the various workings of them; through the Spirit and power of Christ Jesus, in the knowledge and love of God. Without a guard set on these likewise, the purity and vigour of our affections cannot long be preserved.",
+      "es": "Filipenses 4:7\n Y la paz de Dios - Ese reposo tranquilo y celestial, esa tranquilidad de espíritu, que sólo Dios puede dar. Que sobrepasa todo entendimiento - Que nadie puede comprender, excepto aquel que lo recibe. Mantendrá - Protegerá, como lo hace una guarnición una ciudad. Tus corazones - Tus afectos. Tus mentes - Tus entendimientos y todos sus diversos funcionamientos; mediante el Espíritu y poder de Cristo Jesús, en el conocimiento y amor de Dios. Sin una guardia puesta sobre ellos también, la pureza y el vigor de nuestros afectos no podrán preservarse por mucho tiempo.",
+      "enHash": "49d589a0b74168bd310d358f89454fd433b14484fa1583aceae1b67c0d0fb0a1",
+      "source": "corpus:john-wesley"
+    },
+    "b79": {
+      "en": "Philippians 4:8\n Finally - To sum up all. Whatsoever things are true - Here are eight particulars placed in two fourfold rows; the former containing their duty; the latter, the commendation of it. The first word in the former row answers the first in the latter; the second word, the second and so on. True - In speech. Honest - In action. Just - With regard to others. Pure - With regard to yourselves. Lovely - And what more lovely than truth? Of good report - As is honesty, even where it is not practised. If there be any virtue - And all virtues are contained in justice. If there be any praise - In those things which relate rather to ourselves than to our neighbour. Think on these things - That ye may both practise them yourselves, and recommend them to others.",
+      "es": "Filipenses 4:8\n Finalmente - Para resumir todo. Todo lo que es cierto - Aquí hay ocho detalles colocados en dos filas cuádruples; los primeros contienen su deber; este último, el elogio del mismo. La primera palabra de la primera fila responde a la primera de la última; la segunda palabra, la segunda y así sucesivamente. Verdadero - En el habla. Honesto - En acción. Justo - Con respecto a los demás. Puro - Con respecto a ustedes mismos. Precioso - ¿Y qué más bonito que la verdad? De buen informe - Al igual que la honestidad, incluso cuando no se practica. Si hay alguna virtud - Y todas las virtudes están contenidas en la justicia. Si hay algún elogio - En aquellas cosas que se relacionan más con nosotros mismos que con nuestro prójimo. Piense en estas cosas: para que puedan practicarlas ustedes mismos y recomendarlas a otros.",
+      "enHash": "164a5f4855c626db0c6e62efe7397547d813da2b28001b34b33f9bc74ac96b74",
+      "source": "corpus:john-wesley"
+    },
+    "b80": {
+      "en": "Philippians 4:9\n The things which ye have learned - As catechumens. And received - By continual instructions. And heard and seen - In my life and conversation. These do, and the God of peace shall be with you - Not only the peace of God, but God himself, the fountain of peace.",
+      "es": "Filipenses 4:9\n Las cosas que habéis aprendido - Como catecúmenos. Y recibido - Por instrucciones continuas. Y oído y visto - En mi vida y conversación. Haz esto, y el Dios de paz estará contigo - No solo la paz de Dios, sino Dios mismo, la fuente de paz.",
+      "enHash": "6a6a0df2cba67493f598b7630bbce6950390001649c33688b5c6639812affa15",
+      "source": "corpus:john-wesley"
+    },
+    "b81": {
+      "en": "Philippians 4:10\n I rejoiced greatly - St. Paul was no Stoic: he had strong passions, but all devoted to God. That your care of me hath flourished again - As a tree blossoms after the winter. Ye wanted opportunity - Either ye had not plenty yourselves, or you wanted a proper messenger.",
+      "es": "Filipenses 4:10\n Me alegré mucho: San Pablo no era estoico: tenía pasiones fuertes, pero todas devotas a Dios. Que tu cuidado por mí ha vuelto a florecer - Como un árbol florece después del invierno. Queríais oportunidades - O no teníais suficientes o queríais un mensajero adecuado.",
+      "enHash": "59b45618d991307197a0411602d48afd0273dda92b9c8a7f02451cc4df80868e",
+      "source": "corpus:john-wesley"
+    },
+    "b82": {
+      "en": "Philippians 4:11\n I have learned - From God. He only can teach this. In everything, therewith to be content - Joyfully and thankfully patient. Nothing less is Christian content. We may observe a beautiful gradation in the expressions, I have learned; I know; I am instructed; I can.",
+      "es": "Filipenses 4:11\n He aprendido - De Dios. Sólo él puede enseñar esto. En todo, estar contento con ello - Con alegría y agradecidamente paciente. Nada menos es contenido cristiano. He aprendido que podemos observar una hermosa gradación en las expresiones; Lo sé; Me instruyen; Puedo.",
+      "enHash": "2766153edc13d505cce0c89845bab4861a4a8f17bafc9818ef614f0eed2aa496",
+      "source": "corpus:john-wesley"
+    },
+    "b83": {
+      "en": "Philippians 4:12\n I know how to be abased - Having scarce what is needful for my body. And to abound - Having wherewith to relieve others also. Presently after, the order of the words is inverted, to intimate his frequent transition from scarcity to plenty, and from plenty to scarcity. I am instructed - Literally, I am initiated in that mystery, unknown to all but Christians. Both to be full and to be hungry - For one day. Both to abound and to want - For a longer season.",
+      "es": "Filipenses 4:12\n Sé humillarme - Teniendo escasez de lo necesario para mi cuerpo. Y abundar - Tener con qué aliviar a los demás también. Poco después, se invierte el orden de las palabras para dar a entender su frecuente transición de la escasez a la abundancia y de la abundancia a la escasez. Me instruyen - Literalmente, me inician en ese misterio, desconocido para todos excepto para los cristianos. Tanto para estar lleno como para tener hambre - Por un día. Tanto para abundar como para querer - Por una temporada más larga.",
+      "enHash": "01d749774a8af296bf1c91525615299dbeaf6ceec1354cc684051684fe5c115a",
+      "source": "corpus:john-wesley"
+    },
+    "b84": {
+      "en": "I can do all things — Even fulfil all the will of God.",
+      "es": "Puedo hacer todas las cosas, incluso cumplir toda la voluntad de Dios.",
+      "enHash": "c5f61277dad0db7148038583f1041f4af3a32ca7fc8d30f6cfeaa95fba0476d8",
+      "source": "corpus:john-wesley"
+    },
+    "b85": {
+      "en": "Philippians 4:15\n In the beginning of the gospel - When it was first preached at Philippi. In respect of giving - On your part. And receiving - On mine.",
+      "es": "Filipenses 4:15\n Al comienzo del evangelio - Cuando se predicó por primera vez en Filipos. Con respecto a dar - De tu parte. Y recibiendo - En el mío.",
+      "enHash": "c6d5eef42d2d952a8e8854077cf9a12e813411e0e889266e9e04d06c3f2c0eb3",
+      "source": "corpus:john-wesley"
+    },
+    "b86": {
+      "en": "Not that I desire — For my own sake, the very gift which I receive of you.",
+      "es": "No es que desee, por mi propio bien, el mismo regalo que recibo de ti.",
+      "enHash": "90d6776979534c9a170dc947957e0b87a8242d65dc47a6981489db0f9c9d6d24",
+      "source": "corpus:john-wesley"
+    },
+    "b87": {
+      "en": "An odour of a sweet smell — More pleasing to God than the sweetest perfumes to men.",
+      "es": "Un olor dulce, más agradable a Dios que los perfumes más dulces a los hombres.",
+      "enHash": "cfa5ab40900b9a19df8661db469e1f5260a66c59a4977e6d4e89ec627020d4a0",
+      "source": "corpus:john-wesley"
+    },
+    "b88": {
+      "en": "All your need — As ye have mine.\n\n According to his riches in glory — In his abundant, eternal glory.\n\n << Philippians 3 | Philippians 4 | Colossians 1 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Philippians Philippians 4\n\n Related Commentaries\n Philippians 4\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Todas tus necesidades, como tienes las mías.\n\n Según sus riquezas en gloria, en su gloria abundante y eterna.\n\n << Filipenses 3 | Filipenses 4 | Colosenses 1 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Filipenses Filipenses 4\n\n Comentarios relacionados\n Filipenses 4\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "bb872179aebe0845ae3c0e74064d172ad317b7a545a83529642d70e1a53ce4be",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:4": "b2",
+    "1:5": "b3",
+    "1:6": "b4",
+    "1:7": "b5",
+    "1:8": "b6",
+    "1:9": "b7",
+    "1:10": "b8",
+    "1:11": "b9",
+    "1:12": "b10",
+    "1:13": "b11",
+    "1:14": "b12",
+    "1:15": "b13",
+    "1:16": "b14",
+    "1:17": "b15",
+    "1:18": "b16",
+    "1:19": "b17",
+    "1:20": "b18",
+    "1:21": "b19",
+    "1:22": "b20",
+    "1:23": "b21",
+    "1:25": "b22",
+    "1:27": "b23",
+    "1:28": "b24",
+    "1:29": "b25",
+    "1:30": "b26",
+    "2:1": "b27",
+    "2:2": "b28",
+    "2:3": "b29",
+    "2:4": "b30",
+    "2:6": "b31",
+    "2:7": "b32",
+    "2:8": "b33",
+    "2:9": "b34",
+    "2:10": "b35",
+    "2:11": "b36",
+    "2:12": "b37",
+    "2:13": "b38",
+    "2:14": "b39",
+    "2:15": "b40",
+    "2:17": "b41",
+    "2:18": "b42",
+    "2:19": "b43",
+    "2:20": "b44",
+    "2:21": "b45",
+    "2:22": "b46",
+    "2:25": "b47",
+    "2:26": "b48",
+    "2:27": "b49",
+    "2:28": "b50",
+    "2:30": "b51",
+    "3:1": "b52",
+    "3:2": "b53",
+    "3:3": "b54",
+    "3:4": "b55",
+    "3:5": "b56",
+    "3:6": "b57",
+    "3:7": "b58",
+    "3:8": "b59",
+    "3:9": "b60",
+    "3:10": "b61",
+    "3:11": "b62",
+    "3:12": "b63",
+    "3:13": "b64",
+    "3:14": "b65",
+    "3:15": "b66",
+    "3:16": "b67",
+    "3:17": "b68",
+    "3:18": "b69",
+    "3:19": "b70",
+    "3:20": "b71",
+    "3:21": "b72",
+    "4:1": "b73",
+    "4:2": "b74",
+    "4:3": "b75",
+    "4:5": "b76",
+    "4:6": "b77",
+    "4:7": "b78",
+    "4:8": "b79",
+    "4:9": "b80",
+    "4:10": "b81",
+    "4:11": "b82",
+    "4:12": "b83",
+    "4:13": "b84",
+    "4:15": "b85",
+    "4:17": "b86",
+    "4:18": "b87",
+    "4:19": "b88"
+  }
+}

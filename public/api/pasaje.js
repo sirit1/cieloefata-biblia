@@ -24,8 +24,23 @@ function bloqueDe(versos) {
   return versos.map((v) => `${v.n} ${v.texto}`).join(' ');
 }
 
+function claveVersion(raw) {
+  return String(raw || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function esInglesLector(key) {
+  const k = claveVersion(key);
+  return k === 'kjv' || k === 'kjva' || k === 'kingjames' || k === 'av' || k.includes('kjv');
+}
+
+function esEspanolLector(key) {
+  const k = claveVersion(key);
+  return k === 'rv1960' || k === 'rvr1960' || k === 'nvi' || k === 'tla' || k === 'dhh' || k === 'rv1909' || k === 'rvr1909';
+}
+
 async function resolverVersion(meta, ref) {
-  if (meta.key === 'septuaginta') return null;
+  if (!meta?.key || meta.key === 'septuaginta') return null;
+  if (esInglesLector(meta.key)) return null;
   let versos = versosDesdePack(
     cargarPack(meta.key),
     ref.libro,
@@ -79,7 +94,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const catalogo = versionesActivas();
+    const catalogo = versionesActivas().filter((meta) => !esInglesLector(meta.key));
     const [original, ...resueltas] = await Promise.all([
       obtenerOriginal(ref).catch(() => null),
       ...catalogo.map((meta) => resolverVersion(meta, ref).catch(() => null)),
@@ -143,12 +158,15 @@ export default async function handler(req, res) {
       ? `${ref.libro} ${ref.capitulo}:${ref.versoInicio}${ref.versoFin && ref.versoFin !== ref.versoInicio ? `-${ref.versoFin}` : ''}`
       : `${ref.libro} ${ref.capitulo}`;
 
-    const reqVer = String(q.version || q.versionKey || 'rv1960').toLowerCase();
-    const cleanKey = reqVer.replace(/[^a-z0-9]/g, '');
+    const reqVerRaw = String(q.version || q.versionKey || 'rv1960');
+    const reqVer = esInglesLector(reqVerRaw) ? 'rv1960' : reqVerRaw.toLowerCase();
+    const cleanKey = claveVersion(reqVer);
     let matchedVersos = versionesVersos[reqVer] || versionesVersos[cleanKey] || versionesVersos['rv1960'] || versionesVersos['rvr1960'];
     if (!matchedVersos || !matchedVersos.length) {
       for (const [k, arr] of Object.entries(versionesVersos)) {
-        if (k !== 'original' && Array.isArray(arr) && arr.length) {
+        if (k === 'original' || k === 'septuaginta' || esInglesLector(k)) continue;
+        if (!esEspanolLector(k) && k !== 'nvi') continue;
+        if (Array.isArray(arr) && arr.length) {
           matchedVersos = arr;
           break;
         }
@@ -173,7 +191,7 @@ export default async function handler(req, res) {
       verses,
       book: ref.libro,
       chapter: ref.capitulo,
-      version: q.version || 'RVR1960',
+      version: esInglesLector(q.version) ? 'RVR1960' : (q.version || 'RVR1960'),
     });
   } catch (error) {
     console.error('Error obteniendo pasaje:', error?.message);

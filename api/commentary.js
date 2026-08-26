@@ -1,5 +1,4 @@
-import { generarComentarioGemini, envelopeComentario } from '../lib/comentario-gemini.js';
-import { generarFallbackComentario } from '../lib/theological-fallback.js';
+import { obtenerComentarioCorpus, jsonComentarioCorpus } from '../lib/comentario-corpus.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
@@ -9,41 +8,14 @@ export default async function handler(req, res) {
 
   const q = req.method === 'GET' ? req.query || {} : req.body || {};
   const passage = String(q.passage || q.referencia || q.ref || q.consulta || 'Mateo 16:2').trim();
-  const author = String(q.author || q.autor || 'C. H. Spurgeon').trim() || 'C. H. Spurgeon';
-  const verseText = String(q.verseText || q.texto || q.text || '').trim();
+  const author = String(q.author || q.autor || 'jamieson-fausset-brown').trim();
 
   try {
-    const result = await generarComentarioGemini({
-      passage,
-      author,
-      verseText,
-      timeoutMs: 15000,
-    });
-    const text = result?.text || generarFallbackComentario({ passage, author, verseText });
-    const authorName = result?.author || author;
-    const source = result?.source || 'theological-engine-fallback';
-    const data = envelopeComentario(text, authorName, source);
-    return res.status(200).json({
-      success: true,
-      ok: true,
-      text,
-      answer: text,
-      author: authorName,
-      source,
-      data,
-    });
+    const result = await obtenerComentarioCorpus({ passage, author });
+    return res.status(200).json(jsonComentarioCorpus(result));
   } catch (err) {
-    console.error('Error al generar comentario en backend:', err?.message || err);
-    const fallbackText = generarFallbackComentario({ passage, author: 'Respaldo teológico', verseText });
-    const data = envelopeComentario(fallbackText, 'Respaldo teológico', 'theological-engine-fallback');
-    return res.status(200).json({
-      success: true,
-      ok: true,
-      text: fallbackText,
-      answer: fallbackText,
-      author: 'Respaldo teológico',
-      source: 'theological-engine-fallback',
-      data,
-    });
+    console.error('Error al consultar corpus de comentario:', err?.message || err);
+    const result = await obtenerComentarioCorpus({ passage, author });
+    return res.status(200).json(jsonComentarioCorpus(result));
   }
 }

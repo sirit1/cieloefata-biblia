@@ -1,0 +1,675 @@
+{
+  "book": "1 Timoteo",
+  "usfm": "1TI",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "I Timothy 1:1\n Paul an apostle - Familiarity is to be set aside where the things of God are concerned. According to the commandment of God - The authoritative appointment of God the Father. Our Saviour - So styled in many other places likewise, as being the grand orderer of the whole scheme of our salvation. And Christ our hope - That is, the author, object, and ground, of all our hope.",
+      "es": "1 Timoteo 1:1\n Pablo, un apóstol - La familiaridad debe dejarse de lado cuando se trata de las cosas de Dios. Según el mandamiento de Dios - El nombramiento autoritario de Dios Padre. Nuestro Salvador - Así llamado en muchos otros lugares también, como el gran ordenante de todo el plan de nuestra salvación. Y Cristo nuestra esperanza - Es decir, el autor, objeto y fundamento de toda nuestra esperanza.",
+      "enHash": "3af8f589ce58570676cae9b4ed6828c73d27ed64f5154c1eea7c002943f0903f",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "I Timothy 1:2\n Grace, mercy, peace - St. Paul wishes grace and peace in his epistles to the churches. To Timotheus he adds mercy, the most tender grace towards those who stand in need of it. The experience of this prepares a man to be a minister of the gospel.",
+      "es": "1 Timoteo 1:2\n Gracia, misericordia, paz - San Pablo desea gracia y paz en sus epístolas a las iglesias. A Timoteo añade la misericordia, la gracia más tierna hacia quienes la necesitan. La experiencia de esto prepara a un hombre para ser ministro del evangelio.",
+      "enHash": "92a5f2b445c9c76d142fcb47f61de9cab36debd76ddf9c57022693e3c8705082",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "I Timothy 1:3\n Charge some to teach no other doctrine - Than I have taught. Let them put nothing in the place of it, add nothing to it.",
+      "es": "1 Timoteo 1:3\n Cobra a algunos para que no enseñen otra doctrina que la que yo he enseñado. Que no pongan nada en su lugar, que no le añadan nada.",
+      "enHash": "fb9d509b36ea775112f2f4df392444e812f7ba9b9ea986db91a91a9b6934c28f",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "I Timothy 1:4\n Neither give heed - So as either to teach or regard them. To fables - Fabulous Jewish traditions. And endless genealogies - Nor those delivered in scripture, but the long intricate pedigrees whereby they strove to prove their descent from such or such a person. Which afford questions - Which lead only to useless and endless controversies.",
+      "es": "1 Timoteo 1:4\n Ni prestes atención - Para enseñarlos o considerarlos. A las fábulas: fabulosas tradiciones judías. Y genealogías interminables - Ni las entregadas en las Escrituras, sino los largos e intrincados pedigríes mediante los cuales se esforzaron por demostrar su descendencia de tal o cual persona. Que generan preguntas, que sólo conducen a controversias inútiles e interminables.",
+      "enHash": "cca3e3b1977a000f7d0c5b0ce6db31fc00a45f333ec5c6606964f4f8981b9348",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "I Timothy 1:5\n Whereas the end of the commandment - of the whole Christian institution. Is love - And this was particularly the end of the commandment which Timotheus was to enforce at Ephesus, 1Tim 1:3 ,18. The foundation is faith; the end, love. But this can only subsist in an heart purified by faith, and is always attended with a good conscience.",
+      "es": "1 Timoteo 1:5\n Considerando que el fin del mandamiento - de toda la institución cristiana. Es amor - Y este fue particularmente el final del mandamiento que Timoteo debía hacer cumplir en Éfeso, 1 Timoteo 1:3,18. El fundamento es la fe; fin, amor. Pero esto sólo puede subsistir en un corazón purificado por la fe y siempre acompañado de una buena conciencia.",
+      "enHash": "5d6a64b7f85d36fe3ed5e343b7b76b9c3544d84ae9858d858657dc855c6b75ab",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "I Timothy 1:6\n From which - Love and a good conscience. Some are turned aside - An affectation of high and extensive knowledge sets a man at the greatest distance from faith, and all sense of divine things. To vain jangling - And of all vanities, none are more vain than dry, empty disputes on the things of God.",
+      "es": "1 Timoteo 1:6\n De donde - Amor y buena conciencia. Algunos se desvían - Una afectación de conocimiento elevado y extenso coloca al hombre a la mayor distancia de la fe y de todo sentido de las cosas divinas. A vanos tintineos - Y de todas las vanidades, ninguna es más vana que las disputas secas y vacías sobre las cosas de Dios.",
+      "enHash": "d0da18061ced7eacd51e31abfe8a233d49aedb64c7db67d75670e57fae9a6b45",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "Understanding neither the very things they speak, nor the subject they speak of.",
+      "es": "No entendiendo ni las cosas que hablan, ni el tema del que hablan.",
+      "enHash": "c04ebbb7aac70f0f968d0e22e88a6c02bef5d57406e5ff78cdb4a20d31eb74f9",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "I Timothy 1:8\n We grant the whole Mosaic law is good, answers excellent purposes, if a man use it in a proper manner. Even the ceremonial is good, as it points to Christ; and the moral law is holy, just, and good, on its own nature; and of admirable use both to convince unbelievers, and to guide believers in all holiness.",
+      "es": "1 Timoteo 1:8\n Concedemos que toda la ley mosaica es buena y responde a propósitos excelentes, si un hombre la usa de manera adecuada. Incluso el ceremonial es bueno, ya que apunta a Cristo; y la ley moral es santa, justa y buena por su propia naturaleza; y de admirable utilidad tanto para convencer a los incrédulos como para guiar a los creyentes en toda santidad.",
+      "enHash": "6a7024c7d111d4a5a690b66e2d4a73cfc9663bc21becd5c900a5b2dbc7620503",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "I Timothy 1:9\n The law doth not lie against a righteous man - Doth not strike or condemn him. But against the lawless and disobedient - They who despise the authority of the lawgiver violate the first commandment, which is the foundation of the law, and the ground of all obedience. Against the ungodly and sinners - Who break the second commandment, worshipping idols, or not worshipping the true God. The unholy and profane - Who break the third commandment by taking his name in vain.",
+      "es": "1 Timoteo 1:9\n La ley no miente contra el justo - No lo golpea ni lo condena. Pero contra los inicuos y desobedientes - Los que desprecian la autoridad del legislador violan el primer mandamiento, que es el fundamento de la ley y la base de toda obediencia. Contra los impíos y pecadores - Que violan el segundo mandamiento, adorando ídolos o no adorando al Dios verdadero. Los impíos y profanos - Quienes violan el tercer mandamiento al tomar su nombre en vano.",
+      "enHash": "78462456b89607b3c726a94fe487b341272f42888c7da4699f6e157f310b3492",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "I Timothy 1:10\n Manstealers - The worst of all thieves, in comparison of whom, highwaymen and housebreakers are innocent. What then are most traders in negroes, procurers of servants for America, and all who list soldiers by lies, tricks, or enticements?",
+      "es": "1 Timoteo 1:10\n Ladrones de hombres: los peores ladrones, en comparación con los cuales, los bandoleros y ladrones de casas son inocentes. ¿Quiénes son entonces la mayoría de los traficantes de negros, los procuradores de sirvientes para América y todos los que enumeran soldados mediante mentiras, trucos o seducciones?",
+      "enHash": "2ce09bae4a79453d80603dbc2005726b38acf0393c08d0257c3aa8fdfadd21e7",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "According to the glorious gospel — Which, far from \"making void,\" does effectually \"establish, the law.\"",
+      "es": "Según el glorioso evangelio, que, lejos de \"anular\", efectivamente \"establece la ley\".",
+      "enHash": "fdefdfa25d5beb6ad4018fe463c012cf1b3765392e6cbdbb71562f731fd20f6c",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "I Timothy 1:12\n I thank Christ, who hath enabled me, in that he accounted me faithful, having put me into the ministry - The meaning is, I thank him for putting me into the ministry, and enabling me to be faithful therein.",
+      "es": "1 Timoteo 1:12\n Doy gracias a Cristo, que me ha permitido, porque me consideró fiel, habiéndome puesto en el ministerio - El significado es, le agradezco por ponerme en el ministerio y permitirme ser fiel en él.",
+      "enHash": "1881c3b2a5932faf328913f3356e2998f674b0ab47a64bf9034c7c421adfd20f",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "I Timothy 1:13\n A blasphemer - Of Christ. A persecutor - Of his church. A reviler - Of his doctrine and people. But I obtained mercy - He does not say, because I was unconditionally elected; but because I did it in ignorance. Not that his ignorance took away his sin; but it left him capable of mercy; which he would hardly have been, had he acted thus contrary to his own conviction.",
+      "es": "1 Timoteo 1:13\n Un blasfemo - De Cristo. Un perseguidor - De su iglesia. Un injuriador - De su doctrina y su pueblo. Pero obtuve misericordia - No dice, porque fui elegido incondicionalmente; sino porque lo hice por ignorancia. No es que su ignorancia le haya quitado el pecado; pero lo dejó capaz de tener misericordia; lo cual difícilmente lo habría sido si hubiera actuado así en contra de su propia convicción.",
+      "enHash": "4086ecbd6f4f0b79784037cabcb820a1648bb5707741b7997709de7c81f468b2",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "I Timothy 1:14\n And the grace - Whereby I obtained mercy. Was exceeding abundant with faith - Opposite to my preceding unbelief. And love - Opposite to my blasphemy, persecution, and oppression.",
+      "es": "1 Timoteo 1:14\n Y la gracia - Por la cual obtuve misericordia. Era sumamente abundante en fe - Lo contrario de mi incredulidad anterior. Y amor - Lo opuesto a mi blasfemia, persecución y opresión.",
+      "enHash": "545b3ba453fd17ce42934c8f904dbcfbe9a110f83cf7149721c92ec99898ea20",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "I Timothy 1:15\n This is a faithful saying - A most solemn preface. And worthy of all acceptation - Well deserving to be accepted, received, embraced, with all the faculties of our whole soul. That Christ - Promised. Jesus - Exhibited. Came into the world to save sinners - All sinners, without exception.",
+      "es": "1 Timoteo 1:15\n Este es un dicho fiel: un prefacio muy solemne. Y digno de toda aceptación - Bien merecedor de ser aceptado, recibido, abrazado, con todas las facultades de toda nuestra alma. Ese Cristo - Prometido. Jesús - Expuesto. Vino al mundo para salvar a los pecadores - Todos los pecadores, sin excepción.",
+      "enHash": "87eb89c450152a684296d5285d9aac5016059d6ff582ca8be59d42f761c405e1",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "I Timothy 1:16\n For this cause God showed me mercy, that all his longsuffering might be shown, and that none might hereafter despair.",
+      "es": "1 Timoteo 1:16\n Por esto Dios tuvo misericordia de mí, para que se mostrara toda su paciencia y para que nadie desesperara en lo sucesivo.",
+      "enHash": "c791872ed901accf922c652fba2a9916771312eeffab4062e4ead757bceb3b2d",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "I Timothy 1:17\n The King of eternity - A phrase frequent with the Hebrews. How unspeakably sweet is the thought of eternity to believers!",
+      "es": "1 Timoteo 1:17\n El Rey de la eternidad - Una frase frecuente entre los hebreos. ¡Cuán indescriptiblemente dulce es el pensamiento de la eternidad para los creyentes!",
+      "enHash": "5042147210effaf1f8f2462247c381e4f91daa27e105f41378bf55f990f5ec35",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "I Timothy 1:18\n This charge I commit to thee - That thou mayest deliver it to the church. According to the prophecies concerning thee - Uttered when thou wast received as an evangelist, 1Tim 4:14 ; probably by many persons, 1Tim 6:12 ; that, being encouraged by them, thou mightest war the good warfare.",
+      "es": "1 Timoteo 1:18\n Este encargo te lo encomiendo - Para que puedas entregarlo a la iglesia. Según las profecías acerca de ti - Pronunciadas cuando fuiste recibido como evangelista, 1 Timoteo 4:14 ; probablemente por muchas personas, 1 Timoteo 6:12; para que, animado por ellos, puedas pelear la buena guerra.",
+      "enHash": "0b3f0c69c16a98cf1fe244d5c20f4a4bf1f731752bc27be46bad42692ae8039b",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "I Timothy 1:19\n Holding fast faith - Which is as a most precious liquor. And a good conscience - Which is as a clean glass. Which - Namely, a good conscience. Some having thrust away - It goes away unwillingly it always says, \"Do not hurt me.\" And they who retain this do not make shipwreck of their faith. Indeed, none can make shipwreck of faith who never had it. These, therefore, were once true believers: yet they fell not only foully, but finally; for ships once wrecked cannot be afterwards saved.",
+      "es": "1 Timoteo 1:19\n Manteniendo firme la fe - Que es como el licor más preciado. Y una buena conciencia - Que es como un vaso limpio. Que... Es decir, una buena conciencia. Algunos lo han rechazado - Se aleja de mala gana y siempre dice: \"No me hagas daño\". Y los que retienen esto no naufragan en su fe. De hecho, nadie puede naufragar en la fe si nunca la ha tenido. Éstos, por lo tanto, alguna vez fueron verdaderos creyentes; sin embargo, cayeron no sólo de manera vergonzosa, sino finalmente; porque los barcos que naufragaron no pueden salvarse después.",
+      "enHash": "aff13c450b323ce213d5aea9eca1d8fc799cb4d7760c62a942cc048dae973e7f",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "I Timothy 1:20\n Whom - Though absent. I have delivered to Satan, that they may learn not to blaspheme - That by what they suffer they may be in some measure restrained, if they will not repent.",
+      "es": "1 Timoteo 1:20\n Quién - Aunque ausente. Le he entregado a Satanás, para que aprendan a no blasfemar - Que por lo que sufren puedan ser restringidos en cierta medida, si no se arrepienten.",
+      "enHash": "94d4f11e5a957fa956bbb7b3c3139ce6816914cc89de57c8c1be9167f0d345ac",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "I Timothy 2:1\n I exhort therefore - Seeing God is so gracious. In this chapter he gives directions, With regard to public prayers With regard to doctrine. Supplication is here the imploring help in time of need: prayer is any kind of offering up our desires to God. But true prayer is the vehemency of holy zeal, the ardour of divine love, arising from a calm, undisturbed soul, moved upon by the Spirit of God. Intercession is prayer for others. We may likewise give thanks for all men, in the full sense of the word, for that God \"willeth all men to be saved,\" and Christ is the Mediator of all.",
+      "es": "1 Timoteo 2:1\n Por tanto, exhorto: Ver a Dios es tan misericordioso. En este capítulo da instrucciones con respecto a las oraciones públicas y con respecto a la doctrina. La súplica es aquí la imploración de ayuda en momentos de necesidad: la oración es cualquier tipo de ofrecimiento de nuestros deseos a Dios. Pero la verdadera oración es la vehemencia del santo celo, el ardor del amor divino, que surge de un alma tranquila e imperturbable, movida por el Espíritu de Dios. La intercesión es oración por los demás. También podemos dar gracias por todos los hombres, en el pleno sentido de la palabra, porque Dios \"quiere que todos los hombres se salven\", y Cristo es el Mediador de todos.",
+      "enHash": "b0b43b4f5625dcea405fd0e7373a1505ee0d34c606ae074dd6b3c22110daf0b6",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "I Timothy 2:2\n For all that are in authority - Seeing even the lowest country magistrates frequently do much good or much harm. God supports the power of magistracy for the sake of his own people, when, in the present state of men, it could not otherwise be kept up in any nation whatever. Godliness - Inward religion; the true worship of God. Honesty - A comprehensive word taking in the whole duty we owe to our neighbour.",
+      "es": "1 Timoteo 2:2\n Para todos los que tienen autoridad - Ver que incluso los magistrados de los países más bajos con frecuencia hacen mucho bien o mucho daño. Dios apoya el poder de la magistratura por el bien de su propio pueblo, cuando, en el estado actual de los hombres, no podría mantenerse en ninguna nación. Piedad - Religión interior; la verdadera adoración a Dios. Honestidad - Una palabra integral que abarca todo el deber que tenemos para con nuestro prójimo.",
+      "enHash": "691b35366d0b1823bf75ec4afdcb546d0a5d508943360908aae7ec2e60c44aae",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "I Timothy 2:3\n For this - That we pray for all men. Do you ask, \"Why are not more converted?\" We do not pray enough. Is acceptable in the sight of God our Saviour - Who has actually saved us that believe, and willeth all men to be saved. It is strange that any whom he has actually saved should doubt the universality of his grace!",
+      "es": "1 Timoteo 2:3\n Por esto - Que oremos por todos los hombres. ¿Preguntas: \"¿Por qué no se convierten más?\" No oramos lo suficiente. Es aceptable a los ojos de Dios nuestro Salvador, quien realmente nos ha salvado a los que creemos y quiere que todos los hombres se salven. ¡Es extraño que cualquiera a quien él haya salvado dude de la universalidad de su gracia!",
+      "enHash": "c72c6f5f00f600de0d779c5ab97725df45b2db054ed8d9d596fe6431de987f60",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "I Timothy 2:4\n Who willeth seriously all men - Not a part only, much less the smallest part. To be saved - Eternally. This is treated of, 1Ti 2:5 ,6. And, in order thereto, to come - They are not compelled. To the knowledge of the truth - Which brings salvation. This is treated of, 1Ti 2:6 ,7.",
+      "es": "1 Timoteo 2:4\n ¿Quién quiere seriamente a todos los hombres? No sólo una parte, y mucho menos la parte más pequeña. Ser salvo - Eternamente. De esto se trata, 1 Timoteo 2:5,6. Y, para ello, venir - No están obligados. Al conocimiento de la verdad - Que trae salvación. De esto se trata, 1 Timoteo 2:6, 7.",
+      "enHash": "b9d939106929a2be86d3bd5bd8d50faa8629dd6bc729caf3f56507a99eaf13e1",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "I Timothy 2:5\n For - The fourth verse is proved by the fifth; the first, by the fourth. There is one God - And they who have not him, through the one Mediator, have no God. One mediator also - We could not rejoice that there is a God, were there not a mediator also; one who stands between God and men, to reconcile man to God, and to transact the whole affair of our salvation. This excludes all other mediators, as saints and angels, whom the Papists set up and idolatrously worship as such: just as the heathens of old set up many mediators, to pacify their superior gods. The man - Therefore all men are to apply to this mediator, \"who gave himself for all.\"",
+      "es": "1 Timoteo 2:5\n Para - El cuarto verso es probado por el quinto; el primero, por el cuarto. Hay un Dios - Y los que no lo tienen, a través del único Mediador, no tienen Dios. Un mediador también - No podríamos regocijarnos de que hay un Dios, si no hubiera también un mediador; uno que se interpone entre Dios y los hombres, para reconciliar al hombre con Dios y tramitar todo el asunto de nuestra salvación. Esto excluye a todos los demás mediadores, como santos y ángeles, a quienes los papistas establecieron y adoraron idólatramente como tales: así como los paganos de la antigüedad establecieron muchos mediadores para pacificar a sus dioses superiores. El hombre - Por lo tanto, todos los hombres deben acudir a este mediador, \"que se entregó por todos\".",
+      "enHash": "8713b97c951ae6f269a3c17e04bd830d289e8874776a222fb60fc98080900050",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "I Timothy 2:6\n Who gave himself a ransom for all - Such a ransom, the word signifies, wherein a like or equal is given; as an eye for an eye, or life for life: and this ransom, from the dignity of the person redeeming, was more than equivalent to all mankind. To be testified of in due season - Literally, in his own seasons; those chosen by his own wisdom.",
+      "es": "1 Timoteo 2:6\n Quien se dio a sí mismo en rescate por todos - Tal rescate, significa la palabra, en el que se da algo similar o igual; como ojo por ojo, o vida por vida: y este rescate, de la dignidad de la persona redentora, era más que equivalente a toda la humanidad. Para ser testificado a su debido tiempo - Literalmente, en sus propias estaciones; los elegidos por su propia sabiduría.",
+      "enHash": "ad691e616c3a1ed7895e178c9be48b84b9daa197d5fcfd55f3349a16ef3c4f65",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "I Timothy 2:8\n I will - A word strongly expressing his apostolical authority. Therefore - This particle connects the eighth with the first verse. That men pray in every place - Public and private. Wherever men are, there prayer should be. Lifting up holy hands - Pure from all known sin. Without wrath - In any kind, against any creature. And every temper or motion of our soul that is not according to love is wrath. And doubting - Which is contrary to faith. And wrath, or unholy actions, or want of faith in him we call upon, are the three grand hinderances of God's hearing our petitions. Christianity consists of faith and love, embracing truth and grace: therefore the sum of our wishes should be, to pray, and live, and die, without any wrath or doubt.",
+      "es": "1 Timoteo 2:8\n Lo haré - Una palabra que expresa fuertemente su autoridad apostólica. Por lo tanto - Esta partícula conecta el octavo con el primer verso. Que los hombres oren en todo lugar - Público y privado. Dondequiera que estén los hombres, debe haber oración. Levantando manos santas - Puro de todo pecado conocido. Sin ira - De cualquier tipo, contra cualquier criatura. Y todo temperamento o movimiento de nuestra alma que no sea conforme al amor, es ira. Y dudar - Lo cual es contrario a la fe. Y la ira, las acciones impías o la falta de fe en aquel a quien invocamos son los tres grandes obstáculos para que Dios escuche nuestras peticiones. El cristianismo consiste en fe y amor, abrazando la verdad y la gracia: por lo tanto, la suma de nuestros deseos debe ser orar, vivir y morir, sin ira ni duda alguna.",
+      "enHash": "f47d304ec1a1ca5e0fe1c003d286083df8aa194d9056d6d636f1e581c4a361ca",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "I Timothy 2:9\n With sobriety - Which, in St. Paul's sense, is the virtue which governs our whole life according to true wisdom. Not with curled hair, not with gold - Worn by way of ornament. Not with pearls - Jewels of any kind: a part is put for the whole. Not with costly raiment - These four are expressly forbidden by name to all women (here is no exception) professing godliness, and no art of man can reconcile with the Christian profession the wilful violation of an express command.",
+      "es": "1 Timoteo 2:9\n Con sobriedad - Que, en el sentido de San Pablo, es la virtud que gobierna toda nuestra vida según la verdadera sabiduría. No con cabello rizado, no con oro - Usado a modo de adorno. No con perlas - Joyas de cualquier clase: se pone una parte por el todo. No con vestimenta costosa - Estos cuatro están expresamente prohibidos por su nombre a todas las mujeres (aquí no hay excepción) que profesan piedad, y ningún arte del hombre puede conciliar con la profesión cristiana la violación deliberada de un mandato expreso.",
+      "enHash": "2e0e8c0abab3b848efc114fd495527a5b6de556b257ca21bd2599eae93bb208d",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "To usurp authority over the man — By public teaching.",
+      "es": "Usurpar la autoridad sobre el hombre mediante la enseñanza pública.",
+      "enHash": "b5fce5f4a25667693f3da979cfe4abed550e55d217d9ef75fb11cead26247b1a",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "First — So that woman was originally the inferior.",
+      "es": "Primero: Entonces esa mujer era originalmente la inferior.",
+      "enHash": "a494efda488e979e535af8b425387f5063b0aec03b7451c6ace825f3ebec1d05",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "I Timothy 2:14\n And Adam was not deceived - The serpent deceived Eve: Eve did not deceive Adam, but persuaded him. \"Thou hast hearkened unto the voice of thy wife,\" Gen 3:17 . The preceding verse showed why a woman should not \"usurp authority over the man.\" this shows why she ought not \"to teach.\" She is more easily deceived, and more easily deceives. The woman being deceived transgressed - \"The serpent deceived\" her, Gen 3:13 , and she transgressed.",
+      "es": "1 Timoteo 2:14\n Y Adán no fue engañado - La serpiente engañó a Eva: Eva no engañó a Adán, sino que lo persuadió. \"Has escuchado la voz de tu esposa\", Génesis 3:17. El versículo anterior mostró por qué una mujer no debe \"usurpar autoridad sobre el hombre\". esto muestra por qué ella no debería \"enseñar\". Se deja engañar más fácilmente y engaña más fácilmente. La mujer que fue engañada transgredió - \"La serpiente la engañó\", Génesis 3:13, y ella transgredió.",
+      "enHash": "ed8668dc7bb68328d100af116d6da5f35bf61502b50469a14aa42cec987329eb",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "I Timothy 2:15\n Yet she - That is, women in general, who were all involved with Eve in the sentence pronounced, Gen 3:16 . Shall be saved in childbearing - Carried safe through the pain and danger which that sentence entails upon them for the transgression; yea, and finally saved, if they continue in loving faith and holy wisdom.",
+      "es": "1 Timoteo 2:15\n Sin embargo, ella - Es decir, las mujeres en general, todas las cuales estuvieron involucradas con Eva en la sentencia pronunciada, Génesis 3:16. Se salvará al tener hijos - Llevado a salvo a través del dolor y el peligro que esa sentencia implica para ellos por la transgresión; sí, y finalmente salvos, si continúan en fe amorosa y santa sabiduría.",
+      "enHash": "d84dcac2bd199affae95d99ef412fde0f008f3f022118532c3b43ddd3953fcaf",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "He desireth a good work — An excellent, but laborious, employment.",
+      "es": "Desea un buen trabajo, un empleo excelente, pero laborioso.",
+      "enHash": "b4f1f22b177f79372749e875f2a868e39b89a61df2eaaf2e0985429079643431",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "I Timothy 3:2\n Therefore - That he may be capable of it. A bishop - Or pastor of a congregation. Must be blameless - Without fault or just suspicion. The husband of one wife - This neither means that a bishop must be married, nor that he may not marry a second wife; which it is just as lawful for him to do as to marry a first, and may in some cases be his bounden duty. But whereas polygamy and divorce on slight occasions were common both among the Jews and heathens, it teaches us that ministers, of all others, ought to stand clear of those sins. Vigilant, prudent - Lively and zealous, yet calm and wise. Of good behaviour - Naturally flowing from that vigilance and prudence.",
+      "es": "1 Timoteo 3:2\n Por lo tanto - Para que sea capaz de ello. Un obispo - O pastor de una congregación. Debe ser irreprochable - Sin culpa o solo sospecha. El marido de una sola esposa - Esto no significa que un obispo deba estar casado ni que no pueda casarse con una segunda esposa; lo cual le es tan lícito hacer como casarse con una primera persona y, en algunos casos, puede ser su deber ineludible. Pero mientras que la poligamia y el divorcio en ocasiones leves eran comunes tanto entre judíos como entre paganos, esto nos enseña que los ministros, entre todos los demás, deben mantenerse alejados de esos pecados. Vigilante, prudente: vivaz y celoso, pero tranquilo y sabio. De buen comportamiento - Naturalmente que surge de esa vigilancia y prudencia.",
+      "enHash": "3ff3e35fa434f0144a4a4b56550d3bf053ddfe2a58619292fbe587594375d6da",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "I Timothy 3:4\n Having his children in subjection with all seriousness - For levity undermines all domestic authority; and this direction, by a parity of reason, belongs to all parents.",
+      "es": "1 Timoteo 3:4\n Tener a sus hijos en sujeción con toda seriedad - Porque la ligereza socava toda autoridad doméstica; y esta dirección, por paridad de razón, pertenece a todos los padres.",
+      "enHash": "38e61351f8375f96c346b3576f1bc99c61eca0bcdcee9dbcc23695e5835d6f91",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "I Timothy 3:6\n Lest being puffed up - With this new honour, or with the applause which frequently follows it. He fall into the condemnation of the devil - The same into which the devil fell.",
+      "es": "1 Timoteo 3:6\n Para que no se envanezca - Con este nuevo honor, o con el aplauso que frecuentemente lo sigue. Cae en la condenación del diablo - Lo mismo en que cayó el diablo.",
+      "enHash": "2e6c69d43088522104e1e3976d72309244bfafcdf28fc6ece1604ecc85f9525c",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "I Timothy 3:7\n He ought also to have a good report - To have had a fair character in time past. From them that are without - That are not Christians. Lest he fall into reproach - By their rehearsing his former life, which might discourage and prove a snare to him.",
+      "es": "1 Timoteo 3:7\n También debería tener un buen informe: haber tenido un carácter justo en el pasado. De los que están fuera - Que no son cristianos. Para que no caiga en reproche - Al ensayar su vida anterior, lo que podría desanimarlo y resultarle una trampa.",
+      "enHash": "96c05bab4daf388e744d55c4adae2987e273281ebdc2fa01cbf3e2948525dd45",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "I Timothy 3:8\n Likewise the deacons must he serious - Men of a grave, decent, venerable behaviour. But where are presbyters? Were this order essentially distinct from that of bishops, could the apostle have passed it over in silence? Not desirous of filthy gain - With what abhorrence does he everywhere speak of this! All that is gained (above food and raiment) by ministering in holy things is filthy gain indeed; far more filthy than what is honestly gained by raking kennels, or emptying common sewers.",
+      "es": "1 Timoteo 3:8\n Asimismo, los diáconos deben ser serios: hombres de conducta grave, decente y venerable. ¿Pero dónde están los presbíteros? Si este orden fuera esencialmente distinto del de los obispos, ¿podría el apóstol haberlo pasado por alto en silencio? No deseoso de ganancias sucias. ¡Con qué aborrecimiento habla de esto en todas partes! Todo lo que se gana (más allá del alimento y el vestido) ministrando en las cosas santas es en verdad ganancia sucia; mucho más sucio que lo que se gana honestamente rastrillando perreras o vaciando alcantarillas comunes.",
+      "enHash": "199bc2731a21527db987ed6e7d7b38f27c1e2177c848fde5eb623f2e013c7674",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "Holding fast the faith in a pure conscience — Steadfast in faith, holy in heart and life.",
+      "es": "Manteniendo firme la fe con conciencia pura, firmes en la fe, santos de corazón y de vida.",
+      "enHash": "46d770f1c53c3a581195fdf6b85e02def4d38f8e0f1d12209ebb7a40983d1024",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "I Timothy 3:10\n Let these he proved first - Let a trial be made how they believe. Then let them minister - Let them be fixed in that office.",
+      "es": "1 Timoteo 3:10\n Que estos los pruebe primero - Que se pruebe cómo creen. Entonces déjelos ministrar - Déjelos fijar en esa oficina.",
+      "enHash": "5b98515cea42f919958053012967494f6eabb0c2fe577e25f0d8199d3152e8ec",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "Faithful in all things — Both to God, their husbands, and the poor.",
+      "es": "Fieles en todo, tanto a Dios como a sus maridos y a los pobres.",
+      "enHash": "6752ce3c8a04e00c172f2273ea231fab1a06467905446242d8d45431891f280c",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "I Timothy 3:13\n They purchase a good degree - Or step, toward some higher office. And much boldness - From the testimony of a good conscience.",
+      "es": "1 Timoteo 3:13\n Compran un buen título - O dan un paso hacia un cargo superior. Y mucha audacia - Del testimonio de una buena conciencia.",
+      "enHash": "840ef846d14ae3989fa8a87bf7dc7ada04b5ffffabe936063cd82e65e3e7e750",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "I Timothy 3:15\n That thou mayest know how to behave - This is the scope of the epistle. In the house of God - Who is the master of the family. Which is - As if he had said, By the house of God, I mean the church.",
+      "es": "1 Timoteo 3:15\n Para que sepas cómo comportarte - Este es el alcance de la epístola. En la casa de Dios - Quién es el dueño de la familia. Lo cual es - Como si hubiera dicho: Por casa de Dios, me refiero a la iglesia.",
+      "enHash": "e6854fce6a601b8bc056bd3afd34225ee7f48b19629f2f09566393f58909a1d5",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "I Timothy 3:16\n The mystery of godliness - Afterwards specified in six articles, which sum up the whole economy of Christ upon earth. Is the pillar and ground - The foundation and support of all the truth taught in his church. God was manifest in the flesh - In the form of a servant, the fashion of a man, for three and thirty years. Justified by the Spirit - Publicly \"declared to be the Son of God,\" by his resurrection from the dead. Seen - Chiefly after his resurrection. By angels - Both good and bad. Preached among the gentiles - This elegantly follows. The angels were the least, the gentiles the farthest, removed from him; and the foundation both of this preaching and of their faith was laid before his assumption. Was believed on in the world - Opposed to heaven, into which he was taken up. The first point is, He was manifested in the flesh; the last, He was taken up into glory.",
+      "es": "1 Timoteo 3:16\n El misterio de la piedad - Posteriormente se especifica en seis artículos, que resumen toda la economía de Cristo en la tierra. Es el pilar y la base - El fundamento y apoyo de toda la verdad enseñada en su iglesia. Dios se manifestó en carne - En forma de siervo, a la manera de un hombre, durante treinta y tres años. Justificado por el Espíritu - Públicamente \"declarado Hijo de Dios\", por su resurrección de entre los muertos. Visto - Principalmente después de su resurrección. Por los ángeles - Tanto buenos como malos. Predicado entre los gentiles - Esto sigue elegantemente. Los ángeles eran los menores, los gentiles los más alejados, alejados de él; y el fundamento tanto de esta predicación como de su fe fue puesto antes de su asunción. Se creía en el mundo - Opuesto al cielo, al que fue llevado. El primer punto es que Él fue manifestado en carne; el último, fue llevado a la gloria.",
+      "enHash": "8f7e36b1c6a57745736172ac644014667afe91b171331990fa79fcf838f3a5e1",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "I Timothy 4:1\n But the Spirit saith - By St. Paul himself to the Thessalonians, and probably by other contemporary prophets. Expressly - As concerning a thing of great moment, and soon to be fulfilled. That in the latter times - These extend from our Lord's ascension till his coming to judgment. Some - Yea, many, and by degrees the far greater part. Will depart from the faith - The doctrine once delivered to the saints. Giving heed to seducing spirits - Who inspire false prophets.",
+      "es": "1 Timoteo 4:1\n Pero el Espíritu dice: Por el propio San Pablo a los Tesalonicenses, y probablemente por otros profetas contemporáneos. Expresamente - En lo que respecta a algo de gran momento y que pronto se cumplirá. Que en los últimos tiempos - Estos se extienden desde la ascensión de nuestro Señor hasta su llegada al juicio. Algunos - Sí, muchos, y poco a poco la mayor parte. Se apartará de la fe - La doctrina una vez entregada a los santos. Prestando atención a los espíritus seductores - Que inspiran a falsos profetas.",
+      "enHash": "93428041ccd84ff4c58f8123b66e136d7c51a23e5969a0bac574f37ec5541f50",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "I Timothy 4:2\n These will depart from the faith, by the hypocrisy of them that speak lies, having their own consciences as senseless and unfeeling as flesh that is seared with an hot iron.",
+      "es": "1 Timoteo 4:2\n Éstos se apartarán de la fe por la hipocresía de los que hablan mentira, teniendo su propia conciencia tan insensata e insensible como carne cauterizada con hierro candente.",
+      "enHash": "f4315d21c89db486e316a5daec1371e16237fdb3fba1731b22d5b6dbe26bbc39",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "I Timothy 4:3\n Forbidding priests, monks, and nuns to marry, and commanding all men to abstain from such and such meats at such and such times. Which God hath created to be received by them that know the truth - That all meats are now clean. With thanksgiving - Which supposes a pure conscience.",
+      "es": "1 Timoteo 4:3\n Prohibir a los sacerdotes, monjes y monjas casarse, y ordenar a todos los hombres que se abstengan de tal o cual carne en tal o cual momento. Que Dios ha creado para ser recibido por aquellos que conocen la verdad - Que todas las carnes ahora están limpias. Con acción de gracias - Lo que supone una conciencia pura.",
+      "enHash": "8daa5370403899f71a20f00d8184802ec1a607768ee4693dd832f23448dfe813",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "I Timothy 4:5\n It is sanctified by the word of God - Creating all, and giving it to man for food. And by prayer - The children of God are to pray for the sanctification of all the creatures which they use. And not only the Christians, but even the Jews, yea, the very heathens used to consecrate their table by prayer.",
+      "es": "1 Timoteo 4:5\n Está santificado por la palabra de Dios: crearlo todo y dárselo al hombre como alimento. Y mediante la oración - Los hijos de Dios deben orar por la santificación de todas las criaturas que utilizan. Y no sólo los cristianos, sino incluso los judíos, sí, los mismos paganos solían consagrar su mesa mediante la oración.",
+      "enHash": "c5bff87ad3b9912ef24f7e4c1e59dc4d4c34629c79e249b6bc71baf7b2697f6e",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "I Timothy 4:7\n Like those who were to contend in the Grecian games, exercise thyself unto godliness - Train thyself up in holiness of heart and life, with the utmost labour, vigour, and diligence.",
+      "es": "1 Timoteo 4:7\n Como aquellos que iban a competir en los juegos griegos, ejercítate para la piedad - Entrénate en la santidad de corazón y vida, con el máximo trabajo, vigor y diligencia.",
+      "enHash": "0d9d2a85245a6efb55ab0a168eb92d36a913443e182cbc29a4e01ee8ec391c63",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "Bodily exercise profiteth a little — Increases the health and strength of the body.",
+      "es": "El ejercicio corporal aprovecha un poco: aumenta la salud y la fuerza del cuerpo.",
+      "enHash": "7e19f7dc11a95cef2dad06bb25e421a2478379b310b603759d924df1fda11386",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "I Timothy 4:10\n Therefore - Animated by this promise. We both labour and suffer reproach - We regard neither pleasure, ease, nor honour. Because we trust - For this very thing the world will hate us. In the living God - Who will give us the life he has promised. Who is the Saviour of all men - Preserving them in this life, and willing to save them eternally. But especially - In a more eminent manner. Of them that believe - And so are saved everlastingly.",
+      "es": "1 Timoteo 4:10\n Por tanto, animados por esta promesa. Ambos trabajamos y sufrimos reproches - No consideramos ni el placer, ni la comodidad ni el honor. Porque confiamos - Por esto mismo el mundo nos odiará. En el Dios vivo - Quien nos dará la vida que ha prometido. Quien es el Salvador de todos los hombres - Preservándolos en esta vida y dispuesto a salvarlos eternamente. Pero sobre todo... De una manera más eminente. De los que creen - Y así son salvos para siempre.",
+      "enHash": "83da59f7aa45f24e31ced9dff8b9f9b4acc97cb3793a82e48477b6385471b9d3",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "I Timothy 4:12\n Let no one have reason to despise thee for thy youth. To prevent this, Be a pattern in word - Public and private. In spirit - In your whole temper. In faith - When this is placed in the midst of several other Christian graces, it generally means a particular branch of it; fidelity or faithfulness.",
+      "es": "1 Timoteo 4:12\n Que nadie tenga motivos para despreciarte por tu juventud. Para evitar esto, sea un patrón en Word: público y privado. En espíritu - En todo tu temperamento. En la fe - Cuando esto se coloca en medio de varias otras gracias cristianas, generalmente significa una rama particular de la misma; fidelidad o fidelidad.",
+      "enHash": "7966acecd9b4a04327f6a4e4d92353bdb50f1099ae2db6e6d3578e17c94a9582",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "I Timothy 4:13\n Give thyself to reading - Both publicly and privately. Enthusiasts, observe this! Expect no end without the means.",
+      "es": "1 Timoteo 4:13\n Dedícate a la lectura - Tanto en público como en privado. ¡Entusiastas, observen esto! No esperes ningún fin sin los medios.",
+      "enHash": "769899eda67c7506bcb792bd9b3dbc86d6ff6542cb6bf12a3d7c110f380290e4",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "I Timothy 4:14\n Neglect not - They neglect it who do not exercise it to the full. The gift - Of feeding the flock, of power, and love, and sobriety. Which was given thee by prophecy - By immediate direction from God. By the laying on of my hands - 2Tim 1:6 ; while the elders joined also in the solemnity. This presbytery probably consisted of some others, together with Paul and Silas.",
+      "es": "1 Timoteo 4:14\n No lo descuides - Lo descuidan quienes no lo ejercen al máximo. El regalo: de alimentar al rebaño, de poder, amor y sobriedad. Que te fue dado por profecía - Por dirección inmediata de Dios. Por la imposición de mis manos – 2 Timoteo 1:6; mientras los ancianos se sumaban también a la solemnidad. Este presbiterio probablemente estaba formado por algunos otros, junto con Pablo y Silas.",
+      "enHash": "53d669f8a528f8db60577a494c218076d6cfc6365547cf173033d1d71d16c424",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "I Timothy 4:15\n Meditate - The Bible makes no distinction between this and to contemplate, whatever others do. True meditation is no other than faith, hope, love, joy, melted down together, as it were, by the fire of God's Holy Spirit; and offered up to God in secret. He that is wholly in these, will be little in worldly company, in other studies, in collecting books, medals, or butterflies: wherein many pastors drone away so considerable a part of their lives.",
+      "es": "1 Timoteo 4:15\n Meditar - La Biblia no hace distinción entre esto y contemplar, hagan lo que hagan los demás. La verdadera meditación no es otra cosa que la fe, la esperanza, el amor, la alegría, fundidos juntos, por así decirlo, por el fuego del Espíritu Santo de Dios; y ofrecido a Dios en secreto. El que está enteramente en esto, será poco en compañía mundana, en otros estudios, en coleccionar libros, medallas o mariposas, en las que muchos pastores pasan tan considerable parte de sus vidas.",
+      "enHash": "3c8a9e6010f046fb64b0362c69ba046ea255712df9581a804a83d24ea2cfd5c7",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "Continue in them — In all the preceding advices.\n\n << 1 Timothy 3 | 1 Timothy 4 | 1 Timothy 5 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 1 Timothy 1 Timothy 4\n\n Related Commentaries\n 1 Timothy 4\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Continúe en ellos - En todos los consejos anteriores.\n\n << 1 Timoteo 3 | 1 Timoteo 4 | 1 Timoteo 5 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 1 Timoteo 1 Timoteo 4\n\n Comentarios relacionados\n 1 Timoteo 4\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "0d1aba089340a7c7e71f003d84c43182271e1852297a59c248f0f29550baaf49",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "Rebuke not — Considering your own youth, with such a severity as would otherwise be proper.",
+      "es": "No reprendas, considerando tu propia juventud, con la severidad que de otro modo sería apropiada.",
+      "enHash": "30c76d3dcf15b3da93cbc4f449353959b87d50cb296f8ea8028a9f39596b6109",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "Honour — That is, maintain out of the public stock.",
+      "es": "Honor: es decir, mantenerse fuera del stock público.",
+      "enHash": "c10293d6c1b7e9f508e44150825c22f27e82df57c9e9e10e031e582a3ddb2b3e",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "Let these learn to requite their parents — For all their former care, trouble, and expense.",
+      "es": "Que estos aprendan a recompensar a sus padres por todos sus cuidados, problemas y gastos anteriores.",
+      "enHash": "321e4feb958dd71436c52c1c039e0d24e40b5a67e9ccec698ff1b80d2a15a9d9",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "I Timothy 5:5\n Widows indeed - Who have no near relations to provide for them; and who are wholly devoted to God. Desolate - Having neither children, nor grandchildren to relieve her.",
+      "es": "1 Timoteo 5:5\n De hecho, viudas - Que no tienen parientes cercanos que las mantengan; y que están totalmente dedicados a Dios. Desolada - No tener hijos ni nietos que la alivien.",
+      "enHash": "31c73a94bd1884b593bb6356d2a27a41d2e0015e91188927c154e86f2279d649",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "I Timothy 5:6\n She that liveth in pleasure - Delicately, voluptuously, in elegant, regular sensuality, though not in the use of any such pleasures as are unlawful in themselves.",
+      "es": "1 Timoteo 5:6\n La que vive en el placer - Delicadamente, voluptuosamente, con una sensualidad elegante y regular, aunque no en el uso de placeres que sean ilegales en sí mismos.",
+      "enHash": "f9752087a2770e78f2e059a921c305627fec5262cae6ec8d06921c4bdedbe499",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "That they — That is, the widows.",
+      "es": "Que ellos - Es decir, las viudas.",
+      "enHash": "ea564afe89932115585d62f57c52bcdd67ac2efef1f347bb015bf076b6428924",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "I Timothy 5:8\n If any provide not - Food and raiment. For his own - Mother and grandmother, being desolate widows. He hath - Virtually. Denied the faith - Which does not destroy, but perfect, natural duties. What has this to do with heaping up money for our children, for which it is often so impertinently alleged? But all men have their reasons for laying up money. One will go to hell for fear of want; another acts like a heathen, lest he should be worse than an infidel.",
+      "es": "1 Timoteo 5:8\n Si alguno no proporciona - Alimentos y vestido. Por los suyos: madre y abuela, viudas desoladas. Él tiene - Virtualmente. Negó la fe - Que no destruye, sino que perfecciona los deberes naturales. ¿Qué tiene esto que ver con acumular dinero para nuestros hijos, algo que a menudo se alega tan impertinentemente? Pero todos los hombres tienen sus razones para ahorrar dinero. Uno irá al infierno por miedo a la miseria; otro actúa como un pagano, para no ser peor que un infiel.",
+      "enHash": "d4df117b8667b2fe8bfc7f81980d970f9e385a8cb5704d9c84c967f90a1eab11",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "I Timothy 5:9\n Let not a widow be chosen - Into the number of deaconesses, who attended sick women or travelling preachers. Under threescore - Afterwards they were admitted at forty, if they were eminent for holiness. Having been the wife of one husband - That is, having lived in lawful marriage, whether with one or more persons successively.",
+      "es": "1 Timoteo 5:9\n No se elija una viuda - Entre el número de diaconisas que atendían a mujeres enfermas o predicadores ambulantes. Menos de sesenta - Luego eran admitidos a los cuarenta, si eran eminentes por su santidad. Haber sido esposa de un solo marido - Es decir, haber vivido en matrimonio legítimo, ya sea con una o más personas sucesivamente.",
+      "enHash": "90170d2f71cf22f66ebb3149e4b03e2db7d5a564e594457b2480b8c835b1ca12",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "If she hath washed the feet of the saints — Has been ready to do the meanest offices for them.",
+      "es": "Si ha lavado los pies de los santos, ha estado dispuesta a realizar por ellos los oficios más humildes.",
+      "enHash": "1d6be6924e7e31e2f40de46bd02cb64af2b1d0441d28d47c372fda18a4c5b99b",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "I Timothy 5:11\n Refuse - Do not choose. For when they are waxed wanton against Christ - To whose more immediate service they had addicted themselves. They want to marry - And not with a single eye to the glory of God; and so withdraw themselves from that entire service of the church to which they were before engaged.",
+      "es": "1 Timoteo 5:11\n Rechazar - No elegir. Para cuando se vuelven desenfrenados contra Cristo - A cuyo servicio más inmediato se habían adicto. Quieren casarse - Y no con un solo ojo para la gloria de Dios; y así retirarse de todo ese servicio de la iglesia al que antes estaban comprometidos.",
+      "enHash": "781fe909375665b94bec41988cc5532bf351952a99e61e98025723bfa6797473",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "I Timothy 5:12\n They have rejected their first faith - Have deserted their trust in God, and have acted contrary to the first conviction, namely, that wholly to devote themselves to his service was the most excellent way. When we first receive power to believe, does not the Spirit of God generally point out what are the most excellent things; and at the same time, give us an holy resolution to walk in the highest degree of Christian severity? And how unwise are we ever to sink into anything below it!",
+      "es": "1 Timoteo 5:12\n Han rechazado su primera fe - Han abandonado su confianza en Dios y han actuado en contra de la primera convicción, es decir, que dedicarse por completo a su servicio era la manera más excelente. Cuando recibimos por primera vez poder para creer, ¿no señala generalmente el Espíritu de Dios cuáles son las cosas más excelentes? y al mismo tiempo, darnos una santa resolución de caminar en el más alto grado de severidad cristiana? ¡Y qué imprudentes somos al hundirnos en algo que esté debajo de él!",
+      "enHash": "ec71636f26e86d3a41cbf61cc0e5574f2e9163682eaefcafa34d67494180d153",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "I Timothy 5:14\n I counsel therefore the younger women - Widows or virgins, such as are not disposed to live single. To marry, to bear children, to guide the family - Then will they have sufficient employment of their own. And give no occasion of reproach to the adversary - Whether Jew or heathen.",
+      "es": "1 Timoteo 5:14\n Aconsejo, pues, a las mujeres más jóvenes: viudas o vírgenes, que no están dispuestas a vivir solteras. Casarse, tener hijos, guiar a la familia... Entonces tendrán suficiente empleo propio. Y no des motivo de reproche al adversario, ya sea judío o pagano.",
+      "enHash": "3dc824c09eccbace71d8dd5bf31608578b7c1bbb0429e42cb6c2f98d60520218",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "I Timothy 5:15\n Some - Widows. Have turned aside after Satan - Who has drawn them from Christ.",
+      "es": "1 Timoteo 5:15\n Algunos - viudas. Se han desviado tras Satanás - Quien los ha alejado de Cristo.",
+      "enHash": "26555c26e3d14b3d16c8e4ce7765c92f2e072da5c84375d234e610bc83014596",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "I Timothy 5:17\n Let the elders that rule well - Who approve themselves faithful stewards of all that is committed to their charge. Be counted worthy of double honour - A more abundant provision, seeing that such will employ it all to the glory of God. As it was the most laborious and disinterested men who were put into these offices, so whatever any one had to bestow, in his life or death, was generally lodged in their hands for the poor. By this means the churchmen became very rich in after ages, but as the design of the donors was something else, there is the highest reason why it should be disposed of according to their pious intent. Especially those - Of them. Who labour - Diligently and painfully. In the word and teaching - In teaching the word.",
+      "es": "1 Timoteo 5:17\n Dejemos que los ancianos que gobiernan bien - Quienes se aprueban como fieles administradores de todo lo que está comprometido a su cargo. Sea considerado digno de doble honor - Una provisión más abundante, ya que tales la emplearán toda para la gloria de Dios. Así como eran los hombres más laboriosos y desinteresados ​​los que eran puestos en estos cargos, cualquier cosa que alguien tuviera que otorgar, en su vida o en su muerte, generalmente se depositaba en sus manos para los pobres. Con este medio los eclesiásticos se hicieron muy ricos en el tiempo, pero como el propósito de los donantes era otro, existe la razón más importante por la que se debe disponer de ello según sus piadosas intenciones. Especialmente aquellos - De ellos. Que trabajan - Diligente y dolorosamente. En la palabra y enseñando - En la enseñanza de la palabra.",
+      "enHash": "f6d186d9f61dd048ed49342586ff61126876c1bb183da86041b82f9a145c5f59",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "I Timothy 5:19\n Against an elder - Or presbyter. Do not even receive an accusation, unless by two or three witnesses - By the Mosaic law, a private person might be cited (though not condemned) on the testimony of one witness; but St. Paul forbids an elder to be even cited on such evidence, his reputation being of more importance than that of others.",
+      "es": "1 Timoteo 5:19\n Contra un anciano - O presbítero. Ni siquiera reciba una acusación, a menos que sea de dos o tres testigos - Según la ley mosaica, una persona privada puede ser citada (aunque no condenada) por el testimonio de un testigo; pero San Pablo prohíbe incluso citar a un anciano sobre tal evidencia, ya que su reputación es de más importancia que la de los demás.",
+      "enHash": "0d88fc223bf562163f484ed2281454bf542b30bf39dde5a351a7dd8f39f2865d",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "Those — Elders.\n\n That sin — Scandalously, and are duly convicted.\n\n Rebuke before all — The church.",
+      "es": "Esos... ancianos.\n\n Ese pecado es escandaloso y están debidamente condenados.\n\n Reprensión ante todos: la iglesia.",
+      "enHash": "746ab5cea1db62f18e0ec57bab4963e51e0a5c1cac77a393ad1268d808c5d4c8",
+      "source": "corpus:john-wesley"
+    },
+    "b73": {
+      "en": "I Timothy 5:21\n I charge thee before God - Referring to the last judgment, in which we shall stand before God and Christ, with his elect, that is, holy, angels, who are the witnesses of our conversation. The apostle looks through his own labours, and even through time itself, and seems to stand as one already in eternity. That thou observe these things without prejudging - Passing no sentence till the cause is fully heard. Or partiality - For or against any one.",
+      "es": "1 Timoteo 5:21\n Te encargo ante Dios - Refiriéndose al juicio final, en el que estaremos ante Dios y Cristo, con sus ángeles elegidos, es decir, santos, que son los testigos de nuestra conversación. El apóstol mira a través de sus propios trabajos, e incluso a través del tiempo mismo, y parece permanecer como uno ya en la eternidad. Que observes estas cosas sin prejuzgar - No dictar sentencia hasta que la causa se escuche por completo. O parcialidad - A favor o en contra de cualquiera.",
+      "enHash": "8c74016d7da1e74c1f86dd77257e41d0c47c837ef9d99619caaa32e88a854797",
+      "source": "corpus:john-wesley"
+    },
+    "b74": {
+      "en": "I Timothy 5:22\n Lay hands suddenly on no man - That is, appoint no man to church offices without full trial and examination; else thou wilt be accessary to, and accountable for, his misbehaviour in his office. Keep thy self pure - From the blood of all men.",
+      "es": "1 Timoteo 5:22\n No imponga las manos repentinamente a ningún hombre - Es decir, no nombre a ningún hombre para los cargos de la iglesia sin una prueba y examen completos; de lo contrario, serás cómplice y responsable de su mala conducta en su cargo. Mantente puro - De la sangre de todos los hombres.",
+      "enHash": "fa9ce52a69426bd8389b01a73d9f6ab27cf02a2203eadb626ce156ef4a5c6ce3",
+      "source": "corpus:john-wesley"
+    },
+    "b75": {
+      "en": "I Timothy 5:24\n Some men's sins are manifest beforehand - Before any strict inquiry be made. Going before to judgment - So that you may immediately judge them unworthy of any spiritual office. And some they - Their sins. Follow after - More covertly.",
+      "es": "1 Timoteo 5:24\n Los pecados de algunos hombres se manifiestan de antemano - Antes de que se realice una investigación estricta. Ir antes al juicio - Para que pueda juzgarlos inmediatamente indignos de cualquier cargo espiritual. Y algunos ellos - Sus pecados. Seguir después - Más encubierto.",
+      "enHash": "0fca88cd4753c212645e89739b479f62afe7df76ded32fdf496e6f98e9c48c99",
+      "source": "corpus:john-wesley"
+    },
+    "b76": {
+      "en": "I Timothy 5:25\n They that are otherwise - Not so manifest. Cannot be long hid - From thy knowledge. On this account, also, be not hasty in laying on of hands.",
+      "es": "1 Timoteo 5:25\n Los que son de otra manera - No tan manifiestos. No se puede ocultar por mucho tiempo - De tu conocimiento. Por esta razón, tampoco os apresuréis a imponer las manos.",
+      "enHash": "fea9210fcd63adb165886e5d6e62334b562f8f37b885748f6b74175fd53cf837",
+      "source": "corpus:john-wesley"
+    },
+    "b77": {
+      "en": "I Timothy 6:1\n Let servants under the yoke - Of heathen masters. Account them worthy of all honour - All the honour due from a servant to a master. Lest the name of God and his doctrine be blasphemed - As it surely will, if they do otherwise.",
+      "es": "1 Timoteo 6:1\n Dejemos a los sirvientes bajo el yugo - De amos paganos. Considérenlos dignos de todo honor - Todo el honor debido de un sirviente a un amo. Para que no se blasfeme el nombre de Dios y su doctrina - Como seguramente sucederá, si hacen lo contrario.",
+      "enHash": "94d7bec828cc7d995b8023b47773bf75939a1d82f5cee038ab40fe567bc3e66b",
+      "source": "corpus:john-wesley"
+    },
+    "b78": {
+      "en": "I Timothy 6:2\n Let them not despise them - Pay them the less honour or obedience. Because they are brethren - And in that respect on a level with them. They that live in a religious community know the danger of this; and that greater grace is requisite to bear with the faults of a brother, than of an infidel, or man of the world. But rather do them service - Serve them so much the more diligently. Because they are joint partakers of the great benefit - Salvation. These things - Paul, the aged, gives young Timotheus a charge to dwell upon practical holiness. Less experienced teachers are apt to neglect the superstructure, whilst they lay the foundation; but of so great importance did St. Paul see it to enforce obedience to Christ, as well as to preach faith in his blood, that, after strongly urging the life of faith on professors, he even adds another charge for the strict observance of it.",
+      "es": "1 Timoteo 6:2\n Que no los desprecien - Préndales menos honor u obediencia. Porque son hermanos - Y en ese sentido al mismo nivel que ellos. Quienes viven en una comunidad religiosa saben el peligro de esto; y que se requiere mayor gracia para soportar las faltas de un hermano que las de un infiel o un hombre de mundo. Más bien, hazles servicio - Sírveles con mayor diligencia. Porque son copartícipes del gran beneficio: la Salvación. Estas cosas - Pablo, el anciano, le da al joven Timoteo el encargo de insistir en la santidad práctica. Los profesores menos experimentados tienden a descuidar la superestructura mientras sientan los cimientos; pero San Pablo consideró de tan gran importancia imponer la obediencia a Cristo, así como predicar la fe en su sangre, que, después de instar fuertemente a los profesores a la vida de fe, incluso agrega otro cargo por su estricta observancia.",
+      "enHash": "a3e1ab308b8f9953a4005e114a1c2f39ade13d6e28d53f92d4a7335c8fa48c6f",
+      "source": "corpus:john-wesley"
+    },
+    "b79": {
+      "en": "I Timothy 6:3\n If any teach otherwise - Than strict practical holiness in all Its branches. And consent not to sound words - Literally, healthful words; words that have no taint of falsehood, or tendency to encourage sin. And the doctrine which is after godliness - Exquisitely contrived to answer all the ends, and secure every interest, of real piety.",
+      "es": "1 Timoteo 6:3\n Si alguno enseña lo contrario - Que la estricta santidad práctica en todas sus ramas. Y consienta no pronunciar palabras - Literalmente, palabras saludables; palabras que no tengan ninguna mancha de falsedad o tendencia a fomentar el pecado. Y la doctrina que persigue la piedad - Exquisitamente ideada para responder a todos los fines y asegurar todos los intereses de la verdadera piedad.",
+      "enHash": "628d5f16c84207f9f29f082c1996c11104ec1d0ed82e28ce16dd26ca4804074a",
+      "source": "corpus:john-wesley"
+    },
+    "b80": {
+      "en": "I Timothy 6:4\n He is puffed up - Which is the cause of his not consenting to the doctrine which is after inward, practical religion. By this mark we may know them. Knowing nothing - As he ought to know. Sick of questions - Doatinglyy fond of dispute; an evil, but common, disease; especially where practice is forgotten. Such, indeed, contend earnestly for singular phrases, and favourite points of their own. Everything else, however, like the preaching of Christ and his apostles, is all \"law,\" and \"bondage,\" and \"carnal reasoning.\" Strifes of words - Merely verbal controversies. Whereof cometh envy - Of the gifts and success of others. Contention - For the pre - eminence. Such disputants seldom like the prosperity of others, or to be less esteemed themselves. Evil surmisings - It not being their way to think well of those that differ from themselves in opinion.",
+      "es": "1 Timoteo 6:4\n Está engreído - Lo cual es la causa de que no consienta en la doctrina que busca la religión práctica e interna. Por esta marca podemos conocerlos. Sin saber nada - Como debería saber. Harto de preguntas - Doatinglyy aficionado a las disputas; una enfermedad maligna, pero común; especialmente donde se olvida la práctica. Estos, de hecho, luchan seriamente por frases singulares y sus propios puntos favoritos. Todo lo demás, sin embargo, como la predicación de Cristo y sus apóstoles, es todo \"ley\", \"esclavitud\" y \"razonamiento carnal\". Conflictos de palabras - Controversias meramente verbales. De donde surge la envidia - De los dones y el éxito de los demás. Contención - Por la preeminencia. A estos litigantes rara vez les gusta la prosperidad de los demás o ser menos estimados ellos mismos. Malas sospechas - No es su manera de pensar bien de aquellos que difieren de ellos en opinión.",
+      "enHash": "78e1fc57e364ebd4031638928f29aadfd64922b22510b67344b0c5daaaf75064",
+      "source": "corpus:john-wesley"
+    },
+    "b81": {
+      "en": "I Timothy 6:5\n Supposing that gain is godliness - Thinking the best religion is the getting of money: a far more common case than is usually supposed.",
+      "es": "1 Timoteo 6:5\n Suponer que la ganancia es piedad - Pensar que la mejor religión es obtener dinero: un caso mucho más común de lo que generalmente se supone.",
+      "enHash": "e80091e90dfbc31c87403a63fbb58f5169c09f102084eb5ba1678cf20634f30c",
+      "source": "corpus:john-wesley"
+    },
+    "b82": {
+      "en": "I Timothy 6:6\n But godliness with content - The inseparable companion of true, vital religion. Is great gain - Brings unspeakable profit in time, as well as eternity.",
+      "es": "1 Timoteo 6:6\n Pero piedad con contenido: la compañera inseparable de la religión verdadera y vital. Es una gran ganancia - Trae ganancias indescriptibles en el tiempo, así como en la eternidad.",
+      "enHash": "a1022ff26f65432521e4e8f56593b176279a9725c0cff71a2c327a336d9e0f63",
+      "source": "corpus:john-wesley"
+    },
+    "b83": {
+      "en": "I Timothy 6:7\n Neither can we carry anything out - To what purpose, then, do we heap together so many things? O, give me one thing, - a safe and ready passage to my own country!",
+      "es": "1 Timoteo 6:7\n Tampoco podemos llevar a cabo nada. ¿Con qué fin, entonces, acumulamos tantas cosas? ¡Oh, dame una cosa: un paso seguro y listo a mi propio país!",
+      "enHash": "f29c78b99a8c49921678dda9abe00f17d9c4b64df53674968b559830850ce7cb",
+      "source": "corpus:john-wesley"
+    },
+    "b84": {
+      "en": "Covering — That is, raiment and an house to cover us. This is all that a Christian needs, and all that his religion allows him to desire.",
+      "es": "Cobertura: es decir, vestido y una casa para cubrirnos. Esto es todo lo que un cristiano necesita y todo lo que su religión le permite desear.",
+      "enHash": "b6f2c0dd1b823e7ea74e49d75831bd0e44dcf1973f73f157fec154307e0d2c85",
+      "source": "corpus:john-wesley"
+    },
+    "b85": {
+      "en": "I Timothy 6:9\n They that desire to be rich - To have more than these; for then they would be so far rich; and the very desire banishes content, and exposes them to ruin. Fall - plunge - A sad gradation! Into temptation - Miserable food for the soul! And a snare - Or trap. Dreadful \"covering!\" And into many foolish and hurtful desires - Which are sown and fed by having more than we need. Then farewell all hope of content! What then remains, but destruction for the body, and perdition for the soul?",
+      "es": "1 Timoteo 6:9\n Los que desean ser ricos - Tener más que estos; porque entonces serían tan ricos; y el mismo deseo destierra el contento y los expone a la ruina. Caer - zambullirse - ¡Una gradación triste! En la tentación: ¡alimento miserable para el alma! Y una trampa - O trampa. ¡Espantoso \"cobertura!\" Y en muchos deseos tontos y dañinos, que se siembran y alimentan al tener más de lo que necesitamos. ¡Entonces adiós a toda esperanza de contentamiento! ¿Qué queda entonces sino destrucción del cuerpo y perdición del alma?",
+      "enHash": "3e1ff9d8ab00cbb258e9b968e691c6037399e443a34055e5b18e5078aa120331",
+      "source": "corpus:john-wesley"
+    },
+    "b86": {
+      "en": "I Timothy 6:10\n Love of money - Commonly called \"prudent care\" of what a man has. Is the root - The parent of all manner of evils. Which some coveting have erred - Literally, missed the mark. They aimed not at faith, but at something else. And pierced themselves with many sorrows - From a guilty conscience, tormenting passions, desires contrary to reason, religion, and one another. How cruel are worldly men to themselves!",
+      "es": "1 Timoteo 6:10\n Amor al dinero - Comúnmente llamado \"cuidado prudente\" de lo que tiene un hombre. Es la raíz - El padre de todo tipo de males. Que algunos codiciadores se han equivocado - Literalmente, no dieron en el blanco. No apuntaban a la fe, sino a algo más. Y se traspasaron con muchos dolores - De una conciencia culpable, pasiones atormentadoras, deseos contrarios a la razón, la religión y los unos a los otros. ¡Cuán crueles son los hombres mundanos consigo mismos!",
+      "enHash": "a327962974ac44ce9f523f5ceaa033f9c360a91c142e3eddd0ce179c1c46ed49",
+      "source": "corpus:john-wesley"
+    },
+    "b87": {
+      "en": "I Timothy 6:11\n But thou, O man of God - Whatever all the world else do. A man of God is either a prophet, a messenger of God, or a man devoted to God; a man of another world. Flee - As from a serpent, instead of coveting these things. Follow after righteousness - The whole image of God; though sometimes this word is used, not in the general, but in the particular, acceptation, meaning only that single branch of it which is termed justice. Faith - Which is also taken here in the general and full sense; namely, a divine, supernatural sight of God, chiefly in respect of his mercy in Christ. This faith is the foundation of righteousness, the support of godliness, the root of every grace of the Spirit. Love - This St. Paul intermixes with everything that is good: he, as it were, penetrates whatever he treats of with love, the glorious spring of all inward and outward holiness.",
+      "es": "1 Timoteo 6:11\n Pero tú, oh hombre de Dios, haga lo que haga todo el mundo. Un hombre de Dios es un profeta, un mensajero de Dios o un hombre devoto de Dios; un hombre de otro mundo. Huye - Como de una serpiente, en lugar de codiciar estas cosas. Siga la justicia - La imagen completa de Dios; aunque a veces esta palabra se usa, no en la aceptación general, sino en la particular, refiriéndose sólo a esa rama única que se denomina justicia. Fe - Que también se toma aquí en sentido general y pleno; es decir, una visión divina y sobrenatural de Dios, principalmente con respecto a su misericordia en Cristo. Esta fe es el fundamento de la justicia, el sustento de la piedad, la raíz de toda gracia del Espíritu. Amor - Este San Pablo se mezcla con todo lo bueno: penetra, por así decirlo, todo lo que trata con amor, manantial glorioso de toda santidad interior y exterior.",
+      "enHash": "dddd3a23e46967c0c6611ebe8e4d522d1b4a940791da2f31161faa3166228462",
+      "source": "corpus:john-wesley"
+    },
+    "b88": {
+      "en": "I Timothy 6:12\n Fight the good fight of faith - Not about words. Lay hold on eternal life - Just before thee. Thou hast confessed the good confession - Perhaps at his baptism: so likewise, 1Tim 6:13 ; but with a remarkable variation of the expression. Thou hast confessed the good confession before many witnesses - To which they all assented. He witnessed the good confession; but Pilate did not assent to it.",
+      "es": "1 Timoteo 6:12\n Pelea la buena batalla de la fe, no de palabras. Aférrate a la vida eterna - Justo delante de ti. Has confesado la buena confesión - Quizás en su bautismo: así mismo, 1 Timoteo 6:13 ; pero con una variación notable de la expresión. Has confesado la buena confesión ante muchos testigos - A lo que todos asintieron. Fue testigo de la buena confesión; pero Pilato no aceptó.",
+      "enHash": "6495daf0ebb523d8902fb581c48db2d62f04037379aa6a27f41f3d7df64da602",
+      "source": "corpus:john-wesley"
+    },
+    "b89": {
+      "en": "I Timothy 6:13\n I charge thee before God, who quickeneth all things - Who hath quickened thee, and will quicken thee at the great day.",
+      "es": "1 Timoteo 6:13\n Te encargo ante Dios, que vivifica todas las cosas - Quien te ha vivificado y te vivificará en el gran día.",
+      "enHash": "e7dbe3fd82993aeb760b933892bd77d6f776d79573d738b24bdf2f7fd1f3f3e9",
+      "source": "corpus:john-wesley"
+    },
+    "b90": {
+      "en": "Which — Appearing.\n\n In his own times — The power, the knowledge, and the revelation of which, remain in his eternal mind.",
+      "es": "Cuál - Apareciendo.\n\n En sus propios tiempos, cuyo poder, conocimiento y revelación permanecen en su mente eterna.",
+      "enHash": "151eb99907d965767f3f8cd9f8e3caf57104fb63122af693b37051ee7d8c0f1a",
+      "source": "corpus:john-wesley"
+    },
+    "b91": {
+      "en": "I Timothy 6:16\n Who only hath underived, independent immortality. Dwelling in light unapproachable - To the highest angel. Whom no man hath seen, or can see - With bodily eyes. Yet \"we shall see him as he is.\"",
+      "es": "1 Timoteo 6:16\n Quien es el único que no ha obtenido la inmortalidad independiente. Habitando en luz inaccesible - Al ángel más alto. A quien ningún hombre ha visto ni puede ver - Con ojos corporales. Sin embargo, \"lo veremos tal como es\".",
+      "enHash": "f248bc26dfdcf4087bed1ecc07a024ffb360577112df8230f7e1afed0ef1a727",
+      "source": "corpus:john-wesley"
+    },
+    "b92": {
+      "en": "I Timothy 6:17\n What follows seems to be a kind of a postscript. Charge the rich in this world - Rich in such beggarly riches as this world affords. Not to be highminded - O who regards this! Not to think better of themselves for their money, or anything it can purchase. Neither to trust in uncertain riches - Which they may lose in an hour; either for happiness or defence. But in the living God - All the rest is dead clay. Who giveth us - As it were holding them out to us in his hand. All things - Which we have. Richly - Freely, abundantly. To enjoy - As his gift, in him and for him. When we use them thus, we do indeed enjoy all things. Where else is there any notice taken of the rich, in all the apostolic writings, save to denounce woes and vengeance upon them?",
+      "es": "1 Timoteo 6:17\n Lo que sigue parece ser una especie de posdata. Cargue a los ricos de este mundo - Rico en riquezas tan miserables como las que ofrece este mundo. No ser altivo. ¡Oh, quién considera esto! No pensar mejor en sí mismos por su dinero o por cualquier cosa que pueda comprar. Ni confiar en riquezas inciertas - Que pueden perder en una hora; ya sea para la felicidad o la defensa. Pero en el Dios vivo todo lo demás es arcilla muerta. Quien nos da - Como si nos los extendiera en su mano. Todas las cosas - Que tenemos. Ricamente - Gratis, abundantemente. Para disfrutar - Como su regalo, en él y para él. Cuando las usamos así, realmente disfrutamos de todas las cosas. ¿En qué otro lugar se menciona a los ricos, en todos los escritos apostólicos, salvo para denunciar los males y la venganza sobre ellos?",
+      "enHash": "a11d3a6bb77bf5e64558b13c8ac982f123eadc9a347179e4ce0d7b4998c00a93",
+      "source": "corpus:john-wesley"
+    },
+    "b93": {
+      "en": "I Timothy 6:18\n To do good - To make this their daily employ, that they may be rich - May abound in all good works. Ready to distribute - Singly to particular persons. Willing to communicate - To join in all public works of charity.",
+      "es": "1 Timoteo 6:18\n Para hacer el bien - Para hacer de esto su empleo diario, para que sean ricos - Que abunden en todas las buenas obras. Listo para distribuir - Individualmente a personas particulares. Dispuesto a comunicar - A colaborar en todas las obras públicas de caridad.",
+      "enHash": "30e7d5fa2f0c9cadba28693981a8cb1e84e8f56c6d34ac5f519a6e8fa5ffc1b3",
+      "source": "corpus:john-wesley"
+    },
+    "b94": {
+      "en": "I Timothy 6:19\n Treasuring up for themselves a good foundation - Of an abundant reward, by the free mercy of God. That they may lay hold on eternal life - This cannot be done by alms - deeds; yet they \"come up for a memorial before God,\" Acts 10:4 . And the lack even of this may be the cause why God will withhold grace and salvation from us.",
+      "es": "1 Timoteo 6:19\n Atesorando para sí mismos una buena base - De una recompensa abundante, por la libre misericordia de Dios. Para que puedan echar mano de la vida eterna - Esto no se puede hacer con limosnas - obras; sin embargo, \"suben para memoria delante de Dios\", Hechos 10:4. Y la falta incluso de esto puede ser la causa por la cual Dios nos negará la gracia y la salvación.",
+      "enHash": "5e88bbd4266613e00463604d62d1ee16db55b08dc8d854bd75ca24e1ff91af87",
+      "source": "corpus:john-wesley"
+    },
+    "b95": {
+      "en": "I Timothy 6:20\n Keep that which is committed to thy trust - The charge I have given thee, 1Tim 1:18 . Avoid profane empty babblings - How weary of controversy was this acute disputant! And knowledge falsely so called - Most of the ancient heretics were great pretenders to knowledge.",
+      "es": "1 Timoteo 6:20\n Guarda lo que está comprometido en tu confianza - El encargo que te he dado, 1 Timoteo 1:18 . Evite los balbuceos profanos y vacíos. ¡Qué cansado estaba de la controversia este agudo disputador! Y el conocimiento falsamente llamado - La mayoría de los antiguos herejes eran grandes pretendientes del conocimiento.",
+      "enHash": "1c078bf83ca20c07a1624ef75a419345092c03901c98ada9deae954b2cd120f5",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:3": "b3",
+    "1:4": "b4",
+    "1:5": "b5",
+    "1:6": "b6",
+    "1:7": "b7",
+    "1:8": "b8",
+    "1:9": "b9",
+    "1:10": "b10",
+    "1:11": "b11",
+    "1:12": "b12",
+    "1:13": "b13",
+    "1:14": "b14",
+    "1:15": "b15",
+    "1:16": "b16",
+    "1:17": "b17",
+    "1:18": "b18",
+    "1:19": "b19",
+    "1:20": "b20",
+    "2:1": "b21",
+    "2:2": "b22",
+    "2:3": "b23",
+    "2:4": "b24",
+    "2:5": "b25",
+    "2:6": "b26",
+    "2:8": "b27",
+    "2:9": "b28",
+    "2:12": "b29",
+    "2:13": "b30",
+    "2:14": "b31",
+    "2:15": "b32",
+    "3:1": "b33",
+    "3:2": "b34",
+    "3:4": "b35",
+    "3:6": "b36",
+    "3:7": "b37",
+    "3:8": "b38",
+    "3:9": "b39",
+    "3:10": "b40",
+    "3:11": "b41",
+    "3:13": "b42",
+    "3:15": "b43",
+    "3:16": "b44",
+    "4:1": "b45",
+    "4:2": "b46",
+    "4:3": "b47",
+    "4:5": "b48",
+    "4:7": "b49",
+    "4:8": "b50",
+    "4:10": "b51",
+    "4:12": "b52",
+    "4:13": "b53",
+    "4:14": "b54",
+    "4:15": "b55",
+    "4:16": "b56",
+    "5:1": "b57",
+    "5:3": "b58",
+    "5:4": "b59",
+    "5:5": "b60",
+    "5:6": "b61",
+    "5:7": "b62",
+    "5:8": "b63",
+    "5:9": "b64",
+    "5:10": "b65",
+    "5:11": "b66",
+    "5:12": "b67",
+    "5:14": "b68",
+    "5:15": "b69",
+    "5:17": "b70",
+    "5:19": "b71",
+    "5:20": "b72",
+    "5:21": "b73",
+    "5:22": "b74",
+    "5:24": "b75",
+    "5:25": "b76",
+    "6:1": "b77",
+    "6:2": "b78",
+    "6:3": "b79",
+    "6:4": "b80",
+    "6:5": "b81",
+    "6:6": "b82",
+    "6:7": "b83",
+    "6:8": "b84",
+    "6:9": "b85",
+    "6:10": "b86",
+    "6:11": "b87",
+    "6:12": "b88",
+    "6:13": "b89",
+    "6:15": "b90",
+    "6:16": "b91",
+    "6:17": "b92",
+    "6:18": "b93",
+    "6:19": "b94",
+    "6:20": "b95"
+  }
+}

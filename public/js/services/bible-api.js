@@ -12,7 +12,6 @@ export const VERSION_MAP = {
   RVR1909: { bolls: 'RV1909', label: 'Reina-Valera 1909' },
   RV1909: { bolls: 'RV1909', label: 'Reina-Valera 1909' },
   NVI: { bolls: 'NVI', label: 'Nueva Versión Internacional' },
-  KJV: { bolls: 'KJV', label: 'King James Version' },
   LXX: { bolls: 'LXX', label: 'Septuaginta (Griego)' },
   SEPTUAGINTA: { bolls: 'LXX', label: 'Septuaginta (Griego)' },
   TEXTUAL: { bolls: 'LXX', label: 'Septuaginta (Griego)' },
@@ -56,7 +55,7 @@ export function normalizeVersionKey(raw) {
   if (key.includes('DHH')) return 'DHH';
   if (key.includes('TLA')) return 'TLA';
   if (key.includes('NVI')) return 'NVI';
-  if (key.includes('KJV')) return 'KJV';
+  if (key.includes('KJV')) return 'RVR1960';
   if (key.includes('LXX') || key.includes('SEPT') || key.includes('TEXTUAL')) return 'LXX';
   return 'RVR1960';
 }

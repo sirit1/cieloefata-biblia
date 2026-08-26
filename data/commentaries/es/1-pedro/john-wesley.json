@@ -1,0 +1,689 @@
+{
+  "book": "1 Pedro",
+  "usfm": "1PE",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "I Peter 1:1\n To the sojourners - Upon earth, the Christians, chiefly those of Jewish extraction. Scattered - Long ago driven out of their own land. Those scattered by the persecution mentioned Acts 8:1 , were scattered only through Judea and Samaria, though afterwards some of them travelled to Phenice, Cyprus, and Antioch. Through Pontus, Galatia, Cappadocia, Asia, and Bithynia - He names these five provinces in the order wherein they occurred to him, writing from the east. All these countries lie in the Lesser Asia. The Asia here distinguished from the other provinces is that which was usually called the Proconsular Asia being a Roman province.",
+      "es": "1 Pedro 1:1\n Para los extranjeros - En la tierra, los cristianos, principalmente los de origen judío. Dispersos - Hace mucho tiempo expulsados ​​de su propia tierra. Los dispersados ​​por la persecución mencionada en Hechos 8:1, se dispersaron sólo por Judea y Samaria, aunque después algunos de ellos viajaron a Fenice, Chipre y Antioquía. A través del Ponto, Galacia, Capadocia, Asia y Bitinia - Nombra estas cinco provincias en el orden en que se le ocurrieron, escribiendo desde el este. Todos estos países se encuentran en la Pequeña Asia. El Asia que aquí se distingue de las demás provincias es la que habitualmente se llamaba Asia proconsular, siendo una provincia romana.",
+      "enHash": "e6a5e7d22dd2a018ee03763882d2fd4a87ac1e5b8a9e964d060d8a7f5f8e09c7",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "I Peter 1:2\n According to the foreknowledge of God - Speaking after the manner of men. Strictly speaking, there is no foreknowledge, no more than afterknowledge, with God: but all things are known to him as present from eternity to eternity. This is therefore no other than an instance of the divine condescension to our low capacities. Elect - By the free love and almighty power of God taken out of, separated from, the world. Election, in the scripture sense, is God's doing anything that our merit or power have no part in. The true predestination, or fore - appointment of God is, He that believeth shall be saved from the guilt and power of sin. He that endureth to the end shall be saved eternally. They who receive the precious gift of faith, thereby become the sons of God; and, being sons, they shall receive the Spirit of holiness to walk as Christ also walked. Throughout every part of this appointment of God, promise and duty go hand in hand. All is free gift; and yet such is the gift, that the final issue depends on our future obedience to the heavenly call. But other predestination than this, either to life or death eternal, the scripture knows not of. Moreover, it is. Cruel respect of persons; an unjust regard of one, and an unjust disregard of another. It is mere creature partiality, and not infinite justice. It is not plain scripture doctrine, if true; but rather, inconsistent with the express written word, that speaks of God's universal offers of grace; his invitations, promises, threatenings, being all general. We are bid to choose life, and reprehended for not doing it. It is inconsistent with a state of probation in those that must be saved or must be lost. It is of fatal consequence; all men being ready, on very slight grounds, to fancy themselves of the elect number. But the doctrine of predestination is entirely changed from what it formerly was. Now it implies neither faith, peace, nor purity. It is something that will do without them all. Faith is no longer, according to the modern predestinarian scheme, a divine \"evidence of things not seen,\" wrought in the soul by the immediate power of the Holy Ghost; not an evidence at all; but a mere notion. Neither is faith made any longer a means of holiness; but something that will do without it. Christ is no more a Saviour from sin; but a defence, a countenancer of it. He is no more a fountain of spiritual life in the soul of believers, but leaves his elect inwardly dry, and outwardly unfruitful; and is made little more than a refuge from the image of the heavenly; even from righteousness, peace, and joy in the Holy Ghost. Through sanctification of the Spirit - Through the renewing and purifying influences of his Spirit on their souls.\n Unto obedience - To engage and enable them to yield themselves up to all holy obedience, the foundation of all which is, the sprinkling of the blood of Jesus Christ - The atoning blood of Christ, which was typified by the sprinkling of the blood of sacrifices under the law; in allusion to which it is called \"the blood of sprinkling.\"",
+      "es": "1 Pedro 1:2\n Según la presciencia de Dios - Hablando a la manera de los hombres. Estrictamente hablando, en Dios no hay conocimiento previo ni posterior, sino que todas las cosas le son conocidas como presentes de eternidad en eternidad. Por lo tanto, esto no es más que un ejemplo de la condescendencia divina hacia nuestras bajas capacidades. Elegidos: por el amor libre y el poder todopoderoso de Dios, sacados y separados del mundo. La elección, en el sentido de las Escrituras, es que Dios haga cualquier cosa en la que nuestro mérito o poder no tenga parte. La verdadera predestinación, o designación previa de Dios, es que el que crea será salvo de la culpa y el poder del pecado. El que persevere hasta el fin será salvo eternamente. Los que reciben el precioso don de la fe, se convierten así en hijos de Dios; y, siendo hijos, recibirán el Espíritu de santidad para andar como también anduvo Cristo. En cada parte de este nombramiento de Dios, la promesa y el deber van de la mano. Todo es regalo gratuito; y, sin embargo, tal es el regalo que el resultado final depende de nuestra futura obediencia al llamado celestial. Pero la Escritura no conoce otra predestinación aparte de ésta, ya sea a la vida o a la muerte eterna. Es más, lo es. Cruel respeto a las personas; una consideración injusta hacia uno y un desprecio injusto hacia otro. Es mera parcialidad de las criaturas y no justicia infinita. No es una simple doctrina de las Escrituras, si es cierta; sino más bien, inconsistente con la palabra escrita expresa, que habla de las ofertas universales de gracia de Dios; sus invitaciones, promesas, amenazas, siendo todas generales. Se nos pide que elijamos la vida y se nos reprende por no hacerlo. Es inconsistente con un estado de probación en aquellos que deben ser salvos o deben perderse. Es de consecuencias fatales; todos los hombres están dispuestos, por motivos muy leves, a considerarse parte del número de los elegidos. Pero la doctrina de la predestinación ha cambiado completamente de lo que era anteriormente. Ahora no implica ni fe, ni paz, ni pureza. Es algo que funcionará sin todos ellos. La fe ya no es, según el moderno esquema predestinatario, una divina \"evidencia de cosas que no se ven\", obrada en el alma por el poder inmediato del Espíritu Santo; no es una evidencia en absoluto; sino una mera noción. La fe tampoco se convierte ya en un medio de santidad; pero algo que funcionará sin él. Cristo ya no es un Salvador del pecado; sino una defensa, un rostro del mismo.\n\nÉl ya no es una fuente de vida espiritual en el alma de los creyentes, sino que deja a sus elegidos secos interiormente y exteriormente infructuosos; y se hace poco más que un refugio de la imagen de lo celestial; incluso de la justicia, la paz y el gozo en el Espíritu Santo. Mediante la santificación del Espíritu - A través de las influencias renovadoras y purificadoras de su Espíritu en sus almas. A la obediencia - Para involucrarlos y permitirles entregarse a toda santa obediencia, el fundamento de todo lo cual es, la aspersión de la sangre de Jesucristo - La sangre expiatoria de Cristo, que fue tipificada por la aspersión de la sangre de los sacrificios bajo la ley; en alusión a lo que se llama \"la sangre rociada\".",
+      "enHash": "b32e9db5cbf36e86890776a2c10fd4583633cc4940dcc264de5ef90a713bdae6",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "I Peter 1:3\n Blessed be the God and Father of our Lord Jesus Christ - His Father, with respect to his divine nature; his God, with respect to his human. Who hath regenerated us to a living hope - An hope which implies true spiritual life, which revives the heart, and makes the soul lively and vigorous. By the resurrection of Christ - Which is not only a pledge of ours, but a part of the purchase - price. It has also a close connexion with our rising from spiritual death, that as he liveth, so shall we live with him. He was acknowledged to be the Christ, but usually called Jesus till his resurrection; then he was also called Christ.",
+      "es": "1 Pedro 1:3\n Bendito sea el Dios y Padre de nuestro Señor Jesucristo - Su Padre, con respecto a su naturaleza divina; su Dios, con respecto a su humano. Quien nos ha regenerado para una esperanza viva - Una esperanza que implica verdadera vida espiritual, que revive el corazón y hace que el alma sea vivaz y vigorosa. Por la resurrección de Cristo - Que no es sólo una prenda nuestra, sino una parte del precio de compra. También tiene una estrecha conexión con nuestro levantamiento de la muerte espiritual, que como él vive, así viviremos nosotros con él. Se le reconocía como el Cristo, pero normalmente se le llamaba Jesús hasta su resurrección; entonces también fue llamado Cristo.",
+      "enHash": "df4d69f39cd7bf4204a9f3a9f61f599e589d69f4af40742754c50dfccc2cf299",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "I Peter 1:4\n To an inheritance - For if we are sons, then heirs. Incorruptible - Not like earthly treasures. Undefiled - Pure and holy, incapable of being itself defiled, or of being enjoyed by any polluted soul. And that fadeth not away - That never decays in its value, sweetness, or beauty, like all the enjoyments of this world, like the garlands of leaves or flowers, with which the ancient conquerors were wont to be crowned. Reserved in heaven for you - Who \"by patient continuance in welldoing, seek for glory and honour and immortality.\"",
+      "es": "1 Pedro 1:4\n A una herencia - Porque si somos hijos, entonces herederos. Incorruptible - No como los tesoros terrenales. Inmaculado - Puro y santo, incapaz de ser contaminado o de ser disfrutado por cualquier alma contaminada. Y eso no se desvanece - Eso nunca decae en su valor, dulzura o belleza, como todos los disfrutes de este mundo, como las guirnaldas de hojas o flores, con las que los antiguos conquistadores solían ser coronados. Reservado en el cielo para ti - Quien \"mediante la perseverancia paciente en hacer el bien, busca gloria, honor e inmortalidad\".",
+      "enHash": "399ec895f3321ab287aeeb3804cdd373b630a85ba26a31965eb7c37bfec49a0d",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "I Peter 1:5\n Who are kept - The inheritance is reserved; the heirs are kept for it. By the power of God - Which worketh all in all, which guards us against all our enemies. Through faith - Through which alone salvation is both received and retained. Ready to be revealed - That revelation is made in the last day. It was more and more ready to be revealed, ever since Christ came.",
+      "es": "1 Pedro 1:5\n Quienes se conservan - La herencia está reservada; los herederos quedan reservados para ello. Por el poder de Dios - Que obra todo en todos, que nos protege de todos nuestros enemigos. A través de la fe - Sólo a través de la cual se recibe y retiene la salvación. Listo para ser revelado - Esa revelación se hace en el último día. Estaba cada vez más listo para ser revelado, desde que vino Cristo.",
+      "enHash": "1bc8528cc17d828044457473d29a71c96dc1807f7bf56713e183d73e7495a2fe",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "I Peter 1:6\n Wherein - That is, in being so kept. Ye even now greatly rejoice, though now for a little while - Such is our whole life, compared to eternity. If need be - For it is not always needful. If God sees it to be the best means for your spiritual profit. Ye are in heaviness - Or sorrow; but not in darkness; for they still retained both faith, 1Pe 1:5 , hope, and love; yea, at this very time were rejoicing with joy unspeakable, 1Pe 1:8 .",
+      "es": "1 Pedro 1:6\n Donde - Es decir, en ser mantenido así. Incluso ahora os regocijáis mucho, aunque ahora por un poco de tiempo - Así es toda nuestra vida, en comparación con la eternidad. Si es necesario - Porque no siempre es necesario. Si Dios ve que es el mejor medio para tu beneficio espiritual. Estáis en pesadumbre - O tristeza; pero no en la oscuridad; porque todavía conservaban ambas fe, 1Pe 1:5, esperanza y amor; sí, en este mismo momento nos regocijábamos con un gozo inefable, 1 Pedro 1:8.",
+      "enHash": "4dacfe01a308658750e7f6a9a822b9e3f008f3019ceac74c0a2b79e0cfdc0208",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "I Peter 1:7\n That the trial of your faith - That is, your faith which is tried. Which is much more precious than gold - For gold, though it bear the fire, yet will perish with the world. May be found - Though it doth not yet appear. Unto praise - From God himself. And honour - From men and angels. And glory - Assigned by the great Judge.",
+      "es": "1 Pedro 1:7\n Que la prueba de tu fe - Es decir, tu fe que es probada. Que es mucho más precioso que el oro - Porque el oro, aunque soporte el fuego, perecerá con el mundo. Se puede encontrar - Aunque aún no aparece. Para alabar - De Dios mismo. Y honor - De hombres y ángeles. Y gloria - Asignado por el gran Juez.",
+      "enHash": "31f27552db8251256f032c6b089854ca5775cdcea0c9b035fe12621aca53c852",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "Having not seen — In the flesh.",
+      "es": "Sin haber visto - En la carne.",
+      "enHash": "d7c605c518130300a580b10e0ed6f9013459da7af30de220365e7f65ccedb8e9",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "I Peter 1:9\n Receiving - Now already. Salvation - From all sin into all holiness, which is the qualification for, the forerunner and pledge of, eternal salvation.",
+      "es": "1 Pedro 1:9\n Recibir - Ahora ya. Salvación - De todo pecado a toda santidad, que es la calificación, el precursor y la prenda de la salvación eterna.",
+      "enHash": "930050f716a73994feb58a9277a6cbf054167e89bf7fbc4862ff0b85ac3ff1fa",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "I Peter 1:10\n Of which salvation - So far beyond all that was experienced under the Jewish dispensation. The very prophets who prophesied long ago of the grace of God toward you - Of his abundant, overflowing grace to be bestowed on believers under the Christian dispensation. Inquired - Were earnestly inquisitive. And searched diligently - Like miners searching after precious ore, after the meaning of the prophecies which they delivered.",
+      "es": "1 Pedro 1:10\n De la cual salvación - Mucho más allá de todo lo que se experimentó bajo la dispensación judía. Los mismos profetas que profetizaron hace mucho tiempo de la gracia de Dios hacia usted - De su gracia abundante y desbordante que será otorgada a los creyentes bajo la dispensación cristiana. Preguntado - Eran sinceramente curiosos. Y buscó diligentemente - Como mineros que buscan minerales preciosos, el significado de las profecías que entregaron.",
+      "enHash": "43712eeef98a35755887b003b77ff5b4525e942c1335eed6352507f6c2303251",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "I Peter 1:11\n Searching what time - What particular period. And what manner of time - By what marks to be distinguished. The glories that were to follow - His sufferings; namely, the glory of his resurrection, ascension, exaltation, and the effusion of his Spirit; the glory of the last judgment, and of his eternal kingdom; and also the glories of his grace in the hearts and lives of Christians.",
+      "es": "1 Pedro 1:11\n Buscando a qué hora - Qué período en particular. Y qué tipo de tiempo - Por qué marcas distinguirse. Las glorias que seguirían: sus sufrimientos; a saber, la gloria de su resurrección, ascensión, exaltación y efusión de su Espíritu; la gloria del juicio final y de su reino eterno; y también las glorias de su gracia en los corazones y vidas de los cristianos.",
+      "enHash": "084fe76b151227324ca7a03f777d1dd3edec5a254259a09c7aabeb554bb917cc",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "I Peter 1:12\n To whom - So searching. It was revealed, that not for themselves, but for us they ministered - They did not so much by those predictions serve themselves, or that generation, as they did us, who now enjoy what they saw afar off. With the Holy Ghost sent down from heaven - Confirmed by the inward, powerful testimony of the Holy Ghost, as well as the mighty effusion of his miraculous gifts. Which things angels desire to look into - A beautiful gradation; prophets, righteous men, kings, desired to see and hear what Christ did and taught. What the Holy Ghost taught concerning Christ the very angels long to know.",
+      "es": "1 Pedro 1:12\n A quien - Entonces buscando. Se reveló que no para ellos mismos, sino para nosotros ministraron. Con esas predicciones no se sirvieron tanto a ellos mismos, ni a esa generación, como a nosotros, que ahora disfrutamos de lo que vieron a lo lejos. Con el Espíritu Santo enviado desde el cielo - Confirmado por el poderoso testimonio interno del Espíritu Santo, así como por la poderosa efusión de sus milagrosos dones. Qué cosas los ángeles desean mirar - Una hermosa gradación; profetas, hombres justos, reyes, deseaban ver y oír lo que Cristo hacía y enseñaba. Lo que el Espíritu Santo enseñó acerca de Cristo, los mismos ángeles anhelan saberlo.",
+      "enHash": "216b324b53f252b83e97fffced5b84603d24878784c5fa0daada6182d1388436",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "I Peter 1:13\n Wherefore - Having such encouragement. Gird up the loins of your mind - As persons in the eastern countries were wont, in travelling or running, to gird up their long garments, so gather ye up all your thoughts and affections, and keep your mind always disencumbered and prepared to run the race which is set before you. Be watchful - As servants that wait for their Lord. And hope to the end - Maintain a full expectation of all the grace - The blessings flowing from the free favour of God. Which shall be brought to you at the final revelation of Jesus Christ - And which are now brought to you by the revelation of Christ in you.",
+      "es": "1 Pedro 1:13\n Por lo tanto - Tener tal estímulo. Ciñe los lomos de tu mente - Como las personas en los países orientales solían, al viajar o correr, ceñirse sus prendas largas, así reúne todos tus pensamientos y afectos, y mantén tu mente siempre liberada y preparada para correr la carrera que tienes por delante. Esté atento - Como siervos que esperan a su Señor. Y esperar hasta el fin - Mantener una expectativa plena de toda la gracia - Las bendiciones que fluyen del libre favor de Dios. Que les serán presentados en la revelación final de Jesucristo - Y que ahora les serán presentados por la revelación de Cristo en ustedes.",
+      "enHash": "05beac0b73cbd313f9ead1ead220f2a658118f4c901a5393de67b81a3a2bc9cc",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "Your desires — Which ye had while ye were ignorant of God.",
+      "es": "Vuestros deseos que teníais mientras ignorabais a Dios.",
+      "enHash": "9b2212ea0e216309fd600295dadd61261728e390c05b6c3cafb27ec8b537c697",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "I Peter 1:17\n Who judgeth according to every man's work - According to the tenor of his life and conversation. Pass the time of your sojourning - Your short abode on earth. In humble, loving fear - The proper companion and guard of hope.",
+      "es": "1 Pedro 1:17\n Quien juzga según el trabajo de cada hombre - Según el tenor de su vida y conversación. Pasa el tiempo de tu estancia - Tu corta morada en la tierra. Con miedo humilde y amoroso: el compañero adecuado y guardián de la esperanza.",
+      "enHash": "cc3bf12ea289e98e412ef178751c11a47994c52a845e460eae9343689f00dec7",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "Your vain conversation — Your foolish, sinful way of life.",
+      "es": "Tu vana conversación: tu forma de vida tonta y pecaminosa.",
+      "enHash": "e33d4dbc545fd080b1e376c91b22f13dd6f05afe5598a215220dd50c4389a159",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "Without blemish — In himself.\n\n Without spot — From the world.",
+      "es": "Sin mancha - En sí mismo.\n\n Sin mancha - Del mundo.",
+      "enHash": "54560ef4a0daa5e15d5a79f0aff1d82d4164d144177b38f7c9db67ddc1a6c5b8",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "I Peter 1:21\n Who through him believe - For all our faith and hope proceed from the power of his resurrection. In God that raised Jesus, and gave him glory - At his ascension. Without Christ we should only dread God; whereas through him we believe, hope, and love.",
+      "es": "1 Pedro 1:21\n Quienes por él creen - Porque toda nuestra fe y esperanza proceden del poder de su resurrección. En Dios que resucitó a Jesús y le dio gloria - En su ascensión. Sin Cristo sólo deberíamos temer a Dios; mientras que por él creemos, esperamos y amamos.",
+      "enHash": "697bebbe82546364de3b8b1f0419a193f19819cc3e40fac14d7d96edb65abe75",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "I Peter 1:22\n Having purified your souls by obeying the truth through the Spirit, who bestows upon you freely, both obedience and purity of heart, and unfeigned love of the brethren, go on to still higher degrees of love. Love one another fervently - With the most strong and tender affection; and yet with a pure heart - Pure from any spot of unholy desire or inordinate passion.",
+      "es": "1 Pedro 1:22\n Habiendo purificado vuestras almas obedeciendo la verdad por medio del Espíritu, que os concede gratuitamente tanto la obediencia como la pureza de corazón y el amor sincero de los hermanos, avanzad hacia grados aún más elevados de amor. Amaos unos a otros fervientemente - Con el afecto más fuerte y tierno; y, sin embargo, con un corazón puro - Puro de cualquier punto de deseo impío o pasión excesiva.",
+      "enHash": "a32b538a075726f8abbea34dfc33b5ba0aaa9278b3cb595b2601d6ff286f7a60",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "Which liveth — Is full of divine virtue. And abideth the same for ever.",
+      "es": "Que vive: está lleno de virtud divina. Y permanece igual para siempre.",
+      "enHash": "d447f7a2788ea50763b51a7ab46ed0d093f3f3a3888c491ea71e693c7eb93ee6",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "I Peter 1:24\n All flesh - Every human creature is transient and withering as grass. And all the glory of it - His wisdom, strength, wealth, righteousness. As the flower - The most short - lived part of it. The grass - That is, man. The flower - That is, his glory. Is fallen off - As it were, while we are speaking. Isaiah 40:6 ,",
+      "es": "1 Pedro 1:24\n Toda carne - Toda criatura humana es transitoria y marchita como la hierba. Y toda la gloria de ello: Su sabiduría, fuerza, riqueza, justicia. Como la flor, la parte más efímera de ella. La hierba - Es decir, hombre. La flor - Es decir, su gloria. Se cae - Por así decirlo, mientras hablamos. Isaías 40:6 ,",
+      "enHash": "afa3c695b365928903f924c61c4bc3853cb43babcf081f5f07e418e8bb1223d5",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "I Peter 2:1\n Wherefore laying aside - As inconsistent with that pure love. All dissimulation - Which is the outward expression of guile in the heart.",
+      "es": "1 Pedro 2:1\n Por lo tanto, dejar de lado - Por ser incompatible con ese amor puro. Todo disimulo - Que es la expresión exterior de astucia en el corazón.",
+      "enHash": "dfa03c7a61196170043995a7fb249f42e0b40058929ca4fa055978195ca28874",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "I Peter 2:2\n Desire - Always, as earnestly as new born babes do, 1Pet 1:3 . The milk of the word - That word of God which nourishes the soul as milk does the body, and which is sincere, pure from all guile, so that none are deceived who cleave to it. That you may grow thereby - In faith, love, holiness, unto the full stature of Christ.",
+      "es": "1 Pedro 2:2\n Deseo - Siempre, con tanta seriedad como lo hacen los bebés recién nacidos, 1 Pedro 1:3. La leche de la palabra - Esa palabra de Dios que nutre el alma como la leche nutre el cuerpo, y que es sincera, pura de toda astucia, para que nadie se engañe si se adhiere a ella. Para que puedas crecer así - En fe, amor, santidad, hasta la plena estatura de Cristo.",
+      "enHash": "fe263470c3032f0a90176abfba8f33ac630ab7810d4d8ca93812f5574f587910",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "Since ye have tasted — Sweetly and experimentally known.",
+      "es": "Desde que lo habéis probado, dulce y experimentalmente conocido.",
+      "enHash": "479af6fdf43257c3fe73ff3e7897012eee3f0ae50095b0701d4bbda1b7dc87b2",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "I Peter 2:4\n To whom coming - By faith. As unto a living stone - Living from eternity; alive from the dead. There is a wonderful beauty and energy in these expressions, which describe Christ as a spiritual foundation, solid, firm, durable; and believers as a building erected upon it, in preference to that temple which the Jews accounted their highest glory. And St. Peter speaking of him thus, shows he did not judge himself, but Christ, to be the rock on which the church was built. Rejected indeed by men - Even at this day, not only by Jews, Turks, heathens, infidels; but by all Christians, so called, who live in sin, or who hope to be saved by their own works. But chosen of God - From all eternity, to be the foundation of his church. And precious - In himself, in the sight of God, and in the eyes of all believers.",
+      "es": "1 Pedro 2:4\n A quien viene - Por fe. Como a una piedra viva - Viviendo desde la eternidad; vivo de entre los muertos. Hay una maravillosa belleza y energía en estas expresiones, que describen a Cristo como fundamento espiritual, sólido, firme, duradero; y los creyentes como un edificio erigido sobre él, con preferencia al templo que los judíos consideraban su mayor gloria. Y San Pedro, hablando así de él, muestra que no se juzgó a sí mismo, sino a Cristo, como la roca sobre la cual se construyó la iglesia. De hecho, rechazado por los hombres - Incluso en este día, no solo por judíos, turcos, paganos, infieles; sino por todos los llamados cristianos que viven en pecado o que esperan ser salvos por sus propias obras. Pero elegido de Dios - Desde toda la eternidad, para ser el fundamento de su iglesia. Y precioso - En sí mismo, a los ojos de Dios y a los ojos de todos los creyentes.",
+      "enHash": "8d818cdd2b9f2c76acc5c5cdabe2cd2384c6fd7c7e92f2ac5a77bdddbe551cff",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "Ye — Believers.\n\n As living stones — Alive to God through him.\n\n Are built up — In union with each other.\n\n A spiritual house — Being spiritual yourselves, and an habitation of God through the Spirit.\n\n An holy priesthood — Consecrated to God, and \"holy as he is holy.\" To offer up - Your souls and bodies, with all your thoughts, words, and actions, as spiritual sacrifices to God.",
+      "es": "Vosotros, creyentes.\n\n Como piedras vivas, vivas para Dios a través de él.\n\n Están edificados en unión unos con otros.\n\n Casa espiritual: siendo vosotros mismos espirituales y morada de Dios mediante el Espíritu.\n\n Un sacerdocio santo: consagrado a Dios y \"santo como él es santo\". Ofrecer - Tus almas y cuerpos, con todos tus pensamientos, palabras y acciones, como sacrificios espirituales a Dios.",
+      "enHash": "87ded55205da38a781c20ce6ef0ac1d0fb00590213430ea69d33d2bac72504ad",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "He that believeth shall not be confounded — In time or in eternity. Isaiah 28:16 .",
+      "es": "El que cree no será confundido ni en el tiempo ni en la eternidad. Isaías 28:16 .",
+      "enHash": "a74d0769b3e466f6da95546b8e69cac86020fed13e5de6dac525a6b5fa76b016",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "I Peter 2:7\n To them who believe, he is become the head of the corner - The chief corner stone, on which the whole building rests. Unbelievers too will at length find him such to their sorrow, Matt 21:44 . Psalm 118:22 .",
+      "es": "1 Pedro 2:7\n Para los que creen, él se ha convertido en la cabeza del ángulo - La principal piedra angular, sobre la cual descansa todo el edificio. Los incrédulos también lo encontrarán al final para su tristeza, Mateo 21:44. Salmo 118:22 .",
+      "enHash": "742b47f4fee48db02d06f6dec7ef6a8d22c3dfbaf9047f1626d08b2b9ebf2be5",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "I Peter 2:8\n Who stumble, whereunto also they were appointed - They who believe not, stumble, and fall, and perish for ever; God having appointed from all eternity, \"he that believeth not shall be damned.\"",
+      "es": "1 Pedro 2:8\n Quienes tropiezan, para lo cual también fueron designados - Los que no creen, tropiezan, caen y perecen para siempre; Dios habiendo designado desde toda la eternidad, \"el que no crea, será condenado\".",
+      "enHash": "44ed12bb86d92fff37e396ac53ec9ef84e70ce2a9e3c73150406201c2f415775",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "I Peter 2:9\n But ye - Who believe in Christ Are - In a higher sense than ever the Jews were. A chosen or elect race, a royal priesthood - \"Kings and priests unto God,\" Rev 1:6 . As princes, ye have power with God, and victory over sin, the world, and the devil: as priests, ye are consecrated to God, for offering spiritual sacrifices. Ye Christians are as one holy nation, under Christ your King. A purchased people - Who are his peculiar property. That ye may show forth - By your whole behaviour, to all mankind. The virtues - The excellent glory, the mercy, wisdom, and power of him, Christ, who hath called you out of the darkness of ignorance, error, sin, and misery.",
+      "es": "1 Pedro 2:9\n Pero vosotros, que creéis en Cristo, sois - En un sentido más elevado que nunca lo fueron los judíos. Una raza escogida o elegida, un sacerdocio real - \"Reyes y sacerdotes para Dios\", Apocalipsis 1:6. Como príncipes, tenéis poder ante Dios y victoria sobre el pecado, el mundo y el diablo; como sacerdotes, estáis consagrados a Dios para ofrecer sacrificios espirituales. Vosotros los cristianos sois como una nación santa, bajo Cristo vuestro Rey. Un pueblo comprado - Que son su propiedad peculiar. Para que puedas mostrar - Por todo tu comportamiento, a toda la humanidad. Las virtudes - La excelente gloria, la misericordia, la sabiduría y el poder de él, Cristo, que os llamó a salir de las tinieblas de la ignorancia, el error, el pecado y la miseria.",
+      "enHash": "d5a046a6465d82bfbd991829802cdf0a44f96d0e35658120119eb0d1cd1d939e",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "I Peter 2:10\n Who in time past were not a people - Much less the people of God; but scattered individuals of many nations. The former part of the verse particularly respects the gentiles; the latter, the Jews.",
+      "es": "1 Pedro 2:10\n Quienes en tiempos pasados no eran un pueblo - Mucho menos el pueblo de Dios; pero individuos dispersos de muchas naciones. La primera parte del versículo respeta particularmente a los gentiles; estos últimos, los judíos.",
+      "enHash": "c298c8bbd6b740a66d08e056e8dab92fedcb3b34d9c9446e2ced8cb642febf67",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "I Peter 2:11\n Here begins the exhortation drawn from the second motive. Sojourners: pilgrims - The first word properly means, those who are in a strange house; the second, those who are in a strange country. You sojourn in the body; you are pilgrims in this world. Abstain from desires of anything in this house, or in this country.",
+      "es": "1 Pedro 2:11\n Aquí comienza la exhortación extraída del segundo motivo. Extranjeros: peregrinos - La primera palabra significa propiamente aquellos que están en una casa extraña; el segundo, los que están en país extraño. Permanecéis en el cuerpo; sois peregrinos en este mundo. Abstente de deseos de cualquier cosa en esta casa, o en este país.",
+      "enHash": "89790fd89ea5bf47167b01f9e4478c10caefea873d1063d3dbeeba56b4fa80fe",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "I Peter 2:12\n Honest - Not barely unblamable, but virtuous in every respect. But our language sinks under the force, beauty, and copiousness of the original expressions. That they by your good works which they shall behold - See with their own eyes. May glorify God - By owning his grace in you, and following your example. In the day of visitation - The time when he shall give them fresh offers of his mercy.",
+      "es": "1 Pedro 2:12\n Honesto: no apenas intachable, sino virtuoso en todos los aspectos. Pero nuestro lenguaje se hunde bajo la fuerza, la belleza y la abundancia de las expresiones originales. Que ellos, por tus buenas obras que contemplarán, vean con sus propios ojos. Que glorifique a Dios - Al reconocer su gracia en usted y seguir su ejemplo. En el día de la visita - El momento en que les dará nuevas ofertas de su misericordia.",
+      "enHash": "d8f48eba86ba20614f2f4224dd8c802ad9b7ad8c97553b6baade9aa12034bcd2",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "I Peter 2:13\n Submit yourselves to every ordinance of man - To every secular power. Instrumentally these are ordained by men; but originally all their power is from God.",
+      "es": "1 Pedro 2:13\n Someteos a cada ordenanza del hombre - A cada poder secular. Instrumentalmente estos son ordenados por hombres; pero originalmente todo su poder proviene de Dios.",
+      "enHash": "3cc20be40f47b16f170c71acfda22658959f3ad360a826b10aad6095273865c7",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "Or to subordinate governors, or magistrates.",
+      "es": "O a gobernadores subordinados, o magistrados.",
+      "enHash": "6f494ceb5a74dc755cae9f346e5ec14e38fbd11ffbbdc961c70af2dd1a004094",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "The ignorance — Of them who blame you, because they do not know you: a strong motive to pity them.",
+      "es": "La ignorancia de aquellos que te culpan porque no te conocen: un fuerte motivo para tener lástima de ellos.",
+      "enHash": "29875b2d8d08739e0e3e6e4586f0f6529028f9b075845b946bbcffdd6dbb329d",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "As free — Yet obeying governors, for God's sake.",
+      "es": "Como libre, pero obedeciendo a los gobernadores, por el amor de Dios.",
+      "enHash": "8891f89c22e41438f439f80c82d6f164e164404711e6d011514bc54814e6e12d",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "I Peter 2:17\n Honour all men - As being made in the image of God, bought by his Son, and designed for his kingdom. Honour the king - Pay him all that regard both in affection and action which the laws of God and man require.",
+      "es": "1 Pedro 2:17\n Honre a todos los hombres - Como hechos a imagen de Dios, comprados por su Hijo y diseñados para su reino. Honra al rey - Préstale todo el respeto tanto en afecto como en acción que requieren las leyes de Dios y del hombre.",
+      "enHash": "fc3cf7febb0f49ce7814e71f83df5bc697c98fdd176db4e0d58e1783eef8e620",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "I Peter 2:18\n Servants - Literally, household servants. With all fear - Of offending them or God. Not only to the good - Tender, kind. And gentle - Mild, easily forgiving.",
+      "es": "1 Pedro 2:18\n Sirvientes - Literalmente, sirvientes del hogar. Con todo temor - De ofenderlos a ellos o a Dios. No sólo para los buenos: tierno, amable. Y gentil - Suave, fácilmente indulgente.",
+      "enHash": "7649e70dee294004e8a7f99b01eab74af8f2d741ab623e720ff63eb1c68a72d7",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "For conscience toward God — From a pure desire of pleasing him.\n\n Grief — Severe treatment.",
+      "es": "Por la conciencia hacia Dios, por puro deseo de agradarle.\n\n Duelo: tratamiento severo.",
+      "enHash": "a1601ec1d4b0842d2fb7b99d81b0c211f87bd31346df689651d509aa0f4093e5",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "I Peter 2:21\n Hereunto are ye - Christians. Called - To suffer wrongfully. Leaving you an example - When he went to God. That ye might follow his steps - Of innocence and patience.",
+      "es": "1 Pedro 2:21\n Por esto sois vosotros, cristianos. Llamado - Sufrir injustamente. Les dejo un ejemplo - Cuando fue a Dios. Para que puedas seguir sus pasos - De inocencia y paciencia.",
+      "enHash": "45fbefffa6935f5ce6e78163345577141214d06a971187d03d38fae71700e769",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "I Peter 2:22\n In all these instances the example of Christ is peculiarly adapted to the state of servants, who easily slide either into sin or guile, reviling their fellowservants, or threatening them, the natural result of anger without power. He committed himself to him that judgeth righteously - The only solid ground of patience in affliction. Isaiah 53:4 ,6,7,9.",
+      "es": "1 Pedro 2:22\n En todos estos casos, el ejemplo de Cristo se adapta peculiarmente al estado de los siervos, quienes fácilmente caen en el pecado o en la astucia, injuriando a sus consiervos o amenazándolos, resultado natural de la ira sin poder. Se comprometió con el que juzga con justicia - La única base sólida de paciencia en la aflicción. Isaías 53:4,6,7,9.",
+      "enHash": "bff2a0b19757452fe51e6d02e99f22a6a78ec585d74d8736dfc342d9c3f6fc11",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "I Peter 2:23\n In all these instances the example of Christ is peculiarly adapted to the state of servants, who easily slide either into sin or guile, reviling their fellowservants, or threatening them, the natural result of anger without power. He committed himself to him that judgeth righteously - The only solid ground of patience in affliction. Isaiah 53:4 ,6,7,9.",
+      "es": "1 Pedro 2:23\n En todos estos casos, el ejemplo de Cristo se adapta peculiarmente al estado de los siervos, quienes fácilmente caen en el pecado o en la astucia, injuriando a sus consiervos o amenazándolos, resultado natural de la ira sin poder. Se comprometió con el que juzga con justicia - La única base sólida de paciencia en la aflicción. Isaías 53:4,6,7,9.",
+      "enHash": "4228f34600d196512221352fa7f3120df5d813f019d071e42a2b457ac99b3b86",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "I Peter 2:24\n Who himself bore our sins - That is, the punishment due to them. In his afflicted, torn, dying body on the tree - The cross, whereon chiefly slaves or servants were wont to suffer. That we being dead to sin - Wholly delivered both from the guilt and power of it: indeed, without an atonement first made for the guilt, we could never have been delivered from the power. Might live to righteousness - Which is one only. The sins we had committed, and he bore, were manifold.",
+      "es": "1 Pedro 2:24\n Quien mismo cargó con nuestros pecados - Es decir, el castigo que se les debe. En su cuerpo afligido, desgarrado y moribundo en el madero - La cruz, en la que solían sufrir principalmente los esclavos o sirvientes. Que estamos muertos al pecado - Totalmente liberados tanto de la culpa como del poder del mismo: de hecho, sin una expiación hecha primero por la culpa, nunca podríamos haber sido liberados del poder. Podría vivir para la justicia, que es una sola. Los pecados que habíamos cometido y que él cargó eran múltiples.",
+      "enHash": "9cc4934241350b1d80cf321068129dca791df1857db4c6218a01a335d6b08513",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "The bishop — The kind observer, inspector, or overseer of your souls.\n\n << 1 Peter 1 | 1 Peter 2 | 1 Peter 3 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 1 Peter 1 Peter 2\n\n Related Commentaries\n 1 Peter 2\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "El obispo: el amable observador, inspector o supervisor de vuestras almas.\n\n << 1 Pedro 1 | 1 Pedro 2 | 1 Pedro 3 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 1 Pedro 1 Pedro 2\n\n Comentarios relacionados\n 1 Pedro 2\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "d1332c38092738dfe7e90750c57dfac6df491787a1044d2609a67dd99b0e1596",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "If any — He speaks tenderly.\n\n Won — Gained over to Christ.",
+      "es": "Si lo hay, habla con ternura.\n\n Ganado: ganado para Cristo.",
+      "enHash": "f0be05e210cdb38c4281800555d19bf510a16a80022411b69c7d58daef61f64e",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "Joined with a loving fear of displeasing them.",
+      "es": "Unido a un miedo amoroso a disgustarlos.",
+      "enHash": "d7b2963fb82345feff837922f8059d4e2182c2e3c0d18b7a491bb2e2a8c6b2ba",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "I Peter 3:3\n Three things are here expressly forbidden: curling the hair, wearing gold, (by way of ornament,) and putting on costly or gay apparel. These, therefore, ought never to be allowed, much less defended, by Christians.",
+      "es": "1 Pedro 3:3\n Aquí están expresamente prohibidas tres cosas: rizar el cabello, usar oro (a modo de adorno) y vestir ropa costosa o alegre. Por lo tanto, los cristianos nunca deberían permitirlas, y mucho menos defenderlas.",
+      "enHash": "49b455215f0427c98d075ec7e039718a09e15f9a61828952cceefebd29bf362a",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "I Peter 3:4\n The hidden man of the heart - Complete inward holiness, which implies a meek and quiet spirit. A meek spirit gives no trouble willingly to any: a quiet spirit bears all wrongs without being troubled. In the sight of God - Who looks at the heart. All superfluity of dress contributes more to pride and anger than is generally supposed. The apostle seems to have his eye to this by substituting meekness and quietness in the room of the ornaments he forbids. \"I do not regard these things,\" is often said by those whose hearts are wrapped up in them: but offer to take them away, and you touch the very idol of their soul. Some, indeed only dress elegantly that they may be looked on; that is, they squander away their Lord's talent to gain applause: thus making sin to beget sin, and then plead one in excuse of the other.",
+      "es": "1 Pedro 3:4\n El hombre escondido del corazón - Completa santidad interior, que implica un espíritu manso y tranquilo. Un espíritu manso no da problemas voluntariamente a nadie; un espíritu tranquilo soporta todos los males sin preocuparse. A los ojos de Dios - Quien mira el corazón. Todo lo superfluo en la vestimenta contribuye más al orgullo y la ira de lo que generalmente se supone. El apóstol parece tener en cuenta esto al sustituir la mansedumbre y la tranquilidad en la habitación de los adornos que prohíbe. \"No tengo en cuenta estas cosas\", dicen a menudo aquellos cuyo corazón está envuelto en ellas: pero ofrécete a quitártelas y tocarás el ídolo mismo de su alma. Algunos, de hecho, sólo se visten elegantemente para ser vistos; es decir, desperdician el talento de su Señor para ganarse el aplauso: haciendo así que el pecado engendre pecado, y luego se excusan uno del otro.",
+      "enHash": "85510206f3de63585f63ace9991449005ea8b231ff903ee290776c5151ababda",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "I Peter 3:5\n The adorning of those holy women, who trusted in God, and therefore did not act thus from servile fear, was, Their meek subjection to their husbands: Their quiet spirit, \"not afraid,\" or amazed: and Their unblamable behaviour, \"doing\" all things \"well.\"",
+      "es": "1 Pedro 3:5\n El adorno de aquellas santas mujeres, que confiaban en Dios, y por tanto no actuaban así por temor servil, era su mansa sujeción a sus maridos: su espíritu tranquilo, \"sin miedo\", ni asombrado: y su comportamiento irreprochable, \"haciendo\" todas las cosas \"bien\".",
+      "enHash": "5483be39a1479fabb0b66624595ead34ef9dce17b9575ade006b32862523a13d",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "I Peter 3:6\n Whose children ye are - In a spiritual as well as natural sense, and entitled to the same inheritance, while ye discharge your conjugal duties, not out of fear, but for conscience' sake. Gen 18:12 .",
+      "es": "1 Pedro 3:6\n Cuyos hijos sois - En un sentido espiritual y natural, y con derecho a la misma herencia, mientras cumplís con vuestros deberes conyugales, no por miedo, sino por motivos de conciencia. Génesis 18:12.",
+      "enHash": "da44f9cd200bd176cc217be72909cba68a5e20060e11198c645a11cfaf35bcbf",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "I Peter 3:7\n Dwell with the woman according to knowledge - Knowing they are weak, and therefore to be used with all tenderness. Yet do not despise them for this, but give them honour - Both in heart, in word, and in action; as those who are called to be joint - heirs of that eternal life which ye and they hope to receive by the free grace of God. That your prayers be not hindered - On the one part or the other. All sin hinders prayer; particularly anger. Anything at which we are angry is never more apt to come into our mind than when we are at prayer; and those who do not forgive will find no forgiveness from God.",
+      "es": "1 Pedro 3:7\n Habita con la mujer según el conocimiento - Sabiendo que son débiles y, por tanto, deben ser utilizadas con toda ternura. Sin embargo, no los desprecies por esto, sino dales honor - Tanto en corazón, como en palabra y en acción; como aquellos que están llamados a ser coherederos de esa vida eterna que ustedes y ellos esperan recibir por la gratuita gracia de Dios. Que sus oraciones no sean obstaculizadas - De una parte o de la otra. Todo pecado obstaculiza la oración; particularmente la ira. Cualquier cosa por la que estemos enojados nunca es más probable que venga a nuestra mente que cuando estamos en oración; y los que no perdonan no encontrarán perdón de Dios.",
+      "enHash": "14c1f94701663f3581df741ece7fc52990209d9eb3cb288414b3fbbde321bbd1",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "I Peter 3:8\n Finally - This part of the epistle reaches to 1Peter 4:11 . The apostle seems to have added the rest afterwards. Sympathizing - Rejoicing and sorrowing together. Love all believers as brethren. Be pitiful - Toward the afflicted. Be courteous - To all men. Courtesy is such a behaviour toward equals and inferiors as shows respect mixed with love.",
+      "es": "1 Pedro 3:8\n Finalmente - Esta parte de la epístola llega a 1 Pedro 4:11. El apóstol parece haber añadido el resto después. Simpatizar: regocijarse y entristecerse juntos. Amad a todos los creyentes como hermanos. Sea compasivo - Hacia los afligidos. Sea cortés - Con todos los hombres. La cortesía es un comportamiento hacia iguales e inferiores que muestra respeto mezclado con amor.",
+      "enHash": "84093f7d5be84f2903af6e9e7382ae09d51dc6329e08a2f0d809e88c380140e1",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "I Peter 3:9\n Ye are called to inherit a blessing - Therefore their railing cannot hurt you; and, by blessing them, you imitate God, who blesses you.",
+      "es": "1 Pedro 3:9\n Estáis llamados a heredar una bendición - Por lo tanto, sus quejas no pueden hacerte daño; y, al bendecirlos, imitas a Dios, que te bendice.",
+      "enHash": "90a6dd6316a26cc538bd9342a5301227185bfd357d913e4738e813e15eb07202",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "I Peter 3:10\n For he that desireth to love life, and to see good days - That would make life amiable and desirable. Psalm 34:12 ,",
+      "es": "1 Pedro 3:10\n Para el que desea amar la vida y ver buenos días, eso haría la vida amable y deseable. Salmo 34:12,",
+      "enHash": "f85e9b4f45ccda6da4d1f70d8d05bd3f44c1c122c0fcd963f01984c8b6c782b9",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "Let him seek — To live peaceably with all men.\n\n And pursue it — Even when it seems to flee from him.",
+      "es": "Que busque vivir en paz con todos los hombres.\n\n Y persíguelo incluso cuando parezca huir de él.",
+      "enHash": "e0f496b669ba7197e798edf7bdf327a71a2933fa43eebcd0e679e48db54f636b",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "I Peter 3:12\n The eyes of the Lord are over the righteous - For good. Anger appears in the whole face; love, chiefly in the eyes.",
+      "es": "1 Pedro 3:12\n Los ojos del Señor están sobre los justos - Para siempre. La ira aparece en todo el rostro; Amor, principalmente en los ojos.",
+      "enHash": "dee8060236f7115fc5e0eeb0a068d40e2c1ecf9da59e8f1c7dca36450c3b5fab",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "Who is he that will harm you — None can.",
+      "es": "¿Quién es el que te hará daño? Nadie puede hacerlo.",
+      "enHash": "4e7afbb93e6373ac18eb4da16481451fda40258e6f1f35751c13e772d200749d",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "I Peter 3:14\n But if ye should suffer - This is no harm to you, but a good. Fear ye not their fear - The very words of the Septuagint, Isaiah 8:12 ,13. Let not that fear be in you which the wicked feel.",
+      "es": "1 Pedro 3:14\n Pero si sufrieras - Esto no es un daño para ti, sino un bien. No temáis su miedo - Las mismas palabras de la Septuaginta, Isaías 8:12,13. No dejes que haya en ti ese temor que sienten los malvados.",
+      "enHash": "9cbd077e24e4461f789a083a1e7e6afb5e6e4dfb33011d8b9f0a6b8634986035",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "I Peter 3:15\n But sanctify the Lord God in your hearts - Have an holy fear, and a full trust in his wise providence. The hope - Of eternal life. With meekness - For anger would hurt your cause as well as your soul. And fear - A filial fear of offending God, and a jealousy over yourselves, lest ye speak amiss.",
+      "es": "1 Pedro 3:15\n Pero santificad al Señor Dios en vuestros corazones - Tened un temor santo y plena confianza en su sabia providencia. La esperanza - De la vida eterna. Con mansedumbre - Porque la ira dañaría tanto tu causa como tu alma. Y miedo - Un temor filial de ofender a Dios y celos de ustedes mismos, para que no hablen mal.",
+      "enHash": "026eb79643b8835777346f5dac7cc7e75a6a9d0ad119f368d83476e1669c5063",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "I Peter 3:16\n Having a good conscience - So much the more beware of anger, to which the very consciousness of your innocence may betray you. Join with a good conscience meekness and fear, and you obtain a complete victory. Your good conversation in Christ - That is, which flows from faith in him.",
+      "es": "1 Pedro 3:16\n Tener buena conciencia - Mucho más cuidado con la ira, a la que la conciencia misma de tu inocencia puede traicionarte. Uníos con buena conciencia, mansedumbre y temor, y obtendréis la victoria completa. Tu buena conversación en Cristo - Es decir, que fluye de la fe en él.",
+      "enHash": "d1a73b7293e537aa7ae09902a06147a2d89b612f5b44e4caad7ae6ff9e626f76",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "It is infinitely better, if it be the will of God, ye should suffer. His permissive will appears from his providence.",
+      "es": "Es infinitamente mejor, si es la voluntad de Dios, que sufráis. Su voluntad permisiva surge de su providencia.",
+      "enHash": "13d20f3147470b102db0a84437a12195d1512ff8d502ff3c9e6fa4a66b660dbc",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "I Peter 3:18\n For - This is undoubtedly best, whereby we are most conformed to Christ. Now Christ suffered once - To suffer no more. For sins - Not his own, but ours. The just for the unjust - The word signifies, not only them who have wronged their neighbours, but those who have transgressed any of the commands of God; as the preceding word, just, denotes a person who has fulfilled, not barely social duties, but all kind of righteousness. That he might bring us to God - Now to his gracious favour, hereafter to his blissful presence, by the same steps of suffering and of glory. Being put to death in the flesh - As man. But raised to life by the Spirit - Both by his own divine power, and by the power of the Holy Ghost.",
+      "es": "1 Pedro 3:18\n Porque - Esto es sin duda lo mejor, por lo que estamos más conformados a Cristo. Ahora Cristo sufrió una vez - Para no sufrir más. Por los pecados: no los suyos, sino los nuestros. El justo por los injustos - La palabra significa, no solo aquellos que han hecho daño a sus vecinos, sino también aquellos que han transgredido cualquiera de los mandamientos de Dios; como la palabra anterior, justo, denota una persona que ha cumplido, no sólo deberes sociales, sino toda clase de justicia. Para que pueda llevarnos a Dios - Ahora a su amable favor, de ahora en adelante a su dichosa presencia, por los mismos pasos de sufrimiento y gloria. Ser ejecutado en la carne - Como hombre. Pero resucitado a la vida por el Espíritu - Tanto por su propio poder divino como por el poder del Espíritu Santo.",
+      "enHash": "7f87fd843c6d5585dc1e88d0bdcce505cfc3a2bddec241a1adb21691f41afa58",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "I Peter 3:19\n By which Spirit he preached - Through the ministry of Noah. To the spirits in prison - The unholy men before the flood, who were then reserved by the justice of God, as in a prison, till he executed the sentence upon them all; and are now also reserved to the judgment of the great day.",
+      "es": "1 Pedro 3:19\n ¿Por qué Espíritu predicó? A través del ministerio de Noé. A los espíritus en prisión - Los hombres impíos antes del diluvio, que luego fueron reservados por la justicia de Dios, como en una prisión, hasta que ejecutó la sentencia sobre todos ellos; y ahora también están reservados para el juicio del gran día.",
+      "enHash": "58fad0f9a096f5d2f2888300bcc80c5682a2262ec84eb8b44c0cf56d6e322edc",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "I Peter 3:20\n When the longsuffering of God waited - For an hundred and twenty years; all the time the ark was preparing: during which Noah warned them all to flee from the wrath to come.",
+      "es": "1 Pedro 3:20\n Cuando la paciencia de Dios esperó - Durante ciento veinte años; todo el tiempo que el arca estuvo preparándose: durante el cual Noé les advirtió a todos que huyeran de la ira venidera.",
+      "enHash": "d7185aefd958777dd6bf4e6af1109467a37ddc8cd1aa407bfe04e415490c2184",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "I Peter 3:21\n The antitype whereof - The thing typified by the ark, even baptism, now saveth us - That is, through the water of baptism we are saved from the sin which overwhelms the world as a flood: not, indeed, the bare outward sign, but the inward grace; a divine consciousness that both our persons and our actions are accepted through him who died and rose again for us.",
+      "es": "1 Pedro 3:21\n El antitipo del cual - Lo tipificado por el arca, es decir, el bautismo, ahora nos salva - Es decir, a través del agua del bautismo somos salvos del pecado que abruma al mundo como un diluvio: no, de hecho, la simple señal exterior, sino la gracia interior; una conciencia divina de que tanto nuestras personas como nuestras acciones son aceptadas a través de aquel que murió y resucitó por nosotros.",
+      "enHash": "f6f9052d4548554a3f5a1451afa6c4056c5df53435bd162582fa5167c160cd2d",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "Angels and authorities and powers — That is, all orders both of angels and men.\n\n << 1 Peter 2 | 1 Peter 3 | 1 Peter 4 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 1 Peter 1 Peter 3\n\n Related Commentaries\n 1 Peter 3\n The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Ángeles, autoridades y potestades, es decir, todas las órdenes tanto de ángeles como de hombres.\n\n << 1 Pedro 2 | 1 Pedro 3 | 1 Pedro 4 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 1 Pedro 1 Pedro 3\n\n Comentarios relacionados\n 1 Pedro 3\n La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "de5ae591a50c6907b7266f9c1a66591e56a1357dc3054d16d0c066357c3bcc54",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "I Peter 4:1\n Arm yourselves with the same mind - Which will be armour of proof against all your enemies. For he that hath suffered in the flesh - That hath so suffered as to he thereby made inwardly and truly conformable to the sufferings of Christ. Hath ceased from sin - Is delivered from it.",
+      "es": "1 Pedro 4:1\n Ármate con la misma mente - Que será una armadura de prueba contra todos tus enemigos. Porque el que ha sufrido en la carne - Que ha sufrido tanto que por ello se hizo interior y verdaderamente conforme a los sufrimientos de Cristo. Ha dejado de pecar - Está liberado de él.",
+      "enHash": "1185833e76a738ec867ef2a5084e82314075bce9a341f4ae08c856271899b49b",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "I Peter 4:2\n That ye may no longer live in the flesh - Even in this mortal body. To the desires of men - Either your own or those of others. These are various; but the will of God is one.",
+      "es": "1 Pedro 4:2\n Para que ya no viváis en la carne - Incluso en este cuerpo mortal. A los deseos de los hombres - Ya sean propios o ajenos. Estos son varios; pero la voluntad de Dios es una.",
+      "enHash": "2a5bb1a20e7a0476c9f425ae7115b49ab296717f0cd7f3dd2b4ce88886a3d69b",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "I Peter 4:3\n Revellings, banquetings - Have these words any meaning now? They had, seventeen hundred years ago. Then the former meant, meetings to eat; meetings, the direct end of which was, to please the taste: the latter, meetings to drink: both of which Christians then ranked with abominable idolatries.",
+      "es": "1 Pedro 4:3\n Juergas, banquetes: ¿tienen ahora algún significado estas palabras? Así fue, hace mil setecientos años. Entonces lo primero significaba reuniones para comer; reuniones, cuyo fin directo era complacer el gusto; estas últimas, reuniones para beber: ambas cosas los cristianos entonces las clasificaban como idolatrías abominables.",
+      "enHash": "afc5dfde20c1de938410256700c2c6237b4bba09719fe26a542eeebac34aaf8b",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "The same — As ye did once.\n\n Speaking evil of you — As proud, singular, silly, wicked and the like.",
+      "es": "Lo mismo, como lo hiciste una vez.\n\n Hablar mal de ti: como orgulloso, singular, tonto, malvado y cosas por el estilo.",
+      "enHash": "f3482d0f5c9fe56321ce29695f9673aa25fc12cc7542e4e116fa01a643b49f91",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "I Peter 4:5\n Who shall give account - Of this, as well as all their other ways. To him who is ready - So faith represents him now.",
+      "es": "1 Pedro 4:5\n ¿Quién dará cuenta? De esto, así como de todos sus demás caminos. Para el que está listo - Entonces la fe lo representa ahora.",
+      "enHash": "c89cc7a44b33a5a2c43698d5131f63acf1adae6b1a78eb5191bf87698b680637",
+      "source": "corpus:john-wesley"
+    },
+    "b73": {
+      "en": "I Peter 4:6\n For to this end was the gospel preached - Ever since it was given to Adam. To them that are now dead - In their several generations. That they might be judged - That though they were judged. In the flesh according to the manner of men - With rash, unrighteous judgment. They might live according to the will and word of God, in the Spirit; the soul renewed after his image.",
+      "es": "1 Pedro 4:6\n Porque con este fin se predicó el evangelio - Desde que fue dado a Adán. Para los que ahora están muertos - En sus varias generaciones. Para que puedan ser juzgados - Aunque fueron juzgados. En la carne según la manera de los hombres - Con juicio imprudente e injusto. Podrían vivir según la voluntad y la palabra de Dios, en el Espíritu; el alma renovada a su imagen.",
+      "enHash": "632b1086c744e599e0f2dec75bce118be9a599e56cb5695ba2b6009852feba4c",
+      "source": "corpus:john-wesley"
+    },
+    "b74": {
+      "en": "I Peter 4:7\n But the end of all things - And so of their wrongs, and your sufferings. Is at hand: be ye therefore sober, and watch unto prayer - Temperance helps watchfulness, and both of them help prayer. Watch, that ye may pray; and pray, that ye may watch.",
+      "es": "1 Pedro 4:7\n Pero el fin de todas las cosas - Y también de sus males y de sus sufrimientos. Está cerca: sed, pues, sobrios y velad en oración - La templanza ayuda a la vigilancia, y ambas ayudan a la oración. Velad para orar; y orad para que podáis velar.",
+      "enHash": "2519d55a98aa9ff775cf4ac7acf9277bc794d52ae409e697df168e6316e961a6",
+      "source": "corpus:john-wesley"
+    },
+    "b75": {
+      "en": "I Peter 4:8\n Love covereth a multitude of sins - Yea, \"love covereth all things.\" He that loves another, covers his faults, how many soever they be. He turns away his own eyes from them; and, as far as is possible, hides them from others. And he continually prays that all the sinner's iniquities may be forgiven and his sins covered. Meantime the God of love measures to him with the same measure into his bosom.",
+      "es": "1 Pedro 4:8\n El amor cubre multitud de pecados - Sí, \"el amor cubre todas las cosas\". El que ama a otro, cubre sus faltas, cuantas sean. Aparta de ellos sus propios ojos; y, en la medida de lo posible, los oculta a los demás. Y ora continuamente para que todas las iniquidades del pecador sean perdonadas y sus pecados cubiertos. Mientras tanto el Dios de amor le mide con la misma medida en su seno.",
+      "enHash": "fdf1d313128e72a7f1227cbf70ae21aaabf9bf7acb4608cc00630584b0391c1c",
+      "source": "corpus:john-wesley"
+    },
+    "b76": {
+      "en": "One to another — Ye that are of different towns or countries.\n\n Without murmuring — With all cheerfulness. Proverbs 10:12 .",
+      "es": "Uno a otro: vosotros que sois de diferentes pueblos o países.\n\n Sin murmuraciones - Con toda alegría. Proverbios 10:12 .",
+      "enHash": "3da461b62fe79a161c8f54e768d1d565eb21c0c86cff6542aac0091fbbb4bc44",
+      "source": "corpus:john-wesley"
+    },
+    "b77": {
+      "en": "I Peter 4:10\n As every one hath received a gift - Spiritual or temporal, ordinary or extraordinary, although the latter seems primarily intended. So minister it one to another - Employ it for the common good. As good stewards of the manifold grace of God - The talents wherewith his free love has intrusted you.",
+      "es": "1 Pedro 4:10\n Como cada uno ha recibido un regalo: espiritual o temporal, ordinario o extraordinario, aunque este último parezca destinado principalmente. Así que ministrenlo unos a otros - Empléenlo para el bien común. Como buenos administradores de la multiforme gracia de Dios - Los talentos que su libre amor les ha confiado.",
+      "enHash": "7c5be541fe2db08ed1ae12fe198aceaadf6bfdebadb83b820450126dd3038529",
+      "source": "corpus:john-wesley"
+    },
+    "b78": {
+      "en": "I Peter 4:11\n If any man speak, let him - In his whole conversation, public and private. Speak as the oracles of God - Let all his words be according to this pattern, both as to matter and manner, more especially in public. By this mark we may always know who are, so far, the true or false prophets. The oracles of God teach that men should repent, believe, obey. He that treats of faith and leaves out repentance, or does not enjoin practical holiness to believers, does not speak as the oracles of God: he does not preach Christ, let him think as highly of himself as he will. If any man minister - Serve his brother in love, whether in spintuals or temporals. Let him minister as of the ability which God giveth - That is, humbly and diligently, ascribing all his power to God, and using it with his might. Whose is the glory - of his wisdom, which teaches us to speak. And the might - Which enables us to act.",
+      "es": "1 Pedro 4:11\n Si algún hombre habla, déjelo - En toda su conversación, pública y privada. Habla como los oráculos de Dios - Que todas sus palabras sean de acuerdo con este patrón, tanto en materia como en forma, más especialmente en público. Gracias a esta marca siempre podremos saber quiénes son, hasta ahora, los verdaderos o falsos profetas. Los oráculos de Dios enseñan que los hombres deben arrepentirse, creer y obedecer. El que trata de la fe y deja de lado el arrepentimiento, o no prescribe la santidad práctica a los creyentes, no habla como los oráculos de Dios: no predica a Cristo, que piense tan bien de sí mismo como quiera. Si alguno ministra - Sirve a su hermano con amor, ya sea espiritual o temporal. Que ministre según la capacidad que Dios le da - Es decir, con humildad y diligencia, atribuyendo todo su poder a Dios y usándolo con su poder. De quién es la gloria - de su sabiduría, que nos enseña a hablar. Y el poder - Que nos permite actuar.",
+      "enHash": "f1f26a5b09a487b72a658f437dec9842664bc2ad75e3e9534d68d0d2c8ba0a1b",
+      "source": "corpus:john-wesley"
+    },
+    "b79": {
+      "en": "I Peter 4:12\n Wonder not at the burning which is among you - This is the literal meaning of the expression. It seems to include both martyrdom itself, which so frequently was by fire, and all the other sufferings joined with, or previous to, it; which is permitted by the wisdom of God for your trial. Be not surprised at this.",
+      "es": "1 Pedro 4:12\n No os maravilléis del incendio que hay entre vosotros - Este es el significado literal de la expresión. Parece incluir tanto el martirio mismo, que tan frecuentemente fue por fuego, como todos los demás sufrimientos asociados o anteriores a él; lo cual es permitido por la sabiduría de Dios para vuestra prueba. No os sorprendáis de esto.",
+      "enHash": "b2394226036976ecb8095074b43de1f0fe6f93f43875b8c798a6e80d60234f3f",
+      "source": "corpus:john-wesley"
+    },
+    "b80": {
+      "en": "I Peter 4:13\n But as ye partake of the sufferings of Christ - 1Peter 4:1 , while ye suffer for his sake, rejoice in hope of more abundant glory. For the measure of glory answers the measure of suffering; and much more abundantly.",
+      "es": "1 Pedro 4:13\n Pero al participar de los sufrimientos de Cristo - 1 Pedro 4:1, mientras sufrís por él, regocijaos con la esperanza de una gloria más abundante. Porque la medida de la gloria corresponde a la medida del sufrimiento; y mucho más abundantemente.",
+      "enHash": "4155256704dcff85e2147f2bb4e2468bf9318ca7a436ed7d469814fe31eba0ff",
+      "source": "corpus:john-wesley"
+    },
+    "b81": {
+      "en": "I Peter 4:14\n If ye are reproached for Christ - Reproaches and cruel mockings were always one part of their sufferings. The Spirit of glory and of God resteth upon you - The same Spirit which was upon Christ, Luke 4:18 . He is here termed, the Spirit of glory, conquering all reproach and shame, and the Spirit of God, whose Son, Jesus Christ is. On their part he is blasphemed, but on your part he is glorified - That is, while they are blaspheming Christ, you glorify him in the midst of your sufferings, 1Peter 4:16 .",
+      "es": "1 Pedro 4:14\n Si sois reprochados por Cristo - Los reproches y las burlas crueles siempre fueron parte de sus sufrimientos. El Espíritu de gloria y de Dios reposa sobre vosotros - El mismo Espíritu que estuvo sobre Cristo, Lucas 4:18 . Aquí se le llama Espíritu de gloria, que vence todo oprobio y vergüenza, y el Espíritu de Dios, cuyo Hijo es Jesucristo. Por su parte es blasfemado, pero por tu parte es glorificado - Es decir, mientras ellos blasfeman contra Cristo, tú lo glorificas en medio de tus sufrimientos, 1 Pedro 4:16 .",
+      "enHash": "019b994b59da824e3b08b17527c2d0f462ac14e0803aaed971b4a5ea1f5f339e",
+      "source": "corpus:john-wesley"
+    },
+    "b82": {
+      "en": "Let none of you deservedly suffer, as an evildoer - In any kind.",
+      "es": "Que ninguno de ustedes sufra merecidamente, como malhechor - De ningún tipo.",
+      "enHash": "4811c4eb194d10bf605b7b0958d386d71885bef13a5b072e4ec4272499519f99",
+      "source": "corpus:john-wesley"
+    },
+    "b83": {
+      "en": "Let him glorify God — Who giveth him the honour so to suffer, and so great a reward for suffering.",
+      "es": "Glorifique a Dios, que le da el honor de sufrir así y una recompensa tan grande por el sufrimiento.",
+      "enHash": "54c0441bf089026872d80de91c30fe023b2eecf1b8f5552d5dd9391e49dd9b58",
+      "source": "corpus:john-wesley"
+    },
+    "b84": {
+      "en": "I Peter 4:17\n The time is come for judgment to begin at the house of God - God first visits his church, and that both in justice and mercy. What shall the end be of them that obey not the gospel - How terribly will he visit them! The judgments which are milder at the beginning, grow more and more severe. But good men, having already sustained their part, are only spectators of the miseries of the wicked.",
+      "es": "1 Pedro 4:17\n Ha llegado el momento de que el juicio comience en la casa de Dios: Dios visita primero su iglesia, y eso tanto en justicia como en misericordia. ¿Cuál será el fin de los que no obedecen el evangelio? ¡Cuán terriblemente los visitará! Los juicios que al principio son más suaves, se vuelven cada vez más severos. Pero los hombres buenos, habiendo cumplido ya su parte, no son más que espectadores de las miserias de los malvados.",
+      "enHash": "24cdc0d6c742359af0f96532825ace4c23ea897fe8057b610bc2cf819e11e598",
+      "source": "corpus:john-wesley"
+    },
+    "b85": {
+      "en": "I Peter 4:18\n If the righteous scarcely be saved - Escape with the utmost difficulty. Where shall the ungodly - The man who knows not God. And the open sinner appear - In that day of vengeance. The salvation here primarily spoken of is of a temporal nature. But we may apply the words to eternal things, and then they are still more awful. Prov 11:31 .",
+      "es": "1 Pedro 4:18\n Si los justos apenas se salvan - Escapa con la mayor dificultad. ¿Dónde estará el impío? El hombre que no conoce a Dios. Y aparece el pecador abierto - En ese día de venganza. La salvación de la que aquí se habla principalmente es de naturaleza temporal. Pero podemos aplicar las palabras a cosas eternas, y entonces serán aún más terribles. Prov 11:31.",
+      "enHash": "c5cf00d8062c7cd082fbae35227a8009d0e259a8db4fd7eeee05f6b9e772b429",
+      "source": "corpus:john-wesley"
+    },
+    "b86": {
+      "en": "I Peter 4:19\n Let them that suffer according to the will of God - Both for a good cause, and in a right spirit. Commit to him their souls - (Whatever becomes of the body) as a sacred depositum. In well doing - Be this your care, to do and suffer well: He will take care of the rest. As unto a faithful Creator - In whose truth, love, and power, ye may safely trust.",
+      "es": "1 Pedro 4:19\n Que los que sufran según la voluntad de Dios - Tanto por una buena causa como con el espíritu correcto. Encomienden a él sus almas - (Lo que sea que suceda con el cuerpo) como un depositum sagrado. En el bien hacer - Sea este vuestro cuidado, hacer y sufrir bien: Él se encargará del resto. Como a un Creador fiel - En cuya verdad, amor y poder podéis confiar con seguridad.",
+      "enHash": "0fac1b50d8f5489d969b9cb1e87b238f6191ded120feea8a5972c809a9cf2530",
+      "source": "corpus:john-wesley"
+    },
+    "b87": {
+      "en": "I Peter 5:1\n I who am a fellow - elder - So the first though not the head of the apostles appositely and modestly styles himself. And a witness of the sufferings of Christ - Having seen him suffer, and now suffering for him.",
+      "es": "1 Pedro 5:1\n Yo, que soy un compañero - anciano - Así se llama a sí mismo el primero, aunque no el jefe de los apóstoles, acertada y modestamente. Y testigo de los sufrimientos de Cristo - Habiéndolo visto sufrir y ahora sufriendo por él.",
+      "enHash": "c2aba931877290fd3b3920faf68e48d9b898a60b26375b3332bf3987510495da",
+      "source": "corpus:john-wesley"
+    },
+    "b88": {
+      "en": "I Peter 5:2\n Feed the flock - Both by doctrine and discipline. Not by constraint - Unwillingly, as a burden. Not for filthy gain - Which, if it be the motive of acting, is filthy beyond expression. O consider this, ye that leave one flock and go to another, merely because there is more gain, a large salary! Is it not astonishing that men can see no harm in this? that it is not only practised, but avowed, all over the nation?",
+      "es": "1 Pedro 5:2\n Alimenta al rebaño - Tanto con doctrina como con disciplina. No por obligación - De mala gana, como una carga. No por ganancias sucias - Lo cual, si es el motivo de actuar, es inmundo más allá de toda expresión. ¡Considerad esto, vosotros que dejáis un rebaño y os vais a otro, simplemente porque hay más ganancia, un gran salario! ¿No es sorprendente que los hombres no vean ningún daño en esto? ¿Que no sólo se practica sino que se declara en toda la nación?",
+      "enHash": "f318d4b8045233259ad8ecb231f642cff552c3dffeaa07e6f9a1393b129030f3",
+      "source": "corpus:john-wesley"
+    },
+    "b89": {
+      "en": "I Peter 5:3\n Neither as lording over the heritage - Behaving in a haughty, domineering manner, as though you had dominion over their conscience. The word translated heritage, is, literally, the portions. There is one flock under the one chief Shepherd; but many portions of this, under many pastors. But being examples to the flock - This procures the most ready and free obedience.",
+      "es": "1 Pedro 5:3\n Ni como señorío de la herencia - Comportándose de manera altiva y dominante, como si tuviera dominio sobre su conciencia. La palabra traducida herencia es, literalmente, las porciones. Hay un rebaño bajo el único Pastor principal; pero muchas porciones de esto, bajo muchos pastores. Pero ser ejemplos para el rebaño - Esto procura la obediencia más dispuesta y libre.",
+      "enHash": "32769305aa639dee1e8d44d7133f7c4b03523044f6196150ff0aaedcb5076be1",
+      "source": "corpus:john-wesley"
+    },
+    "b90": {
+      "en": "I Peter 5:5\n Ye younger, be subject to the elder - In years. And be all - Elder or younger. Subject to each other - Let every one be ready, upon all occasions, to give up his own will. Be clothed with humility - Bind it on, (so the word signifies,) so that no force may be able to tear it from you. James 4:6 ; Prov 3:34",
+      "es": "1 Pedro 5:5\n Vosotros, los más jóvenes, estad sujetos al mayor - En años. Y sea todo: mayor o menor. Sujetos unos a otros - Que cada uno esté dispuesto, en toda ocasión, a renunciar a su propia voluntad. Vístete de humildad - Átalo (así lo significa la palabra) para que ninguna fuerza pueda arrancarlo de ti. Santiago 4:6 ; Prov 3:34",
+      "enHash": "fa7266ea240a1f76e2687c0dbac432eb6d9a0bfdf73c17fe131e8f09801b88ab",
+      "source": "corpus:john-wesley"
+    },
+    "b91": {
+      "en": "The hand of God — Is in all troubles.",
+      "es": "La mano de Dios está en todos los problemas.",
+      "enHash": "f0ab08359b8facf01fbaa7878ef7ce3e461a5e7936fd3f751efc5d504b641dc4",
+      "source": "corpus:john-wesley"
+    },
+    "b92": {
+      "en": "Casting all your care upon him — In every want or pressure.",
+      "es": "Echando todo tu cuidado sobre él, en cada necesidad o presión.",
+      "enHash": "6e291e4796c4725b3ec5767b0ab62db65dc5bd3cb02b9d86936a6c0c42639afa",
+      "source": "corpus:john-wesley"
+    },
+    "b93": {
+      "en": "I Peter 5:8\n But in the mean time watch. There is a close connexion between this, and the duly casting our care upon him. How deeply had St. Peter himself suffered for want of watching! Be vigilant - As if he had said, Awake, and keep awake. Sleep no more: be this your care. As a roaring lion - Full of rage. Seeking - With all subtilty likewise. Whom he may devour or swallow up - Both soul and body.",
+      "es": "1 Pedro 5:8\n Pero mientras tanto mira. Existe una estrecha conexión entre esto y el hecho de prestar debida atención a él. ¡Cuán profundamente había sufrido el propio San Pedro por falta de vigilancia! Esté atento - Como si hubiera dicho: Despierta y mantente despierto. No duermas más: sea este tu cuidado. Como león rugiente - Lleno de rabia. Buscando - Con toda sutileza también. A quien puede devorar o tragar - Tanto el alma como el cuerpo.",
+      "enHash": "1e0af352bc5e0b40b9fbcacdf1efc0eaaab21e3d561c403cca82bdc0e1b0a698",
+      "source": "corpus:john-wesley"
+    },
+    "b94": {
+      "en": "I Peter 5:9\n Be the more steadfast, as ye know the same kind of afflictions are accomplished in - That is, suffered by, your brethren, till the measure allotted them is filled up.",
+      "es": "1 Pedro 5:9\n Sea más firme, ya que sabe que el mismo tipo de aflicciones se logran en - Es decir, las sufren sus hermanos, hasta que se llena la medida que les ha sido asignada.",
+      "enHash": "7a9604b83ca2417d46a79d65988ae3667ae35d8b6b1f66300ea019267503503d",
+      "source": "corpus:john-wesley"
+    },
+    "b95": {
+      "en": "I Peter 5:10\n Now the God of all grace - By which alone the whole work is begun, continued, and finished in your soul. After ye have suffered a while - A very little while compared with eternity. Himself - Ye have only to watch and resist the devil: the rest God will perform. Perfect - That no defect may remain. Stablish - That nothing may overthrow you. Strengthen - That ye may conquer all adverse power. And settle you - As an house upon a rock. So the apostle, being converted, does now \"strengthen his brethren.\"",
+      "es": "1 Pedro 5:10\n Ahora el Dios de toda gracia - Sólo por el cual comienza, continúa y termina toda la obra en tu alma. Después de haber sufrido un tiempo - Muy poco tiempo comparado con la eternidad. Él mismo - Sólo tenéis que velar y resistir al diablo: el resto lo hará Dios. Perfecto - Que no quede ningún defecto. Establecer - Que nada pueda derribarte. Fortalecer - Para que podáis conquistar todo poder adverso. Y establecerte - Como una casa sobre una roca. De modo que el apóstol, una vez convertido, ahora \"fortalece a sus hermanos\".",
+      "enHash": "f7efe718d68900f6dc270ebd0e73060c4082135d1ab696613193f45469f21f39",
+      "source": "corpus:john-wesley"
+    },
+    "b96": {
+      "en": "I Peter 5:12\n As I suppose - As I judge, upon good grounds, though not by immediate inspiration. I have written - That is, sent my letter by him. Adding my testimony - To that which ye before heard from Paul, that this is the true gospel of the grace of God.",
+      "es": "1 Pedro 5:12\n Como supongo - Según creo, con buena base, aunque no por inspiración inmediata. He escrito - Es decir, le envié mi carta. Agregando mi testimonio - A lo que antes oísteis de Pablo, que este es el verdadero evangelio de la gracia de Dios.",
+      "enHash": "4309a3e2eae036dc918f88b70d70dc3462819206236f26b8e1c9996a7049d175",
+      "source": "corpus:john-wesley"
+    },
+    "b97": {
+      "en": "I Peter 5:13\n The church that is at Babylon - Near which St. Peter probably was, when he wrote this epistle. Elected together with you - Partaking of the same faith with you. Mark - It seems the evangelist. My son - Probably converted by St. Peter. And he had occasionally served him, \"as a son in the gospel.\"",
+      "es": "1 Pedro 5:13\n La iglesia que está en Babilonia - Cerca de la cual probablemente estaba San Pedro cuando escribió esta epístola. Elegido junto contigo - Participando de la misma fe contigo. Marcos - Parece el evangelista. Mi hijo - Probablemente convertido por San Pedro. Y en ocasiones le había servido, \"como un hijo en el evangelio\".",
+      "enHash": "ecb6c36d39845a0a25c6d5566c523be5e33ebb084a9fbc8a4cc0b3b5123e4462",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:3": "b3",
+    "1:4": "b4",
+    "1:5": "b5",
+    "1:6": "b6",
+    "1:7": "b7",
+    "1:8": "b8",
+    "1:9": "b9",
+    "1:10": "b10",
+    "1:11": "b11",
+    "1:12": "b12",
+    "1:13": "b13",
+    "1:14": "b14",
+    "1:17": "b15",
+    "1:18": "b16",
+    "1:19": "b17",
+    "1:21": "b18",
+    "1:22": "b19",
+    "1:23": "b20",
+    "1:24": "b21",
+    "2:1": "b22",
+    "2:2": "b23",
+    "2:3": "b24",
+    "2:4": "b25",
+    "2:5": "b26",
+    "2:6": "b27",
+    "2:7": "b28",
+    "2:8": "b29",
+    "2:9": "b30",
+    "2:10": "b31",
+    "2:11": "b32",
+    "2:12": "b33",
+    "2:13": "b34",
+    "2:14": "b35",
+    "2:15": "b36",
+    "2:16": "b37",
+    "2:17": "b38",
+    "2:18": "b39",
+    "2:19": "b40",
+    "2:21": "b41",
+    "2:22": "b42",
+    "2:23": "b43",
+    "2:24": "b44",
+    "2:25": "b45",
+    "3:1": "b46",
+    "3:2": "b47",
+    "3:3": "b48",
+    "3:4": "b49",
+    "3:5": "b50",
+    "3:6": "b51",
+    "3:7": "b52",
+    "3:8": "b53",
+    "3:9": "b54",
+    "3:10": "b55",
+    "3:11": "b56",
+    "3:12": "b57",
+    "3:13": "b58",
+    "3:14": "b59",
+    "3:15": "b60",
+    "3:16": "b61",
+    "3:17": "b62",
+    "3:18": "b63",
+    "3:19": "b64",
+    "3:20": "b65",
+    "3:21": "b66",
+    "3:22": "b67",
+    "4:1": "b68",
+    "4:2": "b69",
+    "4:3": "b70",
+    "4:4": "b71",
+    "4:5": "b72",
+    "4:6": "b73",
+    "4:7": "b74",
+    "4:8": "b75",
+    "4:9": "b76",
+    "4:10": "b77",
+    "4:11": "b78",
+    "4:12": "b79",
+    "4:13": "b80",
+    "4:14": "b81",
+    "4:15": "b82",
+    "4:16": "b83",
+    "4:17": "b84",
+    "4:18": "b85",
+    "4:19": "b86",
+    "5:1": "b87",
+    "5:2": "b88",
+    "5:3": "b89",
+    "5:5": "b90",
+    "5:6": "b91",
+    "5:7": "b92",
+    "5:8": "b93",
+    "5:9": "b94",
+    "5:10": "b95",
+    "5:12": "b96",
+    "5:13": "b97"
+  }
+}

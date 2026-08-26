@@ -7,6 +7,7 @@ const POR_CODIGO = {
   G40: 'Santo, consagrado, separado para Dios.',
   G212: 'Jactancia, arrogancia, presunción vanagloriosa.',
   G235: 'Sino, mas; adversativa que introduce un contraste.',
+  G191: 'Oír, escuchar; prestar oído (ἀκούω).',
   G444: 'Hombre, ser humano.',
   G846: 'Él, ella, ello; mismo, mismo él.',
   G1063: 'Porque, pues; introduce la razón o explicación.',
@@ -34,6 +35,8 @@ const POR_CODIGO = {
   G5210: 'A vosotros, para vosotros, por vosotros.',
   G5259: 'Por, bajo, de parte de (agente).',
   G5342: 'Llevar, traer, portar.',
+  G2323: 'Curar, sanar; atender como médico.',
+  G2395: 'Médico, el que cura (ἰατρός).',
 };
 
 const PALABRAS = {
@@ -70,6 +73,20 @@ const PALABRAS = {
   among: 'entre / por medio de',
   into: 'hacia',
   upon: 'sobre',
+  above: 'sobre',
+  assemble: 'reunir / recoger',
+  gather: 'reunir / recoger',
+  accept: 'rostro / faz',
+  face: 'rostro / faz',
+  country: 'tierra',
+  ground: 'tierra',
+  utterance: 'oráculo / dicho',
+  cure: 'curar / sanar',
+  heal: 'sanar',
+  healing: 'sanidad',
+  physician: 'médico',
+  sick: 'enfermo',
+  disease: 'enfermedad',
   be: 'ser / estar',
   is: 'es',
   was: 'fue',
@@ -95,18 +112,22 @@ const PALABRAS = {
   word: 'palabra',
   speak: 'hablar',
   say: 'decir',
-  said: 'dijo',
+  said: 'oráculo / dicho',
   bring: 'traer',
   bear: 'llevar / soportar',
   carry: 'llevar',
   come: 'venir',
   go: 'ir',
   give: 'dar',
+  hear: 'oír',
+  hearing: 'oír / escuchar',
+  listen: 'escuchar',
+  listened: 'escuchó',
+  audience: 'oído / audiencia',
   take: 'tomar',
   make: 'hacer',
   do: 'hacer',
   see: 'ver',
-  hear: 'oír',
   know: 'conocer',
   love: 'amor',
   faith: 'fe',
@@ -183,17 +204,47 @@ const PALABRAS = {
   breath: 'aliento',
 };
 
+const ES_TOKENS = new Set(
+  Object.values(PALABRAS)
+    .flatMap((v) => String(v).split(/[^A-Za-záéíóúñüÁÉÍÓÚÑÜ]+/))
+    .map((w) => w.toLowerCase())
+    .filter(Boolean),
+);
+
 const EN_HINT =
   /\b(the|and|of|to|be|not|for|from|with|that|this|will|man|men|long|among|sometime|sometimes|prophecy|certain|never|under|holy|spirit|god|lord|word|come|go|give|take|make|say|said|bear|bring|carry|once|ever)\b/i;
+
+function tokensLexico(t) {
+  return String(t || '')
+    .split(/[^A-Za-záéíóúñüÁÉÍÓÚÑÜ]+/)
+    .map((w) => w.toLowerCase())
+    .filter(Boolean);
+}
+
+function pareceEspanolCatalogado(t) {
+  if (/[áéíóúñüÁÉÍÓÚÑÜ]/.test(t)) return true;
+  if (/\b(voluntad|hombre|espíritu|profecía|sino|porque|jamás|santo|hablar|traer|llevar|bajo|nunca|todo|todos|reunir|recoger|sobre|rostro|faz|tierra|oráculo|dicho)\b/i.test(t)) {
+    return true;
+  }
+  const toks = tokensLexico(t);
+  return toks.length > 0 && toks.every((w) => ES_TOKENS.has(w));
+}
 
 export function pareceIngles(texto) {
   const t = String(texto || '').trim();
   if (!t) return false;
-  if (/[áéíóúñüÁÉÍÓÚÑÜ]/.test(t)) return false;
-  if (/\b(voluntad|hombre|espíritu|profecía|sino|porque|jamás|santo|hablar|traer|llevar|bajo|nunca)\b/i.test(t)) {
-    return false;
-  }
+  if (pareceEspanolCatalogado(t)) return false;
   return EN_HINT.test(t) || /^[+/\-()\s]*[a-z]+([,\s;/]+[a-z]+)*$/i.test(t);
+}
+
+function mapearPalabras(t) {
+  const out = [];
+  for (const w of tokensLexico(t)) {
+    if (!w || w === 'the' || w === 'a' || w === 'an') continue;
+    const es = PALABRAS[w];
+    if (es) out.push(es);
+  }
+  return out.join(' ').replace(/\s+/g, ' ').trim();
 }
 
 export function glosaEspanol(raw, codigo = '') {
@@ -202,33 +253,16 @@ export function glosaEspanol(raw, codigo = '') {
     .toUpperCase()
     .replace(/^([GH])0*(\d+)$/, '$1$2');
   if (POR_CODIGO[key]) return POR_CODIGO[key];
+  if (/^\d+$/.test(key) && POR_CODIGO[`G${key}`]) return POR_CODIGO[`G${key}`];
 
   const t = String(raw || '')
     .replace(/<[^>]+>/g, ' ')
     .replace(/^[+\-–—\s]+/, '')
     .replace(/\s+/g, ' ')
     .trim();
-  if (!t) return POR_CODIGO[key] || '—';
+  if (!t) return POR_CODIGO[key] || '';
   if (!pareceIngles(t)) return t;
-
-  const parts = t.split(/[,;/]+/).map((p) => p.trim()).filter(Boolean);
-  const out = parts.map((p) => {
-    const words = p
-      .toLowerCase()
-      .replace(/[^a-z\s']/g, ' ')
-      .split(/\s+/)
-      .map((w) => PALABRAS[w])
-      .filter((w) => w != null && w !== '');
-    return words.join(' ').trim();
-  }).filter(Boolean);
-
-  const joined = [...new Set(out)].join('; ');
-  if (joined) return joined.charAt(0).toUpperCase() + joined.slice(1);
-  if (POR_CODIGO[key]) return POR_CODIGO[key];
-  if (pareceIngles(t)) {
-    return 'Glosa del original bíblico (equivalente español no catalogado para esta raíz).';
-  }
-  return t;
+  return mapearPalabras(t);
 }
 
 export function limpiarTextoVerso(html) {

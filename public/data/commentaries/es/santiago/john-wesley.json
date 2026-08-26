@@ -1,0 +1,661 @@
+{
+  "book": "Santiago",
+  "usfm": "JAS",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "James 1:1\n A servant of Jesus Christ - Whose name the apostle mentions but once more in the whole epistle, James 2:1 . And not at all in his whole discourse, Acts 15:14 , &c.; or Acts 21:20 - 25. It might have seemed, if he mentioned him often, that he did it out of vanity, as being the brother of the Lord. To the twelve tribes - Of Israel; that is, those of them that believe. Which are scattered abroad - In various countries. Ten of the tribes were scattered ever since the reign of Hosea; and great part of the rest were now dispersed through the Roman empire: as was foretold, Deut 28:25 ,",
+      "es": "Santiago 1:1\n Un siervo de Jesucristo - Cuyo nombre el apóstol menciona una vez más en toda la epístola, Santiago 2:1 . Y en absoluto en todo su discurso, Hechos 15:14 , etc.; o Hechos 21:20 - 25. Podría haber parecido, si lo mencionara con frecuencia, que lo hacía por vanidad, como hermano del Señor. A las doce tribus - De Israel; es decir, aquellos de los que creen. Que se encuentran dispersos en el extranjero - En varios países. Diez de las tribus fueron esparcidas desde el reinado de Oseas; y gran parte del resto ahora estaban dispersos por el imperio romano: como se predijo, Deuteronomio 28:25,",
+      "enHash": "edb507526298542097140a0b7ad2b96026a6ffea4dc83e46ccd7c8ec7c99bd0b",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "James 1:2\n My brethren, count it all joy - Which is the highest degree of patience, and contains all the rest. When ye fall into divers temptations - That is, trials.",
+      "es": "Santiago 1:2\n Hermanos míos, considérelo todo alegría - Que es el grado más alto de paciencia y contiene todo lo demás. Cuando caigáis en diversas tentaciones - Es decir, pruebas.",
+      "enHash": "c4710696f748ede898928b829f5e8b06b997ce04f36495bd0e469b39a2194430",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "James 1:4\n Let patience have its perfect work - Give it full scope, under whatever trials befal you. That ye may be perfect and entire - Adorned with every Christian grace. And wanting nothing - Which God requires in you.",
+      "es": "Santiago 1:4\n Deje que la paciencia haga su trabajo perfecto: déle pleno alcance, bajo cualquier prueba que le sobrevenga. Para que seáis perfectos y completos - Adornados con toda gracia cristiana. Y sin querer nada - Lo que Dios requiere en ti.",
+      "enHash": "4dc036953864c5bda76d3c631223667d1fd9d997aa25303414b4cb82dd23abd1",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "James 1:5\n If any want - The connexion between the first and following verses, both here and in the fourth chapter, will be easily discerned by him who reads them, while he is suffering wrongfully. He will then readily perceive, why the apostle mentions all those various affections of the mind. Wisdom - To understand, whence and why temptations come, and how they are to be improved. Patience is in every pious man already. Let him exercise this, and ask for wisdom. The sum of wisdom, both in the temptation of poverty and of riches, is described in the ninth and tenth verses. Who giveth to all - That ask aright. And upbraideth not - Either with their past wickedness, or present unworthiness.",
+      "es": "Santiago 1:5\n Si alguno quiere - La conexión entre el primer versículo y los siguientes, tanto aquí como en el cuarto capítulo, será fácilmente discernida por quien los lea, mientras sufre injustamente. Entonces percibirá fácilmente por qué el apóstol menciona todas esas diversas afecciones de la mente. Sabiduría: comprender de dónde y por qué vienen las tentaciones y cómo mejorarlas. La paciencia ya está en todo hombre piadoso. Que ejerza esto y pida sabiduría. La suma de la sabiduría, tanto en la tentación de la pobreza como de la riqueza, se describe en los versículos noveno y décimo. Quien da a todos - Eso pide correctamente. Y no reprende - Ya sea por su maldad pasada o por su indignidad presente.",
+      "enHash": "7d5ea4d618ca3c9c2ed5ebdcdc5af2cdad67a11a81196821c3c90f63b03cad55",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "James 1:6\n But let him ask in faith - A firm confidence in God. St. James also both begins and ends with faith, James 5:15 ; the hinderances of which he removes in the middle part of his epistle. He that doubteth is like a wave of the sea - Yea, such are all who have not asked and obtained wisdom. Driven with the wind - From without. And tossed - From within, by his own unstableness.",
+      "es": "Santiago 1:6\n Pero que pida con fe - Una firme confianza en Dios. Santiago también comienza y termina con la fe, Santiago 5:15; cuyos obstáculos elimina en la parte media de su epístola. El que duda es como una ola del mar - Sí, tales son todos los que no han pedido ni obtenido sabiduría. Impulsado por el viento - Desde fuera. Y arrojado - Desde dentro, por su propia inestabilidad.",
+      "enHash": "1c7c223fe429723635063b95ee3f4e1debc59bbf991577d8f52012a58c09a286",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "James 1:8\n A doubleminded man - Who has, as it were, two souls; whose heart is not simply given up to God. Is unstable - Being without the true wisdom; perpetually disagrees both with himself and others, James 3:16 .",
+      "es": "Santiago 1:8\n Un hombre de doble ánimo - Que tiene, por así decirlo, dos almas; cuyo corazón no está simplemente entregado a Dios. Es inestable - Estar sin la verdadera sabiduría; perpetuamente no está de acuerdo tanto consigo mismo como con los demás, Santiago 3:16 .",
+      "enHash": "a4a04319e2e9b47eea35151c610e6b815913e2266a3f83b0528e339e8bc7fccd",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "James 1:9\n Let the brother - St James does not give this appellation to the rich. Of low degree - Poor and tempted. Rejoice - The most effectual remedy against doublemindedness. In that he is exalted - To be a child of God, and an heir of glory.",
+      "es": "Santiago 1:9\n Que el hermano... Santiago no da este apelativo a los ricos. De bajo grado - Pobre y tentado. Alégrate: el remedio más eficaz contra la doble mentalidad. En eso es exaltado - Para ser hijo de Dios y heredero de la gloria.",
+      "enHash": "034ad4aadd5a0b89d1288c804266a18c3d2d0b66b7cd9fe7647657aedbf31891",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "James 1:10\n But the rich, in that he is made low - Is humbled by a deep sense of his true condition. Because as the flower - Beautiful, but transient. He shall pass away - Into eternity.",
+      "es": "Santiago 1:10\n Pero el rico, en el sentido de que es humillado, se siente humillado por un profundo sentido de su verdadera condición. Porque como la flor - Hermosa, pero pasajera. Fallecerá - Hacia la eternidad.",
+      "enHash": "719494dccbe0d55ea877ff247f74c18b3eba52a93ef1c1aab483d6f39ad17580",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "James 1:11\n For the sun arose and withered the grass - There is an unspeakable beauty and elegance, both in the comparison itself, and in the very manner of expressing it, intimating both the certainty and the suddenness of the event. So shall the rich fade away in his ways - In the midst of his various pleasures and employments.",
+      "es": "Santiago 1:11\n Porque salió el sol y secó la hierba - Hay una belleza y elegancia indescriptibles, tanto en la comparación misma como en la manera misma de expresarla, insinuando tanto la certeza como lo repentino del evento. Así los ricos se desvanecerán en sus caminos - En medio de sus diversos placeres y empleos.",
+      "enHash": "62444bac16c9eb08f184fc03408d86cde225ba5e463156eb49092ef034c99085",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "James 1:12\n Happy is the man that endureth temptation - Trials of various kinds. He shall receive the crown - That fadeth not away. Which the Lord hath promised to them that love him - And his enduring proves his love. For it is love only that \"endureth all things.\"",
+      "es": "Santiago 1:12\n Feliz el hombre que soporta la tentación - Pruebas de diversa índole. Recibirá la corona - Eso no se desvanece. Que el Señor ha prometido a los que lo aman - Y su perseverancia prueba su amor. Porque es sólo el amor el que \"todo lo soporta\".",
+      "enHash": "ddc47588a0ff7f7cd71439bdcf58658ad859ab4b2a2c5abbd95022e59127a25f",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "But let no man who is tempted - To sin.\n\n Say, I am tempted of God — God thus tempteth no man.",
+      "es": "Pero nadie que sea tentado - a pecar.\n\n Di: Soy tentado por Dios; por eso Dios no tienta a ningún hombre.",
+      "enHash": "b938a3723560a26b1ae23ee2d0094d0e45aba60abdfd80b7b11fe6f5034e9aaa",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "James 1:14\n Every man is tempted, when - In the beginning of the temptation. He is drawn away - Drawn out of God, his strong refuge. By his own desire - We are therefore to look for the cause of every sin, in, not out of ourselves. Even the injections of the devil cannot hurt before we make them our own. And every one has desires arising from his own constitution, tempers, habits, and way of life. And enticed - In the progress of the temptation, catching at the bait: so the original word signifies.",
+      "es": "Santiago 1:14\n Todo hombre es tentado, cuando - Al comienzo de la tentación. Se aleja - Sacado de Dios, su fuerte refugio. Por su propio deseo - Por lo tanto, debemos buscar la causa de cada pecado, dentro de nosotros mismos, no fuera de nosotros mismos. Incluso las inyecciones del diablo no pueden hacer daño antes de que las hagamos nuestras. Y cada uno tiene deseos que surgen de su propia constitución, temperamento, hábitos y forma de vida. Y atraído - En el progreso de la tentación, atrapando el anzuelo: así significa la palabra original.",
+      "enHash": "24dfc4210c3960a1a77611f652f16c7196e56703fc16599294a393031605ec9b",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "James 1:15\n Then desire having conceived - By our own will joining therewith. Bringeth forth actual sin - It doth not follow that the desire itself is not sin. He that begets a man is himself a man. And sin being perfected - Grown up to maturity, which it quickly does. Bringeth forth death - Sin is born big with death.",
+      "es": "Santiago 1:15\n Entonces deseo haber concebido - Por nuestra propia voluntad unirnos a ello. Produce pecado real - No se sigue que el deseo en sí no sea pecado. El que engendra un hombre, él mismo es un hombre. Y el pecado se perfecciona - Crece hasta la madurez, lo que sucede rápidamente. Da a luz la muerte - El pecado nace grande con la muerte.",
+      "enHash": "e350ef4dc7f00cc8c8414ac13861f28badd94ea77123dfe5be71eac452b46129",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "Do not err — It is a grievous error to ascribe the evil and not the good which we receive to God.",
+      "es": "No os equivoquéis: es un error grave atribuir a Dios el mal y no el bien que recibimos.",
+      "enHash": "a661207c1f90d6d383e331a4d5cff50523d6751771b59c3c575b14af48b2bdc6",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "James 1:17\n No evil, but every good gift - Whatever tends to holiness. And every perfect gift - Whatever tends to glory. Descendeth from the Father of lights - The appellation of Father is here used with peculiar propriety. It follows, \"he begat us.\" He is the Father of all light, material or spiritual, in the kingdom of grace and of glory. With whom is no variableness - No change in his understanding. Or shadow of turning - in his will. He infallibly discerns all good and evil; and invariably loves one, and hates the other. There is, in both the Greek words, a metaphor taken from the stars, particularly proper where the Father of lights is mentioned. Both are applicable to any celestial body, which has a daily vicissitude of day and night, and sometimes longer days, sometimes longer nights. In God is nothing of this kind. He is mere light. If there Is any such vicissitude, it is in ourselves, not in him.",
+      "es": "Santiago 1:17\n Ningún mal, sino todo bien, todo lo que tiende a la santidad. Y todo regalo perfecto: todo lo que tiende a la gloria. Desciende del Padre de las luces - La denominación de Padre se usa aquí con peculiar propiedad. Sigue: \"Él nos engendró\". Él es el Padre de toda luz, material o espiritual, en el reino de la gracia y de la gloria. Con quien no hay variabilidad - No hay cambios en su comprensión. O sombra de giro - en su voluntad. Él discierne infaliblemente todo el bien y el mal; e invariablemente ama a uno y odia al otro. En ambas palabras griegas hay una metáfora tomada de las estrellas, particularmente apropiada cuando se menciona al Padre de las luces. Ambos son aplicables a cualquier cuerpo celeste, que tiene una vicisitud diaria de día y noche, y a veces días más largos, a veces noches más largas. En Dios no hay nada de esto. Él es mera luz. Si existe tal vicisitud, es en nosotros mismos, no en él.",
+      "enHash": "18cbc4f6642c8757a42c60ee5e9c89ffe57c8b8495ec121fb61a2f4f836ccff1",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "James 1:18\n Of his own will - Most loving, most free, most pure, just opposite to our evil desire, Jas 1:15 . Begat he us - Who believe. By the word of truth - The true word, emphatically so termed; the gospel. That we might be a kind of first - fruits of his creatures - Christians are the chief and most excellent of his visible creatures; and sanctify the rest. Yet he says, A kind of - For Christ alone is absolutely the first - fruits.",
+      "es": "Santiago 1:18\n Por su propia voluntad - Muy amoroso, más libre, más puro, justo lo contrario de nuestro mal deseo, Santiago 1:15 . Él nos engendró a los que creemos. Por la palabra de verdad - La palabra verdadera, así denominada enfáticamente; el evangelio. Para que podamos ser una especie de primicias de sus criaturas, los cristianos son las principales y más excelentes de sus criaturas visibles; y santificar a los demás. Sin embargo, dice: Una especie de... Porque sólo Cristo es absolutamente las primicias.",
+      "enHash": "4d793f1c2eabdbee884453df360dc00ebde738bf2b790d37bd4dcd3d7760041b",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "James 1:19\n Let every man be swift to hear - This is treated of from Jas 1:21 to the end of the next chapter . Slow to speak - Which is treated of in he third chapter. Slow to wrath - Neither murmuring at God, nor angry at his neighbour. This is treated of in the third, and throughout the fourth and fifth chapters.",
+      "es": "Santiago 1:19\n Que todo hombre sea rápido para escuchar - Esto se trata desde Santiago 1:21 hasta el final del siguiente capítulo. Lento para hablar - Lo cual se trata en el tercer capítulo. Lento para la ira - Sin murmurar contra Dios ni enojado con su prójimo. Esto se trata en el tercer capítulo y a lo largo del cuarto y quinto capítulo.",
+      "enHash": "48b61f000e8744e1c481a25cd4a1497ce54aa6997e4476fb2819387543ddef67",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "The righteousness of God here includes all duties prescribed by him, and pleasing to him.",
+      "es": "La justicia de Dios aquí incluye todos los deberes prescritos por él y que le agradan.",
+      "enHash": "626cb66907aa94ed5c4cbc86288c566b666304dfbf382c22300ce5b460b3e95c",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "James 1:21\n Therefore laying aside - As a dirty garment. All the filthiness and superfluity of wickedness - For however specious or necessary it may appear to worldly wisdom, all wickedness is both vile, hateful, contemptible, and really superfluous. Every reasonable end may be effectually answered without any kind or degree of it. Lay this, every known sin, aside, or all your hearing is vain. With meekness - Constant evenness and serenity of mind. Receive - Into your ears, your heart, your life. The word - Of the gospel. Ingrafted - In believers, by regeneration, Jas 1:18 and by habit , Heb 5:14 . Which is able to save your souls - The hope of salvation nourishes meekness.",
+      "es": "Santiago 1:21\n Por lo tanto, dejar a un lado - Como una prenda sucia. Toda la inmundicia y superfluidad de la maldad - Por muy engañosa o necesaria que pueda parecerle a la sabiduría mundana, toda maldad es vil, odiosa, despreciable y realmente superflua. Todo fin razonable puede ser respondido eficazmente sin ningún tipo o grado de éste. Dejad a un lado todo pecado conocido, o todo vuestro oído será en vano. Con mansedumbre - Constante uniformidad y serenidad mental. Recibe - En tus oídos, tu corazón, tu vida. La palabra - Del evangelio. Injertado - En los creyentes, por regeneración, Santiago 1:18 y por hábito, Heb 5:14. Que puede salvar vuestras almas - La esperanza de la salvación alimenta la mansedumbre.",
+      "enHash": "8f80c54deb8b74d0727e7c5a4d8d89a66baee71d79a04e76e187e65cde4911fd",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "Beholding his face in a glass — How exactly does the scripture glass show a man the face of his soul!",
+      "es": "Contemplar su rostro en un espejo: ¡Cómo exactamente el espejo de las Escrituras muestra a un hombre el rostro de su alma!",
+      "enHash": "265142814ef780994de45d9b74dea271f1252823ccae03a664ee704211380d0a",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "James 1:24\n He beheld himself, and went away - To other business. And forgot - But such forgetting does not excuse.",
+      "es": "Santiago 1:24\n Se miró a sí mismo y se fue - A otros asuntos. Y lo olvidé - Pero tal olvido no excusa.",
+      "enHash": "457f74569f34a8e958adfbacb4c9ee8c38599fae6a244fa4495df48e23104cd4",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "James 1:25\n But he that looketh diligently - Not with a transient glance, but bending down, fixing his eyes, and searching all to the bottom. Into the perfect law - Of love as established by faith. St. James here guards us against misunderstanding what St. Paul says concerning the \"yoke and bondage of the law.\" He who keeps the law of love is free, John 8:31 , James 2:10 . And continueth therein - Not like him who forgot it, and went away. This man - There is a peculiar force in the repetition of the word. Shall be happy - Not barely in hearing, but doing the will of God.",
+      "es": "Santiago 1:25\n Pero el que mira diligentemente - No con una mirada pasajera, sino inclinándose, fijando los ojos y buscando todo hasta el fondo. En la ley perfecta - Del amor establecido por la fe. Santiago nos protege aquí contra malentendidos de lo que dice San Pablo sobre el \"yugo y la servidumbre de la ley\". El que guarda la ley del amor es libre, Juan 8:31, Santiago 2:10. Y continúa allí - No como el que lo olvidó y se fue. Este hombre - Hay una fuerza peculiar en la repetición de la palabra. Será feliz - No apenas escuchando, sino haciendo la voluntad de Dios.",
+      "enHash": "f0d2a6c6aafd81ed494c1853fce15cea3cc3274cf51d85fcddb0006f04b65794",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "James 1:26\n If any one be ever so religious - Exact in the outward offices of religion. And bridleth not his tongue - From backbiting, talebearing, evilspeaking, he only deceiveth his own heart, if he fancies he has any true religion at all.",
+      "es": "Santiago 1:26\n Si alguien es tan religioso - Exacto en los oficios externos de la religión. Y no refrena su lengua - Por calumniar, chismear y hablar mal, solo engaña a su propio corazón, si cree que tiene alguna religión verdadera.",
+      "enHash": "f22800415420aeb5c9fa7e41e3bcc1c72a9a9e4f570bbccbabdff2b00afdd1b4",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "James 1:27\n The only true religion in the sight of God, is this, to visit - With counsel, comfort, and relief. The fatherless and widows - Those who need it most. In their affliction - In their most helpless and hopeless state. And to keep himself unspotted from the world - From the maxims, tempers, and customs of it. But this cannot be done, till we have given our hearts to God, and love our neighbour as ourselves.",
+      "es": "Santiago 1:27\n La única religión verdadera a los ojos de Dios es ésta: visitarla: con consejo, consuelo y alivio. Los huérfanos y las viudas - Los que más lo necesitan. En su aflicción - En su estado más impotente y desesperado. Y para mantenerse sin mancha del mundo - De las máximas, temperamentos y costumbres del mismo. Pero esto no se puede hacer hasta que hayamos entregado nuestro corazón a Dios y amemos a nuestro prójimo como a nosotros mismos.",
+      "enHash": "fd2649e573696ab2c953e60659112addccf80aff177e7a2dfe4619e49ffc562c",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "James 2:1\n My brethren - The equality of Christians, intimated by this name, is the ground of the admonition. Hold not the faith of our common Lord, the Lord of glory - Of which glory all who believe in him partake. With respect of persons - That is, honour none merely for being rich; despise none merely for being poor.",
+      "es": "Santiago 2:1\n Hermanos míos - La igualdad de los cristianos, insinuada por este nombre, es el fundamento de la amonestación. No sostengas la fe de nuestro Señor común, el Señor de la gloria, de cuya gloria participan todos los que creen en él. Con respecto a las personas - Es decir, no honre a nadie simplemente por ser rico; No desprecies a nadie simplemente por ser pobre.",
+      "enHash": "4a8c44a33924fb09670b171873d52ecc7eb0209da70e28f840048fe4c5f6ca0c",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "With gold rings — Which were not then so common as now.",
+      "es": "Con anillos de oro... Que entonces no eran tan comunes como ahora.",
+      "enHash": "f450eb80a7f06585c3120229f8187ebe160817edbe74bf5e8f5d2c510a21a6e7",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "Ye look upon him — With respect.",
+      "es": "Lo miráis con respeto.",
+      "enHash": "856ddae546164b15f2da8844bcaced08f7f2cc42743c7ca467773ccbcd44549a",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "James 2:4\n Ye distinguish not - To which the most respect is due, to the poor or to the rich. But are become evil - reasoning judges - You reason ill, and so judge wrong: for fine apparel is no proof of worth in him that wears it.",
+      "es": "Santiago 2:4\n No distinguís - A quién se debe el mayor respeto, a los pobres o a los ricos. Pero os habéis convertido en malos - jueces razonantes - Razonáis mal, y por eso juzgáis mal: porque la ropa fina no es prueba de valor para quien la usa.",
+      "enHash": "96ba08c18ded1d8d6a83bee182d0b470064155d69337d0840ea98f714867fcb6",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "James 2:5\n Hearken - As if he had said, Stay, consider, ye that judge thus. Does not the presumption lie rather in favour of the poor man? Hath not God chosen the poor - That is, are not they whom God hath chosen, generally speaking, poor in this world? who yet are rich in faith, and heirs of the kingdom - Consequently, the most honourable of men: and those whom God so highly honours, ought not ye to honour likewise?",
+      "es": "Santiago 2:5\n Escuchen - Como si hubiera dicho: Quédense, consideren, ustedes que juzgan así. ¿No favorece más bien la presunción al pobre? ¿No ha elegido Dios a los pobres? Es decir, ¿no son aquellos a quienes Dios ha elegido, en general, pobres en este mundo? quienes aún son ricos en fe y herederos del reino - En consecuencia, los más honorables de los hombres: y aquellos a quienes Dios honra tan altamente, ¿no deberían ustedes honrar igualmente?",
+      "enHash": "00c202186039e72112a69f6db35d220489d0207cc15795ed4cd0e7907189e3d7",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "Do not the rich often oppress you — By open violence; often drag you - Under colour of law.",
+      "es": "¿No os oprimen a menudo los ricos con violencia abierta; A menudo te arrastra - Bajo el color de la ley.",
+      "enHash": "a5f9d0f233ed020df64b0ef5f85836a5a05bd86863ad527428061c94fefa3d8c",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "James 2:7\n Do not they blaspheme that worthy name - Of God and of Christ. The apostle speaks chiefly of rich heathens: but are Christians, so called, a whit behind them?",
+      "es": "Santiago 2:7\n No blasfemen de ese digno nombre: De Dios y de Cristo. El apóstol habla principalmente de los paganos ricos: pero ¿están los llamados cristianos un poco por detrás de ellos?",
+      "enHash": "4f0c3a0bc8b23ead4766ab03288650a3e5c7c50dc512ca49e2ddc8cddb419bb3",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "James 2:8\n If ye fulfil the royal law - The supreme law of the great King which is love; and that to every man, poor as well as rich, ye do well. Lev 19:18 .",
+      "es": "Santiago 2:8\n Si cumplís la ley real - La ley suprema del gran Rey que es el amor; y que a todo hombre, tanto pobre como rico, hagáis el bien. Lev 19:18 .",
+      "enHash": "db4895946c389b2ac7844f9b6579f6ee93311c8bab67c4293d49febd1ad25968",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "Being convicted — By that very law. Exodus 23:3 .",
+      "es": "Ser condenado - Por esa misma ley. Éxodo 23:3 .",
+      "enHash": "507bfcce99ca8ff7bed9f9c14cfaa6344defd5fe8916c69d465d1bd17112b227",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "James 2:10\n Whosoever keepeth the whole law, except in one point, he is guilty of all - Is as liable to condemnation as if he had offended in every point.",
+      "es": "Santiago 2:10\n Quien guarda toda la ley, excepto en un punto, es culpable de todos - Está tan sujeto a condenación como si hubiera ofendido en todos los puntos.",
+      "enHash": "57a63b8349a4890c7acc545c04d64bf4771deb80aaadcc47d68d4d4b234b8cbe",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "For it is the same authority which establishes every commandment.",
+      "es": "Porque es la misma autoridad la que establece todos los mandamientos.",
+      "enHash": "12ac30f08c337f2fbc643f34dd0571251136eef80b5006a4dc5bdd9c04d978b9",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "James 2:12\n So speak and act - In all things. As they that shall be judged - Without respect of persons. By the law of liberty - The gospel; the law of universal love, which alone is perfect freedom. For their transgressions of this, both in word and deed, the wicked shall be condemned; and according to their works, done in obedience to this, the righteous will be rewarded.",
+      "es": "Santiago 2:12\n Así que habla y actúa - En todas las cosas. Como los que serán juzgados - Sin respeto a las personas. Por la ley de la libertad - El evangelio; la ley del amor universal, que es la única libertad perfecta. Por sus transgresiones de esto, tanto de palabra como de obra, los impíos serán condenados; y según sus obras, hechas en obediencia a esto, los justos serán recompensados.",
+      "enHash": "74219617b637525011f342762e9285c74db43b48b6936b8c3f6654e4a299acef",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "James 2:13\n Judgment without mercy shall be to him - In that day. Who hath showed no mercy - To his poor brethren. But the mercy of God to believers, answering to that which they have shown, will then glory over judgment.",
+      "es": "Santiago 2:13\n El juicio sin piedad será para él - En ese día. Quien no ha mostrado misericordia - Con sus hermanos pobres. Pero la misericordia de Dios para con los creyentes, respondiendo a lo que han mostrado, se gloriará entonces sobre el juicio.",
+      "enHash": "3aa5de51183d8af88cc466f8cca489a5fe4933368aa84ba4ce226a4366049f2f",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "James 2:14\n From James 1:22 , the apostle has been enforcing Christian practice. He now applies to those who neglect this, under the pretence of faith. St. Paul had taught that \"a man is justified by faith without the works of the law.\" This some began already to wrest to their own destruction. Wherefore St. James, purposely repeating ( Jas 2:21 ,23,25) the same phrases, testimonies, and examples, which St. Paul had used, Rom 4:3 , Heb 11:17 ,31, refutes not the doctrine of St. Paul, but the error of those who abused it. There is, therefore, no contradiction between the apostles: they both delivered the truth of God, but in a different manner, as having to do with different kinds of men. On another occasion St. James himself pleaded the cause of faith, Acts 15:13 - 21; and St. Paul himself strenuously pleads for works, particularly in his latter epistles. This verse is a summary of what follows. What profiteth it? is enlarged on,\n Jas 2:15-17 ; though a man say, Jas 2:18,19 can that faith save him? Jas 2:20 .\n It is not, though he have faith; but, though he say he have faith. Here, therefore, true, living faith is meant: but in other parts of the argument the apostle speaks of a dead, imaginary faith. He does not, therefore, teach that true faith can, but that it cannot, subsist without works: nor does he oppose faith to works; but that empty name of faith, to real faith working by love. Can that faith \"which is without works\" save him? No more than it can profit his neighbour.",
+      "es": "Santiago 2:14\n Desde Santiago 1:22, el apóstol ha estado imponiendo la práctica cristiana. Ahora se aplica a aquellos que descuidan esto, bajo el pretexto de la fe. San Pablo había enseñado que \"el hombre es justificado por la fe sin las obras de la ley\". Algunos ya comenzaron a arrebatar esto para su propia destrucción. Por lo tanto, Santiago, repitiendo deliberadamente (Stg 2:21, 23,25) las mismas frases, testimonios y ejemplos que San Pablo había usado, Rom 4:3, Heb 11:17, 31, no refuta la doctrina de San Pablo, sino el error de quienes abusaron de ella. Por lo tanto, no hay contradicción entre los apóstoles: ambos predicaron la verdad de Dios, pero de manera diferente, como si trataran con diferentes tipos de hombres. En otra ocasión el propio Santiago defendió la causa de la fe, Hechos 15:13 - 21; y el propio San Pablo aboga enérgicamente por obras, particularmente en sus últimas epístolas. Este versículo es un resumen de lo que sigue. ¿De qué le sirve? se amplía,\n Santiago 2:15-17; aunque un hombre diga: Santiago 2:18,19, ¿puede esa fe salvarlo? Santiago 2:20.\n No lo es, aunque tenga fe; pero, aunque diga que tiene fe. Por lo tanto, aquí se refiere a una fe verdadera y viva: pero en otras partes del argumento el apóstol habla de una fe muerta e imaginaria. Por lo tanto, no enseña que la verdadera fe puede, pero que no puede, subsistir sin obras: ni opone la fe a las obras; sino ese nombre vacío de la fe, a la fe real obrando por el amor. ¿Puede salvarlo esa fe \"sin obras\"? No más de lo que puede beneficiar a su vecino.",
+      "enHash": "321583703c12c068af10379d0f61677c8ce3b77e600cca52ffb7aee263d25526",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "James 2:17\n So likewise that faith which hath not works is a mere dead, empty notion; of no more profit to him that hath it, than the bidding the naked be clothed is to him.",
+      "es": "Santiago 2:17\n De la misma manera, la fe que no tiene obras es una mera noción muerta y vacía; No tiene más provecho para el que lo tiene, que ordenar que se vista al desnudo.",
+      "enHash": "562ac8cfe5be4d6145f0ca7ddb7bd521bb150e3eac0b832b174ebec515a4c021",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "James 2:18\n But one - Who judges better. Will say - To such a vain talker. Show me, if thou canst, thy faith without thy works.",
+      "es": "Santiago 2:18\n Pero hay uno que juzga mejor. Dirá: A un conversador tan vanidoso. Muéstrame, si puedes, tu fe sin tus obras.",
+      "enHash": "0cf9423b8ed2a7c985345bb8d61bc2231c036f2c18fc1d977b4b5cb928e79f1a",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "James 2:19\n Thou believest there is one God - I allow this: but this proves only that thou hast the same faith with the devils. Nay, they not only believe, but tremble - At the dreadful expectation of eternal torments. So far is that faith from either justifying or saving them that have it.",
+      "es": "Santiago 2:19\n Crees que hay un Dios; lo admito, pero esto sólo prueba que tienes la misma fe que los demonios. No, no sólo creen, sino que tiemblan - Ante la terrible expectativa de los tormentos eternos. Hasta ahora esa fe está lejos de justificar o salvar a quienes la tienen.",
+      "enHash": "d2c4c9fbb384b683c1cc736e8cf158e5df73defb6a7b7c4dac88c9ab8c185404",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "James 2:20\n But art than willing to know - Indeed thou art not: thou wouldest fain be ignorant of it. O empty man - Empty of all goodness. That the faith which is without works is dead - And so is not properly faith, as a dead carcase is not a man.",
+      "es": "Santiago 2:20\n Pero estás más que dispuesto a saber - De hecho, no lo estás: de buena gana lo ignorarías. Oh hombre vacío - Vacío de toda bondad. Que la fe que no tiene obras está muerta - Y por eso no es propiamente fe, como un cadáver no es un hombre.",
+      "enHash": "0c9f84aa15918fcdf1295591901d4798d280f9151f948761d090e2a4d3e5596c",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "James 2:21\n Was not Abraham justified by works - St. Paul says he was justified by faith, Rom 4:2 , &c.: yet St. James does not contradict him; for he does not speak of the same justification. St. Paul speaks of that which Abraham received many years before Isaac was born, Gen 15:6 . St. James, of that which he did not receive till he had offered up Isaac on the altar. He was justified, therefore, in St. Paul's sense, (that is, accounted righteous,) by faith, antecedent to his works. He was justified in St. James's sense, (that is, made righteous,) by works, consequent to his faith. So that St. James's justification by works is the fruit of St Paul's justification by faith.",
+      "es": "Santiago 2:21\n ¿No fue Abraham justificado por las obras? San Pablo dice que fue justificado por la fe, Romanos 4:2, etc.: sin embargo, Santiago no lo contradice; porque no habla de la misma justificación. San Pablo habla de lo que Abraham recibió muchos años antes de que naciera Isaac, Gn 15,6. Santiago, de lo que no recibió hasta haber ofrecido a Isaac sobre el altar. Fue justificado, por tanto, en el sentido de San Pablo (es decir, considerado justo) por la fe, anterior a sus obras. Fue justificado en el sentido de Santiago (es decir, hecho justo) por obras, consiguientes a su fe. De modo que la justificación de Santiago por las obras es fruto de la justificación de San Pablo por la fe.",
+      "enHash": "bae646b853889ccefbe8bce5453ce5ea55597a2c8d7402f3627426818aef79d7",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "James 2:22\n Thou seest that faith - For by faith Abraham offered him, Heb 11:17 . Wrought together with his works - Therefore faith has one energy and operation; works, another: and the energy and operation of faith are before works, and together with them. Works do not give life to faith, but faith begets works, and then is perfected by them. And by works was faith made perfect - Here St. James fixes the sense wherein he uses the word justified; so that no shadow of contradiction remains between his assertion and St. Paul's. Abraham returned from that sacrifice perfected in faith, and far higher in the favour of God. Faith hath not its being from works, (for it is before them,) but its perfection. That vigour of faith which begets works is then excited and increased thereby, as the natural heat of the body begets motion, whereby itself is then excited and increased. See 1John 3:22 .",
+      "es": "Santiago 2:22\n Ves esa fe - Porque por la fe Abraham le ofreció, Heb 11:17 . Obtenido junto con sus obras - Por tanto, la fe tiene una energía y operación; obras, otra: y la energía y operación de la fe son anteriores a las obras, y junto con ellas. Las obras no dan vida a la fe, pero la fe engendra obras y luego es perfeccionada por ellas. Y por las obras la fe se perfeccionó - Aquí Santiago fija el sentido en el que usa la palabra justificado; de modo que no quede ninguna sombra de contradicción entre su afirmación y la de San Pablo. Abraham regresó de ese sacrificio perfeccionado en la fe y mucho más alto en el favor de Dios. La fe no surge de las obras (porque es anterior a ellas), sino de su perfección. Ese vigor de la fe que engendra obras se excita y aumenta con ellas, como el calor natural del cuerpo engendra movimiento, por el cual él mismo se excita y aumenta. Ver 1 Juan 3:22 .",
+      "enHash": "0002d7863126c620cd2894823f44161043c258f8ab4850b125a8611ab35bedc2",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "James 2:23\n And the scripture - Which was afterwards written. Was hereby eminently fulfilled, Abraham believed God, and it was imputed to him for righteousness - This was twice fulfilled, - when Abraham first believed, and when he offered up Isaac. St. Paul speaks of the former fulfilling; St. James, of the latter. And he was called the Friend of God - Both by his posterity, 2Chron 20:7 ; and by God himself, Isa 41:8 so pleasing to God were the works be wrought in faith. Gen 15:6",
+      "es": "Santiago 2:23\n Y la Escritura - Que luego fue escrita. En esto se cumplió eminentemente: Abraham creyó a Dios, y le fue imputado por justicia. Esto se cumplió dos veces: cuando Abraham creyó por primera vez y cuando ofreció a Isaac. San Pablo habla del cumplimiento anterior; Santiago, de este último. Y fue llamado Amigo de Dios - Ambos por su posteridad, 2 Crón. 20:7; y por Dios mismo, Isaías 41:8, tan agradables a Dios eran las obras realizadas con fe. Génesis 15:6",
+      "enHash": "a2d4178830f1bf33674bd0c77a63d922c6cd70920ee956b42f9dcaa7c3fb61a2",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "James 2:24\n Ye see then that a man is justified by works, and not by faith only - St. Paul, on the other band, declares, \"A man is justified by faith,\" and not by works, Rom 3:28 . And yet there is no contradiction between the apostles: because, They do not speak of the same faith: St. Paul speaking of living faith; St. James here, of dead faith. They do not speak of the same works: St. Paul speaking of works antecedent to faith; St. James, of works subsequent to it.",
+      "es": "Santiago 2:24\n Veis entonces que un hombre es justificado por las obras, y no sólo por la fe - San Pablo, por otro lado, declara: \"El hombre es justificado por la fe\", y no por las obras, Romanos 3:28. Y, sin embargo, no hay contradicción entre los apóstoles: porque no hablan de la misma fe: San Pablo habla de fe viva; Aquí Santiago, de la fe muerta. No hablan de las mismas obras: San Pablo habla de obras antecedentes a la fe; Santiago, de obras posteriores al mismo.",
+      "enHash": "54f56aad042ad9db6f867d5aa3f5ff54ae638b607dc5e7b5a72c1e47cb19585e",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "James 2:25\n After Abraham, the father of the Jews, the apostle cites Rahab, a woman, and a sinner of the gentiles; to show, that in every nation and sex true faith produces works, and is perfected by them; that is, by the grace of God working in the believer, while he is showing his faith by his works.",
+      "es": "Santiago 2:25\n Después de Abraham, el padre de los judíos, el apóstol cita a Rahab, una mujer y pecadora de los gentiles; para mostrar que en cada nación y sexo la verdadera fe produce obras y es perfeccionada por ellas; es decir, por la gracia de Dios obrando en el creyente, mientras él muestra su fe por sus obras.",
+      "enHash": "f8fc3a4e24994f9607d7eb8ab7368852e5c827733f6a7b097500b54a224bf9dd",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "James 3:1\n Be not many teachers - Let no more of you take this upon you than God thrusts out; seeing it is so hard not to offend in speaking much. Knowing that we - That all who thrust themselves into the office. Shall receive greater condemnation - For more offences. St. James here, as in several of the following verses, by a common figure of speech, includes himself: we shall receive, - we offend, - we put bits, - we curse - None of which, as common sense shows, are to be interpreted either of him or of the other apostles.",
+      "es": "Santiago 3:1\n No seáis muchos maestros - No dejéis que más de vosotros asuman esto de lo que Dios expulsa; Viéndolo así, es muy difícil no ofender al hablar mucho. Sabiendo que nosotros - Que todos los que se metieron en la oficina. Recibirá mayor condena - Por más delitos. Santiago aquí, como en varios de los siguientes versículos, mediante una figura retórica común, se incluye a sí mismo: recibiremos, - ofenderemos, - pondremos pedazos, - maldeciremos - Ninguno de los cuales, como muestra el sentido común, debe ser interpretado ni de él ni de los demás apóstoles.",
+      "enHash": "805ee5a93be8378a80890c2101d642312a5dfd191f34a7c4f030bdab754c44d3",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "James 3:2\n The same is able to bridle the whole body - That is, the whole man. And doubtless some are able to do this, and so are in this sense perfect.",
+      "es": "Santiago 3:2\n Lo mismo es capaz de frenar todo el cuerpo - Es decir, todo el hombre. Y sin duda algunos son capaces de hacer esto, y por eso son perfectos en este sentido.",
+      "enHash": "856ea2fb3dc5563da373a9aeefe9e42f66338752db98d26061c71a91c20bed55",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "We - That is, men.\n\n James 3:4\n Behold also the ships, which though they be so great, and are driven of fierce winds, yet are they turned about with a very small helm, whithersoever the governor listeth.\n\n James 3:5\n Even so the tongue is a little member, and boasteth great things. Behold, how great a matter a little fire kindleth!",
+      "es": "Nosotros - Es decir, hombres.\n\n Santiago 3:4\n He aquí también las naves, que, aunque son tan grandes y son impulsadas por fuertes vientos, con un timón muy pequeño son gobernadas hacia donde quiere el gobernador.\n\n Santiago 3:5\n Así también la lengua es un miembro pequeño y se jacta de grandes cosas. ¡Mirad qué gran asunto enciende un pequeño fuego!",
+      "enHash": "dfbf206fed8b6662c8b63645576a32c39ceee2a5b8bd42b55e6c09b249811bc5",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "Boasteth great things — Hath great influence.",
+      "es": "Se jacta de grandes cosas. Tiene gran influencia.",
+      "enHash": "c46b1169000100641a6d4a5b6326cfc16cef6b1f9c15542eff8f9b785b2e9fae",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "James 3:6\n A world of iniquity - Containing an immense quantity of all manner of wickedness. It defileth - As fire by its smoke. The whole body - The whole man. And setteth on fire the course of nature - All the passions, every wheel of his soul.",
+      "es": "Santiago 3:6\n Un mundo de iniquidad - Que contiene una inmensa cantidad de todo tipo de maldad. Contamina - Como el fuego por su humo. Todo el cuerpo - Todo el hombre. Y prende fuego al curso de la naturaleza - Todas las pasiones, cada rueda de su alma.",
+      "enHash": "b410fd4efe104c9f662c091c80ea5e57d4532d5a83d167ca2d6d84b003167fef",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "Every kind — The expression perhaps is not to be taken strictly.\n\n Reptiles — That is, creeping things.",
+      "es": "Todo tipo: quizás la expresión no deba tomarse estrictamente.\n\n Reptiles: es decir, seres que se arrastran.",
+      "enHash": "ee239db02b6762800fbe3bb32de45cab024d81b799cf637c327d88ec8209a80e",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "But no man can tame the tongue — Of another; no, nor his own, without peculiar help from God.",
+      "es": "Pero ningún hombre puede domar la lengua de otro; no, ni el suyo propio, sin la ayuda peculiar de Dios.",
+      "enHash": "86e4d5f501acfc491d69a51b8e369648104db66570705e747aff6e64a36442d3",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "James 3:9\n Men made after the likeness of God - Indeed we have now lost this likeness; yet there remains from thence an indelible nobleness, which we ought to reverence both in ourselves and others.",
+      "es": "Santiago 3:9\n Hombres hechos a semejanza de Dios - De hecho, ahora hemos perdido esta semejanza; sin embargo, de ahí queda una nobleza indeleble que debemos reverenciar tanto en nosotros mismos como en los demás.",
+      "enHash": "12d408c82d59eb4c608de0f3268023ad740c2ce34d284ff653db2bcc64dc5074",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "Let him show his wisdom as well as his faith by his works; not by words only.",
+      "es": "Que muestre tanto su sabiduría como su fe con sus obras; no sólo con palabras.",
+      "enHash": "9d7d11a1a468d7aacbea96edd718c11833747a9e9165f599a2b20c71a5ed53cf",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "James 3:14\n If ye have bitter zeal - True Christian zeal is only the flame of love. Even in your hearts - Though it went no farther. Do not lie against the truth - As if such zeal could consist with heavenly wisdom.",
+      "es": "Santiago 3:14\n Si tenéis celo amargo - El verdadero celo cristiano es sólo la llama del amor. Incluso en vuestros corazones - Aunque no fue más lejos. No mientas contra la verdad - Como si tal celo pudiera consistir con la sabiduría celestial.",
+      "enHash": "8350b278aaf3670eacab2faa0328b5c34d41c8011d0ce1e48bbb0f066160c1a3",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "James 3:15\n This wisdom - Which is consistent with such zeal. Is earthly - Not heavenly; not from the Father of Lights. Animal - Not spiritual; not from the Spirit of God. Devilish - Not the gift of Christ, but such as Satan breathes into the soul.",
+      "es": "Santiago 3:15\n Esta sabiduría - Que es consistente con tal celo. Es terrenal - No celestial; no del Padre de las Luces. Animal - No espiritual; no del Espíritu de Dios. Diabólico - No es el don de Cristo, sino el que Satanás insufla en el alma.",
+      "enHash": "8bcc04d147bed238cb17d7d3410f5f84497a49bb37bb2c2bb636da506988dea4",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "James 3:17\n But the wisdom from above is first pure - From all that is earthly, natural, devilish. Then peaceable - True peace attending purity, it is quiet, inoffensive. Gentle - Soft, mild, yielding, not rigid. Easy to he entreated - To be persuaded, or convinced; not stubborn, sour, or morose. Full of good fruits - Both in the heart and in the life, two of which are immediately specified. Without partiality - Loving all, without respect of persons; embracing all good things, rejecting all evil. And without dissimulation - Frank, open.",
+      "es": "Santiago 3:17\n Pero la sabiduría de lo alto es ante todo pura: de todo lo terrenal, natural y diabólico. Entonces pacífico - La verdadera paz acompaña a la pureza, es tranquila, inofensiva. Suave: suave, apacible, flexible, no rígido. Fácil de suplicar - Para ser persuadido o convencido; no terco, amargo o malhumorado. Lleno de buenos frutos - Tanto en el corazón como en la vida, dos de los cuales se especifican inmediatamente. Sin parcialidad - Amando a todos, sin respeto a las personas; abrazando todo lo bueno, rechazando todo mal. Y sin disimulo - Frank, abierto.",
+      "enHash": "3638982c47a795061487d855db99f000d58a1b31cc6d17520313f2cb34daf51b",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "James 3:18\n And the principle productive of this righteousness is sown, like good seed, in the peace of a believer's mind, and brings forth a plentiful harvest of happiness, (which is the proper fruit of righteousness,) for them that make peace - That labour to promote this pure and holy peace among all men.",
+      "es": "Santiago 3:18\n Y el principio que produce esta justicia se siembra, como buena semilla, en la paz de la mente del creyente, y produce una cosecha abundante de felicidad (que es el fruto apropiado de la justicia) para aquellos que hacen la paz, que trabajan para promover esta paz pura y santa entre todos los hombres.",
+      "enHash": "4dc8ecaa55ae0dee2a30c9b651a80c512c8610cd41366866226cca7e88590bcb",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "James 4:1\n From whence come wars and fightings - Quarrels and wars among you, quite opposite to this peace? Is it not from your pleasures - Your desires of earthly pleasures. Which war - Against your souls. In your members - Here is the first seat of the war. Hence proceeds the war of man with man, king with king, nation with nation.",
+      "es": "Santiago 4:1\n ¿De dónde vienen las guerras y las peleas? ¿Peleas y guerras entre vosotros, todo lo contrario de esta paz? ¿No es de tus placeres? Tus deseos de placeres terrenales. Qué guerra: contra vuestras almas. En tus miembros - Aquí está el primer asiento de la guerra. De ahí procede la guerra de hombre contra hombre, de rey contra rey, de nación contra nación.",
+      "enHash": "40c4b39d206f03383b29404db282250bdcb28e948e942cae1d689da3137fa58d",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "James 4:2\n Ye kill - In your heart, for \"he that hateth his brother is a murderer.\" Ye fight and war - That is, furiously strive and contend. Ye ask not - And no marvel; for a man full of evil desire, of envy or hatred, cannot pray.",
+      "es": "Santiago 4:2\n Matas - En tu corazón, porque \"el que odia a su hermano es un asesino\". Peleáis y guerreáis - Es decir, os esforcáis y contendéis furiosamente. No pedís - Y no es de extrañar; porque un hombre lleno de malos deseos, de envidia u odio, no puede orar.",
+      "enHash": "d1163b0487ada30cf211c4efc4ae975a2fe59dd01a8c7c10b04302a35deb8140",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "But if ye do ask, ye receive not, because ye ask amiss - That is, from a wrong motive.",
+      "es": "Pero si pedís, no recibís, porque pedís mal - Es decir, por un motivo equivocado.",
+      "enHash": "6212c54ed6e6c666375d6c90b19bdda215d86c93d8b10bee0f2aa9512f7f7bc7",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "James 4:4\n Ye adulterers and adulteresses - Who have broken your faith with God, your rightful spouse. Know ye not that the friendship or love of the world - The desire of the flesh, the desire of the eye, and the pride of life, or courting the favour of worldly men, is enmity against God? Whosoever desireth to be a friend of the world - Whosoever seeks either the happiness or favour of it, does thereby constitute himself an enemy of God; and can he expect to obtain anything of him?",
+      "es": "Santiago 4:4\n Adúlteros y adúlteras - Que habéis roto vuestra fe en Dios, vuestro legítimo cónyuge. ¿No sabéis que la amistad o el amor del mundo - El deseo de la carne, el deseo de los ojos y el orgullo de la vida, o buscar el favor de los hombres mundanos, es enemistad contra Dios? Quien desee ser amigo del mundo - Quien busque la felicidad o el favor del mismo, se constituye en enemigo de Dios; ¿Y puede esperar obtener algo de él?",
+      "enHash": "a7f27c7dad6267c5aae3697f142e05596a7a49db30eb5b233a85cb22e61053be",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "James 4:5\n Do you think that the scripture saith in vain - Without good ground. St. James seems to refer to many, not any one particular scripture. The spirit of love that dwelleth in all believers lusteth against envy - Gal 5:17 ; is directly opposite to all those unloving tempers which necessarily flow from the friendship of the world.",
+      "es": "Santiago 4:5\n ¿Crees que la Escritura dice en vano: Sin buena base? Santiago parece referirse a muchas escrituras, no a una sola en particular. El espíritu de amor que habita en todos los creyentes codicia contra la envidia – Gálatas 5:17; es directamente opuesto a todos esos temperamentos poco amorosos que necesariamente surgen de la amistad del mundo.",
+      "enHash": "36485e6f1754cf89ad62696bca46edc9cc0cc2b11ba8f077fba7bc8393cfae9a",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "James 4:6\n But he giveth greater grace - To all who shun those tempers. Therefore it - The scripture. Saith, God resisteth the proud - And pride is the great root of all unkind affections. Prov 3:34",
+      "es": "Santiago 4:6\n Pero él da mayor gracia - A todos los que evitan esos temperamentos. Por lo tanto, - La Escritura. Dice: Dios resiste a los orgullosos - Y el orgullo es la gran raíz de todos los afectos desagradables. Prov 3:34",
+      "enHash": "c36bfbdd1972d104100a81e24a6638f53c4dd7009a41503de2c20d8717acc340",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "Therefore by humbly submitting yourselves to God, resist the devil - The father of pride and envy.",
+      "es": "Por lo tanto, sometiéndoos humildemente a Dios, resistid al diablo, el padre del orgullo y la envidia.",
+      "enHash": "9758804ebfb188d5f4d0f8ea9171ff25a68e07ae86d204b1d365b12c996ff77e",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "James 4:8\n Then draw nigh to God in prayer, and he will draw nigh unto you, will hear you; which that nothing may hinder, cleanse your hands - Cease from doing evil. And purify your hearts - From all spiritual adultery. Be no more double minded, vainly endeavouring to serve both God and mammon.",
+      "es": "Santiago 4:8\n Entonces acércate a Dios en oración, y él se acercará a ti y te escuchará; que para que nada pueda estorbar, limpia tus manos - Deja de hacer el mal. Y purificad vuestros corazones - De todo adulterio espiritual. No seáis más indecisos, esforzándoos en vano por servir a Dios y a Mammón.",
+      "enHash": "ad5a340a967541463e7c4ffc4cd62c614a56c71fe968de5efac33f5a81e161c5",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "Be afflicted — For your past unfaithfulness to God.",
+      "es": "Ser afligido - Por su pasada infidelidad a Dios.",
+      "enHash": "250b9ff69eb824ff29d10fdccda9bf4d96d57a0f7bcaab04fc29747abcfe890d",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "James 4:11\n Speak not evil one of another - This is a grand hinderance of peace. O who is sufficiently aware of it! He that speaketh evil of another does in effect speak evil of the law, which so strongly prohibits it. Thou art not a doer of the law, but a judge - Of it; thou settest thyself above, and as it were condemnest, it.",
+      "es": "Santiago 4:11\n No habléis mal unos de otros - Este es un gran obstáculo para la paz. ¡Oh, quién es suficientemente consciente de ello! El que habla mal de otro, en efecto habla mal de la ley, que tan fuertemente lo prohíbe. No eres hacedor de la ley, sino juez - De ella; te pones por encima y, por así decirlo, lo condenas.",
+      "enHash": "8149ea57c285c847b74b420e9de68bcf377606247f1b502bb796ffbf3fb6d530",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "James 4:12\n There is one lawgiver that is able - To execute the sentence he denounces. But who art thou - A poor, weak, dying worm.",
+      "es": "Santiago 4:12\n Hay un legislador que es capaz de ejecutar la sentencia que denuncia. ¿Pero quién eres tú? Un gusano pobre, débil y moribundo.",
+      "enHash": "008d83cb9b00faf2319f6c176195cad134692e370d0d38eca8eeebdf0ab4ad58",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "Come now, ye that say — As peremptorily as if your life were in your own hands.",
+      "es": "Venid ahora, los que decís: Tan perentoriamente como si tu vida estuviera en tus propias manos.",
+      "enHash": "611ad796b0b2ca567b351bd9afba8411678876efa4afd95cc80aa0ffe7f98dee",
+      "source": "corpus:john-wesley"
+    },
+    "b73": {
+      "en": "Instead of your saying — That is, whereas ye ought to say.",
+      "es": "En lugar de decir, es decir, mientras deberías decir.",
+      "enHash": "1cd2f76ee924bc06c30bca77430b20e5607171264f20e00097db7f0546802055",
+      "source": "corpus:john-wesley"
+    },
+    "b74": {
+      "en": "James 4:17\n Therefore to him that knoweth to do good and doeth it not - That knows what is right, and does not practise it. To him it is sin - This knowledge does not prevent, but increase, his condemnation.",
+      "es": "Santiago 4:17\n Por tanto, al que sabe hacer el bien y no lo hace, el que sabe lo que es correcto y no lo practica. Para él es pecado - Este conocimiento no previene, sino que aumenta, su condena.",
+      "enHash": "259d75dada7bcb3fd78c776b8855166e675a95df3a0f2aecd7a99e188b664093",
+      "source": "corpus:john-wesley"
+    },
+    "b75": {
+      "en": "James 5:1\n Come now, ye rich - The apostle does not speak this so much for the sake of the rich themselves, as of the poor children of God, who were then groaning under their cruel oppression. Weep and howl for your miseries which are coming upon you - Quickly and unexpectedly. This was written not long before the siege of Jerusalem; during which, as well as after it, huge calamities came on the Jewish nation, not only in Judea, but through distant countries. And as these were an awful prelude of that wrath which was to fall upon them in the world to come, so this may likewise refer to the final vengeance which will then be executed on the impenitent.",
+      "es": "Santiago 5:1\n Venid ahora, ricos - El apóstol no habla de esto tanto por el bien de los ricos mismos, sino por los pobres hijos de Dios, que entonces gemían bajo su cruel opresión. Llora y aúlla por las miserias que te sobrevienen, rápida e inesperadamente. Esto fue escrito poco antes del sitio de Jerusalén; Durante el cual, así como después, sobrevinieron enormes calamidades para la nación judía, no sólo en Judea, sino en países lejanos. Y como estos fueron un terrible preludio de esa ira que caería sobre ellos en el mundo venidero, esto también puede referirse a la venganza final que luego se ejecutará sobre los impenitentes.",
+      "enHash": "53a65f790f59ba2eba5c43768f202c847c2ba35e35f358bc10d34c26a4ddfbcc",
+      "source": "corpus:john-wesley"
+    },
+    "b76": {
+      "en": "The riches of the ancients consisted much in large stores of corn, and of costly apparel.",
+      "es": "Las riquezas de los antiguos consistían en gran medida en grandes almacenes de trigo y en costosos vestidos.",
+      "enHash": "b7d026a36f2b60c96d8e1d77d39ecdf4bb501bfd7d8d6b4ee9619e4d0ea4cec4",
+      "source": "corpus:john-wesley"
+    },
+    "b77": {
+      "en": "James 5:3\n The canker of them - Your perishing stores and motheaten garments. Will be a testimony against you - Of your having buried those talents in the earth, instead of improving them according to your Lord's will. And will eat your flesh as fire - Will occasion you as great torment as if fire were consuming your flesh. Ye have laid up treasure in the last days - When it is too late; when you have no time to enjoy them.",
+      "es": "Santiago 5:3\n El cáncer de ellos: tus tiendas perecederas y tus prendas apolilladas. Será un testimonio contra ti - De haber enterrado esos talentos en la tierra, en lugar de mejorarlos según la voluntad de tu Señor. Y comerá tu carne como fuego - Te ocasionará un tormento tan grande como si el fuego consumiera tu carne. Habéis acumulado tesoros en los últimos días - Cuando ya es demasiado tarde; cuando no tienes tiempo para disfrutarlos.",
+      "enHash": "4e93543477c868ad0bbf584632f34028214b6ef23bb9a43bc78d425cee45dbce",
+      "source": "corpus:john-wesley"
+    },
+    "b78": {
+      "en": "James 5:4\n The hire of your labourers crieth - Those sins chiefly cry to God concerning which human laws are silent. Such are luxury, unchastity, and various kinds of injustice. The labourers themselves also cry to God, who is just coming to avenge their cause. Of sabaoth - Of hosts, or armies.",
+      "es": "Santiago 5:4\n El salario de tus trabajadores llora - Esos pecados claman principalmente a Dios sobre los cuales las leyes humanas guardan silencio. Tales son el lujo, la falta de castidad y diversas clases de injusticia. Los propios trabajadores también claman a Dios, que viene precisamente a vengar su causa. De sabaoth - De huestes o ejércitos.",
+      "enHash": "ed63ca979a397f03c8f59f36074ecfd1c007722dac77c5a21c1e04cb55d9cb83",
+      "source": "corpus:john-wesley"
+    },
+    "b79": {
+      "en": "James 5:5\n Ye have cherished your hearts - Have indulged yourselves to the uttermost. As in a day of sacrifice - Which were solemn feast - days among the Jews.",
+      "es": "Santiago 5:5\n Habéis apreciado vuestros corazones - os habéis entregado al máximo. Como en un día de sacrificio - Que eran días de fiesta solemne entre los judíos.",
+      "enHash": "e8b977b78c25751b1c5158ab2dd6d163a42af0616dd9c60761654b780692ac9b",
+      "source": "corpus:john-wesley"
+    },
+    "b80": {
+      "en": "James 5:6\n Ye have killed the just - Many just men; in particular, \"that Just One,\" Acts 3:14 . They afterwards killed James, surnamed the Just, the writer of this epistle. He doth not resist you - And therefore you are secure. But the Lord cometh quickly, Jas 5:8 .",
+      "es": "Santiago 5:6\n Habéis matado a los justos - Muchos hombres justos; en particular, \"aquel Justo\", Hechos 3:14 . Después mataron a Santiago, apodado el Justo, el autor de esta epístola. Él no te resiste - Y por lo tanto estás seguro. Pero el Señor viene pronto, Santiago 5:8.",
+      "enHash": "22ca2f10e193b0dcd6dc3a4333009910ddcfda234c7cb0aaf67c5533ef4cbc49",
+      "source": "corpus:john-wesley"
+    },
+    "b81": {
+      "en": "James 5:7\n The husbandman waiteth for the precious fruit - Which will recompense his labour and patience. Till he receives the former rain - Immediately after sowing. And the latter - Before the harvest.",
+      "es": "Santiago 5:7\n El labrador espera el precioso fruto - Que recompensará su trabajo y paciencia. Hasta que reciba la lluvia temprana - Inmediatamente después de la siembra. Y este último - Antes de la cosecha.",
+      "enHash": "2410786122b6068a77e5877afc6eff0a7c58d8900b38668a1e5158bd9ca1cc3f",
+      "source": "corpus:john-wesley"
+    },
+    "b82": {
+      "en": "James 5:8\n Stablish your hearts - In faith and patience. For the coming of the Lord - To destroy Jerusalem. Is nigh - And so is his last coming to the eye of a believer.",
+      "es": "Santiago 5:8\n Estableced vuestros corazones - En fe y paciencia. Para la venida del Señor - Para destruir Jerusalén. Está cerca - Y también está su última aparición ante los ojos de un creyente.",
+      "enHash": "549b8fecb19ffb696d1d69a0c20d168234b6d0f955731477d36cfdb1c2efb033",
+      "source": "corpus:john-wesley"
+    },
+    "b83": {
+      "en": "James 5:9\n Murmur not one against another - Have patience also with each other. The judge standeth before the door - Hearing every word, marking every thought.",
+      "es": "Santiago 5:9\n No murmuréis unos contra otros - Tened paciencia también unos con otros. El juez está ante la puerta, escuchando cada palabra, marcando cada pensamiento.",
+      "enHash": "659ccfe777a60f823d4497eb93a5d44ed4439bb44ec8dc8322bdc82b1c57f00c",
+      "source": "corpus:john-wesley"
+    },
+    "b84": {
+      "en": "James 5:10\n Take the prophets for an example - Once persecuted like you, even for speaking in the name of the Lord. The very men that gloried in having prophets yet could not bear their message: nor did either their holiness or their high commission screen them from suffering.",
+      "es": "Santiago 5:10\n Tomemos como ejemplo a los profetas: una vez perseguidos como ustedes, incluso por hablar en el nombre del Señor. Los mismos hombres que se gloriaban de tener profetas aún no podían soportar su mensaje: ni su santidad ni su alta comisión los protegieron del sufrimiento.",
+      "enHash": "8dbad7a5693eb766f2dce275365df6c9757015c2567d1692f901766662f8cbc7",
+      "source": "corpus:john-wesley"
+    },
+    "b85": {
+      "en": "James 5:11\n We count them happy that endured - That suffered patiently. The more they once suffered, the greater is their present happiness. Ye have seen the end of the Lord - The end which the Lord gave him.",
+      "es": "Santiago 5:11\n Consideramos felices a los que aguantaron - Que sufrieron con paciencia. Cuanto más sufrieron alguna vez, mayor es su felicidad presente. Habéis visto el fin del Señor - El fin que el Señor le dio.",
+      "enHash": "58df59d1b49fc0261e07f51457bc652756e451990f79c4fcf22a5e0ba69591da",
+      "source": "corpus:john-wesley"
+    },
+    "b86": {
+      "en": "James 5:12\n Swear not - However provoked. The Jews were notoriously guilty of common swearing, though not so much by God himself as by some of his creatures. The apostle here particularly forbids these oaths, as well as all swearing in common conversation. It is very observable, how solemnly the apostle introduces this command: above all things, swear not - As if he had said, Whatever you forget, do not forget this. This abundantly demonstrates the horrible iniquity of the crime. But he does not forbid the taking a solemn oath before a magistrate. Let your yea be yea; and your nay, nay - Use no higher asseverations in common discourse; and let your word stand firm. Whatever ye say, take care to make it good.",
+      "es": "Santiago 5:12\n No jures - Por muy provocado que sea. Los judíos eran notoriamente culpables de jurar de forma común, aunque no tanto por parte de Dios mismo como de algunas de sus criaturas. El apóstol aquí prohíbe particularmente estos juramentos, así como todos los juramentos en una conversación común. Es muy observable cuán solemnemente el apóstol introduce este mandamiento: sobre todas las cosas, no juréis - Como si hubiera dicho: Todo lo que olvidéis, no olvidéis esto. Esto demuestra abundantemente la horrible iniquidad del crimen. Pero no prohíbe prestar juramento solemne ante un magistrado. Que vuestro sí sea sí; y tu no, no - No utilices aseveraciones más elevadas en el discurso común; y que tu palabra sea firme. Digas lo que digas, ten cuidado de hacerlo bien.",
+      "enHash": "454259bb1f49b582395811eea0468b783516ebd5a698ad1d7cae9b6049c1b095",
+      "source": "corpus:john-wesley"
+    },
+    "b87": {
+      "en": "James 5:14\n Having anointed him with oil - This single conspicuous gift, which Christ committed to his apostles, Mark 6:13 , remained in the church long after the other miraculous gifts were withdrawn. Indeed, it seems to have been designed to remain always; and St. James directs the elders, who were the most, if not the only, gifted men, to administer at. This was the whole process of physic in the Christian church, till it was lost through unbelief. That novel invention among the Romanists, extreme unction, practised not for cure, but where life is despaired of, bears no manner of resemblance to this.",
+      "es": "Santiago 5:14\n Habiéndolo ungido con aceite - Este único y notorio don, que Cristo encomendó a sus apóstoles, Marco 6:13, permaneció en la iglesia mucho después de que se retiraron los otros dones milagrosos. De hecho, parece haber sido diseñado para permanecer para siempre; y St. James dirige a los ancianos, que eran los hombres más talentosos, si no los únicos, para administrar. Este fue todo el proceso de la física en la iglesia cristiana, hasta que se perdió por la incredulidad. Esa invención novedosa entre los romanistas, la extremaunción, que se practica no para curar, sino cuando se desespera de la vida, no tiene ningún parecido con esto.",
+      "enHash": "46c77cc67952d9d24bab6f89df19f085f6ff600b65f9908429261a5deafeb72f",
+      "source": "corpus:john-wesley"
+    },
+    "b88": {
+      "en": "James 5:15\n And the prayer offered in faith shall save the sick - From his sickness; and if any sin be the occasion of his sickness, it shall be forgiven him.",
+      "es": "Santiago 5:15\n Y la oración ofrecida con fe salvará a los enfermos - De su enfermedad; y si algún pecado fuere ocasión de su enfermedad, le será perdonado.",
+      "enHash": "2135fe9fe64352aa8e9dd3b4abf25b8a36743dd7e30ca6edcb5fc37e845c0d2a",
+      "source": "corpus:john-wesley"
+    },
+    "b89": {
+      "en": "James 5:16\n Confess your faults - Whether ye are sick or in health. To one another - He does not say, to the elders: this may, or may not, be done; for it is nowhere commanded. We may confess them to any who can pray in faith: he will then know how to pray for us, and be more stirred up so to do. And pray one for another, that ye may be healed - Of all your spiritual diseases.",
+      "es": "Santiago 5:16\n Confiesa tus faltas - Ya sea que estés enfermo o sano. Unos a otros - No les dice a los ancianos: esto puede hacerse o no; porque en ninguna parte está ordenado. Podemos confesarlos a cualquiera que pueda orar con fe: entonces sabrá cómo orar por nosotros y estará más animado a hacerlo. Y orad unos por otros, para que seáis sanados - De todas vuestras enfermedades espirituales.",
+      "enHash": "9617eceea47ee278cbf3cce56e9ea33424663a94710c331d2aea07442fb4cb23",
+      "source": "corpus:john-wesley"
+    },
+    "b90": {
+      "en": "James 5:17\n Elijah was a man of like passions - Naturally as weak and sinful as we are. And he prayed - When idolatry covered the land.",
+      "es": "Santiago 5:17\n Elías era un hombre de pasiones similares: naturalmente tan débil y pecador como nosotros. Y oró - Cuando la idolatría cubrió la tierra.",
+      "enHash": "6537326c222da93924c9c92852ae6aee81c525c5d00c0132828e1919cde7ea5e",
+      "source": "corpus:john-wesley"
+    },
+    "b91": {
+      "en": "He prayed again — When idolatry was abolished.",
+      "es": "Oró de nuevo: cuando se abolió la idolatría.",
+      "enHash": "9a83ba2cec582a4ae679f1e7f6d9e2514690cded486b66d8a76d4c5d6264e306",
+      "source": "corpus:john-wesley"
+    },
+    "b92": {
+      "en": "James 5:19\n As if he had said, I have now warned you of those sins to which you are most liable; and, in all these respects, watch not only over yourselves, but every one over his brother also. Labour, in particular, to recover those that are fallen. If any one err from the truth - Practically, by sin.",
+      "es": "Santiago 5:19\n Como si hubiera dicho: ahora os he advertido sobre aquellos pecados a los que sois más propensos; y en todo esto velad no sólo por vosotros mismos, sino también cada uno por su hermano. Trabajar, en particular, para recuperar a los caídos. Si alguien se extravía de la verdad - Prácticamente, por pecado.",
+      "enHash": "fe9a0a6f247c03e2063d221e5eba123845e20e6f53e5ba2b0a39af8ca6cb9d13",
+      "source": "corpus:john-wesley"
+    },
+    "b93": {
+      "en": "James 5:20\n He shall save a soul - Of how much more value than the body! Jas 5:14 . And hide a multitude of sins - Which shall no more, how many soever they are, be remembered to his condemnation.",
+      "es": "Santiago 5:20\n Él salvará un alma - ¡De cuánto más valor que el cuerpo! Santiago 5:14. Y esconder una multitud de pecados - Que ya no serán recordados, por muchos que sean, para su condenación.",
+      "enHash": "a549c023784126a41ea257616552bcda438f93e563f13155dd79f5cf4a5975e6",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:4": "b3",
+    "1:5": "b4",
+    "1:6": "b5",
+    "1:8": "b6",
+    "1:9": "b7",
+    "1:10": "b8",
+    "1:11": "b9",
+    "1:12": "b10",
+    "1:13": "b11",
+    "1:14": "b12",
+    "1:15": "b13",
+    "1:16": "b14",
+    "1:17": "b15",
+    "1:18": "b16",
+    "1:19": "b17",
+    "1:20": "b18",
+    "1:21": "b19",
+    "1:23": "b20",
+    "1:24": "b21",
+    "1:25": "b22",
+    "1:26": "b23",
+    "1:27": "b24",
+    "2:1": "b25",
+    "2:2": "b26",
+    "2:3": "b27",
+    "2:4": "b28",
+    "2:5": "b29",
+    "2:6": "b30",
+    "2:7": "b31",
+    "2:8": "b32",
+    "2:9": "b33",
+    "2:10": "b34",
+    "2:11": "b35",
+    "2:12": "b36",
+    "2:13": "b37",
+    "2:14": "b38",
+    "2:17": "b39",
+    "2:18": "b40",
+    "2:19": "b41",
+    "2:20": "b42",
+    "2:21": "b43",
+    "2:22": "b44",
+    "2:23": "b45",
+    "2:24": "b46",
+    "2:25": "b47",
+    "3:1": "b48",
+    "3:2": "b49",
+    "3:3": "b50",
+    "3:5": "b51",
+    "3:6": "b52",
+    "3:7": "b53",
+    "3:8": "b54",
+    "3:9": "b55",
+    "3:13": "b56",
+    "3:14": "b57",
+    "3:15": "b58",
+    "3:17": "b59",
+    "3:18": "b60",
+    "4:1": "b61",
+    "4:2": "b62",
+    "4:3": "b63",
+    "4:4": "b64",
+    "4:5": "b65",
+    "4:6": "b66",
+    "4:7": "b67",
+    "4:8": "b68",
+    "4:9": "b69",
+    "4:11": "b70",
+    "4:12": "b71",
+    "4:13": "b72",
+    "4:15": "b73",
+    "4:17": "b74",
+    "5:1": "b75",
+    "5:2": "b76",
+    "5:3": "b77",
+    "5:4": "b78",
+    "5:5": "b79",
+    "5:6": "b80",
+    "5:7": "b81",
+    "5:8": "b82",
+    "5:9": "b83",
+    "5:10": "b84",
+    "5:11": "b85",
+    "5:12": "b86",
+    "5:14": "b87",
+    "5:15": "b88",
+    "5:16": "b89",
+    "5:17": "b90",
+    "5:18": "b91",
+    "5:19": "b92",
+    "5:20": "b93"
+  }
+}

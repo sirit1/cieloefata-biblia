@@ -1,0 +1,1004 @@
+{
+  "book": "Efesios",
+  "usfm": "EPH",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Ephesians 1:1\n By the will of God - Not by any merit of my own. To the saints who are at Ephesus - And in all the adjacent places. For this epistle is not directed to the Ephesians only, but likewise to all the other churches of Asia.",
+      "es": "Efesios 1:1\n Por voluntad de Dios - No por ningún mérito propio. A los santos que están en Éfeso - Y en todos los lugares adyacentes. Porque esta epístola no está dirigida sólo a los efesios, sino también a todas las demás iglesias de Asia.",
+      "enHash": "303a378c254748aa03de41f0ef5b724806d8f20279a72904b357f78b084b3881",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "Ephesians 1:3\n Blessed be the God and Father of our Lord Jesus Christ, who hath blessed us - God's blessing us is his bestowing all spiritual and heavenly blessings upon us. Our blessing God is the paying him our solemn and grateful acknowledgments, both on account of his own essential blessedness, and of the blessings which he bestows upon us. He is the God of our Lord Jesus Christ, as man and Mediator: he is his Father, primarily, with respect to his divine nature, as his only begotten Son; and, secondarily, with respect to his human nature, as that is personally united to the divine. With all spiritual blessings in heavenly things - With all manner of spiritual blessings, which are heavenly in their nature, original, and tendency, and shall be completed in heaven: far different from the external privileges of the Jews, and the earthly blessings they expected from the Messiah.",
+      "es": "Efesios 1:3\n Bendito sea el Dios y Padre de nuestro Señor Jesucristo, que nos ha bendecido; la bendición de Dios es que nos concede todas las bendiciones espirituales y celestiales. Nuestra bendición a Dios es rendirle nuestros reconocimientos solemnes y agradecidos, tanto por su propia bienaventuranza esencial como por las bendiciones que nos otorga. Él es el Dios de nuestro Señor Jesucristo, como hombre y Mediador: es su Padre, principalmente, respecto de su naturaleza divina, como su Hijo unigénito; y, en segundo lugar, respecto de su naturaleza humana, en cuanto que está personalmente unida a la divina. Con todas las bendiciones espirituales en las cosas celestiales - Con todo tipo de bendiciones espirituales, que son celestiales en su naturaleza, original y tendencia, y se completarán en el cielo: muy diferentes de los privilegios externos de los judíos y las bendiciones terrenales que esperaban del Mesías.",
+      "enHash": "a3a2f321796c6bd8959610908e73dbadf06fe5f2f887e91d4161016b865dfd7f",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "As he hath chosen us — Both Jews and gentiles, whom he foreknew as believing in Christ, 1 Peter 1:2 .",
+      "es": "Como él nos escogió, tanto judíos como gentiles, a quienes de antemano conoció como creyentes en Cristo, 1 Pedro 1:2 .",
+      "enHash": "993c06aae3be4d9bc6574cbbce290d1d9ab541102abdd4a64da9b5420a06565b",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "Ephesians 1:5\n Having predestinated us to the adoption of sons - Having foreordained that all who afterwards believed should enjoy the dignity of being sons of God, and joint - heirs with Christ. According to the good pleasure of his will - According to his free, fixed, unalterable purpose to confer this blessing on all those who should believe in Christ, and those only.",
+      "es": "Efesios 1:5\n Habiéndonos predestinado a la adopción de hijos - Habiendo preordenado que todos los que después creyeron disfrutaran de la dignidad de ser hijos de Dios y coherederos con Cristo. Según el beneplácito de su voluntad - Según su propósito libre, fijo e inalterable de conferir esta bendición a todos aquellos que crean en Cristo, y solo a ellos.",
+      "enHash": "0e7bcd89c4a0a867bc4e61bc4c99e0c1e770cd1e6f24a8063271c987acccfe54",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "To the praise of the glory of his grace — His glorious, free love without any desert on our part.",
+      "es": "Para alabanza de la gloria de su gracia: su amor glorioso y libre, sin ningún merecimiento de nuestra parte.",
+      "enHash": "7ec55597848d45ac07b915079b95d5e3b974ee02c2d437ea2ad4642d1e04b883",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "Ephesians 1:7\n By whom we - Who believe. Have - From the moment we believe. Redemption - From the guilt and power of sin. Through his blood - Through what he hath done and suffered for us. According to the riches of his grace - According to the abundant overflowings of his free mercy and favour.",
+      "es": "Efesios 1:7\n Por quién nosotros - Quienes creemos. Tener - Desde el momento en que creemos. Redención - De la culpa y el poder del pecado. A través de su sangre - A través de lo que ha hecho y sufrido por nosotros. Según las riquezas de su gracia - Según los abundantes desbordes de su misericordia y favor gratuitos.",
+      "enHash": "b54d41cadc37189e0a067dd8a700e000882009b17da180c4a879a115204efdd2",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "Ephesians 1:8\n In all wisdom - Manifested by God in the whole scheme of our salvation. And prudence - Which be hath wrought in us, that we may know and do all his acceptable and perfect will.",
+      "es": "Efesios 1:8\n Con toda sabiduría - Manifestada por Dios en todo el esquema de nuestra salvación. Y prudencia - Que ha obrado en nosotros, para que podamos conocer y hacer toda su voluntad aceptable y perfecta.",
+      "enHash": "a57eb822ad2f809ab8377119d99357b23a3c3f211d8d6653ced66ca5093b59a5",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "Ephesians 1:9\n Having made known to us - By his word and by his Spirit. The mystery of his will - The gracious scheme of salvation by faith, which depends on his own sovereign will alone. This was but darkly discovered under the law; is now totally hid from unbelievers; and has heights and depths which surpass all the knowledge even of true believers.",
+      "es": "Efesios 1:9\n Habiéndonos dado a conocer - Por su palabra y por su Espíritu. El misterio de su voluntad - El plan misericordioso de la salvación por la fe, que depende únicamente de su propia voluntad soberana. Esto fue descubierto oscuramente por la ley; ahora está totalmente escondido de los incrédulos; y tiene alturas y profundidades que sobrepasan todo conocimiento incluso de los verdaderos creyentes.",
+      "enHash": "f605acb32187b241485a119ab07e0ad0b39470f2b563c51aeba61edcdea2bb47",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "Ephesians 1:10\n That in the dispensation of the fullness of the times - In this last administration of God's fullest grace, which took place when the time appointed was fully come. He might gather together into one in Christ - Might recapitulate, re - unite, and place in order again under Christ, their common Head. All things which are in heaven, and on earth - All angels and men, whether living or dead, in the Lord.",
+      "es": "Efesios 1:10\n Eso en la dispensación de la plenitud de los tiempos - En esta última administración de la gracia más plena de Dios, que tuvo lugar cuando llegó el tiempo señalado. Podría reunirse en uno en Cristo - Podría recapitular, reunirse y poner en orden nuevamente bajo Cristo, su Cabeza común. Todas las cosas que están en el cielo y en la tierra - Todos los ángeles y hombres, vivos o muertos, en el Señor.",
+      "enHash": "e83618565fece206c1bf08d7846a940e787fa1e7a2f5d0d375652497cb46ad87",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "Ephesians 1:11\n Through whom we - Jews. Also have obtained an inheritance - The glorious inheritance of the heavenly Canaan, to which, when believers, we were predestinated according to the purpose of him that worketh all things after the counsel of his own will - The unalterable decree, \"He that believeth shall be delivered;\" which will is not an arbitrary will, but flowing from the rectitude of his nature, else, what security would there be that it would be his will to keep his word even with the elect?",
+      "es": "Efesios 1:11\n A través de quien nosotros, los judíos. También hemos obtenido una herencia - La herencia gloriosa de la Canaán celestial, a la cual, cuando éramos creyentes, fuimos predestinados según el propósito de aquel que hace todas las cosas según el consejo de su propia voluntad - El decreto inalterable: \"El que cree será entregado\"; ¿Cuál voluntad no es una voluntad arbitraria, sino que fluye de la rectitud de su naturaleza? De lo contrario, ¿qué seguridad habría de que sería su voluntad cumplir su palabra incluso con los elegidos?",
+      "enHash": "2fe904bccbe54d1dd7c39a4b1a8b2cd7a32f3cbc64cd66dc4f3c12d9ba3e41ad",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "Ephesians 1:12\n That we - Jews. Who first believed - Before the gentiles. So did some of them in every place. Here is another branch of the true gospel predestination: he that believes is not only elected to salvation, (if he endures to the end,) but is fore - appointed of God to walk in holiness, to the praise of his glory.",
+      "es": "Efesios 1:12\n Que nosotros - judíos. Quien creyó por primera vez - Antes de los gentiles. Lo mismo hicieron algunos de ellos en todos los lugares. Aquí hay otra rama de la verdadera predestinación del evangelio: el que cree no sólo es elegido para la salvación (si persevera hasta el fin), sino que es designado de antemano por Dios para caminar en santidad, para alabanza de su gloria.",
+      "enHash": "285b44ad0850962a3094fa1e3550dae55683388a6b4986f9a93e1f32906abaa5",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "Ephesians 1:13\n In whom ye - Gentiles. Likewise believed, after ye had heard the gospel - Which God made the means of your salvation; in whom after ye had believed - Probably some time after their first believing. Ye were sealed by that Holy Spirit of promise - Holy both in his nature and in his operations, and promised to all the children of God. The sealing seems to imply, A full impression of the image of God on their souls. A full assurance of receiving all the promises, whether relating to time or eternity.",
+      "es": "Efesios 1:13\n En quien vosotros - Gentiles. Asimismo creíste, después de haber oído el evangelio - Que Dios hizo el medio de vuestra salvación; en quien después de haber creído - Probablemente algún tiempo después de su primera fe. Fuisteis sellados por ese Espíritu Santo de la promesa - Santo tanto en su naturaleza como en sus operaciones, y prometido a todos los hijos de Dios. El sellamiento parece implicar una impresión completa de la imagen de Dios en sus almas. Una plena seguridad de recibir todas las promesas, ya sean relativas al tiempo o a la eternidad.",
+      "enHash": "257af9fb25adb390774d4620b678f09176c823934da8a1973faeddc7f982e9fc",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "Ephesians 1:14\n Who, thus sealing us, is an earnest - Both a pledge and a foretaste of our inheritance. Till the redemption of the purchased possession - Till the church, which he has purchased with his own blood, shall be fully delivered from all sin and sorrow, and advanced to everlasting glory. To the praise of his glory - Of his glorious wisdom, power, and mercy.",
+      "es": "Efesios 1:14\n Quien, sellándonos así, es una prenda - Tanto una promesa como un anticipo de nuestra herencia. Hasta la redención de la posesión comprada - Hasta que la iglesia, que él ha comprado con su propia sangre, sea completamente liberada de todo pecado y dolor, y avance a la gloria eterna. Para alabanza de su gloria - De su gloriosa sabiduría, poder y misericordia.",
+      "enHash": "e242479036e1773535452eb6bc339dda83d45d083e95e321baaf5fd9912e163b",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "Since I heard of your faith and love — That is, of their perseverance and increase therein.",
+      "es": "Desde que escuché de vuestra fe y amor, es decir, de su perseverancia y aumento en ellos.",
+      "enHash": "0c884a795b22ebc838ece8185f18dfd4e25ebe8263711dafef3f6fb2df5eb8f3",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "I cease not — In all my solemn addresses to God.\n\n To give thanks for you, making mention of you in my prayers — So he did of all the churches, Colossians 1:9 .",
+      "es": "No ceso en todos mis discursos solemnes a Dios.\n\n Para dar gracias por vosotros, haciéndome mención de vosotros en mis oraciones. Así lo hizo con todas las iglesias, Colosenses 1:9 .",
+      "enHash": "2597c43b0fb274035fa451117cb6ca71e6a91a8997511b4ad887ebbe6b4dc9d3",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "Ephesians 1:17\n That the Father of that infinite glory which shines in the face of Christ, from whom also we receive the glorious inheritance, Eph 1:18 , may give you the Spirit of wisdom and revelation - The same who is the Spirit of promise is also, in the progress of the faithful, the Spirit of wisdom and revelation; making them wise unto salvation, and revealing to them the deep things of God. He is here speaking of that wisdom and revelation which are common to all real Christians.",
+      "es": "Efesios 1:17\n Para que el Padre de esa gloria infinita que resplandece en el rostro de Cristo, de quien también recibimos la herencia gloriosa, Ef 1:18, os dé el Espíritu de sabiduría y de revelación - El mismo que es el Espíritu de la promesa es también, en el progreso de los fieles, el Espíritu de sabiduría y de revelación; haciéndolos sabios para la salvación y revelándoles las cosas profundas de Dios. Aquí está hablando de esa sabiduría y revelación que son comunes a todos los verdaderos cristianos.",
+      "enHash": "234cc106bfff7e65d4d23b530f53ab238c6b54ce4d681c2dd30d275798b929b3",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "Ephesians 1:18\n The eyes of your understanding - It is with these alone that we discern the things of God. Being first opened, and then enlightened - - By his Spirit. That ye may know what is the hope of his calling - That ye may experimentally and delightfully know what are the blessings which God has called you to hope for by his word and his Spirit. And what is the riches of the glory of his inheritance in the saints - What an immense treasure of blessedness he hath provided as an inheritance for holy souls.",
+      "es": "Efesios 1:18\n Los ojos de tu entendimiento - Sólo con ellos discernimos las cosas de Dios. Siendo primero abierto y luego iluminado - - Por su Espíritu. Para que sepáis cuál es la esperanza de su llamado - Para que podáis saber de manera experimental y deliciosa cuáles son las bendiciones que Dios os ha llamado a esperar por su palabra y su Espíritu. ¿Y cuáles son las riquezas de la gloria de su herencia en los santos? Qué inmenso tesoro de bienaventuranza ha proporcionado como herencia para las almas santas.",
+      "enHash": "1dde5f119de5d90ea174754ee0157dd220cca4852ac5e1e38ef9ba915f48fb2b",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "Ephesians 1:19\n And what the exceeding greatness of his power toward us who believe - Both in quickening our dead souls, and preserving them in spiritual life. According to the power which he exerted in Christ, raising him from the dead - By the very same almighty power whereby he raised Christ; for no less would suffice.",
+      "es": "Efesios 1:19\n ¿Y cuál es la extraordinaria grandeza de su poder para con nosotros los que creemos? Tanto para vivificar nuestras almas muertas como para preservarlas en la vida espiritual. Según el poder que ejerció en Cristo, resucitándolo de entre los muertos - Por el mismo poder omnipotente con el que resucitó a Cristo; pues nada menos sería suficiente.",
+      "enHash": "c673524f352b4995fdf4b561dc4e7aeef06aaada99af8ae9dcd526ed16e28dbc",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "Ephesians 1:20\n And he hath seated him at his own right hand - That is, he hath exalted him in his human nature, as a recompence for his sufferings, to a quiet, everlasting possession of all possible blessedness, majesty, and glory.",
+      "es": "Efesios 1:20\n Y lo ha sentado a su diestra - Es decir, lo ha exaltado en su naturaleza humana, como recompensa por sus sufrimientos, a una posesión silenciosa y eterna de toda la bienaventuranza, majestad y gloria posibles.",
+      "enHash": "f7c5ee097b3531d0634b9fa2424a9af1e2fe092843d5dd5fb36e57a418ad0f3a",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "Ephesians 1:21\n Far above all principality, and power, and might, and dominion - That is, God hath invested him with uncontrollable authority over all demons in hell, all angels in heaven, and all the princes and potentates on earth. And every name that is named - We know the king is above all, though we cannot name all the officers of his court. So we know that Christ is above all, though we are not able to name all his subjects. Not only in this world, but also in that which is to come - The world to come is so styled, not because it does not yet exist, but because it is not yet visible. Principalities and powers are named now; but those also who are not even named in this world, but shall be revealed in the world to come, are all subject to Christ.",
+      "es": "Efesios 1:21\n Muy por encima de todo principado, poder, poder y dominio - Es decir, Dios lo ha investido con autoridad incontrolable sobre todos los demonios en el infierno, todos los ángeles en el cielo y todos los príncipes y potentados en la tierra. Y cada nombre que se nombra - Sabemos que el rey está por encima de todos, aunque no podemos nombrar a todos los oficiales de su corte. Entonces sabemos que Cristo está por encima de todos, aunque no podamos nombrar a todos sus súbditos. No sólo en este mundo, sino también en el que está por venir. El mundo por venir se llama así, no porque aún no exista, sino porque aún no es visible. Ahora se nombran principados y potestades; pero también aquellos que ni siquiera son nombrados en este mundo, pero que serán revelados en el mundo venidero, están todos sujetos a Cristo.",
+      "enHash": "d9d101b3907d339f81d5da0667c45df0d9e03021a4a2130001a9749795084dda",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "Ephesians 1:22\n And he hath given him to be head over all things to the church - An head both of guidance and government, and likewise of life and influence, to the whole and every member of it. All these stand in the nearest union with him, and have as continual and effectual a communication of activity, growth, and strength from him, as the natural body from its head.",
+      "es": "Efesios 1:22\n Y le ha dado como cabeza de todas las cosas a la iglesia - Una cabeza tanto de guía como de gobierno, y también de vida e influencia, para todos y cada uno de sus miembros. Todos estos están en la más estrecha unión con él, y tienen una comunicación tan continua y eficaz de actividad, crecimiento y fuerza de él, como el cuerpo natural de su cabeza.",
+      "enHash": "d03f0b83249c5d48796ff987d7a7a1b9cf7ff630eefc89ccbc481ff26c145d9c",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "Ephesians 1:23\n The fulness of him that filleth all in all - It is hard to say in what sense this can be spoken of the church; but the sense is easy and natural, if we refer it to Christ, who is the fulness of the Father.",
+      "es": "Efesios 1:23\n La plenitud de aquel que lo llena todo en todo - Es difícil decir en qué sentido se puede hablar de la iglesia; pero el sentido es fácil y natural, si lo referimos a Cristo, quien es la plenitud del Padre.",
+      "enHash": "8981de4f2f812db8afeed7deeb3c328bca1f27d5ffa00ef73ccc77f1afe88df4",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "Ephesians 2:1\n And he hath quickened you - In the nineteenth and twentieth verses of the preceding chapter, St. Paul spoke of God's working in them by the same almighty power whereby he raised Christ from the dead. On the mention of this he, in the fulness of his heart, runs into a flow of thought concerning the glory of Christ's exaltation in the three following verses. He here resumes the thread of his discourse. Who were dead - Not only diseased, but dead; absolutely void of all spiritual life; and as incapable of quickening yourselves, as persons literally dead. In trespasses and sins - Sins seem to be spoken chiefly of the gentiles, who knew not God; trespasses, of the Jews, who had his law, and yet regarded it not, Eph 2:5 . The latter herein obeyed the flesh; the former, the prince of the power of the air.",
+      "es": "Efesios 2:1\n Y él os ha dado vida - En los versículos diecinueve y veinte del capítulo anterior, San Pablo habló de la obra de Dios en ellos por el mismo poder omnipotente con el que resucitó a Cristo de entre los muertos. Al mencionar esto, él, en la plenitud de su corazón, se lanza a pensar en la gloria de la exaltación de Cristo en los tres versículos siguientes. Aquí retoma el hilo de su discurso. Quienes estaban muertos - No solo enfermos, sino también muertos; absolutamente desprovisto de toda vida espiritual; y como incapaces de vivificarse, como personas literalmente muertas. En delitos y pecados - Los pecados parecen hablarse principalmente de los gentiles, que no conocían a Dios; transgresiones, de los judíos, que tenían su ley, y sin embargo no la observaron, Efesios 2:5. Estos últimos obedecieron a la carne; el primero, el príncipe de la potestad del aire.",
+      "enHash": "082429142e22f6f7196500541a5d2add7b24a78436d4d55407c30a26ecc575ec",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "Ephesians 2:2\n According to the course of this world - The word translated course properly means a long series of times, wherein one corrupt age follows another. According to the prince of the power of the air - The effect of which power all may perceive, though all do not understand the cause of it: a power unspeakably penetrating and widely diffused; but yet, as to its baneful influences, beneath the orb of believers. The evil spirits are united under one head, the seat of whose dominion is in the air. Here he sometimes raises storms, sometimes makes visionary representations, and is continually roving to and fro. The spirit that now worketh - With mighty power; and so he did, and doth in all ages. In the sons of disobedience - In all who do not believe and obey the gospel.",
+      "es": "Efesios 2:2\n Según el curso de este mundo - La palabra curso traducida correctamente significa una larga serie de tiempos, en los que una era corrupta sigue a otra. Según el príncipe del poder del aire - El efecto de cuyo poder todos pueden percibir, aunque no todos comprenden su causa: un poder indescriptiblemente penetrante y ampliamente difundido; pero aún así, en cuanto a sus influencias nocivas, bajo el orbe de los creyentes. Los espíritus malignos están unidos bajo una sola cabeza, cuyo asiento de dominio está en el aire. Aquí a veces provoca tormentas, a veces hace representaciones visionarias y vaga continuamente de un lado a otro. El espíritu que ahora trabaja - Con gran poder; y así lo hizo, y lo hace en todas las épocas. En los hijos de la desobediencia - En todos los que no creen ni obedecen el evangelio.",
+      "enHash": "9b39a11bf5d5c56e61e821966237eba0317dba0e6bed9043ec1c07d669245ad4",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "Ephesians 2:3\n Among whom we - Jews. Also, formerly had our conversation: doing the will of the flesh - In gross, brutal sins. And of the mind - By spiritual, diabolical wickedness. In the former clause, flesh denotes the whole evil nature; in the latter, the body opposed to the soul. And were by nature - That is, in our natural state. Children of wrath - Having the wrath of God abiding on us, even as the gentiles. This expression, by nature, occurs also, Gal 4:8 ; Rom 2:14; and thrice in the eleventh chapter. Rom 11:24 But in none of these places does it signify, by custom, or practice, or customary practice, as a late writer affirms. Nor can it mean so here For this would make the apostle guilty of gross tautology, their customary sinning having been expressed already, in the former part of the verse. But all these passages agree in expressing what belongs to the nature of the persons spoken of.",
+      "es": "Efesios 2:3\n Entre los cuales nosotros, los judíos. Además, anteriormente tuvimos nuestra conversación: hacer la voluntad de la carne - En pecados graves y brutales. Y de la mente - Por maldad espiritual y diabólica. En la cláusula anterior, carne denota toda la naturaleza malvada; en este último, el cuerpo opuesto al alma. Y estábamos por naturaleza - Es decir, en nuestro estado natural. Hijos de la ira - Teniendo la ira de Dios reposando sobre nosotros, incluso como los gentiles. Esta expresión, por naturaleza, ocurre también, Gálatas 4:8; Romanos 2:14; y tres veces en el capítulo undécimo. Rom 11:24 Pero en ninguno de estos lugares significa, por costumbre, ni por práctica, ni por práctica consuetudinaria, como afirma un escritor tardío. Tampoco puede significar eso aquí porque esto haría al apóstol culpable de tautología grave, ya que su pecado habitual ya se expresó en la primera parte del versículo. Pero todos estos pasajes coinciden en expresar lo que pertenece a la naturaleza de las personas de las que se habla.",
+      "enHash": "1c4c34cdfd8f9266153040ea7bac846b77ea4841174ed5d4e2681621d952653b",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "Mercy removes misery: love confers salvation.",
+      "es": "La misericordia elimina la miseria: el amor confiere la salvación.",
+      "enHash": "fa686e6e35d499283f9ba1d12327ac8ef444df2a2c055c1082ecacf866c3ac5a",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "Ephesians 2:5\n He hath quickened us together with Christ - In conformity to him, and by virtue of our union with him. By grace ye are saved - Grace is both the beginning and end. The apostle speaks indifferently either in the first or second person; the Jews and gentiles being in the same circumstance, both by nature and by grace. This text lays the axe to the very root of spiritual pride, and all glorying in ourselves. Therefore St. Paul, foreseeing the backwardness of mankind to receive it, yet knowing the absolute necessity of its being received, again asserts the very same truth, Eph 2:8 , in the very same words.",
+      "es": "Efesios 2:5\n Él nos ha vivificado junto con Cristo - En conformidad con él y en virtud de nuestra unión con él. Por gracia sois salvos - La gracia es tanto el principio como el fin. El apóstol habla indiferentemente ya sea en primera o en segunda persona; estando los judíos y los gentiles en la misma circunstancia, tanto por naturaleza como por gracia. Este texto pone el hacha en la raíz misma del orgullo espiritual y de toda gloria en nosotros mismos. Por lo tanto, San Pablo, previendo el retraso de la humanidad para recibirlo, pero sabiendo la absoluta necesidad de ser recibido, nuevamente afirma la misma verdad, Ef 2:8, en las mismas palabras.",
+      "enHash": "1466277aaf75639bb995d86a8362ea247db4533b8b771948564ff9ed2b31c5fa",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "Ephesians 2:6\n And hath raised us up together - Both Jews and gentiles already in spirit; and ere long our bodies too will be raised. And made us all sit together in heavenly places - This is spoken by way of anticipation. Believers are not yet possessed of their seats in heaven; but each of them has a place prepared for him.",
+      "es": "Efesios 2:6\n Y nos levantó juntos - Tanto judíos como gentiles ya en espíritu; y dentro de poco nuestros cuerpos también resucitarán. Y nos hizo sentar a todos juntos en lugares celestiales - Esto se dice a modo de anticipación. Los creyentes aún no poseen sus asientos en el cielo; pero cada uno de ellos tiene un lugar preparado para él.",
+      "enHash": "5b962592e164b6ded1162bcf35c8528045fe417f64dc5e3678761aff4f7c13f7",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "The ages to come — That is, all succeeding ages.",
+      "es": "Las edades venideras, es decir, todas las edades venideras.",
+      "enHash": "86115ecde49f5c5d039108d0bc514f3e61710bf9dc81f00eebc2340c2861ec1a",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "Ephesians 2:8\n By grace ye are saved through faith - Grace, without any respect to human worthiness, confers the glorious gift. Faith, with an empty hand, and without any pretence to personal desert, receives the heavenly blessing. And this is not of yourselves - This refers to the whole preceding clause, That ye are saved through faith, is the gift of God.",
+      "es": "Efesios 2:8\n Por gracia sois salvos mediante la fe - La gracia, sin ningún respeto al mérito humano, confiere el glorioso don. La fe, con las manos vacías y sin pretensión de merecimiento personal, recibe la bendición celestial. Y esto no es de ustedes mismos - Esto se refiere a toda la cláusula anterior, Que sois salvos por la fe, es don de Dios.",
+      "enHash": "14dcf4e51411a4287d4071665ae81f4c8e08246ecfb2d005fe9a392a970c9a0a",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "Not by works — Neither this faith nor this salvation is owing to any works you ever did, will, or can do.",
+      "es": "No por obras: ni esta fe ni esta salvación se deben a ninguna obra que hayas hecho, quieras o puedas hacer.",
+      "enHash": "d519e441c4a6332ce0e0268154af21caeee00c047c6aabede8f191443394f4e1",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "Ephesians 2:10\n For we are his workmanship - Which proves both that salvation is by faith, and that faith is the gift of God. Created unto good works - That afterwards we might give ourselves to them. Which God had before preprepared - The occasions of them: so we must still ascribe the whole to God. That we might walk in them - Though not be justified by them.",
+      "es": "Efesios 2:10\n Porque somos su obra - Lo que prueba que la salvación es por fe y que la fe es el don de Dios. Creado para buenas obras - Para que luego podamos entregarnos a ellas. Que Dios había preparado antes - Las ocasiones de ellas: por eso aún debemos atribuir el todo a Dios. Para que podamos caminar en ellos - Aunque no seamos justificados por ellos.",
+      "enHash": "67b8ab7eec7ee4f23d55fbde7cb739ec6e74302ea02302864cebe199c2c2577b",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "Ephesians 2:11\n Wherefore remember - Such a remembrance strengthens faith, and increases gratitude. That ye being formerly gentiles in the flesh - Neither circumcised in body nor in spirit. Who were accordingly called the uncircumcision - By way of reproach. By that which is called the circumcision - By those who call themselves the circumcised, and think this a proof that they are the people of God; and who indeed have that outward circumcision which is performed by hands in the flesh.",
+      "es": "Efesios 2:11\n Por tanto, recuerde: tal recuerdo fortalece la fe y aumenta la gratitud. Que antes erais gentiles en la carne - Ni circuncidados en cuerpo ni en espíritu. Quienes, en consecuencia, fueron llamados incircuncisión - A modo de reproche. Por lo que se llama circuncisión - Por aquellos que se llaman a sí mismos circuncidados y piensan que esto es una prueba de que son el pueblo de Dios; y que en verdad tienen esa circuncisión exterior que se hace con las manos en la carne.",
+      "enHash": "9335dae29f4a5f954aef710f0e1356fa2ccdbf9c83f6b89d60bb47631e29c7a8",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "Ephesians 2:12\n Were at that time without Christ - Having no faith in, or knowledge of, him. Being aliens from the commonwealth of Israel - Both as to their temporal privileges and spiritual blessings. And strangers to the covenants of promise - The great promise in both the Jewish and Christian covenant was the Messiah. Having no hope - Because they had no promise whereon to ground their hope. And being without God - Wholly ignorant of the true God, and so in effect atheists. Such in truth are, more or less, all men, in all ages, till they know God by the teaching of his own Spirit. In the world - The wide, vain world, wherein ye wandered up and down, unholy and unhappy.",
+      "es": "Efesios 2:12\n Estábamos en ese momento sin Cristo - No teníamos fe ni conocimiento de él. Ser extranjeros de la comunidad de Israel - Tanto en cuanto a sus privilegios temporales como a sus bendiciones espirituales. Y extraños a los pactos de la promesa - La gran promesa tanto en el pacto judío como en el cristiano era el Mesías. Sin esperanza - Porque no tenían ninguna promesa en la que basar su esperanza. Y estar sin Dios - Totalmente ignorante del Dios verdadero, y por lo tanto ateos. En verdad, así son, más o menos, todos los hombres, en todas las épocas, hasta que conocen a Dios por la enseñanza de su propio Espíritu. En el mundo - El mundo amplio y vano, en el que vagabais arriba y abajo, impío e infeliz.",
+      "enHash": "c62cb650e6e51b7f805b266c4d17190d64f5f4b304452dd712438cd24d8c6cdd",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "Far off — From God and his people.\n\n Nigh — Intimately united to both.",
+      "es": "Lejos: de Dios y su pueblo.\n\n Cerca - Íntimamente unidos a ambos.",
+      "enHash": "dab8c07bf6a7e56927ddd30a0090f806cf73424d9e887b4a8a32512c3e3a3424",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "Ephesians 2:14\n For he is our peace - Not only as he purchased it, but as he is the very bond and centre of union. He who hath made both - Jews and gentiles, one church. The apostle describes, The conjunction of the gentiles with Israel, Eph 2:14 ,15. And, The conjunction of both with God, Eph 2:15 - 18. Each description is subdivided into two parts. And the former part of the one, concerning abolishing the enmity, answers the former part of the other; the latter part of the one, concerning the evangelical decrees, the latter part of the other. And hath broken down the middle wall of partition - Alluding to that wall of old, which separated the court of Israel from the court of the gentiles. Such a wall was the ceremonial law, which Christ had now taken away.",
+      "es": "Efesios 2:14\n Porque él es nuestra paz - No solo como la compró, sino porque es el vínculo y el centro de la unión. El que hizo de ambos, judíos y gentiles, una sola iglesia. El apóstol describe, La conjunción de los gentiles con Israel, Ef 2:14,15. Y, La conjunción de ambos con Dios, Ef 2:15 - 18. Cada descripción se subdivide en dos partes. Y la primera parte de uno, acerca de abolir la enemistad, responde a la primera parte del otro; la última parte de uno, relativa a los decretos evangélicos, la última parte del otro. Y ha derribado el muro intermedio de partición - Aludiendo a ese muro antiguo, que separaba el tribunal de Israel del tribunal de los gentiles. Ese muro era la ley ceremonial, que Cristo ahora había quitado.",
+      "enHash": "ef8df621165d30b57f093888cae87c97f81c40584f1b98e81374db121acaca5f",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "Ephesians 2:15\n Having abolished by his suffering in the flesh the cause of enmity between the Jews and gentiles, even the law of ceremonial commandments, through his decrees - Which offer mercy to all; see Col 2:14 . That he might form the two - Jew and gentile. Into one new man - one mystical body.",
+      "es": "Efesios 2:15\n Habiendo abolido por su sufrimiento en la carne la causa de enemistad entre judíos y gentiles, incluso la ley de los mandamientos ceremoniales, mediante sus decretos, que ofrecen misericordia a todos; ver Col 2:14. Para poder formar a los dos: judío y gentil. En un hombre nuevo, un cuerpo místico.",
+      "enHash": "0b92c0ba16652eb1ed7d60da1b8132a2f5c6283d89421107af094d4b406b64c2",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "Ephesians 2:16\n In one body - One church. Having slain - By his own death on the cross. The enmity - Which had been between sinners and God.",
+      "es": "Efesios 2:16\n En un cuerpo - Una iglesia. Habiendo matado - Por su propia muerte en la cruz. La enemistad - Que había existido entre los pecadores y Dios.",
+      "enHash": "18ea9a24665adffdf5b88ffe4366e144e4191c3f6a1cf6f3b2b648d59d45a48d",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "Ephesians 2:17\n And he came - After his resurrection. And preached peace - By his ministers and his Spirit. To you - Gentiles. That were afar off - At the utmost distance from God. And to them that were nigh - To the Jews, who were comparatively nigh, being his visible church.",
+      "es": "Efesios 2:17\n Y vino - Después de su resurrección. Y predicó la paz - Por sus ministros y su Espíritu. Para ustedes, gentiles. Que estaban muy lejos - A la máxima distancia de Dios. Y a los que estaban cerca - A los judíos, que estaban comparativamente cerca, siendo su iglesia visible.",
+      "enHash": "6b78288ee5ccd967832089e7cb5a75416ab7653fc013a4ff6bb7adfb2137c619",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "Ephesians 2:18\n For through him, we both - Jews and gentiles. Have access - Liberty of approaching, by the guidance and aid of one Spirit to God as our Father. Christ, the Spirit, and the Father, the three - one God, stand frequently in the same order.",
+      "es": "Efesios 2:18\n Porque a través de él somos ambos, judíos y gentiles. Tener acceso - Libertad de acercarse, por la guía y ayuda de un solo Espíritu, a Dios como nuestro Padre. Cristo, el Espíritu y el Padre, los tres, un solo Dios, se encuentran frecuentemente en el mismo orden.",
+      "enHash": "242465c7ce50fe4a9e94384de3b4092f3d9c3d0f22f362b522a444a7eea7149c",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "Ephesians 2:19\n Therefore ye are no longer strangers, but citizens of the heavenly Jerusalem; no longer foreigners, but received into the very family of God.",
+      "es": "Efesios 2:19\n Por tanto, ya no sois extranjeros, sino ciudadanos de la Jerusalén celestial; ya no son extranjeros, sino recibidos en la misma familia de Dios.",
+      "enHash": "ebad0c8378672cfd03d7b77ad309d32d37c616614ea474e0c9d6a9d07c2998c4",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "Ephesians 2:20\n And are built upon the foundation of the apostles and prophets - As the foundation sustains the building, so the word of God, declared by the apostles and prophets, sustains the faith of all believers. God laid the foundation by them; but Christ himself is the chief corner - stone of the foundation. Elsewhere he is termed the foundation itself, 1Cor 3:11 .",
+      "es": "Efesios 2:20\n Y están construidos sobre los cimientos de los apóstoles y profetas - Así como los cimientos sostienen el edificio, así la palabra de Dios, declarada por los apóstoles y profetas, sostiene la fe de todos los creyentes. Dios puso el fundamento sobre ellos; pero Cristo mismo es la principal piedra angular del fundamento. En otros lugares se le llama el fundamento mismo, 1 Corintios 3:11.",
+      "enHash": "852b68ece344166ccea13b7ef951b994610a60e0fe429156799d5456e0d62ce1",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "Ephesians 2:21\n On whom all the building fitly framed together - The whole fabric of the universal church rises up like a great pile of living materials. Into an holy temple in the Lord - Dedicated to Christ, and inhabited by him, in which he displays his presence, and is worshipped and glorified. What is the temple of Diana of the Ephesians, whom ye formerly worshipped, to this?",
+      "es": "Efesios 2:21\n Sobre quien todo el edificio encaja perfectamente - Todo el tejido de la iglesia universal se eleva como una gran pila de materiales vivos. En un templo santo en el Señor - Dedicado a Cristo y habitado por él, en el que muestra su presencia, es adorado y glorificado. ¿Qué es para esto el templo de Diana de los Efesios, a quien antes adorabais?",
+      "enHash": "78714e3ec914f9f5ae6393cc4182eb87c7edd1727cbafadc48f835c11b0e0425",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "Ephesians 3:1\n For this cause - That ye may be so \"built together,\" I am a prisoner for you gentiles - For your advantage, and for asserting your right to these blessings. This it was which so enraged the Jews against him.",
+      "es": "Efesios 3:1\n Por esta causa - Para que seáis \"construidos juntos\", soy prisionero para vosotros, los gentiles - Para vuestra ventaja y para hacer valer vuestro derecho a estas bendiciones. Esto fue lo que enfureció tanto a los judíos contra él.",
+      "enHash": "21b6e06aad4556dad21f4ed77a52aa36fbdc4f40b3f6adf38fc465fa9ceee279",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "Ephesians 3:2\n The dispensation of the grace of God given me in your behalf - That is, the commission to dispense the gracious gospel; to you gentiles in particular. This they had heard from his own mouth.",
+      "es": "Efesios 3:2\n La dispensación de la gracia de Dios que me dio en su nombre - Es decir, la comisión de dispensar el evangelio misericordioso; a vosotros los gentiles en particular. Esto lo habían oído de su propia boca.",
+      "enHash": "b27f7e00eeb2c22fbbb2dc102a69dc8606423b48c0dcbaa1367bda10344b4b31",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "Ephesians 3:3\n The mystery - Of salvation by Christ alone, and that both to Jews and gentiles. As I wrote before - Namely, Eph 1:9 ,10; the very words of which passage he here repeats.",
+      "es": "Efesios 3:3\n El misterio - De la salvación sólo por Cristo, y tanto para judíos como para gentiles. Como escribí antes - Es decir, Efesios 1:9,10; las mismas palabras de cuyo pasaje repite aquí.",
+      "enHash": "08a0c4e7e1234a9ad9e4302aaa525438b717c1b47dec4d5ce3e8b505bdb85244",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "Ephesians 3:5\n Which in other - In former, ages was not so clearly or fully made known to the sons of men - To any man, no, not to Ezekiel, so often styled, \"son of man;\" nor to any of the ancient prophets. Those here spoken of are New Testament prophets.",
+      "es": "Efesios 3:5\n Lo cual en otros - En épocas anteriores no se dio a conocer tan clara o completamente a los hijos de los hombres - A cualquier hombre, no, no a Ezequiel, tan a menudo llamado \"hijo del hombre\"; ni a ninguno de los profetas antiguos. Los que aquí se mencionan son profetas del Nuevo Testamento.",
+      "enHash": "cccd88c377d4877d17558235f43f6837c1f771961e62f64a6b190a7675b34839",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "Ephesians 3:6\n That the gentiles are joint - heirs - Of God. And of the same body - Under Christ the head. And joint - partakers of his promise - The communion of the Holy Ghost.",
+      "es": "Efesios 3:6\n Que los gentiles son coherederos - De Dios. Y del mismo cuerpo - Bajo Cristo la cabeza. Y copartícipes de su promesa: la comunión del Espíritu Santo.",
+      "enHash": "6a0b1ca742678c9f403a4a8b1d8330f673462740b7756f2ac2af09c09c0b5a29",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "Ephesians 3:7\n According to the gift of the grace of God - That is, the apostle - ship which he hath graciously given me, and which he hath qualified me for. By the effectual working of his power - In me and by me.",
+      "es": "Efesios 3:7\n Según el don de la gracia de Dios - Es decir, el apostolado que amablemente me ha dado y para el que me ha calificado. Por el funcionamiento eficaz de su poder - En mí y por mí.",
+      "enHash": "25c336998249c53c8e6dcc49a2d271638784e502cfc254545964fa5fdcb87c1d",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "Ephesians 3:8\n Unto me, who am less than the least of all saints, is this grace given - Here are the noblest strains of eloquence to paint the exceeding low opinion the apostle had of himself, and the fulness of unfathomable blessings which are treasured up in Christ.",
+      "es": "Efesios 3:8\n A mí, que soy menos que el menor de todos los santos, se me concede esta gracia - Aquí están las líneas de elocuencia más nobles para pintar la opinión extremadamente baja que el apóstol tenía de sí mismo y la plenitud de bendiciones insondables que se atesoran en Cristo.",
+      "enHash": "c508bc773d144f4b6914f6311ee78359c943f945526f35b37a1fa2fd19fe7d5c",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "Ephesians 3:9\n What is the fellowship of the mystery - What those mysterious blessings are whereof all believers jointly partake. Which was, in a great measure, hidden from eternity by God, who, to make way for the free exercise of his love, created all things - This is the foundation of all his dispensations.",
+      "es": "Efesios 3:9\n ¿Cuál es la comunión del misterio? Cuáles son esas misteriosas bendiciones de las que todos los creyentes participan conjuntamente. La cual fue, en gran medida, oculta desde la eternidad por Dios, quien, para dar paso al libre ejercicio de su amor, creó todas las cosas. Este es el fundamento de todas sus dispensaciones.",
+      "enHash": "07ca53f24923348de5123d31131627e85296a85bb70f432660ce67eb1500d40b",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "Ephesians 3:10\n That the manifold wisdom of God might be made known by the church - By what is done in the church, which is the theatre of the divine wisdom.",
+      "es": "Efesios 3:10\n Para que la iglesia pueda dar a conocer la múltiple sabiduría de Dios - Por lo que se hace en la iglesia, que es el teatro de la sabiduría divina.",
+      "enHash": "742796969f4b442d169f13096e869c0638154a9698ee7157774170d03601b68e",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "Ephesians 3:12\n By whom we have free access - Such as those petitioners have, who are introduced to the royal presence by some distinguished favourite. And boldness - Unrestrained liberty of speech, such as children use in addressing an indulgent father, when, without fear of offending, they disclose all their wants, and make known all their requests.",
+      "es": "Efesios 3:12\n Por quién tenemos libre acceso - Como lo tienen los peticionarios, que son presentados a la presencia real por algún distinguido favorito. Y audacia - Libertad de expresión sin restricciones, como la que usan los niños al dirigirse a un padre indulgente, cuando, sin temor a ofender, revelan todas sus necesidades y dan a conocer todas sus solicitudes.",
+      "enHash": "eeb6f7330748cb1326bf52c4798c9fa0548de731e69332208891d3363bb35e7f",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "The not fainting is your glory.",
+      "es": "El no desmayar es tu gloria.",
+      "enHash": "afd85efcf618f6cd2c0a60d1f5f2a51bc155330dd61b5150f61d9e8409650935",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "Ephesians 3:15\n Of whom - The Father. The whole family of angels in heaven, saints in paradise, and believers on earth is named. Being the \"children of God,\" (a more honourable title than \"children of Abraham,\") and depending on him as the Father of the family.",
+      "es": "Efesios 3:15\n De quien - El Padre. Se nombra a toda la familia de ángeles en el cielo, santos en el paraíso y creyentes en la tierra. Ser \"hijos de Dios\" (título más honorable que \"hijos de Abraham\") y depender de él como Padre de familia.",
+      "enHash": "391595923dfb68507b0d784c5234245dab6fcd624f875cff28d5621efb4ca7c6",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "The riches of his glory — The immense fulness of his glorious wisdom, power, and mercy.\n\n The inner man — The soul.",
+      "es": "Las riquezas de su gloria La inmensa plenitud de su gloriosa sabiduría, poder y misericordia.\n\n El hombre interior: el alma.",
+      "enHash": "853f37cf6c5303d69db1fba003af4ea315d3944a5e413eebd16f29fc3eac4b0d",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "Dwell — That is, constantly and sensibly abide.",
+      "es": "Habitar: es decir, permanecer constante y sensatamente.",
+      "enHash": "93d614d14644b0151d67e12ef58d8719159b27f801e70abb423743b3f6d5d555",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "Ephesians 3:18\n That being rooted and grounded - That is, deeply fixed and firmly established, in love. Ye may comprehend - So far as an human mind is capable. What is the breadth of the love of Christ - Embracing all mankind. And length - From everlasting to everlasting. And depth - Not to be fathomed by any creature. And height - Not to be reached by any enemy.",
+      "es": "Efesios 3:18\n Que esté arraigado y cimentado - Es decir, profundamente fijado y firmemente establecido, en el amor. Podéis comprender - Hasta donde la mente humana es capaz. ¿Cuál es la amplitud del amor de Cristo? Abrazando a toda la humanidad. Y longitud: desde la eternidad hasta la eternidad. Y profundidad - No debe ser sondeado por ninguna criatura. Y altura: no debe ser alcanzada por ningún enemigo.",
+      "enHash": "3dec2bde38121b913ab523482010bf053697b51efd972236e05a558bdc0d2cee",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "Ephesians 3:19\n And to know - But the apostle corrects himself, and immediately observes, it cannot be fully known. This only we know, that the love of Christ surpasses all knowledge. That ye may be filled - Which is the sum of all. With all the fulness of God - With all his light, love, wisdom, holiness, power, and glory. A perfection far beyond a bare freedom from sin.",
+      "es": "Efesios 3:19\n Y saber - Pero el apóstol se corrige e inmediatamente observa que no se puede saber completamente. Sólo esto sabemos, que el amor de Cristo sobrepasa todo conocimiento. Para que os llenéis - Que es la suma de todo. Con toda la plenitud de Dios - Con toda su luz, amor, sabiduría, santidad, poder y gloria. Una perfección mucho más allá de la mera libertad del pecado.",
+      "enHash": "d60dd347a386496edf19e0d2d7b3afa705a047551a882125f401ff2a96fe8127",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "Ephesians 3:20\n Now to him - This doxology is admirably adapted to strengthen our faith, that we may not stagger at the great things the apostle has been praying for, as if they were too much for God to give, or for us to expect from him. That is able - Here is a most beautiful gradation. When he has given us exceeding, yea, abundant blessings, still we may ask for more. And he is able to do it. But we may think of more than we have asked. He is able to do this also. Yea, and above all this. Above all we ask - Above all we can think. Nay, exceedingly, abundantly above all that we can either ask or think.",
+      "es": "Efesios 3:20\n Ahora para él: esta doxología está admirablemente adaptada para fortalecer nuestra fe, para que no nos tambaleemos ante las grandes cosas por las que el apóstol ha estado orando, como si fueran demasiado para que Dios nos las diera o que nosotros esperáramos de él. Eso es capaz - Aquí hay una gradación más hermosa. Cuando él nos ha dado bendiciones extraordinarias, sí, abundantes, todavía podemos pedir más. Y él es capaz de hacerlo. Pero es posible que pensemos en más de lo que hemos pedido. Él también es capaz de hacer esto. Sí, y sobre todo esto. Por encima de todo preguntamos - Por encima de todo podemos pensar. Es más, muchísimo, muchísimo más de todo lo que podemos preguntar o pensar.",
+      "enHash": "83cc1be53389c1f9217f06dfc576f6818e1ee0c48c9bfde09050310659658374",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "In the church — On earth and in heaven.\n\n << Ephesians 2 | Ephesians 3 | Ephesians 4 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Ephesians Ephesians 3\n\n Related Commentaries\n Ephesians 3\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "En la iglesia: en la tierra y en el cielo.\n\n << Efesios 2 | Efesios 3 | Efesios 4 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Efesios Efesios 3\n\n Comentarios relacionados\n Efesios 3\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "f82f329405e47ed72d397238a92ff0f7475fb99e29bdc395b5a307e2954e4909",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "Ephesians 4:1\n I therefore, the prisoner of the Lord - Imprisoned for his sake and for your sakes; for the sake of the gospel which he had preached amongst them. This was therefore a powerful motive to them to comfort him under it by their obedience.",
+      "es": "Efesios 4:1\n Por tanto, yo, el prisionero del Señor - Encarcelado por él y por vosotros; por causa del evangelio que había predicado entre ellos. Por lo tanto, este fue un motivo poderoso para consolarlo con su obediencia.",
+      "enHash": "72b7951bae866c004c7c404a089ef07d25c4a93e2499344541b2962b97f5b96c",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "Ephesians 4:3\n Endeavouring to keep the unity of the Spirit - That mutual union and harmony, which is a fruit of the Spirit. The bond of peace is love.",
+      "es": "Efesios 4:3\n Esforzarse por mantener la unidad del Espíritu - Esa unión y armonía mutuas, que es fruto del Espíritu. El vínculo de la paz es el amor.",
+      "enHash": "185c0fd3b764b0599a7fa294541564aaa010cf549e83cae9c1ec30f440e687b2",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "Ephesians 4:4\n There is one body - The universal church, all believers throughout the world. One Spirit, one Lord, one God and Father - The ever - blessed Trinity. One hope - Of heaven.",
+      "es": "Efesios 4:4\n Hay un cuerpo: la iglesia universal, todos los creyentes en todo el mundo. Un Espíritu, un Señor, un Dios y Padre: la siempre bendita Trinidad. Una esperanza: del cielo.",
+      "enHash": "c31e2aa6ac2297d00fe3e4e5b30a9432124ab11b68407576bdb701595d6e3c10",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "One outward baptism.",
+      "es": "Un bautismo exterior.",
+      "enHash": "21a75866ba9dafa87a18572bb72bb563d5500b25e9ea82c628cd3cb72de824f2",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "Ephesians 4:6\n One God and Father of all - That believe. Who is above all - Presiding over all his children, operating through them all by Christ, and dwelling in all by his Spirit.",
+      "es": "Efesios 4:6\n Un Dios y Padre de todos - Que crean. Quien está sobre todo - Presidiendo a todos sus hijos, operando a través de todos ellos por Cristo y habitando en todos por su Espíritu.",
+      "enHash": "40700790e1d21419e10cf8b63025394e6379baaccf6082c7c5885f991158e87c",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "According to the measure of the gift of Christ — According as Christ is pleased to give to each.",
+      "es": "Según la medida del don de Cristo, según la complacencia de Cristo en dar a cada uno.",
+      "enHash": "271b64c0977601fcfa061448f84c8bb400543e00b59ecdcee8ac6c3c3365fd47",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "Ephesians 4:8\n Wherefore he saith - That is, in reference to which God saith by David, Having ascended on high, he led captivity captive - He triumphed over all his enemies, Satan, sin, and death, which had before enslaved all the world: alluding to the custom of ancient conquerors, who led those they had conquered in chains after them. And, as they also used to give donatives to the people, at their return from victory, so he gave gifts to men - Both the ordinary and extraordinary gifts of the Spirit. Psa 68:18 .",
+      "es": "Efesios 4:8\n Por lo que dice - Es decir, en referencia a lo que Dios dijo por medio de David: Habiendo ascendido a lo alto, llevó cautiva la cautividad - Triunfó sobre todos sus enemigos, Satanás, el pecado y la muerte, que antes habían esclavizado a todo el mundo: aludiendo a la costumbre de los antiguos conquistadores, que llevaban encadenados tras de sí a los que habían conquistado. Y, como también solían dar donaciones al pueblo, a su regreso de la victoria, así él dio dones a los hombres, tanto los dones ordinarios como los extraordinarios del Espíritu. Salmo 68:18 .",
+      "enHash": "3b14daeba2a194f19685666e1ce4e361b7350ad99d04a52489745f7a458aecbb",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "Ephesians 4:9\n Now this expression, He ascended, what is it, but that he descended - That is, does it not imply, that he descended first? Certainly it does, on the supposition of his being God. Otherwise it would not: since all the saints will ascend to heaven, though none of them descended thence. Into the lower parts of the earth - So the womb is called, Psa 139:15 ; the grave, Psa 63:9 .",
+      "es": "Efesios 4:9\n Ahora bien, esta expresión, Él ascendió, ¿qué es, sino que descendió? Es decir, ¿no implica que él descendió primero? Ciertamente lo es, bajo el supuesto de que sea Dios. De otro modo no sería así, puesto que todos los santos ascenderán al cielo, aunque ninguno descienda de allí. En las partes más bajas de la tierra - Así se llama el útero, Salmo 139:15; la tumba, Salmo 63:9.",
+      "enHash": "2c16fa20e45c2945f4d3932afec089e1994f7daac1136e5f4bbebc88812819ac",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "Ephesians 4:10\n He that descended - That thus amazingly humbled himself. Is the same that ascended - That was so highly exalted. That he might fill all things - The whole church, with his Spirit, presence, and operations.",
+      "es": "Efesios 4:10\n El que descendió - Que se humilló sorprendentemente. Es el mismo que ascendió - Que estaba tan exaltado. Para que pueda llenar todas las cosas - Toda la iglesia, con su Espíritu, presencia y operaciones.",
+      "enHash": "b8c8bf40f13994958f685fbf5581486d44c3240d854cdabd6b718ac71f5850ed",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "Ephesians 4:11\n And, among other his free gifts, he gave some apostles - His chief ministers and special witnesses, as having seen him after his resurrection, and received their commission immediately from him. And same prophets, and some evangelists - A prophet testifies of things to come; an evangelist of things past: and that chiefly by preaching the gospel before or after any of the apostles. All these were extraordinary officers. The ordinary were. Some pastors - Watching over their several flocks. And some teachers - Whether of the same or a lower order, to assist them, as occasion might require.",
+      "es": "Efesios 4:11\n Y, entre otros obsequios, dio algunos apóstoles, sus principales ministros y testigos especiales, como si lo hubieran visto después de su resurrección y hubieran recibido su comisión inmediatamente de él. Y los mismos profetas, y algunos evangelistas - Un profeta testifica de lo que vendrá; un evangelista de cosas pasadas: y eso principalmente predicando el evangelio antes o después de cualquiera de los apóstoles. Todos estos eran oficiales extraordinarios. Los ordinarios lo eran. Algunos pastores - Velando por sus diversos rebaños. Y algunos profesores - Ya sean del mismo orden o de inferior orden, para ayudarles, según la ocasión lo requiera.",
+      "enHash": "51b6940da4148b84b1b97c9ac7138b0d2b752561e9fbebc5bfd273797d16a50e",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "Ephesians 4:12\n In this verse is noted the office of ministers; in the next, the aim of the saints; in the 14th , 15th, 16th, the way of growing in grace. And each of these has three parts, standing in the same order. For the perfecting the saints - The completing them both in number and their various gifts and graces. To the work of the ministry - The serving God and his church in their various ministrations. To the edifying of the body of Christ - The building up this his mystical body in faith, love, holiness.",
+      "es": "Efesios 4:12\n En este versículo se señala el oficio de los ministros; en el siguiente, el objetivo de los santos; en los días 14, 15, 16, el camino de crecer en gracia. Y cada uno de ellos tiene tres partes, situadas en el mismo orden. Para perfeccionar a los santos - Completarlos tanto en número como en sus diversos dones y gracias. A la obra del ministerio - El servicio a Dios y su iglesia en sus diversos ministerios. A la edificación del cuerpo de Cristo - La edificación de este su cuerpo místico en la fe, el amor y la santidad.",
+      "enHash": "2b30efff88fdb8dc780ab3076ae2130f65686b944a2995d78f1d9382dc300918",
+      "source": "corpus:john-wesley"
+    },
+    "b73": {
+      "en": "Ephesians 4:13\n Till we all - And every one of us. Come to the unity of the faith, and knowledge of the Son of God - To both an exact agreement in the Christian doctrine, and an experimental knowledge of Christ as the Son of God. To a perfect man - To a state of spiritual manhood both in understanding and strength. To the measure of the stature of the fulness of Christ - To that maturity of age and spiritual stature wherein we shall be filled with Christ, so that he will be all in all.",
+      "es": "Efesios 4:13\n Hasta que todos - Y cada uno de nosotros. Ven a la unidad de la fe y al conocimiento del Hijo de Dios - A un acuerdo exacto en la doctrina cristiana y a un conocimiento experimental de Cristo como Hijo de Dios. A un hombre perfecto - A un estado de virilidad espiritual tanto en comprensión como en fuerza. A la medida de la estatura de la plenitud de Cristo - A esa madurez de edad y estatura espiritual en la que seremos llenos de Cristo, para que él sea todo en todos.",
+      "enHash": "38a358d7dd7a83ab430aad51d5567943f1da56e375dd73b9e303768ad54434c6",
+      "source": "corpus:john-wesley"
+    },
+    "b74": {
+      "en": "Ephesians 4:14\n Fluctuating to and fro - From within, even when there is no wind. And carried about with every wind - From without; when we are assaulted by others, who are unstable as the wind. By the sleight of men - By their \"cogging the dice;\" so the original word implies.",
+      "es": "Efesios 4:14\n Fluctuando de un lado a otro - Desde dentro, incluso cuando no hay viento. Y llevado con cada viento - Desde afuera; cuando somos asaltados por otros, que son inestables como el viento. Por la prestidigitación de los hombres - Por su \"engranaje de los dados\"; así lo implica la palabra original.",
+      "enHash": "ea1db0d275f3b5377576a55df52aa841257c1ac6cb8901027e643659d29af7c4",
+      "source": "corpus:john-wesley"
+    },
+    "b75": {
+      "en": "Into him — Into his image and Spirit, and into a full union with him.",
+      "es": "En él, en su imagen y Espíritu, y en una unión plena con él.",
+      "enHash": "0cf634ecdaf4d16dc0bf27b14d2ae3177fac2f05c089577f9a759f8d8a366c0a",
+      "source": "corpus:john-wesley"
+    },
+    "b76": {
+      "en": "Ephesians 4:16\n From whom the whole mystical body fitly joined together - All the parts being fitted for and adapted to each other, and most exactly harmonizing with the whole. And compacted - Knit and cemented together with the utmost firmness. Maketh increase by that which every joint supplieth - Or by the mutual help of every joint. According to the effectual working in the measure of every member - According as every member in its measure effectually works for the support and growth of the whole. A beautiful allusion to the human body, composed of different joints and members, knit together by various ligaments, and furnished with vessels of communication from the head to every part.",
+      "es": "Efesios 4:16\n De quien todo el cuerpo místico se unió adecuadamente - Todas las partes están adaptadas y adaptadas entre sí, y armonizando exactamente con el todo. Y compactado - Tejer y cementar entre sí con la máxima firmeza. Aumenta con lo que cada articulación proporciona - O con la ayuda mutua de cada articulación. Según el trabajo eficaz en la medida de cada miembro - Según cada miembro en su medida trabaja eficazmente para el apoyo y crecimiento del todo. Hermosa alusión al cuerpo humano, compuesto de diferentes articulaciones y miembros, unidos por varios ligamentos y provisto de vasos de comunicación desde la cabeza a todas las partes.",
+      "enHash": "42503770b80d00eb42c6292ee2ab148ea456fc81acd95712b877c4f9e1f58ccd",
+      "source": "corpus:john-wesley"
+    },
+    "b77": {
+      "en": "Ephesians 4:17\n This therefore I say - He returns thither where he begun, Eph 4:1 . And testify in the Lord - In the name and by the authority of the Lord Jesus. In the vanity of their mind - Having lost the knowledge of the true God, Rom 1:21 . This is the root of all evil walking.",
+      "es": "Efesios 4:17\n Por eso digo esto: Él regresa allí donde comenzó, Efesios 4:1. Y testifique en el Señor - En el nombre y por la autoridad del Señor Jesús. En la vanidad de su mente - Habiendo perdido el conocimiento del Dios verdadero, Romanos 1:21 . Ésta es la raíz de todo mal andar.",
+      "enHash": "8bc2c3a1893fd93f2ee5776aa0d016354bb4b2681eb1cdd048dd12d3f8458a25",
+      "source": "corpus:john-wesley"
+    },
+    "b78": {
+      "en": "Ephesians 4:18\n Having their understanding darkened, through the ignorance that is in them - So that they are totally void of the light of God, neither have they any knowledge of his will. Being alienated from the life of God - Utter strangers to the divine, the spiritual life. Through the hardness of their hearts - Callous and senseless. And where there is no sense, there can be no life.",
+      "es": "Efesios 4:18\n Teniendo su entendimiento oscurecido, por la ignorancia que hay en ellos - De modo que están totalmente desprovistos de la luz de Dios, ni tienen conocimiento alguno de su voluntad. Estar alienados de la vida de Dios - Totalmente extraños a la vida divina y espiritual. A través de la dureza de sus corazones - Insensibles y sin sentido. Y donde no hay sentido, no puede haber vida.",
+      "enHash": "e4abb74432d1749ee5c68acb915a474ea6e7cea8aaf03cd337a025b329b8b011",
+      "source": "corpus:john-wesley"
+    },
+    "b79": {
+      "en": "Ephesians 4:19\n Who being past feeling - The original word is peculiarly significant. It properly means, past feeling pain. Pain urges the sick to seek a remedy, which, where there is no pain, is little thought of. Have given themselves up - Freely, of their own accord. Lasciviousness is but one branch of uncleanness, which implies impurity of every kind.",
+      "es": "Efesios 4:19\n Quien ha pasado del sentimiento - La palabra original es particularmente significativa. Significa propiamente, más allá de sentir dolor. El dolor insta al enfermo a buscar un remedio que, cuando no hay dolor, apenas se piensa en él. Se han entregado - Libremente, por su propia voluntad. La lascivia no es más que una rama de la impureza, que implica impureza de todo tipo.",
+      "enHash": "2f6193b2782aba7ef9236baf4fcaa96d97bafd09e702138c5985a1c42aad410a",
+      "source": "corpus:john-wesley"
+    },
+    "b80": {
+      "en": "Ephesians 4:20\n But ye have not so learned Christ - That is, ye cannot act thus, now ye know him, since you know the Christian dispensation allows of no sin.",
+      "es": "Efesios 4:20\n Pero no habéis aprendido a Cristo así - Es decir, no podéis actuar así, ahora que lo conocéis, ya que sabéis que la dispensación cristiana no permite el pecado.",
+      "enHash": "57dbac2478943937ab14daa8e3ad556d58be54efe926f14e377a47f1df75bde9",
+      "source": "corpus:john-wesley"
+    },
+    "b81": {
+      "en": "Seeing ye have heard him — Teaching you inwardly by his Spirit.\n\n As the truth is in Jesus — According to his own gospel.",
+      "es": "Ya que le habéis oído, enseñándoos interiormente por su Espíritu.\n\n Como la verdad está en Jesús, según su propio evangelio.",
+      "enHash": "7bc5706294ce66cb5ad116abb1ceca0ffdd818ddeb7f9fc083f2cf5e8b7f4b97",
+      "source": "corpus:john-wesley"
+    },
+    "b82": {
+      "en": "Ephesians 4:22\n The old man - That is, the whole body of sin. All sinful desires are deceitful; promising the happiness which they cannot give.",
+      "es": "Efesios 4:22\n El viejo hombre - Es decir, todo el cuerpo del pecado. Todos los deseos pecaminosos son engañosos; prometiendo la felicidad que no pueden dar.",
+      "enHash": "27339cc894617feab472db8a8cdde6450cd91e598dbf6f0a8dc886f314e9368e",
+      "source": "corpus:john-wesley"
+    },
+    "b83": {
+      "en": "The spirit of your mind — The very ground of your heart.",
+      "es": "El espíritu de tu mente: la base misma de tu corazón.",
+      "enHash": "c9ab49492f8e856767f2e1e9c0d58e12674bda819d0b115d328fbd95945d1d1c",
+      "source": "corpus:john-wesley"
+    },
+    "b84": {
+      "en": "The new man — Universal holiness.\n\n After — In the very image of God.",
+      "es": "El hombre nuevo: la santidad universal.\n\n Después: a la misma imagen de Dios.",
+      "enHash": "244c35f3f62d04179d0c35cdc578534ab662c5c17cf349d59f20542431e36d38",
+      "source": "corpus:john-wesley"
+    },
+    "b85": {
+      "en": "Ephesians 4:25\n Wherefore - Seeing ye are thus created anew, walk accordingly, in every particular. For we are members one of another - To which intimate union all deceit is quite repugnant.",
+      "es": "Efesios 4:25\n Por lo tanto, ya que sois creados de nuevo, caminad en consecuencia, en cada detalle. Porque somos miembros unos de otros - Para cuya unión íntima todo engaño es bastante repugnante.",
+      "enHash": "f8f7ad689eb0ed126804cdd059067a8cc37b38f12e411fa995062b077d499de3",
+      "source": "corpus:john-wesley"
+    },
+    "b86": {
+      "en": "Ephesians 4:26\n Be ye angry, and sin not - That is, if ye are angry, take heed ye sin not. Anger at sin is not evil; but we should feel only pity to the sinner. If we are angry at the person, as well as the fault, we sin. And how hardly do we avoid it. Let not the sun go down upon your wrath - Reprove your brother, and be reconciled immediately. Lose not one day. A clear, express command. Reader, do you keep it?",
+      "es": "Efesios 4:26\n Enojaos y no pequéis - Es decir, si estáis enojados, tened cuidado de no pecar. La ira por el pecado no es mala; pero sólo debemos sentir lástima por el pecador. Si estamos enojados con la persona, además de con la falta, pecamos. Y ¡cuán difícilmente lo evitamos! No dejes que el sol se ponga sobre tu ira - Reprende a tu hermano y reconcíliate inmediatamente. No pierdas ni un solo día. Una orden clara y expresa. Lector, ¿lo conservas?",
+      "enHash": "fe737bbee4fdf59e4966d21b10c553aaf158b2c2ecf80979e83e228272760934",
+      "source": "corpus:john-wesley"
+    },
+    "b87": {
+      "en": "Neither give place to the devil — By any delay.",
+      "es": "Ni deis lugar al diablo, por ningún retraso.",
+      "enHash": "b463b349ef8865b14b24b8ae3a1796b784968de908f42f19e28ab550d5dc73c8",
+      "source": "corpus:john-wesley"
+    },
+    "b88": {
+      "en": "Ephesians 4:28\n But rather let him labour - Lest idleness lead him to steal again. And whoever has sinned in any kind ought the more zealously to practise the opposite virtue. That he may have to give - And so be no longer a burden and nuisance, but a blessing, to his neighbours.",
+      "es": "Efesios 4:28\n Más bien, déjelo trabajar - No sea que la ociosidad lo lleve a robar nuevamente. Y quien haya pecado en cualquier forma debe practicar con mayor celo la virtud contraria. Para que tenga que dar - Y así ya no sea una carga y una molestia, sino una bendición para sus vecinos.",
+      "enHash": "8b4c321647431e52a0ad6aa8e3481bcf9a3447e7e5abb7aea87739317ae96841",
+      "source": "corpus:john-wesley"
+    },
+    "b89": {
+      "en": "Ephesians 4:29\n But that which is good - Profitable to the speaker and hearers. To the use of edifying - To forward them in repentance, faith, or holiness. That it may minister grace - Be a means of conveying more grace into their hearts. Hence we learn, what discourse is corrupt, as it were stinking in the nostrils of God; namely, all that is not profitable, not edifying, not apt to minister grace to the hearers.",
+      "es": "Efesios 4:29\n Pero lo que es bueno es rentable para el hablante y los oyentes. Para uso edificante - Para remitirlos en arrepentimiento, fe o santidad. Para que pueda ministrar gracia - Sea un medio para transmitir más gracia a sus corazones. De ahí aprendemos qué discurso es corrupto, como si apesta en las narices de Dios; es decir, todo lo que no es provechoso, no edificante, no apto para ministrar gracia a los oyentes.",
+      "enHash": "4ba7ad9c826a340f49c493644031b8d7f5eb0476fe161a05e0fd61c8cdc838ac",
+      "source": "corpus:john-wesley"
+    },
+    "b90": {
+      "en": "Ephesians 4:30\n Grieve not the Holy Spirit - By any disobedience. Particularly by corrupt discourse; or by any of the following sins. Do not force him to withdraw from you, as a friend does whom you grieve by unkind behaviour. The day of redemption - That is, the day of judgment, in which our redemption will be completed.",
+      "es": "Efesios 4:30\n No entristezcas al Espíritu Santo - Por cualquier desobediencia. Particularmente por el discurso corrupto; o por cualquiera de los siguientes pecados. No lo obligues a alejarse de ti, como lo hace un amigo a quien afliges por su comportamiento desagradable. El día de la redención - Es decir, el día del juicio, en el que se completará nuestra redención.",
+      "enHash": "e59bcc19b4b8a8ec3d85ad86cf9e4986202f044a7e10e33231e672975e067e37",
+      "source": "corpus:john-wesley"
+    },
+    "b91": {
+      "en": "Ephesians 4:31\n Let all bitterness - The height of settled anger, opposite to kindness, ver. 32 . And wrath - Lasting displeasure toward the ignorant, and them that are out of the way, opposite to tenderheartedness. And anger - The very first risings of disgust at those that injure you, opposite to forgiving one another. And clamour - Or bawling. \"I am not angry,\" says one; \"but it is my way to speak so.\" Then unlearn that way: it is the way to hell. And evil speaking - Be it in ever so mild and soft a tone, or with ever such professions of kindness. Here is a beautiful retrogradation, beginning with the highest, and descending to the lowest, degree of the want of love.",
+      "es": "Efesios 4:31\n Que toda amargura - El colmo de la ira establecida, opuesto a la bondad, ver. 32 . E ira - Descontento duradero hacia los ignorantes y los que están fuera del camino, opuesto a la ternura. Y ira - Los primeros levantamientos de disgusto hacia aquellos que te lastiman, en lugar de perdonarse unos a otros. Y clamor - O gritos. \"No estoy enojado\", dice uno; \"Pero es mi manera de hablar así\". Entonces desaprende ese camino: es el camino al infierno. Y hablar mal - Ya sea en un tono muy suave y suave, o con tales profesiones de bondad. Aquí hay una hermosa retrogradación, que comienza con el grado más alto y desciende hasta el más bajo de falta de amor.",
+      "enHash": "e63254e9414e1f1a3a987601c44e17e1f1fda0f6506f861de95a69cc142dfe1c",
+      "source": "corpus:john-wesley"
+    },
+    "b92": {
+      "en": "As God, showing himself kind and tenderhearted in the highest degree, hath forgiven you.\n\n << Ephesians 3 | Ephesians 4 | Ephesians 5 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Ephesians Ephesians 4\n\n Related Commentaries\n Ephesians 4\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Como Dios, mostrándose bondadoso y tierno en sumo grado, os ha perdonado.\n\n << Efesios 3 | Efesios 4 | Efesios 5 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Efesios Efesios 4\n\n Comentarios relacionados\n Efesios 4\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "804dbe711587b46dfa32c03160772bd2b0ade6f7d300afd820e8f59f355d50bc",
+      "source": "corpus:john-wesley"
+    },
+    "b93": {
+      "en": "Ephesians 5:1\n Be ye therefore followers - Imitators. Of God - In forgiving and loving. O how much more honourable and more happy, to be an imitator of God, than of Homer, Virgil, or Alexander the Great!",
+      "es": "Efesios 5:1\n Sed, pues, seguidores - Imitadores. De Dios - En perdonar y amar. ¡Oh, cuánto más honorable y más feliz ser imitador de Dios que de Homero, Virgilio o Alejandro Magno!",
+      "enHash": "025f0bde6fc72c8e4984bd57eb802e26ca24767a96916eb0002ae74a23cf164d",
+      "source": "corpus:john-wesley"
+    },
+    "b94": {
+      "en": "Ephesians 5:3\n But let not any impure love be even named or heard of among you - Keep at the utmost distance from it, as becometh saints.",
+      "es": "Efesios 5:3\n Pero que no se mencione ni se oiga hablar de ningún amor impuro entre vosotros; manteneos a la máxima distancia de él, como corresponde a los santos.",
+      "enHash": "bac06a3577d5d544a77ab054dee56873d83d8efbb2831ce138b0facb496d813b",
+      "source": "corpus:john-wesley"
+    },
+    "b95": {
+      "en": "Ephesians 5:4\n Nor foolish talking - Tittle tattle, talking of nothing, the weather, fashions, meat and drink. Or jesting - The word properly means, wittiness, facetiousness, esteemed by the heathens an half - virtue. But how frequently even this quenches the Spirit, those who are tender of conscience know. Which are not convenient - For a Christian; as neither increasing his faith nor holiness.",
+      "es": "Efesios 5:4\n Ni hablar tonterías: chismes, hablar de nada, del clima, de las modas, de la carne y la bebida. O bromear - La palabra propiamente significa ingenio, broma, estimada por los paganos como media virtud. Pero los tiernos de conciencia saben con qué frecuencia incluso esto apaga el Espíritu. Que no son convenientes - Para un cristiano; sin aumentar su fe ni su santidad.",
+      "enHash": "8dc445fef26d31c1fb38d646afcfdb417a327adf07958a20831c644193d3c006",
+      "source": "corpus:john-wesley"
+    },
+    "b96": {
+      "en": "Ephesians 5:6\n Because of these things - As innocent as the heathens esteem them, and as those dealers in vain words would persuade you to think them.",
+      "es": "Efesios 5:6\n Por estas cosas - Tan inocentes como las estiman los paganos, y como esos traficantes con palabras vanas te persuadirían a pensarlas.",
+      "enHash": "f09c252eee352f999171df54c413934b981536cdd9cb1b7ba61e15bf0c4b44b1",
+      "source": "corpus:john-wesley"
+    },
+    "b97": {
+      "en": "Ephesians 5:8\n Ye were once darkness - Total blindness and ignorance. Walk as children of light - Suitably to your present knowledge.",
+      "es": "Efesios 5:8\n Una vez fuiste oscuridad - Ceguera e ignorancia total. Caminen como hijos de la luz - Adecuado a su conocimiento actual.",
+      "enHash": "199b4078268c99aaa4b80f999f5da8e7f69d1c2b6bab966630165907910ef6c3",
+      "source": "corpus:john-wesley"
+    },
+    "b98": {
+      "en": "Ephesians 5:9\n The fruit of the light - Opposite to \" the unfruitful works of darkness,\" Eph 4:11 . Is in - That is, consists in. Goodness and righteousness and truth - Opposite to the sins spoken of, Eph 4:25 ,",
+      "es": "Efesios 5:9\n El fruto de la luz - Opuesto a \"las obras infructuosas de las tinieblas\", Efesios 4:11 . Está en - Es decir, consiste en. Bondad, justicia y verdad - Opuesto a los pecados de los que se habla, Efesios 4:25,",
+      "enHash": "7533c4c0f7cbdb0c158bc22f5ad589700fa26e516d655adf4aed1c6a52aa110c",
+      "source": "corpus:john-wesley"
+    },
+    "b99": {
+      "en": "Reprove them — To avoid them is not enough.",
+      "es": "Reprenderlos: evitarlos no es suficiente.",
+      "enHash": "6391ab879090c91d3ddf496f06816f01d2926c69fe0a539aafee74bb03eec5fe",
+      "source": "corpus:john-wesley"
+    },
+    "b100": {
+      "en": "In secret — As flying the light.",
+      "es": "En secreto, como volando la luz.",
+      "enHash": "3a69c601b1c464ff59a93541c782380f8c9b278fc9b9c72b045e1efcad421aaf",
+      "source": "corpus:john-wesley"
+    },
+    "b101": {
+      "en": "Ephesians 5:13\n But all things which are reproved, are thereby dragged out into the light, and made manifest - Shown in their proper colours, by the light. For whatsoever doth make manifest is light - That is, for nothing but light, yea, light from heaven, can make anything manifest.",
+      "es": "Efesios 5:13\n Pero todas las cosas que son reprendidas son arrastradas a la luz y manifestadas, mostradas en sus colores adecuados por la luz. Porque todo lo que se manifiesta es luz - Es decir, porque nada más que la luz, sí, la luz del cielo, puede manifestar algo.",
+      "enHash": "1efed9be5a7c05fef848bd5ca1eb250521ead75c7efefa57a48edded0727b075",
+      "source": "corpus:john-wesley"
+    },
+    "b102": {
+      "en": "Ephesians 5:14\n Wherefore he - God. Saith - In the general tenor of his word, to all who are still in darkness. Awake thou that steepest - In ignorance of God and thyself; in stupid insensibility. And arise from the dead - From the death of sin. And Christ shall give thee light - Knowledge, holiness, happiness.",
+      "es": "Efesios 5:14\n Por eso él - Dios. Dice - En el tenor general de su palabra, a todos los que aún están en oscuridad. Despierta el más empinado - En ignorancia de Dios y de ti mismo; en estúpida insensibilidad. Y levántate de entre los muertos - De la muerte del pecado. Y Cristo te dará luz - Conocimiento, santidad, felicidad.",
+      "enHash": "ad9ac4700b2276d9ab1cab52b00135dec3ce7abee6a3af1b9b3167ba1c1ccb1d",
+      "source": "corpus:john-wesley"
+    },
+    "b103": {
+      "en": "Ephesians 5:15\n Circumspectly - Exactly, with the utmost accuracy, getting to the highest pitch of every point of holiness. Not as fools - Who think not where they are going, or do not make the best of their way.",
+      "es": "Efesios 5:15\n Circunspectamente - Exactamente, con la máxima precisión, llegando al tono más alto de cada punto de santidad. No como tontos - Que no piensan hacia dónde van o no aprovechan al máximo su camino.",
+      "enHash": "4a3b8180964027c75ae9472fa8dfdbf5160e450e822e9d8aecb711e43c6d8c0f",
+      "source": "corpus:john-wesley"
+    },
+    "b104": {
+      "en": "Ephesians 5:16\n With all possible care redeeming the time - Saving all you can for the best purposes; buying every possible moment out of the hands of sin and Satan; out of the hands of sloth, ease, pleasure, worldly business; the more diligently, because the present are evil days, days of the grossest ignorance, immorality, and profaneness.",
+      "es": "Efesios 5:16\n Con todo el cuidado posible aprovechando el tiempo - Ahorrando todo lo que puedas para los mejores propósitos; comprando cada momento posible de las manos del pecado y de Satanás; fuera de las manos de la pereza, la tranquilidad, el placer y los negocios mundanos; tanto más diligentemente, porque los presentes son días malos, días de la más crasa ignorancia, inmoralidad y blasfemia.",
+      "enHash": "2023961dade409e02f91873a8ad347f2d15d25845347464066d6624f7ad54283",
+      "source": "corpus:john-wesley"
+    },
+    "b105": {
+      "en": "What the will of the Lord is — In every time, place, and circumstance.",
+      "es": "Cuál es la voluntad del Señor: en todo tiempo, lugar y circunstancia.",
+      "enHash": "f20a6bc8413fbc23bb133a25d4cccf40d168fe88650e16407515c86ac2bb9e61",
+      "source": "corpus:john-wesley"
+    },
+    "b106": {
+      "en": "Ephesians 5:18\n Wherein is excess - That is, which leads to debauchery of every kind. But be ye filled with the Spirit - In all his graces, who gives a more noble pleasure than wine can do.",
+      "es": "Efesios 5:18\n Donde hay exceso - Es decir, lo que conduce al libertinaje de todo tipo. Pero llénense del Espíritu - En todas sus gracias, que da un placer más noble que el vino.",
+      "enHash": "69146817e45fd08106fdd0b0ffcff875bb15557f4b68a40372b723cdc9bb700a",
+      "source": "corpus:john-wesley"
+    },
+    "b107": {
+      "en": "Ephesians 5:19\n Speaking to each other - By the Spirit. In the Psalms - Of David. And hymns - Of praise. And spiritual songs - On any divine subject. By there being no inspired songs, peculiarly adapted to the Christian dispensation, as there were to the Jewish, it is evident that the promise of the Holy Ghost to believers, in the last days, was by his larger effusion to supply the lack of it. Singing with your hearts - As well as your voice. To the Lord - Jesus, who searcheth the heart.",
+      "es": "Efesios 5:19\n Hablando unos con otros - Por el Espíritu. En los Salmos - De David. E himnos - De alabanza. Y canciones espirituales - Sobre cualquier tema divino. Al no haber cánticos inspirados, particularmente adaptados a la dispensación cristiana, como los hubo para la judía, es evidente que la promesa del Espíritu Santo a los creyentes, en los últimos días, fue, mediante su mayor efusión, para suplir la falta del mismo. Cantando con el corazón - Además de con la voz. Al Señor - Jesús, que escudriña el corazón.",
+      "enHash": "81204d11cedd4e17f6b5b17925ac48978ce72dfb3fce9be56766dc4d3a2fe97f",
+      "source": "corpus:john-wesley"
+    },
+    "b108": {
+      "en": "Ephesians 5:20\n Giving thanks - At all times and places. And for all things - Prosperous or adverse, since al] work together for good. In the name of, or through, our Lord Jesus Christ - By whom we receive all good things.",
+      "es": "Efesios 5:20\n Dando gracias - En todo momento y lugar. Y para todas las cosas - Próspero o adverso, ya que todos] trabajan juntos para bien. En el nombre de nuestro Señor Jesucristo, o a través de él, por quien recibimos todas las cosas buenas.",
+      "enHash": "5fdcca084337c7f52620b1786aa44be2d9d779b029b43e004b572a1fcc437094",
+      "source": "corpus:john-wesley"
+    },
+    "b109": {
+      "en": "Ephesians 5:22\n In the following directions concerning relative duties, the inferiors are all along placed before the superiors, because the general proposition is concerning submission; and inferiors ought to do their duty, whatever their superiors do. Wives, submit yourselves to your own husbands - Unless where God forbids. Otherwise, in all indifferent things, the will of the husband is a law to the wife. As unto the Lord - The obedience a wife pays to her husband is at the same time paid to Christ himself; he being head of the wife, as Christ is head of the church.",
+      "es": "Efesios 5:22\n En las siguientes instrucciones sobre deberes relativos, los inferiores siempre se colocan antes que los superiores, porque la proposición general se refiere a la sumisión; y los inferiores deben cumplir con su deber, hagan lo que hagan sus superiores. Esposas, sométanse a sus propios maridos - A menos que Dios lo prohíba. De lo contrario, en todas las cosas indiferentes, la voluntad del marido es ley para la mujer. En cuanto al Señor - La obediencia que una esposa le paga a su marido se le paga al mismo tiempo a Cristo mismo; siendo él cabeza de la esposa, como Cristo es cabeza de la iglesia.",
+      "enHash": "0f9e5e07b6009762677bed75d7d28e5e6c09285583fd3235d1e1d096cf504733",
+      "source": "corpus:john-wesley"
+    },
+    "b110": {
+      "en": "The head — The governor, guide, and guardian of the wife.\n\n And he is the Saviour of the body — The church, from all sin and misery.",
+      "es": "El jefe: el gobernador, guía y guardián de la esposa.\n\n Y él es el Salvador del cuerpo: la iglesia, de todo pecado y miseria.",
+      "enHash": "215b3579579d2f0ca1f1a294565df35434a912fa1c80c28923578474488a4a5d",
+      "source": "corpus:john-wesley"
+    },
+    "b111": {
+      "en": "In everything — Which is not contrary to any command of God.",
+      "es": "En todo lo que no sea contrario a ningún mandato de Dios.",
+      "enHash": "526b5f8629f069f4045959d4738cc1c8b5e7e00edb4d8c4b0a7e0012be50b4dd",
+      "source": "corpus:john-wesley"
+    },
+    "b112": {
+      "en": "Ephesians 5:25\n Even as Christ loved the church - Here is the true model of conjugal affection. With this kind of affection, with this degree of it, and to this end, should husbands love their wives.",
+      "es": "Efesios 5:25\n Así como Cristo amó a la iglesia - Aquí está el verdadero modelo de afecto conyugal. Con este tipo de afecto, con este grado y con este fin, los maridos deben amar a sus esposas.",
+      "enHash": "9d319e202cdb5ec76962c478987e9535424155db8cc97af7294e24241c57b084",
+      "source": "corpus:john-wesley"
+    },
+    "b113": {
+      "en": "Ephesians 5:26\n That he might sanctify it through the word - The ordinary channel of all blessings. Having cleansed it - From the guilt and power of sin. By the washing of water - In baptism; if, with \"the outward and visible sign,\" we receive the \"inward and spiritual grace.\"",
+      "es": "Efesios 5:26\n Para poder santificarlo a través de la palabra - El canal ordinario de todas las bendiciones. Habiéndolo limpiado - De la culpa y el poder del pecado. Por el lavado del agua - En el bautismo; si, con \"la señal exterior y visible\", recibimos la \"gracia interior y espiritual\".",
+      "enHash": "2cee732a1ea31a891843c75b1175b0a3c9805105f642af9e94f91eb5c0bb62af",
+      "source": "corpus:john-wesley"
+    },
+    "b114": {
+      "en": "Ephesians 5:27\n That he might present it - Even in this world. To himself - As his spouse. A glorious church - All glorious within. Not having spot - Of impurity from any sin. Or wrinkle - Of deformity from any decay.",
+      "es": "Efesios 5:27\n Para poder presentarlo - Incluso en este mundo. Para sí mismo - Como su cónyuge. Una iglesia gloriosa - Todo glorioso por dentro. No tener mancha - De impureza de cualquier pecado. O arruga - De deformidad por cualquier descomposición.",
+      "enHash": "ef82d02e166597154ddb6ed5a887c3f6b85ac49b5a9a0c6c3b8acbe64cec5786",
+      "source": "corpus:john-wesley"
+    },
+    "b115": {
+      "en": "Ephesians 5:28\n As their own bodies - That is, as themselves. He that loveth his wife loveth himself - Which is not a sin, but an indisputable duty.",
+      "es": "Efesios 5:28\n Como sus propios cuerpos - Es decir, como ellos mismos. El que ama a su esposa se ama a sí mismo - Lo cual no es un pecado, sino un deber indiscutible.",
+      "enHash": "c46ebd97891da5576852ab37153930a93016737c4b84d4bd12f6f055f32c82a7",
+      "source": "corpus:john-wesley"
+    },
+    "b116": {
+      "en": "His own flesh — That is, himself.\n\n Nourisheth and cherisheth — That is, feeds and clothes it.",
+      "es": "Su propia carne, es decir, él mismo.\n\n Nutre y aprecia, es decir, lo alimenta y lo viste.",
+      "enHash": "6d9e4482fb72480a2e6f3a8b999bd762ed9f64430a5ca00b72ede2fb772b1917",
+      "source": "corpus:john-wesley"
+    },
+    "b117": {
+      "en": "Ephesians 5:30\n For we - The reason why Christ nourishes and cherishes the church is, that close connexion between them which is here expressed in the words of Moses, originally spoken concerning Eve. Are members - Are as intimately united to Christ, in a spiritual sense, as if we were literally \"flesh of his flesh, and bone of his bone.\"",
+      "es": "Efesios 5:30\n Para nosotros - La razón por la que Cristo nutre y aprecia a la iglesia es esa estrecha conexión entre ellos que se expresa aquí en las palabras de Moisés, originalmente habladas sobre Eva. Son miembros - Están tan íntimamente unidos a Cristo, en un sentido espiritual, como si fuéramos literalmente \"carne de su carne y hueso de su hueso\".",
+      "enHash": "2183fdf1a39c4495344e17e4bea2216261567d39356906df9e9dd67274058f95",
+      "source": "corpus:john-wesley"
+    },
+    "b118": {
+      "en": "For this cause — Because of this intimate union. Genesis 2:24 .\n\n << Ephesians 4 | Ephesians 5 | Ephesians 6 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Ephesians Ephesians 5\n\n Related Commentaries\n Ephesians 5\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Por esta causa - Por esta unión íntima. Génesis 2:24 .\n\n << Efesios 4 | Efesios 5 | Efesios 6 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Efesios Efesios 5\n\n Comentarios relacionados\n Efesios 5\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "e3f2e5bf142db51af846965fe779676f9c4eb0ff30d01ceba9b9a5824ce9f930",
+      "source": "corpus:john-wesley"
+    },
+    "b119": {
+      "en": "Ephesians 6:1\n Children, obey your parents - In all things lawful. The will of the parent is a law to the child. In the Lord - For his sake. For this is right - Manifestly just and reasonable.",
+      "es": "Efesios 6:1\n Hijos, obedeced a vuestros padres - En todo lo lícito. La voluntad de los padres es una ley para el niño. En el Señor - Por su bien. Porque esto es correcto: manifiestamente justo y razonable.",
+      "enHash": "7eec705ce2c643a80afa74b599f1efe671627a9a2feba7f0b8a346a63d8172ec",
+      "source": "corpus:john-wesley"
+    },
+    "b120": {
+      "en": "Ephesians 6:2\n Honour - That is, love, reverence, obey, assist, in all things. The mother is particularly mentioned, as being more liable to be slighted than the father. Which is the first commandment with a promise - For the promise implied in the second commandment does not belong to the keeping that command in particular, but the whole law. Ex 20:12",
+      "es": "Efesios 6:2\n Honor - Es decir, amar, reverenciar, obedecer, ayudar en todas las cosas. Se menciona especialmente a la madre, por ser más propensa a ser despreciada que el padre. Cuál es el primer mandamiento con promesa - Porque la promesa implícita en el segundo mandamiento no pertenece al cumplimiento de ese mandamiento en particular, sino de toda la ley. Éxodo 20:12",
+      "enHash": "d9a912ce6851bca04a07b7210bfaa4f109454cea2cb3297cf4a756cb3af7dcd2",
+      "source": "corpus:john-wesley"
+    },
+    "b121": {
+      "en": "Ephesians 6:3\n That thou mayest live long upon the earth - This is usually fulfilled to eminently dutiful children; and he who lives long and well has a long seed - time for the eternal harvest. But this promise, in the Christian dispensation, is to be understood chiefly in a more exalted and Spiritual sense.",
+      "es": "Efesios 6:3\n Para que puedas vivir mucho tiempo en la tierra - Esto generalmente se cumple con niños eminentemente obedientes; y el que vive mucho y bien tiene una larga semilla: tiempo para la cosecha eterna. Pero esta promesa, en la dispensación cristiana, debe entenderse principalmente en un sentido más exaltado y espiritual.",
+      "enHash": "de6153d2ee246a2d74b73b241ce1eccd2a7a9e80f2d4bb7730ca296bfd684f83",
+      "source": "corpus:john-wesley"
+    },
+    "b122": {
+      "en": "Ephesians 6:4\n And, ye fathers - Mothers are included; but fathers are named, as being more apt to be stern and severe. Provoke not your children to wrath - Do not needlessly fret or exasperate them. But bring them up - With all tenderness and mildness. In the instruction and discipline of the Lord - Both in Christian knowledge and practice.",
+      "es": "Efesios 6:4\n Y vosotros, padres - Las madres están incluidas; pero se nombra a los padres por ser más propensos a ser severos y severos. No provoques a ira a tus hijos - No te preocupes ni los exasperes innecesariamente. Pero críelos - Con toda ternura y gentileza. En la instrucción y disciplina del Señor - Tanto en el conocimiento como en la práctica cristiana.",
+      "enHash": "3c4bdf83a6e5906198f8b6c28bc69a66ac516809c4927c56305f35396616ecaa",
+      "source": "corpus:john-wesley"
+    },
+    "b123": {
+      "en": "Ephesians 6:5\n Your masters according to the flesh - According to the present state of things: afterward the servant is free from his master. With fear and trembling - A proverbial expression, implying the utmost care and diligence. In singleness of heart - With a single eye to the providence and will of God.",
+      "es": "Efesios 6:5\n Tus amos según la carne - Según el estado actual de las cosas: luego el siervo queda libre de su amo. Con miedo y temblor - Una expresión proverbial que implica el mayor cuidado y diligencia. Con sencillez de corazón - Con un solo ojo en la providencia y la voluntad de Dios.",
+      "enHash": "60f01b933d2843112b3ea4418fa166624e030b114cc69a894f8085d167ed4572",
+      "source": "corpus:john-wesley"
+    },
+    "b124": {
+      "en": "Ephesians 6:6\n Not with eye - service - Serving them better when under their eye than at other times. But doing the will of God from the heart - Doing whatever you do, as the will of God, and with your might.",
+      "es": "Efesios 6:6\n No con ojo - servicio - Servirles mejor cuando están bajo su vigilancia que en otros momentos. Pero hacer la voluntad de Dios desde el corazón - Hacer todo lo que hagas, como la voluntad de Dios y con tus fuerzas.",
+      "enHash": "c83a1fe79528fa25709014f113ee3aa34cd280e19d82b339a69adcfce8a43f30",
+      "source": "corpus:john-wesley"
+    },
+    "b125": {
+      "en": "Ephesians 6:7\n Unto the Lord, and not to men - That is, rather than to men; and by making every action of common life a sacrifice to God; having an eye to him in all things, even as if there were no other master.",
+      "es": "Efesios 6:7\n Para el Señor, y no para los hombres - Es decir, en lugar de para los hombres; y haciendo de cada acción de la vida común un sacrificio a Dios; teniendo atentos a él en todas las cosas, como si no hubiera otro maestro.",
+      "enHash": "7b340f37b5fbd98c2909b76363213cb5d55b54e7610d34c38f8d9d6e5559ee88",
+      "source": "corpus:john-wesley"
+    },
+    "b126": {
+      "en": "He shall receive the same — That is, a full and adequate recompence for it.",
+      "es": "Recibirá lo mismo, es decir, una recompensa completa y adecuada por ello.",
+      "enHash": "9212f665bbff7033d2b675fad4cf3557784130d1e7afc72e94adef0873107d00",
+      "source": "corpus:john-wesley"
+    },
+    "b127": {
+      "en": "Ephesians 6:9\n Do the same things to them - That is, act toward them from the same principle. Forbearing threatening - Behaving with gentleness and humanity, not in a harsh or domineering way.",
+      "es": "Efesios 6:9\n Hazles las mismas cosas - Es decir, actúa hacia ellos desde el mismo principio. Tolerar las amenazas - Comportarse con gentileza y humanidad, no de manera dura o dominante.",
+      "enHash": "0dab982e3abb1b57755cb9f1fc01c62be6f7f172826738ba106241261eedcfbb",
+      "source": "corpus:john-wesley"
+    },
+    "b128": {
+      "en": "Ephesians 6:10\n Brethren - This is the only place in this epistle where he uses this compellation. Soldiers frequently use it to each other in the field. Be strong - Nothing less will suffice for such a fight: to be weak, and remain so, is the way to perish. In the power of his might - A very uncommon expression, plainly denoting what great assistance we need as if his might would not do, it must be the powerful exertion of his might.",
+      "es": "Efesios 6:10\n Hermanos - Este es el único lugar en esta epístola donde usa esta obligación. Los soldados lo utilizan frecuentemente entre sí en el campo. Sé fuerte - Nada menos será suficiente para tal lucha: ser débil y permanecer así es la manera de perecer. En el poder de su poder - Una expresión muy poco común, que denota claramente la gran ayuda que necesitamos, como si su poder no fuera suficiente, debe ser el poderoso ejercicio de su poder.",
+      "enHash": "4eb6abe1c876368819e4dea3ebb856869d9cfb000e11a04bfc514c5002fa5d4d",
+      "source": "corpus:john-wesley"
+    },
+    "b129": {
+      "en": "Ephesians 6:11\n Put on the whole armour of God - The Greek word means a complete suit of armour. Believers are said to put on the girdle, breastplate, shoes; to take the shield of faith, and sword of the Spirit. The whole armour - As if the armour would scarce do, it must be the whole armour. This is repeated, ver. 13 , because of the strength and subtilty of our adversaries, and because of an \"evil day\" of sore trial being at hand.",
+      "es": "Efesios 6:11\n Vestíos de toda la armadura de Dios - La palabra griega significa armadura completa. Se dice que los creyentes se ponen el cinto, la coraza, los zapatos; para tomar el escudo de la fe y la espada del Espíritu. Toda la armadura - Como si la armadura apenas sirviera, debe ser toda la armadura. Esto se repite, ver. 13, debido a la fuerza y ​​astucia de nuestros adversarios, y debido a que se acerca un \"día malo\" de dura prueba.",
+      "enHash": "ad0456e0c1b286884bdc09ff69339633ff009f9ff7bb837d68fb606e6778828c",
+      "source": "corpus:john-wesley"
+    },
+    "b130": {
+      "en": "Ephesians 6:12\n For our wrestling is not only, not chiefly, against flesh and blood - Weak men, or fleshly appetites. But against principalities, against powers - The mighty princes of all the infernal legions. And great is their power, and that likewise of those legions whom they command. Against the rulers of the world - Perhaps these principalities and powers remain mostly in the citadel of their kingdom of darkness. But there are other evil spirits who range abroad, to whom the provinces of the world are committed. Of the darkness - This is chiefly spiritual darkness. Of this age - Which prevails during the present state of things. Against wicked spirits - Who continually oppose faith, love, holiness, either by force or fraud; and labour to infuse unbelief, pride, idolatry malice, envy, anger, hatred. In heavenly places - Which were once their abode, and which they still aspire to, as far as they are permitted.",
+      "es": "Efesios 6:12\n Porque nuestra lucha no es sólo, ni principalmente, contra carne y sangre: hombres débiles o apetitos carnales. Pero contra principados, contra potestades - Los poderosos príncipes de todas las legiones infernales. Y grande es su poder, y también el de las legiones que mandan. Contra los gobernantes del mundo - Quizás estos principados y potestades permanezcan en su mayoría en la ciudadela de su reino de las tinieblas. Pero hay otros espíritus malignos que vagan por el extranjero, a quienes están encomendadas las provincias del mundo. De la oscuridad - Esto es principalmente oscuridad espiritual. De esta época - Que prevalece durante el estado actual de las cosas. Contra espíritus malignos - Que continuamente se oponen a la fe, el amor y la santidad, ya sea por la fuerza o por fraude; y trabaja para infundir incredulidad, orgullo, idolatría, malicia, envidia, ira, odio. En lugares celestiales - Que alguna vez fueron su morada y a los que todavía aspiran, en la medida en que se les permite.",
+      "enHash": "a620eaaa6905a095d96325d9d3a365d1b87f8260e4cb0542a7d8e0e5b5136c0a",
+      "source": "corpus:john-wesley"
+    },
+    "b131": {
+      "en": "Ephesians 6:13\n In the evil day - The war is perpetual; but the fight is one day less, another more, violent. The evil day is either at the approach of death, or in life; may be longer or shorter and admits of numberless varieties. And having done all, to stand - That ye may still keep on your armour, still stand upon your guard, still watch and pray; and thus ye will be enabled to endure unto the end, and stand with joy before the face of the Son of Man.",
+      "es": "Efesios 6:13\n En el día malo - La guerra es perpetua; pero la lucha es un día menos, otro más, violenta. El día malo es al acercarse la muerte o en la vida; Puede ser más largo o más corto y admite innumerables variedades. Y habiendo hecho todo, estar de pie - Para que aún puedas mantener tu armadura, aún estar en guardia, aún velar y orar; y así podréis perseverar hasta el fin y estar de pie con gozo ante el rostro del Hijo del Hombre.",
+      "enHash": "20cc16eedf1faf86ff696193f74e7dc76f0d5f1e564eece7ebcbbae39e66327e",
+      "source": "corpus:john-wesley"
+    },
+    "b132": {
+      "en": "Ephesians 6:14\n Having your loins girt about - That ye may be ready for every motion. With truth - Not only with the truths of the gospel, but with \"truth in the inward parts;\" for without this all our knowledge of divine truth will prove but a poor girdle \"in the evil day.\" So our Lord is described, Isa 11:5 . And as a girded man is always ready to go on, so this seems to intimate an obedient heart, a ready will. Our Lord adds to the loins girded, the lights burning, Lu 12:35 ; showing that watching and ready obedience are the inseparable companions of faith and love. And having on the breastplate of righteousness - The righteousness of a spotless purity, in which Christ will present us faultless before God, through the merit of his own blood. With this breastplate our Lord is described, Isa 59:17 . In the breast is the seat of conscience, which is guarded by righteousness. No armour for the back is mentioned. We are always to face our enemies.",
+      "es": "Efesios 6:14\n Tener los lomos ceñidos - Para que estéis preparados para cada movimiento. Con verdad - No sólo con las verdades del evangelio, sino con \"la verdad en el interior\"; porque sin esto todo nuestro conocimiento de la verdad divina resultará sólo un pobre cinturón \"en el día malo\". Así se describe a nuestro Señor, Isaías 11:5. Y así como un hombre ceñido siempre está listo para continuar, esto parece insinuar un corazón obediente, una voluntad lista. Nuestro Señor añade a los lomos ceñidos, las luces encendidas, Lucas 12:35; mostrando que la vigilancia y la pronta obediencia son compañeros inseparables de la fe y el amor. Y teniendo puesta la coraza de justicia - La justicia de una pureza sin mancha, en la que Cristo nos presentará impecable ante Dios, por el mérito de su propia sangre. Con esta coraza se describe a nuestro Señor, Isaías 59:17. En el pecho está el asiento de la conciencia, que está custodiada por la justicia. No se menciona ninguna armadura para la espalda. Siempre debemos enfrentar a nuestros enemigos.",
+      "enHash": "68b518cd4f64019c8cb876c8ba0f852e0f7cf0223b8263b563de3cb837b5bb2d",
+      "source": "corpus:john-wesley"
+    },
+    "b133": {
+      "en": "Ephesians 6:15\n And your feet shod with the preparation of the gospel - Let this be always ready to direct and confirm you in every step. This part of the armour, for the feet, is needful, considering what a journey we have to go; what a race to run. Our feet must be so shod, that our footsteps slip not. To order our life and conversation aright, we are prepared by the gospel blessing, the peace and love of God ruling in the heart, Col 3:14 ,15. By this only can we tread the rough ways, surmount our difficulties, and hold out to the end.",
+      "es": "Efesios 6:15\n Y calzados vuestros pies con la preparación del evangelio - Que ésta esté siempre dispuesta para dirigiros y confirmaros en cada paso. Esta parte de la armadura, para los pies, es necesaria, considerando el camino que tenemos que recorrer; ¡Qué carrera para correr! Nuestros pies deben estar tan calzados que nuestros pasos no resbalen. Para ordenar correctamente nuestra vida y conversación, estamos preparados por la bendición del evangelio, la paz y el amor de Dios que gobiernan en el corazón, Col 3:14,15. Sólo así podremos recorrer los caminos difíciles, superar nuestras dificultades y resistir hasta el final.",
+      "enHash": "f5a793d1b850eb11b4a35b7f3cfef61a4c2d88d3bc65626ea20ca527f91050b4",
+      "source": "corpus:john-wesley"
+    },
+    "b134": {
+      "en": "Ephesians 6:16\n Above or over all - As a sort of universal covering to every other part of the armour itself, continually exercise a strong and lively faith. This you may use as a shield, which will quench all the fiery darts, the furious temptations, violent and sudden injections of the devil.",
+      "es": "Efesios 6:16\n Por encima o por encima de todo - Como una especie de cobertura universal para todas las demás partes de la armadura, ejerza continuamente una fe fuerte y viva. Esto podréis utilizarlo como escudo, que apagará todos los dardos de fuego, las tentaciones furiosas, las inyecciones violentas y repentinas del diablo.",
+      "enHash": "aa5fec86d72341e208e4cfba8f10ee06101e9842e276dd50afb2cb4ad6ccf675",
+      "source": "corpus:john-wesley"
+    },
+    "b135": {
+      "en": "Ephesians 6:17\n And take for an helmet the hope of salvation - 1Thes 5:8 . The head is that part which is most carefully to be defended. One stroke here may prove fatal. The armour for this is the hope of salvation. The lowest degree of this hope is a confidence that God will work the whole work of faith in us; the highest is a full assurance of future glory, added to the experimental knowledge of pardoning love. Armed with this helmet, the hope of the joy set before him, Christ \"endured the cross, and despised the shame,\" Heb 12:2 . And the sword of the Spirit, the word of God - This Satan cannot withstand, when it is edged and wielded by faith. Till now our armour has been only defensive. But we are to attack Satan, as well as secure ourselves; the shield in one hand, and the sword in the other. Whoever fights with the powers of hell will need both. He that is covered with armour from head to foot, and neglects this, will be foiled after all. This whole description shows us how great a thing it is to be a Christian. The want of any one thing makes him incomplete. Though he has his loins girt with truth, righteousness for a breastplate, his feet shod with the preparation of the gospel, the shield of faith, the helmet of salvation, and the sword of the Spirit; yet one thing he wants after all. What is that? It follows,",
+      "es": "Efesios 6:17\n Y tomad por yelmo la esperanza de la salvación – 1 Tes 5:8 . La cabeza es la parte que hay que defender con más cuidado. Un derrame cerebral aquí puede resultar fatal. La armadura para esto es la esperanza de la salvación. El grado más bajo de esta esperanza es la confianza en que Dios realizará toda la obra de la fe en nosotros; lo más elevado es una plena seguridad de la gloria futura, sumada al conocimiento experimental del amor perdonador. Armado con este yelmo, la esperanza del gozo puesta ante él, Cristo \"soportó la cruz, y menospreció el oprobio\", Heb 12:2. Y la espada del Espíritu, la palabra de Dios - Esta Satanás no puede resistirla cuando es afilada y empuñada por la fe. Hasta ahora nuestra armadura ha sido sólo defensiva. Pero debemos atacar a Satanás, así como protegernos a nosotros mismos; el escudo en una mano y la espada en la otra. Quien luche contra los poderes del infierno necesitará ambos. El que está cubierto con una armadura de pies a cabeza y la descuida, después de todo será frustrado. Toda esta descripción nos muestra cuán grandioso es ser cristiano. La falta de cualquier cosa lo hace incompleto. Aunque tenga sus lomos ceñidos con la verdad, la justicia por coraza, sus pies calzados con la preparación del evangelio, el escudo de la fe, el yelmo de la salvación y la espada del Espíritu; pero, después de todo, hay una cosa que quiere. ¿Qué es eso? Sigue,",
+      "enHash": "f8ddf840ae72dcd72223ced3759221c793354ff240a6af4d92eb3b9197776f5a",
+      "source": "corpus:john-wesley"
+    },
+    "b136": {
+      "en": "Ephesians 6:18\n Praying always - At all times, and on every occasion, in midst of all employments, inwardly praying without ceasing. By the Spirit - Through the influence of the Holy Spirit. With all prayer - With all sort of prayer, public, private, mental, vocal. Some are careful in respect of one kind of prayer, and negligent in others. If we would have the petitions we ask, let us use all. Some there are who use only mental prayer or ejaculations, and think they are in a state of grace, and use a way of worship, far superior to any other: but such only fancy themselves to be above what is really above them; it requiring far more grace to be enabled to pour out a fervent and continued prayer, than to offer up mental aspirations. And supplication - Repeating and urging our prayer, as Christ did in the garden. And watching - Inwardly attending on God, to know his will, to gain power to do it, and to attain to the blessings we desire. With all perseverance - Continuing to the end in this holy exercise. And supplication for all the saints - Wrestling in fervent, continued intercession for others, especially for the faithful, that they may do all the will of God, and be steadfast to the end. Perhaps we receive few answers to prayer, because we do not intercede enough for others.",
+      "es": "Efesios 6:18\n Orando siempre - En todo momento y en cada ocasión, en medio de todos los empleos, orando interiormente sin cesar. Por el Espíritu - A través de la influencia del Espíritu Santo. Con toda oración - Con todo tipo de oración, pública, privada, mental, vocal. Algunos son cuidadosos con respecto a un tipo de oración y negligentes con respecto a otros. Si queremos tener las peticiones que pedimos, usémoslas todas. Hay algunos que usan sólo oraciones mentales o exclamaciones, y piensan que están en estado de gracia, y usan una forma de adoración muy superior a cualquier otra; pero esos sólo se imaginan estar por encima de lo que realmente está por encima de ellos; Se requiere mucha más gracia para poder derramar una oración ferviente y continua que para ofrecer aspiraciones mentales. Y súplica - Repitiendo e instando a nuestra oración, como lo hizo Cristo en el jardín. Y observando - Atendiendo internamente a Dios, para conocer su voluntad, obtener poder para hacerla y alcanzar las bendiciones que deseamos. Con toda perseverancia - Continuando hasta el fin en este santo ejercicio. Y súplica por todos los santos - Luchando en intercesión ferviente y continua por los demás, especialmente por los fieles, para que puedan hacer toda la voluntad de Dios y ser firmes hasta el fin. Quizás recibamos pocas respuestas a nuestras oraciones porque no intercedemos lo suficiente por los demás.",
+      "enHash": "c18ed82a5a6abaa3c8f344f8390f59a2821036f25512170b91d20c9590089d26",
+      "source": "corpus:john-wesley"
+    },
+    "b137": {
+      "en": "By the opening my mouth — Removing every inward and every outward hinderance.",
+      "es": "Al abrir mi boca, eliminando todo obstáculo interno y externo.",
+      "enHash": "fa4c28c3c1348053d1e8b393432d5c171e44c7d1c5dfca52364cd871d195327b",
+      "source": "corpus:john-wesley"
+    },
+    "b138": {
+      "en": "Ephesians 6:20\n An ambassador in bonds - The ambassadors of men usually appear in great pomp. How differently does the ambassador of Christ appear!",
+      "es": "Efesios 6:20\n Un embajador en cautiverio - Los embajadores de los hombres suelen aparecer con gran pompa. ¡Cuán diferente aparece el embajador de Cristo!",
+      "enHash": "3ff4d3d255577edb3847f0ede30bfa61c547a07164a3e8b3a4d70de866b0a4b7",
+      "source": "corpus:john-wesley"
+    },
+    "b139": {
+      "en": "Ye also — As well as others.",
+      "es": "Vosotros también, además de los demás.",
+      "enHash": "02ee6fe64153833c136f09154eb4b4a01a2daa0194fc137a31b433a3994ccb26",
+      "source": "corpus:john-wesley"
+    },
+    "b140": {
+      "en": "Ephesians 6:22\n That he might comfort your hearts - By relating the supports I find from God, and the success of the gospel.",
+      "es": "Efesios 6:22\n Para que pueda consolar sus corazones - Relatando los apoyos que encuentro de Dios y el éxito del evangelio.",
+      "enHash": "28585d2f1a47935e4afcf03a5bbb9c6391ca18a5194335be40c19a94887c7b05",
+      "source": "corpus:john-wesley"
+    },
+    "b141": {
+      "en": "Peace — This verse recapitulates the whole epistle.",
+      "es": "Paz: este versículo recapitula toda la epístola.",
+      "enHash": "a163fb0edf689ab2c1a8fed7a08b9a08fa87ece09a8c1fe1d61928e48e1e8377",
+      "source": "corpus:john-wesley"
+    },
+    "b142": {
+      "en": "Ephesians 6:24\n In sincerity - Or in incorruption; without corrupting his genuine gospel, without any mixture of corrupt affections. And that with continuance, till grace issue in glory.",
+      "es": "Efesios 6:24\n En sinceridad - O en incorrupción; sin corromper su evangelio genuino, sin mezcla alguna de afectos corruptos. Y esto con continuidad, hasta que la gracia surja en gloria.",
+      "enHash": "ebbb8a8a5be0945fabc48ee8cf0823d93e4569999656da619f4cd6d76aa6089c",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:3": "b2",
+    "1:4": "b3",
+    "1:5": "b4",
+    "1:6": "b5",
+    "1:7": "b6",
+    "1:8": "b7",
+    "1:9": "b8",
+    "1:10": "b9",
+    "1:11": "b10",
+    "1:12": "b11",
+    "1:13": "b12",
+    "1:14": "b13",
+    "1:15": "b14",
+    "1:16": "b15",
+    "1:17": "b16",
+    "1:18": "b17",
+    "1:19": "b18",
+    "1:20": "b19",
+    "1:21": "b20",
+    "1:22": "b21",
+    "1:23": "b22",
+    "2:1": "b23",
+    "2:2": "b24",
+    "2:3": "b25",
+    "2:4": "b26",
+    "2:5": "b27",
+    "2:6": "b28",
+    "2:7": "b29",
+    "2:8": "b30",
+    "2:9": "b31",
+    "2:10": "b32",
+    "2:11": "b33",
+    "2:12": "b34",
+    "2:13": "b35",
+    "2:14": "b36",
+    "2:15": "b37",
+    "2:16": "b38",
+    "2:17": "b39",
+    "2:18": "b40",
+    "2:19": "b41",
+    "2:20": "b42",
+    "2:21": "b43",
+    "3:1": "b44",
+    "3:2": "b45",
+    "3:3": "b46",
+    "3:5": "b47",
+    "3:6": "b48",
+    "3:7": "b49",
+    "3:8": "b50",
+    "3:9": "b51",
+    "3:10": "b52",
+    "3:12": "b53",
+    "3:13": "b54",
+    "3:15": "b55",
+    "3:16": "b56",
+    "3:17": "b57",
+    "3:18": "b58",
+    "3:19": "b59",
+    "3:20": "b60",
+    "3:21": "b61",
+    "4:1": "b62",
+    "4:3": "b63",
+    "4:4": "b64",
+    "4:5": "b65",
+    "4:6": "b66",
+    "4:7": "b67",
+    "4:8": "b68",
+    "4:9": "b69",
+    "4:10": "b70",
+    "4:11": "b71",
+    "4:12": "b72",
+    "4:13": "b73",
+    "4:14": "b74",
+    "4:15": "b75",
+    "4:16": "b76",
+    "4:17": "b77",
+    "4:18": "b78",
+    "4:19": "b79",
+    "4:20": "b80",
+    "4:21": "b81",
+    "4:22": "b82",
+    "4:23": "b83",
+    "4:24": "b84",
+    "4:25": "b85",
+    "4:26": "b86",
+    "4:27": "b87",
+    "4:28": "b88",
+    "4:29": "b89",
+    "4:30": "b90",
+    "4:31": "b91",
+    "4:32": "b92",
+    "5:1": "b93",
+    "5:3": "b94",
+    "5:4": "b95",
+    "5:6": "b96",
+    "5:8": "b97",
+    "5:9": "b98",
+    "5:11": "b99",
+    "5:12": "b100",
+    "5:13": "b101",
+    "5:14": "b102",
+    "5:15": "b103",
+    "5:16": "b104",
+    "5:17": "b105",
+    "5:18": "b106",
+    "5:19": "b107",
+    "5:20": "b108",
+    "5:22": "b109",
+    "5:23": "b110",
+    "5:24": "b111",
+    "5:25": "b112",
+    "5:26": "b113",
+    "5:27": "b114",
+    "5:28": "b115",
+    "5:29": "b116",
+    "5:30": "b117",
+    "5:31": "b118",
+    "6:1": "b119",
+    "6:2": "b120",
+    "6:3": "b121",
+    "6:4": "b122",
+    "6:5": "b123",
+    "6:6": "b124",
+    "6:7": "b125",
+    "6:8": "b126",
+    "6:9": "b127",
+    "6:10": "b128",
+    "6:11": "b129",
+    "6:12": "b130",
+    "6:13": "b131",
+    "6:14": "b132",
+    "6:15": "b133",
+    "6:16": "b134",
+    "6:17": "b135",
+    "6:18": "b136",
+    "6:19": "b137",
+    "6:20": "b138",
+    "6:21": "b139",
+    "6:22": "b140",
+    "6:23": "b141",
+    "6:24": "b142"
+  }
+}

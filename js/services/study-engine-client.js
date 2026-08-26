@@ -1,9 +1,10 @@
 /**
  * Cliente unificado del motor de estudio.
- * Comentario → /api/commentary (Gemini / Síntesis Teológica)
- * TSK → /api/referencias / /api/study-engine
- * Léxico → /api/lexicon / /api/study-engine
- * Lentes → /api/study-engine
+ * Comentario → /api/commentary (corpus)
+ * TSK → /api/tsk (nunca Gemini)
+ * Léxico → /api/lexico
+ * PRODUCT LAW (Alejandro): TSK / commentary / lexicon / lenses — any passage.
+ * Lentes timeout 45s globally. Concordance is GET /api/concordancia, never IA.
  */
 (function (global) {
   'use strict';
@@ -72,63 +73,70 @@
           author: resolveAuthor(author),
           verseText: global.activeStudyText || '',
         }, 18000);
-        const answer = String(data?.text || extractAnswer(data) || '').trim();
+        const answer = String(data?.textEs || data?.text || extractAnswer(data) || '').trim();
         if (ok && data?.success && answer) {
-          return { success: true, answer, source: data.source || 'gemini', raw: data };
+          return { success: true, answer, source: data.source || 'corpus', raw: data };
         }
         if (answer) {
-          return { success: true, answer, source: data.source || 'theological-fallback', raw: data };
+          return { success: true, answer, source: data.source || 'corpus-miss', raw: data };
         }
         lastError = new Error(data?.error || 'Error al procesar la solicitud');
       } catch (err) {
         lastError = err;
       }
+      throw lastError || new Error('Sin nota de corpus.');
     }
 
     if (type === 'tsk' || type === 'xref' || type === 'cross') {
-      try {
-        const { ok, data } = await postJson('/api/referencias', {
-          consulta: ref,
-          passage: ref,
-          referencia: ref,
-        }, 18000);
-        const lista = data?.data?.referencias || data?.referencias || [];
-        if (ok && lista.length) {
-          const answer = lista
-            .map((x) => {
-              const cita = x.ref || x.reference;
-              const cuerpo = String(x.texto || x.text || '').trim();
-              if (cuerpo) return `- **${cita}**\n  «${cuerpo}»`;
-              return `- **${cita}** — ${x.nota || x.description || ''}`;
-            })
-            .join('\n');
-          return { success: true, answer, source: 'referencias', raw: data };
-        }
-      } catch (err) {
-        lastError = err;
+      const version = (typeof localStorage !== 'undefined' && localStorage.getItem('revelatio_version')) || 'rv1960';
+      const { ok, data } = await postJson('/api/tsk', {
+        consulta: ref,
+        passage: ref,
+        referencia: ref,
+        version,
+      }, 18000);
+      const lista = data?.data?.referencias || data?.referencias || [];
+      if (ok && lista.length) {
+        const answer = lista
+          .map((x) => {
+            const cita = x.ref || x.reference;
+            const cuerpo = String(x.texto || x.text || '').trim();
+            if (cuerpo) return `- **${cita}**\n  «${cuerpo}»`;
+            return `- **${cita}** — ${x.nota || x.description || ''}`;
+          })
+          .join('\n');
+        return { success: true, answer, source: data?.fuente || 'tsk-open-cross-ref', raw: data };
       }
+      return {
+        success: true,
+        answer: `No hay referencias TSK catalogadas para ${ref}.`,
+        source: 'tsk-open-cross-ref',
+        raw: data,
+      };
     }
 
     if (type === 'lexicon' || type === 'lexico' || type === 'strong') {
-      try {
-        const { ok, data } = await postJson('/api/lexicon', {
-          passage: ref,
-          referencia: ref,
-        }, 18000);
-        const answer = extractAnswer(data);
-        if (ok && answer) return { success: true, answer, source: data.source || 'lexicon', raw: data };
-      } catch (err) {
-        lastError = err;
-      }
+      const { ok, data } = await postJson('/api/lexico', {
+        passage: ref,
+        referencia: ref,
+      }, 18000);
+      const answer = extractAnswer(data);
+      if (ok && answer) return { success: true, answer, source: data.source || 'lexicon', raw: data };
+      throw new Error(data?.error || 'Léxico sin resultado.');
+    }
+
+    if (type === 'concordance' || type === 'concordancia' || type === 'thematic') {
+      throw new Error('La concordancia usa GET /api/concordancia. La IA no inventa coincidencias.');
     }
 
     const endpoints =
-      type === 'lens' || type === 'lente' || type === 'vida'
-        ? ['/api/study-engine', '/api/lente', '/api/ai']
-        : ['/api/study-engine', '/api/ai'];
+      type === 'lens' || type === 'lente' || type === 'vida' || type === 'elite_lens' || type === 'elite'
+        ? ['/api/study-engine', '/api/lente-elite', '/api/lente']
+        : ['/api/study-engine'];
 
     for (const url of endpoints) {
       try {
+        const lensCall = type === 'lens' || type === 'lente' || type === 'vida' || type === 'elite_lens' || type === 'elite';
         const { data } = await postJson(url, {
           passage: ref,
           ref,
@@ -139,7 +147,7 @@
           autor: author,
           lensTitle,
           prompt,
-        }, 18000);
+        }, lensCall ? 45000 : 18000);
         const answer = extractAnswer(data);
         if (data.success !== false && answer) {
           return { success: true, answer, source: data.source || url, raw: data };

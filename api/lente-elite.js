@@ -3,7 +3,6 @@
  * Endpoint para Lentes Hermenéuticas y Cognitivas de Nivel Élite.
  */
 import { generateEliteLensAnswer } from './ai.js';
-import { generarFallbackLenteElite } from '../lib/theological-fallback.js';
 
 export default async function handler(req, res) {
   res.setHeader?.('Content-Type', 'application/json; charset=utf-8');
@@ -36,7 +35,34 @@ export default async function handler(req, res) {
       type: 'elite_lens',
     }, req.path || req.url || '/api/lente-elite');
 
-    const answer = payload.answer || payload.text || '';
+    const ok = payload.success !== false && payload.source !== 'ai-unavailable';
+    const answer = ok ? String(payload.answer || payload.text || '').trim() : '';
+    if (!ok || !answer) {
+      const msg =
+        payload.error ||
+        payload.meta?.error ||
+        'Falta Gemini o AI Gateway. Configure GEMINI_API_KEY o AI_GATEWAY_API_KEY. Las lentes no inventarán un dictamen.';
+      return res.status(200).json({
+        success: false,
+        ok: false,
+        error: msg,
+        answer: '',
+        text: '',
+        result: '',
+        respuesta: '',
+        commentary: { text: '' },
+        source: payload.source || 'ai-unavailable',
+        meta: {
+          passage,
+          subLensId,
+          lensTitle,
+          verseText: verseText || undefined,
+          ...(payload.meta || {}),
+          error: payload.meta?.error || msg,
+        },
+      });
+    }
+
     return res.status(200).json({
       success: true,
       ok: true,
@@ -56,28 +82,22 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('[api/lente-elite] Error:', error?.message || error);
-    const fallback = generarFallbackLenteElite({
-      passage,
-      subLensId,
-      lensId: subLensId,
-      lensTitle,
-      prompt,
-      verseText,
-    });
+    const msg = error?.message || 'Falta Gemini o AI Gateway. Las lentes no inventarán un dictamen.';
     return res.status(200).json({
-      success: true,
-      ok: true,
-      answer: fallback,
-      text: fallback,
-      result: fallback,
-      respuesta: fallback,
-      commentary: { text: fallback },
-      source: 'theological-engine-fallback',
+      success: false,
+      ok: false,
+      error: msg,
+      answer: '',
+      text: '',
+      result: '',
+      respuesta: '',
+      commentary: { text: '' },
+      source: 'ai-unavailable',
       meta: {
         passage,
         subLensId,
         lensTitle,
-        error: error?.message,
+        error: error?.message || msg,
       },
     });
   }

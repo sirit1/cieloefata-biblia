@@ -1,0 +1,786 @@
+{
+  "book": "Gálatas",
+  "usfm": "GAL",
+  "authorId": "charles-spurgeon",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Paul, an apostle, (not of men, neither by man, but by Jesus Christ, and God the Father, who raised him from the dead;) —\n\n Paul begins this Epistle by stating his commission as an apostle. In Galatia, he had been subjected to the great sorrow of having his apostle-ship called in question. Does he, therefore, give up his claim to the office, and retire from the work? No, not for a moment; but he begins his letter to the Galatians by declaring himself to be \"an apostle, not of men, neither by man, but by Jesus Christ.\" His enemies had said, \"Paul was never one of the Saviour's twelve apostles; he is not like those who were trained and educated by Christ himself. No doubt he has borrowed his doctrine from them, and he is only a retailer of other men's goods\". No, no,\" says Paul, \"I am an apostle as truly as any other of the twelve; 'not of men, neither by man, but by Jesus Christ, and God the Father, who raised him from the dead;'\" —",
+      "es": "Pablo, apóstol (no de hombres ni por hombre, sino por Jesucristo y por Dios Padre que lo resucitó de entre los muertos) -\n\n Pablo comienza esta epístola declarando su comisión como apóstol. En Galacia, había sido sometido al gran dolor de que su apostolado fuera puesto en duda. ¿Renuncia, por tanto, a su derecho al cargo y se retira del trabajo? No, ni por un momento; pero comienza su carta a los Gálatas declarándose \"apóstol, no de hombres, ni por hombre, sino por Jesucristo\". Sus enemigos habían dicho: \"Pablo nunca fue uno de los doce apóstoles del Salvador; no es como aquellos que fueron formados y educados por el mismo Cristo. Sin duda, ha tomado prestada su doctrina de ellos, y es sólo un comerciante de bienes ajenos\". No, no\", dice Pablo, \"soy un apóstol tan verdaderamente como cualquier otro de los doce; 'no de los hombres, ni por ningún hombre, sino por Jesucristo y por Dios Padre, que lo resucitó de entre los muertos';'\" -",
+      "enHash": "328e8f4591eb70430e1f021a299ccc0ce2b9ea1bd341ba6669118adda6a262e6",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b2": {
+      "en": "And all the brethren which are with me, unto the churches of Galatia: —\n\n Paul ever loved to associate others with him in his Christian service. He was not one who wanted to ride the high horse, and to keep himself aloof from his brethren in Christ. He frequently mentions the true-hearted men who were with him, even though they were far inferior to him in talent and also in grace. He often joins with himself such men as Timothy and Silvanus, and here he puts in, \"all the brethren which are with me, unto the churches of Galatia:\" —",
+      "es": "Y todos los hermanos que están conmigo, a las iglesias de Galacia:\n\n A Pablo siempre le encantó asociar a otros con él en su servicio cristiano. No era alguien que quisiera subirse al caballo y mantenerse alejado de sus hermanos en Cristo. Con frecuencia menciona a los hombres sinceros que estaban con él, aunque eran muy inferiores a él en talento y también en gracia. A menudo se une consigo mismo a hombres como Timoteo y Silvano, y aquí incluye \"a todos los hermanos que están conmigo, en las iglesias de Galacia\":",
+      "enHash": "f4508b7247b0d4129e7217f6dde9b24f6d993c00e95007668b591310e3e8a9f8",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b3": {
+      "en": "Grace be to you and peace from God the Father, and from our Lord Jesus Christ, —\n\n It is the genius of the gospel to wish well to others. Hence Paul begins the actual Epistle with a benediction: \"Grace be to you and peace.\" Dear friends, may you all have a fullness of these two good things! Grace rightly comes first, and peace afterwards. Peace before grace would be perilous; nay more, it would be ruinous. But may you always have enough of grace to lead you on to a deep and joyful peace! The two things go together very delightfully, — grace and peace, — and it is the best of grace, and the best of peace, since they come \"from God the Father, and from our Lord Jesus Christ,\" —",
+      "es": "Gracia y paz a vosotros, de Dios Padre y de nuestro Señor Jesucristo,\n\n La genialidad del evangelio es desear el bien a los demás. Por eso Pablo comienza la propia epístola con una bendición: \"Gracia y paz a vosotros\". Queridos amigos, ¡que todos podáis disfrutar en plenitud de estas dos cosas buenas! Con razón, la gracia es lo primero y la paz después. La paz antes que la gracia sería peligrosa; es más, sería ruinoso. ¡Pero que siempre tengas suficiente gracia para conducirte a una paz profunda y gozosa! Las dos cosas van juntas de manera muy deliciosa, gracia y paz, y es la mejor de la gracia y la mejor de la paz, ya que provienen \"de Dios Padre y de nuestro Señor Jesucristo\", -",
+      "enHash": "4629e4ef993e9216809270fa667d00256068ad28bb083c0fc551cb5cb39b8a11",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b4": {
+      "en": "Who gave himself for our sins, —\n\n There is the doctrine of the atonement, which Paul always brings into his preaching and writing as soon as he can: \"Who gave himself for our sins.\" Well does Luther say, \"Christ never gave himself for our righteousness; but he gave himself for our sins, because there was no other way of saving us except by a sacrifice for sin.\" The substitutionary character of Christ's death is always to be noticed: \"Who gave himself for our sins,\" —",
+      "es": "Quien se entregó por nuestros pecados, -\n\n Está la doctrina de la expiación, que Pablo siempre introduce en su predicación y escrito tan pronto como puede: \"Quien se entregó a sí mismo por nuestros pecados\". Bien dice Lutero: \"Cristo nunca se entregó por nuestra justicia, sino que se entregó por nuestros pecados, porque no había otra manera de salvarnos excepto mediante un sacrificio por el pecado\". Siempre debe notarse el carácter sustitutivo de la muerte de Cristo: \"Quien se entregó a sí mismo por nuestros pecados\", -",
+      "enHash": "edbc3d0788abb026850a888d3722c27375f0d0d7d4cea05261e2f1bd1eafd79e",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b5": {
+      "en": "That he might deliver us from this present evil world, according to the will of God and our Father: to whom be glory for ever and ever. Amen.\n\n Our Lord Jesus Christ himself puts away our sin in order that we may rise out of it, and may become a pure and holy people, delivered from this present evil world, and brought into obedience to the will of God. Now we come to quite another topic.",
+      "es": "Para librarnos del presente siglo malo, según la voluntad de Dios y Padre nuestro: a quien sea la gloria por los siglos de los siglos. Amén.\n\n Nuestro Señor Jesucristo mismo quita nuestro pecado para que podamos salir de él y llegar a ser un pueblo puro y santo, liberado de este presente mundo malo y llevado a la obediencia a la voluntad de Dios. Ahora llegamos a otro tema completamente distinto.",
+      "enHash": "9e86febec03c6db5f3b037986c09b8a21cc0f03be74cc1b150b97ddc0e6a233a",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b6": {
+      "en": "I marvel that ye are so soon removed from him that called you into the grace of Christ unto another gospel:\n\n The Galatians were a very fickle people. Some have said that they were a colony from Gaul, — Galatians, — and that they partook somewhat of the fickleness which is attributed to the character of the Gaul. I know not how true that may be; but, certainly, they seem very soon to have left the gospel, to have adulterated it, and to have fallen into Ritualism, into Sacramentarianism, into salvation by works, and all the errors into which people usually fall when they go away from the gospel.",
+      "es": "Estoy maravillado de que tan pronto os hayáis alejado del que os llamó por la gracia de Cristo, para seguir un evangelio diferente:\n\n Los gálatas eran un pueblo muy voluble. Algunos han dicho que eran una colonia de la Galia, los gálatas, y que participaban en cierta medida de la volubilidad que se atribuye al carácter de los galos. No sé qué tan cierto puede ser eso; pero, ciertamente, parecen muy pronto haber abandonado el evangelio, haberlo adulterado y haber caído en el Ritualismo, en el Sacramentarismo, en la salvación por obras y en todos los errores en que suele caer la gente cuando se aleja del evangelio.",
+      "enHash": "ce1b0790e71ca16633ed0a7b3d633c6069b282e50d66413dc60747972b1f175c",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b7": {
+      "en": "Which is not another; but there be some that trouble you, and would pervert the gospel of Christ.\n\n \"Another gospel: which is not another;\" for there are not two gospels, any more than there are two gods. There is one only message from God, of good news to men; and if you turn away from that, you turn away to a falsehood, to that which will bring you trouble, to that which will pervert you, and lead you astray.",
+      "es": "Que no es otro; pero hay algunos que os perturban y quieren pervertir el evangelio de Cristo.\n\n \"Otro evangelio: que no es otro\"; porque no hay dos evangelios, como tampoco hay dos dioses. Hay un solo mensaje de Dios, de buenas nuevas para los hombres; y si te apartas de eso, te vuelves hacia la falsedad, hacia aquello que te traerá problemas, hacia aquello que te pervertirá y te desviará.",
+      "enHash": "c2afadb2321290eeef7445548d121d3badeb0696189c3bebf7c2777489613554",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b8": {
+      "en": "But though we, or an angel from heaven, preach any other gospel unto you than that which we have preached unto you, let him be accursed.\n\n Paul is no fanatic, no raving enthusiast; yet he cannot endure the notion of a false gospel. In his solemn anathema, he includes himself, and all the brethren with him, yea, and the very angels of God if they \"preach any other gospel.\" Let him be accursed, saith he, and so he is.",
+      "es": "Pero aunque nosotros, o un ángel del cielo, os anunciare otro evangelio distinto del que os hemos anunciado, sea anatema.\n\n Paul no es un fanático ni un entusiasta delirante; sin embargo, no puede soportar la noción de un evangelio falso. En su solemne anatema, se incluye a sí mismo y a todos los hermanos que están con él, sí, y a los mismos ángeles de Dios si \"predican cualquier otro evangelio\". Sea anatema, dice, y así es.",
+      "enHash": "bfac5d7c921c3f2aa3846fc515fe7cc98c11bf626e7bfb3c7cf1ff975c5776eb",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b9": {
+      "en": "As we said before, so say I now again, If any man preach any other gospel unto you than that ye have received, let him be accursed.\n\n The modern style of speaking is, \"Let us fraternize with him; he is a man of original thought. Surely, you would not bind all men down to one mode of speech. Perhaps, if he has made mistakes, you will bring him round to your way of thinking By receiving him kindly into your fellowship.\" \"No, no;\" says Paul, \"As we said before, so say I now again, If any man preach any other gospel unto you than that ye have received, let him be accursed.\"",
+      "es": "Como dijimos antes, así lo repito ahora: Si alguno os predica un evangelio diferente del que habéis recibido, sea anatema.\n\n El estilo moderno de hablar es: \"fraternicemos con él; es un hombre de pensamiento original. Seguramente no obligarías a todos los hombres a un solo modo de hablar. Tal vez, si ha cometido errores, lo harás volver a tu forma de pensar recibiéndolo amablemente en tu comunidad\". \"No, no;\" dice Pablo: \"Como hemos dicho antes, así lo repito ahora: Si alguno os predica un evangelio diferente del que habéis recibido, sea anatema\".",
+      "enHash": "5327f81bc3ee531096e4671b0c83d9a48d24aabce8be85e65fba504eb9a45bb3",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b10": {
+      "en": "For do I now persuade men, or God? or do I seek to please men? for if I yet pleased men, I should not be the servant of Christ.\n\n He would not be the servant of Christ if he pleased men. Those whom we try to please, are our masters. If a man tries to please the populace, or to please the refined few, these are his masters, and he will be their flare; but if he tries to please his God, then is he a free man indeed.",
+      "es": "¿Pues persuado ahora a los hombres o a Dios? ¿O busco complacer a los hombres? porque si todavía agradara a los hombres, no sería siervo de Cristo.\n\n No sería siervo de Cristo si agradara a los hombres. Aquellos a quienes intentamos complacer son nuestros amos. Si un hombre trata de complacer al populacho, o agradar a unos pocos refinados, éstos son sus amos, y él será su llamarada; pero si trata de agradar a su Dios, entonces es verdaderamente un hombre libre.",
+      "enHash": "37d9b6446e6cfe7a497170d3c58b394f1e6b0427d1e05d0e820a8c94d671e290",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b11": {
+      "en": "But I certify you, brethren, that the gospel that was preached of me is not after man. For I neither received it of man, neither was I taught it, but the revelation of Jesus Christ. For ye have heard of my conversation in time past in the Jews' religion, how that beyond measure I persecuted the church of God, and wasted it: and profited in the Jews' religion above many my equals in mine own nation, being more exceedingly jealous of the traditions of my fathers. But when it pleased God, who separated me from my mother's womb, and called me by his grace, to reveal his Son in me, that I might preach him among the heathen; immediately I conferred not with flesh and blood: neither went I up to Jerusalem to them which were apostles before me; but I went up to Arabia, and returned again unto Damascus.\n\n Paul was intensely desirous that the Galatian Christians should understand that he was no mere repeater of other men's doctrines, but that what he taught he had received directly from God by supernatural revelation. They knew that he had been a most determined opposer of the gospel. Indeed, he was a man of such great determination that, whatever he did he did with all his might; so, no sooner did God reveal Christ to him, so that he knew Jesus to be the Messiah, than he earnestly sought to learn yet more of the truth, not by going up to the apostles at Jerusalem, to borrow from them, but by getting alone in the waste places of Arabia? there, by thought and meditation upon the Word, and by communion with God, to learn yet more concerning the divine mysteries.",
+      "es": "Pero os hago saber, hermanos, que el evangelio que yo prediqué no es según hombre. Porque ni lo recibí ni lo aprendí de hombre alguno, sino la revelación de Jesucristo. Porque habéis oído de mi conversación en tiempos pasados ​​en la religión judía, de cómo perseguí sin medida a la iglesia de Dios, y la desperdicié; y en la religión judía obtuve provecho de muchos de mis iguales en mi propia nación, siendo aún más celoso de las tradiciones de mis padres. Pero cuando agradó a Dios, que me separó desde el vientre de mi madre, y me llamó por su gracia, revelar a su Hijo en mí, para que yo lo predicara entre las naciones; Inmediatamente no consulté con carne ni con sangre, ni subí a Jerusalén a los que eran apóstoles antes que yo; pero subí a Arabia y regresé otra vez a Damasco.\n\n Pablo deseaba intensamente que los cristianos gálatas comprendieran que él no era un mero repetidor de las doctrinas de otros hombres, sino que lo que enseñaba lo había recibido directamente de Dios por revelación sobrenatural. Sabían que él había sido un opositor más decidido al evangelio. De hecho, era un hombre de tan gran determinación que, cualquier cosa que hiciera, lo hacía con todas sus fuerzas; Entonces, tan pronto como Dios le reveló a Cristo, de modo que supo que Jesús era el Mesías, buscó fervientemente aprender aún más de la verdad, no yendo a los apóstoles en Jerusalén para pedirles prestado, sino estando solo en los lugares desiertos de Arabia. allí, mediante el pensamiento y la meditación de la Palabra y la comunión con Dios, para aprender aún más sobre los misterios divinos.",
+      "enHash": "b29128951c6471ebeb1d5062e73045ea4511ee91406a85c9b278531fcbad28ad",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b12": {
+      "en": "Then after three years I went to Jerusalem to see Peter, and abode with him fifteen days. But other of the apostles saw I none, save James the Lord's brother. Now the things which I write unto you, behold, before God, I lie not. Afterwards I came into the regions of Syria and Cilicia; and was unknown by face unto the churches of Judaea which were in Christ: but they had heard only, That he which persecuted us in times past now preacheth the faith which once he destroyed. And they glorified God in me.\n\n This exposition consisted of readings from",
+      "es": "Luego, después de tres años, fui a Jerusalén a ver a Pedro y estuve con él quince días. Pero a ninguno de los demás apóstoles vi, excepto a Santiago, el hermano del Señor. Ahora bien, lo que os escribo, he aquí delante de Dios, no miento. Después llegué a las regiones de Siria y Cilicia; y era desconocido de vista a las iglesias de Judea que eran en Cristo; pero sólo habían oído: El que nos perseguía en otro tiempo, ahora predica la fe que antes destruía. Y glorificaron a Dios en mí.\n\n Esta exposición estuvo compuesta por lecturas de",
+      "enHash": "31cf1c40c1885536dbca54fac6ef6257db7385797b151626cbf154e553b537e2",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b13": {
+      "en": "Then fourteen years after I went up again to Jerusalem with Barnabas, and took Titus with me also. And I went up by revelation,-\n\n He was sent by the church at Antioch, but the church there was guided by revelation, so that Paul is correct in saying, \"I went up by revelation,\" —",
+      "es": "Catorce años después subí de nuevo a Jerusalén con Bernabé, y tomé también a Tito conmigo. Y subí por revelación,\n\n Fue enviado por la iglesia de Antioquía, pero la iglesia de allí fue guiada por la revelación, de modo que Pablo tiene razón al decir: \"Subí por revelación\".",
+      "enHash": "de191c317274660ade3c7e50290972927ed98e3d16215cc12a274a2d0064ba14",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b14": {
+      "en": "And communicated unto them that gospel which I preach among the Gentiles, but privately to them which were of reputation, lest by any means I should run, or had run, in vain. But neither Titus, who was with me, being a Greek, was compelled to be circumcised: and that because of false brethren unawares brought in, who came in privily to spy out our liberty which we have in Christ Jesus, that they might bring us into bondage:\n\n There were always some among the Jewish converts who insisted that the Gentiles should come under the seal of the old covenant if they were to be partakers of the blessings of the gospel, but to this Paul would never consent: —",
+      "es": "Y les comuniqué el evangelio que predico entre los gentiles, pero en privado a los que tenían reputación, para que no corriera o hubiera corrido en vano. Pero ni Tito, que estaba conmigo, siendo griego, fue obligado a circuncidarse, y esto a causa de falsos hermanos traídos sin saberlo, que entraban encubiertamente para espiar nuestra libertad que tenemos en Cristo Jesús, para ponernos en servidumbre.\n\n Siempre hubo algunos entre los judíos conversos que insistieron en que los gentiles debían quedar bajo el sello del antiguo pacto si iban a participar de las bendiciones del evangelio, pero Pablo nunca consentiría en esto:",
+      "enHash": "ab4a48d8996e63f93052f705e141719985fb5310f8bd9741dadc1b3e4c4f0499",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b15": {
+      "en": "To whom we gave place by subjection, no, not for an hour; that the truth of the gospel might continue with you.\n\n It is impossible for us to estimate how much we owe to the apostle Paul. Of all who have ever lived, we who are Gentiles owe more to him than to any other man. See how he fought our battles for us. When our Jewish brethren would have excluded us because we were not of the seed of Abraham according to the flesh, how bravely did he contend that, if we were partakers of the same faith, Abraham is the father of all the faithful that he was loved of God, and the covenant was made with him, not in circumcision, but before he was circumcised, and that we are partakers of that covenant.",
+      "es": "A quienes dimos lugar por sujeción, no, ni por una hora; para que la verdad del evangelio continúe con vosotros.\n\n Es imposible para nosotros estimar cuánto le debemos al apóstol Pablo. De todos los que alguna vez hemos vivido, nosotros que somos gentiles le debemos más a él que a cualquier otro hombre. Vea cómo peleó nuestras batallas por nosotros. Cuando nuestros hermanos judíos nos hubieran excluido porque no éramos de la simiente de Abraham según la carne, con qué valentía afirmó que, si éramos participantes de la misma fe, Abraham es el padre de todos los fieles, que era amado por Dios, y que el pacto se hizo con él, no en la circuncisión, sino antes de ser circuncidado, y que somos participantes de ese pacto.",
+      "enHash": "3ae7e2657fb72d0ae3323600fcc20915d2196e3e8550ff16c791722bfa514e11",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b16": {
+      "en": "But of these who seemed to be somewhat, (whatsoever they were, it maketh no matter to me: God accepteth no man's person:) for they who seemed to be somewhat in conference added nothing to me: but contrawise, when they saw that the gospel of the uncircumcision was committed unto me, as the gospel of the circumcision was unto Peter; (for he wrought effectually in Peter to the apostleship of the circumcision, the same was mighty to me toward the Gentiles:) and when James, Cephas, and John, who seemed to be pillars, perceived the grace that was given unto me, they gave to me and Barnabas the right hands of fellowship; that we should go unto the heathen, and they unto the circumcision. Only they would that we should remember the poor; the same which I also was forward to do.\n\n One of the first things he did, when there was a famine in Judaea, was to make a collection for the saints in other places, that he might aid the poor Christians.",
+      "es": "Pero de estos que parecían ser algo, (sea lo que fueren, no me importa: Dios no acepta la persona de ningún hombre), porque los que parecían ser algo en conferencia no me añadieron nada; sino por el contrario, cuando vieron que el evangelio de la incircuncisión me era encomendado, como el evangelio de la circuncisión lo era a Pedro; (Porque obró eficazmente en Pedro para el apostolado de la circuncisión, lo mismo fue poderoso para mí para con los gentiles;) y cuando Jacobo, Cefas y Juan, que parecían ser columnas, reconocieron la gracia que me era dada, nos dieron a mí y a Bernabé las diestras de comunión; para que nosotros vayamos a las naciones, y ellos a la circuncisión. Sólo ellos querrían que nos acordáramos de los pobres; lo mismo que yo también estaba ansioso por hacer.\n\n Una de las primeras cosas que hizo, cuando hubo hambre en Judea, fue hacer una colecta para los santos en otros lugares, para poder ayudar a los cristianos pobres.",
+      "enHash": "c2d79334352d89448869d5bf8f44bd21b286abc687230f4ee608f6a511d3e469",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b17": {
+      "en": "But when Peter was come to Antioch, I withstood him to the face, because he was to be blamed. For before that certain came from James, he did eat with the Gentiles: but when they were come, he withdrew and separated himself, fearing them which were of the circumcision. And the other Jews dissembled likewise with him; insomuch that Barnabas also was carried away with their dissimulation. But when I saw that they walked not uprightly according to the truth of the gospel, I said unto Peter before them all, If thou, being a Jew, livest after the manner of Gentiles, and not as do the Jews, why compellest thou the Gentiles to live as do the Jews?\n\n It must have been very painful to Paul's feelings to come into conflict with Peter, whom he greatly esteemed; but yet, for the truth's sake, he knew no persons, and he had to withstand even a beloved brother when he saw that he was likely to pervert the simplicity of the gospel, and rob the Gentiles of their Christian liberty. For this, we ought to be very grateful to our gracious God who raised up this brave champion, this beloved apostle of the Gentiles.",
+      "es": "Pero cuando Pedro llegó a Antioquía, yo le resistí cara a cara, porque era culpable. Porque antes de que vinieran algunos de parte de Jacobo, él comía con los gentiles; pero cuando llegaron, se retiró y se separó, temiendo a los que eran de la circuncisión. Y los demás judíos fingían lo mismo con él; de modo que también Bernabé se dejó llevar por su disimulo. Pero cuando vi que no andaban rectamente según la verdad del evangelio, dije a Pedro delante de todos: Si tú, siendo judío, vives como los gentiles, y no como los judíos, ¿por qué obligas a los gentiles a vivir como los judíos?\n\n Debe haber sido muy doloroso para los sentimientos de Pablo entrar en conflicto con Pedro, a quien estimaba mucho; pero, sin embargo, por amor a la verdad, no conocía a ninguna persona, y tuvo que resistir incluso a un hermano amado cuando vio que era probable que pervirtiera la sencillez del evangelio y robara a los gentiles su libertad cristiana. Por esto, debemos estar muy agradecidos a nuestro Dios misericordioso que levantó a este valiente campeón, este amado apóstol de los gentiles.",
+      "enHash": "9565be2f5953ae5f02d38a392e0d07fcf601a050598470d2b681289351319c6b",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b18": {
+      "en": "We who are Jews by nature, and not sinners of the Gentiles, knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ, even we have believed in Jesus Christ, that we might be justified by the faith of Christ, and not by the works of the law: for by the works of the law shall no flesh be justified. But if, while we seek to be justified by Christ, we ourselves also are found sinners, is therefore Christ the minister of sin? God forbid. For if I build again the things which I destroyed, I make myself a transgressor. For I through the law am dead to the law, that I might live unto God. I am crucified with Christ: nevertheless I live; yet not I, but Christ liveth in me: and the life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me. I do not frustrate the grace of God: for if righteousness come by the law, then Christ is dead in vain.\n\n Paul is arguing against the idea of salvation by works, or salvation by ceremonies; and he shows, beyond all question, that salvation is by the grace of God through faith in Jesus Christ. Mark the strength of the apostle's argument in the 21 st verse: \" If righteousness come by the law, then Christ is dead in sin.\" That is to say, there was no need for Christ to die, the crucifixion was a superfluity, if men can save themselves by their own good works. Paul is very emphatic about the matter. He puts it as plainly as possible: \"If righteousness come by the law, then Christ is dead in vain.\"\n\nThis exposition consisted of readings from",
+      "es": "Nosotros, que somos judíos por naturaleza, y no pecadores de los gentiles, sabiendo que el hombre no es justificado por las obras de la ley, sino por la fe de Jesucristo, también hemos creído en Jesucristo, para ser justificados por la fe de Cristo, y no por las obras de la ley; porque por las obras de la ley nadie será justificado. Pero si buscando ser justificados en Cristo, también nosotros somos declarados pecadores, ¿es entonces Cristo ministro del pecado? Dios no lo quiera. Porque si vuelvo a edificar lo que destruí, me hago transgresor. Porque yo por la ley estoy muerto a la ley, para vivir para Dios. Estoy crucificado con Cristo; sin embargo, vivo; Pero no vivo yo, sino Cristo en mí; y la vida que ahora vivo en la carne, la vivo en la fe del Hijo de Dios, el cual me amó y se entregó a sí mismo por mí. No frustro la gracia de Dios: porque si la justicia es por la ley, entonces Cristo murió en vano.\n\n Pablo está argumentando en contra de la idea de la salvación por obras o la salvación por ceremonias; y muestra, más allá de toda duda, que la salvación es por la gracia de Dios mediante la fe en Jesucristo. Note la fuerza del argumento del apóstol en el versículo 21: \"Si la justicia es por la ley, entonces Cristo está muerto en el pecado\". Es decir, no había necesidad de que Cristo muriera, la crucifixión era superflua, si los hombres pueden salvarse por sus propias buenas obras. Paul es muy enfático sobre el asunto. Lo expresa lo más claramente posible: \"Si la justicia viene por la ley, entonces Cristo murió en vano\".\n\nEsta exposición estuvo compuesta por lecturas de",
+      "enHash": "157ac9160e456729182caf9650b54e9cef167f32ad21ca075f1e3cc516240c0c",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b19": {
+      "en": "Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ, even we have believed in Jesus Christ, that we might be justified by the faith of Christ, and not by the works of the law: for by the works of the law shall no flesh be justified.\n\n This is the primary truth to be proclaimed by the Christian ministry. It is the foundation-stone of all gospel preaching; and yet, somehow or other, such is the hardness of the human heart, that it is the most difficult thing to induce our hearers to build on this foundation. Many of them are always trying to lean upon their own works, and so struggling to get back under the old legal dispensation, instead of rejoicing in the liberty of the dispensation of grace. One objection to the doctrine of grace rather than the doctrine of law is this, that some think it will lead to sin. The apostle puts it thus: —",
+      "es": "Sabiendo que el hombre no es justificado por las obras de la ley, sino por la fe de Jesucristo, también nosotros hemos creído en Jesucristo, para ser justificados por la fe de Cristo, y no por las obras de la ley; porque por las obras de la ley nadie será justificado.\n\n Ésta es la verdad principal que debe proclamar el ministerio cristiano. Es la piedra fundamental de toda predicación del evangelio; y, sin embargo, de una manera u otra, tal es la dureza del corazón humano, que es lo más difícil inducir a nuestros oyentes a construir sobre este fundamento. Muchos de ellos siempre están tratando de apoyarse en sus propias obras, y así luchan por volver a estar bajo la antigua dispensación legal, en lugar de regocijarse en la libertad de la dispensación de la gracia. Una objeción a la doctrina de la gracia más que a la doctrina de la ley es la siguiente: algunos piensan que conducirá al pecado. El apóstol lo expresa así: -",
+      "enHash": "54cf78d964254209df26bed29cb8ffe468c1419d0d9afbe903f841365c29607d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b20": {
+      "en": "But if, while we seek to be justified by Christ, we ourselves also are found sinners, is therefore Christ the minister of sin? God forbid.\n\n For the tendency of the gospel of grace is to excite gratitude in those who receive it. If I am freely pardoned, then I must love him who has thus generously forgiven me. Gratitude is the root of true virtue, and the main-spring of all holiness. If there be base-minded men who can suck poison out of this honeycomb, is Christ to be blamed for their evil-doing? God forbid! But if, on the other hand, you and I go back to trusting in works, then we are indeed guilty in the sight of God.",
+      "es": "Pero si buscando ser justificados en Cristo, también nosotros somos declarados pecadores, ¿es entonces Cristo ministro del pecado? Dios no lo quiera.\n\n Porque la tendencia del evangelio de la gracia es suscitar gratitud en quienes lo reciben. Si soy libremente perdonado, entonces debo amar a aquel que tan generosamente me ha perdonado. La gratitud es la raíz de la verdadera virtud y el motivo principal de toda santidad. Si hay hombres de mentalidad baja que pueden chupar veneno de este panal, ¿se debe culpar a Cristo por sus malas acciones? ¡Dios no lo quiera! Pero si, por el contrario, usted y yo volvemos a confiar en las obras, entonces somos realmente culpables ante los ojos de Dios.",
+      "enHash": "e1afe3ecbb8f93b1e39e6df089b5955a969df7ffb1de346aa21048a3a9ff76ab",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b21": {
+      "en": "For if I build again the things which I destroyed, I make myself a transgressor.\n\n If I once said I would not trust in my good works, and now go back to trust in them, I have already, whatever may be my outward conduct, perpetrated a great sin.",
+      "es": "Porque si vuelvo a edificar lo que destruí, me hago transgresor.\n\n Si una vez dije que no confiaría en mis buenas obras, y ahora vuelvo a confiar en ellas, ya he cometido, cualquiera que sea mi conducta exterior, un gran pecado.",
+      "enHash": "e3462c3d86f2fbf201d15d70acc26a14400d298654789032f44e2db14040f11d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b22": {
+      "en": "For I through the law am dead to the law, that I might live unto God. I am crucified with Christ: nevertheless I live; yet not I, but Christ liveth in me: and the life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me.\n\n I do not know a better epitome of Christian experience than this. This is the daily walk of a true child of God, if he liveth after any other sort, then he liveth not a Christian's life at all. Christ living in us, ourselves living upon Christ, and our union to Christ being visibly maintained by an act of simple faith in him, this is the true Christian's life.",
+      "es": "Porque yo por la ley estoy muerto a la ley, para vivir para Dios. Estoy crucificado con Cristo; sin embargo, vivo; Pero no vivo yo, sino Cristo en mí; y la vida que ahora vivo en la carne, la vivo en la fe del Hijo de Dios, el cual me amó y se entregó a sí mismo por mí.\n\n No conozco mejor personificación de la experiencia cristiana que ésta. Este es el caminar diario de un verdadero hijo de Dios; si vive de cualquier otra manera, entonces no vive la vida de un cristiano en absoluto. Cristo viviendo en nosotros, nosotros viviendo de Cristo y nuestra unión con Cristo visiblemente mantenida por un acto de fe simple en él, esta es la vida del verdadero cristiano.",
+      "enHash": "e6c32b3dc38f0b0c304fcaae0312b8a46525389e1062c0074e38a488a4027551",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b23": {
+      "en": "I do not frustrate the grace of God: for if righteousness come by the law, then Christ is dead in vain.\n\n If a man can be saved by his own works, and willings, and doings, then Christ's death was an unnecessary piece of torture; and, instead of being the most glorious manifestation of divine love, it was a shameful waste, putting upon Christ a terrible burden of suffering which was totally unnecessary.\n\nThis exposition consisted of readings from",
+      "es": "No frustro la gracia de Dios: porque si la justicia es por la ley, entonces Cristo murió en vano.\n\n Si un hombre puede ser salvo por sus propias obras, voluntades y hechos, entonces la muerte de Cristo fue una tortura innecesaria; y, en lugar de ser la manifestación más gloriosa del amor divino, fue un desperdicio vergonzoso, imponiendo sobre Cristo una carga terrible de sufrimiento que era totalmente innecesario.\n\nEsta exposición estuvo compuesta por lecturas de",
+      "enHash": "29dde84863c737a4a5d29b055c3de215257b641ccbfb5f24c3d5019fb654fc28",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b24": {
+      "en": "O foolish Galatians, who hath bewitched you, that ye should not obey the truth, before whose eyes Jesus Christ hath been evidently set forth, crucified among you.\n\n Paul does not compliment them on being a very \"thoughtful,\" \"educated\" \"cultured\" people; he does not care an atom about that matter, but because they had forsaken the simple truth of the gospel, he says, \"O foolish Galatians, who hath bewitched you?\" Those are hard words, Paul! Why did he not say, \"Who has led you forward into more advanced views?\" Not he; he calls it witchery, the work of the devil, and it is nothing better; and the wisdom of it is no better than the trickery of some old witch. If you take your eyes off Christ, it must be witchcraft that makes you do it. There is such glory, such beauty, such perfection, such wisdom, such divinity in Christ crucified that, if you turn from that sight to anything else, no matter how scientific and learned it may be, you are foolish, indeed, and somebody has \"bewitched you.\"",
+      "es": "¡Oh gálatas insensatos, que os habéis hechizado para no obedecer a la verdad, ante cuyos ojos Jesucristo ha sido presentado claramente entre vosotros, crucificado!\n\n Pablo no los elogia por ser un pueblo muy \"reflexivo\", \"educado\" y \"culto\"; a él no le importa un ápice ese asunto, pero debido a que habían abandonado la simple verdad del evangelio, dice: \"Oh gálatas insensatos, ¿quién os fascinó?\" ¡Esas son palabras duras, Paul! ¿Por qué no dijo: \"¿Quién te ha guiado hacia puntos de vista más avanzados?\" Él no; lo llama brujería, obra del diablo, y no es nada mejor; y su sabiduría no es mejor que el engaño de alguna vieja bruja. Si quitas los ojos de Cristo, debe ser brujería lo que te obliga a hacerlo. Hay tanta gloria, tanta belleza, tanta perfección, tanta sabiduría, tal divinidad en Cristo crucificado que, si te apartas de esa visión para dedicarte a cualquier otra cosa, por muy científica y erudita que sea, eres realmente un tonto y alguien te ha \"hechizado\".",
+      "enHash": "06afefb933ad474e81a68fb94c3bf71ad45c55892040218a6db3503b119b3e8e",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b25": {
+      "en": "This only would I learn of you, Received ye the Spirit by the works of the law, or by the hearing of faith?\n\n They had gone off into legality; they were trying to be saved by ceremonies, and by works of their own. \"Well,\" asks Paul, \"how did you receive the Spirit,-the Spirit by which miracles were wrought among you, the Spirit by which you spoke with unknown tongues, the Spirit which changed and renewed your hearts? If you did indeed receive him, did you receive him by the works of the law, or by the hearing of faith?\" There was only one reply to the question; the Spirit came to them as the result of faith.",
+      "es": "Sólo esto quiero saber de vosotros: ¿Recibisteis el Espíritu por las obras de la ley o por el oír con fe?\n\n Se habían internado en la legalidad; intentaban salvarse mediante ceremonias y obras propias. \"Bueno\", pregunta Pablo, \"¿cómo recibisteis el Espíritu, el Espíritu por el cual se realizaron milagros entre vosotros, el Espíritu por el cual hablasteis en lenguas desconocidas, el Espíritu que transformó y renovó vuestros corazones? Si en verdad lo recibisteis, ¿lo recibisteis por las obras de la ley, o por el oír con fe?\" Sólo hubo una respuesta a la pregunta; el Espíritu vino a ellos como resultado de la fe.",
+      "enHash": "d59ab7ab5ad20397908f62e81cf586255e704bd7228ef561e8b1f3e3f75e2763",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b26": {
+      "en": "Are ye so foolish having begun in the Spirit, are ye now made perfect by the flesh?\n\n If the very beginning of your religion was spiritual, a work of the Spirit received by faith, are you now going to be perfected by the flesh, by outward rites and ceremonies, or by efforts of your own?",
+      "es": "¿Tan necios sois, habiendo comenzado por el Espíritu, que ahora os perfeccionáis por la carne?\n\n Si el comienzo mismo de vuestra religión fue espiritual, una obra del Espíritu recibida por la fe, ¿ahora seréis perfeccionados por la carne, por ritos y ceremonias externos, o por vuestros propios esfuerzos?",
+      "enHash": "d638541865d7965a937a217bb08daf622ae6ffee646d265b480739a8b758a196",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b27": {
+      "en": "Have ye suffered so many things in vain? if it be yet in vain.\n\n You had to struggle and endure much contention within your own spirit to get upon the ground of faith at all; are you going to throw all that away? Is all the experience of your past life to go for nothing, and are you now going to begin on a lower and baser platform?",
+      "es": "¿Habéis sufrido tantas cosas en vano? si todavía es en vano.\n\n Tuviste que luchar y soportar mucha contención dentro de tu propio espíritu para llegar al terreno de la fe; ¿Vas a tirar todo eso a la basura? ¿Toda la experiencia de tu vida pasada es inútil y vas a comenzar ahora en una plataforma más baja y básica?",
+      "enHash": "9c84c97cdacde99335e9b0791bebb77cf6a241f71d608d03f5e397295368bd1d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b28": {
+      "en": "He therefore that ministereth to you the Spirit, and worketh miracles among you, doeth he it by the works of the law, or by the hearing of faith?\n\n He knew that they must reply that it was faith, and not the works of the law, that gave those miraculous powers.",
+      "es": "Así pues, el que os ministra el Espíritu y hace milagros entre vosotros, ¿lo hace por las obras de la ley o por el oír con fe?\n\n Sabía que debían responder que era la fe, y no las obras de la ley, la que otorgaba esos poderes milagrosos.",
+      "enHash": "232dfcdacdb55d930dc92cc6dd81f822c63a741b43dea4ab9fb7c9265d1a9897",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b29": {
+      "en": "Even as Abraham believed God, and it was accounted to him for righteousness.\n\n That is the old way, the way of faith. It is not here recorded that Abraham did anything, though he did much; but the one thing that was \"accounted to him for righteousness\" was this, that he \"believed God.\"",
+      "es": "Así como Abraham creyó a Dios, y le fue contado por justicia.\n\n Ésa es la vieja manera, la manera de la fe. No se registra aquí que Abraham haya hecho algo, aunque hizo mucho; pero lo único que \"le fue contado por justicia\" fue esto: que \"creyó a Dios\".",
+      "enHash": "ca6c7535678cb54743ecb1632129b796c429ac09313806878fa3187a36340d20",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b30": {
+      "en": "Know ye therefore that they which are of faith, the same are the children of Abraham.\n\n Not this nation or that, as Anglo-Israelites might say; but those that are of faith, these are the children of Abraham. Abraham is the father of the faithful, the believers, and believers are all the children of Abraham. Race has nothing to do with this matter; an end has been put to all that. God is not the God of the Jews only, but also of the Gentiles; and here is a new race whose distinction is not that they were born of blood, or of the will of the flesh, or of the will of man, but by the will of God; and this is the token by which they are known, they believe God, and it is accounted to them for righteousness, even as it was accounted to Abraham.",
+      "es": "Sabed, pues, que los que son de la fe, éstos son hijos de Abraham.\n\n No esta nación o aquella, como dirían los angloisraelitas; pero los que son de fe, éstos son hijos de Abraham. Abraham es el padre de los fieles, los creyentes, y los creyentes son todos hijos de Abraham. La raza no tiene nada que ver con este asunto; Se ha puesto fin a todo eso. Dios no es Dios sólo de los judíos, sino también de los gentiles; y aquí hay una nueva raza cuya distinción no es que nacieron de sangre, o de voluntad de la carne, o de voluntad del hombre, sino por voluntad de Dios; y esta es la señal por la cual son conocidos: creen en Dios, y les es contado por justicia, así como le fue contado a Abraham.",
+      "enHash": "0bcdf74569851bb3681ec1c920991141dd3ba06e0db7e9e62a8ecce0cfdbd859",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b31": {
+      "en": "And the scripture, foreseeing that God would justify the heathen through faith, preached before the gospel unto Abraham, saying, in thee shall all nations be blessed.\n\n That is the gospel; and we are blessed by it, because we believe in Christ, and so become the children of believing Abraham.",
+      "es": "Y la Escritura, previendo que Dios habría de justificar a las naciones por la fe, predicó de antemano la buena nueva a Abraham, diciendo: En ti serán benditas todas las naciones.\n\n Ese es el evangelio; y somos bendecidos por ello, porque creemos en Cristo, y así llegamos a ser hijos del creyente Abraham.",
+      "enHash": "38a844cf8ed0b56d8958180337629062a796c47f45d86b1e6087ccf6ec1f13ce",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b32": {
+      "en": "So then they which be of faith are blessed with faithful Abraham.\n\n Just as the believing Abraham was accounted righteous, so believing men who are the spiritual seed of Abraham, are also accounted righteous.",
+      "es": "Así que los que son de fe son benditos con el fiel Abraham.\n\n Así como el creyente Abraham fue considerado justo, así también los hombres creyentes que son la simiente espiritual de Abraham, también son considerados justos.",
+      "enHash": "430acd772109abcc71414ad9586b1d260bad7ca79686753640fb2b9886572998",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b33": {
+      "en": "For it is written, Cursed is every one that continueth not in all things, which are written in the book of the law to do them.\n\n That is all that Moses can say to you, and all that the Old Testament can reveal to you. Apart from faith in Christ, all its rites and ceremonies, all its laws and precepts, if you are resting in them, can only land you under the curse, because you cannot continue in all things which are written in the book of the law to do them. You have not so continued thus far, you will not so continue, and nothing but an absolutely perfect obedience to the law could save a man by the way of works; and as that obedience is not possible, we come under the curse if we come under the law.",
+      "es": "Porque escrito está: Maldito todo aquel que no persevere en todas las cosas que están escritas en el libro de la ley para hacerlas.\n\n Eso es todo lo que Moisés puede decirte y todo lo que el Antiguo Testamento puede revelarte. Aparte de la fe en Cristo, todos sus ritos y ceremonias, todas sus leyes y preceptos, si descansas en ellos, sólo te pueden llevar a la maldición, porque no puedes continuar haciéndolas en todas las cosas que están escritas en el libro de la ley. No habéis continuado así hasta ahora, no continuaréis así, y nada sino una obediencia absolutamente perfecta a la ley podría salvar a un hombre por la vía de las obras; y como esa obediencia no es posible, quedamos bajo maldición si estamos bajo la ley.",
+      "enHash": "c89b2683bafeec4618f05db019f15d212025089a5955e54628b2d37dbfb7f15a",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b34": {
+      "en": "But that no man is justified by the law in the sight of God, it is evident: for, The just shall live by faith.\n\n Here Paul quotes again from the Old Testament Scriptures: \"The just shall live by faith.\" Even the just man lives by faith; then, how can you who are not just expect to live in any other way?",
+      "es": "Pero que nadie es justificado por la ley ante los ojos de Dios, es evidente: porque el justo por la fe vivirá.\n\n Aquí Pablo cita nuevamente las Escrituras del Antiguo Testamento: \"El justo por la fe vivirá\". Incluso el justo vive por la fe; Entonces, ¿cómo podéis vosotros, que no sois, esperar vivir de otra manera?",
+      "enHash": "0ba57d2c684314b9f4b61677ae9d26c0c447cba6c17ca469498ee4a99f400be2",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b35": {
+      "en": "And the law is not of faith: but, The man that doeth them shall live in them.\n\n The very spirit of law is the spirit of works; and as life only comes by faith, it cannot come by the works of the law, for they are not of faith. Now comes the gospel, clear and bright, like the sun rising out of a thick fog.",
+      "es": "Y la ley no es por fe, sino que el hombre que las cumple vivirá en ellas.\n\n El espíritu mismo de la ley es el espíritu de las obras; y como la vida sólo viene por la fe, no puede venir por las obras de la ley, porque no son de fe. Ahora llega el evangelio, claro y brillante, como el sol que sale de una espesa niebla.",
+      "enHash": "75f33bb66c64da64f3c25363d88d0463e4031e57f757ab0aa24b989d6a03973d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b36": {
+      "en": "Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree:\n\n Here is substitution; what else can the words mean? Christ hung on a tree for us, bearing our curse, in our room, and place, and stead.",
+      "es": "Cristo nos redimió de la maldición de la ley, hecho por nosotros maldición; porque escrito está: Maldito todo el que es colgado en un madero.\n\n Aquí hay sustitución; ¿Qué más pueden significar las palabras? Cristo colgó de un madero por nosotros, llevando nuestra maldición, en nuestro lugar, lugar y lugar.",
+      "enHash": "bb0f3b8135422da5170cc8424e8af6f9f4a9d858e15ccb8f0b3f7621f90a921d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b37": {
+      "en": "That the blessing of Abraham might come on the Gentiles through Jesus Christ; that we might receive the promise of the Spirit through faith.\n\n Christ was made a curse for us that the blessing might come upon us. He took our curse that we might take the blessing from his own dear hands, and might possess it evermore.",
+      "es": "Para que la bendición de Abraham viniera sobre los gentiles por medio de Jesucristo; para que podamos recibir la promesa del Espíritu mediante la fe.\n\n Cristo fue hecho maldición por nosotros para que la bendición viniera sobre nosotros. Él tomó nuestra maldición para que nosotros pudiéramos tomar la bendición de sus queridas manos y poseerla para siempre.",
+      "enHash": "b4f630511f799559d144f2ff55967b7c6ba8d34cb03441e568aa00256d7f6461",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b38": {
+      "en": "Brethren, I speak after the manner of men: Though it be but a man's covenant, yet if it be confirmed, no man disannulleth, or addeth thereto.\n\n A covenant is a covenant; whatever happens, it cannot be altered, it stands, though it was only made by men.",
+      "es": "Hermanos, hablo a manera de hombres: aunque sea un pacto de un hombre, si se confirma, nadie lo anula ni le añade nada.\n\n Un pacto es un pacto; pase lo que pase, no puede ser alterado, permanece, aunque sólo fue hecho por hombres.",
+      "enHash": "44cb6eeecc6a91d2001ad975a1949b87bbc039d862231bfc51920dafd66ee5d2",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b39": {
+      "en": "Now to Abraham and his seed were the promises made. He saith not, And to seeds, as of many; but as of one, And to thy seed, which is Christ.\n\n Quoting from the Old Testament, we may believe in the absolute plenary inspiration of that Sacred Book, because the apostle founds an argument upon the singular of a noun having been used rather than the plural.",
+      "es": "Ahora bien, a Abraham y a su descendencia se les hicieron las promesas. No dice: Y a las semillas, como a muchas; sino como de uno, y a tu descendencia, que es Cristo.\n\n Citando el Antiguo Testamento, podemos creer en la absoluta inspiración plenaria de ese Libro Sagrado, porque el apóstol funda un argumento en el singular de un sustantivo usado en lugar del plural.",
+      "enHash": "2eff3d801abe0b75dfb76f2add9b653d8b40f831d1fb1d91061c34ce47a1b1f5",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b40": {
+      "en": "And this I say, that the covenant, that was confirmed before of God in Christ, the law, which was four hundred and thirty years after, cannot disannul, that it should make the promise of none effect.\n\n Is not that splendid argument? The covenant was made with Abraham that God would bless him and his seed. Well now, four hundred and thirty years after, the law was given on Sinai; but that could not affect a covenant made four hundred and thirty years before. The argument goes to prove that the covenant of grace is not affected by any law of rites and ceremonies; nay, not even by the moral law itself. The covenant made with Abraham and his seed must stand; the seed signifies those who believe, therefore, the covenant stands fast with Abraham and all other believers.",
+      "es": "Y esto digo, que el pacto que fue confirmado antes por Dios en Cristo, la ley que fue cuatrocientos treinta años después, no puede anularse, de modo que la promesa quede sin efecto.\n\n ¿No es ese un argumento espléndido? El pacto se hizo con Abraham de que Dios lo bendeciría a él y a su descendencia. Pues bien, cuatrocientos treinta años después, fue dada la ley en el Sinaí; pero eso no podía afectar un pacto hecho cuatrocientos treinta años antes. El argumento demuestra que el pacto de gracia no se ve afectado por ninguna ley de ritos y ceremonias; es más, ni siquiera por la ley moral misma. El pacto hecho con Abraham y su descendencia debe permanecer; la simiente representa a los que creen, por lo tanto, el pacto permanece firme con Abraham y todos los demás creyentes.",
+      "enHash": "6244d9b25299b9fcef1fb79185aec675ce613618d0697f6380c5205a0dffbaeb",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b41": {
+      "en": "For if the inheritance be of the law, it is no more of promise: but God gave it to Abraham by promise.\n\n All through the Book of Genesis, it is promise, promise, and promise. Isaac was an heir of the promise, and Jacob was an heir of the promise. In fact, Isaac was born by promise, and Ishmael the elder brother did not inherit the blessing because he was born after the flesh. They who believe in Christ are heirs according to the promise. Now, a promise takes us out of the region of law.",
+      "es": "Porque si la herencia es por la ley, ya no es por la promesa; pero Dios la dio a Abraham por la promesa.\n\n A lo largo de todo el Libro del Génesis hay promesa, promesa y promesa. Isaac era heredero de la promesa y Jacob era heredero de la promesa. De hecho, Isaac nació por promesa, e Ismael, el hermano mayor, no heredó la bendición porque nació según la carne. Los que creen en Cristo son herederos según la promesa. Ahora, una promesa nos saca de la región del derecho.",
+      "enHash": "1a7d7c9d70c8f59691368020dda8fdce4c2323d052e3632f59fcd75d2a4085da",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b42": {
+      "en": "Wherefore then serveth the law?\n\n What is the use of it?",
+      "es": "¿Para qué sirve entonces la ley?\n\n ¿De qué sirve?",
+      "enHash": "d0bcbe08c59eaaf2b2c550ea5e2112e1f52d6c00bb3c5d39bd0d7491d000eba8",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b43": {
+      "en": "It was added because of transgressions, till the seed should come to whom the promise was made; and it was ordained by angels in the hand of a mediator. Now a mediator is not a mediator of one, but God is one.\n\n The law had its uses, blessed uses. The law should be used for its own purposes, and then it is admirable, it is divine. Take it out of its own proper use, make it a master instead of being a servant, and it is something like fire, which, in your grate, will comfort you, but if it masters you, it burns your house, and destroys you.",
+      "es": "Fue añadido a causa de las transgresiones, hasta que viniera la simiente a quien fue hecha la promesa; y fue ordenado por ángeles en mano de un mediador. Ahora bien, un mediador no es mediador de uno, pero Dios es uno.\n\n La ley tenía sus usos, usos benditos. La ley debe usarse para sus propios fines, y entonces es admirable, es divina. Sácalo de su propio uso, hazlo amo en lugar de siervo, y será algo como el fuego, que en tu hogar te consolará, pero si te domina, quema tu casa y te destruye.",
+      "enHash": "bb9ccacd322ae2b0ac1d2bd195feeb3aa159c38aa44fb9f2ca99eecb9dadee0d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b44": {
+      "en": "Is the law then against the promises of God? God forbid: for if there had been a law given which could have given life, verily righteousness should have been by the law. But the scripture hath concluded all under sin, that the promise by faith of Jesus Christ might be given to them that believe.\n\n It shuts you all up as in a dungeon, that by the one and only door of faith in Christ you might come out into a glorious liberty.",
+      "es": "¿Está entonces la ley en contra de las promesas de Dios? Dios no lo quiera: porque si se hubiera dado una ley que pudiera dar vida, en verdad la justicia habría sido por la ley. Pero la Escritura somete a todos a pecado, para que a los creyentes les sea dada la promesa por la fe en Jesucristo.\n\n Os encierra a todos como en un calabozo, para que por la única puerta de la fe en Cristo podáis salir a una libertad gloriosa.",
+      "enHash": "4c7c10ab3d42a4ffbec94f4b6501e78d681937e002e97eb03f2fbb1f71acbbfe",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b45": {
+      "en": "But the scripture hath concluded all under sin, that the promise by faith of Jesus Christ might be given to them that believe.\n\n All of us, by nature are shut up like criminals in a prison that is so securely bolted and barred that there is no hope of escape for any who are immured within it. But why are all the doors shut and fastened? Why in order that Christ may come and open the one only eternal door of salvation: \"that the promise by faith of Jesus Christ might be given to them that believes.\"",
+      "es": "Pero la Escritura somete a todos a pecado, para que a los creyentes les sea dada la promesa por la fe en Jesucristo.\n\n Todos nosotros, por naturaleza, estamos encerrados como criminales en una prisión que está tan firmemente cerrada con cerrojos y barrotes que no hay esperanza de escapar para cualquiera que esté encerrado en ella. ¿Pero por qué están todas las puertas cerradas y aseguradas? Por qué para que Cristo venga y abra la única puerta eterna de la salvación: \"para que la promesa por la fe de Jesucristo sea dada a los que creen\".",
+      "enHash": "bddb7a3a8e1ceac00f9a137cd145b1a51f04836b3211d73b696ee8cb61927678",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b46": {
+      "en": "But before faith came, we were kept under the law, shut up unto the faith which should afterwards be revealed.\n\n Well do I remember when I was \"shut up\" in this fashion. I struggled and strove with might and main to get out, but I found no way of escape. I was \"shut up\" until faith came, and opened the door and brought me out into \"the glorious liberty of the children of God.\"",
+      "es": "Pero antes de que viniera la fe, estábamos mantenidos bajo la ley, encerrados en la fe que después habría de ser revelada.\n\n Bien recuerdo cuando me \"encerraron\" de esta manera. Luché y luché con todas mis fuerzas para salir, pero no encontré forma de escapar. Estuve \"encerrado\" hasta que vino la fe, abrió la puerta y me sacó a \"la gloriosa libertad de los hijos de Dios\".",
+      "enHash": "337568b3a863cf09f101ee1e513af044e433db108bec822085f4c06c8a12ae96",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b47": {
+      "en": "Wherefore the law was our schoolmaster to bring us unto Christ, that we might be justified by faith.\n\n The pedagogue was a slave who led the children to school, and sometimes whipped them to school. That is what the law did with us; it took us under its management, and whipped us, and drove us to Christ.",
+      "es": "Por lo tanto, la ley fue nuestro maestro de escuela para llevarnos a Cristo, a fin de que seamos justificados por la fe.\n\n El pedagogo era un esclavo que llevaba a los niños a la escuela y, en ocasiones, los azotaba. Eso es lo que hizo la ley con nosotros; nos tomó bajo su dirección, nos azotó y nos llevó a Cristo.",
+      "enHash": "8e825298d9dfd363cfd4dbf1df00efc3ce76c900fedd8a096032a27faadfb94b",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b48": {
+      "en": "But after that faith is come, we are no longer under a schoolmaster.\n\n Now we go to Christ willingly, cheerfully, joyfully, trusting in him with all our hearts. The pedagogue's work is done so far as we are concerned.",
+      "es": "Pero una vez llegada esa fe, ya no estamos bajo un maestro de escuela.\n\n Ahora vamos a Cristo de buena gana, alegres, gozosos, confiando en él con todo nuestro corazón. En lo que a nosotros respecta, el trabajo del pedagogo se realiza.",
+      "enHash": "5ad559b27a3b2e6e78f38d4a5942d297e36a2b4767cb6cf12a47d189edb5763b",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b49": {
+      "en": "For ye are all the children of God by faith in Christ Jesus.\n\n We hear a great deal about the universal fatherhood of God, but it is all nonsense. There is no Scripture for it whatsoever. Those only are the children of God who are \"the children of God by faith in Christ Jesus.\"",
+      "es": "Porque todos sois hijos de Dios por la fe en Cristo Jesús.\n\n Se oye hablar mucho de la paternidad universal de Dios, pero todo es una tontería. No hay ninguna Escritura para ello en absoluto. Sólo aquellos son hijos de Dios que son \"hijos de Dios por la fe en Cristo Jesús\".",
+      "enHash": "1778398f7b42576d1593ebe4b27629d27942d76f616db48450780d165131e661",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b50": {
+      "en": "For as many of you as have been baptized into Christ have put on Christ.\n\n \"He is everything to you. He covers you, he surrounds you. You do not stand before God in your own filthy rags, but you have put on Christ.\"",
+      "es": "Porque todos los que habéis sido bautizados en Cristo, de Cristo estáis revestidos.\n\n \"Él lo es todo para vosotros. Él os cubre, os rodea. No estáis delante de Dios con vuestros propios harapos de inmundicia, sino que estáis vestidos de Cristo\".",
+      "enHash": "a25ffc894a2aa2a2edd069af15affba41cb4f266d90cc285bd65ba9d5711668c",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b51": {
+      "en": "There is neither Jew nor Greek, there is neither bond nor free, there is neither male nor female: for ye are all one in Christ Jesus.\n\n What a mercy it is to be in Christ, so that you yourself are not seen any more, but only Christ, and you accepted in him!",
+      "es": "No hay judío ni griego, no hay esclavo ni libre, no hay varón ni mujer; porque todos vosotros sois uno en Cristo Jesús.\n\n ¡Qué misericordia es estar en Cristo, de modo que ya no se te vea a ti mismo, sino sólo a Cristo, y en él aceptaste!",
+      "enHash": "39f490cdea25507d98ce69574e3ba79e7cccfbdfd0286e7ed40eace674666881",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b52": {
+      "en": "And if ye be Christ's, then ye are Abraham's seed, and heirs according to the promise.\n\n \"According to the promise,\" — not according to your works, or your deserts, but \"heirs according to the promise.\"",
+      "es": "Y si sois de Cristo, entonces sois descendencia de Abraham y herederos según la promesa.\n\n \"Según la promesa\", no según vuestras obras o vuestros méritos, sino \"herederos según la promesa\".",
+      "enHash": "3c40799daa5618c1dff9722debc348e7e0d9eb1497548f77ef929369c8bcb116",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b53": {
+      "en": "Now I say, That the heir, as long as he is a child, differeth nothing from a servant, though he be lord of all; but is under tutors and governors until the time appointed of the father. Even so we, when we were children, were in bondage under the elements of the world: but when the fullness of the time was come, God sent forth his Son, made of a woman, made under the law, to redeem them that were under the law, that we might receive the adoption of sons.\n\n Like little children, the Jewish believers were under the law. They observed this ceremony and that, just as children, even though they may be heirs to vast estates, yet, while they are in their minority, are under tutors and governors. But now in Christ we have come of age, and we have done with those school-books and that tutorship, and we have received the adoption of sons. Now, we have joy and peace in believing; we have begun to enter into our possession; we have the earnest of it already, and by-and-by we shall receive the fullness of the inheritance of the saints in light.",
+      "es": "Ahora digo, que el heredero, mientras es niño, en nada se diferencia del siervo, aunque sea señor de todo; pero está bajo tutores y gobernadores hasta el tiempo señalado por el padre. Así también nosotros, cuando éramos niños, estábamos en servidumbre bajo los elementos del mundo; pero cuando vino la plenitud del tiempo, Dios envió a su Hijo, nacido de mujer, nacido bajo la ley, para redimir a los que estaban bajo la ley, para que recibiéramos la adopción de hijos.\n\n Como niños pequeños, los creyentes judíos estaban bajo la ley. Observaban esta ceremonia y aquella, como niños, aunque sean herederos de grandes propiedades, aunque sean minoría, están bajo tutores y gobernadores. Pero ahora en Cristo hemos llegado a la mayoría de edad, y hemos terminado con esos libros escolares y esa tutela, y hemos recibido la adopción de hijos. Ahora tenemos gozo y paz al creer; hemos comenzado a entrar en nuestra posesión; ya tenemos las arras, y poco a poco recibiremos la plenitud de la herencia de los santos en luz.",
+      "enHash": "3a11e68af8543337003640f14033e2a4fbbf95c49c7a365923488d89ef06b5a3",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b54": {
+      "en": "And because ye are sons, God hath sent forth the Spirit of his Son into your hearts, crying, Abba, Father.\n\n While the Jewish believers, like children, were under the law, they did not have such direct access to the Father as we have. They could not enter into such close fellowship with God as now we can. We who are the sons of God, really born into his family, feel within us a something that makes us call God, \"Father,\" not only in prayer, saying, \"Our Father, which art in heaven;\" but, inwardly, when we are not in the attitude of prayer, our hearts keep on crying, \"Father, Father.\" The Jew may say, \"Abba, and the word is very sweet; but we cry, \"Father,\" and it means the same thing.",
+      "es": "Y por cuanto sois hijos, Dios envió a vuestros corazones el Espíritu de su Hijo, que clama: Abba, Padre.\n\n Si bien los creyentes judíos, como niños, estaban bajo la ley, no tenían un acceso tan directo al Padre como nosotros. No podían entrar en una comunión tan estrecha con Dios como nosotros podemos hacerlo ahora. Nosotros que somos hijos de Dios, realmente nacidos en su familia, sentimos dentro de nosotros algo que nos hace llamar a Dios \"Padre\", no sólo en la oración, diciendo: \"Padre nuestro que estás en los cielos\"; pero, interiormente, cuando no estamos en actitud de oración, nuestro corazón sigue clamando: \"Padre, Padre\". El judío puede decir: \"Abba, y la palabra es muy dulce; pero nosotros clamamos: \"Padre\", y significa lo mismo.",
+      "enHash": "a1b4b327d36c727b2ae8ce40b098ccf9bdf1ca67839ecd3978cce274a78efdbd",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b55": {
+      "en": "Wherefore thou art no more a servant, but a son; and if a son, then an heir of God through Christ.\n\n All God's sons are, in a certain sense, his servants; but there is a sense in which servants are not sons. We, therefore, are not like those servants who have no relationship to their master, and no share in his possessions; but we are sons. Whatever service we render, we are still sons, and we have a share in all that our Father has; we are heirs, \"heirs of God, and joint-heirs with Christ.\" Are you living up to your privileges, brethren? Are we any of us fully realizing what this heirship means? Do we not often live as if we were only servants toiling for hire? Do we not tremble at God as if we were his slaves rather than his sons? Let us remember that we are God's sons, his heirs; and let us come close to him, let us take possession of the blessed inheritance which he has provided for us.",
+      "es": "Por tanto, ya no eres siervo, sino hijo; y si hijo, también heredero de Dios por medio de Cristo.\n\n Todos los hijos de Dios son, en cierto sentido, sus servidores; pero en cierto sentido los sirvientes no son hijos. Por lo tanto, no somos como esos sirvientes que no tienen ninguna relación con su amo ni participación en sus posesiones; pero somos hijos. Cualquiera que sea el servicio que prestemos, seguimos siendo hijos y tenemos participación en todo lo que nuestro Padre tiene; somos herederos, \"herederos de Dios y coherederos con Cristo\". ¿Están ustedes a la altura de sus privilegios, hermanos? ¿Alguno de nosotros somos plenamente conscientes de lo que significa esta herencia? ¿No vivimos a menudo como si fuéramos sólo sirvientes que trabajan arduamente a sueldo? ¿No temblamos ante Dios como si fuéramos sus esclavos en lugar de sus hijos? Recordemos que somos hijos de Dios, sus herederos; y acerquémonos a él, tomemos posesión de la bendita herencia que él nos ha provisto.",
+      "enHash": "3e7cde1203e81029f39f0af000d929d871d8b1261916c22d3da238043215fe44",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b56": {
+      "en": "Howbeit then, when ye knew not God, ye did service unto them which by nature are no gods. But now, after that ye have known God, or rather are known of God, how turn ye again to the weak and beggarly elements, whereunto ye desire again to be in bondage? Ye observe days, and months, and times, and years. I am afraid of you, lest I have bestowed upon you labour in vain.\n\n Among the heathen, there were divers \"lucky\" and \"unlucky\" days; sacred days, and days in which they indulged in sensual excess. They had even \"holy\" months and \"unholy\" months. Now, all that kind of thing is done away with in the case of a Christian: he is set free from such weak and beggarly superstitions. Among the Jews, there were certain sacred festivals, times that were more notable than other seasons; but they also were done away with in Christ. We observe the Christian Sabbath; but beyond that, to the true believer, there should be no special observance of days, and months, and years. All that is a return to \"the weak and beggarly elements\" from which Christ has delivered him. That bondage is all ended now; but there are some who still \"observe days, and months, and times, and years;\" and Paul says to them, \"I am afraid of you, lest I have bestowed upon you labour in vain.\" Every day is holy, every year is holy, to a holy man; and every place is holy, too, to the man who brings a holy heart into it.",
+      "es": "Sin embargo, cuando no conocíais a Dios, servíis a aquellos que por naturaleza no son dioses. Pero ahora que habéis conocido a Dios, o más bien sois conocidos por Dios, ¿cómo volveréis a los elementos débiles y miserables, a los que deseáis volver a ser esclavos? Guardad los días, los meses, los tiempos y los años. Temo que os haya trabajado en vano.\n\n Entre los paganos, había diversos días \"afortunados\" y \"desafortunados\"; días sagrados y días en los que se entregaban al exceso sensual. Incluso tenían meses \"santos\" y meses \"impíos\". Ahora bien, todo ese tipo de cosas desaparece en el caso del cristiano: queda libre de supersticiones tan débiles y miserables. Entre los judíos había ciertas fiestas sagradas, épocas que eran más notables que otras estaciones; pero también fueron aniquilados en Cristo. Observamos el sábado cristiano; pero más allá de eso, para el verdadero creyente, no debe haber una observancia especial de días, meses y años. Todo esto es un retorno a \"los elementos débiles y mendigos\" de los que Cristo lo libró. Toda esa esclavitud ha terminado ahora; pero hay algunos que todavía \"observan los días, los meses, los tiempos y los años\"; y Pablo les dice: \"Temo que os haya trabajado en vano\". Cada día es santo, cada año es santo para un hombre santo; y todo lugar es santo también para el hombre que introduce en él un corazón santo.",
+      "enHash": "e26b2b6c7a8881e59aa38cc42ceb071a132d26c3e40f3ce0b8fde85945917afa",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b57": {
+      "en": "Brethren, I beseech you, be as I am; for I am as ye are: ye have not injured me at all.\n\n He had told them the gospel, and other teachers had come in and alienated their affections. He says, \"Now I am just the same to you as ever I was; I wish you would have the same love to me.\"",
+      "es": "Hermanos, os ruego que seáis como yo soy; porque yo soy como vosotros: no me habéis hecho ningún daño.\n\n Él les había contado el evangelio y otros maestros habían llegado y enajenado sus afectos. Él dice: \"Ahora soy para ti el mismo que siempre fui; desearía que tuvieras el mismo amor por mí\".",
+      "enHash": "e8e253fd44a5026d367c6805a803b371306eaff6db90e005b96ce29c7d22dea9",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b58": {
+      "en": "Ye know how through infirmity of the flesh I preached the gospel unto you at the first. And my temptation which was in my flesh ye despised not, nor rejected; but received me as an angel of God, even as Christ Jesus.\n\n He dwells upon that. They had been so enthusiastic about his teaching when he first taught them, that he feels grieved that now they have gone aside to other teaching — not because it injured him, but because it injured them.",
+      "es": "Vosotros sabéis que por flaqueza de la carne os prediqué el evangelio al principio. Y mi tentación que estaba en mi carne no la menospreciasteis ni la rechazasteis; sino que me recibieron como a un ángel de Dios, como a Cristo Jesús.\n\n Él se concentra en eso. Habían estado tan entusiasmados con su enseñanza cuando él les enseñó por primera vez, que se siente afligido de que ahora se hayan desviado hacia otra enseñanza, no porque le perjudicara a él, sino porque les perjudicara a ellos.",
+      "enHash": "cc4c87fbd8d20f051a323129fec465323a2dfacb9969d8fb8f2852727d2808a4",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b59": {
+      "en": "Where is then the blessedness ye spake of?\n\n When you said that you were happy to live in Paul's days, glad to listen to so simple and plain a teacher.",
+      "es": "¿Dónde está entonces la bienaventuranza de la que hablabais?\n\n Cuando dijiste que estabas feliz de vivir en los días de Pablo, contento de escuchar a un maestro tan simple y sencillo.",
+      "enHash": "75169dc531852ad5cc3c0f01d0b9406f91cb96a23a73dab852a628e21685be4b",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b60": {
+      "en": "For I bear you record, that, if it had been possible, ye would have plucked out your own eyes, and have given them to me. Am I therefore become your enemy, because I tell you the truth?\n\n Ah! there are many who have incurred enmity through speaking the gospel very plainly, for the natural tendency of man is towards ceremony, towards some form of legal righteousness: he must have something aesthetic, something that delights his sensuous nature, something that he can see and hear, to mix up that with the simplicity of faith; and Paul was as clear as noonday against everything of that kind, and so the Galatians got at last to be angry with him. Well, he could not help that, but it did grieve him.",
+      "es": "Porque os doy testimonio de que, si fuera posible, os habríais sacado los ojos y me los habríais dado. ¿Me he convertido, pues, en vuestro enemigo, porque os digo la verdad?\n\n ¡Ah! hay muchos que han incurrido en enemistad por hablar el evangelio muy claramente, porque la tendencia natural del hombre es hacia la ceremonia, hacia alguna forma de justicia legal: debe tener algo estético, algo que deleite su naturaleza sensual, algo que pueda ver y oír, para mezclar eso con la sencillez de la fe; y Pablo fue tan claro como el mediodía en contra de todo eso, y por eso los gálatas finalmente se enojaron con él. Bueno, no pudo evitarlo, pero le entristeció.",
+      "enHash": "77839fb837e7a651896c819a69bf032bf8df30cea8925b8aeb9bb1824543e9a0",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b61": {
+      "en": "They zealously affect you, but not well; yea, they would exclude you, that ye might affect them.\n\n They would, if they could, turn you out of our love that you might run after them. These false teachers would shut us out of your hearts that your hearts might go after them.",
+      "es": "Te afectan con celo, pero no bien; sí, os excluirían para que vosotros los afectarais.\n\n Si pudieran, te apartarían de nuestro amor para que pudieras correr tras ellos. Estos falsos maestros nos excluirían de vuestros corazones para que vuestros corazones pudieran ir tras ellos.",
+      "enHash": "5300780d2220782ac25f62d19089a03a447b23508061e49814197f319ac1673c",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b62": {
+      "en": "But it is good to be zealously affected always in a good thing, and not only when I am present with you. My little children, of whom I travail in birth again until Christ be formed in you. I desire to be present with you now, and to change my voice; for I stand in doubt of you. Tell me, ye that desire to be under the law, do ye not hear the law?\n\n Will you not listen to what the law itself teaches? Here is a little bit from one of its first books, the book of Genesis.",
+      "es": "Pero es bueno ser celoso siempre en el bien, y no sólo cuando estoy presente entre vosotros. Hijitos míos, por quienes vuelvo a sufrir dolores de parto, hasta que Cristo sea formado en vosotros. Deseo estar presente contigo ahora y cambiar mi voz; porque dudo de ti. Decidme, vosotros que deseáis estar bajo la ley, ¿no oís la ley?\n\n ¿No escucharéis lo que enseña la ley misma? Aquí un poquito de uno de sus primeros libros, el libro del Génesis.",
+      "enHash": "124e977cf7383961aad694077e9519bc641a9faa583e6708189271b790c6b07d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b63": {
+      "en": "For it is written, that Abraham had two sons, the one by a bondmaid, and the other by a freewoman. But he who was of the bondwoman was born after the flesh;\n\n In the strength of Abraham.",
+      "es": "Porque está escrito que Abraham tuvo dos hijos, uno de una esclava y el otro de una libre. Pero el que era de la esclava nació según la carne;\n\n En la fuerza de Abraham.",
+      "enHash": "b5057eae66aa76f8e9434ca70a9e30f2bf5409c64b61790e95e05ee90574f74d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b64": {
+      "en": "But he of the freewoman was by promise.\n\n In the power of God, born after both father and mother had ceased to be capable of becoming parents, born in the power of God.",
+      "es": "Pero el de la mujer libre fue por promesa.\n\n En el poder de Dios, nacidos después de que tanto el padre como la madre dejaron de ser capaces de ser padres, nacidos en el poder de Dios.",
+      "enHash": "d341d79d526759b398da20a94b475dbb2d6374f5b05e30e06be6cc663e7774fe",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b65": {
+      "en": "Which things are an allegory: for these are the two covenants: the one from the mount Sinai, which gendereth to bondage, which is Hagar.\n\n Those that are under the law are the children, therefore, of the bondwoman: they are born slaves.",
+      "es": "Lo cual es una alegoría: porque estos son los dos pactos: el del monte Sinaí, que engendró a servidumbre, que es Agar.\n\n Los que están bajo la ley son, pues, hijos de la esclava: nacen esclavos.",
+      "enHash": "77f5d200e751aeeeda91f746d0ca927dbf430cf3f175875bc8f4c73d136127b8",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b66": {
+      "en": "For this Hagar is mount Sinai in Arabia, and answereth to Jerusalem which now is, and is in bondage with her children.\n\n It is old Judaism coming from Sinai, \"This do, and thou shalt live,\" and all the children that are born under it are children of nature, and they are not the children of promise.",
+      "es": "Porque esta Agar es el monte Sinaí en Arabia, y responde a la actual Jerusalén, que está en servidumbre con sus hijos.\n\n Es el antiguo judaísmo que viene del Sinaí: \"Haz esto y vivirás\", y todos los hijos que nacen bajo él son hijos de la naturaleza, y no son hijos de la promesa.",
+      "enHash": "e59cb0f5db210330bb5a378b2d3b50aef105d7e4371c6bfdff46326e673e9a06",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b67": {
+      "en": "But Jerusalem which is above is free, which is the mother of us all.\n\n This is Sarah, and they that believe are the Isaac-children, the children of holy laughter, born according to the power of God.",
+      "es": "Pero libre es Jerusalén, la de arriba, que es madre de todos nosotros.\n\n Esta es Sara, y los que creen son los hijos de Isaac, los hijos de risa santa, nacidos según el poder de Dios.",
+      "enHash": "cb330f193c6394000a8692eaf05cda5eabbccf704bad553be235f22e87236ed3",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b68": {
+      "en": "For it is written, Rejoice, thou barren that bearest not: break forth and cry, thou that travailest not: for the desolate hath many more children than she which hath an husband, Now we, brethren, as Isaac was, are the children of promise. But as then he that was born after the flesh persecuted him that was born after the Spirit, even so it is now.\n\n The child of Hagar could not hear the child of Sarah, and they that seek salvation by the works of the law, and by outward ceremonies, cannot endure the children of faith.",
+      "es": "Porque escrito está: Alégrate, estéril, que no tienes hijos; estalla y llora, tú que no estás de parto, porque la desolada tiene muchos más hijos que la que tiene marido. Ahora bien, nosotros, hermanos, como lo fue Isaac, somos hijos de la promesa. Pero como entonces el que era nacido según la carne perseguía al que era nacido según el Espíritu, así también ahora.\n\n La hija de Agar no pudo oír a la hija de Sara, y los que buscan la salvación por las obras de la ley y por las ceremonias exteriores, no pueden soportar a los hijos de la fe.",
+      "enHash": "f38c300284b40f7c41c403842d26160d461d9ab20e15da7e3e0ee5ff60eba61c",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b69": {
+      "en": "Nevertheless what saith the scripture? Cast out the bondwoman and her son; for the son of the bondwoman shall not be heir with the son of the freewoman. So then, brethren, we are not children of the bondwoman, but of the free.\n\n This exposition consisted of readings from",
+      "es": "Sin embargo, ¿qué dice la Escritura? Echa fuera a la esclava y a su hijo; porque el hijo de la esclava no será heredero con el hijo de la libre. Así que, hermanos, no somos hijos de la esclava, sino de la libre.\n\n Esta exposición estuvo compuesta por lecturas de",
+      "enHash": "98e0fa2ff77cfccbdd619c8ddb815f3981fc167c80eb586fb6ed5ca2011c993e",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b70": {
+      "en": "Stand fast therefore in the liberty wherewith Christ hath made us free, and be not entangled again with the yoke of bondage.\n\n \"You are not under the law, but under grace. Do not subject yourselves, therefore, to legal principles. Do not live as if you were working for wages, and were earning your own salvation. Do not submit yourselves to the ritual and commandments of man, which would rob you of your liberty in many ways, but having once become a free man, never again wear the chain of a slave: 'Stand fast therefore in the liberty wherewith Christ hath made us free.' Because you are the seed of Isaac, who was born according to the promise, you are not the children of the bondwoman, you are not Ishmaelites; therefore, as you were born free, as Christ has made you free by virtue of your new birth, stand fast in that glorious liberty.\"",
+      "es": "Estad, pues, firmes en la libertad con que Cristo nos hizo libres, y no estéis otra vez sujetos al yugo de esclavitud.\n\n \"No estáis bajo la ley, sino bajo la gracia. No os sometáis, por tanto, a principios legales. No viváis como si estuvierais trabajando por un salario y ganándoos vuestra propia salvación. No os sometáis a los ritos y mandamientos del hombre, que os privarían de vuestra libertad de muchas maneras, pero una vez que os habréis convertido en un hombre libre, nunca más llevéis las cadenas de un esclavo: 'Estad, pues, firmes en la libertad con que Cristo nos hizo libres'. Por cuanto sois linaje de Isaac, que nació según la promesa, no sois hijos de la esclava, no sois ismaelitas; por tanto, como nacisteis libres, como Cristo os hizo libres en virtud de vuestro nuevo nacimiento, estad firmes en esa gloriosa libertad.\"",
+      "enHash": "2382e3188ef7555bac79398a81d46e86ce74b7b5d600d8c5812dc1fb7b81f846",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b71": {
+      "en": "Behold, I Paul say unto you, that if ye be circumcised, Christ shall profit you nothing. For I testify again to every man that is circumcised, that he is a debtor to do the whole law.\n\n If you begin being saved by the law, you must go through with it. You cannot take the principle of law and the principle of grace, and blend those two together. They are like oil and water, they will never mix. If salvation be of works, it is not of grace; and if it be of grace, it is not of works. You cannot go upon the two contrary principles of merit and of favour.",
+      "es": "He aquí, yo Pablo os digo que si os circuncidáis, Cristo de nada os aprovechará. Porque otra vez testifico a todo hombre circuncidado, que está obligado a cumplir toda la ley.\n\n Si comienzas a ser salvo por la ley, debes seguir adelante. No se puede tomar el principio de la ley y el principio de la gracia y combinarlos. Son como aceite y agua, nunca se mezclarán. Si la salvación es por obras, no es por gracia; y si es por gracia, no es por obras. No se puede seguir los dos principios opuestos de mérito y favor.",
+      "enHash": "4cb103476031b38281be83f8d6f88f9086586cd2dd89583ce7b73015733019c7",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b72": {
+      "en": "Christ is become of no effect unto you, whosoever of you are justified by the law; ye are fallen from grace.\n\n You have turned aside from it you are not standing with one foot upon grace and one foot upon the law but you have gone right away from grace. You must cleave to one or the other. If you take the law to be your hope, you must keep to it; and the end will be that you will die in despair.",
+      "es": "Cristo os desligáis de vosotros, los que por la ley estáis justificados; De la gracia habéis caído.\n\n Te has apartado de ella; no estás parado con un pie sobre la gracia y el otro sobre la ley, sino que te has alejado inmediatamente de la gracia. Debes aferrarte a uno o al otro. Si tomas la ley como tu esperanza, debes cumplirla; y el fin será que moriréis desesperados.",
+      "enHash": "57153b6609d10b6908f2a3e08e508acedaad95a82091c3ae2a628c57f913e9e3",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b73": {
+      "en": "For we through the Spirit wait for the hope of righteousness by faith. For in Jesus Christ neither circumcision availeth any thing, nor uncircumcision but faith which worketh by love.\n\n It is not any rite, and it is not the neglect of any rite which can produce righteousness. It is as easy to trust in your non-observance of a ceremony as to trust in the ceremony itself, and it will be quite as delusive. It is faith in Christ that brings righteousness, the \"faith which worketh by love.\"",
+      "es": "Porque nosotros por el Espíritu esperamos la esperanza de la justicia por la fe. Porque en Jesucristo ni la circuncisión vale nada, ni la incircuncisión, sino la fe que obra por el amor.\n\n No es un rito cualquiera, y no es el descuido de ningún rito lo que puede producir justicia. Es tan fácil confiar en la no observancia de una ceremonia como confiar en la ceremonia misma, y ​​será igualmente engañoso. Es la fe en Cristo la que trae justicia, la \"fe que obra por el amor\".",
+      "enHash": "4d7ae55b458db5feef929dc9ed63bd612d6dac075a534003aeb44bb19eeba68e",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b74": {
+      "en": "Ye did run well; who did hinder you that ye should not obey the truth?\n\n \"You Galatians seemed to receive the gospel very readily, and to be very earnest in obeying it; what has caused you to turn aside to the old legal righteousness? You are very changeable, very fickle; you seemed very energetic in running the Christian race; whatever has got in your way?\n\n'Who did hinder you?' Somebody or other must have done so.\"",
+      "es": "Corriste bien; ¿Quién os impidió que no obedecierais la verdad?\n\n \"Ustedes, los gálatas, parecieron recibir el evangelio muy fácilmente y ser muy fervientes en obedecerlo; ¿qué les ha causado desviarse hacia la antigua justicia legal? Son muy cambiantes, muy volubles; parecían muy enérgicos al correr la carrera cristiana; ¿qué se interpuso en su camino?\n\n'¿Quién te estorbó?' Alguien u otro debe haberlo hecho.\"",
+      "enHash": "795b212b33f6450ca763191cd5e72e41f6fa8b405e3ffe7a07c2fd0a1324bca7",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b75": {
+      "en": "This persuasion cometh not of him that calleth you.\n\n \"It does not come from God. He called you to faith in his dear Son, and to all those virtues and graces which naturally spring from the root of faith. Somebody else has called you aside, some false shepherd, who is but a wolf in sheep's clothing, and who would destroy you if he could.\"",
+      "es": "Esta persuasión no viene del que os llama.\n\n \"No viene de Dios. Él os llamó a la fe en su amado Hijo, y a todas aquellas virtudes y gracias que brotan naturalmente de la raíz de la fe. Alguien más os ha llamado a un lado, algún falso pastor, que no es más que un lobo con piel de oveja, y que os destruiría si pudiera\".",
+      "enHash": "1c04ac0d94c34445a79467b0c0f52bd7574f0557b0c4e845de2a42d18f0792a4",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b76": {
+      "en": "A little leaven leaveneth the whole lump.\n\n One false doctrine very soon sours all your belief; the whole lump is leavened with it. If you have a wrong ground of confidence, you are wrong altogether.",
+      "es": "Un poco de levadura fermenta toda la masa.\n\n Una doctrina falsa muy pronto arruina toda tu creencia; con ella se leuda toda la masa. Si tienes una base de confianza equivocada, estás completamente equivocado.",
+      "enHash": "2d30ef5e5a0993e4adbb98c951337d87f6cb06f5e209f05ca921bf2ba16b9376",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b77": {
+      "en": "I have confidence in you through the Lord, that ye will be none otherwise minded: but he that troubleth you shall bear his judgment, whosoever he be.\n\n Depend upon it, every man who troubles a church with false doctrine is amenable to the High Court above; and, sooner or later, he may expect even a temporal judgment here below.",
+      "es": "Confío en vosotros en el Señor, que no pensaréis de otra manera; pero el que os perturba, quienquiera que sea, llevará su sentencia.\n\n Créanlo, todo hombre que perturbe a una iglesia con falsa doctrina es responsable ante el Tribunal Superior; y, tarde o temprano, puede esperar incluso un juicio temporal aquí abajo.",
+      "enHash": "3903ad7fe14acc8ed7c8ceae0f0b87aaaf06c52fe393ece05c410485e493d58e",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b78": {
+      "en": "And I, brethren, if I yet preach circumcision, why do I yet suffer persecution? then is the offence of the cross ceased.\n\n \"The offence of the Cross\" is that it sets up faith as the infinite merit of Christ's atonement, and knocks down all confidence in outward ritual and ceremonies. Paul says that, if he had preached the flesh-pleasing doctrines of men, he would not have been persecuted; but the fact that he was persecuted was a proof that he was standing fast in the liberty wherewith Christ had made him free.",
+      "es": "Y yo, hermanos, si todavía predico la circuncisión, ¿por qué sufro todavía persecución? entonces cesará la ofensa de la cruz.\n\n \"La ofensa de la Cruz\" es que establece la fe como el mérito infinito de la expiación de Cristo y derriba toda confianza en los rituales y ceremonias exteriores. Pablo dice que, si hubiera predicado las doctrinas de los hombres que agradan a la carne, no habría sido perseguido; pero el hecho de que fuera perseguido era una prueba de que se mantenía firme en la libertad con la que Cristo lo había hecho libre.",
+      "enHash": "f1c2aa01f3312346eb7c4fd973f3fcfceedfd00f7bbb1e0792c111aac0606195",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b79": {
+      "en": "I would they were even cut off which trouble you.\n\n Excommunicated, and put out of the church; nay, it would be better if they were even dead, rather than that they should live to spread such evil even in a Christian church. Sometimes, when we think of the interests of immortal souls, we are apt to grow indignant, and rightly so, towards willfully false teachers.",
+      "es": "Ojalá incluso los cortaran, lo que os preocupa.\n\n Excomulgado y expulsado de la iglesia; es más, sería mejor si estuvieran muertos, en lugar de vivir para difundir tal mal incluso en una iglesia cristiana. A veces, cuando pensamos en los intereses de las almas inmortales, tendemos a indignarnos, y con razón, hacia los maestros deliberadamente falsos.",
+      "enHash": "418284e6ab5b432c58d03ca5968c17d298b5839f4b18876fd7a8f50b4f52e98b",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b80": {
+      "en": "For, brethren, ye have been called unto liberty; only use not liberty for an occasion to the flesh,\n\n \"Do not make licence out of your liberty. Remember that liberty from sin is not liberty to sin.\"",
+      "es": "Porque, hermanos, a libertad habéis sido llamados; sólo que no uses la libertad como ocasión para la carne,\n\n \"No hagas licencia de tu libertad. Recuerda que la libertad del pecado no es libertad para pecar\".",
+      "enHash": "a0dea55fc8ee7f83ae3917450e069f6be8eb26a8405a24194ebf5bd241b46b95",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b81": {
+      "en": "For all the law is fulfilled in one word, even in this; Thou shalt love thy neighbor as thyself.\n\n Oh, if that \"one word\" were so engraven on our hearts as to influence all our lives, what blessed lives of love to God and love to men we should lead!",
+      "es": "Porque toda la ley se cumple en una sola palabra, incluso en ésta; Amarás a tu prójimo como a ti mismo.\n\n ¡Oh, si esa \"una palabra\" estuviera tan grabada en nuestros corazones como para influir en toda nuestra vida, qué vidas benditas de amor a Dios y amor a los hombres deberíamos llevar!",
+      "enHash": "fd4c26448ba452376be47142da6dac7c8880d95184c14690d4e231be6f3457d9",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b82": {
+      "en": "But if ye bite and devour one another,\n\n Finding fault, slandering, injuring, bearing malice, and so on: —\"If ye bite and devour one another,\"",
+      "es": "Pero si os mordéis y os devoráis unos a otros,\n\n Encontrar faltas, calumniar, injuriar, tener malicia, etc.: \"Si os mordéis y os devoráis unos a otros\",",
+      "enHash": "6f31ec75bd76ac59fc26e53d771a16346e21ac9d436b62e47b3c0a7c4012501a",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b83": {
+      "en": "This I say then, Walk in the Spirit, and ye shall not fulfill the lust of the flesh.\n\n Walk under the Spirit's power, following his guidance. The Spirit never leads a man into sin. He never conducts him into self-indulgence and excess.",
+      "es": "Esto digo, pues: Andad en el Espíritu, y no satisfagáis los deseos de la carne.\n\n Camine bajo el poder del Espíritu, siguiendo su guía. El Espíritu nunca lleva a un hombre al pecado. Nunca lo conduce a la autocomplacencia y al exceso.",
+      "enHash": "82f8a91ec843d5e9fe29607b3c6ed934d3dc3cf8fd52d59b2708adf09514e47a",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b84": {
+      "en": "For the flesh lusteth against the Spirit, and the Spirit against the flesh: and these are contrary the one to the other so that ye cannot do the things that ye would.\n\n How often that is the case! Ye would be perfect, but \"ye cannot do the things that ye would.\" We would, if possible, escape from every evil thought; we would not even hear of anything sinful, if we could help it.",
+      "es": "Porque la carne tiene codicia contra el Espíritu, y el Espíritu contra la carne; y estos son contrarios el uno al otro, de modo que no podéis hacer las cosas que queréis.\n\n ¡Cuán a menudo es así! Serías perfecto, pero \"no puedes hacer las cosas que quisieras\". Si fuera posible, escaparíamos de todo mal pensamiento; Ni siquiera oiríamos hablar de nada pecaminoso, si pudiéramos evitarlo.",
+      "enHash": "af997e3691c79eece6257b6070ca8b9ed4019e41f6474f49f74a163d00a2dcbe",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b85": {
+      "en": "But if ye be led of the Spirit, ye are not under the law. Now the works of the flesh are manifest, which are these; adultery, fornication, uncleanness, lasciviousness,\n\n Any kind of sensual indulgence — whatever it may be — a lustful glance, the cherishing of an unclean desire,— the utterance of a foul expression, all this is condemned, as well as the overt acts of adultery and fornication.",
+      "es": "Pero si sois guiados por el Espíritu, no estáis bajo la ley. Ahora bien, son manifiestas las obras de la carne, que son éstas; adulterio, fornicación, inmundicia, lascivia,\n\n Cualquier tipo de indulgencia sensual, cualquiera que sea, una mirada lasciva, el abrigar un deseo inmundo, la expresión de una expresión desagradable, todo esto está condenado, así como los actos abiertos de adulterio y fornicación.",
+      "enHash": "0bd3eabff4146f491de96405b21dd9429654cd7d579248657c4981f1d8d1246f",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b86": {
+      "en": "Idolatry, witchcraft, hatred, variance, emulations, wrath, strife, seditions, heresies, envyings, murders, drunkenness,\n\n Is drunkenness actually put by the apostle after murder, as though it were something worse than that terrible crime? Or is it not, oftentimes, the case that drunkenness lies at the bottom of the murder?",
+      "es": "Idolatría, hechicerías, odios, discordias, envidias, ira, contiendas, sediciones, herejías, envidias, homicidios, borracheras,\n\n ¿Realmente el apóstol sitúa la embriaguez después del asesinato, como si fuera algo peor que ese terrible crimen? ¿O no se da, muchas veces, que la embriaguez está en el fondo del asesinato?",
+      "enHash": "1c644ff40aad0fa6dbbdc2f0be1a2e245388bcff60b0181cc973710a0eff50f0",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b87": {
+      "en": "Revellings, and such like: of the which I tell you before, as I have also told you in time past, that they which do such things shall not inherit the kingdom of God.\n\n Paul never said, nor ever thought of saying, that a man might live in sin, that grace might abound. No, no; these evil things must be given up. Christ has come to save us from every evil work. And this is the salvation that we preach,— not simply salvation from hell, but salvation from sin, which is the very fire that has kindled the infernal flame. But how different from all this evil is the fruit of the Spirit!",
+      "es": "Fiestas y cosas parecidas, de las cuales os digo antes, como también os lo he dicho antes, que los que hacen tales cosas no heredarán el reino de Dios.\n\n Pablo nunca dijo, ni pensó en decir, que el hombre pueda vivir en pecado para que la gracia abunde. No, no; Estas cosas malas deben ser abandonadas. Cristo ha venido a salvarnos de toda obra mala. Y ésta es la salvación que predicamos: no simplemente la salvación del infierno, sino la salvación del pecado, que es el fuego mismo que ha encendido la llama infernal. ¡Pero cuán diferente de todo este mal es el fruto del Espíritu!",
+      "enHash": "514150dc21a17491c36a318c2d8e1b56104bc28cc7f0a927ec158ef38129ca91",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b88": {
+      "en": "But the fruit of the Spirit is love,\n\n Universal love; first, to God; next, to his people; and, then, to all mankind. Have we that fruit of the Spirit? If so, it will make us of a very amiable disposition; it will dethrone selfishness, and set up holy affections within our heart.",
+      "es": "Pero el fruto del Espíritu es amor,\n\n Amor universal; primero, a Dios; luego, a su pueblo; y, luego, a toda la humanidad. ¿Tenemos ese fruto del Espíritu? Si es así, tendremos una disposición muy amable; destronará el egoísmo y establecerá afectos santos en nuestro corazón.",
+      "enHash": "4e047cc61096d2303f676668bfb2902a979bef2f8f7e31f9c2d8977b581f1c27",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b89": {
+      "en": "Against such there is no law.\n\n Neither God nor man has ever made a law against these things; the more there is of them, the better will it be for everybody. Oh, that they prevailed all over the world!",
+      "es": "Contra eso no hay ley.\n\n Ni Dios ni el hombre jamás han hecho una ley contra estas cosas; cuantos más haya, mejor será para todos. ¡Oh, que prevalecieran en todo el mundo!",
+      "enHash": "06bee8af2c67c4b32874b847ac627ca374ee0668ad473e527fe6a1d04104f83d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b90": {
+      "en": "And they that are Christ's have crucified the flesh with the affections and lusts.\n\n A crucified Christ is the leader of a crucified people. Oh, to have all the affections and lusts of the flesh nailed up! They may not be actually dead; for those who are crucified may still live on for some hours, but they are doomed to die, their life is a very painful one, and it is hastening to a close. A man who is crucified cannot get down from the cross to do what he wills; and, oh! it is a great blessing to have our sinful self thus nailed up. Ah, sir! you may struggle, but you cannot get down; you may strive and cry, but your hands and feet are nailed; you cannot go into active, actual sin. The Lord grant that the nails may hold very fast, that none of the strugglings of our old nature may be able to pull out those nails that have fastened it up to the cross!",
+      "es": "Y los que son de Cristo han crucificado la carne con sus pasiones y concupiscencias.\n\n Un Cristo crucificado es el líder de un pueblo crucificado. ¡Oh, tener clavados todos los afectos y deseos de la carne! Puede que en realidad no estén muertos; Porque aquellos que están crucificados pueden vivir aún algunas horas, pero están condenados a morir, su vida es muy dolorosa y se apresura a terminar. Un hombre crucificado no puede bajarse de la cruz para hacer lo que quiera; y ¡ay! Es una gran bendición tener nuestro yo pecaminoso así clavado. ¡Ah, señor! puedes luchar, pero no puedes bajarte; podrás esforzarte y llorar, pero tus manos y pies están clavados; no puedes entrar en pecado activo y real. ¡Conceda el Señor que los clavos se mantengan firmes, que ninguna de las luchas de nuestra vieja naturaleza pueda arrancar esos clavos que la han fijado a la cruz!",
+      "enHash": "355750aa846c9e1b103df8539db23e95faedf62448806f6d1b4302b83aabf254",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b91": {
+      "en": "Brethren, if a man be overtaken in a fault, —\n\n If he travels so slowly that his faults catch him up, and knock him down: \"If a man be overtaken in a fault,\" —",
+      "es": "Hermanos, si alguno es sorprendido en alguna falta,\n\n Si viaja tan lentamente que sus faltas lo alcanzan y lo derriban: \"Si un hombre es alcanzado en una falta\", -",
+      "enHash": "3bef0807cb507bb46df35c52e3728b4efa78cee4470b7a03132133302c285e8f",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b92": {
+      "en": "Bear ye one another's burdens, and fulfill the law of Christ.\n\n This exposition consisted of readings from Gal_5:13-26 ; and",
+      "es": "Llevad las cargas unos de otros y cumplid la ley de Cristo.\n\n Esta exposición consistió en lecturas de Gálatas 5:13-26; y",
+      "enHash": "8587bf7d853a08473b8c34abdf925fbddaca813fb41fa38c6a372dcdb0406055",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b93": {
+      "en": "For if a man think himself to be something, when he is nothing, he deceiveth himself.\n\n Paul does not say, \"He deceiveth other people;\" no, \"he deceiveth himself.\" As a general rule, other people find him out, they learn what he really is, but \"he deceiveth himself.\"",
+      "es": "Porque si un hombre se cree algo, cuando no es nada, se engaña a sí mismo.\n\n Pablo no dice: \"Él engaña a otros\"; no, \"se engaña a sí mismo\". Por regla general, otras personas lo descubren, descubren lo que realmente es, pero \"él mismo se engaña\".",
+      "enHash": "e4a1b2989b91c00e898a3639f375e78271dbc4251ad82e1602ba4c9712e009ca",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b94": {
+      "en": "But let every man prove his own work, and then shall he have rejoicing in himself alone, and not in another. For every man shall bear his own burden.\n\n There is, after all, a burden which we cannot carry for others, and which we cannot shift upon others. There are burdens of care, and sorrow, and trouble, which we can take from other men's shoulders; but the great burden of responsibility before God, each man must himself carry.",
+      "es": "Pero que cada uno pruebe su propia obra, y entonces se regocijará sólo en sí mismo, y no en otro. Porque cada uno llevará su propia carga.\n\n Después de todo, existe una carga que no podemos llevar por los demás y que no podemos transferir a los demás. Hay cargas de preocupaciones, tristezas y problemas que podemos quitar de los hombros de otros hombres; pero la gran carga de responsabilidad ante Dios, cada hombre debe llevarla él mismo.",
+      "enHash": "ccf2c9578c9dc3540a1fbd4afef4d57dc1f21029b318540ba8ca195c0bed43d1",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b95": {
+      "en": "Let him that is taught in the word communicate unto him that teacheth in all good things.\n\n Those who are taught, should maintain those who are their teachers as far as they are able to do so.",
+      "es": "El que es enseñado en la palabra, comunique al que enseña en todas las cosas buenas.\n\n Aquellos a quienes se les enseña, deben mantener a quienes son sus maestros en la medida de sus posibilidades.",
+      "enHash": "c284da146743ad01e080778428c95b2af7fde80e41853d448883d0933d2d08f9",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b96": {
+      "en": "Be not deceived; God is not mocked: for whatsoever a man soweth, that shall he also reap.\n\n That is true under the gospel as well as under the law.",
+      "es": "No os dejéis engañar; Dios no se deja burlar: porque todo lo que el hombre siembra, eso también segará.\n\n Esto es cierto tanto bajo el evangelio como bajo la ley.",
+      "enHash": "3029bb7a16691fba53ab55f8205f815a88934c165cc468892fb0e01dcb336561",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b97": {
+      "en": "For he that soweth to his flesh shall of the flesh reap corruption;\n\n That is what always comes to the flesh; it decays and corrupts.",
+      "es": "Porque el que siembra para su carne, de la carne segará corrupción;\n\n Eso es lo que siempre viene a la carne; decae y corrompe.",
+      "enHash": "51eea22fe7082c6e095539382ee905285dae01ef5dd40a4c85379d8a04f48f00",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b98": {
+      "en": "And let us not be weary in well doing: for in due season are shall reap, if we faint not. As we have therefore opportunity, let us do good unto all men, especially unto them who are if the household of faith.\n\n This exposition consisted of readings from Gal_5:13-26 ; and",
+      "es": "Y no nos cansemos de hacer el bien, porque a su tiempo segaremos, si no desmayamos. Así que, según tengamos oportunidad, hagamos bien a todos, especialmente a los que son de la familia de la fe.\n\n Esta exposición consistió en lecturas de Gálatas 5:13-26; y",
+      "enHash": "c1686c24f5162f2dc4d382d4ba5d3eb154524e7ef011ca2a634d8a6c4072f049",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b99": {
+      "en": "Ye see how large a letter I have written unto you with mine own hand.\n\n Paul did not often write his own epistles. It is thought that he had a defect of the eyes. He employed an amanuensis generally. When he did write, he wrote generally in great capitals. I suppose that is what he meant. \"You see how emphatic my writing is — what great characters I have made in writing to you.\" Or he may have meant that for a letter, written by him, this was a lengthy one.\n\nThis exposition consisted of readings from Gal_4:12-31 ; Gal_5:1-4 ; Gal_5:19-26 ;",
+      "es": "Ya veis cuán larga es la carta que os he escrito de mi propia mano.\n\n Pablo no escribía frecuentemente sus propias epístolas. Se cree que tenía un defecto en los ojos. Generalmente empleaba un amanuense. Cuando escribió, lo hizo generalmente en grandes capitales. Supongo que eso es lo que quiso decir. \"Ves lo enfático que es mi escritura, qué grandes personajes he creado al escribirte\". O tal vez quiso decir que, para ser una carta escrita por él, ésta era larga.\n\nEsta exposición consistió en lecturas de Gálatas 4:12-31; Gálatas 5:1-4 ; Gálatas 5:19-26 ;",
+      "enHash": "9289a9f0723d29d0902bf23d454ab8c35feb5e548242b3769e3f6a4140dd1612",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b100": {
+      "en": "As many as desire to make a fair shew in the flesh, they constrain you to be circumcised; only lest they should suffer persecution for the cross of Christ. For neither they themselves who are circumcised keep the law; but desire to have you circumcised, that they may glory in your flesh.\n\n \"See,\" say they, \"these Gentiles. We have converted them, and we have got them circumcised. Is not that a wonderful thing? \"No, not at all, for he says,",
+      "es": "Todos los que desean hacer una buena apariencia en la carne, os obligan a circuncidaros; sólo para que no sufran persecución por la cruz de Cristo. Porque ni los circuncidados guardan la ley; pero desead que os circuncidéis, para que se gloríen en vuestra carne.\n\n \"Mira\", dicen, \"estos gentiles. Los hemos convertido y los hemos circuncidado. ¿No es eso una cosa maravillosa? \"No, en absoluto, porque él dice:",
+      "enHash": "36ea53781d956848e3653f5c4817a3a3fd82c1ad9c396c9e2a839f2d3e280e0d",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b101": {
+      "en": "But God foretold that I should glory, save in the Cross of our Lord Jesus Christ, by whom the world is crucified unto me, and I unto the world.\n\n \"I have ceased to care\", says Paul, \"about glorying in men, and making other people glory in my converts. The world is dead to me, and I to it.\"",
+      "es": "Pero Dios predijo que yo me gloriaría, sino en la cruz de nuestro Señor Jesucristo, por quien el mundo es crucificado para mí, y yo para el mundo.\n\n \"Ya no me importa\", dice Pablo, \"gloriarse en los hombres y hacer que otros se gloríen en mis conversos. El mundo está muerto para mí y yo para él\".",
+      "enHash": "27683958f281a7d42f9f687a59b18d6b58a639e18932139abfe436130e804317",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b102": {
+      "en": "For in Christ Jesus neither circumcision availeth any thing, nor uncircumcision, but a new creature. And as many as walk according to this rule, peace be on them, and mercy, and upon the Israel of God. From henceforth let no man trouble me: for I bear in my body the marks of the Lord Jesus.\n\n I have the marks of the whips upon my body. I am the branded slave of Jesus Christ. There is no getting the marks out of me. I cannot run away. I cannot deny that he is my Master and my Owner: \"I bear in my body the marks of the Lord Jesus'.",
+      "es": "Porque en Cristo Jesús ni la circuncisión vale nada, ni la incircuncisión, sino una nueva criatura. Y a todos los que anden según esta regla, paz y misericordia sean sobre ellos y sobre el Israel de Dios. De aquí en adelante nadie me moleste, porque llevo en mi cuerpo las marcas del Señor Jesús.\n\n Tengo las marcas de los látigos en mi cuerpo. Soy el esclavo marcado de Jesucristo. No hay manera de sacarme las marcas. No puedo huir. No puedo negar que él es mi Maestro y mi Dueño: \"Llevo en mi cuerpo las marcas del Señor Jesús\".",
+      "enHash": "15305ef4a9fd041ed830b8623a1d2e1c815b861c078b34c2fd61fe2b2bbaca1f",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b103": {
+      "en": "Brethren, the grace of our Lord Jesus Christ be with your spirit. Amen.\n\n And that is our benediction to you. The Lord fulfill it to each one of you!",
+      "es": "Hermanos, la gracia de nuestro Señor Jesucristo sea con vuestro espíritu. Amén.\n\n Y esa es nuestra bendición para vosotros. ¡El Señor lo cumpla a cada uno de ustedes!",
+      "enHash": "1e090198f3fdbce7ddcbba28922b8af6c95729528a153d390f8e7be267f1bc71",
+      "source": "corpus:charles-spurgeon"
+    },
+    "b104": {
+      "en": "Galatians 6:6-7 . Let him that is taught in the word communicate unto him that teacheth in all good things. Be not deceived; God is not mocked: for whatsoever a man soweth, that shall he also reap.\n\n Paul puts that in connection with the support of those who are teachers of the truth, and I have sometimes thought that, in certain churches where God's ministers have been starved, it was not very wonderful that the people should be starved, too. They thought so little about the pastor that they left him in need, so it was not strange that, as they sowed little, they reaped little. One of these misers said that his religion did not cost him more than a shilling a year, and somebody replied that he thought it was a shilling wasted on a bad thing, for his poor religion was not worth even that small amount.\n\n Galatians 6:8 . For he that soweth to his flesh shall of the flesh reap corruption;\n\n He shall reap what flesh turns to in due time: \"he shall of the flesh reap corruption.\" What is the end of flesh? The fairest flesh, that ever was moulded from the most beauteous form, ends in corruption; and if we live for the flesh, and sow to it, we shall reap \"corruption.\"\n\n Galatians 6:8 . But he that soweth to the Spirit shall of the spirit reap life everlasting.\n\n He shall reap what the Spirit really is, and what the Spirit really generates: \"life everlasting.\" Of course, if a man sows tares, he reaps tares. If he sows wheat, he reaps wheat. If we sow to the flesh, we reap corruption. If we sow to the Spirit, we shall \"reap life everlasting.\"\n\n Galatians 6:9 . And let us not be weary in well doing: for in due season we shall reap, if we faint not.\n\n It is a pity to faint just when the time is coming to reap; so, sow on, brother and sister, sow on!\n\n Galatians 6:10 . As we have therefore opportunity, let us do good unto all men, especially unto them who are of the household of faith.\n\n Extend your love, your charity, to all mankind; but let the center of that circle be in the home where God has placed you, — in the home of his people: \"especially unto them who are of the household of faith.\"\n\n Galatians 6:11 . Ye see how large a letter I have written unto you with mine own hand.\n\n I suppose that he meant, \"See what big characters I have made. My eyes are weak, and so, when I do write a letter,\" says Paul, \"in the dimness of this dungeon, with my poor weak eyes, and my hands fettered, I have to write text-hand, and give it to you in large letters. Well,\" he says, \"then carry it out in big letters. You see with what large letters I have written to you, now emphasize it all, take it as emphatic, and carry it out with great diligence. As I have written this with mine own hand, and not used an amanuensis, I beseech you to pay the more attention to it, you Galatians, who seem to be so bewitched that, to deliver you from false doctrine, and an evil spirit, I would even write a letter with my own blood if it were needful.\"\n\n Galatians 6:12-13 . As many as desire to make a fair shew in the flesh, they constrain you to be circumcised; only lest they should suffer persecution for the cross of Christ. For neither they themselves who are circumcised keep the law; but desire to have you circumcised, that they may glory in your flesh.\n\n \"See,\" say they, \"these Gentiles. We have converted them, and we have got them circumcised. Is not that a wonderful thing? \"No, not at all, for he says,\n\n Galatians 6:14 . But God foretold that I should glory, save in the Cross of our Lord Jesus Christ, by whom the world is crucified unto me, and I unto the world.\n\n \"I have ceased to care\", says Paul, \"about glorying in men, and making other people glory in my converts. The world is dead to me, and I to it.\"\n\n Galatians 6:15-17 . For in Christ Jesus neither circumcision availeth any thing, nor uncircumcision, but a new creature. And as many as walk according to this rule, peace be on them, and mercy, and upon the Israel of God. From henceforth let no man trouble me: for I bear in my body the marks of the Lord Jesus.\n\n I have the marks of the whips upon my body. I am the branded slave of Jesus Christ. There is no getting the marks out of me. I cannot run away. I cannot deny that he is my Master and my Owner: \"I bear in my body the marks of the Lord Jesus'.\n\n Galatians 6:18 . Brethren, the grace of our Lord Jesus Christ be with your spirit. Amen.\n\n And that is our benediction to you. The Lord fulfill it to each one of you!\n\n Comments (1)\n Sort By Newest Oldest Likes\n\n Usha Borde says...\n\n Hi\n\n l sent the message, but l am not in web forum.\n\n 4 February 2025 07:41\n 0\n\n 0\n\n Notify Me\n\n {\"lang_button_processing\":\"Please Wait..\",\"lang_button_notify\":\"Subscribe\",\"lang_heading_notify\":\"Notifications\",\"lang_text_notify_info\":\"Notify me of new comments\\u003Cspan class=\\\"cmtx_info_extra\\\"\\u003E via email\\u003C\\/span\\u003E\",\"lang_title_cancel_notify\":\"Cancel this notification\",\"lang_link_cancel\":\"[Cancel]\"}\n\n Warning : Undefined variable $show_share_twitter in /home2/truthacc/public_html/comments/system/cache/template/main_comments.tpl on line 1\n\n Share a link to this comment\n Close\n\n {\"commentics_url\":\"\\/\\/www.truthaccordingtoscripture.com\\/comments\\/\",\"page_id\":2462519,\"is_permalink\":false,\"lang_text_view\":\"View\",\"lang_text_reply\":\"reply\",\"lang_text_replies\":\"replies\",\"lang_text_replying_to\":\"You are replying to\",\"lang_title_cancel_reply\":\"Cancel this reply\",\"lang_link_cancel\":\"[Cancel]\",\"lang_text_privacy\":\"Privacy\",\"lang_text_terms\":\"Terms\",\"lang_text_agree\":\"[1] \\/ [2]\",\"lang_text_not_replying\":\"You are not replying to anyone\",\"lang_button_loading\":\"Loading..\",\"lang_button_more\":\"More Comments\",\"lang_button_edit\":\"Edit Comment\",\"lang_button_reply\":\"Add Reply\",\"lang_link_reply\":\"Switch to full reply\",\"lang_link_refresh\":\"[Refresh]\",\"date_auto\":false,\"show_pagination\":true,\"quick_reply\":false,\"pagination_type\":\"button\",\"timeago_now\":\"just now\",\"timeago_minute\":\"a minute ago\",\"timeago_minutes\":\"%d minutes ago\",\"timeago_hour\":\"an hour ago\",\"timeago_hours\":\"%d hours ago\",\"timeago_day\":\"a day ago\",\"timeago_days\":\"%d days ago\",\"timeago_month\":\"a month ago\",\"timeago_months\":\"%d months ago\",\"timeago_year\":\"a year ago\",\"timeago_years\":\"%d years ago\"}\n\n Add Comment\n\n JavaScript must be enabled for certain features to work\n * Required information\n Comment\n\n Name\n\n Email\n\n Website\n\n Notify me of new comments via email\n\n Remember my form inputs on this computer\n\n Powered by Commentics\n\n x Insert Bullet List\n Please enter at least one item.\n Item:\n Item:\n Item:\n Item:\n Item:\n\n x Insert Numeric List\n Please enter at least one item.\n Item:\n Item:\n Item:\n Item:\n Item:\n\n x Insert Link\n Please enter the link of the website\n\n Optionally you can add display text\n\n x Insert Email\n Please enter the email address\n\n Optionally add any display text\n\n x Insert Image\n Please enter the link of the image\n\n x Insert YouTube Video\n Please enter the link of the video\n\n {\"commentics_url\":\"\\/\\/www.truthaccordingtoscripture.com\\/comments\\/\",\"page_id\":2462519,\"enabled_country\":false,\"country_id\":0,\"enabled_state\":false,\"state_id\":0,\"enabled_upload\":false,\"maximum_upload_amount\":3,\"maximum_upload_size\":5,\"maximum_upload_total\":5,\"captcha\":false,\"captcha_url\":\"\",\"cmtx_wait_for_comment\":\"cmtx_wait_for_comment\",\"lang_error_file_num\":\"A maximum of %d files are allowed to be uploaded\",\"lang_error_file_size\":\"Please upload files no bigger than %.1f MB in size\",\"lang_error_file_total\":\"The total size of all files must be less than %.1f MB\",\"lang_error_file_type\":\"Only image file types are allowed to be uploaded\",\"lang_text_loading\":\"Loading ..\",\"lang_placeholder_country\":\"Country\",\"lang_placeholder_state\":\"State\",\"lang_text_country_first\":\"Please select a country first\",\"lang_button_submit\":\"Add Comment\",\"lang_button_preview\":\"Preview\",\"lang_button_remove\":\"Remove\",\"lang_button_processing\":\"Please Wait..\"}\n\n x\n\n {\"commentics_url\":\"\\/\\/www.truthaccordingtoscripture.com\\/comments\\/\",\"language\":\"english\"}\n\n WELCOME\n\n About Us\n VIDEO MINISTRIES\n\n William Lane Craig\n John Lennox\n John Piper\n Paul Washer\n\n ONLINE BOOKS\n\n A Serious Call To A Devout And Holy Life\n A Treatise of Earthly-Mindedness - Burroughs\n Clinging to a Counterfeit Cross - James P. Shelly\n Keeping the Heart - by John Flavel\n Mere Christianity - C. S. Lewis\n The Sermon on the Mount - A. W. Pink\n HOT TOPICS\n\n The Consensus of Current Scholarship: The Soul is Not Immortal\n Is Hell eternal torment or eternal death?\n Modesty, Clothing & God\n The Origin of Dressing Up for Church\n\n AUDIO\n\n Books, sermons, debates, etc.\n COMMENTARIES\n\n Over 75 Classic Commentaries Online\n CONTACT US\n\n Visit us on our YouTube channel.\n\n Pop-up verses - \"Scripture quotations taken from the New American Standard Bible®, Copyright © 1960, 1962, 1963, 1968, 1971, 1972, 1973, 1975, 1977, 1995 by The Lockman Foundation Used by permission.\" (www.Lockman.org)\n\n &copy;2026 truthaccordingtoscripture.com\n\n You must enable JavaScript to view all available content on this page",
+      "es": "Gálatas 6:6-7 . El que es enseñado en la palabra, comunique al que enseña en todas las cosas buenas. No os dejéis engañar; Dios no se deja burlar: porque todo lo que el hombre siembra, eso también segará.\n\n Pablo pone eso en conexión con el apoyo a aquellos que son maestros de la verdad, y a veces he pensado que, en ciertas iglesias donde los ministros de Dios han pasado hambre, no era muy maravilloso que la gente también pasara hambre. Pensaron tan poco en el pastor que lo dejaron necesitado, por lo que no era extraño que, sembrando poco, cosecharan poco. Uno de estos avaros dijo que su religión no le costaba más de un chelín al año, y alguien respondió que pensaba que era un chelín desperdiciado en algo malo, porque su pobre religión no valía ni siquiera esa pequeña cantidad.\n\n Gálatas 6:8 . Porque el que siembra para su carne, de la carne segará corrupción;\n\n Él cosechará aquello a lo que la carne recurra a su debido tiempo: \"de la carne cosechará corrupción\". ¿Cuál es el fin de la carne? La carne más bella, que jamás haya sido moldeada a partir de la forma más hermosa, termina en corrupción; y si vivimos para la carne y sembramos para ella, cosecharemos \"corrupción\".\n\n Gálatas 6:8 . Pero el que siembra para el Espíritu, del espíritu segará vida eterna.\n\n Cosechará lo que el Espíritu realmente es y lo que el Espíritu realmente genera: \"vida eterna\". Por supuesto, si un hombre siembra cizaña, cosecha cizaña. Si siembra trigo, trigo cosechará. Si sembramos para la carne, cosechamos corrupción. Si sembramos para el Espíritu, \"segaremos vida eterna\".\n\n Gálatas 6:9 . Y no nos cansemos de hacer el bien; porque a su tiempo cosecharemos, si no desmayamos.\n\n Es una lástima desmayarse justo cuando llega el momento de cosechar; Así que, ¡seguid sembrando, hermano y hermana!\n\n Gálatas 6:10 . Así que, según tengamos oportunidad, hagamos bien a todos, especialmente a los de la familia de la fe.\n\n Extiende tu amor, tu caridad, a toda la humanidad; pero deja que el centro de ese círculo esté en el hogar donde Dios te ha colocado, en el hogar de su pueblo: \"especialmente a los que son de la familia de la fe\".\n\n Gálatas 6:11 . Ya veis cuán larga es la carta que os he escrito de mi propia mano.\n\nSupongo que quiso decir: \"Mira qué caracteres tan grandes he escrito. Mis ojos son débiles, y por eso, cuando escribo una carta\", dice Paul, \"en la penumbra de este calabozo, con mis pobres ojos débiles y mis manos encadenadas, tengo que escribir el texto a mano y entregártelo en letras grandes. Bueno\", dice, \"entonces hazlo en letras grandes. Ya ves con qué letras grandes te he escrito, ahora enfatízalo todo, tómalo como enfático, y Cumplidla con gran diligencia, como he escrito esto de mi propia mano, y no por amanuense, os ruego que le prestéis mayor atención, vosotros, gálatas, que parecéis tan embrujados que, para libraros de la falsa doctrina y del espíritu maligno, incluso escribiría una carta con mi propia sangre si fuera necesario.\n\n Gálatas 6:12-13 . Todos los que desean hacer una buena apariencia en la carne, os obligan a circuncidaros; sólo para que no sufran persecución por la cruz de Cristo. Porque ni los circuncidados guardan la ley; pero desead que os circuncidéis, para que se gloríen en vuestra carne.\n\n \"Mira\", dicen, \"estos gentiles. Los hemos convertido y los hemos circuncidado. ¿No es eso una cosa maravillosa? \"No, en absoluto, porque él dice:\n\n Gálatas 6:14 . Pero Dios predijo que yo me gloriaría, sino en la cruz de nuestro Señor Jesucristo, por quien el mundo es crucificado para mí, y yo para el mundo.\n\n \"Ya no me importa\", dice Pablo, \"gloriarse en los hombres y hacer que otros se gloríen en mis conversos. El mundo está muerto para mí y yo para él\".\n\n Gálatas 6:15-17 . Porque en Cristo Jesús ni la circuncisión vale nada, ni la incircuncisión, sino una nueva criatura. Y a todos los que anden según esta regla, paz y misericordia sean sobre ellos y sobre el Israel de Dios. De aquí en adelante nadie me moleste, porque llevo en mi cuerpo las marcas del Señor Jesús.\n\n Tengo las marcas de los látigos en mi cuerpo. Soy el esclavo marcado de Jesucristo. No hay manera de sacarme las marcas. No puedo huir. No puedo negar que él es mi Maestro y mi Dueño: \"Llevo en mi cuerpo las marcas del Señor Jesús\".\n\n Gálatas 6:18 . Hermanos, la gracia de nuestro Señor Jesucristo sea con vuestro espíritu. Amén.\n\n Y esa es nuestra bendición para vosotros. ¡El Señor lo cumpla a cada uno de ustedes!\n\n Comentarios (1)\n Ordenar por Me gusta más nuevos y antiguos\n\n Usha Borde dice...\n\n hola\n\n Envié el mensaje, pero no estoy en el foro web.\n\n 4 de febrero de 2025 07:41\n 0\n\n0\n\n Notificarme\n\n {\"lang_button_processing\":\"Por favor, espera..\",\"lang_button_notify\":\"Suscribirse\",\"lang_heading_notify\":\"Notificaciones\",\"lang_text_notify_info\":\"Notificarme de nuevos comentarios\\u003Cspan class=\\\"cmtx_info_extra\\\"\\u003E por correo electrónico\\u003C\\/span\\u003E\",\"lang_title_cancel_notify\":\"Cancelar esto notificación\",\"lang_link_cancel\":\"[Cancelar]\"}\n\n Advertencia: variable no definida $show_share_twitter en /home2/truthacc/public_html/comments/system/cache/template/main_comments.tpl en la línea 1\n\n Comparte un enlace a este comentario.\n Cerrar\n\n {\"commentics_url\":\"\\/\\/www.truthaccordingtoscripture.com\\/comments\\/\",\"page_id\":2462519,\"is_permalink\":false,\"lang_text_view\":\"Ver\",\"lang_text_reply\":\"respuesta\",\"lang_text_replies\":\"respuestas\",\"lang_text_replying_to\":\"Estás respondiendo to\",\"lang_title_cancel_reply\":\"Cancelar esta respuesta\",\"lang_link_cancel\":\"[Cancelar]\",\"lang_text_privacy\":\"Privacidad\",\"lang_text_terms\":\"Términos\",\"lang_text_agree\":\"[1] \\/ [2]\",\"lang_text_not_replying\":\"No estás respondiendo a nadie\",\"lang_button_loading\":\"Cargando..\",\"lang_button_more\":\"Más Comentarios\",\"lang_button_edit\":\"Editar comentario\",\"lang_button_reply\":\"Agregar respuesta\",\"lang_link_reply\":\"Cambiar a respuesta completa\",\"lang_link_refresh\":\"[Actualizar]\",\"date_auto\":false,\"show_pagination\":true,\"quick_reply\":false,\"pagination_type\":\"button\",\"timeago_now\":\"justo ahora\",\"timeago_minuto\":\"un minuto ago\",\"timeago_minutos\":\"hace %d minutos\",\"timeago_hour\":\"hace una hora\",\"timeago_hours\":\"hace %d horas\",\"timeago_day\":\"hace un día\",\"timeago_days\":\"hace %d días\",\"timeago_month\":\"hace un mes\",\"timeago_months\":\"hace %d meses\",\"timeago_year\":\"hace un año\",\"timeago_years\":\"hace %d años\"}\n\n Agregar comentario\n\n JavaScript debe estar habilitado para que ciertas funciones funcionen\n *Información requerida\n Comentario\n\n Nombre\n\n Correo electrónico\n\n Sitio web\n\n Notificarme de nuevos comentarios vía email\n\n Recordar las entradas de mi formulario en esta computadora\n\n Desarrollado por comentarios\n\n x Insertar lista de viñetas\n Por favor ingrese al menos un elemento.\n Artículo:\n Artículo:\n Artículo:\n Artículo:\n Artículo:\n\n x Insertar lista numérica\n Por favor ingrese al menos un elemento.\n Artículo:\n Artículo:\n Artículo:\n Artículo:\n Artículo:\n\n x Insertar enlace\n Por favor ingrese el enlace del sitio web.\n\n Opcionalmente puede agregar texto para mostrar.\n\n x Insertar correo electrónico\n Por favor ingrese la dirección de correo electrónico\n\n Opcionalmente agregue cualquier texto para mostrar\n\n x Insertar imagen\n Por favor introduce el enlace de la imagen.\n\n x Insertar vídeo de YouTube\n Por favor ingresa el link del video\n\n{\"commentics_url\":\"\\/\\/www.truthaccordingtoscripture.com\\/comments\\/\",\"page_id\":2462519,\"enabled_country\":false,\"country_id\":0,\"enabled_state\":false,\"state_id\":0,\"enabled_upload\":fal se,\"maximum_upload_amount\":3,\"maximum_upload_size\":5,\"maximum_upload_total\":5,\"captcha\":false,\"captcha_url\":\"\",\"cmtx_wait_for_comment\":\"cmtx_wait_for_comment\",\"lang_error_file_num\":\"A se permite cargar un máximo de %d archivos. ..\",\"lang_placeholder_country\":\"País\",\"lang_placeholder_state\":\"Estado\",\"lang_text_country_first\":\"Primero seleccione un país\",\"lang_button_submit\":\"Agregar comentario\",\"lang_button_preview\":\"Vista previa\",\"lang_button_remove\":\"Eliminar\",\"lang_button_processing\":\"Espere por favor..\"}\n\n x\n\n {\"commentics_url\":\"\\/\\/www.truthaccordingtoscripture.com\\/comments\\/\",\"language\":\"english\"}\n\n BIENVENIDO\n\n Sobre nosotros\n MINISTERIOS DE VIDEO\n\n William Lane Craig\n Juan Lennox\n Juan Piper\n Pablo Lavadora\n\n LIBROS EN LÍNEA\n\n Un llamado serio a una vida devota y santa\n Un tratado sobre la mentalidad terrenal - Burroughs\n Aferrándose a una cruz falsa - James P. Shelly\n Manteniendo el corazón - por John Flavel\n Mero cristianismo - C. S. Lewis\n El Sermón del Monte - A. W. Pink\n TEMAS DE ACTUALIDAD\n\n El consenso de los estudiosos actuales: el alma no es inmortal\n ¿El infierno es tormento eterno o muerte eterna?\n Modestia, vestimenta y Dios\n El origen de disfrazarse para ir a la iglesia\n\n AUDIO\n\n Libros, sermones, debates, etc.\n COMENTARIOS\n\n Más de 75 comentarios clásicos en línea\n CONTÁCTENOS\n\n Visítanos en nuestro canal de YouTube.\n\n Versículos emergentes: \"Citas de las Escrituras tomadas de la New American Standard Bible®, Copyright © 1960, 1962, 1963, 1968, 1971, 1972, 1973, 1975, 1977, 1995 de The Lockman Foundation Usado con permiso\". (www.lockman.org)\n\n ©2026 la verdad según las escrituras.com\n\n Debe habilitar JavaScript para ver todo el contenido disponible en esta página",
+      "enHash": "3ab7e29257a0dce8b0652ae31853b8ef838b3070e5909f8ad10051259dd97687",
+      "source": "corpus:charles-spurgeon"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:3": "b3",
+    "1:4": "b4",
+    "1:5": "b5",
+    "1:6": "b6",
+    "1:7": "b7",
+    "1:8": "b8",
+    "1:9": "b9",
+    "1:10": "b10",
+    "1:11": "b11",
+    "1:12": "b11",
+    "1:13": "b11",
+    "1:14": "b11",
+    "1:15": "b11",
+    "1:16": "b11",
+    "1:17": "b11",
+    "1:18": "b12",
+    "1:19": "b12",
+    "1:20": "b12",
+    "1:21": "b12",
+    "1:22": "b12",
+    "1:23": "b12",
+    "1:24": "b12",
+    "2:1": "b13",
+    "2:2": "b13",
+    "2:3": "b14",
+    "2:4": "b14",
+    "2:5": "b15",
+    "2:6": "b16",
+    "2:7": "b16",
+    "2:8": "b16",
+    "2:9": "b16",
+    "2:10": "b16",
+    "2:11": "b17",
+    "2:12": "b17",
+    "2:13": "b17",
+    "2:14": "b17",
+    "2:15": "b18",
+    "2:16": "b19",
+    "2:17": "b20",
+    "2:18": "b21",
+    "2:19": "b22",
+    "2:20": "b22",
+    "2:21": "b23",
+    "3:1": "b24",
+    "3:2": "b25",
+    "3:3": "b26",
+    "3:4": "b27",
+    "3:5": "b28",
+    "3:6": "b29",
+    "3:7": "b30",
+    "3:8": "b31",
+    "3:9": "b32",
+    "3:10": "b33",
+    "3:11": "b34",
+    "3:12": "b35",
+    "3:13": "b36",
+    "3:14": "b37",
+    "3:15": "b38",
+    "3:16": "b39",
+    "3:17": "b40",
+    "3:18": "b41",
+    "3:19": "b42",
+    "3:20": "b43",
+    "3:21": "b44",
+    "3:22": "b45",
+    "3:23": "b46",
+    "3:24": "b47",
+    "3:25": "b48",
+    "3:26": "b49",
+    "3:27": "b50",
+    "3:28": "b51",
+    "3:29": "b52",
+    "4:1": "b53",
+    "4:2": "b53",
+    "4:3": "b53",
+    "4:4": "b53",
+    "4:5": "b53",
+    "4:6": "b54",
+    "4:7": "b55",
+    "4:8": "b56",
+    "4:9": "b56",
+    "4:10": "b56",
+    "4:11": "b56",
+    "4:12": "b57",
+    "4:13": "b58",
+    "4:14": "b58",
+    "4:15": "b59",
+    "4:16": "b60",
+    "4:17": "b61",
+    "4:18": "b62",
+    "4:19": "b62",
+    "4:20": "b62",
+    "4:21": "b62",
+    "4:22": "b63",
+    "4:23": "b64",
+    "4:24": "b65",
+    "4:25": "b66",
+    "4:26": "b67",
+    "4:27": "b68",
+    "4:28": "b68",
+    "4:29": "b68",
+    "4:30": "b69",
+    "4:31": "b69",
+    "5:1": "b70",
+    "5:2": "b71",
+    "5:3": "b71",
+    "5:4": "b72",
+    "5:5": "b73",
+    "5:6": "b73",
+    "5:7": "b74",
+    "5:8": "b75",
+    "5:9": "b76",
+    "5:10": "b77",
+    "5:11": "b78",
+    "5:12": "b79",
+    "5:13": "b80",
+    "5:14": "b81",
+    "5:15": "b82",
+    "5:16": "b83",
+    "5:17": "b84",
+    "5:18": "b85",
+    "5:19": "b85",
+    "5:20": "b86",
+    "5:21": "b87",
+    "5:22": "b88",
+    "5:23": "b89",
+    "5:24": "b90",
+    "6:1": "b91",
+    "6:2": "b92",
+    "6:3": "b93",
+    "6:4": "b94",
+    "6:5": "b94",
+    "6:6": "b95",
+    "6:7": "b96",
+    "6:8": "b97",
+    "6:9": "b98",
+    "6:10": "b98",
+    "6:11": "b99",
+    "6:12": "b100",
+    "6:13": "b100",
+    "6:14": "b101",
+    "6:15": "b102",
+    "6:16": "b102",
+    "6:17": "b102",
+    "6:18": "b103",
+    "6:19": "b104",
+    "6:20": "b104",
+    "6:21": "b104",
+    "6:22": "b104",
+    "6:23": "b104"
+  }
+}

@@ -2,56 +2,13 @@ import { createClient } from '@supabase/supabase-js';
 import { obtenerDefinicionStrong, DICCIONARIO_STRONG } from '../lib/biblia.js';
 import { consultarDiccionario } from '../lib/diccionario.js';
 import { entradaStrongLocal } from '../lib/strong.js';
-import { generarJSON, hayMotorIA } from '../lib/ai.js';
 import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
-
-function limpiarTextoLexico(texto) {
-  return String(texto || '')
-    .replace(/(^|\\n)\\s*[-–]?\\s*(original|transliteration|transliteración|phonetic|pronunciación|definition|definición|origin|origen|tdnt entry|part\\(s\\) of speech|categoría gramatical|strongs?)\\s*:?/gim, '$1')
-    .replace(/\\b(from|compare|perhaps|to be|of persons|of things|verb|adverb|noun|preposition|conjunction)\\b/gi, '')
-    .replace(/\\n{3,}/g, '\\n\\n')
-    .trim();
-}
-
-// Toda entrada Strong consultada DEBE devolver una traducción estricta real al
-// español (nunca el lexema original hebreo/griego sin traducir, ni un texto en
-// inglés). Se intenta primero con la entrada completa del diccionario; si esa
-// llamada falla o vuelve vacía, se reintenta con un prompt más simple basado
-// solo en la definición corta, antes de rendirse.
-async function traducirConIA(prompt) {
-  const traduccion = await generarJSON(prompt, { reintentos: 2 });
-  const definicionEs = limpiarTextoLexico(traduccion?.definicion_es);
-  const traduccionEstricta = limpiarTextoLexico(traduccion?.traduccion_estricta);
-  if (!traduccionEstricta || !definicionEs) return null;
-  return { traduccionEstricta, definicionEs };
-}
-
-async function traducirDefinicion(definicion) {
-  const base = { ...definicion };
-  if (!hayMotorIA()) {
-    return { ...base, traduccionEstricta: 'Traducción no disponible: falta configurar RevelatiO IA.', definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
-  }
-
-  const instruccionComun = 'NO incluyas inglés ni etiquetas de campos, tampoco Original, Transliteration, Phonetic, Definition, Origin, TDNT, Part(s) of speech o Strong\'s. traduccion_estricta debe ser SIEMPRE en español: una lista breve de equivalentes españoles directos del término, separados por comas, NUNCA la palabra hebrea o griega original ni texto en inglés.';
-
-  try {
-    const resultado = await traducirConIA(`Eres un lexicógrafo bíblico. Traduce esta entrada al español claro. Devuelve SOLO JSON válido con dos claves: traduccion_estricta y definicion_es. ${instruccionComun} definicion_es debe explicar el uso léxico en una frase, en español.\n\nCódigo: ${definicion.codigo}\nLexema original: ${definicion.lexema}\nEntrada fuente: ${definicion.definicion || definicion.definicionCorta || 'Sin entrada disponible.'}`);
-    if (resultado) return { ...base, ...resultado };
-  } catch (_) {}
-
-  // Segundo intento con un prompt mínimo (más robusto ante entradas fuente
-  // vacías o mal formateadas que pudieron causar el primer fallo).
-  try {
-    const resultado = await traducirConIA(`Traduce al español el término bíblico Strong ${definicion.codigo} (${definicion.lexema || 'sin lexema disponible'}, transliteración: ${definicion.transliteracion || 'no disponible'}). Devuelve SOLO JSON con dos claves: traduccion_estricta (equivalentes españoles directos, separados por comas) y definicion_es (una frase en español sobre su significado y uso bíblico). ${instruccionComun}`);
-    if (resultado) return { ...base, ...resultado };
-  } catch (_) {}
-
-  return { ...base, traduccionEstricta: 'Traducción al español no disponible temporalmente. Vuelve a intentarlo.', definicionEs: 'No se pudo preparar la traducción al español en este momento.' };
-}
 
 // Diccionario léxico REAL (Brown-Driver-Briggs para hebreo, Thayer para
 // griego, vía Bolls Bible) para consultar el significado exacto de una
 // palabra original al tocarla en el lector. No es texto generado por IA.
+// PRODUCT LAW (Alejandro): lexicon is original-language Strong, any passage.
+// Version never decides whether a Strong entry exists.
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -88,15 +45,27 @@ export default async function handler(req, res) {
   const passage = String(q.passage || q.referencia || q.ref || '').trim();
 
   if (passage && !/^[GH]\d{1,5}$/.test(codigo)) {
-    const { generateUniversalAnswer } = await import('./ai.js');
-    const payload = await generateUniversalAnswer(
-      { passage, mode: 'lexicon', type: 'lexicon' },
-      '/api/lexicon'
-    );
+    const { contextoConsulta, formatearLexico } = await import('../lib/consulta-contexto.js');
+    const ctx = await contextoConsulta({ passage, referencia: passage });
+    const entradas = (Array.isArray(ctx?.strongs) ? ctx.strongs : []).map((e) => {
+      const catalogada = String(e.definicionEs || e.traduccionEstricta || '').trim();
+      const sin = !catalogada;
+      return {
+        ...e,
+        definicionEs: catalogada,
+        traduccionEstricta: catalogada,
+        sinGlosaEs: sin,
+      };
+    });
     return res.status(200).json({
       success: true,
-      answer: payload.answer,
-      data: payload,
+      found: entradas.length > 0,
+      answer: formatearLexico(ctx || {}),
+      data: {
+        referencia: ctx?.etiqueta || passage,
+        entradas,
+        resultados: entradas,
+      },
     });
   }
 
@@ -134,13 +103,20 @@ export default async function handler(req, res) {
     if (!definicion) {
       return res.status(404).json({ error: 'No se encontró una definición para ese término.' });
     }
-    if (definicion.definicionEs || definicion.fuente?.includes('Strong · dominio público')) {
-      const contexto = await consultarDiccionario(codigo);
-      return res.status(200).json({ success: true, data: { ...definicion, ...contexto } });
-    }
-    const resultado = await traducirDefinicion(definicion);
     const contexto = await consultarDiccionario(codigo);
-    return res.status(200).json({ success: true, data: { ...resultado, ...contexto } });
+    const merged = { ...definicion, ...contexto };
+    const catalogada = String(merged.definicionEs || merged.traduccionEstricta || '').trim();
+    const sinGlosaEs = !catalogada;
+    return res.status(200).json({
+      success: true,
+      data: {
+        ...merged,
+        definicionEs: catalogada,
+        traduccionEstricta: catalogada,
+        sinGlosaEs,
+        nota: sinGlosaEs ? 'sin glosa ES catalogada' : undefined,
+      },
+    });
   } catch (error) {
     console.error('Error consultando el diccionario léxico:', error?.message);
     return res.status(502).json({ error: 'No fue posible consultar el diccionario en este momento.' });

@@ -5047,11 +5047,16 @@ body.is-aposento .rv-footer {
     color: var(--gold);
 }
 
-.rv-xref-nota {
+.rv-xref-nota,
+.rv-xref-texto {
     font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 1.05rem;
     line-height: 1.55;
     color: #F0E6D0;
+}
+
+.is-hidden-tab {
+    display: none !important;
 }
 
 .rv-comentario-kicker {
@@ -5381,6 +5386,7 @@ body.is-santuario .rv-persp-tip-body,
 body.is-santuario .rv-persp-pillar-lead,
 body.is-santuario .rv-persp-synth-report p,
 body.is-santuario .rv-xref-nota,
+body.is-santuario .rv-xref-texto,
 body.is-santuario .rv-estudio-vacio,
 body.is-santuario .rv-ficha-grid dd,
 body.is-santuario .rv-lectura-note,

@@ -8,10 +8,9 @@
 
     const VERSIONES = [
         { key: 'rv1960', etiqueta: 'RVR1960', licencia: 'sbu' },
-        { key: 'kjv', etiqueta: 'KJV', licencia: 'public' },
+        { key: 'nvi', etiqueta: 'NVI', licencia: 'pending' },
         { key: 'tla', etiqueta: 'TLA', licencia: 'sbu' },
         { key: 'dhh', etiqueta: 'DHH', licencia: 'sbu' },
-        { key: 'septuaginta', etiqueta: 'Septuaginta (Rahlfs)', licencia: 'public' }
     ];
     const AUTORES = [
         { key: 'charles-spurgeon', etiqueta: 'C. H. Spurgeon', json: 'spurgeon' },
@@ -185,11 +184,12 @@
                 });
                 clearTimeout(timer);
                 const json = await res.json().catch(() => ({}));
-                const cuerpo = String(json?.text || json?.answer || json?.data?.cuerpo || '').trim();
-                if (json.success && cuerpo && !esRuidoEditorial(cuerpo)) {
+                const textEs = String(json?.textEs || '').trim();
+                const cuerpo = String(textEs || json?.text || json?.answer || json?.data?.cuerpo || '').trim();
+                if (json.success && cuerpo && !esRuidoEditorial(cuerpo) && !/^No hay nota/i.test(cuerpo)) {
                     const paragraphs = cuerpo.split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
                     return {
-                        ia: true,
+                        ia: false,
                         vacio: false,
                         generico: false,
                         nivel: 'versiculo',
@@ -197,6 +197,10 @@
                         obra: '',
                         entradas: paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
                         cuerpo,
+                        cuerpoEs: textEs,
+                        cuerpoEn: String(json?.textEn || '').trim(),
+                        traducido: Boolean(textEs || json?.translated),
+                        disclaimer: String(json?.disclaimer || '').trim(),
                         paragraphs,
                     };
                 }

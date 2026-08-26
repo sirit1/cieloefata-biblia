@@ -14,6 +14,23 @@ function createResponse() {
   }
 }
 
+export async function GET(request) {
+  const response = createResponse()
+  const url = new URL(request.url)
+  const query = {}
+  url.searchParams.forEach((value, key) => {
+    query[key] = value
+  })
+  const req = {
+    method: 'GET',
+    query,
+    body: query,
+    headers: Object.fromEntries(request.headers.entries()),
+  }
+  await legacyHandler(req, response)
+  return response.toResponse()
+}
+
 export async function POST(request) {
   const response = createResponse()
   const body = await request.json().catch(() => ({}))

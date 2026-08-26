@@ -12,12 +12,9 @@
 
     const VERSION_OPTS = [
         { id: "RVR1960", label: "Reina-Valera 1960" },
-        { id: "RVR1909", label: "Reina-Valera 1909" },
+        { id: "NVI", label: "Nueva Versión Internacional" },
         { id: "DHH", label: "Dios Habla Hoy" },
         { id: "TLA", label: "Traducción en Lenguaje Actual" },
-        { id: "NVI", label: "Nueva Versión Internacional" },
-        { id: "KJV", label: "King James Version" },
-        { id: "LXX", label: "Septuaginta (Griego)" },
     ];
 
     function books() {
@@ -130,7 +127,7 @@
     }
 
     const FULL_BIBLE_VERSIONS = new Set([
-        "rv1960", "rv1909", "kjv", "dhh", "tla", "nbla", "nvi", "ntv",
+        "rv1960", "dhh", "tla", "nvi",
     ]);
 
     function isFullBibleVersion(version) {
@@ -405,8 +402,8 @@
         let key = version === "rv1909" ? "rv1960" : version;
         if (key === "textual" || key === "lxx" || key === "rahlfs") key = "septuaginta";
         const order = opts.preferLxx
-            ? ["septuaginta", key, "rv1960", "rv1909", "kjv", "tla", "dhh", "nbla"]
-            : [key, "septuaginta", "rv1960", "rv1909", "kjv", "tla", "dhh", "nbla"];
+            ? ["septuaginta", key, "rv1960", "nvi", "tla", "dhh"]
+            : [key, "rv1960", "nvi", "tla", "dhh"];
         const seen = new Set();
         const normalizeList = global.revelatioLectura?.normalizarListaVersos;
         for (const k of order) {

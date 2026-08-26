@@ -1,6 +1,11 @@
 /**
  * RevelatiO — Panel Unificado de Estudio Bíblico
  * Integra Comentarios Clásicos, Referencias TSK, Concordancia, Léxico Strong y Lentes Hermenéuticas & Cognitivas Élite
+ *
+ * PRODUCT LAW (Alejandro): every panel action is GENERAL — any passage, any
+ * version (RVR1960/NVI/DHH/TLA), any commentator, any lens id. Timeout / dedupe
+ * / abort-previous apply to ALL lenses. Life-topic chips do not live on this
+ * study door. Hebrews 10:6 / Mateo 9:12 / Juan 14:6 are acceptance tests only.
  */
 (function (global) {
   'use strict';
@@ -13,6 +18,8 @@
     { id: 'john-calvin', label: 'Juan Calvino (Comentarios Exegéticos)' },
     { id: 'john-wesley', label: 'John Wesley (Notas Explicativas)' },
     { id: 'jamieson-fausset-brown', label: 'Jamieson-Fausset-Brown (Crítico y Explicativo)' },
+    { id: 'john-gill', label: 'John Gill (Exposición)' },
+    { id: 'adam-clarke', label: 'Adam Clarke (Comentario)' },
     { id: 'martin-luther', label: 'Martín Lutero (Comentarios Reformados)' },
     { id: 'agustin-de-hipona', label: 'Agustín de Hipona (Padres de la Iglesia)' },
   ];
@@ -67,8 +74,8 @@
         icon: '🔬',
         title: 'Neurociencia Cognitiva & Sinapsis',
         discipline: 'Neurobiología · Córtex Prefrontal · Hexis',
-        blurb: 'Dinámica Cerebral & Sesgos Heurísticos, Reconfiguración Sináptica y Protocolo de Interrupción de Patrones.',
-        prompt: 'Analiza la dinámica cerebral, sesgos cognitivos, neuroplasticidad y el protocolo de interrupción de patrones en'
+        blurb: 'Dinámica Cerebral & Sesgos Heurísticos: la ciencia nombra el bucle; la Escritura nombra la salida (arrepentimiento, conversión, bautismo y perseverancia).',
+        prompt: 'Diagnostica el bucle cognitivo y transmuta a arrepentimiento, conversión, bautismo y perseverancia en'
       },
       {
         id: 'mental_metanoia',
@@ -127,8 +134,8 @@
       icon: '🔬',
       title: 'Neurociencia Cognitiva',
       discipline: 'Neurobiología · Dinámica Sináptica',
-      blurb: 'Dinámica cerebral, sesgos cognitivos y protocolo de interrupción de patrones.',
-      prompt: 'Analiza la dinámica cerebral y neuroplasticidad en'
+      blurb: 'Dinámica cerebral y sesgos cognitivos; la salida es metanoia, no un protocolo de autoayuda.',
+      prompt: 'Diagnostica el bucle cognitivo y transmuta a metanoia y obediencia en'
     },
     {
       id: 'mental_metanoia',
@@ -163,6 +170,29 @@
   let strongAbort = null;
   let strongStamp = 0;
   const lensAbortMap = new Map();
+  /** Global: any passage, any lens id. Client aborts previous in-flight lens. */
+  const LENS_TIMEOUT_MS = 45000;
+
+  function consultedVersion() {
+    try {
+      return localStorage.getItem('revelatio_version') || 'rv1960';
+    } catch {
+      return 'rv1960';
+    }
+  }
+
+  function drawerRoot() {
+    return document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
+  }
+
+  function drawerEl(id) {
+    const root = drawerRoot();
+    if (root) {
+      const hit = root.querySelector(`#${id}`);
+      if (hit) return hit;
+    }
+    return document.getElementById(id);
+  }
 
   function escapeHtml(s) {
     return String(s || '')
@@ -215,7 +245,7 @@
     const refEl = document.getElementById('rv-sp-ref');
     if (refEl) {
       refEl.textContent = currentActivePassage;
-      refEl.hidden = false;
+      refEl.hidden = true;
     }
 
     const state = global.currentStudyState || RV.currentStudyState || {};
@@ -299,7 +329,7 @@
         ).trim();
         if (q.length >= 3) {
           const res = await fetch(
-            `/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(bodyPayload.version || 'rv1960')}`,
+          `/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(bodyPayload.version || consultedVersion())}`,
             { method: 'GET', headers: { Accept: 'application/json' }, signal: controller.signal },
           );
           const data = await res.json().catch(() => ({}));
@@ -341,7 +371,13 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         signal: commentaryAbort.signal,
-        body: JSON.stringify({ passage, author: authorObj.label, verseText: currentVerseText }),
+        body: JSON.stringify({
+          passage,
+          referencia: passage,
+          author: authorObj.id,
+          autor: authorObj.id,
+          verseText: currentVerseText,
+        }),
       });
       clearTimeout(timer);
       if (stamp !== commentaryStamp || currentActivePassage !== passage) return;
@@ -350,22 +386,53 @@
       if (!res.ok && res.status !== 200) {
         throw new Error(httpErrorMessage(data, res.status));
       }
-      const text = data.text || data.answer || data.respuesta || '';
-      const isFallback = data.source === 'theological-engine-fallback';
-      const displayAuthor = isFallback
-        ? (data.author && !/spurgeon|calvino|calvin|henry|wesley|lutero|agust[ií]n/i.test(data.author)
-            ? data.author
-            : 'Respaldo teológico')
-        : authorObj.label;
-      const formatted = formatAnswerHtml(text);
-      container.innerHTML = `
-        <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/60 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
-          <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
-            <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">${escapeHtml(displayAuthor)}</span>
-            <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
-          </div>
-          <div class="text-xs leading-relaxed text-justify space-y-2 text-stone-800">${formatted}</div>
-        </div>`;
+      const textEs = String(data.textEs || '').trim();
+      const textEn = String(data.textEn || '').trim();
+      const apiText = String(data.text || data.answer || data.respuesta || '').trim();
+      const spanishBody = textEs || (data.translated === true ? apiText : '');
+      const englishBody = textEn || (!spanishBody ? apiText : '');
+      const found = data.found === true && (spanishBody || englishBody) && data.source !== 'corpus-miss' && data.source !== 'theological-engine-fallback' && !/^No hay nota/i.test(spanishBody || apiText);
+      const displayAuthor = authorObj.label;
+      const nombreCorto = authorObj.label.split('(')[0].trim();
+      const wrap = (inner) => `
+          <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 rounded-xl border shadow-sm space-y-2" style="background:#EEF2F4;border-color:#C9A84C;color:#2C3E4A">
+            <div class="flex items-center justify-between pb-1.5 mb-2" style="border-bottom:1px solid #C9A84C">
+              <span class="font-mono text-[10px] font-bold uppercase tracking-wider" style="color:#2C3E4A">${escapeHtml(displayAuthor)}</span>
+            </div>
+            ${inner}
+          </div>`;
+      if (!found) {
+        const raw = String(apiText || spanishBody).trim();
+        const miss = /^No hay nota/i.test(raw) && !/respaldo teol[oó]gico|gemini|\.env/i.test(raw)
+          ? raw
+          : `No hay nota de ${nombreCorto} para ${passage}.`;
+        container.innerHTML = wrap(`<p class="text-xs">${escapeHtml(miss)}</p>`);
+        return;
+      }
+      const disclaimer = String(data.disclaimer || 'Traducción automática del original inglés (dominio público). No es la edición de CLIE.').trim();
+      if (spanishBody) {
+        const formattedEs = formatAnswerHtml(spanishBody);
+        const formattedEn = formatAnswerHtml(englishBody);
+        container.innerHTML = wrap(`
+          <div data-rv-tr-root>
+            <div data-rv-tr-pane="es">
+              <div class="text-xs leading-relaxed text-justify space-y-2">${formattedEs}</div>
+              <p class="text-[10px] leading-snug mt-2" style="color:#2C3E4A">${escapeHtml(disclaimer)}</p>
+              ${englishBody ? `<button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg cursor-pointer" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver original (inglés)</button>` : ''}
+            </div>
+            ${englishBody ? `<div data-rv-tr-pane="en" hidden>
+              <p class="text-[10px] font-mono mb-2" style="color:#2C3E4A">Texto original en inglés (dominio público). No es una traducción de IA.</p>
+              <div class="text-xs leading-relaxed text-justify space-y-2">${formattedEn}</div>
+              <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg cursor-pointer" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver traducción (español)</button>
+            </div>` : ''}
+          </div>`);
+        return;
+      }
+      const originalEn = /spurgeon|henry|calvin|calvino|gill|clarke|jamieson|jfb|wesley/i.test(`${authorObj.id} ${authorObj.label}`)
+        || (/\b(the|and|that|which|this|from|but|not)\b/i.test(englishBody) && !/[áéíóúñü¿¡]/.test(String(englishBody).slice(0, 500)));
+      container.innerHTML = wrap(`
+          ${originalEn ? `<p class="text-[10px] font-mono">Texto original en inglés (dominio público). No es una traducción de IA.</p>` : ''}
+          <div class="text-xs leading-relaxed text-justify space-y-2">${formatAnswerHtml(englishBody)}</div>`);
     } catch (err) {
       clearTimeout(timer);
       if (stamp !== commentaryStamp) return;
@@ -396,7 +463,17 @@
     await fetchCommentary(currentAutor);
   }
 
+  function ensureStudyPanelRoot() {
+    const root = ensurePanel();
+    const tskPane = document.getElementById('rv-sp-tsk');
+    if (tskPane && !document.getElementById('tsk-content-area')) {
+      tskPane.innerHTML = '<div id="tsk-content-area"></div>';
+    }
+    return root;
+  }
+
   async function loadTskReferences(passageRef = currentActivePassage) {
+    ensureStudyPanelRoot();
     const container = document.getElementById('tsk-content-area');
     if (!container) return;
     const passage = String(passageRef || currentActivePassage || 'Mateo 16:2').trim();
@@ -414,23 +491,24 @@
       </div>`;
 
     try {
-      const endpoints = ['/api/referencias', '/api/tsk'];
       let data = {};
       let lastStatus = 0;
-      for (const url of endpoints) {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          signal: tskAbort.signal,
-          body: JSON.stringify({ passage, consulta: passage, referencia: passage }),
-        });
-        lastStatus = res.status;
-        data = await res.json().catch(() => ({}));
-        if (res.status === 404) continue;
-        if (!res.ok && res.status !== 200) {
-          throw new Error(httpErrorMessage(data, res.status));
-        }
-        break;
+      const version = consultedVersion();
+      const res = await fetch('/api/tsk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        signal: tskAbort.signal,
+        body: JSON.stringify({
+          passage,
+          consulta: passage,
+          referencia: passage,
+          version,
+        }),
+      });
+      lastStatus = res.status;
+      data = await res.json().catch(() => ({}));
+      if (!res.ok && res.status !== 200) {
+        throw new Error(httpErrorMessage(data, res.status));
       }
       clearTimeout(timer);
       if (stamp !== tskStamp || currentActivePassage !== passage) return;
@@ -501,13 +579,18 @@
     }
   }
 
-  function keywordFromVerse(text) {
-    const stop = /^(para|como|que|los|las|del|una|uno|por|con|sin|sus|este|esta|the|and|from|that|this|el|la|de|en|y|o|un|al|lo|se|su|tu|mi|nos|les|mas|más|pero|porque|pues)$/i;
-    const words = String(text || '')
+  function keywordsFromVerse(text) {
+    const stop = /^(para|como|que|los|las|del|una|uno|por|con|sin|sus|este|esta|the|and|from|that|this|el|la|de|en|y|o|un|al|lo|se|su|tu|mi|nos|les|mas|más|pero|porque|pues|cuando|donde|quien|cual|fue|son|hay|asi|así|muy|todos|todas|este|esta|eso)$/i;
+    return String(text || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^\p{L}\s]/gu, ' ')
       .split(/\s+/)
-      .filter((w) => w.length >= 4 && !stop.test(w));
-    return words[0] || '';
+      .filter((w) => w.length >= 5 && !stop.test(w));
+  }
+
+  function keywordFromVerse(text) {
+    return keywordsFromVerse(text)[0] || '';
   }
 
   function renderConcordanceHits(container, term, passage, resultados) {
@@ -531,37 +614,30 @@
       </div>`;
   }
 
-  function getConcordanceSuggestions(passage) {
-    const s = String(passage || '').toLowerCase();
-    if (s.includes('juan') || s.includes('amor') || s.includes('gracia')) {
-      return ['Amor', 'Gracia', 'Verdad', 'Luz', 'Vida Eterna', 'Creer'];
+  function getConcordanceSuggestions(_passage) {
+    const fromVerse = keywordsFromVerse(currentVerseText).slice(0, 4);
+    const base = ['Gracia', 'Pacto', 'Creer', 'Justificación', 'Paz', 'Verdad'];
+    const out = [];
+    for (const t of [...fromVerse, ...base]) {
+      const key = String(t || '').toLowerCase();
+      if (key && !out.some((x) => x.toLowerCase() === key)) out.push(t);
     }
-    if (s.includes('rom') || s.includes('fe') || s.includes('justific')) {
-      return ['Justificación', 'Fe', 'Paz', 'Espíritu', 'Ley', 'Gracia'];
-    }
-    if (s.includes('salm') || s.includes('alab')) {
-      return ['Misericordia', 'Alabanza', 'Refugio', 'Paz', 'Justicia'];
-    }
-    if (s.includes('mat') || s.includes('mar') || s.includes('luc')) {
-      return ['Reino de Dios', 'Fe', 'Discipulado', 'Oración', 'Perdón'];
-    }
-    return ['Gracia', 'Pacto', 'Fe', 'Justificación', 'Paz', 'Verdad'];
+    return out.filter((tag) => String(tag).replace(/\s+/g, '').length >= 3).slice(0, 6);
   }
 
   function renderConcordanceShell(initialTerm = '', passage = currentActivePassage) {
     const pane = document.getElementById('rv-sp-concordancia');
     if (!pane) return;
-
-    let subContainer = document.getElementById('concordance-content-area');
-    if (!subContainer) {
-      pane.innerHTML = `
+    const prior = pane.querySelector('#concordance-search-input')?.value || '';
+    const term = initialTerm || prior || '';
+    pane.innerHTML = `
         <div id="tab-concordancia" class="space-y-3 font-serif text-[#0F172A]">
           <div class="pb-2 border-b border-[#E8DFC8]">
             <h3 class="text-sm font-bold text-[#0A192F] uppercase tracking-wider">Concordancia Temática & Léxica</h3>
             <p class="text-xs text-[#C59B27] font-sans mt-0.5">Exploración transversal en las Escrituras · ${escapeHtml(passage)}</p>
           </div>
           <form id="concordance-search-form" onsubmit="event.preventDefault(); RV.executeConcordanceSearch();" class="flex gap-1.5">
-            <input type="text" id="concordance-search-input" name="concordanceTerm" value="${escapeHtml(initialTerm)}" placeholder="Buscar término o doctrina (ej. Gracia, Pacto, Justificación)..."
+            <input type="text" id="concordance-search-input" name="concordanceTerm" value="${escapeHtml(term)}" placeholder="Buscar término o doctrina (ej. Gracia, Pacto, Justificación)..."
               class="flex-1 px-3 py-1.5 bg-white border border-[#E8DFC8] rounded-lg text-xs font-serif text-[#0A192F] focus:border-[#C59B27] focus:outline-none shadow-sm" />
             <button type="submit" id="concordance-search-btn" class="px-3 py-1.5 bg-[#0A192F] text-[#DFB743] font-mono text-xs font-bold rounded-lg hover:bg-[#1E293B] cursor-pointer transition-colors">
               Buscar
@@ -577,17 +653,18 @@
           </div>
           <div id="concordance-content-area" class="mt-3"></div>
         </div>
-      `;
-    }
+    `;
   }
 
   async function loadConcordance(passageRef = currentActivePassage, customTerm = '') {
     const passage = String(passageRef || currentActivePassage || 'Romanos 12:2').trim();
-    let term = String(customTerm || '').trim();
+    const typed = String(customTerm || '').trim();
+    let term = typed;
     if (!term) term = keywordFromVerse(currentVerseText);
 
     renderConcordanceShell(term, passage);
-    const container = document.getElementById('concordance-content-area');
+    const pane = document.getElementById('rv-sp-concordancia');
+    const container = pane?.querySelector('#concordance-content-area');
     if (!container) return;
 
     const stamp = ++concordanceStamp;
@@ -595,60 +672,71 @@
     concordanceAbort = new AbortController();
     const timer = setTimeout(() => concordanceAbort.abort(), 18000);
 
-    container.innerHTML = `
-      <div class="py-8 px-4 text-center font-serif text-[#855D10] space-y-2 animate-pulse">
-        <span class="inline-block text-xl">⏳</span>
-        <p class="text-xs font-semibold tracking-wide uppercase">Indexando concordancia bíblica${term ? ` para "${escapeHtml(term)}"` : ''}...</p>
-        <p class="text-[11px] text-stone-500 font-mono">${escapeHtml(passage)}</p>
-      </div>`;
+    const candidates = [];
+    if (typed.length >= 3) candidates.push(typed);
+    else {
+      for (const w of keywordsFromVerse(currentVerseText)) {
+        if (!candidates.includes(w)) candidates.push(w);
+      }
+    }
+
+    if (!candidates.length) {
+      clearTimeout(timer);
+      container.innerHTML = `
+        <div class="p-4 bg-amber-50/90 border border-[#C59B27]/40 text-stone-900 rounded-xl text-xs font-serif text-center space-y-2">
+          <p class="font-bold text-[#855D10]">Concordancia Bíblica</p>
+          <p class="text-[11px] text-stone-600">Escribe al menos 3 letras para buscar en la Biblia.</p>
+        </div>`;
+      return;
+    }
 
     try {
-      if (term.length >= 3) {
+      let hits = [];
+      let used = candidates[0];
+      let indexable = true;
+      for (const q of candidates) {
+        if (q.length < 3) continue;
+        container.innerHTML = `
+      <div class="py-8 px-4 text-center font-serif text-[#855D10] space-y-2 animate-pulse">
+        <span class="inline-block text-xl">⏳</span>
+        <p class="text-xs font-semibold tracking-wide uppercase">Indexando concordancia bíblica para "${escapeHtml(q)}"...</p>
+        <p class="text-[11px] text-stone-500 font-mono">${escapeHtml(passage)}</p>
+      </div>`;
         const res = await fetch(
-          `/api/concordancia?q=${encodeURIComponent(term)}`,
+          `/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(consultedVersion())}`,
           { method: 'GET', headers: { Accept: 'application/json' }, signal: concordanceAbort.signal },
         );
         const data = await res.json().catch(() => ({}));
         if (stamp !== concordanceStamp) return;
-        if (res.status !== 404 && res.ok) {
-          const hits = data.data?.resultados || data.resultados || [];
-          if (Array.isArray(hits) && hits.length) {
-            clearTimeout(timer);
-            renderConcordanceHits(container, term, passage, hits);
-            return;
-          }
-        } else if (!res.ok && res.status !== 404) {
+        if (!res.ok) {
           throw new Error(httpErrorMessage(data, res.status));
         }
+        const got = data.data?.resultados || data.resultados || [];
+        used = q;
+        if (data.data && data.data.indexable === false) indexable = false;
+        if (Array.isArray(got) && got.length) {
+          hits = got;
+          indexable = true;
+          break;
+        }
       }
-
-      const data = await askEngine({
-        passage,
-        mode: 'concordance',
-        keyword: term,
-        searchTerm: term,
-        verseText: currentVerseText
-      }, 18000);
       clearTimeout(timer);
       if (stamp !== concordanceStamp) return;
-
-      const hits = data.data?.resultados || data.resultados || [];
-      if (Array.isArray(hits) && hits.length) {
-        renderConcordanceHits(container, term, passage, hits);
+      const input = pane.querySelector('#concordance-search-input');
+      if (input) input.value = used;
+      if (hits.length) {
+        renderConcordanceHits(container, used, passage, hits);
         return;
       }
-
-      const answer = data.answer || data.respuesta || data.text || '';
-      const formatted = formatAnswerHtml(answer);
+      const emptyMsg = indexable
+        ? `No hay coincidencias para «${escapeHtml(used)}».`
+        : `El motor de concordancia es el mismo para todas las versiones; ${escapeHtml(consultedVersion().toUpperCase())} aún no tiene texto indexable (Bolls/pack vacío). No es un fallo de un versículo.`;
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
-          ${term ? `
-            <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
-              <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(term)}"</span>
-              <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
-            </div>
-          ` : ''}
-          <div class="text-xs leading-relaxed text-justify space-y-2 text-stone-800">${formatted}</div>
+          <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
+            <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(used)}"</span>
+          </div>
+          <p class="text-xs text-stone-700">${emptyMsg}</p>
         </div>`;
     } catch (err) {
       clearTimeout(timer);
@@ -676,8 +764,71 @@
     loadConcordance(currentActivePassage, tag);
   }
 
+  function fieldLabel(key) {
+    const map = {
+      codigo: 'Strong',
+      lexema: 'Lexema',
+      lemma: 'Lema',
+      transliteracion: 'Transliteración',
+      translit: 'Transliteración',
+      pronunciacion: 'Pronunciación',
+      definicionEs: 'Glosa ES',
+      traduccionEstricta: 'Traducción',
+      definicionCorta: 'Definición corta',
+      definicion: 'Definición',
+      idioma: 'Idioma',
+      fuente: 'Fuente',
+      raiz: 'Raíz',
+    };
+    return map[key] || key;
+  }
+
+  function looksSpanish(s) {
+    return /[áéíóúñü¿¡]|ción\b|dad\b|mente\b/i.test(String(s || ''));
+  }
+
+  function renderStrongEntries(container, passage, entradas) {
+    const cards = entradas.map((e) => {
+      if (!e || typeof e !== 'object') return '';
+      const codigo = e.codigo || e.code || '';
+      const lexema = e.lexema || e.lemma || e.raiz || '';
+      const translit = e.transliteracion || e.translit || '';
+      const rawEs = String(e.definicionEs || e.traduccionEstricta || e.glosa || '').trim();
+      const fake = /equivalente español no catalogado|glosa del original bíblico/i.test(rawEs);
+      const glosaEs = !e.sinGlosaEs && !fake && rawEs && !/\b(the|and|of|to|from|with|that|this)\b/i.test(rawEs)
+        ? rawEs
+        : '';
+      const definicion = String(e.definicion || e.definicionCorta || e.definition || '').trim();
+      const extra = [];
+      extra.push(
+        glosaEs
+          ? `<p><span class="font-mono text-[10px] text-[#855D10] uppercase">Glosa ES:</span> ${escapeHtml(glosaEs)}</p>`
+          : `<p class="text-stone-600"><span class="font-mono text-[10px] text-[#855D10] uppercase">Glosa ES:</span> sin glosa ES catalogada</p>`
+      );
+      if (definicion && definicion !== glosaEs && !fake) {
+        extra.push(`<p><span class="font-mono text-[10px] text-[#855D10] uppercase">${looksSpanish(definicion) ? 'Definición' : 'Definición (EN)'}:</span> ${escapeHtml(definicion)}</p>`);
+      }
+      ['idioma', 'fuente'].forEach((k) => {
+        if (e[k]) extra.push(`<p class="text-[10px] text-stone-500">${escapeHtml(fieldLabel(k))}: ${escapeHtml(e[k])}</p>`);
+      });
+      return `
+        <div class="p-3 bg-white border border-[#E8DFC8] rounded-xl text-xs font-serif space-y-1">
+          <div class="font-mono font-bold text-[#855D10]">${escapeHtml(codigo)} · ${escapeHtml(lexema)} ${translit ? `(${escapeHtml(translit)})` : ''}</div>
+          ${extra.join('')}
+        </div>`;
+    }).join('');
+    container.innerHTML = `
+      <div class="space-y-2">
+        <div class="flex items-center justify-between pb-1.5 border-b border-[#E8DFC8]">
+          <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Léxico Strong</span>
+          <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
+        </div>
+        <div class="space-y-2">${cards}</div>
+      </div>`;
+  }
+
   async function loadStrongLexicon(passageRef = currentActivePassage) {
-    const container = document.getElementById('strong-content-area');
+    const container = drawerEl('strong-content-area');
     if (!container) return;
     const passage = String(passageRef || currentActivePassage || 'Génesis 48:1').trim();
     const stamp = ++strongStamp;
@@ -694,13 +845,28 @@
       </div>`;
 
     try {
-      const data = await askEngine({ passage, mode: 'lexicon', verseText: currentVerseText }, 18000);
+      const res = await fetch(
+        `/api/lexico?referencia=${encodeURIComponent(passage)}`,
+        { method: 'GET', headers: { Accept: 'application/json' }, signal: strongAbort.signal },
+      );
+      const data = await res.json().catch(() => ({}));
       clearTimeout(timer);
       if (stamp !== strongStamp || currentActivePassage !== passage) return;
+      if (!res.ok) throw new Error(httpErrorMessage(data, res.status));
 
+      const entradas =
+        data.data?.entradas ||
+        data.data?.resultados ||
+        data.entradas ||
+        (Array.isArray(data.data) ? data.data : null) ||
+        [];
+      if (Array.isArray(entradas) && entradas.length && typeof entradas[0] === 'object' && !Array.isArray(entradas[0])) {
+        renderStrongEntries(container, passage, entradas);
+        return;
+      }
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
-          ${formatAnswerHtml(data.answer)}
+          <p class="text-xs text-stone-700">No hay entradas Strong estructuradas para ${escapeHtml(passage)}.</p>
         </div>`;
     } catch (err) {
       clearTimeout(timer);
@@ -744,22 +910,46 @@
     const cardId = id;
     const verseText = String(currentVerseText || global.activeStudyText || '').trim();
 
-    let resultBox = document.getElementById(`lens-result-${cardId}`);
-    if (resultBox) {
-      resultBox.remove();
-      return;
-    }
-
+    const root = drawerRoot();
     const targetCard =
-      document.getElementById(`lens-card-${cardId}`) ||
-      document.querySelector(`[data-sp-lens-id="${id}"]`)?.closest('.rv-sp-lens-block') ||
-      document.getElementById('lentes-content-area');
+      (root && root.querySelector(`#lens-card-${cardId}`)) ||
+      (root && root.querySelector(`[data-sp-lens-id="${id}"]`)?.closest('.rv-sp-lens-block')) ||
+      drawerEl('lentes-content-area');
 
     if (!targetCard) return;
 
-    resultBox = document.createElement('div');
-    resultBox.id = `lens-result-${cardId}`;
-    resultBox.className = 'mt-3 p-4 bg-amber-50/95 border-2 border-[#C59B27]/60 rounded-xl font-serif text-xs leading-relaxed text-stone-900 shadow-md animate-in fade-in duration-200';
+    let resultBox = targetCard.querySelector(`#lens-result-${cardId}`) || drawerEl(`lens-result-${cardId}`);
+    if (resultBox?.dataset.lensState === 'done') {
+      resultBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      return;
+    }
+    if (resultBox?.dataset.lensState === 'loading' && lensAbortMap.has(cardId)) {
+      resultBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      return;
+    }
+
+    for (const [pendingId, pending] of lensAbortMap.entries()) {
+      if (pendingId === cardId) continue;
+      try {
+        pending.abort('replaced');
+      } catch {
+        pending.abort();
+      }
+      document.getElementById(`lens-result-${pendingId}`)?.remove();
+      lensAbortMap.delete(pendingId);
+    }
+
+    if (!resultBox) {
+      resultBox = document.createElement('div');
+      resultBox.id = `lens-result-${cardId}`;
+      resultBox.className = 'mt-3 p-4 bg-amber-50/95 border-2 border-[#C59B27]/60 rounded-xl font-serif text-xs leading-relaxed text-stone-900 shadow-md animate-in fade-in duration-200';
+      targetCard.querySelectorAll(`#lens-result-${cardId}`).forEach((el) => el.remove());
+      document.querySelectorAll(`#lens-result-${cardId}`).forEach((el) => {
+        if (el !== resultBox) el.remove();
+      });
+      targetCard.appendChild(resultBox);
+    }
+    resultBox.dataset.lensState = 'loading';
     resultBox.innerHTML = `
       <div class="flex items-center gap-2.5 text-[#855D10] font-sans font-semibold py-2">
         <span class="animate-spin inline-block text-base">⏳</span>
@@ -769,14 +959,16 @@
         </div>
       </div>
     `;
-    targetCard.appendChild(resultBox);
 
-    if (lensAbortMap.has(cardId)) {
-      lensAbortMap.get(cardId).abort();
-    }
     const controller = new AbortController();
     lensAbortMap.set(cardId, controller);
-    const timer = setTimeout(() => controller.abort(), 18000);
+    const timer = setTimeout(() => {
+      try {
+        controller.abort('timeout');
+      } catch {
+        controller.abort();
+      }
+    }, LENS_TIMEOUT_MS);
 
     try {
       let res = await fetch('/api/lente-elite', {
@@ -813,6 +1005,12 @@
 
       clearTimeout(timer);
       const data = await res.json().catch(() => ({}));
+      if (data.success === false || data.source === 'ai-unavailable') {
+        throw new Error(
+          data.error || data.meta?.error || data.meta?.geminiError || data.meta?.gatewayError
+            || 'Falta Gemini o AI Gateway. Las lentes no inventarán un dictamen.',
+        );
+      }
       const answer = data.answer || data.respuesta || data.result || data.text || '';
       if (!answer) {
         throw new Error(httpErrorMessage(data, res.status || 502) || 'No se recibió respuesta del análisis.');
@@ -820,6 +1018,7 @@
 
       const formatted = formatAnswerHtml(answer);
 
+      resultBox.dataset.lensState = 'done';
       resultBox.innerHTML = `
         <div class="flex justify-between items-center pb-2 mb-2.5 border-b border-[#C59B27]/40">
           <div class="flex items-center gap-2">
@@ -834,6 +1033,14 @@
       `;
     } catch (err) {
       clearTimeout(timer);
+      const replaced = controller.signal.reason === 'replaced' || /replaced/i.test(String(controller.signal.reason || err?.message || ''));
+      if (replaced) {
+        return;
+      }
+      if (lensAbortMap.get(cardId) && lensAbortMap.get(cardId) !== controller) {
+        return;
+      }
+      resultBox.dataset.lensState = 'error';
       const isAbort = err?.name === 'AbortError' || /aborted|tiempo de espera/i.test(err?.message || '');
       const msg = isAbort ? 'La consulta requirió más tiempo de procesamiento.' : (err.message || 'Error en RevelatiO IA');
       const escapedId = escapeJsParam(id);
@@ -850,16 +1057,19 @@
         </div>
       `;
     } finally {
-      lensAbortMap.delete(cardId);
+      if (lensAbortMap.get(cardId) === controller) lensAbortMap.delete(cardId);
     }
   }
 
   function renderDualLensPanel() {
-    const container =
-      document.getElementById('lentes-content-area') ||
-      document.getElementById('tab-lentes') ||
-      document.getElementById('rv-sp-dogmatica');
+    const pane = document.getElementById('rv-sp-dogmatica');
+    const container = pane || drawerEl('lentes-content-area');
     if (!container) return;
+
+    const saved = {};
+    container.querySelectorAll('[id^="lens-result-"]').forEach((el) => {
+      saved[el.id] = el;
+    });
 
     const m = ELITE_LENSES.maestro;
     const ref = currentActivePassage || global.activeStudyPassage || 'Romanos 12:2';
@@ -874,7 +1084,7 @@
         <div id="lentes-content-area" class="space-y-3">
           <!-- Tarjeta Prominente: DICTAMEN MAESTRO INTEGRADO -->
           <div id="lens-card-${m.id}" class="rv-sp-lens-block">
-            <button type="button" onclick="window.triggerEliteLens('${m.id}', '${escapeJsParam(m.title)}')"
+            <button type="button" data-sp-lens-id="${m.id}" data-sp-lens-title="${escapeHtml(m.title)}"
               class="group cursor-pointer p-4 bg-gradient-to-br from-[#071324] via-[#0A192F] to-[#132238] border-2 border-[#C59B27] hover:border-[#DFB743] rounded-xl shadow-md transition-all hover:shadow-lg text-left w-full text-white">
               <div class="flex items-start gap-3.5">
                 <div class="w-10 h-10 rounded-lg bg-[#C59B27]/20 border border-[#C59B27]/50 flex items-center justify-center text-xl shrink-0">
@@ -908,7 +1118,7 @@
           <div id="optic-section-biblica" class="space-y-2.5" ${currentOpticTab === 'biblica' ? '' : 'hidden'}>
             ${ELITE_LENSES.biblica.map(l => `
               <div id="lens-card-${l.id}" class="rv-sp-lens-block">
-                <button type="button" onclick="window.triggerEliteLens('${l.id}', '${escapeJsParam(l.title)}')"
+                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}"
                   class="group cursor-pointer p-3.5 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all hover:shadow-md text-left w-full">
                   <div class="flex items-start gap-3">
                     <span class="text-2xl select-none" aria-hidden="true">${l.icon}</span>
@@ -927,7 +1137,7 @@
           <div id="optic-section-mental" class="space-y-2.5" ${currentOpticTab === 'mental' ? '' : 'hidden'}>
             ${ELITE_LENSES.mental.map(l => `
               <div id="lens-card-${l.id}" class="rv-sp-lens-block">
-                <button type="button" onclick="window.triggerEliteLens('${l.id}', '${escapeJsParam(l.title)}')"
+                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}"
                   class="group cursor-pointer p-3.5 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all hover:shadow-md text-left w-full">
                   <div class="flex items-start gap-3">
                     <span class="text-2xl select-none" aria-hidden="true">${l.icon}</span>
@@ -946,6 +1156,13 @@
     `;
 
     container.innerHTML = html;
+    Object.values(saved).forEach((el) => {
+      const id = String(el.id || '').replace(/^lens-result-/, '');
+      const card =
+        container.querySelector(`#lens-card-${id}`) ||
+        container.querySelector(`[data-sp-lens-id="${id}"]`)?.closest('.rv-sp-lens-block');
+      if (card) card.appendChild(el);
+    });
   }
 
   const openAiWithLens = async function(promptSeed, passageRef, lensTitle, lensId) {
@@ -996,7 +1213,10 @@
     else if (currentTab === 'tsk') await loadTskReferences();
     else if (currentTab === 'concordancia') await loadConcordance(currentActivePassage);
     else if (currentTab === 'strong') await loadStrongLexicon();
-    else if (currentTab === 'dogmatica' || currentTab === 'lentes') renderDualLensPanel();
+    else if (currentTab === 'dogmatica' || currentTab === 'lentes') {
+      const pane = document.getElementById('rv-sp-dogmatica');
+      if (!pane?.querySelector('[data-sp-lens-id]')) renderDualLensPanel();
+    }
   }
 
   const TABS_HTML = `
@@ -1035,17 +1255,9 @@
         <div class="rv-sp-body canon-scroll">
           <section id="rv-sp-comentarios" class="rv-sp-pane is-on" role="tabpanel"></section>
           <section id="rv-sp-tsk" class="rv-sp-pane" role="tabpanel" hidden></section>
-          <section id="rv-sp-concordancia" class="rv-sp-pane" role="tabpanel" hidden>
-            <div id="tab-concordancia">
-              <div id="concordance-content-area"></div>
-            </div>
-          </section>
+          <section id="rv-sp-concordancia" class="rv-sp-pane" role="tabpanel" hidden></section>
           <section id="rv-sp-strong" class="rv-sp-pane" role="tabpanel" hidden></section>
-          <section id="rv-sp-dogmatica" class="rv-sp-pane" role="tabpanel" hidden>
-            <div id="tab-lentes">
-              <div id="lentes-content-area"></div>
-            </div>
-          </section>
+          <section id="rv-sp-dogmatica" class="rv-sp-pane" role="tabpanel" hidden></section>
         </div>`;
       document.body.appendChild(root);
     }
@@ -1073,9 +1285,8 @@
     currentTab = map[tabId] || tabId || 'comentarios';
     if (currentTab === 'dogmatica' || currentTab === 'lentes' || tabId === 'lentes') {
       currentTab = 'dogmatica';
-      renderDualLensPanel();
     }
-    const root = ensurePanel();
+    const root = ensureStudyPanelRoot();
     root.querySelectorAll('[data-sp-tab]').forEach((btn) => {
       const tabKey = btn.dataset.spTab;
       const on = tabKey === currentTab || map[tabKey] === currentTab || (tabKey === 'lentes' && currentTab === 'dogmatica');
@@ -1108,7 +1319,7 @@
   }
 
   function createApi() {
-    const root = ensurePanel();
+    const root = ensureStudyPanelRoot();
 
     const setTab = switchStudyTab;
 
@@ -1158,6 +1369,18 @@
         loadCommentaryForVerse(retry.dataset.ref, retry.dataset.author, retry.dataset.text || '');
         return;
       }
+      const trBtn = event.target.closest('[data-rv-tr-toggle]');
+      if (trBtn) {
+        const trRoot = trBtn.closest('[data-rv-tr-root]');
+        const es = trRoot?.querySelector('[data-rv-tr-pane="es"]');
+        const en = trRoot?.querySelector('[data-rv-tr-pane="en"]');
+        if (es && en) {
+          const showEn = Boolean(es.hidden);
+          es.hidden = !showEn;
+          en.hidden = showEn;
+        }
+        return;
+      }
       const closeLens = event.target.closest('[data-sp-lens-close]');
       if (closeLens) {
         document.getElementById(`lens-result-${closeLens.dataset.spLensClose}`)?.remove();
@@ -1165,6 +1388,7 @@
       }
       const lensBtn = event.target.closest('[data-sp-lens-id]');
       if (lensBtn) {
+        event.preventDefault();
         triggerEliteLens(lensBtn.dataset.spLensId, lensBtn.dataset.spLensTitle);
         return;
       }

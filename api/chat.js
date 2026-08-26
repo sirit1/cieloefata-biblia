@@ -43,31 +43,16 @@ export async function POST(req) {
     }
 
     if (type === 'interlinear_resolve') {
-      const result = await generateText({
-        model: MODELO_GATEWAY,
-        system: 'Eres un diccionario léxico morfológico de precisión en Griego/Hebreo al servicio de la exégesis bíblica. Responde exclusivamente JSON válido, sin markdown ni comentarios.',
-        prompt: `Analiza exactamente el término ${String(prompt).slice(0, 120)} en el contexto del versículo ${String(context || 'no indicado').slice(0, 240)}. Devuelve SOLO este JSON: {"original":"grafía griega o hebrea","transliteration":"transliteración y pronunciación","strong":"G0000 o H0000","morphology":"análisis gramatical formal","meaning":"definición exegética y traducción literal al español","metanoia":"aplicación bajo la cruz y la Escritura, sin autoayuda"}. No dejes campos vacíos.`,
-        temperature: AI_TEMPERATURE,
-        maxOutputTokens: 700,
+      return json({
+        error: 'El léxico no se inventa. Usa GET /api/lexico?codigo=G#### o H####.',
+        original: String(prompt).slice(0, 120),
+        transliteration: '',
+        strong: '',
+        morphology: '',
+        meaning: 'No se fabricará un código Strong ni una glosa. Consulta /api/lexico.',
+        metanoia: '',
+        source: 'corpus-required',
       });
-      const cleaned = String(result.text || '').replace(/^```(?:json)?\s*|\s*```$/gi, '').trim();
-      if (!cleaned) {
-        return json({ error: 'Respuesta vacía', text: EMPTY_FALLBACK, answer: EMPTY_FALLBACK });
-      }
-      let data;
-      try {
-        data = JSON.parse(cleaned);
-      } catch (_) {
-        data = {
-          original: String(prompt),
-          transliteration: 'No se pudo estructurar la transliteración.',
-          strong: '',
-          morphology: 'No se pudo estructurar la morfología.',
-          meaning: cleaned,
-          metanoia: 'Vuelve al texto y discierne qué pensamiento necesita ser renovado bajo la cruz.',
-        };
-      }
-      return json(data);
     }
 
     const cleanMessage = prompt;

@@ -1,0 +1,283 @@
+{
+  "book": "Tito",
+  "usfm": "TIT",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Titus 1:1\n Paul, a servant of God, and an apostle of Jesus Christ - Titles suitable to the person of Paul, and the office he was assigning to Titus. According to the faith - The propagating of which is the proper business of an apostle. A servant of God - According to the faith of the elect. An apostle of Jesus Christ - According to the knowledge of the truth. We serve God according to the measure of our faith: we fulfil our public office according to the measure of our knowledge. The truth that is after godliness - Which in every point runs parallel with and supports the vital, spiritual worship of God; and, indeed, has no other end or scope. These two verses contain the sum of Christianity, which Titus was always to have in his eye. Of the elect of God - Of all real Christians",
+      "es": "Tito 1:1\n Pablo, siervo de Dios y apóstol de Jesucristo - Títulos adecuados a la persona de Pablo y al oficio que le asignaba a Tito. Según la fe - cuya propagación es tarea propia de un apóstol. Un siervo de Dios - Según la fe de los elegidos. Un apóstol de Jesucristo - Según el conocimiento de la verdad. Servimos a Dios según la medida de nuestra fe: cumplimos nuestro cargo público según la medida de nuestro conocimiento. La verdad que persigue la piedad - Que en cada punto corre paralela y apoya la adoración vital y espiritual de Dios; y, efectivamente, no tiene otro fin ni alcance. Estos dos versículos contienen la suma del cristianismo, que Tito siempre tuvo en sus ojos. De los elegidos de Dios - De todos los verdaderos cristianos",
+      "enHash": "d944a97d042f69a6b628771e82cee5e68ee1aa25978faad3130b46cbb7716444",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "Titus 1:2\n In hope of eternal life - The grand motive and encouragement of every apostle and every servant of God. Which God promised before the world began - To Christ, our Head.",
+      "es": "Tito 1:2\n Con esperanza de vida eterna - El gran motivo y estímulo de cada apóstol y cada siervo de Dios. Que Dios prometió antes de que el mundo comenzara: A Cristo, nuestra Cabeza.",
+      "enHash": "9f199a868d4283638ec7f5d038ef20bf1aa1b11e1dc6688566b7f39d9e538be1",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "Titus 1:3\n And he hath in his own times - At sundry times; and his own times are fittest for his own work. What creature dares ask, \"Why no sooner?\" Manifested his word - Containing that promise, and the whole \"truth which is after godliness.\" Through the preaching wherewith I am intrusted according to the commandment of God our Saviour - And who dares exercise this office on any less authority?",
+      "es": "Tito 1:3\n Y él tiene en sus propios tiempos - En diversos momentos; y sus propios tiempos son los más adecuados para su propio trabajo. ¿Qué criatura se atreve a preguntar: \"¿Por qué no antes?\" Manifestó su palabra - Que contiene esa promesa y toda la \"verdad que sigue a la piedad\". Por la predicación que me ha sido encomendada según el mandamiento de Dios nuestro Salvador. ¿Y quién se atreve a ejercer este oficio con menor autoridad?",
+      "enHash": "46ac6fd680035b01113a5e9676254aacdfb4bd02d61ff8fbb748d39ffceefa49",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "Titus 1:4\n My own son - Begot in the same image of God, and repaying a paternal with a filial affection. The common faith - Common to me and all my spiritual children.",
+      "es": "Tito 1:4\n Mi propio hijo - Engendrado a la misma imagen de Dios, y correspondiendo a un paterno con un afecto filial. La fe común - Común para mí y para todos mis hijos espirituales.",
+      "enHash": "80b1f1ba1ccb3081aa56f0e769171ddfd7860b8eb7e860bb79d5f75b818be1c5",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "Titus 1:5\n The things which are wanting - Which I had not time to settle myself. Ordain elders - Appoint the most faithful, zealous men to watch over the rest. Their character follows, Tit 1:6 - 9. These were the elders, or bishops, that Paul approved of; - men that had living faith, a pure conscience, a blameless life.",
+      "es": "Tito 1:5\n Las cosas que faltan - Que no tuve tiempo de arreglar yo mismo. Ordenar ancianos: designa a los hombres más fieles y celosos para que vigilen al resto. Su carácter sigue, Tito 1:6 - 9. Estos eran los ancianos u obispos que Pablo aprobaba; - hombres que tenían fe viva, conciencia pura, vida intachable.",
+      "enHash": "24e8810e9b5a209cc16ed126f6f23bdaa16cb1af572750645468066b06ef720b",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "Titus 1:6\n The husband of one wife - Surely the Holy Ghost, by repeating this so often, designed to leave the Romanists without excuse.",
+      "es": "Tito 1:6\n El marido de una sola mujer - Seguramente el Espíritu Santo, al repetir esto con tanta frecuencia, diseñó dejar a los romanistas sin excusa.",
+      "enHash": "b0f7533211bd300ae08d6b463df0d73d44091bd8dfa478ee61ad2a01f98c3d58",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "Titus 1:7\n As the steward of God - To whom he intrusts immortal souls. Not selfwilled - Literally, pleasing himself; but all men \"for their good to edification.\" Not passionate - But mild, yielding, tender.",
+      "es": "Tito 1:7\n Como mayordomo de Dios - A quien confía almas inmortales. No obstinado - Literalmente, complacerse a sí mismo; pero todos los hombres \"para su bien para edificación\". No apasionado, sino suave, complaciente y tierno.",
+      "enHash": "b0e89fc4feb5f0703fb55542bafe622b82fa097c81a579efd484643c888af12e",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "Titus 1:9\n As he hath been taught - Perhaps it might be more literally rendered, according to the teaching, or doctrine, of the apostles; alluding to Acts 2:42 .",
+      "es": "Tito 1:9\n Como se le ha enseñado - Quizás podría traducirse más literalmente, según la enseñanza o doctrina de los apóstoles; en alusión a Hechos 2:42.",
+      "enHash": "21ac37c1da6239cd58f1af3cc10008c2cdfd224e547cf61f6feff47e9a1a0267",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "They of the circumcision — The Jewish converts.",
+      "es": "Los de la circuncisión: los judíos conversos.",
+      "enHash": "947a3be6c72a1e5aa61554c907223fa888571219cd33f2d561952b0dc191b394",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "Stopped — The word properly means, to put a bit into the mouth of an unruly horse.",
+      "es": "Detenido: la palabra propiamente significa poner un bocado en la boca de un caballo rebelde.",
+      "enHash": "57bf2a8957d6be74f89d4922b70ae2819de127aca598fdfd6d88c4ef26a6f83c",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "Titus 1:12\n A prophet - So all poets were anciently called; but, besides, Diogenes Laertius says that Epimenides, the Cretan poet, foretold many things. Evil wild beasts - Fierce and savage.",
+      "es": "Tito 1:12\n Un profeta - Así se llamaba antiguamente a todos los poetas; pero, además, Diógenes Laercio dice que Epiménides, el poeta cretense, predijo muchas cosas. Bestias salvajes malvadas: feroces y salvajes.",
+      "enHash": "202a046d152b92b1f114e92f4e05227196d016decd9de87c752d6d8e19276e16",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "Titus 1:14\n Commandments of men - The Jewish or other teachers, whoever they were that turned from the truth.",
+      "es": "Tito 1:14\n Mandamientos de hombres - Los maestros judíos u otros, quienesquiera que fueran, que se alejaron de la verdad.",
+      "enHash": "32a213f18bfda624a124d22333871492d2f05f07e69c413d44fa4e4d2b623dd0",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "Titus 1:15\n To the pure - Those whose hearts are purified by faith this we allow. All things are pure - All kinds of meat; the Mosaic distinction between clean and unclean meats being now taken away. But to the defiled and unbelieving nothing is pure - The apostle joins defiled and unbelieving, to intimate that nothing can be clean without a true faith: for both the understanding and conscience, those leading powers of the soul, are polluted; consequently, so is the man and all he does.",
+      "es": "Tito 1:15\n A los puros - Aquellos cuyos corazones están purificados por la fe, esto lo permitimos. Todas las cosas son puras - Todo tipo de carne; ahora se ha eliminado la distinción mosaica entre carnes limpias e inmundas. Pero para los contaminados e incrédulos nada es puro - El apóstol se une a los contaminados e incrédulos, para insinuar que nada puede ser limpio sin una fe verdadera: porque tanto el entendimiento como la conciencia, esos poderes principales del alma, están contaminados; en consecuencia, también lo es el hombre y todo lo que hace.",
+      "enHash": "c9f7691a7314a008055ae3eccbd1aac8ace3cdbac5af52b2d5b0a746bf365900",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "Wholesome — Restoring and preserving spiritual health.",
+      "es": "Saludable: Restaurar y preservar la salud espiritual.",
+      "enHash": "f2a64acd88fae08a93613ac3de5d35bf759b3919eb462a84d9c3a6453e05e4fc",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "Titus 2:2\n Vigilant - As veteran soldiers, not easily to be surprised. Patience - A virtue particularly needful for and becoming them. Serious - Not drolling or diverting on the brink of eternity.",
+      "es": "Tito 2:2\n Vigilante: como soldados veteranos, no es fácil sorprenderse. Paciencia: una virtud particularmente necesaria para ellos y que les convierte en ellos. Serio: sin bromas ni diversión al borde de la eternidad.",
+      "enHash": "850c7bf083b3c80f2b4ce8c107caca6cf6da7249f9d5f84d6bd35e2d99fe6e31",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "Titus 2:3\n In behaviour - The particulars whereof follow. As becometh holiness - Literally, observing an holy decorum. Not slanderers - Or evil - speakers. Not given to much wine - If they use a little for their often infirmities. Teachers - Age and experience call them so to be. Let them teach good only.",
+      "es": "Tito 2:3\n En comportamiento - Los detalles de los cuales siguen. Como corresponde a la santidad - Literalmente, observar un decoro santo. No calumniadores ni malvados oradores. No dado a mucho vino - Si usan un poco para sus frecuentes enfermedades. Profesores: la edad y la experiencia así lo exigen. Que enseñen sólo el bien.",
+      "enHash": "601f1647469f2d5ca1da46762e75b1c24d3d21f7efd36a25937c553c45d594e3",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "Titus 2:4\n That they instruct the young women - These Timothy was to instruct himself; Titus, by the elder women. To love their husbands, their children - With a tender, temperate, holy, wise affection. O how hard a lesson.",
+      "es": "Tito 2:4\n Que instruyan a las mujeres jóvenes - Estos Timoteo debían instruirse a sí mismo; Tito, por las mujeres mayores. Amar a sus maridos, a sus hijos - Con cariño tierno, templado, santo y sabio. ¡Oh, qué dura lección!",
+      "enHash": "3cbc563babc9c6ee59f3673cf8f602aa0131d72ce41a63deb1ee5e9404b5b2b6",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "Titus 2:5\n Discreet - Particularly in the love of their children. Chaste - Particularly in the love of their husbands. Keepers at home - Whenever they are not called out by works of necessity, piety, and mercy. Good - Well tempered, sweet, soft, obliging. Obedient to their husbands - Whose will, in all things lawful, is a rule to the wife. That the word of God be not blasphemed - Or evil spoken of; particularly by unbelieving husbands, who lay all the blame on the religion of their wives.",
+      "es": "Tito 2:5\n Discreto - Particularmente en el amor a sus hijos. Casta - Particularmente en el amor de sus maridos. Guardianes de la casa - Siempre que no sean llamados por obras de necesidad, piedad y misericordia. Bueno - De buen carácter, dulce, suave, servicial. Obedientes a sus maridos - Cuya voluntad, en todo lo lícito, es una regla para la esposa. Que no se blasfeme la palabra de Dios - Ni se hable mal de ella; particularmente por maridos incrédulos, que echan toda la culpa a la religión de sus esposas.",
+      "enHash": "e9850f82206d1ba9e8fa7fffd1dea4ccf3fa173ea3ece87a6ba13195e62bea6b",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "To be discreet — A virtue rarely found in youth.",
+      "es": "Ser discreto: una virtud que rara vez se encuentra en la juventud.",
+      "enHash": "602832bdca4066956aad03a0717366ed1ee1bc0cb42ffd8e1de910fa4bca87ef",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "Titus 2:7\n Showing thyself a pattern - Titus himself was then young. In the doctrine which thou teachest in public: as to matter, uncorruptness; as to the manner of delivering it, seriousness - Weightiness, solemnity.",
+      "es": "Tito 2:7\n Mostrándote un modelo: el propio Tito era entonces joven. En la doctrina que enseñas en público: en cuanto a la materia, la incorrupción; en cuanto a la forma de pronunciarlo, seriedad - Pesada, solemnidad.",
+      "enHash": "eb48b41f60af7b88e41a414ce816df79bbbcae634cf3f87eeaca7917657cbdb3",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "Wholesome speech — In private conversation.",
+      "es": "Habla sana: en una conversación privada.",
+      "enHash": "0ac9d7c0464e79a58f5602ba7d107a6c153de673c90fc0a0ee343f5e244f34bc",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "Titus 2:9\n Please them in all things - Wherein it can be done without sin. Not answering again - Though blamed unjustly. This honest servants are most apt to do. Not stealing - Not taking or giving any thing without their master's leave: this fair - spoken servants are apt to do.",
+      "es": "Tito 2:9\n Por favor en todas las cosas - Donde se pueda hacer sin pecado. No volver a responder - Aunque se le culpa injustamente. Esto es lo que los sirvientes honestos son más propensos a hacer. No robar - No tomar ni dar nada sin el permiso de su amo: esto es lo que suelen hacer los sirvientes de habla justa.",
+      "enHash": "c6c959e6912a1bdcf291a1a149cb1d6fe409e47be0b2669183beaf6915748ea3",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "Titus 2:10\n Showing all good fidelity - Soft, obliging faithfulness That they may adorn the doctrine of God our Saviour - More than St. Paul says of kings. How he raises the lowness of his subject! So may they, the lowness of their condition.",
+      "es": "Tito 2:10\n Mostrando toda buena fidelidad - Fidelidad suave y servicial Para que adornen la doctrina de Dios nuestro Salvador - Más de lo que dice San Pablo de los reyes. ¡Cómo eleva la bajeza de su súbdito! Que ellos también, la bajeza de su condición.",
+      "enHash": "5208c08dae7a360d572dab8cfd41c8419030b1a0b8431dab58118ce7464b3369",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "The saving grace of God — So it is in its nature, tendency, and design.\n\n Hath appeared to all men — High and low.",
+      "es": "La gracia salvadora de Dios: así es en su naturaleza, tendencia y diseño.\n\n Se ha aparecido a todos los hombres, altos y bajos.",
+      "enHash": "cf07d55568525941dccee2177f044439c1d0c39fbe70a699c7341d36a3a813a7",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "Titus 2:12\n Instructing us - All who do not reject it. That, having renounced ungodliness - Whatever is contrary to the fear and love of God. And worldly desires - Which are opposite to sobriety and righteousness. We should live soberly - In all purity and holiness. Sobriety, in the scripture sense, is rather the whole temper of a man, than a single virtue in him. It comprehends all that is opposite to the drowsiness of sin, the folly of ignorance, the unholiness of disorderly passions. Sobriety is no less than all the powers of the soul being consistently and constantly awake, duly governed by heavenly prudence, and entirely conformable to holy affections. And righteously - Doing to all as we would they should do to us. And godly - As those who are consecrated to God both in heart and life.",
+      "es": "Tito 2:12\n Instruyéndonos - Todos los que no lo rechacen. Que, habiendo renunciado a la impiedad - Todo lo que sea contrario al temor y al amor de Dios. Y los deseos mundanos - Que son opuestos a la sobriedad y la rectitud. Debemos vivir sobriamente - Con toda pureza y santidad. La sobriedad, en el sentido bíblico, es más bien todo el temperamento de un hombre que una sola virtud en él. Comprende todo lo que es opuesto a la somnolencia del pecado, la locura de la ignorancia, la impiedad de las pasiones desordenadas. La sobriedad no es menos que el hecho de que todas las potencias del alma estén constante y constantemente despiertas, debidamente gobernadas por la prudencia celestial y enteramente conformes a los santos afectos. Y con rectitud - Haciendo a todos lo que quisiéramos que nos hicieran. Y piadoso - Como aquellos que están consagrados a Dios tanto en corazón como en vida.",
+      "enHash": "cd3ff129f6ea05a21269174c5421d66988c52dba27a557dba710caacc8cabdf3",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "Titus 2:13\n Looking - With eager desire. For that glorious appearing - Which we hope for. Of the great God, even our Saviour Jesus Christ - So that, if there be (according to the Arian scheme) a great God and a little God, Christ is not the little God, but the great one.",
+      "es": "Tito 2:13\n Mirando - Con gran deseo. Por esa aparición gloriosa que esperamos. Del gran Dios, nuestro Salvador Jesucristo - De modo que, si hay (según el esquema arriano) un Dios grande y un Dios pequeño, Cristo no es el Dios pequeño, sino el grande.",
+      "enHash": "c54a54bc2410fbfa7564501dd4d97ae260a304dace161b6f4f682a78bbecbf59",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "Titus 2:14\n Who gave himself for us - To die in our stead. That he might redeem us - Miserable bondslaves, as well from the power and the very being, as from the guilt, of all our sins.",
+      "es": "Tito 2:14\n Quien se entregó por nosotros - Para morir en nuestro lugar. Para que pueda redimirnos - Esclavos miserables, tanto del poder y del ser mismo, como de la culpa, de todos nuestros pecados.",
+      "enHash": "a43634fbddb04561414cbf23d01555df413442a804227972ef8b95eef0c63b02",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "Titus 2:15\n Let no man despise thee - That is, let none have any just cause to despise thee. Yet they surely will. Men who know not God will despise a true minister of his word.",
+      "es": "Tito 2:15\n Que nadie te desprecie - Es decir, que nadie tenga una causa justa para despreciarte. Sin embargo, seguramente lo harán. Los hombres que no conocen a Dios despreciarán a un verdadero ministro de su palabra.",
+      "enHash": "ad7f45989f815123fd201631c2dcf28735a1dc5f511664430045858453074c6a",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "Titus 3:1\n Remind them - All the Cretan Christians. To be subject - Passively, not resisting. To principalities - Supreme. And powers - Subordinate governors. And to obey - Them actively, so far as conscience permits.",
+      "es": "Tito 3:1\n Recuérdeles: a todos los cristianos cretenses. Estar sujeto - Pasivamente, sin resistir. A los principados - Supremo. Y poderes - Gobernadores subordinados. Y obedecerlos activamente, hasta donde la conciencia lo permita.",
+      "enHash": "5b6cd0c54d03a0521cde9edea04e237b8302e2ac4064d9609c771a057d73f60d",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "Titus 3:2\n To speak evil - Neither of them nor any man. Not to be quarrelsome - To assault none. To be gentle - When assaulted. Toward all men - Even those who are such as we were.",
+      "es": "Tito 3:2\n Hablar mal - Ni de ellos ni de ningún hombre. No ser pendenciero - No agredir a nadie. Ser gentil - Cuando sea agredido. Hacia todos los hombres - Incluso aquellos que son como nosotros.",
+      "enHash": "2a9f813c364367019c7c6e7a152b7d265f7688881cb794e06a97b050155d9418",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "Titus 3:3\n For we - And as God hath dealt with us, so ought we to deal with our neighbour. Were without understanding - Wholly ignorant of God. And disobedient - When he was declared to us.",
+      "es": "Tito 3:3\n Para nosotros - Y como Dios nos ha tratado, así debemos tratar nosotros con nuestro prójimo. No tenían entendimiento - Totalmente ignorantes de Dios. Y desobediente - Cuando nos fue declarado.",
+      "enHash": "099806b0af03d90cfa4a2912c994e82e5df32c76bd16ed2fa34e48dcd51cc189",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "When the love of God appeared — By the light of his Spirit to our inmost soul.",
+      "es": "Cuando apareció el amor de Dios, por la luz de su Espíritu en lo más íntimo de nuestra alma.",
+      "enHash": "5782aec35b601b31d5647e1079ca8dcb92f994783dad59ed65fc7ca8886701fb",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "Titus 3:5\n Not by works - In this important passage the apostle presents us with a delightful view of our redemption. Herein we have, The cause of it; not our works or righteousness, but \"the kindness and love of God our Saviour.\" The effects; which are, Justification; \"being justified,\" pardoned and accepted through the alone merits of Christ, not from any desert in us, but according to his own mercy, \"by his grace,\" his free, unmerited goodness. Sanctification, expressed by the laver of regeneration, (that is, baptism, the thing signified, as well as the outward sign,) and the renewal of the Holy Ghost; which purifies the soul, as water cleanses the body, and renews it in the whole image of God. The consummation of all; - that we might become heirs of eternal life, and live now in the joyful hope of it.",
+      "es": "Tito 3:5\n No por obras - En este importante pasaje el apóstol nos presenta una visión deliciosa de nuestra redención. Aquí tenemos la causa de ello; no nuestras obras o nuestra justicia, sino \"la bondad y el amor de Dios nuestro Salvador\". Los efectos; que son, Justificación; \"siendo justificados\", perdonados y aceptados sólo por los méritos de Cristo, no por ningún mérito en nosotros, sino según su propia misericordia, \"por su gracia\", su bondad gratuita e inmerecida. Santificación, expresada por el lavatorio de la regeneración (es decir, el bautismo, la cosa significada, así como la señal externa) y la renovación del Espíritu Santo; que purifica el alma, como el agua limpia el cuerpo y lo renueva en toda la imagen de Dios. La consumación de todo; - para que podamos llegar a ser herederos de la vida eterna y vivir ahora en la gozosa esperanza de ella.",
+      "enHash": "455328126db4b2b347832d9535968ae78b5aa21766ab822f135394b4e9cc919f",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "Titus 3:8\n Be careful to excel in good works - Though the apostle does not lay these for the foundation, yet he brings them in at their proper place, and then mentions them, not slightly, but as affairs of great importance. He desires that all believers should be careful - Have their thoughts upon them: use their best contrivance, their utmost endeavours, not barely to practise, but to excel, to be eminent and distinguished in them: because, though they are not the ground of our reconciliation with God, yet they are amiable and honourable to the Christian profession. And profitable to men - Means of increasing the everlasting happiness both of ourselves and others.",
+      "es": "Tito 3:8\n Tenga cuidado de sobresalir en las buenas obras - Aunque el apóstol no las coloca como fundamento, las coloca en el lugar apropiado y luego las menciona, no ligeramente, sino como asuntos de gran importancia. Él desea que todos los creyentes tengan cuidado: tengan sus pensamientos sobre ellos: utilicen sus mejores recursos, sus mayores esfuerzos, no sólo para practicar, sino para sobresalir, ser eminentes y distinguidos en ellos: porque, aunque no son la base de nuestra reconciliación con Dios, son amables y honorables para la profesión cristiana. Y rentable para los hombres - Medios para aumentar la felicidad eterna tanto de nosotros mismos como de los demás.",
+      "enHash": "8d33e963148c6a1e47c44e2bb317634af9da2291e3bec1a755fed8edb8916ba0",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "Titus 3:10\n An heretic (after a first and second admonition) reject - Avoid, leave to himself. This is the only place, in the whole scripture, where this word heretic occurs; and here it evidently means, a man that obstinately persists in contending about \"foolish questions,\" and thereby occasions strife and animosities, schisms and parties in the church. This, and this alone, is an heretic in the scripture sense; and his punishment likewise is here fixed. Shun, avoid him, leave him to himself. As for the Popish sense, \"A man that errs in fundamentals,\" although it crept, with many other things, early into the church, yet it has no shadow of foundation either in the Old or New Testament.",
+      "es": "Tito 3:10\n Un hereje (después de una primera y segunda amonestación) rechaza: evita, deja solo. Este es el único lugar, en toda la Escritura, donde aparece esta palabra hereje; y aquí evidentemente significa un hombre que persiste obstinadamente en contender sobre \"cuestiones tontas\" y, por lo tanto, ocasiona luchas y animosidades, cismas y partidos en la iglesia. Esto, y sólo esto, es hereje en el sentido de las Escrituras; y aquí también se fija su castigo. Evítalo, evítalo, déjalo solo. En cuanto al sentido papista, \"un hombre que se equivoca en lo fundamental\", aunque se infiltró, junto con muchas otras cosas, tempranamente en la iglesia, no tiene sombra de fundamento ni en el Antiguo ni en el Nuevo Testamento.",
+      "enHash": "8b2e363afc28623f4b7867b382ee26635e258f221083f1cd1aef35a42623722b",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "Titus 3:11\n Such an one is perverted - In his heart, at least. And sinneth, being self - condemned - Being convinced in his own conscience that he acts wrong.",
+      "es": "Tito 3:11\n Alguien así es un pervertido... al menos en su corazón. Y peca, condenándose a sí mismo - Estando convencido en su propia conciencia de que actúa mal.",
+      "enHash": "63f8fc3ef8aab7c0852d717fc4366f3ee126bb2101c2a8f4947449b0dd392a70",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "Titus 3:12\n When I shall send Artemas or Tychicus - To succeed thee in thy office. Titus was properly an evangelist, who, according to the nature of that office, had no fixed residence; but presided over other elders, wherever he travelled from place to place, assisting each of the apostles according to the measure of his abilities. Come to me to Nicopolis - Very probably not the Nicopolis in Macedonia, as the vulgar subscription asserts: (indeed, none of those subscriptions at the end of St. Paul's epistles are of any authority:) rather it was a town of the same name which lay upon the sea - coast of Epirus. For I have determined to winter there - Hence it appears, he was not there yet; if so, he would have said, to winter here. Consequently, this letter was not written from thence.",
+      "es": "Tito 3:12\n Cuando enviaré a Artemas o Tíquico - Para sucederte en tu cargo. Tito era propiamente un evangelista que, según la naturaleza de ese cargo, no tenía residencia fija; pero presidía a los demás ancianos, dondequiera que viajaba de un lugar a otro, ayudando a cada uno de los apóstoles según la medida de sus capacidades. Ven a mí a Nicópolis - Muy probablemente no sea Nicópolis en Macedonia, como afirma la suscripción vulgar: (de hecho, ninguna de esas suscripciones al final de las epístolas de San Pablo tiene autoridad alguna:) más bien, era una ciudad del mismo nombre que se encontraba en el mar, la costa de Epiro. Porque he decidido pasar el invierno allí - Por lo tanto, parece que él aún no estaba allí; si es así, habría dicho, pasar el invierno aquí. En consecuencia, esta carta no fue escrita desde allí.",
+      "enHash": "b32dd4e4700e3c948378edb2fe86eb2fd62a9215925d6d0f842c26817dc66020",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "Send forward Zenas the lawyer — Either a Roman lawyer or an expounder of the Jewish law.",
+      "es": "Envíe al abogado Zenas, ya sea un abogado romano o un expositor de la ley judía.",
+      "enHash": "a5a71fe9236d6427362b0d00e953914d4e664cbd785e8968b4e812f9f1fec1d7",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "Titus 3:14\n And let ours - All our brethren at Crete. Learn - Both by thy admonition and example. Perhaps they had not before assisted Zenas and Apollos as they ought to have done.",
+      "es": "Tito 3:14\n Y dejemos a los nuestros - Todos nuestros hermanos en Creta. Aprende - Tanto con tu advertencia como con tu ejemplo. Quizás antes no habían ayudado a Zenas y Apolos como deberían haberlo hecho.",
+      "enHash": "2758dbd94ab18da1b63af3408430c8f074b194a2b28450178a7594fb64393fdf",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:3": "b3",
+    "1:4": "b4",
+    "1:5": "b5",
+    "1:6": "b6",
+    "1:7": "b7",
+    "1:9": "b8",
+    "1:10": "b9",
+    "1:11": "b10",
+    "1:12": "b11",
+    "1:14": "b12",
+    "1:15": "b13",
+    "2:1": "b14",
+    "2:2": "b15",
+    "2:3": "b16",
+    "2:4": "b17",
+    "2:5": "b18",
+    "2:6": "b19",
+    "2:7": "b20",
+    "2:8": "b21",
+    "2:9": "b22",
+    "2:10": "b23",
+    "2:11": "b24",
+    "2:12": "b25",
+    "2:13": "b26",
+    "2:14": "b27",
+    "2:15": "b28",
+    "3:1": "b29",
+    "3:2": "b30",
+    "3:3": "b31",
+    "3:4": "b32",
+    "3:5": "b33",
+    "3:8": "b34",
+    "3:10": "b35",
+    "3:11": "b36",
+    "3:12": "b37",
+    "3:13": "b38",
+    "3:14": "b39"
+  }
+}

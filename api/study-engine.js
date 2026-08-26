@@ -1,13 +1,13 @@
 /**
- * POST/GET /api/study-engine — wrapper Node (no Edge) de generateUniversalAnswer.
- * Misma forma que studyEngineHandler en server.js.
+ * POST/GET /api/study-engine
+ * IA only for lens / elite_lens. TSK, commentary, lexicon, concordance = corpus.
+ * Never theological-fallback / «Respaldo teológico».
  */
 import { generateUniversalAnswer } from './ai.js';
-import {
-  generarFallbackLente,
-  generarFallbackLenteElite,
-  generarFallbackConcordancia,
-} from '../lib/theological-fallback.js';
+import tskHandler from './tsk.js';
+import commentaryHandler from './commentary.js';
+import lexicoHandler from './lexico.js';
+import concordanciaHandler from './concordancia.js';
 
 export const config = { runtime: 'nodejs' };
 
@@ -16,12 +16,12 @@ function envelope(payload = {}) {
     payload.answer || payload.respuesta || payload.result || payload.data || payload.text || '';
   return {
     ...payload,
-    success: true,
-    ok: true,
+    success: payload.success !== false,
+    ok: payload.ok !== false,
     answer,
-    respuesta: answer,
-    result: answer,
-    text: answer,
+    respuesta: payload.respuesta || answer,
+    result: payload.result || answer,
+    text: payload.text || answer,
     commentary: payload.commentary?.text ? payload.commentary : { text: answer },
   };
 }
@@ -30,6 +30,49 @@ function collectBody(req) {
   const query = req.query && typeof req.query === 'object' ? req.query : {};
   const body = req.body && typeof req.body === 'object' ? req.body : {};
   return { ...query, ...body };
+}
+
+export function foldStudyType(body = {}, pathname = '') {
+  const t = String(body.type || body.mode || '').toLowerCase().trim();
+  const p = String(pathname || '').toLowerCase();
+  if (t === 'concordance' || t === 'concordancia' || t === 'thematic' || t === 'tematica') return 'concordance';
+  if (t === 'commentary' || t === 'comentario' || t === 'classical') return 'commentary';
+  if (t === 'tsk' || t === 'xref' || t === 'cross') return 'tsk';
+  if (t === 'lexicon' || t === 'lexico' || t === 'strong' || t === 'strongs') return 'lexicon';
+  if (t === 'elite_lens' || t === 'lente_elite' || t === 'lente-elite' || t === 'elite') return 'elite_lens';
+  if (t === 'lens' || t === 'lente' || t === 'vida') return 'lens';
+  if (p.includes('lente-elite')) return 'elite_lens';
+  if (p.includes('concordanc')) return 'concordance';
+  if (p.includes('tsk')) return 'tsk';
+  if (p.includes('lexicon') || p.includes('lexico') || p.includes('strong')) return 'lexicon';
+  if (p.includes('comentario') || p.includes('commentary')) return 'commentary';
+  if (p.includes('lente')) return 'lens';
+  return 'unspecified';
+}
+
+function corpusRefuse() {
+  const msg = 'El estudio canónico (TSK, comentarios, léxico, concordancia) usa corpus. La IA solo opera en lentes y el chat.';
+  return {
+    success: false,
+    ok: false,
+    error: msg,
+    answer: msg,
+    text: msg,
+    source: 'corpus-required',
+  };
+}
+
+function aiUnavailable(err) {
+  const msg = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
+  return {
+    success: false,
+    ok: false,
+    error: msg,
+    answer: msg,
+    text: msg,
+    source: 'ai-unavailable',
+    meta: { error: err?.message },
+  };
 }
 
 export default async function handler(req, res) {
@@ -52,65 +95,32 @@ export default async function handler(req, res) {
   if (!body.passage && body.referencia) body.passage = body.referencia;
   if (!body.passage && body.consulta) body.passage = body.consulta;
   if (!body.passage && body.contextPassage) body.passage = body.contextPassage;
+  if (!body.consulta && body.passage) body.consulta = body.passage;
   if (!body.prompt && body.message) body.prompt = body.message;
-  if (!body.mode && !body.type) {
-    const p = String(req.url || req.path || '');
-    if (p.includes('lente-elite')) body.type = 'elite_lens';
-    else if (p.includes('tsk')) body.type = 'tsk';
-    else if (p.includes('lexic')) body.type = 'lexicon';
-    else if (p.includes('concordanc')) body.type = 'concordance';
-    else if (p.includes('exegesis') || p.includes('comentario')) body.type = 'commentary';
-    else if (p.includes('lente')) body.type = 'lens';
-  }
+  req.body = body;
+  req.query = { ...(req.query || {}), ...body };
+
+  const type = foldStudyType(body, req.url || req.path || '');
 
   try {
-    const payload = await generateUniversalAnswer(body, req.url || req.path || '/api/study-engine');
+    if (type === 'tsk') return tskHandler(req, res);
+    if (type === 'commentary') return commentaryHandler(req, res);
+    if (type === 'lexicon') return lexicoHandler(req, res);
+    if (type === 'concordance') return concordanciaHandler(req, res);
+    if (type !== 'lens' && type !== 'elite_lens') {
+      return res.status(200).json(corpusRefuse());
+    }
+
+    const payload = await generateUniversalAnswer(
+      { ...body, type, mode: type },
+      req.url || req.path || '/api/study-engine',
+    );
     return res.status(200).json(envelope(payload));
   } catch (error) {
     console.error('[study-engine] Error:', error?.message || error);
-    const mode = String(
-      body.mode || body.type || (String(req.url || '').includes('concordanc') ? 'concordance' : ''),
-    ).toLowerCase();
-    let fallbackAnswer = '';
-    if (mode === 'concordance' || mode === 'concordancia') {
-      fallbackAnswer = generarFallbackConcordancia({
-        keyword: body.keyword || body.searchTerm || body.termino,
-        passage: body.passage || body.referencia || 'Pasaje Bíblico',
-        verseText: body.verseText,
-      });
-    } else if (
-      mode === 'elite_lens' ||
-      body.subLensId ||
-      (body.lensId &&
-        (String(body.lensId).startsWith('biblica_') ||
-          String(body.lensId).startsWith('mental_') ||
-          body.lensId === 'dictamen_maestro'))
-    ) {
-      fallbackAnswer = generarFallbackLenteElite({
-        passage: body.passage || body.referencia || 'Pasaje Bíblico',
-        subLensId: body.subLensId,
-        lensId: body.lensId,
-        lensTitle: body.lensTitle || body.lente || 'Análisis Bíblico',
-        prompt: body.prompt,
-        verseText: body.verseText,
-      });
-    } else {
-      fallbackAnswer = generarFallbackLente({
-        passage: body.passage || body.referencia || 'Pasaje Bíblico',
-        lensTitle: body.lensTitle || body.lente || 'Análisis Bíblico',
-        prompt: body.prompt,
-        verseText: body.verseText,
-      });
+    if (type === 'tsk' || type === 'commentary' || type === 'lexicon' || type === 'concordance') {
+      return res.status(200).json(corpusRefuse());
     }
-    return res.status(200).json(
-      envelope({
-        success: true,
-        ok: true,
-        answer: fallbackAnswer,
-        text: fallbackAnswer,
-        source: 'theological-engine-fallback',
-        author: 'Respaldo teológico',
-      }),
-    );
+    return res.status(200).json(aiUnavailable(error));
   }
 }

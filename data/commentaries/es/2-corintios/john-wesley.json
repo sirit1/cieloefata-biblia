@@ -1,0 +1,1338 @@
+{
+  "book": "2 Corintios",
+  "usfm": "2CO",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Timotheus our brother — St. Paul writing to Timotheus styled him his son; writing of him, his brother.",
+      "es": "Timoteo nuestro hermano – San Pablo, escribiendo a Timoteo, lo llamó su hijo; escribiendo sobre él, su hermano.",
+      "enHash": "d7cd52b5bd9ec65762158e9ccbcc52e13b67f05101bb4cfe72f4243bc4435763",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "II Corinthians 1:3\n Blessed be the God and Father of our Lord Jesus Christ - A solemn and beautiful introduction, highly suitable to the apostolical spirit. The Father of mercies, and God of all comfort - Mercies are the fountain of comfort; comfort is the outward expression of mercy. God shows mercy in the affliction itself. He gives comfort both in and after the affliction. Therefore is he termed, the God of all comfort. Blessed be this God!",
+      "es": "II Corintios 1:3\n Bendito sea el Dios y Padre de nuestro Señor Jesucristo - Una introducción solemne y hermosa, muy adecuada al espíritu apostólico. El Padre de las misericordias y Dios de todo consuelo - Las misericordias son la fuente del consuelo; El consuelo es la expresión exterior de la misericordia. Dios muestra misericordia en la aflicción misma. Él da consuelo tanto durante como después de la aflicción. Por eso se le llama el Dios de todo consuelo. ¡Bendito sea este Dios!",
+      "enHash": "4403bec2c2149c0fa387a4b85eb605587b78135c31317a7df7f45bf53fc9efd7",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "II Corinthians 1:4\n Who comforteth us in all our affliction, that we may be able to comfort them who are in any affliction - He that has experienced one kind of affliction is able to comfort others in that affliction. He that has experienced all kinds of affliction is able to comfort them in all.",
+      "es": "II Corintios 1:4\n Quien nos consuela en todas nuestras aflicciones, para que podamos consolar a los que están en cualquier aflicción - El que ha experimentado un tipo de aflicción puede consolar a otros en esa aflicción. El que ha experimentado toda clase de aflicciones, en todas puede consolarlas.",
+      "enHash": "5b8f6dc247e7f17a3dce5e8d1f8869d9a685af668ebd9ae0cbe9d11a9fd21ebd",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "II Corinthians 1:5\n For as the sufferings of Christ abound in us - The sufferings endured on his account. So our comfort also aboundeth through Christ - The sufferings were many, the comfort one; and yet not only equal to, but overbalancing, them all.",
+      "es": "II Corintios 1:5\n Porque como los sufrimientos de Cristo abundan en nosotros - Los sufrimientos soportados por su cuenta. Así también abunda nuestro consuelo en Cristo - Los sufrimientos fueron muchos, el consuelo; y, sin embargo, no sólo son iguales a todos ellos, sino que los superan a todos.",
+      "enHash": "77f51df1da789ab018169ff3526fc1555ce95b108b5e70cedae6b4ef9db0ab9a",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "II Corinthians 1:6\n And whether we are afflicted, it is for your comfort and salvation - For your present comfort, your present and future salvation. Or whether we are comforted, it is for your comfort - That we may be the better able to comfort you. Which is effectual in the patient enduring the same sufferings which we also suffer - Through the efficacy of which you patiently endure the same kind of sufferings with us.",
+      "es": "II Corintios 1:6\n Y si somos afligidos, es para vuestro consuelo y salvación - Para vuestro consuelo presente, vuestra salvación presente y futura. O si nos consolamos, es para su comodidad, para que podamos consolarlo mejor. Lo cual es eficaz para que el paciente soporte los mismos sufrimientos que nosotros también sufrimos - A través de cuya eficacia soportas pacientemente el mismo tipo de sufrimientos con nosotros.",
+      "enHash": "290a78a93d9f049ed094d52bfd8c9fa9a189cd9c5d35043047aa6e7ad492f188",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "And our hope concerning you — Grounded on your patience in suffering for Christ's sake, is steadfast.",
+      "es": "Y nuestra esperanza respecto a vosotros, basada en vuestra paciencia en el sufrimiento por causa de Cristo, es firme.",
+      "enHash": "19e4dbba6c9b5d4f1ebec531fde9901d01c46d9b99e4660923f7cf394bd63ce6",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "II Corinthians 1:8\n We would not have you ignorant, brethren, of the trouble which befell us in Asia - Probably the same which is described in the nineteenth chapter of the Acts. Acts 19:1 The Corinthians knew before that he had been in trouble: he now declares the greatness and the fruit of it. We were exceedingly pressed, above our strength - Above the ordinary strength even of an apostle.",
+      "es": "II Corintios 1:8\n Hermanos, no queremos que ignoréis el problema que nos sobrevino en Asia - Probablemente el mismo que se describe en el capítulo diecinueve de los Hechos. Hechos 19:1 Los corintios sabían antes que había estado en angustia; ahora declara la grandeza y el fruto de ella. Estábamos extremadamente presionados, por encima de nuestras fuerzas - Por encima de la fuerza ordinaria incluso de un apóstol.",
+      "enHash": "4707bb42ac4996e1e50a233c4e9c876ee2a2ab3a0452943f9a023a388b2b66a3",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "Yea, we had the sentence of death in ourselves — We ourselves expected nothing but death.",
+      "es": "Sí, teníamos en nosotros la sentencia de muerte. Nosotros mismos no esperábamos nada más que la muerte.",
+      "enHash": "8b550647ae5de83f622f49ee2c506eee41d5436158a6cde413f25691b041e54e",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "We trust that he will still deliver — That we may at length be able to come to you.",
+      "es": "Confiamos en que él todavía cumplirá, que por fin podremos acudir a usted.",
+      "enHash": "0422bc44b7445caf72777b03c57578b3a411c02bcac26cb0a9ad072710a79ea2",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "II Corinthians 1:11\n You likewise - As well as other churches. Helping with us by prayer, that for the gift - Namely, my deliverance. Bestowed upon us by means of many persons - Praying for it, thanks may be given by many.",
+      "es": "II Corintios 1:11\n Usted también - Así como otras iglesias. Ayudándonos con la oración, eso por el regalo - Es decir, mi liberación. Otorgado a nosotros por medio de muchas personas - Orando por ello, muchos pueden dar gracias.",
+      "enHash": "acc25f6f947174f80a30fc19b245822c95e010c59c4ac4ecd465c393f96ecbe8",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "II Corinthians 1:12\n For I am the more emboldened to look for this, because I am conscious of my integrity; seeing this is our rejoicing - Even in the deepest adversity. The testimony of our conscience - Whatever others think of us. That in simplicity - Having one end in view, aiming singly at the glory of God. And godly sincerity - Without any tincture of guile, dissimulation, or disguise. Not with carnal wisdom, but by the grace of God - Not by natural, but divine, wisdom. We have had our conversation in the world - In the whole world; in every circumstance.",
+      "es": "II Corintios 1:12\n Porque tengo más valor para buscar esto porque soy consciente de mi integridad; Ver esto es nuestro regocijo, incluso en la adversidad más profunda. El testimonio de nuestra conciencia - Lo que los demás piensen de nosotros. Eso con sencillez - Teniendo un fin a la vista, apuntando únicamente a la gloria de Dios. Y sinceridad piadosa - Sin ningún matiz de astucia, disimulo o disfraz. No con sabiduría carnal, sino por la gracia de Dios - No con sabiduría natural, sino divina. Hemos tenido nuestra conversación en el mundo - En todo el mundo; en cada circunstancia.",
+      "enHash": "514d907ba46707179931eff74da62d95782f749f27cd11a755a56ab21a9ff89f",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "II Corinthians 1:14\n Ye have acknowledged us in part - Though not so fully as ye will do. That we are you rejoicing - That ye rejoice in having known us. As ye also are ours - As we also rejoice in the success of our labours among you; and we trust shall rejoice therein in the day of the Lord Jesus.",
+      "es": "2 Corintios 1:14\n Nos habéis reconocido en parte - Aunque no tan completamente como lo haréis. Que estamos regocijados - Que os regocijáis de habernos conocido. Como vosotros también sois nuestros - Como también nos regocijamos por el éxito de nuestras labores entre vosotros; y confiamos en que nos regocijaremos en el día del Señor Jesús.",
+      "enHash": "b774abfcc658ce49294f2841a8a5d77111426f860db4a11052a94c8d3f33df46",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "In this confidence — That is, being confident of this.",
+      "es": "En esta confianza, es decir, tener confianza en esto.",
+      "enHash": "e3e906f8dbf191670c93b3e3f3e8f537aa4491a9e635db48b077c07adbeb4287",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "II Corinthians 1:17\n Did I use levity - Did I lightly change my purpose? Do I purpose according to the flesh - Are my purposes grounded on carnal or worldly considerations? So that there should be with me yea and nay - Sometimes one, sometimes the other; that is, variableness and inconstancy.",
+      "es": "II Corintios 1:17\n ¿Usé ligereza? ¿Cambié ligeramente mi propósito? ¿Tengo un propósito según la carne? ¿Mis propósitos se basan en consideraciones carnales o mundanas? Para que haya conmigo sí y no - A veces uno, a veces el otro; es decir, variabilidad e inconstancia.",
+      "enHash": "f7f7803f6412c189c8ffb71eea8f6989bddb30ff12369473b8793a613a87cbdb",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "Our word to you — The whole tenor of our doctrine.\n\n Hath not been yea and nay — Wavering and uncertain.",
+      "es": "Nuestra palabra para usted: todo el tenor de nuestra doctrina.\n\n No ha habido sí y no, vacilante e incierto.",
+      "enHash": "7c3ef7cf9b9791b27c7331ca747cc48e4706b9dfa00a7e13c3faf4974c430cb6",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "II Corinthians 1:19\n For Jesus Christ, who was preached by us - That is, our preaching concerning him. Was not yea and nay - Was not variable and inconsistent with itself. But was yea in him - Always one and the same, centering in him.",
+      "es": "II Corintios 1:19\n Para Jesucristo, quien fue predicado por nosotros - Es decir, nuestra predicación sobre él. No era sí y no - No era variable ni inconsistente consigo mismo. Pero estaba sí en él - Siempre uno y el mismo, centrado en él.",
+      "enHash": "4def768e619fc78aee60a0ba51b3c8c0f727e78e55ce5e6219fa84b87ae1191d",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "II Corinthians 1:20\n For all the promises of God are yea and amen in him - Are surely established in and through him. They are yea with respect to God promising; amen, with respect to men believing; yea, with respect to the apostles; amen, with respect to their hearers.",
+      "es": "II Corintios 1:20\n Porque todas las promesas de Dios son sí y amén en él - Seguramente están establecidas en él y a través de él. Son sí con respecto a Dios prometedores; amén, respecto de los hombres creyentes; sí, con respecto a los apóstoles; Amén, con respecto a sus oyentes.",
+      "enHash": "4ca6ffbc7d4f1833aec23d222ac9666afefb7235f74ffaa8a994db0b7d30cc41",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "II Corinthians 1:21\n I say, to the glory of God - For it is God alone that is able to fulfil these promises. That establisheth us - Apostles and teachers. With you - All true believers. In the faith of Christ; and hath anointed us - With the oil of gladness, with joy in the Holy Ghost, thereby giving us strength both to do and suffer his will.",
+      "es": "II Corintios 1:21\n Digo, para gloria de Dios: porque sólo Dios es capaz de cumplir estas promesas. Eso nos establece: Apóstoles y maestros. Contigo - Todos los verdaderos creyentes. En la fe de Cristo; y nos ha ungido - Con aceite de alegría, con gozo en el Espíritu Santo, dándonos así fuerza para hacer y sufrir su voluntad.",
+      "enHash": "d16425b4911b45cb0240b0b568922997ea10f2e35955cc73ddecc5b52b9e2bd8",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "II Corinthians 1:22\n Who also hath sealed us - Stamping his image on our hearts, thus marking and sealing us as his own property. And given us the earnest of his Spirit - There is a difference between an earnest and a pledge. A pledge is to be restored when the debt is paid; but an earnest is not taken away, but completed. Such an earnest is the Spirit. The first fruits of it we have Rom 8:23 ; and we wait for all the fulness.",
+      "es": "2 Corintios 1:22\n Quien también nos selló - Estampando su imagen en nuestros corazones, marcándonos y sellándonos así como su propiedad. Y nos dio las arras de su Espíritu - Hay una diferencia entre una arras y una promesa. La prenda se restituirá cuando se pague la deuda; pero la arras no se quita, sino que se cumple. Esa seriedad es el Espíritu. Las primicias de ello las tenemos Rom 8:23; y esperamos toda la plenitud.",
+      "enHash": "544bd4f2d25f6a5fafbb1404846d388041a79ae750e8ad6524c1d59653dcee71",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "II Corinthians 1:23\n I call God for a record upon my soul - Was not St. Paul now speaking by the Spirit? And can a more solemn oath be conceived? Who then can imagine that Christ ever designed to forbid all swearing? That to spare you I came not yet to Corinth - Lest I should be obliged to use severity. He says elegantly to Corinth, not to you, when be is intimating his power to punish.",
+      "es": "II Corintios 1:23\n Llamo a Dios para que sea un registro sobre mi alma. ¿No estaba hablando ahora San Pablo por el Espíritu? ¿Y se puede concebir un juramento más solemne? Entonces, ¿quién puede imaginar que Cristo alguna vez se propuso prohibir todo juramento? Que para ahorrarte no he venido todavía a Corinto, para que no me vea obligado a usar la severidad. Le dice elegantemente a Corinto, no a ti, cuando insinúa su poder para castigar.",
+      "enHash": "68245920261f320f189e87a26524d14e755f06e5b1ec9b206ee0bf6ebaf7194e",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "II Corinthians 1:24\n Not that we have dominion over your faith - This is the prerogative of God alone. But are helpers of your joy - And faith from which it springs. For by faith ye have stood - To this day. We see the light in which ministers should always consider themselves, and in which they are to be considered by others. Not as having dominion over the faith of their people, and having a right to dictate by their own authority what they shall believe, or what they shall do; but as helpers of their joy, by helping them forward in faith and holiness. In this view, how amiable does their office appear! and how friendly to the happiness of mankind! How far, then, are they from true benevolence, who would expose it to ridicule and contempt!",
+      "es": "2 Corintios 1:24\n No es que tengamos dominio sobre vuestra fe; esta es prerrogativa exclusiva de Dios. Pero son ayudantes de tu alegría - Y la fe de la que brota. Porque por la fe habéis estado firmes - Hasta el día de hoy. Vemos la luz en la que los ministros siempre deben considerarse a sí mismos y en la que deben ser considerados por los demás. No como si tuviera dominio sobre la fe de su pueblo y tuviera derecho a dictar por su propia autoridad lo que creerán o lo que harán; sino como ayudantes de su alegría, ayudándolos a avanzar en la fe y la santidad. Desde este punto de vista, ¡cuán amable parece su oficio! ¡Y qué amigable con la felicidad de la humanidad! ¡Qué lejos, pues, de la verdadera benevolencia están los que la exponen al ridículo y al desprecio!",
+      "enHash": "6a78653c108c3f6aa13a6869ad0282673d02b37d9fff3ef8d77f72f84d0e2d3c",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "In grief — Either on account of the particular offender, or of the church in general.",
+      "es": "En duelo: ya sea por el ofensor en particular o por la iglesia en general.",
+      "enHash": "236b20d65dd639d6ade336b6a3bdabf8f05ee141c442cc87f99f80fe6aad39ea",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "II Corinthians 2:2\n For if I grieve you, who is he that cheereth me, but he that is grieved by me - That is, I cannot be comforted myself till his grief is removed.",
+      "es": "II Corintios 2:2\n Porque si te entristezco, ¿quién es el que me alegra, sino el que está afligido por mí? Es decir, no puedo consolarme hasta que se elimine su dolor.",
+      "enHash": "718783997d427fef4fb8b6c18a93392ac9c145beecbfdbd3bb20de0b687d18f1",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "And I wrote thus to you — I wrote to you before in this determination, not to come to you in grief.",
+      "es": "Y te escribí así; te escribí antes con esta determinación de no acudir a ti con tristeza.",
+      "enHash": "dd5b5b8d7af9279182ed16f841eb48430bc979cf3707eaf5b2773ee1be24a4d9",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "II Corinthians 2:4\n From much anguish I wrote to you, not so much that ye might be grieved, as that ye might know by my faithful admonition my abundant love toward you.",
+      "es": "II Corintios 2:4\n Desde mucha angustia os escribí, no tanto para que os entristecierais, sino para que conocierais por mi fiel amonestación mi abundante amor hacia vosotros.",
+      "enHash": "08c5992d61ff73bd9bd481af493dbc17b3635b475490cb5746919c18f82992ea",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "II Corinthians 2:5\n He hath grieved me but in part - Who still rejoice over the greater part of you. Otherwise I might burden you all.",
+      "es": "II Corintios 2:5\n Él me ha entristecido pero en parte - Quien todavía se regocija por la mayor parte de ustedes. De lo contrario, podría ser una carga para todos ustedes.",
+      "enHash": "28e6dfbdc739d4726586c6eba5ea5a625089a03f24ef09b38f34fd2f59cfff39",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "II Corinthians 2:6\n Sufficient for such an one - With what a remarkable tenderness does St. Paul treat this offender! He never once mentions his name. Nor does he here so much as mention his crime. By many - Not only by the rulers of the church: the whole congregation acquiesced in the sentence.",
+      "es": "II Corintios 2:6\n Suficiente para tal persona - ¡Con qué notable ternura trata San Pablo a este delincuente! Ni una sola vez menciona su nombre. Tampoco menciona aquí siquiera su crimen. Por muchos - No solo por los gobernantes de la iglesia: toda la congregación aceptó la sentencia.",
+      "enHash": "939ad7c8e40f60a93ead247502e258d1985259e88f8c1e8d217adf02200fc364",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "II Corinthians 2:10\n To whom ye forgive - He makes no question of their complying with his direction. Anything - So mildly does he speak even of that heinous sin, after it was repented of. In the person of Christ - By the authority wherewith he has invested me.",
+      "es": "II Corintios 2:10\n A quien perdonéis - No cuestiona que cumplan con su dirección. Cualquier cosa - Habla con tanta suavidad incluso de ese pecado atroz, después de arrepentirse. En la persona de Cristo - Por la autoridad con la que me ha investido.",
+      "enHash": "f2af526cfe9a94a08d7cd9397eda54d3c5cbe2663c4fdaf67626f284683031b9",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "II Corinthians 2:11\n Lest Satan - To whom he had been delivered, and who sought to destroy not only his flesh, but his soul also. Get an advantage over us - For the loss of one soul is a common loss.",
+      "es": "II Corintios 2:11\n Para que no sea Satanás - A quien había sido entregado y que buscaba destruir no solo su carne, sino también su alma. Obtén ventaja sobre nosotros - Porque la pérdida de un alma es una pérdida común.",
+      "enHash": "4fbe4e3ccd5fe2b4eb281494edc6fa27d72e25d121e7e5ea2c37a26fdb0ea331",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "II Corinthians 2:12\n Now when I came to Troas - It seems, in that passage from Asia to Macedonia, of which a short account is given, Acts 20:1 ,2. Even though a door was opened to me - That is, there was free liberty to speak, and many were willing to hear: yet,",
+      "es": "II Corintios 2:12\n Ahora, cuando llegué a Troas - Parece que en ese pasaje de Asia a Macedonia, del cual se da un breve relato, Hechos 20:1, 2. Aunque se me abrió una puerta - Es decir, había libertad para hablar y muchos estaban dispuestos a escuchar: sin embargo,",
+      "enHash": "31645ec8cf4a337f4729287baf16b3984e916577ffdd0c212aa136bb68ab4300",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "II Corinthians 2:13\n I had no rest in my spirit - From an earnest desire to know how my letter had been received. Because I did not find Titus - In his return from you. So I went forth into Macedonia - Where being much nearer, I might more easily be informed concerning you. The apostle resumes the thread of his discourse, 2Cor 7:2 , interposing an admirable digression concerning what he had done and suffered elsewhere, the profit of which he by this means derives to the Corinthians also; and as a prelude to his apology against the false apostles.",
+      "es": "II Corintios 2:13\n No tuve descanso en mi espíritu - Por un sincero deseo de saber cómo había sido recibida mi carta. Porque no encontré a Tito - En su regreso de ti. Entonces salí a Macedonia - Donde, al estar mucho más cerca, podría ser más fácil informarme sobre ti. El apóstol retoma el hilo de su discurso, 2 Corintios 7:2, interponiendo una digresión admirable sobre lo que había hecho y sufrido en otros lugares, cuyo beneficio por este medio deriva también a los corintios; y como preludio a su apología contra los falsos apóstoles.",
+      "enHash": "c284db37600bc5b579fd99631c7364d00c6c70fff272058ada2d3d8ae923d7b4",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "II Corinthians 2:14\n To triumph, implies not only victory, but an open manifestation of it. And as in triumphal processions, especially in the east, incense and perfumes were burned near the conqueror, the apostle beautifully alludes to this circumstance in the following verse: as likewise to the different effects which strong perfumes have upon different persons; some of whom they revive, while they throw others into the most violent disorders.",
+      "es": "II Corintios 2:14\n Triunfar implica no sólo la victoria, sino una manifestación abierta de la misma. Y así como en las procesiones triunfales, especialmente en Oriente, se quemaban incienso y perfumes cerca del conquistador, el apóstol alude bellamente a esta circunstancia en el siguiente versículo: así como a los diferentes efectos que los perfumes fuertes tienen sobre diferentes personas; a algunos los reviven, mientras a otros los arrojan a los más violentos desórdenes.",
+      "enHash": "eeafb14a0bb46f5188fa426feaeddb2b0bbffaad66497bf247d8328f730b6c7f",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "II Corinthians 2:15\n For we - The preachers of the gospel. Are to God a sweet odour of Christ - God is well - pleased with this perfume diffused by us, both in them that believe and are saved, treated of, 2Cor 3:1 ; 2Cor 4:2 ; and in them that obstinately disbelieve and, consequently, perish, treated of, 2Cor 4:3 - 6.",
+      "es": "II Corintios 2:15\n Para nosotros - Los predicadores del evangelio. Son para Dios un dulce olor de Cristo - Dios se complace con este perfume que difundimos, tanto en los que creen como en los que son salvos, tratados, 2Cor 3:1; 2 Corintios 4:2; y en los que obstinadamente infiel y, en consecuencia, perecen, tratados, 2Cor 4:3-6.",
+      "enHash": "c5675ec4a981300eab5d481594d9ba8ea2843baaf917f98fe3b4d2ed81a8d16c",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "And who is sufficient for these things — No man living, but by the power of God's Spirit.",
+      "es": "¿Y quién es suficiente para estas cosas? Nadie vive, sino por el poder del Espíritu de Dios.",
+      "enHash": "a9df256888d61068e1c7b6276c3f24478c1079dbff3647c488d71dfa8edee0db",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "II Corinthians 2:17\n For we are not as many, who adulterate the word of God - Like those vintners (so the Greek word implies) who mix their wines with baser liquors. But as of sincerity - Without any mixture. But as from God - This rises higher still; transmitting his pure word, not our own. In the sight of God - Whom we regard as always present, and noting every word of our tongue. Speak we - The tongue is ours, but the power is God's. In Christ - Words which he gives, approves, and blesses.",
+      "es": "II Corintios 2:17\n Porque no somos tantos los que adulteramos la palabra de Dios - Como esos viticultores (así lo implica la palabra griega) que mezclan sus vinos con licores más bajos. Pero como de sinceridad - Sin ninguna mezcla. Pero a partir de Dios - Esto se eleva aún más; transmitiendo su palabra pura, no la nuestra. A los ojos de Dios - A quien consideramos siempre presente y notamos cada palabra de nuestra lengua. Hablamos - La lengua es nuestra, pero el poder es de Dios. En Cristo - Palabras que él da, aprueba y bendice.",
+      "enHash": "6a909ebc8c3e8e5d801ab77abdd6dc8a35d6d48986110118f8ea58f1be191bf1",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "II Corinthians 3:1\n Do we begin again to recommend ourselves - Is it needful? Have I nothing but my own word to recommend me? St. Paul chiefly here intends himself; though not excluding Timotheus, Titus, and Silvanus. Unless we need - As if he had said, Do I indeed want such recommendation?",
+      "es": "II Corintios 3:1\n ¿Empezamos de nuevo a recomendarnos? ¿Es necesario? ¿No tengo nada más que mi propia palabra para recomendarme? Aquí San Pablo se refiere principalmente a sí mismo; aunque sin excluir a Timoteo, Tito y Silvano. A menos que necesitemos... Como si hubiera dicho: ¿Realmente quiero tal recomendación?",
+      "enHash": "133e55ab416e606594a145f387977a1821f8fa6691f1918adb5d64f58c1fe60c",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "II Corinthians 3:2\n Ye are our recommendatory letter - More convincing than bare words could be. Written on our hearts - Deeply engraven there, and plainly legible to all around us.",
+      "es": "II Corintios 3:2\n Sois nuestra carta de recomendación: más convincente de lo que podrían ser las palabras simples. Escrito en nuestros corazones: profundamente grabado allí y claramente legible para todos los que nos rodean.",
+      "enHash": "052a3f07aba870d559bc72d19a8623fd37c22e0526323433c63205c01fc070e3",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "II Corinthians 3:3\n Manifestly declared to be the letter of Christ - Which he has formed and published to the world. Ministered by us - Whom he has used herein as his instruments, therefore ye are our letter also. Written not in tables of stone - Like the ten commandments. But in the tender, living tables of their hearts - God having taken away the hearts of stone and given them hearts of flesh.",
+      "es": "II Corintios 3:3\n Manifiestamente declarada como la carta de Cristo, que él ha formado y publicado en el mundo. Ministrado por nosotros - A quienes ha utilizado aquí como sus instrumentos, por lo tanto, ustedes también son nuestra carta. No escrito en tablas de piedra - Como los diez mandamientos. Pero en las mesas tiernas y vivas de sus corazones, Dios les quitó los corazones de piedra y les dio corazones de carne.",
+      "enHash": "6f48d8f4a2616d20e54ef75b7f245cb7406eb952d08b7204c717da552b0d3039",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "Such trust have we in God — That is, we trust in God that this is so.",
+      "es": "Tal confianza tenemos en Dios, es decir, confiamos en Dios que esto es así.",
+      "enHash": "c2f560ff27cb7ced8c763353fbced2444274202f4da42ad4338a3e4a861e29dc",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "II Corinthians 3:5\n Not that we are sufficient of ourselves - So much as to think one good thought; much less, to convert sinners.",
+      "es": "II Corintios 3:5\n No es que seamos suficientes de nosotros mismos - Tanto como para pensar un buen pensamiento; mucho menos, convertir a los pecadores.",
+      "enHash": "53d4a6193fe44b9bb0640a8ddbb8367d759c6fb0425176eb27c729e72b69e2d6",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "II Corinthians 3:6\n Who also hath made us able ministers of the new covenant - Of the new, evangelical dispensation. Not of the law, fitly called the letter, from God's literally writing it on the two tables. But of the Spirit - Of the gospel dispensation, which is written on the tables of our hearts by the Spirit. For the letter - The law, the Mosaic dispensation. Killeth - Seals in death those who still cleave to it. But the Spirit - The gospel, conveying the Spirit to those who receive it. Giveth life - Both spiritual and eternal: yea, if we adhere to the literal sense even of the moral law, if we regard only the precept and the sanction as they stand in themselves, not as they lead us to Christ, they are doubtless a killing ordinance, and bind us down under the sentence of death.",
+      "es": "II Corintios 3:6\n Quien también nos ha hecho ministros capaces del nuevo pacto - De la nueva dispensación evangélica. No de la ley, apropiadamente llamada letra, porque Dios la escribió literalmente en las dos tablas. Pero del Espíritu - De la dispensación del evangelio, que está escrita en las tablas de nuestros corazones por el Espíritu. Para la letra: la ley, la dispensación mosaica. Killeth: Sella en la muerte a aquellos que todavía se aferran a él. Pero el Espíritu - El evangelio, que transmite el Espíritu a quienes lo reciben. Da vida - Tanto espiritual como eterna: sí, si nos adherimos al sentido literal incluso de la ley moral, si consideramos solo el precepto y la sanción tal como son en sí mismos, no como nos llevan a Cristo, son sin duda una ordenanza asesina y nos atan bajo la sentencia de muerte.",
+      "enHash": "e5b65eea44130d126d8937ff7440972b5d10e0bfe6365b3266c3fa868a3b737b",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "II Corinthians 3:7\n And if the ministration of death - That is, the Mosaic dispensation, which proves such to those who prefer it to the gospel, the most considerable part of which was engraven on those two stones, was attended with so great glory.",
+      "es": "II Corintios 3:7\n Y si el ministerio de la muerte - Es decir, la dispensación mosaica, que lo demuestra para quienes la prefieren al evangelio, la parte más considerable de la cual estaba grabada en esas dos piedras, fue atendida con tan gran gloria.",
+      "enHash": "7216fcbc292b4997968fb8d9c5ace58f6bf05c2795b2c8d972313dba3f56b354",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "The ministration of the Spirit — That is, the Christian dispensation.",
+      "es": "El ministerio del Espíritu, es decir, la dispensación cristiana.",
+      "enHash": "aacebe3cdb76a882cfc400673c9e6e90208fa6ab805d43e280242efe32a5650e",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "II Corinthians 3:9\n The ministration of condemnation - Such the Mosaic dispensation proved to all the Jews who rejected the gospel whereas through the gospel (hence called the ministration of righteousness) God both imputed and imparted righteousness to all believers. But how can the moral law (which alone was engraven on stone) be the ministration of condemnation, if it requires no more than a sincere obedience, such as is proportioned to our infirm state? If this is sufficient to justify us, then the law ceases to be a ministration of condemnation. It becomes (flatly contrary to the apostle's doctrine) the ministration of righteousness.",
+      "es": "II Corintios 3:9\n El ministerio de condenación - Tal fue la dispensación mosaica que demostró a todos los judíos que rechazaron el evangelio, mientras que a través del evangelio (por eso llamado el ministerio de justicia) Dios imputó e impartió justicia a todos los creyentes. Pero ¿cómo puede la ley moral (que fue la única grabada en piedra) ser el ministerio de condenación, si no requiere más que una obediencia sincera, proporcional a nuestro estado de enfermedad? Si esto es suficiente para justificarnos, entonces la ley deja de ser un ministerio de condenación. Se convierte (rotundamente en contra de la doctrina del apóstol) en el ministerio de justicia.",
+      "enHash": "c6c2872b27a6c1cc94cea0ea478333749bd6c7114e00cac0187187a6c49b0695",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "II Corinthians 3:10\n It hath no glory in this respect, because of the glory that excelleth - That is, none in comparison of this more excellent glory. The greater light swallows up the less.",
+      "es": "II Corintios 3:10\n No tiene gloria a este respecto, debido a la gloria que sobresale - Es decir, ninguna en comparación con esta gloria más excelente. Cuanto más luz devora menos.",
+      "enHash": "68dd69c8afbef0da4a7f339e0e7720bf046eef085d847a0d7eed771f94c5ca84",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "II Corinthians 3:11\n That which remaineth - That dispensation which remains to the end of the world; that spirit and life which remain for ever.",
+      "es": "II Corintios 3:11\n Lo que queda - Esa dispensación que permanece hasta el fin del mundo; ese espíritu y vida que permanecen para siempre.",
+      "enHash": "a2f6cdc58783c1cd25ee7f04269d30f9faa486ee1483633ab8f98f4e370fda8c",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "Having therefore this hope — Being fully persuaded of this.",
+      "es": "Teniendo, pues, esta esperanza, estando plenamente persuadidos de esto.",
+      "enHash": "5edec78f925acae0a6f94aba7fdb2f3e5d19745851b3a79725e8125373770c2e",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "II Corinthians 3:13\n And we do not act as Moses did, who put a veil over his face - Which is to be understood with regard to his writings also. So that the children of Israel could not look steadfastly to the end of that dispensation which is now abolished - The end of this was Christ. The whole Mosaic dispensation tended to, and terminated in, him; but the Israelites had only a dim, wavering sight of him, of whom Moses spake in an obscure, covert manner.",
+      "es": "II Corintios 3:13\n Y no actuamos como lo hizo Moisés, quien se puso un velo sobre su rostro - Lo cual debe entenderse también con respecto a sus escritos. Para que los hijos de Israel no pudieran mirar fijamente el fin de esa dispensación que ahora está abolida. El fin de esto fue Cristo. Toda la dispensación mosaica tendió a él y terminó en él; pero los israelitas sólo tenían una visión vaga y vacilante de él, de quien Moisés habló de manera oscura y encubierta.",
+      "enHash": "6c77b44726669b3653b3d06e55ebec6a05afb1da936a38b7681dec737303679a",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "II Corinthians 3:14\n The same veil remaineth on their understanding unremoved - Not so much as folded back, (so the word implies,) so as to admit a little, glimmering light. On the public reading of the Old Testament - The veil is not now on the face of Moses or of his writings, but on the reading of them, and on the heart of them that believe not. Which is taken away in Christ - That is, from the heart of them that truly believe on him.",
+      "es": "II Corintios 3:14\n El mismo velo permanece sobre su entendimiento sin quitarse, ni siquiera doblado hacia atrás (así lo implica la palabra) para admitir una pequeña luz brillante. Sobre la lectura pública del Antiguo Testamento - El velo ya no está sobre el rostro de Moisés ni sobre sus escritos, sino sobre la lectura de ellos y sobre el corazón de los incrédulos. Que es quitado en Cristo - Es decir, del corazón de los que realmente creen en él.",
+      "enHash": "61988a5ccae79ffbdf3bbc944a61bd63dafd18b30b846a08793d94988a2868c2",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "II Corinthians 3:16\n When it - Their heart. Shall turn to the Lord - To Christ, by living faith. The veil is taken away - That very moment; and they see, with the utmost clearness, how all the types and prophecies of the law are fully accomplished in him.",
+      "es": "II Corintios 3:16\n Cuando - Su corazón. Se volverá al Señor - A Cristo, por la fe viva. Se quita el velo - Ese mismo momento; y ven, con la mayor claridad, cómo todos los tipos y profecías de la ley se cumplen plenamente en él.",
+      "enHash": "09ea98709d1fc65b5769fa8f08f95ba6066a3bafb426c80184de575f167bd97a",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "II Corinthians 3:17\n Now the Lord - Christ is that Spirit of the law whereof I speak, to which the letter was intended to lead. And where the Spirit of the Lord, Christ, is, there is liberty - Not the veil, the emblem of slavery. There is liberty from servile fear, liberty from the guilt and from the power of sin, liberty to behold with open face the glory of the Lord.",
+      "es": "II Corintios 3:17\n Ahora bien, el Señor, Cristo, es el Espíritu de la ley de la que hablo, al que la letra debía conducir. Y donde está el Espíritu del Señor, Cristo, allí hay libertad, no el velo, emblema de la esclavitud. Hay libertad del temor servil, libertad de la culpa y del poder del pecado, libertad para contemplar a cara descubierta la gloria del Señor.",
+      "enHash": "bafdc20cd4347114983e7c476b3db43e58be33cee673eb43670f1aa080749694",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "II Corinthians 3:18\n And, accordingly, all we that believe in him, beholding as in a glass - In the mirror of the gospel. The glory of the Lord - His glorious love. Are transformed into the same image - Into the same love. From one degree of this glory to another, in a manner worthy of his almighty Spirit. What a beautiful contrast is here! Moses saw the glory of the Lord, and it rendered his face so bright, that he covered it with a veil; Israel not being able to bear the reflected light. We behold his glory in the glass of his word, and our faces shine too; yet we veil them not, but diffuse the lustre which is continually increasing, as we fix the eye of our mind more and more steadfastly on his glory displayed in the gospel.",
+      "es": "II Corintios 3:18\n Y, en consecuencia, todos los que creemos en él, contemplando como en un espejo, en el espejo del evangelio. La gloria del Señor - Su glorioso amor. Se transforman en la misma imagen - En el mismo amor. De un grado a otro de esta gloria, de una manera digna de su Espíritu todopoderoso. ¡Qué hermoso contraste hay aquí! Moisés vio la gloria del Señor y iluminó tanto su rostro que lo cubrió con un velo; Israel no puede soportar la luz reflejada. Contemplamos su gloria en el espejo de su palabra, y nuestros rostros también brillan; sin embargo, no los velamos, sino que difundimos el brillo que aumenta continuamente a medida que fijamos la vista de nuestra mente cada vez más firmemente en su gloria mostrada en el evangelio.",
+      "enHash": "7e6ebcd0294bd72f38372d14e167b6d70b56098def873a50a0a76ef3427ac550",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "II Corinthians 4:1\n Therefore having this ministry - Spoken of, 2Cor 3:6 . As we have received mercy - Have been mercifully supported in all our trials. We faint not - We desist not in any degree from our glorious enterprise.",
+      "es": "II Corintios 4:1\n Por lo tanto, tener este ministerio - Hablado de, 2 Corintios 3:6 . Como hemos recibido misericordia - Hemos sido apoyados misericordiosamente en todas nuestras pruebas. No desmayamos - No desistimos en ningún grado de nuestra gloriosa empresa.",
+      "enHash": "c1fb2e0c208f2d357d0a2849266f9486527b2e92160abcaab9d938781040c71f",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "II Corinthians 4:2\n But have renounced - Set at open defiance. The hidden things of shame - All things which men need to hide, or to be ashamed of. Not walking in craftiness - Using no disguise, subtlety, guile. Nor privily corrupting the pure word of God - By any additions or alterations, or by attempting to accommodate it to the taste of the hearers.",
+      "es": "II Corintios 4:2\n Pero he renunciado - En abierto desafío. Las cosas ocultas de la vergüenza - Todas las cosas que los hombres necesitan ocultar o de las que avergonzarse. No caminar con astucia - Sin disfraz, sutileza ni astucia. Ni corromper en secreto la pura palabra de Dios - Mediante adiciones o alteraciones, o intentando adaptarla al gusto de los oyentes.",
+      "enHash": "442794f518d1c2bbf9a1f5d13b7f6d0caf2fad7dc55a74eecf71589eb7327925",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "But if our gospel also — As well as the law of Moses.",
+      "es": "Pero si nuestro evangelio también, además de la ley de Moisés.",
+      "enHash": "2a1a0ea95ef398fb0362e95b0743c017388b27cc9222b47bc607e55201705819",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "II Corinthians 4:4\n The God of this world - What a sublime and horrible description of Satan! He is indeed the god of all that believe not, and works in them with inconceivable energy. Hath blinded - Not only veiled, the eye of their understanding. Illumination - Is properly the reflection or propagation of light, from those who are already enlightened, to others. Who is the image of God - Hence also we may understand how great is the glory of Christ. He that sees the Son, sees the Father in the face of Christ. The Son exactly exhibits the Father to us.",
+      "es": "II Corintios 4:4\n El Dios de este mundo - ¡Qué descripción tan sublime y horrible de Satanás! Él es en verdad el dios de todos los que no creen y obra en ellos con una energía inconcebible. Ha cegado - No solo velado, el ojo de su entendimiento. Iluminación - Es propiamente el reflejo o propagación de la luz, de quienes ya están iluminados, a otros. ¿Quién es la imagen de Dios? Por eso también podemos comprender cuán grande es la gloria de Cristo. El que ve al Hijo, ve al Padre en el rostro de Cristo. El Hijo nos muestra exactamente al Padre.",
+      "enHash": "5750cecc62794fa7250b5dbd922c47c2b2ddbb0efa6ec8dadaea3ba829dd6609",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "II Corinthians 4:5\n For - The fault is not in us, neither in the doctrine they hear from us. We preach not ourselves - As able either to enlighten, or pardon, or sanctify you. But Jesus Christ - As your only wisdom, righteousness, sanctification. And ourselves your servants - Ready to do the meanest offices. For Jesus' sake - Not for honour, interest, or pleasure.",
+      "es": "II Corintios 4:5\n Porque - La culpa no está en nosotros, ni en la doctrina que oyen de nosotros. No nos predicamos a nosotros mismos - Como capaces de iluminarte, perdonarte o santificarte. Pero Jesucristo - Como tu única sabiduría, justicia, santificación. Y nosotros, tus sirvientes, listos para realizar los oficios más humildes. Por el amor de Jesús - No por honor, interés o placer.",
+      "enHash": "7323807c8c17a67797f8c40f7a065c79010e09249a642af2bad8d8e654e7f893",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "II Corinthians 4:6\n For God hath shined in our hearts - The hearts of all those whom the god of this world no longer blinds. God who is himself our light; not only the author of light, but also the fountain of it. To enlighten us with the knowledge of the glory of God - Of his glorious love, and of his glorious image. In the face of Jesus Christ - Which reflects his glory in another manner than the face of Moses did.",
+      "es": "II Corintios 4:6\n Porque Dios ha brillado en nuestros corazones - Los corazones de todos aquellos a quienes el dios de este mundo ya no ciega. Dios que es él mismo nuestra luz; no sólo el autor de la luz, sino también su fuente. Para iluminarnos con el conocimiento de la gloria de Dios - De su glorioso amor y de su gloriosa imagen. En el rostro de Jesucristo - Que refleja su gloria de otra manera que el rostro de Moisés.",
+      "enHash": "6d1810a30492bad1df3c99c2c1446ec8e466a58eb8dc28dde26edb208ff8f054",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "II Corinthians 4:7\n But we - Not only the apostles, but all true believers. Have this treasure - Of divine light, love, glory. In earthen vessels - In frail, feeble, perishing bodies. He proceeds to show, that afflictions, yea, death itself, are so far from hindering the ministration of the Spirit, that they even further it, sharpen the ministers, and increase the fruit. That the excellence of the power, which works these in us, may undeniably appear to be of God.",
+      "es": "II Corintios 4:7\n Pero nosotros - No solo los apóstoles, sino todos los verdaderos creyentes. Ten este tesoro - De luz divina, amor, gloria. En vasijas de barro - En cuerpos frágiles, débiles y que perecen. Continúa mostrando que las aflicciones, sí, la muerte misma, están tan lejos de obstaculizar el ministerio del Espíritu, que lo favorecen aún más, agudizan a los ministros y aumentan el fruto. Para que la excelencia del poder que obra esto en nosotros parezca innegablemente ser de Dios.",
+      "enHash": "b66c1c3f8be6c0f8dbf6476976116d620008cbb833d3888a6452c9c9be0c56aa",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "II Corinthians 4:8\n We are troubled, &c. - The four articles in this verse respect inward, the four in the next outward, afflictions. In each clause the former part shows the \"earthen vessels;\" the latter, \"the excellence of the power.\" Not crushed - Not swallowed up in care and anxiety. Perplexed - What course to take, but never despairing of his power and love to carry us through.",
+      "es": "II Corintios 4:8\n Estamos preocupados, etc. - Los cuatro artículos de este versículo respetan las aflicciones internas, los cuatro del siguiente, las externas. En cada cláusula, la primera parte muestra los \"vasos de barro\"; este último, \"la excelencia del poder\". No aplastado - No absorbido por el cuidado y la ansiedad. Perplejo: qué camino tomar, pero sin desesperar nunca de su poder y amor para sacarnos adelante.",
+      "enHash": "f012fc8ea0aa1557dc32d56053bd971ae7658595d4cfffd9cf478481664d319e",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "II Corinthians 4:10\n Always - Wherever we go. Bearing about in the body the dying of the Lord Jesus - Continually expecting to lay down our lives like him. That the life also of Jesus might be manifested in our body - That we may also rise and be glorified like him.",
+      "es": "II Corintios 4:10\n Siempre - Dondequiera que vayamos. Llevando en el cuerpo la muerte del Señor Jesús - Esperando continuamente dar nuestras vidas como él. Para que también la vida de Jesús se manifieste en nuestro cuerpo - Para que también nosotros resucitemos y seamos glorificados como él.",
+      "enHash": "98627ae54ebbc6475ad0ad45ed1eab1010c2d39cd27105c4190ba63044fa7477",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "II Corinthians 4:11\n For we who yet live - Who are not yet killed for the testimony of Jesus. Are always delivered unto death - Are perpetually in the very jaws of destruction; which we willingly submit to, that we may \"obtain a better resurrection.\"",
+      "es": "II Corintios 4:11\n Para nosotros que aún vivimos - Que aún no hemos sido asesinados por el testimonio de Jesús. Siempre son entregados a la muerte - Están perpetuamente en las fauces de la destrucción; a lo cual nos sometemos voluntariamente, para que podamos \"obtener una mejor resurrección\".",
+      "enHash": "e1159ff7c5c65c9ffd283951d33cbf4166d42f27af6db7eda2e239297d4f9bea",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "II Corinthians 4:12\n So then death worketh in us, but life in you - You live in peace; we die daily. Yet - Living or dying, so long as we believe, we cannot but speak.",
+      "es": "II Corintios 4:12\n Así que la muerte actúa en nosotros, pero la vida en vosotros. Vivís en paz; morimos a diario. Sin embargo, mientras vivamos o muramos, mientras creamos, no podemos dejar de hablar.",
+      "enHash": "c8bf5622a943df7a64ad8ef9aa1b86afdd281a80bce8f8a3cd1796f6caf39b72",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "II Corinthians 4:13\n Having the same spirit of faith - Which animated the saints of old; David, in particular, when he said, I believed, and therefore have I spoken - That is, I trusted in God, and therefore he hath put this song of praise in my mouth. We also speak - We preach the gospel, even in the midst of affliction and death, because we believe that God will raise us up from the dead, and will present us, ministers, with you, all his members, \"faultless before his presence with exceeding joy.\" Psalm 116:10 .",
+      "es": "II Corintios 4:13\n Teniendo el mismo espíritu de fe - Que animó a los santos de antaño; David, en particular, cuando dijo: Creí y por eso hablé - Es decir, confié en Dios y por eso puso este cántico de alabanza en mi boca. También hablamos - Predicamos el evangelio, incluso en medio de la aflicción y la muerte, porque creemos que Dios nos resucitará de entre los muertos y nos presentará, ministros, con ustedes, todos sus miembros, \"sin mancha delante de su presencia con gran alegría\". Salmo 116:10 .",
+      "enHash": "074f0d78e34ec5564057c1cf7bfc7054d0fd7eacebadea426a6464c2b1ed6241",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "II Corinthians 4:15\n For all things - Whether adverse or prosperous. Are for your sakes - For the profit of all that believe, as well as all that preach. That the overflowing grace - Which continues you alive both in soul and body. Might abound yet more through the thanksgiving of many - For thanksgiving invites more: abundant grace.",
+      "es": "II Corintios 4:15\n Para todas las cosas, ya sean adversas o prósperas. Son por su bien - Para el beneficio de todos los que creen, así como de todos los que predican. Que la gracia desbordante - Que te mantiene vivo tanto en alma como en cuerpo. Podría abundar aún más mediante la acción de gracias de muchos - Porque la acción de gracias invita a más: gracia abundante.",
+      "enHash": "879318974b67c4eeb6af840bc116b7b31b1b93bd3e4c3280ff5005b63bee0b69",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "Therefore — Because of this grace, we faint not.\n\n The outward man — The body.\n\n The inward man — The soul.",
+      "es": "Por tanto, debido a esta gracia, no desmayamos.\n\n El hombre exterior: el cuerpo.\n\n El hombre interior: el alma.",
+      "enHash": "05dc0ddf7dd086ef03b10c20907bce59184e1bfa4dacdb60d3cb10acfa61399c",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "II Corinthians 4:17\n Our light affliction - The beauty and sublimity of St. Paul's expressions here, as descriptive of heavenly glory, opposed to temporal afflictions, surpass all imagination, and cannot be preserved in any translation or paraphrase, which after all must sink infinitely below the astonishing original.",
+      "es": "II Corintios 4:17\n Nuestra ligera aflicción - La belleza y la sublimidad de las expresiones de San Pablo aquí, como descriptivas de la gloria celestial, opuestas a las aflicciones temporales, superan toda imaginación y no pueden conservarse en ninguna traducción o paráfrasis, que después de todo debe hundirse infinitamente por debajo del asombroso original.",
+      "enHash": "aa6bbf500e63a07824b24bb24530059f99663da34f5310d8206fe83f91eab3b6",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "II Corinthians 4:18\n The things that are seen - Men, money, things of earth. The things that are not seen - God, grace, heaven.",
+      "es": "II Corintios 4:18\n Las cosas que se ven: hombres, dinero, cosas de la tierra. Las cosas que no se ven: Dios, la gracia, el cielo.",
+      "enHash": "2368d8453e2a148c62468dae94dfbbf3f8ffad7012747d0fc02b84bd8df4555c",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "II Corinthians 5:2\n Desiring to be clothed upon - This body, which is now covered with flesh and blood, with the glorious house which is from heaven. Instead of flesh and blood, which cannot enter heaven, the rising body will be clothed or covered with what is analogous thereto, but incorruptible and immortal. Macarius speaks largely of this.",
+      "es": "II Corintios 5:2\n Deseando ser revestido - Este cuerpo, que ahora está cubierto de carne y sangre, con la casa gloriosa que es del cielo. En lugar de carne y sangre, que no pueden entrar al cielo, el cuerpo resucitado será vestido o cubierto con algo análogo a él, pero incorruptible e inmortal. Macario habla mucho de esto.",
+      "enHash": "8f433e80c710507920949bc77c274da4ece4d41b28e23c6dc2daf2c09d93f632",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "II Corinthians 5:3\n If being clothed - That is, with the image of God, while we are in the body. We shall not be found naked - Of the wedding garment.",
+      "es": "II Corintios 5:3\n Si estamos vestidos - Es decir, con la imagen de Dios, mientras estamos en el cuerpo. No seremos encontrados desnudos - Del vestido de boda.",
+      "enHash": "894048fa9b037ede2cfd8671af91c53eceb6b9e29983106932824921d573d48a",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "II Corinthians 5:4\n We groan being burdened - The apostle speaks with exact propriety. A burden naturally expresses groans. And we are here burdened with numberless afflictions, infirmities, temptations. Not that we would be unclothed - Not that we desire to remain without a body. Faith does not understand that philosophical contempt of what the wise Creator has given. But clothed upon - With the glorious, immortal, incorruptible, spiritual body. That what is mortal - This present mortal body. May be swallowed up of life - Covered with that which lives for ever.",
+      "es": "II Corintios 5:4\n Gemimos agobiados - El apóstol habla con exacta propiedad. Una carga naturalmente expresa gemidos. Y estamos aquí cargados de innumerables aflicciones, debilidades y tentaciones. No es que estemos desnudos - No es que deseemos permanecer sin cuerpo. La fe no comprende ese desprecio filosófico de lo que el sabio Creador ha dado. Pero revestido - Con el cuerpo espiritual glorioso, inmortal e incorruptible. Eso que es mortal - Este presente cuerpo mortal. Puede ser absorbido por la vida - Cubierto con lo que vive para siempre.",
+      "enHash": "74065de29e49eaec23f608357fb5a83a042274662628dbc2d0e62db0ef08c038",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "Our earthly house — Which is only a tabernacle, or tent, not designed for a lasting habitation.",
+      "es": "Nuestra casa terrenal, que es sólo un tabernáculo o tienda de campaña, no diseñada para una habitación duradera.",
+      "enHash": "2eacedb2d4ac1aacd3b8461a50b5d893613822707d9d0a53cc8782d271e715b4",
+      "source": "corpus:john-wesley"
+    },
+    "b73": {
+      "en": "II Corinthians 5:5\n Now he that hath wrought us to this very thing - This longing for immortality. Is God - For none but God, none less than the Almighty, could have wrought this in us.",
+      "es": "II Corintios 5:5\n Ahora bien, el que nos ha creado esto mismo: este anhelo de inmortalidad. Es Dios - Porque nadie excepto Dios, nada menos que el Todopoderoso, podría haber obrado esto en nosotros.",
+      "enHash": "43353fb28f922b8f777505f31a18a0441a790ad25f4a085cfc713d5a6fa7de95",
+      "source": "corpus:john-wesley"
+    },
+    "b74": {
+      "en": "II Corinthians 5:6\n Therefore we behave undauntedly - But most of all when we have death in view; knowing that our greatest happiness lies beyond the grave.",
+      "es": "II Corintios 5:6\n Por lo tanto, nos comportamos impávidamente, pero sobre todo cuando tenemos la muerte a la vista; sabiendo que nuestra mayor felicidad está más allá de la tumba.",
+      "enHash": "e579123f29fa36f536291ee1cbdd23f08c616ecb70ddab48c6638f9b441061f7",
+      "source": "corpus:john-wesley"
+    },
+    "b75": {
+      "en": "II Corinthians 5:7\n For we cannot clearly see him in this life, wherein we walk by faith only: an evidence, indeed, that necessarily implies a kind of \"seeing him who is invisible;\" yet as far beneath what we shall have in eternity, as it is above that of bare, unassisted reason.",
+      "es": "II Corintios 5:7\n Porque no podemos verlo claramente en esta vida, en la que caminamos sólo por fe: una evidencia, de hecho, que implica necesariamente una especie de \"ver al invisible\"; sin embargo, tan por debajo de lo que tendremos en la eternidad como por encima de la razón desnuda y sin ayuda.",
+      "enHash": "1bedcac30d609d7ef2f65860d067ba860697899e6bdcb27c2133fc44c9885956",
+      "source": "corpus:john-wesley"
+    },
+    "b76": {
+      "en": "II Corinthians 5:8\n Present with the Lord - This demonstrates that the happiness of the saints is not deferred till the resurrection.",
+      "es": "II Corintios 5:8\n Presente con el Señor - Esto demuestra que la felicidad de los santos no se difiere hasta la resurrección.",
+      "enHash": "d0c1f997c9865b70b8e6487ce01fd676e0e2312aa09294ab339850b41cf84edd",
+      "source": "corpus:john-wesley"
+    },
+    "b77": {
+      "en": "II Corinthians 5:9\n Therefore we are ambitious - The only ambition which has place in a Christian. Whether present - In the body. Or absent - From it.",
+      "es": "II Corintios 5:9\n Por eso somos ambiciosos - La única ambición que tiene cabida en un cristiano. Ya sea presente - En el cuerpo. O ausente - De él.",
+      "enHash": "aeb68b1c4327684ed03f345a47b9c3530fc6b8d3a22b9d82e597cde404f3be96",
+      "source": "corpus:john-wesley"
+    },
+    "b78": {
+      "en": "II Corinthians 5:10\n For we all - Apostles as well as other men, whether now present in the body, or absent from it. Must appear - Openly, without covering, where all hidden things will be revealed; probably the sins, even of the faithful, which were forgiven long before. For many of their good works, as their repentance, their revenge against sin, cannot other wise appear. But this will be done at their own desire, without grief, and without shame. According to what he hath done in the body, whether good or evil - In the body he did either good or evil; in the body he is recompensed accordingly.",
+      "es": "II Corintios 5:10\n Para todos nosotros, tanto los Apóstoles como los demás hombres, ya sea que estén presentes en el cuerpo o ausentes de él. Debe aparecer - Abiertamente, sin cubrir, donde todas las cosas ocultas serán reveladas; probablemente los pecados, incluso de los fieles, que fueron perdonados mucho antes. Porque muchas de sus buenas obras, como su arrepentimiento, su venganza contra el pecado, no pueden aparecer de otra manera. Pero esto lo harán según su propio deseo, sin pena y sin vergüenza. Según lo que hizo en el cuerpo, ya sea bueno o malo - En el cuerpo hizo bien o mal; en el cuerpo es recompensado en consecuencia.",
+      "enHash": "21d8fbaf4392fa7fb35c226cf0e1a096b6d5fd667ae473f6797eff5872112621",
+      "source": "corpus:john-wesley"
+    },
+    "b79": {
+      "en": "II Corinthians 5:11\n Knowing therefore the terror of the Lord, we the more earnestly persuade men to seek his favour; and as God knoweth this, so, I trust, ye know it in your own consciences.",
+      "es": "II Corintios 5:11\n Por tanto, conociendo el terror del Señor, persuadimos más fervientemente a los hombres a buscar su favor; y así como Dios sabe esto, así, confío, también vosotros lo sabéis en vuestras propias conciencias.",
+      "enHash": "b60854534d0307c348c8b286e809e1602e1ccbc374f444aa87f24ae8f3b65483",
+      "source": "corpus:john-wesley"
+    },
+    "b80": {
+      "en": "II Corinthians 5:12\n We do not say this, as if we thought there was any need of again recommending ourselves to you, but to give you an occasion of rejoicing and praising God, and to furnish you with an answer to those false apostles who glory in appearance, but not in heart, being condemned by their own conscience.",
+      "es": "II Corintios 5:12\n No decimos esto como si pensáramos que era necesario volver a recomendarnos a vosotros, sino para daros ocasión de regocijaros y alabar a Dios, y para daros una respuesta a esos falsos apóstoles que se glorían en las apariencias, pero no en el corazón, siendo condenados por su propia conciencia.",
+      "enHash": "5535fa03ffaea21395e731a659ad39058d3a3bd368d9c27e0f97384b03ba8f3f",
+      "source": "corpus:john-wesley"
+    },
+    "b81": {
+      "en": "II Corinthians 5:13\n For if we are transported beyond ourselves - Or at least, appear so to others, treated of, 2Cor 5:15 - 21, speaking or writing with uncommon vehemence. It is to God - He understands (if men do not) the emotion which himself inspires. If we be sober - Treated of, 2Cor 6:1 - 10. If I proceed in a more calm, sedate manner. It is for your sakes - Even good men bear this, rather than the other method, in their teachers. But these must obey God, whoever is offended by it.",
+      "es": "II Corintios 5:13\n Porque si somos transportados más allá de nosotros mismos - O al menos, así se lo parecen a los demás, tratados, 2 Cor 5:15 - 21, hablando o escribiendo con una vehemencia poco común. Es para Dios: Él comprende (si los hombres no lo hacen) la emoción que él mismo inspira. Si somos sobrios - Tratado, 2 Cor 6:1 - 10. Si procedo de una manera más tranquila y serena. Es por vuestro bien - Incluso los hombres buenos llevan este método, en lugar del otro, en sus maestros. Pero éstos deben obedecer a Dios, quienquiera que se sienta ofendido por ello.",
+      "enHash": "a12d0a1ece19273d6baf35605db96dca48128a974bf8ad607d43bdf7af1bd27b",
+      "source": "corpus:john-wesley"
+    },
+    "b82": {
+      "en": "II Corinthians 5:14\n For the love of Christ - To us, and our love to him. Constraineth us - Both to the one and the other; beareth us on with such a strong, steady, prevailing influence, as winds and tides exert when they waft the vessel to its destined harbour. While we thus judge, that if Christ died for all, then are all, even the best of men, naturally dead - In a state of spiritual death, and liable to death eternal. For had any man been otherwise, Christ had not needed to have died for him.",
+      "es": "II Corintios 5:14\n Por el amor de Cristo - A nosotros y nuestro amor a él. Nos limita - Tanto a uno como a otro; Nos sostiene con una influencia tan fuerte, constante y predominante, como la que ejercen los vientos y las mareas cuando llevan el barco a su puerto de destino. Mientras juzgamos así que si Cristo murió por todos, entonces todos, incluso los mejores hombres, están naturalmente muertos, en un estado de muerte espiritual y expuestos a la muerte eterna. Porque si algún hombre hubiera sido diferente, Cristo no habría necesitado haber muerto por él.",
+      "enHash": "6178c645a3ee53a855afd3804d741054c23791bdff0f98f5652d5bd117202c2a",
+      "source": "corpus:john-wesley"
+    },
+    "b83": {
+      "en": "II Corinthians 5:15\n And that he died for all - That all might be saved. That they who live - That all who live upon the earth. Should not henceforth - From the moment they know him. Live unto themselves - Seek their own honour, profit, pleasure. But unto him - In all righteousness and true holiness.",
+      "es": "II Corintios 5:15\n Y que murió por todos - Para que todos puedan salvarse. Que los que viven - Que todos los que viven en la tierra. No debería de ahora en adelante - Desde el momento en que lo conocen. Vivir para sí mismos - Busque su propio honor, beneficio y placer. Pero para él - Con toda justicia y verdadera santidad.",
+      "enHash": "61730997375d361abd4f467b84e1156205490cf01c1c26a826d9d8c88652388a",
+      "source": "corpus:john-wesley"
+    },
+    "b84": {
+      "en": "II Corinthians 5:16\n So that we from this time - That we knew the love of Christ. Know no one - Neither ourselves, nor you, neither the rest of the apostles, Gal 2:6 , nor any other person. After the flesh - According to his former state, country, descent, nobility, riches, power, wisdom. We fear not the great. We regard not the rich or wise. We account not the least less than ourselves. We consider all, only in order to save all. Who is he that thus knows no one after the flesh? ln what land do these Christians live? Yea, if we have known even Christ after the flesh - So as to love him barely with a natural love, so as to glory in having conversed with him on earth, so as to expect only temporal benefits from him.",
+      "es": "II Corintios 5:16\n Para que desde este tiempo - Que conociéramos el amor de Cristo. No conocemos a nadie - Ni a nosotros mismos, ni a usted, ni al resto de los apóstoles, Gálatas 2:6, ni a ninguna otra persona. Según la carne - Según su estado anterior, país, ascendencia, nobleza, riquezas, poder, sabiduría. No tememos a los grandes. No consideramos a los ricos ni a los sabios. No contamos menos que nosotros mismos. Consideramos todo, sólo para salvarlo todo. ¿Quién es aquel que así no conoce a nadie según la carne? ¿En qué tierra viven estos cristianos? Sí, si hemos conocido incluso a Cristo según la carne - Para amarlo apenas con un amor natural, para gloriarnos de haber conversado con él en la tierra, para esperar solo beneficios temporales de él.",
+      "enHash": "68cf480edc2f8461aba7511b50f6a00631387a9deda0242346daa08b8fc5d26b",
+      "source": "corpus:john-wesley"
+    },
+    "b85": {
+      "en": "II Corinthians 5:17\n Therefore if any one be in Christ - A true believer in him. There is a new creation - Only the power that makes a world can make a Christian. And when he is so created, the old things are passed away - Of their own accord, even as snow in spring. Behold - The present, visible, undeniable change! All things are become new - He has new life, new senses, new faculties, new affections, new appetites, new ideas and conceptions. His whole tenor of action and conversation is new, and he lives, as it were, in a new world. God, men, the whole creation, heaven, earth, and all therein, appear in a new light, and stand related to him in a new manner, since he was created anew in Christ Jesus.",
+      "es": "II Corintios 5:17\n Por tanto, si alguno está en Cristo - Un verdadero creyente en él. Hay una nueva creación - Sólo el poder que hace un mundo puede hacer un cristiano. Y cuando es creado así, las cosas viejas desaparecen - Por sí solas, como la nieve en primavera. ¡He aquí el cambio presente, visible e innegable! Todas las cosas se han vuelto nuevas: Él tiene nueva vida, nuevos sentidos, nuevas facultades, nuevos afectos, nuevos apetitos, nuevas ideas y concepciones. Todo su tenor de acción y conversación es nuevo y vive, por así decirlo, en un mundo nuevo. Dios, los hombres, toda la creación, el cielo, la tierra y todo lo que hay en ellos, aparecen bajo una nueva luz y se relacionan con él de una manera nueva, desde que fue creado de nuevo en Cristo Jesús.",
+      "enHash": "4bf30d7e55c5cdd133ba5aea659908477d56fd3977fb4856934735cf83236523",
+      "source": "corpus:john-wesley"
+    },
+    "b86": {
+      "en": "II Corinthians 5:18\n And all these new things are from God, considered under this very notion, as reconciling us - The world, 2Co 5:19 , to himself.",
+      "es": "II Corintios 5:18\n Y todas estas cosas nuevas son de Dios, consideradas bajo esta misma noción, como reconciliandonos – El mundo, 2Co 5:19, consigo mismo.",
+      "enHash": "0878c6937238d9af19d8ab5b7192831cd9c1bb009e4e2a1821102971959ab645",
+      "source": "corpus:john-wesley"
+    },
+    "b87": {
+      "en": "II Corinthians 5:19\n Namely - The sum of which is, God - The whole Godhead, but more eminently God the Father. Was in Christ, reconciling the world - Which was before at enmity with God. To himself - So taking away that enmity, which could no otherwise be removed than by the blood of the Son of God.",
+      "es": "II Corintios 5:19\n Es decir, cuya suma es Dios, toda la Deidad, pero más eminentemente Dios el Padre. Estaba en Cristo, reconciliando al mundo - Que antes estaba en enemistad con Dios. Para sí mismo - Quitando así esa enemistad, que no podría eliminarse de otra manera que no sea con la sangre del Hijo de Dios.",
+      "enHash": "46ae09cebaaa52a7a07b47445c00f4527ce34f9807a495d1d11934ea9d8023c5",
+      "source": "corpus:john-wesley"
+    },
+    "b88": {
+      "en": "II Corinthians 5:20\n Therefore we are ambassadors for Christ - we beseech you in Christ's stead - Herein the apostle might appear to some \"transported beyond himself.\" In general he uses a more calm, sedate kind of exhortation, as in the beginning of the next chapter. What unparalleled condescension and divinely tender mercies are displayed in this verse! Did the judge ever beseech a condemned criminal to accept of pardon? Does the creditor ever beseech a ruined debtor to receive an acquittance in full? Yet our almighty Lord, and our eternal Judge, not only vouchsafes to offer these blessings, but invites us, entreats us, and, with the most tender importunity, solicits us, not to reject them.",
+      "es": "II Corintios 5:20\n Por lo tanto, somos embajadores de Cristo - os lo suplicamos en lugar de Cristo - Aquí el apóstol podría parecer a algunos \"transportados más allá de sí mismo\". En general, utiliza un tipo de exhortación más tranquila y sosegada, como al comienzo del capítulo siguiente. ¡Qué incomparable condescendencia y divinamente tiernas misericordias se muestran en este versículo! ¿Alguna vez el juez suplicó a un criminal condenado que aceptara el perdón? ¿Suplica alguna vez el acreedor a un deudor arruinado que reciba una indemnización total? Sin embargo, nuestro Señor todopoderoso y nuestro Juez eterno, no sólo se digna ofrecer estas bendiciones, sino que nos invita, nos ruega y, con la más tierna importunidad, nos solicita que no las rechacemos.",
+      "enHash": "cbe3feef98fc83bf114b1b9c03a87adffb880e0432e556b9cb85bab7fb7d9528",
+      "source": "corpus:john-wesley"
+    },
+    "b89": {
+      "en": "II Corinthians 5:21\n He made him a sin offering, who knew no sin - A commendation peculiar to Christ. For us - Who knew no righteousness, who were inwardly and outwardly nothing but sin; who must have been consumed by the divine justice, had not this atonement been made for our sins. That we might be made the righteousness of God through him - Might through him be invested wi th that righteousness, first imputed to us, then implanted in us, which is in every sense the righteousness of God.",
+      "es": "II Corintios 5:21\n Le hizo una ofrenda por el pecado, que no conoció pecado - Un elogio peculiar de Cristo. Para nosotros - Que no conocimos la justicia, que por dentro y por fuera no éramos más que pecado; quienes debieron haber sido consumidos por la justicia divina, si no se hubiera hecho esta expiación por nuestros pecados. Para que podamos ser hechos justicia de Dios a través de él - Podríamos a través de él ser investidos con esa justicia, primero imputada a nosotros, luego implantada en nosotros, que es en todos los sentidos la justicia de Dios.",
+      "enHash": "4f48252bc499a14a59b36f6ce78c6f342d64ade4d562f27faa084c2e065d74ad",
+      "source": "corpus:john-wesley"
+    },
+    "b90": {
+      "en": "II Corinthians 6:1\n We then not only beseech, but as fellow - labourers with you, who are working out your own salvation, do also exhort you, not to receive the grace of God - Which we have been now describing. In vain - We receive it by faith; and not in vain, if we add to this, persevering holiness.",
+      "es": "II Corintios 6:1\n Entonces, no sólo rogamos, sino que, como compañeros de trabajo con vosotros, que estáis obrando en vuestra propia salvación, también os exhortamos a no recibir la gracia de Dios, que hemos estado describiendo ahora. En vano - Lo recibimos por fe; y no en vano, si a esto le sumamos la perseverante santidad.",
+      "enHash": "c11f82ef35f02863f22832d98c758f2a55238342da178d671b781f368442125d",
+      "source": "corpus:john-wesley"
+    },
+    "b91": {
+      "en": "II Corinthians 6:2\n For he saith - The sense is, As of old there was a particular time wherein God was pleased to pour out his peculiar blessing, so there is now. And this is the particular time: this is a time of peculiar blessing. Isaiah 49:8 .",
+      "es": "II Corintios 6:2\n Porque él dice: El sentido es: como en la antigüedad hubo un momento particular en el que a Dios le agradó derramar su bendición peculiar, así lo hay ahora. Y este es el momento particular: este es un tiempo de bendición peculiar. Isaías 49:8 .",
+      "enHash": "dafd52a376faae72ee1f78bdab9e4dbf5df5a479cef3b3f23cb0b3e04e0e718c",
+      "source": "corpus:john-wesley"
+    },
+    "b92": {
+      "en": "Giving, as far as in us lies, no offence, that the ministry be not blamed on our account.",
+      "es": "No ofender, en la medida de nuestras posibilidades, para que el ministerio no sea culpado por nuestra parte.",
+      "enHash": "4001abab740203465e41da73ebb66c9725434b2029c1face601b6c36d0194884",
+      "source": "corpus:john-wesley"
+    },
+    "b93": {
+      "en": "II Corinthians 6:4\n But approving ourselves as the ministers of God - Such as his ministers ought to be. In much patience - Shown, In afflictions, necessities, distresses - All which are general terms. In stripes, imprisonments, tumults - Which are particular sorts of affliction, necessity, distress In labours, watchings, fastings - Voluntarily endured. All these are expressed in the plural number, to denote a variety of them. In afflictions, several ways to escape may appear, though none without difficulty in necessities, one only, and that a difficult one; in distresses, none at all appears.",
+      "es": "II Corintios 6:4\n Pero aprobarnos como ministros de Dios - Como deberían ser sus ministros. Con mucha paciencia - Mostrado, En aflicciones, necesidades, angustias - Todos los cuales son términos generales. En azotes, encarcelamientos, tumultos - Que son tipos particulares de aflicción, necesidad, angustia En trabajos, vigilias, ayunos - Soportados voluntariamente. Todos estos se expresan en plural, para indicar una variedad de ellos. En las aflicciones pueden aparecer varias salidas, aunque ninguna sin dificultad en las necesidades, una sola, y ésta difícil; en apuros, no aparece ninguno.",
+      "enHash": "941943157af24f9729944bbefc97c6e4ba44bb67c0f2d866e253ae770684aff7",
+      "source": "corpus:john-wesley"
+    },
+    "b94": {
+      "en": "II Corinthians 6:5\n In tumults - The Greek word implies such attacks as a man cannot stand against, but which bear him hither and thither by violence.",
+      "es": "II Corintios 6:5\n En tumultos - La palabra griega implica ataques contra los cuales un hombre no puede resistir, pero que lo llevan de aquí para allá con violencia.",
+      "enHash": "a23b838923ae52d86de5f641e0b07410d5d814d61d78093a0352a53ffb6ab181",
+      "source": "corpus:john-wesley"
+    },
+    "b95": {
+      "en": "II Corinthians 6:6\n By prudence - Spiritual divine; not what the world terms so. Worldly prudence is the practical use of worldly wisdom: divine prudence is the due exercise of grace, making spiritual understanding go as far as possible. By love unfeigned - The chief fruit of the Spirit.",
+      "es": "II Corintios 6:6\n Por prudencia - Divino espiritual; no lo que el mundo considera así. La prudencia mundana es el uso práctico de la sabiduría mundana: la prudencia divina es el debido ejercicio de la gracia, haciendo que la comprensión espiritual llegue lo más lejos posible. Por amor sincero - El principal fruto del Espíritu.",
+      "enHash": "b7b7bdd5e40fc01ecdaf25deb741f4c20305273c396a1b3541ce9d3a87876361",
+      "source": "corpus:john-wesley"
+    },
+    "b96": {
+      "en": "II Corinthians 6:7\n By the convincing and converting power of God - Accompanying his word; and also attesting it by divers miracles. By the armour of righteousness on the right hand and the left - That is, on all sides; the panoply or whole armour of God.",
+      "es": "II Corintios 6:7\n Por el poder convincente y convertidor de Dios - Acompañando su palabra; y también atestiguarlo por diversos milagros. Por la armadura de la justicia a derecha e izquierda - Es decir, en todos lados; la panoplia o armadura completa de Dios.",
+      "enHash": "0099243bf8d4c73f03d6e31b0613d3fb6e8388d853b5f544513d0b2974fcc10b",
+      "source": "corpus:john-wesley"
+    },
+    "b97": {
+      "en": "II Corinthians 6:8\n By honour and dishonour - When we are present. By evil report and good report - When we are absent. Who could bear honour and good report, were it not balanced by dishonour? As deceivers - Artful, designing men. So the world represents all true ministers of Christ. Yet true - Upright, sincere, in the sight of God.",
+      "es": "II Corintios 6:8\n Por honor y deshonra - Cuando estemos presentes. Por mal informe y buen informe - Cuando estamos ausentes. ¿Quién podría dar honor y buena reputación si no estuvieran compensados ​​por la deshonra? Como engañadores - Hombres ingeniosos y diseñadores. De modo que el mundo representa a todos los verdaderos ministros de Cristo. Sin embargo, es cierto: recto, sincero, ante los ojos de Dios.",
+      "enHash": "68379dc0cb25aa977ad817b0535d844e441e9d53c524aabc70a42a35690e191a",
+      "source": "corpus:john-wesley"
+    },
+    "b98": {
+      "en": "II Corinthians 6:9\n As unknown - For the world knoweth us not, as it knew him not. Yet well known - To God, and to those who are the seals of our ministry. As dying, yet behold - Suddenly, unexpectedly, God interposes, and we live.",
+      "es": "II Corintios 6:9\n Como desconocido - Porque el mundo no nos conoce, como no lo conoció a él. Sin embargo, bien conocido - Para Dios y para aquellos que son los sellos de nuestro ministerio. Como muriendo, pero he aquí - De repente, inesperadamente, Dios se interpone y vivimos.",
+      "enHash": "2992e62c54d70c0cc96457a3fd79cddd45ab491ce040c4e1b18f619619134681",
+      "source": "corpus:john-wesley"
+    },
+    "b99": {
+      "en": "II Corinthians 6:10\n As sorrowing - For our own manifold imperfections, and for the sins and sufferings of our brethren. Yet always rejoicing - In present peace, love, power, and a sure hope of future glory. As having nothing, yet possessing all things - For all things are ours, if we are Christ's. What a magnificence of thought is this!",
+      "es": "II Corintios 6:10\n Como dolor - Por nuestras múltiples imperfecciones y por los pecados y sufrimientos de nuestros hermanos. Sin embargo, siempre regocijándonos - En la paz presente, el amor, el poder y una esperanza segura de gloria futura. Como no tener nada, pero poseerlo todo - Porque todas las cosas son nuestras, si somos de Cristo. ¡Qué magnificencia de pensamiento es ésta!",
+      "enHash": "ba04d17b487c0e2a4c3a94f32db7c3e1ae79055a4345a556d573bab4edbbc0f0",
+      "source": "corpus:john-wesley"
+    },
+    "b100": {
+      "en": "II Corinthians 6:11\n From the praise of the Christian ministry, which he began 2Cor 2:14 , he now draws his affectionate exhortation. O ye Corinthians - He seldom uses this appellation. But it has here a peculiar force. Our mouth is opened toward you - With uncommon freedom, because our heart is enlarged - In tenderness.",
+      "es": "II Corintios 6:11\n De la alabanza del ministerio cristiano, que inició en 2Cor 2,14, extrae ahora su afectuosa exhortación. Oh corintios - Rara vez usa esta denominación. Pero aquí tiene una fuerza peculiar. Nuestra boca se abre hacia ti - Con libertad poco común, porque nuestro corazón se ensancha - Con ternura.",
+      "enHash": "9485db5dae7133c2ac89310ab1f7c29ed66366ee2c8cbf54aacaf9b693439d4c",
+      "source": "corpus:john-wesley"
+    },
+    "b101": {
+      "en": "II Corinthians 7:1\n Let us cleanse ourselves - This is the latter part of the exhortation, which was proposed, 2Cor 6:1 , and resumed, 2Cor 6:14. From all pollution of the flesh - All outward sin. And of the spirit - All inward. Yet let us not rest in negative religion, but perfect holiness - Carrying it to the height in all its branches, and enduring to the end in the loving fear of God, the sure foundation of all holiness.",
+      "es": "II Corintios 7:1\n Limpiémonos - Esta es la última parte de la exhortación, que se propuso, 2 Cor 6:1, y se reanudó, 2 Cor 6:14. De toda contaminación de la carne - Todo pecado exterior. Y del espíritu - Todo hacia adentro. Sin embargo, no descansemos en la religión negativa, sino en la santidad perfecta, llevándola a la altura en todas sus ramas y perseverando hasta el fin en el temor amoroso de Dios, fundamento seguro de toda santidad.",
+      "enHash": "92ebadb5aa8155a02c8b2b2c39b47b04cdc4b9dec414ecec93179ce4611641b3",
+      "source": "corpus:john-wesley"
+    },
+    "b102": {
+      "en": "II Corinthians 7:2\n Receive us - The sum of what is said in this, as well as in the tenth and following chapters. We have hurt no man - In his person. We have corrupted no man - In his principles. We have defrauded no man - Of his property. In this he intimates likewise the good he had done them, but with the utmost modesty, as it were not looking upon it.",
+      "es": "II Corintios 7:2\n Recíbenos - La suma de lo dicho en este, así como en el capítulo décimo y siguientes. No hemos lastimado a ningún hombre - En su persona. No hemos corrompido a ningún hombre - En sus principios. No hemos defraudado a nadie - De su propiedad. En esto insinúa también el bien que les había hecho, pero con la mayor modestia, como si no lo mirara.",
+      "enHash": "3ae61a1661bba104d019bab5a8d0adc1af54ed81e97e608b1c47882cd8ad10a0",
+      "source": "corpus:john-wesley"
+    },
+    "b103": {
+      "en": "II Corinthians 7:3\n I speak not to condemn you - Not as if I accused you of laying this to my charge. I am so far from thinking so unkindly of you, that ye are in our hearts, to live and die with you - That is, I could rejoice to spend all my days with you.",
+      "es": "II Corintios 7:3\n No hablo para condenarte - No es como si te acusara de acusarme de esto. Estoy tan lejos de pensar tan mal de ti, que estás en nuestros corazones, para vivir y morir contigo - Es decir, podría alegrarme de pasar todos mis días contigo.",
+      "enHash": "434b346111e3cbcd5ea0caf6aaaab6034000a461b26f40b3b8054daa5500afc9",
+      "source": "corpus:john-wesley"
+    },
+    "b104": {
+      "en": "I am filled with comfort — Of this he treats, 2 Corinthians 7:13 .",
+      "es": "Estoy lleno de consuelo ] De esto trata, 2 Corintios 7:13 .",
+      "enHash": "4e0f368a9592ed91465cdc1622231323d1d1c64533e3440d5b6a4badca41ab45",
+      "source": "corpus:john-wesley"
+    },
+    "b105": {
+      "en": "II Corinthians 7:5\n Our flesh - That is, we ourselves. Had no rest from without - From the heathens. Were fightings - Furious and cruel oppositions. From within - From our brethren. Were fears - Lest they should be seduced.",
+      "es": "II Corintios 7:5\n Nuestra carne - Es decir, nosotros mismos. No tuve descanso desde afuera - De los paganos. Hubo peleas - Oposiciones furiosas y crueles. Desde dentro - De nuestros hermanos. Eran temores - Para que no se dejen seducir.",
+      "enHash": "e9bb2b0958fe697273510894a3181a27b19a7a3dc46bdf056fd0f99d3e2463c0",
+      "source": "corpus:john-wesley"
+    },
+    "b106": {
+      "en": "II Corinthians 7:7\n Your earnest desire - To rectify what had been amiss. Your grief - For what had offended God, and troubled me.",
+      "es": "II Corintios 7:7\n Su más sincero deseo: rectificar lo que había estado mal. Tu dolor - Por lo que había ofendido a Dios y me había preocupado.",
+      "enHash": "508f4c9c6d6e561ac3e16273d7e013ab67324b1577d622b55b82ac4a756accdb",
+      "source": "corpus:john-wesley"
+    },
+    "b107": {
+      "en": "I did repent — That is, I felt a tender sorrow for having grieved you, till I saw the happy effect of it.",
+      "es": "Me arrepentí, es decir, sentí un tierno dolor por haberte afligido, hasta que vi el feliz efecto de ello.",
+      "enHash": "bd138e68d26f53ee2c0e49284cc118db8361fed8507f481055ea00e8a3ae4361",
+      "source": "corpus:john-wesley"
+    },
+    "b108": {
+      "en": "II Corinthians 7:10\n The sorrow of the world - Sorrow that arises from worldly considerations. Worketh death - Naturally tends to work or occasion death, temporal, spiritual, and eternal.",
+      "es": "II Corintios 7:10\n El dolor del mundo - Dolor que surge de consideraciones mundanas. Provoca la muerte - Naturalmente tiende a producir u ocasionar la muerte, temporal, espiritual y eterna.",
+      "enHash": "30d4e74b6d0dbcd93d4f21171647607ecbb00ca1c6629016f1e40010f5bb36ac",
+      "source": "corpus:john-wesley"
+    },
+    "b109": {
+      "en": "II Corinthians 7:11\n How great diligence it wrought in you - Shown in all the following particulars. Yea, clearing of yourselves - Some had been more, some less, faulty; whence arose these various affections. Hence their apologizing and indignation, with respect to themselves; their fear and desire, with respect to the apostle; their zeal and revenge, with respect to the offender, yea, and themselves also. Clearing of yourselves - From either sharing in, or approving of, his sin. Indignation - That ye had not immediately corrected the offender. Fear - Of God's displeasure, or lest I should come with a rod. Vehement desire - To see me again. Zeal - For the glory of God, and the soul of that sinner. Yea, revenge - Ye took a kind of holy revenge upon yourselves, being scarce able to forgive yourselves. In all things ye - As a church. Have approved yourselves to be pure - That is, free from blame, since ye received my letter.",
+      "es": "II Corintios 7:11\n Cuánta diligencia obró en ti - Se muestra en todos los detalles siguientes. Sí, limpiándose - Algunos habían sido más defectuosos, otros menos; de donde surgieron estas diversas afecciones. De ahí sus disculpas e indignación, respecto de ellos mismos; su miedo y deseo, con respecto al apóstol; su celo y venganza, con respecto al ofensor, sí, y a ellos mismos también. Limpieza de ustedes mismos - De compartir o aprobar su pecado. Indignación - Que no habíais corregido inmediatamente al infractor. Miedo - Al disgusto de Dios, o que venga con una vara. Deseo vehemente - De volverme a ver. Celo - Por la gloria de Dios y el alma de ese pecador. Sí, venganza - Tomasteis una especie de venganza santa sobre vosotros mismos, siendo apenas capaces de perdonaros a vosotros mismos. En todas las cosas vosotros - Como iglesia. Se han aprobado para ser puros - Es decir, libres de culpa, desde que recibieron mi carta.",
+      "enHash": "5ad68948ded296e390b329897c5944d693df85dc2f67eb4bfd41cb69cd96311c",
+      "source": "corpus:john-wesley"
+    },
+    "b110": {
+      "en": "It was not only, or chiefly, for the sake of the incestuous person, or of his father; but to show my care over you.\n\n << 2 Corinthians 6 | 2 Corinthians 7 | 2 Corinthians 8 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 2 Corinthians 2 Corinthians 7\n\n Related Commentaries\n 2 Corinthians 7\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "No fue sólo, ni principalmente, por el bien de la persona incestuosa o de su padre; sino para mostrar mi cuidado por ti.\n\n << 2 Corintios 6 | 2 Corintios 7 | 2 Corintios 8 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 2 Corintios 2 Corintios 7\n\n Comentarios relacionados\n 2 Corintios 7\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "74df8e6663d872e5f5e83968935f9b4ef744d8ad909199b75bbe34e17294844d",
+      "source": "corpus:john-wesley"
+    },
+    "b111": {
+      "en": "II Corinthians 8:4\n Praying us with much entreaty - Probably St. Paul had lovingly admonished them not to do beyond their power.",
+      "es": "II Corintios 8:4\n Orándonos con mucha súplica - Probablemente San Pablo les había amonestado amorosamente que no hicieran más allá de su poder.",
+      "enHash": "ccefd909640755cd97753222707e4060f21b22a4412a4ffa895368871fb90fd9",
+      "source": "corpus:john-wesley"
+    },
+    "b112": {
+      "en": "II Corinthians 8:5\n And not as we hoped - That is, beyond all we could hope. They gave themselves to us, by the will of God - In obedience to his will, to be wholly directed by us.",
+      "es": "II Corintios 8:5\n Y no como esperábamos. Es decir, más allá de todo lo que podíamos esperar. Se entregaron a nosotros, por la voluntad de Dios - En obediencia a su voluntad, para ser totalmente dirigidos por nosotros.",
+      "enHash": "3f7f3d78865d907cad67bc02efff9f9d9784b34aa8265e30caf4f3a2729779d1",
+      "source": "corpus:john-wesley"
+    },
+    "b113": {
+      "en": "We declare to you the grace of God — Which evidently appeared by this happy effect.",
+      "es": "Os declaramos la gracia de Dios que evidentemente apareció por este feliz efecto.",
+      "enHash": "dad895ecf6505d0170e46f791f58f1fa3ada383f6ccd62987bf41e0192dbdd62",
+      "source": "corpus:john-wesley"
+    },
+    "b114": {
+      "en": "In a great trial of affliction — Being continually persecuted, harassed, and plundered.",
+      "es": "En una gran prueba de aflicción, siendo continuamente perseguidos, acosados ​​y saqueados.",
+      "enHash": "4d2bf107064e3d6711aab6ac7d74750f39f372ddd7a66a3420540a014acea2bb",
+      "source": "corpus:john-wesley"
+    },
+    "b115": {
+      "en": "As he had begun — When he was with you before.",
+      "es": "Como había comenzado, cuando estuvo contigo antes.",
+      "enHash": "89ef26cb227270fa435ae0d4f83254571817aedb554a3f23bb1c3b324c9b953b",
+      "source": "corpus:john-wesley"
+    },
+    "b116": {
+      "en": "II Corinthians 8:9\n For ye know - And this knowledge is the true source of love. The grace - The most sincere, most free, and most abundant love. He became poor - In becoming man, in all his life; in his death. Rich - In the favour and image of God.",
+      "es": "II Corintios 8:9\n Porque ya sabéis - Y este conocimiento es la verdadera fuente del amor. La gracia - El amor más sincero, más libre y más abundante. Se hizo pobre - Al convertirse en hombre, en toda su vida; en su muerte. Rico - En el favor y la imagen de Dios.",
+      "enHash": "3635173da25f6443fca041e798bc803639372366b164bacfcccf4fb960570997",
+      "source": "corpus:john-wesley"
+    },
+    "b117": {
+      "en": "II Corinthians 8:12\n A man - Every believer. Is accepted - With God. According to what he hath - And the same rule holds universally. Whoever acknowledges himself to be a vile, guilty sinner, and, in consequence of this acknowledgment, flies for refuge to the wounds of a crucified Saviour, and relies on his merits alone for salvation, may in every circumstance of life apply this indulgent declaration to himself.",
+      "es": "II Corintios 8:12\n Un hombre - Todo creyente. Es aceptado - Con Dios. Según lo que tiene - Y la misma regla se aplica universalmente. Cualquiera que se reconozca a sí mismo como un pecador vil y culpable y, como consecuencia de este reconocimiento, busque refugio en las heridas de un Salvador crucificado y confíe únicamente en sus méritos para la salvación, puede en todas las circunstancias de la vida aplicarse esta indulgente declaración a sí mismo.",
+      "enHash": "463153852a44523f8ff3f9884186c8d60d13f62302586c320afac12cb094a350",
+      "source": "corpus:john-wesley"
+    },
+    "b118": {
+      "en": "II Corinthians 8:14\n That their abundance - If need should so require. May be - At another time. A supply to your want: that there may be an equality - No want on one side, no superfluity on the other. It may likewise have a further meaning: - that as the temporal bounty of the Corinthians did now supply the temporal wants of their poor brethren in Judea, so the prayers of these might be a means of bringing down many spiritual blessings on their benefactors: so that all the spiritual wants of the one might be amply supplied; all the temporal of the other.",
+      "es": "II Corintios 8:14\n Que su abundancia - Si la necesidad así lo requiere. Puede ser - En otro momento. Una provisión para tu necesidad: que haya igualdad - No hay necesidad de un lado, no hay superfluidad del otro. También puede tener un significado adicional: - que así como la generosidad temporal de los corintios ahora suplía las necesidades temporales de sus hermanos pobres en Judea, las oraciones de estos podrían ser un medio para traer muchas bendiciones espirituales a sus benefactores: para que todas las necesidades espirituales de uno pudieran ser ampliamente suplidas; todo lo temporal del otro.",
+      "enHash": "c0690d15423a9f3bb1abcbcf00e90171243042bf500960308854a670564b39b7",
+      "source": "corpus:john-wesley"
+    },
+    "b119": {
+      "en": "II Corinthians 8:15\n As it is written, He that had gathered the most had nothing over; and he that had gathered the least did not lack - That is, in which that scripture is in another sense fulfilled. Exod 16:18",
+      "es": "II Corintios 8:15\n Como está escrito: El que más había recogido nada le sobraba; y al que menos había reunido no le faltó - Es decir, en el que esa escritura se cumple en otro sentido. Éxodo 16:18",
+      "enHash": "21585473c904bd6f009952cf68c9092c7b001d04038626dbfa9b7d68c95dc6f9",
+      "source": "corpus:john-wesley"
+    },
+    "b120": {
+      "en": "To write to you — Largely.",
+      "es": "Para escribirte – En gran medida.",
+      "enHash": "82fe3d8a00ae44a76628aaea41e2d83501638b4db2afee33f67d44af4b83f8ec",
+      "source": "corpus:john-wesley"
+    },
+    "b121": {
+      "en": "I boast to them of Macedonia — With whom he then was.",
+      "es": "Me jacto ante ellos de Macedonia, con quien estaba entonces.",
+      "enHash": "224d8aa3a19d6b288f6d62ef8bbfaad8c2960741e7643ac365064b580c165435",
+      "source": "corpus:john-wesley"
+    },
+    "b122": {
+      "en": "I have sent the above mentioned brethren before me.",
+      "es": "He enviado a los hermanos antes mencionados antes que yo.",
+      "enHash": "52a234d3f219f4e7b884553429119cf7ab54ab75fbecb76f4cd663891da187e7",
+      "source": "corpus:john-wesley"
+    },
+    "b123": {
+      "en": "Spoken of before — By me, to the Macedonians.\n\n Not as a matter of covetousness — As wrung by importunity from covetous persons.",
+      "es": "Hablado antes: por mí, a los macedonios.\n\n No como una cuestión de codicia, como algo arrancado por la importunidad a las personas codiciosas.",
+      "enHash": "78addfc0821527e344d961ea41c37904e2a911ae811e3fcb1db828407eb53e1d",
+      "source": "corpus:john-wesley"
+    },
+    "b124": {
+      "en": "II Corinthians 9:6\n He that soweth sparingly shall reap sparingly; he that soweth bountifully shall reap bountifully - A general rule. God will proportion the reward to the work, and the temper whence it proceeds.",
+      "es": "II Corintios 9:6\n El que siembra escasamente, escasamente segará; el que siembra abundantemente cosechará abundantemente - Una regla general. Dios proporcionará la recompensa al trabajo y al temperamento del que procede.",
+      "enHash": "cc1b709cd969f3dc179d7684b5ef3d0777113dfc1d322a20bc6b96dddb71715d",
+      "source": "corpus:john-wesley"
+    },
+    "b125": {
+      "en": "Of necessity — Because he cannot tell how to refuse.",
+      "es": "Por necesidad, porque no sabe cómo negarse.",
+      "enHash": "402cc46f8b24cd2ce8b37cd2a4cc79d355dea8f0c6dac4f43a7a97e8f7678c5b",
+      "source": "corpus:john-wesley"
+    },
+    "b126": {
+      "en": "II Corinthians 9:8\n How remarkable are these words! Each is loaded with matter and increases all the way it goes. All grace - Every kind of blessing. That ye may abound to every good work - God gives us everything, that we may do good therewith, and so receive more blessings. All things in this life, even rewards, are, to the faithful, seeds in order to a future harvest. Prov 22:9",
+      "es": "II Corintios 9:8\n ¡Cuán notables son estas palabras! Cada uno está cargado de materia y aumenta a lo largo de su recorrido. Toda gracia - Todo tipo de bendición. Para que abundéis en toda buena obra - Dios nos da todo, para que podamos hacer el bien con ello y así recibir más bendiciones. Todas las cosas en esta vida, incluso las recompensas, son, para los fieles, semillas para una cosecha futura. Prov 22:9",
+      "enHash": "63fff101c13af960ba36c90e239f4ee772ed68adadfedc57f7f5ea48c6d101e9",
+      "source": "corpus:john-wesley"
+    },
+    "b127": {
+      "en": "II Corinthians 9:9\n He hath scattered abroad - (A generous word.) With a full hand, without any anxious thought which way each grain falls. His righteousness - His beneficence, with the blessed effects of it. Remaineth for ever - Unexhausted, God still renewing his store. Psalm 112:9",
+      "es": "II Corintios 9:9\n Se ha esparcido por el extranjero - (Una palabra generosa.) Con la mano llena, sin pensar ansiosamente en qué dirección cae cada grano. Su justicia - Su beneficencia, con sus benditos efectos. Permanece para siempre - Inagotable, Dios sigue renovando su tienda. Salmo 112:9",
+      "enHash": "355b3aa3871acd52d15ac95e11b0767fe9d65873c012d0e087971b5a591dee94",
+      "source": "corpus:john-wesley"
+    },
+    "b128": {
+      "en": "II Corinthians 9:10\n And he who supplieth seed - Opportunity and ability to help others. And bread - All things needful for your own souls and bodies. Will continually supply you with that seed, yea, multiply it to you more and more. And increase the fruits of your righteousness - The happy effects of your love to God and man. Isa 55:10",
+      "es": "II Corintios 9:10\n Y el que suministra semillas - Oportunidad y capacidad para ayudar a los demás. Y pan - Todo lo necesario para vuestras almas y cuerpos. Continuamente os suministrará esa semilla, sí, os la multiplicará más y más. Y aumenta los frutos de tu justicia - Los felices efectos de tu amor a Dios y al hombre. Is 55:10",
+      "enHash": "6e9a2ff361886e680f3851bf52ab1e7d72fd10f09e88888386a28b9755547fc3",
+      "source": "corpus:john-wesley"
+    },
+    "b129": {
+      "en": "Which worketh by us thanksgiving to God — Both from us who distribute, and them who receive, your bounty.",
+      "es": "Que obra mediante nosotros acción de gracias a Dios, tanto de parte de nosotros que distribuimos como de aquellos que recibimos tu generosidad.",
+      "enHash": "ba667d55e8d92fb0097b97ccb59dbcf189c19424ba03fb58db77bf51a586a723",
+      "source": "corpus:john-wesley"
+    },
+    "b130": {
+      "en": "Your avowed subjection — Openly testified by your actions.\n\n To all men — Who stand in need of it.",
+      "es": "Su sujeción declarada: abiertamente testificada por sus acciones.\n\n A todos los hombres que lo necesitan.",
+      "enHash": "e4f3f0dd6589b0f2573677fd7af07368df6ba7dde6a28bd03cdb84a5a024f35f",
+      "source": "corpus:john-wesley"
+    },
+    "b131": {
+      "en": "His unspeakable gift — His outward and inward blessings, the number and excellence of which cannot he uttered.\n\n << 2 Corinthians 8 | 2 Corinthians 9 | 2 Corinthians 10 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 2 Corinthians 2 Corinthians 9\n\n Related Commentaries\n 2 Corinthians 9\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Su don indescriptible: sus bendiciones externas e internas, cuyo número y excelencia no puede expresar.\n\n << 2 Corintios 8 | 2 Corintios 9 | 2 Corintios 10 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 2 Corintios 2 Corintios 9\n\n Comentarios relacionados\n 2 Corintios 9\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "29fee13dacf1edc13a0d7dcd5fb21c08e759c01234f10ac0ba2ff39bc08e276f",
+      "source": "corpus:john-wesley"
+    },
+    "b132": {
+      "en": "II Corinthians 10:1\n Now I Paul myself - - A strongly emphatical expression. Who when present am base among you - So, probably, some of the false teachers affirmed. Copying after the meekness and gentleness of Christ, entreat - Though I might command you.",
+      "es": "II Corintios 10:1\n Ahora yo mismo, Paul... - Una expresión fuertemente enfática. Quien cuando esté presente sea base entre vosotros - Así, probablemente, afirmaron algunos de los falsos maestros. Copiando la mansedumbre y gentileza de Cristo, suplica - Aunque pueda mandarte.",
+      "enHash": "887a86cc8378ac77f2f6bfdf1d7fddfd6e49546805e58765cf8a54160bc71068",
+      "source": "corpus:john-wesley"
+    },
+    "b133": {
+      "en": "II Corinthians 10:2\n Do not constrain me when present to be bold - To exert my apostolical authority. Who think of us as walking after the flesh - As acting in a cowardly or crafty manner.",
+      "es": "2 Corintios 10:2\n No me obligues cuando esté presente a ser audaz - A ejercer mi autoridad apostólica. Quienes piensan que caminamos según la carne - Actuamos de manera cobarde o astuta.",
+      "enHash": "57553254ea6865cad2ea4f1bd0a5714c9c66bb005fd64593682b4f7b76be7972",
+      "source": "corpus:john-wesley"
+    },
+    "b134": {
+      "en": "II Corinthians 10:3\n Though we walk in the flesh - In mortal bodies, and, consequently, are not free from human weakness. Yet we do not war - Against the world and the devil. After the flesh - By any carnal or worldly methods. Though the apostle here, and in several other parts of this epistle, speaks in the plural number, for the sake of modesty and decency, yet he principally means himself. On him were these reflections thrown, and it is his own authority which he is vindicating.",
+      "es": "2 Corintios 10:3\n Aunque caminamos en la carne - En cuerpos mortales y, en consecuencia, no estamos libres de la debilidad humana. Sin embargo, no hacemos la guerra - Contra el mundo y el diablo. Según la carne - Por cualquier método carnal o mundano. Aunque el apóstol aquí, y en varias otras partes de esta epístola, habla en plural, por motivos de modestia y decencia, se refiere principalmente a sí mismo. Sobre él se arrojaron estas reflexiones, y es su propia autoridad la que está reivindicando.",
+      "enHash": "ce37daacd64bd0ed8ccbfae6f371c24a1e62b1ae865ecd86a7e6e4c691928a0a",
+      "source": "corpus:john-wesley"
+    },
+    "b135": {
+      "en": "II Corinthians 10:4\n For the weapons of our warfare - Those we use in this war. Are not carnal - But spiritual, and therefore mighty to the throwing down of strong holds - Of all the difficulties which men or devils can raise in our way. Though faith and prayer belong also to the Christian armour, Eph 6:15 ,",
+      "es": "2 Corintios 10:4\n Por las armas de nuestra guerra. Las que usamos en esta guerra. No son carnales - Sino espirituales, y por lo tanto poderosos para derribar fortalezas - De todas las dificultades que los hombres o los demonios pueden plantear en nuestro camino. Aunque la fe y la oración pertenecen también a la armadura cristiana, Ef 6:15,",
+      "enHash": "dc88ef8e01d2a5e711555273ef5ac3f76084a0c5fefe3921c1fe50e7fbd976ca",
+      "source": "corpus:john-wesley"
+    },
+    "b136": {
+      "en": "II Corinthians 10:5\n Destroying all vain reasonings, and every high thing which exalteth itself - As a wall or rampart. Against the knowledge of God, and bringing every thought - Or, rather, faculty of the mind. Into captivity to the obedience of Christ - Those evil reasonings are destroyed. The mind itself, being overcome and taken captive, lays down all authority of its own, and entirely gives itself up to perform, for the time to come, to Christ its conqueror the obedience of faith.",
+      "es": "2 Corintios 10:5\n Destruyendo todos los razonamientos vanos y todo lo elevado que se exalta a sí mismo - Como un muro o muralla. Contra el conocimiento de Dios, y trayendo cada pensamiento - O, más bien, facultad de la mente. En cautiverio a la obediencia de Cristo - Esos malos razonamientos son destruidos. La mente misma, vencida y cautiva, abandona toda autoridad propia y se entrega por completo para realizar, en el futuro, a Cristo su conquistador la obediencia de la fe.",
+      "enHash": "1b6cf09f202487c01c198e6670c159083d90856d2e4bf78df417cd2222a455da",
+      "source": "corpus:john-wesley"
+    },
+    "b137": {
+      "en": "II Corinthians 10:6\n Being in readiness to avenge all disobedience - Not only by spiritual censure, but miraculous punishments. When your obedience is fulfilled - When the sound part of you have given proof of your obedience, so that I am in no danger of punishing the innocent with the guilty.",
+      "es": "2 Corintios 10:6\n Estar dispuesto a vengar toda desobediencia - No solo con censura espiritual, sino con castigos milagrosos. Cuando se cumpla tu obediencia - Cuando tu parte sana haya dado prueba de tu obediencia, para que no corra peligro de castigar al inocente con el culpable.",
+      "enHash": "db40ed09b22758c32527ea4cc05506205767e9fb8883b9533fb579dedac4b64c",
+      "source": "corpus:john-wesley"
+    },
+    "b138": {
+      "en": "II Corinthians 10:7\n Do ye look at the outward appearance of things - Does any of you judge of a minister of Christ by his person, or any outward circumstance? Let him again think this of himself - Let him learn it from his own reflection, before I convince him by a severer method.",
+      "es": "2 Corintios 10:7\n ¿Miráis la apariencia exterior de las cosas? ¿Alguno de vosotros juzga a un ministro de Cristo por su persona o alguna circunstancia exterior? Que vuelva a pensar esto de sí mismo - Que lo aprenda de su propio reflejo, antes de que lo convenza con un método más severo.",
+      "enHash": "e1c36dcf3b9be97a638468926a875236eeb3b867f8d8e02fa584596952e177e8",
+      "source": "corpus:john-wesley"
+    },
+    "b139": {
+      "en": "I should not be ashamed — As having said more than I could make good.",
+      "es": "No debería avergonzarme de haber dicho más de lo que podía hacer bien.",
+      "enHash": "04b7d23e8983f028df308a36d5c99c279135cf780a8202ffc940371aedebcdd4",
+      "source": "corpus:john-wesley"
+    },
+    "b140": {
+      "en": "I say this, that I may not seem to terrify you by letters - Threatening more than I can perform.",
+      "es": "Digo esto para que no parezca que los aterrorizo ​​con cartas, amenazando más de lo que puedo realizar.",
+      "enHash": "fac6a7be966164418f13b47647033652fb99bbb6b47dec6c916a912ea047b81d",
+      "source": "corpus:john-wesley"
+    },
+    "b141": {
+      "en": "His bodily presence is weak — His stature, says St. Chrysostom, was low, his body crooked, and his head bald.",
+      "es": "Su presencia corporal es débil. Su estatura, dice San Crisóstomo, era baja, su cuerpo encorvado y su cabeza calva.",
+      "enHash": "9e94dd9cb213dfb3faa2cd4d0aa6725fd493d29277e89be79a9c9b123d620fef",
+      "source": "corpus:john-wesley"
+    },
+    "b142": {
+      "en": "II Corinthians 10:12\n For we presume not - A strong irony. To equal ourselves - As partners of the same office. Or to compare ourselves - As partakers of the same labour. They among themselves limiting themselves - Choosing and limiting their provinces according to their own fancy.",
+      "es": "II Corintios 10:12\n Porque suponemos que no - Una fuerte ironía. Igualarnos a nosotros mismos - Como socios de un mismo cargo. O compararnos - Como participantes del mismo trabajo. Se limitan entre ellos - Eligiendo y limitando sus provincias según su propia fantasía.",
+      "enHash": "4d0f9eac52dedf0b6d6e06e86718350c810dd552a4af8ded15f096507ba9a1ec",
+      "source": "corpus:john-wesley"
+    },
+    "b143": {
+      "en": "II Corinthians 10:13\n But we will not, like them, boastingly extend ourselves beyond our measure, but according to the measure of the province which God hath allotted us - To me, in particular, as the apostle of the gentiles. A measure which reaches even unto you - God allotted to each apostle his province, and the measure or bounds thereof.",
+      "es": "II Corintios 10:13\n Pero no nos extenderemos jactanciosamente, como ellos, más allá de nuestra medida, sino según la medida de la provincia que Dios nos ha asignado, a mí, en particular, como apóstol de los gentiles. Una medida que llega incluso hasta ti - Dios asignó a cada apóstol su provincia y la medida o límites de la misma.",
+      "enHash": "575828dece9a8e97beba1f968aed28c81ba4493cf826529968190f2ceb5f48f8",
+      "source": "corpus:john-wesley"
+    },
+    "b144": {
+      "en": "II Corinthians 11:1\n I wish ye would bear - So does he pave the way for what might otherwise have given offence. With my folly - Of commending myself; which to many may appear folly; and really would be so, were it not on this occasion absolutely necessary.",
+      "es": "II Corintios 11:1\n Ojalá lo soportaras - Entonces él allana el camino para lo que de otro modo podría haber ofendido. Con mi locura - De recomendarme a mí mismo; lo que a muchos puede parecer una locura; y realmente así sería, si en esta ocasión no fuera absolutamente necesario.",
+      "enHash": "2ec37d8ab0f383975dc2874f9aa048da9f6260a7df3139e21a31e7f295f35d7d",
+      "source": "corpus:john-wesley"
+    },
+    "b145": {
+      "en": "II Corinthians 11:2\n For - The cause of his seeming folly is expressed in this and the following verse; the cause why they should bear with him, 2Cor 11:4 .",
+      "es": "II Corintios 11:2\n Porque - La causa de su aparente locura se expresa en este y el siguiente verso; la causa por la que debían soportarlo, 2 Corintios 11:4.",
+      "enHash": "ebafd2479b07012fdf81e84654f56892ef8b14a8060a4586b5f2f88579253e4d",
+      "source": "corpus:john-wesley"
+    },
+    "b146": {
+      "en": "II Corinthians 11:3\n But I fear - Love is full of these fears. Lest as the serpent - A most apposite comparison. Deceived Eve - Simple, ignorant of evil. By his subtilty - Which is in the highest degree dangerous to such a disposition. So your minds - We might therefore be tempted, even if there were no sin in us. Might be corrupted - Losing their virginal purity. From the simplicity that is in Christ - That simplicity which is lovingly intent on him alone, seeking no other person or thing.",
+      "es": "II Corintios 11:3\n Pero tengo miedo: el amor está lleno de estos miedos. Para que no sea como la serpiente - Una comparación muy apropiada. Eva engañada: simple, ignorante del mal. Por su sutileza - Lo cual es sumamente peligroso para tal disposición. Entonces vuestras mentes - Por lo tanto, podríamos ser tentados, incluso si no hubiera pecado en nosotros. Podría estar corrompido - Perdiendo su pureza virginal. De la sencillez que hay en Cristo - Esa sencillez que está amorosamente concentrada en él solo, sin buscar otra persona o cosa.",
+      "enHash": "93ba4d030e78ee122fbb0827ccd05735fa5ae07f98ea419ff90d2027d4622d19",
+      "source": "corpus:john-wesley"
+    },
+    "b147": {
+      "en": "II Corinthians 11:4\n If indeed - Any could show you another Saviour, a more powerful Spirit, a better gospel. Ye might well bear with him - But this is impossible.",
+      "es": "II Corintios 11:4\n Si es cierto, alguno podría mostrarles otro Salvador, un Espíritu más poderoso, un mejor evangelio. Bien podrías soportarlo - Pero esto es imposible.",
+      "enHash": "4f75bef63ce86c1af2a69fabf8e103d9d4b7f9a4a937bd04fc31c284cc54bee7",
+      "source": "corpus:john-wesley"
+    },
+    "b148": {
+      "en": "II Corinthians 11:6\n If I am unskilful in speech - If I speak in a plain, unadorned way, like an unlearned person. So the Greek word properly signifies.",
+      "es": "II Corintios 11:6\n Si no soy hábil para hablar - Si hablo de manera sencilla y sin adornos, como una persona ignorante. Entonces la palabra griega significa propiamente.",
+      "enHash": "c6f03baac8a09e3fe3330020b9d112e07d5aeb8771433954b394ce5a311749c5",
+      "source": "corpus:john-wesley"
+    },
+    "b149": {
+      "en": "II Corinthians 11:7\n Have I committed an offence - Will any turn this into an objection? In humbling myself - To work at my trade. That ye might be exalted - To be children of God.",
+      "es": "II Corintios 11:7\n ¿He cometido un delito? ¿Alguno convertirá esto en una objeción? Humillarme - Trabajar en mi oficio. Para que seáis exaltados - Para ser hijos de Dios.",
+      "enHash": "8f21c06253cac695eeaa574a5b12e9879e9ee1938f074038dd4169b5f5f5a94f",
+      "source": "corpus:john-wesley"
+    },
+    "b150": {
+      "en": "II Corinthians 11:8\n I spoiled other churches - I, as it were, took the spoils of them: it is a military term. Taking wages (or pay, another military word) of them - When I came to you at first. And when I was present with you, and wanted - My work not quite supplying my necessities. I was chargeable to no man - Of Corinth.",
+      "es": "II Corintios 11:8\n Eché a perder a otras iglesias; por así decirlo, tomé el botín de ellas: es un término militar. Tomando salario (o pago, otra palabra militar) de ellos - Cuando vine a ti por primera vez. Y cuando estaba presente con vosotros, y quería - Mi trabajo no satisfacía del todo mis necesidades. No era responsable ante ningún hombre - De Corinto.",
+      "enHash": "bd6bc27fb8a772c8686f8436ccdadf5d38ccc18de80aa2f4fc3fc8903737f08a",
+      "source": "corpus:john-wesley"
+    },
+    "b151": {
+      "en": "II Corinthians 11:9\n For - I choose to receive help from the poor Macedonians, rather than the rich Corinthians! Were the poor in all ages more generous than the rich?",
+      "es": "II Corintios 11:9\n Porque: ¡elijo recibir ayuda de los macedonios pobres, en lugar de los corintios ricos! ¿Fueron los pobres de todas las épocas más generosos que los ricos?",
+      "enHash": "db09d67f516f68f65ec7b84f2af17d713441065195adf28711d0093f9a138137",
+      "source": "corpus:john-wesley"
+    },
+    "b152": {
+      "en": "This my boasting shall not be stopped — For I will receive nothing from you.",
+      "es": "Esta mi jactancia no cesará, porque nada recibiré de ti.",
+      "enHash": "f51e89796746a9c32b3ac6e991331b6af617992e0a9f09c2cea1bf31bf0646d6",
+      "source": "corpus:john-wesley"
+    },
+    "b153": {
+      "en": "Do I refuse to receive anything of you, because I love you not? God knoweth that is not the case.",
+      "es": "¿Me niego a recibir algo de vosotros porque no os amo? Dios sabe que ese no es el caso.",
+      "enHash": "b338a35cef334c8f8631276392276ae50ea0a17d1c444e79e962c9119c0ffec6",
+      "source": "corpus:john-wesley"
+    },
+    "b154": {
+      "en": "II Corinthians 11:12\n Who desire any occasion - To censure me. That wherein they boast, they may be found even as we - They boasted of being \"burdensome to no man.\" But it was a vain boast in them, though not in the apostle.",
+      "es": "II Corintios 11:12\n Que deseen cualquier ocasión - Para censurarme. Aquello en lo que se jactan, pueden ser encontrados incluso como nosotros - Se jactaban de ser \"gravosos para nadie\". Pero fue una jactancia vana en ellos, aunque no en el apóstol.",
+      "enHash": "bf253f96ded359a65446a98067d896f041f29a3ea44aa01c703f247c82f8afdf",
+      "source": "corpus:john-wesley"
+    },
+    "b155": {
+      "en": "Satan himself is transformed — Uses to transform himself; to put on the fairest appearances.",
+      "es": "El mismo Satanás se transforma: utiliza para transformarse; para tener las apariencias más bellas.",
+      "enHash": "2a33e5187e81f3732f90c24c5abefe7ab3ffd8d20d2a6ca504a223d1e72995cc",
+      "source": "corpus:john-wesley"
+    },
+    "b156": {
+      "en": "II Corinthians 11:15\n Therefore it is no great, no strange, thing; whose end, notwithstanding all their disguises, shall be according to their works.",
+      "es": "II Corintios 11:15\n Por lo tanto, no es algo grande ni extraño; cuyo fin, a pesar de todos sus disfraces, será conforme a sus obras.",
+      "enHash": "04b8927f3639c78423c16e837c2db78824dcff3dc7d27bbe1a0c3f0e818c8d0c",
+      "source": "corpus:john-wesley"
+    },
+    "b157": {
+      "en": "II Corinthians 11:16\n I say again - He premises a new apology to this new commendation of himself. Let no man think me a fool - Let none think I do this without the utmost necessity. But if any do think me foolish herein, yet bear with my folly.",
+      "es": "II Corintios 11:16\n Repito: ante este nuevo elogio de sí mismo, plantea una nueva disculpa. Que nadie me considere tonto - Que nadie piense que hago esto sin la mayor necesidad. Pero si alguien piensa que soy un tonto en esto, que soporten mi locura.",
+      "enHash": "4352a3b79bf2cc0df3143205a65be26d5f96acf86a3faba1fbc836113338ac95",
+      "source": "corpus:john-wesley"
+    },
+    "b158": {
+      "en": "II Corinthians 11:17\n I speak not after the Lord - Not by an express command from him; though still under the direction of his Spirit. But as it were foolishly - In such a manner as many may think foolish.",
+      "es": "II Corintios 11:17\n No hablo después del Señor - No por orden expresa de él; aunque todavía bajo la dirección de su Espíritu. Pero como si fuera una tontería - De una manera que muchos puedan pensar que es una tontería.",
+      "enHash": "c1588f7dfd88d403347be21bc6c36c191acaedc303c504011ff6dc926e695c4b",
+      "source": "corpus:john-wesley"
+    },
+    "b159": {
+      "en": "After the flesh — That is, in external things.",
+      "es": "Según la carne, es decir, en las cosas externas.",
+      "enHash": "6457c4cd389a8233c44f747b85f230e0e97a788b077c1381ccaf38efea62b4bb",
+      "source": "corpus:john-wesley"
+    },
+    "b160": {
+      "en": "Being wise — A beautiful irony.",
+      "es": "Ser sabio: una hermosa ironía.",
+      "enHash": "6742ae17dd4e27e6c7ebbaf778a65b615331cdcb17af3f87c5928e0b91379267",
+      "source": "corpus:john-wesley"
+    },
+    "b161": {
+      "en": "II Corinthians 11:20\n For ye suffer - Not only the folly, but the gross abuses, of those false apostles. If a man enslave you - Lord it over you in the most arbitrary manner. If he devour you - By his exorbitant demands; not - withstanding his boast of not being burdensome. If he take from you - By open violence. If he exalt himself - By the most unbounded self - commendation. If he smite you on the face - (A very possible case,) under pretence of divine zeal.",
+      "es": "II Corintios 11:20\n Porque sufrís - No solo la locura, sino también los graves abusos de esos falsos apóstoles. Si un hombre te esclaviza, te domina de la manera más arbitraria. Si te devora - Por sus exigencias exorbitantes; no - a pesar de su jactancia de no ser gravoso. Si te quita - Con violencia abierta. Si se exalta a sí mismo - Por el elogio más ilimitado. Si te golpea en la cara - (Un caso muy posible) con el pretexto de celo divino.",
+      "enHash": "827ed81232d71eec45cf4d8a7f47214551b52da680e1961232f35046e9a6e892",
+      "source": "corpus:john-wesley"
+    },
+    "b162": {
+      "en": "II Corinthians 11:21\n I speak with regard to reproach, as though we had been weak - I say, \"Bear with me,\" even on supposition that the weakness be real which they reproach me with.",
+      "es": "II Corintios 11:21\n Hablo con respecto al reproche, como si hubiéramos sido débiles; digo: \"Tened paciencia\", incluso suponiendo que la debilidad que me reprochan sea real.",
+      "enHash": "831240be5ff83da1fabc195f7b6538ec56119e6bc3a06c2ce32cfb861051231e",
+      "source": "corpus:john-wesley"
+    },
+    "b163": {
+      "en": "II Corinthians 11:22\n Are they Hebrews, Israelites, the seed of Abraham - These were the heads on which they boasted.",
+      "es": "II Corintios 11:22\n ¿Son hebreos, israelitas, la simiente de Abraham? Estas eran las cabezas de las que se jactaban.",
+      "enHash": "ec0b6d5910f4ed92efa80fd778e96acbf76bbc0989da79fb169e6187a5a58803",
+      "source": "corpus:john-wesley"
+    },
+    "b164": {
+      "en": "I am more so than they.\n\n In deaths often — Surrounding me in the most dreadful forms.",
+      "es": "Yo lo soy más que ellos.\n\n A menudo en muertes, rodeándome en las formas más espantosas.",
+      "enHash": "ea0b3b73aba24ae25f6d9036ade1e06dfe10ae1676a83512e22cfdd599e2e528",
+      "source": "corpus:john-wesley"
+    },
+    "b165": {
+      "en": "II Corinthians 11:24\n Five times I received from the Jews forty stripes save one - Which was the utmost that the law allowed. With the Romans he sometimes pleaded his privilege as a Roman; but from the Jews he suffered all things.",
+      "es": "II Corintios 11:24\n Cinco veces recibí de los judíos cuarenta azotes menos uno, que era el máximo que permitía la ley. Ante los romanos a veces defendía su privilegio como romano; pero por parte de los judíos sufrió todo.",
+      "enHash": "eefa25fa6e3116f0ee818e938423e8e343bfafa19a55b9d41e8639ce58752c19",
+      "source": "corpus:john-wesley"
+    },
+    "b166": {
+      "en": "II Corinthians 11:25\n Thrice I have been shipwrecked - Before his voyage to Rome. In the deep - Probably floating on some part of the vessel.",
+      "es": "II Corintios 11:25\n Tres veces he naufragado - Antes de su viaje a Roma. En las profundidades - Probablemente flotando en alguna parte del barco.",
+      "enHash": "c4de73430a805836ebcdfa3c5e701ab1e664acd556012d50bba37a864094d8bf",
+      "source": "corpus:john-wesley"
+    },
+    "b167": {
+      "en": "It is not expedient — Unless on so pressing occasion. Visions are seen; revelations, heard.",
+      "es": "No es conveniente, a menos que sea en una ocasión tan urgente. Se ven visiones; revelaciones, escuchadas.",
+      "enHash": "f30c0c538d773555533bc70fddb7a58697a056bac4b1efde232cd9113ce22615",
+      "source": "corpus:john-wesley"
+    },
+    "b168": {
+      "en": "II Corinthians 12:2\n I knew a man in Christ - That is, a Christian. It is plain from 2Cor 12:6 ,7, that he means himself, though in modesty he speaks as of a third person. Whether in the body or out of the body I know not - It is equally possible with God to present distant things to the imagination in the body, as if the soul were absent from it, and present with them; or to transport both soul and body for what time he pleases to heaven; or to transport the soul only thither for a season, and in the mean time to preserve the body fit for its re - entrance. But since the apostle himself did not know whether his soul was in the body, or whether one or both were actually in heaven, it would be vain curiosity for us to attempt determining it. The third heaven - Where God is; far above the aerial and the starry heaven. Some suppose it was here the apostle was let into the mystery of the future state of the church; and received his orders to turn from the Jews and go to the gentiles.",
+      "es": "II Corintios 12:2\n Conocí a un hombre en Cristo - Es decir, un cristiano. De 2 Corintios 12:6, 7 se desprende claramente que se refiere a sí mismo, aunque con modestia habla como de una tercera persona. Si en el cuerpo o fuera del cuerpo, no lo sé - Es igualmente posible para Dios presentar cosas distantes a la imaginación en el cuerpo, como si el alma estuviera ausente de él, y presente con ellas; o para transportar alma y cuerpo por el tiempo que quiera al cielo; o transportar el alma allí sólo por un tiempo, y mientras tanto preservar el cuerpo en condiciones para su reingreso. Pero como el apóstol mismo no sabía si su alma estaba en el cuerpo, o si una o ambas estaban realmente en el cielo, sería vana curiosidad que intentáramos determinarlo. El tercer cielo - Donde está Dios; muy por encima del cielo aéreo y estrellado. Algunos suponen que fue aquí donde el apóstol entró en el misterio del estado futuro de la iglesia; y recibió órdenes de volverse de los judíos y volverse a los gentiles.",
+      "enHash": "81493f27569e82bd1bbd3443d49e3771b4b3c1edc9e24fa30d687f0afc6f5914",
+      "source": "corpus:john-wesley"
+    },
+    "b169": {
+      "en": "Yea, I knew such a man — That at another time.",
+      "es": "Sí, conocí a un hombre así, eso en otro momento.",
+      "enHash": "5355eb743a0a702d14856b7d8418b0ae0e6600b4146b5305432e6c78f1a2e4c5",
+      "source": "corpus:john-wesley"
+    },
+    "b170": {
+      "en": "II Corinthians 12:4\n He was caught up into paradise - The seat of happy spirits in their separate state, between death and the resurrection. Things which it is not possible for man to utter - Human language being incapable of expressing them. Here he anticipated the joyous rest of the righteous that die in the Lord. But this rapture did not precede, but follow after, his being caught up to the third heaven: a strong intimation that he must first discharge his mission, and then enter into glory. And beyond all doubt, such a foretaste of it served to strengthen him in all his after trials, when he could call to mind the very joy that was prepared for him.",
+      "es": "II Corintios 12:4\n Fue arrebatado al paraíso - El asiento de los espíritus felices en su estado separado, entre la muerte y la resurrección. Cosas que el hombre no puede pronunciar; el lenguaje humano es incapaz de expresarlas. Aquí anticipó el gozoso descanso de los justos que mueren en el Señor. Pero este arrebatamiento no precedió, sino que siguió, a su ser arrebatado al tercer cielo: una fuerte indicación de que primero debe cumplir su misión y luego entrar en la gloria. Y sin lugar a dudas, tal anticipo sirvió para fortalecerlo en todas sus pruebas posteriores, cuando pudo recordar el gozo que estaba preparado para él.",
+      "enHash": "09262558e1e86e7a30e5c7fbc19deffa723866ea1956d6cec78db228cef87a64",
+      "source": "corpus:john-wesley"
+    },
+    "b171": {
+      "en": "Of such an one I will — I might, glory; but I will not glory of myself - As considered in myself.",
+      "es": "De tal quiero, podría, gloriarme; pero no me gloriaré - Como lo considero en mí mismo.",
+      "enHash": "13dd11e6f962507ed49fa4aad0418528d6a5101b6ca23153654507a6f20c1ac8",
+      "source": "corpus:john-wesley"
+    },
+    "b172": {
+      "en": "II Corinthians 12:6\n For if I should resolve to glory - Referring to, I might glory of such a glorious revelation. I should not be a fool - That is, it could not justly be accounted folly to relate the naked truth. But I forbear - I speak sparingly of these things, for fear any one should think too highly of me - O where is this fear now to be found? Who is afraid of this?",
+      "es": "II Corintios 12:6\n Porque si decidiera gloriarme - Refiriéndose a, podría gloriarme de una revelación tan gloriosa. No debería ser un tonto - Es decir, no se podría considerar una locura relatar la verdad desnuda. Pero lo dejo, hablo con moderación de estas cosas, por temor a que alguien tenga una opinión demasiado alta de mí. ¿Dónde se encuentra ahora este miedo? ¿Quién tiene miedo de esto?",
+      "enHash": "f246d681d486db5255a6084ee9a5431b8a03066ab80736f61dfc5cfd715bd66c",
+      "source": "corpus:john-wesley"
+    },
+    "b173": {
+      "en": "II Corinthians 12:7\n There was given me - By the wise and gracious providence of God. A thorn in the flesh - A visitation more painful than any thorn sticking in the flesh. A messenger or angel of Satan to buffet me - Perhaps both visibly and invisibly; and the word in the original expresses the present, as well as the past, time. All kinds of affliction had befallen the apostle. Yet none of those did he deprecate. But here he speaks of one, as above all the rest, one that macerated him with weakness, and by the pain and ignominy of it prevented his being lifted up mere, or, at least, not less, than the most vehement head ache could have done; which many of the ancients say he laboured under. St. Paul seems to have had a fresh fear of these buffetings every moment, when he so frequently represses himself in his boasting, though it was extorted from him by the utmost necessity.",
+      "es": "II Corintios 12:7\n Me fue dado - Por la sabia y misericordiosa providencia de Dios. Una espina en la carne - Una visita más dolorosa que cualquier espina clavada en la carne. Un mensajero o ángel de Satanás para abofetearme - Quizás tanto visible como invisiblemente; y la palabra en el original expresa el tiempo presente, así como el pasado. Al apóstol le habían sobrevenido toda clase de aflicciones. Sin embargo, no desaprobó ninguno de ellos. Pero aquí habla de uno, como por encima de todos los demás, uno que lo maceró con debilidad, y por el dolor y la ignominia de ello impidió que se levantara simplemente, o, al menos, no menos, de lo que podría haberlo hecho el dolor de cabeza más vehemente; bajo el cual muchos de los antiguos dicen que trabajó. San Pablo parece haber tenido un nuevo temor a estos golpes a cada momento, cuando con tanta frecuencia se reprime en su jactancia, aunque se la arrebató la mayor necesidad.",
+      "enHash": "a960506194c013996c8be8201f5fad67c01d82f97ec9c409088803a2cf9542b7",
+      "source": "corpus:john-wesley"
+    },
+    "b174": {
+      "en": "II Corinthians 12:8\n Concerning this - He had now forgot his being lifted up. I besought the Lord thrice - As our Lord besought his Father.",
+      "es": "II Corintios 12:8\n Con respecto a esto, ahora se había olvidado de que había sido levantado. Rogué al Señor tres veces - Como nuestro Señor suplicó a su Padre.",
+      "enHash": "53ab235e7846e7a2672c12c6e9ae45e6cf88ad085b5ceea5497c8764cbbd83cf",
+      "source": "corpus:john-wesley"
+    },
+    "b175": {
+      "en": "II Corinthians 12:9\n But he said to me - ln answer to my third request. My grace is sufficient for thee - How tender a repulse! We see there may be grace where there is the quickest sense of pain. My strength is more illustriously displayed by the weakness of the instrument. Therefore I will glory in my weaknesses rather than my revelations, that the strength of Christ may rest upon me - The Greek word properly means, may cover me all over like a tent. We ought most willingly to accept whatever tends to this end, however contrary to flesh and blood.",
+      "es": "II Corintios 12:9\n Pero él me dijo: En respuesta a mi tercera petición. Mi gracia te basta. ¡Qué tierno rechazo! Vemos que puede haber gracia donde hay la sensación más rápida de dolor. Mi fuerza se muestra más ilustremente en la debilidad del instrumento. Por lo tanto, me gloriaré en mis debilidades en lugar de en mis revelaciones, para que la fuerza de Cristo descanse sobre mí - La palabra griega propiamente significa, puede cubrirme por completo como una tienda de campaña. Deberíamos aceptar de buena gana todo lo que tienda a este fin, por contrario que sea a la carne y a la sangre.",
+      "enHash": "5372fc07d88d2c1742b33d1ff14f8242d216274f584be3a126d9d115b18fe657",
+      "source": "corpus:john-wesley"
+    },
+    "b176": {
+      "en": "II Corinthians 12:10\n Weaknesses - Whether proceeding from Satan or men. For when I am weak - Deeply conscious of my weakness, then does the strength of Christ rest upon me.",
+      "es": "II Corintios 12:10\n Debilidades - Ya sea que proceda de Satanás o de los hombres. Porque cuando soy débil - Profundamente consciente de mi debilidad, entonces la fuerza de Cristo descansa sobre mí.",
+      "enHash": "3a29dbbcbb9158fe1ed7f692208b59436d423c7c76e237cb0de618b0dcac31b1",
+      "source": "corpus:john-wesley"
+    },
+    "b177": {
+      "en": "Though I am nothing — Of myself.",
+      "es": "Aunque no soy nada, de mí mismo.",
+      "enHash": "b252c698389ba4b7d8d5c789418e4176aae6e93385fe9e5a547e6dd81f4d0ade",
+      "source": "corpus:john-wesley"
+    },
+    "b178": {
+      "en": "II Corinthians 13:1\n I am coming this third time - He had been coming twice before, though he did not actually come.",
+      "es": "II Corintios 13:1\n Vengo esta tercera vez - Había venido dos veces antes, aunque en realidad no vino.",
+      "enHash": "7d3d3ba16ed8b904eb8e5debae384cda3ba627ad780b3645c879ca701cf48fb2",
+      "source": "corpus:john-wesley"
+    },
+    "b179": {
+      "en": "II Corinthians 13:2\n All the rest - Who have since then sinned in any of these kinds. I will not spare - I will severely punish them.",
+      "es": "II Corintios 13:2\n Todos los demás - Que desde entonces han pecado en cualquiera de estos tipos. No perdonaré, los castigaré severamente.",
+      "enHash": "20ab367480e0d54c3d48901bad7f655b5bb0031c8630b4dfc73f4ca70d3ddad7",
+      "source": "corpus:john-wesley"
+    },
+    "b180": {
+      "en": "II Corinthians 13:4\n He was crucified through weakness - Through the impotence of human nature. We also are weak with him - We appear weak and despicable by partaking of the same sufferings for his sake. But we shall live with him - Being raised from the dead. By the power of God in you - By that divine energy which is now in every believer, 2Cor 13:5 .",
+      "es": "II Corintios 13:4\n Fue crucificado por debilidad - Por la impotencia de la naturaleza humana. También somos débiles con él - Parecemos débiles y despreciables al participar de los mismos sufrimientos por él. Pero viviremos con él - Siendo resucitados de entre los muertos. Por el poder de Dios en ti - Por esa energía divina que ahora está en cada creyente, 2 Cor 13:5 .",
+      "enHash": "e261f8cf86c0e5d93f637aa66c9e6390533cb5d68a477cd409af60a13efdf0a8",
+      "source": "corpus:john-wesley"
+    },
+    "b181": {
+      "en": "II Corinthians 13:5\n Prove yourselves - Whether ye are such as can, or such as cannot, bear the test - This is the proper meaning of the word which we translate, reprobates. Know ye not yourselves, that Jesus Christ is in you - All Christian believers know this, by the witness and by the fruit of his Spirit. Some translate the words, Jesus Christ is among you; that is, in the church of Corinth; and understand them of the miraculous gifts and the power of Christ which attended the censures of the apostle.",
+      "es": "II Corintios 13:5\n Probaos a vosotros mismos - Ya sea que podáis o no podáis soportar la prueba - Este es el significado correcto de la palabra que traducimos, réprobos. No os conocéis a vosotros mismos, que Jesucristo está en vosotros - Todos los creyentes cristianos lo saben, por el testimonio y por el fruto de su Espíritu. Algunos traducen las palabras Jesucristo está entre vosotros; es decir, en la iglesia de Corinto; y comprenderles los dones milagrosos y el poder de Cristo que acompañaron las censuras del apóstol.",
+      "enHash": "c15246a6ca4d86ddb6478ccac109fbaea9f779e87792dae897f11be5c693348e",
+      "source": "corpus:john-wesley"
+    },
+    "b182": {
+      "en": "And I trust ye shall know — By proving yourselves, not by putting my authority to the proof.",
+      "es": "Y confío que lo sabréis probando vosotros mismos, no poniendo a prueba mi autoridad.",
+      "enHash": "1281639f6ebf4b8336ed51965bed913ba65512e9d23c0adc2a265adfdd07affa",
+      "source": "corpus:john-wesley"
+    },
+    "b183": {
+      "en": "II Corinthians 13:7\n I pray God that ye may do no evil - To give me occasion of showing my apostolical power. I do not desire to appear approved - By miraculously punishing you. But that ye may do that which is good, though we should be as reprobates - Having no occasion to give that proof of our apostleship.",
+      "es": "II Corintios 13:7\n Ruego a Dios que no hagáis ningún mal - Para darme la oportunidad de mostrar mi poder apostólico. No deseo parecer aprobado - Castigándote milagrosamente. Pero para que podáis hacer lo bueno, aunque seamos réprobos - Sin tener ocasión de dar esa prueba de nuestro apostolado.",
+      "enHash": "cfed731311b818cd9c57b85f306884bc932e558b7ec9306a9a5036bda49c5bed",
+      "source": "corpus:john-wesley"
+    },
+    "b184": {
+      "en": "II Corinthians 13:8\n For we can do nothing against the truth - Neither against that which is just and right, nor against those who walk according to the truth of the gospel.",
+      "es": "II Corintios 13:8\n Porque no podemos hacer nada contra la verdad - Ni contra lo que es justo y correcto, ni contra aquellos que caminan según la verdad del evangelio.",
+      "enHash": "9563e38bd6b3f1ca0aef3762a806e11465c59a13d91c9d1a7e9f87d15a587991",
+      "source": "corpus:john-wesley"
+    },
+    "b185": {
+      "en": "II Corinthians 13:9\n For we rejoice when we are weak - When we appear so, having no occasion to show our apostolic power. And this we wish, even your perfection - In the faith that worketh by love.",
+      "es": "II Corintios 13:9\n Porque nos regocijamos cuando somos débiles - Cuando lo parecemos, sin tener ocasión de mostrar nuestro poder apostólico. Y esto deseamos, incluso vuestra perfección: en la fe que obra por el amor.",
+      "enHash": "7fef67b38e96ed41e4fc956b1146e4ed7789e69c2b9f96fab160ac61719ce8b4",
+      "source": "corpus:john-wesley"
+    },
+    "b186": {
+      "en": "II Corinthians 13:11\n Be perfect - Aspire to the highest degree of holiness. Be of good comfort - Filled with divine consolation. Be of one mind - Desire, labour, pray for it, to the utmost degree that is possible.",
+      "es": "II Corintios 13:11\n Ser perfecto - Aspirar al más alto grado de santidad. Sea de buen consuelo - Lleno de consuelo divino. Sean unánimes: deseen, trabajen y oren por ello, en la mayor medida posible.",
+      "enHash": "3d848c6532568b00e56e83593af45496b867f318820f8d8737a751fd7e589aa7",
+      "source": "corpus:john-wesley"
+    },
+    "b187": {
+      "en": "II Corinthians 13:13\n The grace - Or favour. Of our Lord Jesus Christ - By which alone we can come to the Father. And the love of God - Manifested to you, and abiding in you. And the communion - Or fellowship. Of the Holy Ghost - In all his gifts and graces.\n It is with great reason that this comprehensive and instructive blessing is pronounced at the close of our solemn assemblies; and it is a very indecent thing to see so many quitting them, or getting into postures of remove, before this short sentence can be ended.\n How often have we heard this awful benediction pronounced! Let us study it more and more, that we may value it proportionably; that we may either deliver or receive it with a becoming reverence, with eyes and hearts lifted up to God, \"who giveth the blessing out of Sion, and life for evermore.\"",
+      "es": "II Corintios 13:13\n La gracia - O favor. De nuestro Señor Jesucristo - Sólo por el cual podemos venir al Padre. Y el amor de Dios - Manifestado a ti y morando en ti. Y la comunión - O compañerismo. Del Espíritu Santo - En todos sus dones y gracias.\n Es con gran razón que esta completa e instructiva bendición se pronuncia al final de nuestras asambleas solemnes; y es muy indecente ver a tantos abandonarlos o adoptar posturas de alejamiento antes de que pueda terminar esta breve frase.\n ¡Cuántas veces hemos oído pronunciar esta terrible bendición! Estudiémoslo cada vez más para valorarlo proporcionalmente; para que podamos entregarlo o recibirlo con una reverencia adecuada, con los ojos y el corazón elevados a Dios, \"quien da la bendición desde Sión y la vida para siempre\".",
+      "enHash": "0f2ce91dd4f20a9497566de9a7258caacec5c29fc66832975c90cf02dcd4f80c",
+      "source": "corpus:john-wesley"
+    },
+    "b188": {
+      "en": "Galatians 1:1\n Paul, an apostle - Here it was necessary for St. Paul to assert his authority; otherwise he is very modest in the use of this title. He seldom mentions it when he mentions others in the salutations with himself, as in the Epistles to the Philippians and Thessalonians; or when he writes about secular affairs, as in that to Philemon; nor yet in writing to the Hebrews because he was not properly their apostle. Not of men - Not commissioned from them, but from God the Father. Neither by man - Neither by any man as an instrument, but by Jesus Christ. Who raised him from the dead - Of which it was the peculiar business of an apostle to bear witness.",
+      "es": "Gálatas 1:1\n Pablo, un apóstol - Aquí era necesario que San Pablo hiciera valer su autoridad; por lo demás, es muy modesto en el uso de este título. Rara vez lo menciona cuando menciona a otros en los saludos a sí mismo, como en las Epístolas a los Filipenses y Tesalonicenses; o cuando escribe sobre asuntos seculares, como en el caso de Filemón; ni todavía por escrito a los hebreos porque no era propiamente su apóstol. No de los hombres - No encargado de ellos, sino de Dios Padre. Ni por el hombre - Ni por ningún hombre como instrumento, sino por Jesucristo. Quién lo resucitó de entre los muertos - De lo cual era tarea peculiar de un apóstol dar testimonio.",
+      "enHash": "c5dace48116aa0b0c82c434147905e86c687eeecfd3206d0fedd9b084a9079b8",
+      "source": "corpus:john-wesley"
+    },
+    "b189": {
+      "en": "Galatians 1:4\n That he might deliver us from the present evil world - From the guilt, wickedness, and misery wherein it is involved, and from its vain and foolish customs and pleasures. According to the will of God - Without any merit of ours. St. Paul begins most of his epistles with thanksgiving; but, writing to the Galatians, he alters his style, and first sets down his main proposition, That by the merits of Christ alone, giving himself for our sins, we are justified: neither does he term them, as he does others, either saints,\" elect,\" or churches of God.\"",
+      "es": "Gálatas 1:4\n Para poder librarnos del presente mundo malvado - De la culpa, la maldad y la miseria en las que está involucrado, y de sus costumbres y placeres vanos y tontos. Según la voluntad de Dios - Sin ningún mérito nuestro. San Pablo comienza la mayoría de sus epístolas con acción de gracias; pero, escribiendo a los Gálatas, altera su estilo y primero establece su proposición principal: que sólo por los méritos de Cristo, entregándose a sí mismo por nuestros pecados, somos justificados: ni los llama, como lo hace a los demás, ni santos, \"elegidos\" ni iglesias de Dios.",
+      "enHash": "6d5f150f47924fe1f8219c4f58382158fb89d7fb849ed6e8cb409e1afdfb9571",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:3": "b2",
+    "1:4": "b3",
+    "1:5": "b4",
+    "1:6": "b5",
+    "1:7": "b6",
+    "1:8": "b7",
+    "1:9": "b8",
+    "1:10": "b9",
+    "1:11": "b10",
+    "1:12": "b11",
+    "1:14": "b12",
+    "1:15": "b13",
+    "1:17": "b14",
+    "1:18": "b15",
+    "1:19": "b16",
+    "1:20": "b17",
+    "1:21": "b18",
+    "1:22": "b19",
+    "1:23": "b20",
+    "1:24": "b21",
+    "2:1": "b22",
+    "2:2": "b23",
+    "2:3": "b24",
+    "2:4": "b25",
+    "2:5": "b26",
+    "2:6": "b27",
+    "2:10": "b28",
+    "2:11": "b29",
+    "2:12": "b30",
+    "2:13": "b31",
+    "2:14": "b32",
+    "2:15": "b33",
+    "2:16": "b34",
+    "2:17": "b35",
+    "3:1": "b36",
+    "3:2": "b37",
+    "3:3": "b38",
+    "3:4": "b39",
+    "3:5": "b40",
+    "3:6": "b41",
+    "3:7": "b42",
+    "3:8": "b43",
+    "3:9": "b44",
+    "3:10": "b45",
+    "3:11": "b46",
+    "3:12": "b47",
+    "3:13": "b48",
+    "3:14": "b49",
+    "3:16": "b50",
+    "3:17": "b51",
+    "3:18": "b52",
+    "4:1": "b53",
+    "4:2": "b54",
+    "4:3": "b55",
+    "4:4": "b56",
+    "4:5": "b57",
+    "4:6": "b58",
+    "4:7": "b59",
+    "4:8": "b60",
+    "4:10": "b61",
+    "4:11": "b62",
+    "4:12": "b63",
+    "4:13": "b64",
+    "4:15": "b65",
+    "4:16": "b66",
+    "4:17": "b67",
+    "4:18": "b68",
+    "4:20": "b69",
+    "5:2": "b69",
+    "4:21": "b70",
+    "5:3": "b70",
+    "4:22": "b71",
+    "5:4": "b71",
+    "5:1": "b72",
+    "5:5": "b73",
+    "5:6": "b74",
+    "5:7": "b75",
+    "5:8": "b76",
+    "5:9": "b77",
+    "5:10": "b78",
+    "5:11": "b79",
+    "5:12": "b80",
+    "5:13": "b81",
+    "5:14": "b82",
+    "5:15": "b83",
+    "5:16": "b84",
+    "5:17": "b85",
+    "5:18": "b86",
+    "5:19": "b87",
+    "5:20": "b88",
+    "5:21": "b89",
+    "6:1": "b90",
+    "6:2": "b91",
+    "6:3": "b92",
+    "6:4": "b93",
+    "6:5": "b94",
+    "6:6": "b95",
+    "6:7": "b96",
+    "6:8": "b97",
+    "6:9": "b98",
+    "6:10": "b99",
+    "6:11": "b100",
+    "7:1": "b101",
+    "7:2": "b102",
+    "7:3": "b103",
+    "7:4": "b104",
+    "7:5": "b105",
+    "7:7": "b106",
+    "7:8": "b107",
+    "7:10": "b108",
+    "7:11": "b109",
+    "7:12": "b110",
+    "7:20": "b111",
+    "8:4": "b111",
+    "7:21": "b112",
+    "8:5": "b112",
+    "8:1": "b113",
+    "8:2": "b114",
+    "8:6": "b115",
+    "8:9": "b116",
+    "8:12": "b117",
+    "8:14": "b118",
+    "8:15": "b119",
+    "9:1": "b120",
+    "9:2": "b121",
+    "9:3": "b122",
+    "9:5": "b123",
+    "9:6": "b124",
+    "9:7": "b125",
+    "9:8": "b126",
+    "9:9": "b127",
+    "9:10": "b128",
+    "9:11": "b129",
+    "9:13": "b130",
+    "9:15": "b131",
+    "10:1": "b132",
+    "10:2": "b133",
+    "10:3": "b134",
+    "10:4": "b135",
+    "10:5": "b136",
+    "10:6": "b137",
+    "10:7": "b138",
+    "10:8": "b139",
+    "10:9": "b140",
+    "10:10": "b141",
+    "10:12": "b142",
+    "10:13": "b143",
+    "11:1": "b144",
+    "11:2": "b145",
+    "11:3": "b146",
+    "11:4": "b147",
+    "11:6": "b148",
+    "11:7": "b149",
+    "11:8": "b150",
+    "11:9": "b151",
+    "11:10": "b152",
+    "11:11": "b153",
+    "11:12": "b154",
+    "11:14": "b155",
+    "11:15": "b156",
+    "11:16": "b157",
+    "11:17": "b158",
+    "11:18": "b159",
+    "11:19": "b160",
+    "11:20": "b161",
+    "11:21": "b162",
+    "11:22": "b163",
+    "11:23": "b164",
+    "11:24": "b165",
+    "11:25": "b166",
+    "12:1": "b167",
+    "12:2": "b168",
+    "12:3": "b169",
+    "12:4": "b170",
+    "12:5": "b171",
+    "12:6": "b172",
+    "12:7": "b173",
+    "12:8": "b174",
+    "12:9": "b175",
+    "12:10": "b176",
+    "12:11": "b177",
+    "13:1": "b178",
+    "13:2": "b179",
+    "13:4": "b180",
+    "13:5": "b181",
+    "13:6": "b182",
+    "13:7": "b183",
+    "13:8": "b184",
+    "13:9": "b185",
+    "13:11": "b186",
+    "13:13": "b187",
+    "13:15": "b188",
+    "13:18": "b189"
+  }
+}

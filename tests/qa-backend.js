@@ -96,22 +96,60 @@ async function startQA() {
     assert(data.answer.toLowerCase().includes('mente') || data.answer.toLowerCase().includes('pensamiento') || data.answer.toLowerCase().includes('espíritu') || data.answer.toLowerCase().includes('nous'), 'La respuesta no refleja la temática de metanoia');
   });
 
-  // TEST 5: Exposición de Autor Clásico (C. H. Spurgeon vs Juan Calvino)
-  await runTest('5. POST /api/commentary [Exposición Clásica Spurgeon en Mateo 16:2]', async () => {
-    const res = await fetch(`${BASE_URL}/api/commentary`, {
+  // TEST 5: Exposición de Autor Clásico (corpus real; nunca voz imitada)
+  await runTest('5. POST /api/commentary [Spurgeon corpus: Lucas 15:18 hit + Mateo 16:2 miss honesto]', async () => {
+    const hit = await fetch(`${BASE_URL}/api/commentary`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        passage: 'Lucas 15:18',
+        author: 'charles-spurgeon',
+        verseText: 'Me levantaré e iré a mi padre, y le diré: Padre, he pecado contra el cielo y contra ti.',
+      }),
+    });
+    assert(hit.status === 200, `Status HTTP ${hit.status}`);
+    const hitData = await hit.json();
+    assert(hitData.success === true, 'Fallo en success');
+    assert(hitData.found === true, 'Debe haber nota real de Spurgeon en Lucas 15:18');
+    assert(hitData.text && hitData.text.length > 120, 'Exposición insuficiente');
+    assert(/corpus:charles-spurgeon/.test(String(hitData.source || '')), `Fuente inesperada: ${hitData.source}`);
+    assertNoMocks(hitData.text);
+
+    const mt = await fetch(`${BASE_URL}/api/commentary`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        passage: 'Mateo 9:12',
+        author: 'charles-spurgeon',
+      }),
+    });
+    assert(mt.status === 200, `Status HTTP ${mt.status}`);
+    const mtData = await mt.json();
+    assert(mtData.found === true, 'POST author=charles-spurgeon Mateo 9:12 debe found:true');
+    const mtEn = String(mtData.textEn || (!mtData.translated ? mtData.text : '') || '');
+    const mtEs = String(mtData.textEs || (mtData.translated ? mtData.text : '') || '');
+    assert(/physician|sick|whole|ἰατρ|iatro/i.test(mtEn), 'La nota de Spurgeon en Mateo 9:12 debe ser la exposición SPE real (inglés en textEn)');
+    if (mtData.translated) {
+      assert(mtEs.length > 40, 'Spurgeon Mateo 9:12 traducido debe tener textEs');
+      assert(/[áéíóúñü¿¡]|médico|enferm|sano/i.test(mtEs), 'textEs de Spurgeon Mateo 9:12 debe ser español');
+    }
+    assert(/corpus:charles-spurgeon/.test(String(mtData.source || '')), `Fuente inesperada: ${mtData.source}`);
+
+    const miss = await fetch(`${BASE_URL}/api/commentary`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         passage: 'Mateo 16:2',
         author: 'C. H. Spurgeon',
-        verseText: 'Cuando anochece, decís: Buen tiempo; porque el cielo tiene arreboles.'
-      })
+        verseText: 'Cuando anochece, decís: Buen tiempo; porque el cielo tiene arreboles.',
+      }),
     });
-    assert(res.status === 200, `Status HTTP ${res.status}`);
-    const data = await res.json();
-    assert(data.success === true, 'Fallo en success');
-    assert(data.text && data.text.length > 120, 'Exposición insuficiente');
-    assertNoMocks(data.text);
+    assert(miss.status === 200, `Status HTTP ${miss.status}`);
+    const missData = await miss.json();
+    assert(missData.success === true, 'Fallo en success');
+    assert(missData.found === false, 'Mateo 16:2 no debe inventar una exposición de Spurgeon');
+    assert(/No hay nota/.test(String(missData.text || '')), 'El miss debe ser una línea honesta en español');
+    assertNoMocks(missData.text);
   });
 
   // TEST 6: Léxico Strong Dinámico

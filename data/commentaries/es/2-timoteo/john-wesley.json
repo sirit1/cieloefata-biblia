@@ -1,0 +1,458 @@
+{
+  "book": "2 Timoteo",
+  "usfm": "2TI",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "II Timothy 1:3\n Whom I serve from my forefathers - That is, whom both I and my ancestors served. With a pure conscience - He always worshipped God according to his conscience, both before and after his conversion One who stands on the verge of life is much refreshed by the remembrance of his predecessors, to whom he is going.",
+      "es": "II Timoteo 1:3\n A quien sirvo desde mis antepasados - Es decir, a quien servimos tanto yo como mis antepasados. Con una conciencia pura - Siempre adoró a Dios según su conciencia, tanto antes como después de su conversión. Quien está al borde de la vida se siente muy reconfortado por el recuerdo de sus predecesores, a quienes se dirige.",
+      "enHash": "dc0d1df85a0d5970658c79cda8a69966b575163acc80b1fe0388332dbc8af798",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "II Timothy 1:4\n Being mindful of thy tears - Perhaps frequently shed, as well as at the apostle's last parting with him.",
+      "es": "II Timoteo 1:4\n Teniendo en cuenta tus lágrimas - Quizás derramadas con frecuencia, así como en la última despedida del apóstol con él.",
+      "enHash": "0ea1645407503d35d0fae0fde7e5d15881e70e34b9a8e1b757b14ac534d73fe8",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "II Timothy 1:5\n Which dwelt - A word not applied to a transient guest, but only to a settled inhabitant. First - Probably this was before Timothy was born, yet not beyond St. Paul's memory.",
+      "es": "II Timoteo 1:5\n Que habitaba - Una palabra que no se aplica a un huésped transitorio, sino solo a un habitante establecido. Primero: probablemente esto fue antes de que naciera Timoteo, pero no más allá de la memoria de San Pablo.",
+      "enHash": "a4c3b47cb646db6d9a1fa5adc0c601ce5078a64fd1a73d0c2bd7522ce8fc4b71",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "II Timothy 1:6\n Wherefore - Because I remember this. I remind thee of stirring up - Literally, blowing up the coals into a flame. The gift of God - All the spiritual gifts, which the grace of God has given thee.",
+      "es": "II Timoteo 1:6\n Por eso - Porque recuerdo esto. Te recuerdo que debes agitar - Literalmente, hacer estallar las brasas hasta convertirlas en llamas. El don de Dios - Todos los dones espirituales que la gracia de Dios te ha dado.",
+      "enHash": "899df9846b381793738aa239f047a2a1c7dcc40ca4cdf520877d45e34501f2f8",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "II Timothy 1:7\n And let nothing discourage thee, for God hath not given us - That is, the spirit which God hath given us Christians, is not the spirit of fear - Or cowardice. But of power - Banishing fear. And love and sobriety - These animate us in our duties to God, our brethren, and ourselves. Power and sobriety are two good extremes. Love is between, the tie and temperament of both; preventing the two bad extremes of fearfulness and rashness. More is said concerning power, 1Tim 1:8 ; concerning love, 2Tim 2:14 , &c.; concerning sobriety, 2Tim 3:1 ,",
+      "es": "II Timoteo 1:7\n Y que nada te desanime, porque Dios no nos ha dado - Es decir, el espíritu que Dios nos ha dado a los cristianos, no es espíritu de miedo - O de cobardía. Pero de poder - Desterrar el miedo. Y el amor y la sobriedad - Estos nos animan en nuestros deberes para con Dios, nuestros hermanos y nosotros mismos. El poder y la sobriedad son dos buenos extremos. El amor está entre, el vínculo y el temperamento de ambos; previniendo los dos malos extremos del miedo y la temeridad. Se dice más acerca del poder, 1 Timoteo 1:8; concerniente al amor, 2 Timoteo 2:14, etc.; acerca de la sobriedad, 2 Timoteo 3:1,",
+      "enHash": "37e3472f205343bd7cb4563a97a703adcac828455519425e509791ad6f14f439",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "II Timothy 1:8\n Therefore be not thou ashamed - When fear is banished, evil shame also flees away. Of the testimony of our Lord - The gospel, and of testifying the truth of it to all men. Nor of me - The cause of the servants of God doing his work, cannot be separated from the cause of God himself. But be thou partaker of the afflictions - Which I endure for the gospel's sake. According to the power of God - This which overcomes all things is nervously described in the two next verses.",
+      "es": "II Timoteo 1:8\n Por tanto, no te avergüences - Cuando el miedo desaparece, la vergüenza maligna también huye. Del testimonio de nuestro Señor - El evangelio, y de testificar su verdad a todos los hombres. Ni de mí - La causa de los siervos de Dios que hacen su trabajo no puede separarse de la causa de Dios mismo. Pero sé partícipe de las aflicciones - Que soporto por causa del evangelio. Según el poder de Dios - Esto que vence todas las cosas se describe nerviosamente en los dos versículos siguientes.",
+      "enHash": "1889bc7ae8e8702eec26e4fca956cb2d4a64f460ec5090e91e9536acd160a928",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "II Timothy 1:9\n Who hath saved us - By faith. The love of the Father, the grace of our Saviour, and the whole economy of salvation, are here admirably described. Having called us with an holy calling - Which is all from God, and claims us all for God. According to his own purpose and grace - That is, his own gracious purpose. Which was given us - Fixed for our advantage, before the world began.",
+      "es": "II Timoteo 1:9\n ¿Quién nos ha salvado? Por fe. Aquí se describen admirablemente el amor del Padre, la gracia de nuestro Salvador y toda la economía de la salvación. Habiéndonos llamado con un llamado santo - Que es todo de Dios y nos reclama a todos para Dios. Según su propio propósito y gracia - Es decir, su propio propósito misericordioso. Que nos fue dado - Fijado para nuestra ventaja, antes de que comenzara el mundo.",
+      "enHash": "95582109f0f037ae53f7f8940b93149eb2cd11679cede7f118dc569793d1a09d",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "II Timothy 1:10\n By the appearing of our Saviour - This implies his whole abode upon earth. Who hath abolished death - Taken away its sting, and turned it into a blessing. And hath brought life and immortality to light - Hath clearly revealed by the gospel that immortal life which he hath purchased for us.",
+      "es": "II Timoteo 1:10\n Por la aparición de nuestro Salvador - Esto implica toda su morada en la tierra. Quien abolió la muerte - Le quitó el aguijón y lo convirtió en una bendición. Y ha sacado a la luz la vida y la inmortalidad - Ha revelado claramente por el evangelio esa vida inmortal que nos ha comprado.",
+      "enHash": "32fa7e38a91de8c7bac544703a9f64650e101b42b4f464911b387612f4869108",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "That which I have committed to him — My soul.\n\n Until that day — Of his final appearing.",
+      "es": "Lo que le he encomendado: mi alma.\n\n Hasta ese día: de su última aparición.",
+      "enHash": "a781a29f09aacb46128f3a0b5e4bd8b8999658e2d6165d9a7f8bb537f880eb9e",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "The pattern of sound words — The model of pure, wholesome doctrine.",
+      "es": "El modelo de palabras sanas: el modelo de doctrina pura y saludable.",
+      "enHash": "5c9f642e0c5f4a81a247abd2f6d7f6328156095528d53f6fa26e2342fd4cc87d",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "The good thing — This wholesome doctrine.",
+      "es": "Lo bueno: esta sana doctrina.",
+      "enHash": "16fd8a61e599e7a6eeaf1633d6bfa9395b8a4ee8467477047b689916aad80131",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "II Timothy 1:15\n All who are in Asia - Who had attended me at Rome for a while. Are turned away from me - What, from Paul the aged, the faithful soldier, and now prisoner of Christ! This was a glorious trial, and wisely reserved for that time, when he was on the borders of immortality. Perhaps a little measure of the same spirit might remain with him under whose picture are those affecting words, \"The true effigy of Francis Xavier, apostle of the Indies, forsaken of all men, dying in a cottage.\"",
+      "es": "II Timoteo 1:15\n Todos los que están en Asia - Que me habían asistido en Roma por un tiempo. Se alejan de mí - ¡Qué, de Pablo el anciano, el soldado fiel y ahora prisionero de Cristo! Esta fue una prueba gloriosa, y sabiamente reservada para ese tiempo, cuando estaba en los límites de la inmortalidad. Tal vez un poco del mismo espíritu podría permanecer con él, bajo cuya imagen se encuentran esas conmovedoras palabras: \"La verdadera efigie de Francisco Javier, apóstol de las Indias, abandonado de todos los hombres, muriendo en una cabaña\".",
+      "enHash": "6c90f0946a770478d59579a28fefed5399f1e2f0d04f6f31f7622ae7f858958f",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "The family of Onesiphorus — As well as himself.\n\n Hath often refreshed me — Both at Ephesus and Rome.\n\n << 1 Timothy 6 | 2 Timothy 1 | 2 Timothy 2 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 2 Timothy 2 Timothy 1\n\n Related Commentaries\n 2 Timothy 1\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "La familia de Onesíforo, además de él mismo.\n\n A menudo me ha refrescado tanto en Éfeso como en Roma.\n\n << 1 Timoteo 6 | 2 Timoteo 1 | 2 Timoteo 2 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 2 Timoteo 2 Timoteo 1\n\n Comentarios relacionados\n 2 Timoteo 1\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "fa5ebb0ff62569bf5394435e658727ff0dc949f997bee23deb8a462980af08c7",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "II Timothy 2:2\n The things - The wholesome doctrine, 2Timothy 1:13 . Commit - Before thou leavest Ephesus. To faithful men, who will be able, after thou art gone, to teach others.",
+      "es": "II Timoteo 2:2\n Las cosas - La sana doctrina, 2 Timoteo 1:13 . Comprométete - Antes de salir de Éfeso. A hombres fieles, que podrán, después de tu partida, enseñar a otros.",
+      "enHash": "da743a0e4051b601aba9ad679c1948654913a92d36c719a5b9363ac29a97c58a",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "II Timothy 2:4\n No man that warreth entangleth himself - Any more than is unavoidable. In the affairs of this life - With worldly business or cares. That - Minding war only, he may please his captain. In this and the next verse there is a plain allusion to the Roman law of arms, and to that of the Grecian games. According to the former, no soldier was to engage in any civil employment; according to the latter, none could be crowned as conqueror, who did not keep strictly to the rules of the game.",
+      "es": "II Timoteo 2:4\n Ningún hombre que lucha se enreda - Más de lo que es inevitable. En los asuntos de esta vida - Con asuntos o preocupaciones mundanas. Eso... pensando únicamente en la guerra, puede complacer a su capitán. En este versículo y en el siguiente hay una clara alusión a la ley de armas romana y a la de los juegos griegos. Según el primero, ningún soldado debía desempeñar ningún empleo civil; según este último, nadie podía ser coronado vencedor si no respetaba estrictamente las reglas del juego.",
+      "enHash": "f47a148085629fc733e20505176b52ee3b7e6d547a744087978fc3ba557b9556",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "Unless he labour first, he will reap no fruit.",
+      "es": "A menos que trabaje primero, no cosechará ningún fruto.",
+      "enHash": "3c748bbea03ead4d3c37ad1491e899a09f5a4236b50a11dfbd6e2b0d26307d0c",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "Of the seed of David — This one genealogy attend to.",
+      "es": "De la simiente de David: presta atención a esta genealogía.",
+      "enHash": "bc1b812418c956792d8bfbda224a41bb421a66aa7468f4f684d382948a81fcb8",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "Is not bound — Not hindered in its course.",
+      "es": "No está obligado - No obstaculizado en su curso.",
+      "enHash": "7213ffdddd82b94f8ba8dfa1be4dc0655f4952c58933980894002206df4acd33",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "II Timothy 2:10\n Therefore - Encouraged by this, that \"the word of God be not bound.\" I endure all things - See the spirit of a real Christian? Who would not wish to be likeminded? Salvation is deliverance from all evil; glory, the enjoyment of all good.",
+      "es": "II Timoteo 2:10\n Por lo tanto - Animado por esto, que \"la palabra de Dios no sea ligada\". Todo lo soporto - ¿Ves el espíritu de un verdadero cristiano? ¿Quién no querría tener ideas afines? La salvación es liberación de todo mal; gloria, el disfrute de todo bien.",
+      "enHash": "54b9293d5106e02a34956aef44b91edb2566f12b7c7bbd6bd3739f142298db76",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "Dead with him — Dead to sin, and ready to die for him.",
+      "es": "Muerto con él: muerto al pecado y dispuesto a morir por él.",
+      "enHash": "41e6e0bd2ca50fc82d817ba307503e1022524c7d9bac9fa4ec91fbf9045a61bc",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "If we deny him — To escape suffering for him.",
+      "es": "Si lo negamos, para escapar del sufrimiento por él.",
+      "enHash": "eb76e3c1450254cdd593397d75939d5e9e77e29a6251e52ec7e989235b10a7a5",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "II Timothy 2:13\n If we believe not - That is, though some believe not, God will make good all his promises to them that do believe. He cannot deny himself - His word cannot fail.",
+      "es": "II Timoteo 2:13\n Si no creemos - Es decir, aunque algunos no crean, Dios cumplirá todas sus promesas a los que sí creen. No puede negarse a sí mismo; su palabra no puede fallar.",
+      "enHash": "bfcbc7d403f8dc8da9500f1c318aa20d93329fc357cefd438a31cf03f75ecdfd",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "II Timothy 2:14\n Remind them - Who are under thy charge. O how many unnecessary things are thus unprofitably, nay hurtfully, contended for.",
+      "es": "II Timoteo 2:14\n Recuérdales - Quienes están bajo tu cargo. ¡Oh, cuántas cosas innecesarias se luchan de esta manera de manera inútil, incluso perjudicial!",
+      "enHash": "ade8ec01314185e307236ddb6b89888b9b3ed05b4fcc4895a8dc3ddae58d1bee",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "II Timothy 2:15\n A workman that needeth not to be ashamed - Either of unfaithfulness or unskilfulness. Rightly dividing the word of truth - Duly explaining and applying the whole scripture, so as to give each hearer his due portion. But they that give one part of the gospel to all (the promises and comforts to unawakened, hardened, scoffing men) have real need to be ashamed.",
+      "es": "II Timoteo 2:15\n Un trabajador que no necesita avergonzarse - Ya sea por infidelidad o por falta de habilidad. Dividir correctamente la palabra de verdad - Explicar y aplicar debidamente toda la Escritura, para darle a cada oyente su porción debida. Pero los que dan una parte del evangelio a todos (las promesas y los consuelos a los hombres no despiertos, endurecidos y burladores) tienen verdadera necesidad de avergonzarse.",
+      "enHash": "9fb39df5a740db0177747a32a7ac7f064a21f00a3adc911eeae646ced5a28929",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "They — Who babble thus will grow worse and worse.",
+      "es": "Ellos... que balbucean así empeorarán cada vez más.",
+      "enHash": "d638a0f3ba81a1cd3ed8658b9a92b2caf5d88a66d476608fb8c96e62f2182ea9",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "And their word — If they go on, will be mischievous as well as vain, and will eat as a gangrene.",
+      "es": "Y su palabra, si continúan, será tan dañina como vana, y comerá como una gangrena.",
+      "enHash": "766982394783030d17f2ae6748455ef9ac1a09ba860e49ef8a3077b5d42b3b14",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "II Timothy 2:18\n Saying the resurrection is already past - Perhaps asserting that it is only the spiritual passing from death unto life.",
+      "es": "II Timoteo 2:18\n Decir que la resurrección ya pasó - Quizás afirmando que es solo el paso espiritual de la muerte a la vida.",
+      "enHash": "fc909d5e56f4f78a8346d8ecbce68fe88e47a74fc6674daeaf615532386f31ec",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "II Timothy 2:19\n But the foundation of God - His truth and faithfulness. Standeth fast - Can never be overthrown; being as it were sealed with a seal, which has an inscription on each side: on the one, The Lord knoweth those that are his; on the other, Let every one who nameth the name of the Lord, as his Lord, depart from iniquity. Indeed, they only are his who depart from iniquity. To all others he will say, \"I know you not.\" Matt 7:22 ,23",
+      "es": "II Timoteo 2:19\n Pero el fundamento de Dios es su verdad y fidelidad. Se mantiene firme - Nunca podrá ser derrocado; estando como sellado con un sello, que tiene una inscripción en cada lado: en uno, El Señor conoce a los que son suyos; por el otro: Todo aquel que invoca el nombre del Señor, como su Señor, apártese de la iniquidad. De hecho, sólo son suyos los que se apartan de la iniquidad. A todos los demás les dirá: \"No os conozco\". Mateo 7:22,23",
+      "enHash": "c9fb4b73255032e7423ffbd75f7d507a144c9625c188300bbdd4aba8fe00f904",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "II Timothy 2:20\n But in a great house - Such as the church, it is not strange that there are not only vessels of gold and silver, designed for honourable uses, but also of wood and of earth - For less honourable purposes. Yet a vessel even of gold may be put to the vilest use, though it was not the design of him that made it.",
+      "es": "II Timoteo 2:20\n Pero en una casa grande, como la iglesia, no es extraño que no sólo haya vasos de oro y plata, destinados a usos honorables, sino también de madera y de tierra, para fines menos honorables. Sin embargo, incluso un vaso de oro puede tener el uso más vil, aunque no haya sido el diseño de quien lo hizo.",
+      "enHash": "ff8531e01213d0ac0cc0310fe227c1593b1d58e93a23aecbd0d78550fc469c09",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "If a man purge himself from these — Vessels of dishonour, so as to have no fellowship with them.",
+      "es": "Si un hombre se limpia de estos vasos de deshonra, para no tener comunión con ellos.",
+      "enHash": "4b44daf8abcd0e53f16011584772dd256cd727f1fb4b1a33b694378e9b297e22",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "II Timothy 2:22\n Flee youthful desires - Those peculiarly incident to youth. Follow peace with them - Unity with all true believers. Out of a pure heart - Youthful desires, destroy this purity: righteousness, faith, love, peace, accompany it.",
+      "es": "II Timoteo 2:22\n Huye de los deseos juveniles - Aquellos que son peculiares de la juventud. Sigan la paz con ellos: la unidad con todos los verdaderos creyentes. De un corazón puro - Deseos juveniles, destruye esta pureza: la justicia, la fe, el amor, la paz, acompáñala.",
+      "enHash": "9d31ec5cef22575e8b4283dca4c6e0e610a504bb142d80b8a7f9d4cce4ddfc84",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "II Timothy 2:24\n A servant of the Lord must not - Eagerly or passionately. Strive - As do the vain wranglers spoken of, verse 23. But be apt to teach - Chiefly by patience and unwearied assiduity.",
+      "es": "II Timoteo 2:24\n Un siervo del Señor no debe - Con entusiasmo o pasión. Esfuércese - Como lo hacen los vanos disputadores de los que se habla, versículo 23. Pero sea apto para enseñar - Principalmente con paciencia y asiduidad incansable.",
+      "enHash": "78c02a6484d95d40e04bf8cefca7b8c74d03daa7b4ce892bc8c7c36cabfa0c01",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "II Timothy 2:25\n In meekness - He has often need of zeal, always of meekness. If haply God - For it is wholly his work. May give them repentance - The acknowledging of the truth would then quickly follow.",
+      "es": "II Timoteo 2:25\n En mansedumbre - A menudo necesita celo, siempre mansedumbre. Si tal vez Dios - Porque es totalmente su obra. Puede darles arrepentimiento - El reconocimiento de la verdad seguiría rápidamente.",
+      "enHash": "3abd6b15a8cda70419353b4587ed8f5ab5f9acd56b3d655054988f3ddc6fd38d",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "Who — At present are not only captives, but asleep; utterly insensible of their captivity.\n\n << 2 Timothy 1 | 2 Timothy 2 | 2 Timothy 3 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 2 Timothy 2 Timothy 2\n\n Related Commentaries\n 2 Timothy 2\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Quienes: En la actualidad no sólo están cautivos, sino dormidos; completamente insensible a su cautiverio.\n\n << 2 Timoteo 1 | 2 Timoteo 2 | 2 Timoteo 3 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 2 Timoteo 2 Timoteo 2\n\n Comentarios relacionados\n 2 Timoteo 2\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "0b43b97f107dccd526e8e453cceb5d5d7e15b292ab74606a04941f6ffd6a1185",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "II Timothy 3:1\n In the last days - The time of the gospel dispensation, commencing at the time of our Lord's death, is peculiarly styled the last days. Grievous - Troublesome and dangerous.",
+      "es": "II Timoteo 3:1\n En los últimos días - El tiempo de la dispensación del evangelio, que comienza en el momento de la muerte de nuestro Señor, tiene un estilo peculiar como los últimos días. Grave: problemático y peligroso.",
+      "enHash": "2049cd68719e71f5e155c07a2c49a2df196eed679905bc7fef49e37b993819e8",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "II Timothy 3:2\n For men - Even in the church. Will be - In great numbers, and to an higher degree than ever. Lovers of themselves - Only, not their neighbours, the first root of evil. Lovers of money - The second.",
+      "es": "II Timoteo 3:2\n Para hombres - Incluso en la iglesia. Lo serán... en gran número y en mayor medida que nunca. Amantes de sí mismos - Sólo, no de sus vecinos, la primera raíz del mal. Amantes del dinero - El segundo.",
+      "enHash": "741c01d19c5f1a964d6f91c1648e4577952b8534a54bb0a27ccfb6404af4e6e9",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "Without natural affection — To their own children.\n\n Intemperate, fierce — Both too soft, and too hard.",
+      "es": "Sin afecto natural - A sus propios hijos.\n\n Intemperante, feroz: demasiado suave y demasiado duro.",
+      "enHash": "f46a86c22d2641f106d74fd18caa594ddfb98b4c0949f2190b54008852fbe2c3",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "Lovers of sensual pleasure — Which naturally extinguishes all love and sense of God.",
+      "es": "Amantes del placer sensual, que naturalmente extingue todo amor y sentido de Dios.",
+      "enHash": "8d18bdf37dc37945565e00567b90e3a693863eb636efc4a894b2cf90ae754eef",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "II Timothy 3:5\n Having a form - An appearance of godliness, but not regarding, nay, even denying and blaspheming, the inward power and reality of it. Is not this eminently fulfilled at this day?",
+      "es": "II Timoteo 3:5\n Tener una forma - Una apariencia de piedad, pero sin considerar, es más, incluso negar y blasfemar, el poder interno y la realidad de la misma. ¿No se cumple esto eminentemente en este día?",
+      "enHash": "11bc48b24a18068d702a5c7c90f4979a859490f1be665229e51a76cc63e2a0c6",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "Of these — That is, mere formalists.",
+      "es": "De estos, es decir, meros formalistas.",
+      "enHash": "af3a4d51403b0be8a6a856e9e0dc9d4fd764a3b7718265ebf980bcaae99890a3",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "Ever learning — New things. But not the truth of God.",
+      "es": "Siempre aprendiendo: cosas nuevas. Pero no la verdad de Dios.",
+      "enHash": "8ae92528408aefdd68b59237400da3092034ac1cde919a8e30849262c5d96ec2",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "II Timothy 3:8\n Several ancient writers speak of Jannes and Jambres, as the chief of the Egyptian magicians. Men of corrupt minds - Impure notions and wicked inclinations. Void of judgment - Quite ignorant, as well as careless, of true, spiritual religion.",
+      "es": "II Timoteo 3:8\n Varios escritores antiguos hablan de Jannes y Jambres como los jefes de los magos egipcios. Hombres de mente corrupta: nociones impuras e inclinaciones perversas. Sin juicio - Bastante ignorante, además de descuidado, de la verdadera religión espiritual.",
+      "enHash": "91c5d5071bbc0ec71fd1ad451ee718611b084b7e394faf35fb0a9aaa723e4d26",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "They shall proceed no farther — In gaining proselytes.",
+      "es": "No avanzarán más en ganar prosélitos.",
+      "enHash": "f1eb3e5bfd55198b6887ac98261360e3931d9e58d22c1a539e7a3a640b1fc46a",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "II Timothy 3:12\n All that are resolved to live godly - Therefore count the cost. Art thou resolved? In Christ - Out of Christ there is no godliness. Shall suffer persecution - More or less. There is no exception. Either the truth of scripture fails, or those that think they are religious, and are not persecuted, in some shape or other, on that very account, deceive themselves.",
+      "es": "II Timoteo 3:12\n Todos los que están decididos a vivir piadosamente - Por lo tanto, cuenten el costo. ¿Estás resuelto? En Cristo - Fuera de Cristo no hay piedad. Sufrirá persecución - Más o menos. No hay excepción. O la verdad de las Escrituras falla, o aquellos que piensan que son religiosos y no son perseguidos, de una forma u otra, por eso mismo, se engañan a sí mismos.",
+      "enHash": "984ca3f20c46a5ae6cc29bcbe2103242e99ce54e4e818f106821e16789f46f08",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "II Timothy 3:13\n Deceiving and being deceived - He who has once begun to deceive others is both the less likely to recover from his own error, and the more ready to embrace the errors of other men.",
+      "es": "II Timoteo 3:13\n Engañar y ser engañado - Aquel que una vez ha comenzado a engañar a otros tiene menos probabilidades de recuperarse de su propio error y está más dispuesto a aceptar los errores de otros hombres.",
+      "enHash": "79e33f827c21b3ad2aebde34bc3aac61335c040f70094d7794fc1796194bf16b",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "From whom — Even from me a teacher approved of God.",
+      "es": "De quien - Incluso de mí un maestro aprobado por Dios.",
+      "enHash": "e36d9e346e95d6af3c94cc203b8d89ae6aadca8287470d68fd7572e2c03c9c16",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "II Timothy 3:15\n From an infant thou hast known the holy scriptures - Of the Old Testament. These only were extant when Timothy was an infant. Which are able to make thee wise unto salvation, through faith in the Messiah that was to come. How much more are the Old and New Testament together able, in God's hand, to make us more abundantly wise unto salvation! Even such a measure of present salvation as was not known before Jesus was glorified.",
+      "es": "II Timoteo 3:15\n Desde niño has conocido las Sagradas Escrituras - Del Antiguo Testamento. Estos sólo existían cuando Timoteo era un bebé. Los cuales pueden hacerte sabio para la salvación, por la fe en el Mesías que había de venir. ¡Cuánto más son capaces el Antiguo y el Nuevo Testamento juntos, en la mano de Dios, de hacernos más abundantemente sabios para la salvación! Incluso una medida de salvación presente que no se conocía antes de que Jesús fuera glorificado.",
+      "enHash": "3c982bbb9b5df931ff6aace2676804cf4f602b9fd9d27f850ebc15836ee677e2",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "II Timothy 3:16\n All scripture is inspired of God - The Spirit of God not only once inspired those who wrote it, but continually inspires, supernaturally assists, those that read it with earnest prayer. Hence it is so profitable for doctrine, for instruction of the ignorant, for the reproof or conviction of them that are in error or sin, for the correction or amendment of whatever is amiss, and for instructing or training up the children of God in all righteousness.",
+      "es": "II Timoteo 3:16\n Toda Escritura es inspirada por Dios - El Espíritu de Dios no sólo inspiró una vez a quienes la escribieron, sino que continuamente inspira y ayuda sobrenaturalmente a quienes la leen con ferviente oración. Por eso es tan útil para la doctrina, para la instrucción de los ignorantes, para la reprensión o convicción de los que están en error o pecado, para la corrección o enmienda de todo lo que está mal, y para instruir o educar a los hijos de Dios en toda justicia.",
+      "enHash": "cfa0d6964872bdf4c19d7992b4d56fb68f3af5080e940b5b56b22b91ebfa93c0",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "II Timothy 3:17\n That the man of God - He that is united to and approved of God. May be perfect - Blameless himself, and throughly furnished - By the scripture, either to teach, reprove, correct, or train up others.",
+      "es": "II Timoteo 3:17\n Que el hombre de Dios - El que está unido y aprobado por Dios. Puede ser perfecto - Sin culpa y completamente provisto - Por las Escrituras, ya sea para enseñar, reprender, corregir o capacitar a otros.",
+      "enHash": "86eeccf122a7007d76ceccf8f86a59e6e814d9032b8e22d1b4b9f807615c2571",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "II Timothy 4:1\n I charge thee therefore - This is deduced from the whole preceding chapter. At his appearing and his kingdom - That is, at his appearing in the kingdom of glory.",
+      "es": "II Timoteo 4:1\n Por tanto, te encargo - Esto se deduce de todo el capítulo anterior. En su aparición y su reino - Es decir, en su aparición en el reino de gloria.",
+      "enHash": "510918d500c105bd052e9057ea5f964bd096a818bbfa4487f7c72daa81e025bd",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "II Timothy 4:2\n Be instant - Insist on, urge these things in season, out of season - That is, continually, at all times and places. It might be translated, with and without opportunity - Not only when a fair occasion is given: even when there is none, one must be made.",
+      "es": "II Timoteo 4:2\n Sea instantáneo - Insista, inste a estas cosas a tiempo, fuera de tiempo - Es decir, continuamente, en todo momento y lugar. Podría traducirse con y sin oportunidad - No sólo cuando se da una ocasión justa: incluso cuando no la hay, se debe crear una.",
+      "enHash": "f23492a1d8a6d59c4ea19564b408662cd5cbdbe7bcc44430bb9a8e1e8fe1dff0",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "II Timothy 4:3\n For they will heap up teachers - Therefore thou hast need of \"all longsuffering.\" According to their own desires - Smooth as they can wish. Having itching ears - Fond of novelty and variety, which the number of new teachers, as well as their empty, soft, or philosophical discourses, pleased. Such teachers, and such hearers, seldom are much concerned with what is strict or to the purpose. Heap to themselves - Not enduring sound doctrine, they will reject the sound preachers, and gather together all that suit their own taste. Probably they send out one another as teachers, and so are never at a loss for numbers.",
+      "es": "II Timoteo 4:3\n Porque acumularán maestros - Por lo tanto, necesitas \"toda paciencia\". Según sus propios deseos - Tan suave como puedan desear. Tener comezón en los oídos - Aficionado a la novedad y la variedad, lo que agradaba a la cantidad de nuevos maestros, así como a sus discursos vacíos, suaves o filosóficos. Tales maestros y tales oyentes rara vez se preocupan mucho por lo que es estricto o adecuado al propósito. Se acumulan para sí mismos - Al no soportar la sana doctrina, rechazarán a los sanos predicadores y reunirán todo lo que se adapte a sus propios gustos. Probablemente se envían unos a otros como profesores, por lo que nunca les falta número.",
+      "enHash": "be2aae1dba21e30fb4a62c43749a1bdd3c0172ed1d211d36f3d5bdfd910da97f",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "II Timothy 4:5\n Watch - An earnest, constant, persevering exercise. The scripture watching, or waiting, implies steadfast faith, patient hope, labouring love, unceasing prayer; yea, the mighty exertion of all the affections of the soul that a man is capable of. In all things - Whatever you are doing, yet in that, and in all things, watch. Do the work of an evangelist - Which was next to that of an apostle.",
+      "es": "II Timoteo 4:5\n Mirar - Un ejercicio serio, constante y perseverante. El hecho de velar o esperar en las Escrituras implica una fe firme, una esperanza paciente, un amor laborioso y una oración incesante; sí, el poderoso ejercicio de todos los afectos del alma de los que un hombre es capaz. En todas las cosas - Cualquier cosa que estés haciendo, pero en eso y en todas las cosas, observa. Hacer el trabajo de un evangelista - Que estaba al lado del de un apóstol.",
+      "enHash": "86c8319a10f40b8191ff922447f576fb4cc3cd4ed96ee31b4fa88dca28cb5fbb",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "II Timothy 4:6\n The time of my departure is at hand - So undoubtedly God had shown him. I am ready to be offered up - Literally, to be poured out, as the wine and oil were on the ancient sacrifices.",
+      "es": "II Timoteo 4:6\n El momento de mi partida está cerca - Así sin duda Dios se lo había mostrado. Estoy listo para ser ofrecido - Literalmente, para ser derramado, como lo estaban el vino y el aceite en los sacrificios antiguos.",
+      "enHash": "1af55ec654af24b72b84079d42e2f808e4902590b9ad076bcb5bd25c5f869dca",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "II Timothy 4:8\n The crown of that righteousness - Which God has imputed to me and wrought in me. Will render to all - This increases the joy of Paul, and encourages Timotheus. Many of these St. Paul himself had gained. That have loved his appearing - Which only a real Christian can do. I say a real Christian, to comply with the mode of the times: else they would not understand, although the word Christian necessarily implies whatsoever is holy, as God is holy. Strictly speaking, to join real or sincere to a word of so complete an import, is grievously to debase its noble signification, and is like adding long to eternity or wide to immensity.",
+      "es": "II Timoteo 4:8\n La corona de esa justicia - Que Dios me ha imputado y obrado en mí. Dará a todos - Esto aumenta la alegría de Pablo y anima a Timoteo. Muchos de estos los había obtenido el propio San Pablo. Que han amado su aparición - Lo cual sólo un verdadero cristiano puede hacer. Digo cristiano verdadero, para cumplir con la moda de los tiempos: de otro modo no entenderían, aunque la palabra cristiano necesariamente implica todo lo que es santo, como Dios es santo. Estrictamente hablando, unir real o sincero a una palabra de importancia tan completa es degradar gravemente su noble significado y es como agregar largo a la eternidad o ancho a la inmensidad.",
+      "enHash": "e438e0bd1496c502b363c453afa939c6770fe0419648eaf8e6885d1beb86b562",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "II Timothy 4:9\n Come to me - Both that he might comfort him, and be strengthened by him. Timotheus himself is said to have suffered at Ephesus.",
+      "es": "II Timoteo 4:9\n Ven a mí - Tanto para consolarlo como para ser fortalecido por él. Se dice que el propio Timoteo sufrió en Éfeso.",
+      "enHash": "d7b6762dda0453f6ad18bb4bb5cc4f96d919d0db4d0ccb5c229d70d2436d9113",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "II Timothy 4:10\n Demas - Once my fellowlabourer, Phm 1:24 . Hath forsaken me. Crescens, probably a preacher also, is gone, with my consent, to Galatia, Titus to Dalmatia, having now left Crete. These either went with him to Rome, or visited him there.",
+      "es": "II Timoteo 4:10\n Demas - Una vez mi compañero de trabajo, Fil 1:24. Me ha abandonado. Crescente, probablemente también predicador, se ha ido, con mi consentimiento, a Galacia, y Tito a Dalmacia, habiendo abandonado ya Creta. Éstos, o lo acompañaron a Roma, o lo visitaron allí.",
+      "enHash": "5a234bd8c623a33d403f499ab7dadf633cda5993bd7787d3feffeccd07df608c",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "II Timothy 4:11\n Only Luke - Of my fellowlabourers, is with me - But God is with me; and it is enough. Take Mark - Who, though he once \"departed from the work,\" is now again profitable to me.",
+      "es": "II Timoteo 4:11\n Sólo Lucas - De mis compañeros de trabajo, está conmigo - Pero Dios está conmigo; y es suficiente. Tomemos como ejemplo a Mark - Quien, aunque una vez \"se apartó del trabajo\", ahora vuelve a ser rentable para mí.",
+      "enHash": "9ed385cfe9a61a8b7e7008b13ecf2f4681c0ff79eb0a293c2a258840ef0278f7",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "II Timothy 4:13\n The cloak - Either the toga, which belonged to him as a Roman citizen, or an upper garment, which might be needful as winter came on. Which I left at Troas with Carpus - Who was probably his host there. Especially the parchments - The books written on parchment.",
+      "es": "II Timoteo 4:13\n La capa - Ya sea la toga, que le pertenecía como ciudadano romano, o una prenda superior, que podría ser necesaria a medida que llegaba el invierno. Que dejé en Troas con Carpo, quien probablemente fue su anfitrión allí. Especialmente los pergaminos - Los libros escritos en pergamino.",
+      "enHash": "83bfb0c3f3b14c9b10ebf4eec33599f9982187e03b8d60582f25718018184efb",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "The Lord will reward him — This he spoke prophetically.",
+      "es": "El Señor lo recompensará. Esto lo habló proféticamente.",
+      "enHash": "183b3131974a3ea8233bb59b2e097d9f65734b4c64ac5b65a636276bf9141d65",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "II Timothy 4:16\n All - My friends and companions. Forsook me - And do we expect to find such as will not forsake us? My first defence - Before the savage emperor Nero.",
+      "es": "II Timoteo 4:16\n Todos - Mis amigos y compañeros. Me abandonó - ¿Y esperamos encontrar personas que no nos abandonen? Mi primera defensa: ante el salvaje emperador Nerón.",
+      "enHash": "8b2cf2beb85273740cdd20ce137d546afc6667e0a218a7355d38543a3229b609",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "The preaching — The gospel which we preach.",
+      "es": "La predicación: el evangelio que predicamos.",
+      "enHash": "1533101920fd3430735cae7ff0198e35c9ad1682ba1b7002959a7a0969176cca",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "II Timothy 4:18\n And the Lord will deliver me from every evil work - Which is far more than delivering me from death. Yea, and, over and above, preserve me unto his heavenly kingdom - Far better than that of Nero.",
+      "es": "II Timoteo 4:18\n Y el Señor me librará de toda obra mala - Lo cual es mucho más que librarme de la muerte. Sí, y, además, consérvame para su reino celestial - Mucho mejor que el de Nerón.",
+      "enHash": "ff05859260f2145952f260292b48d4e63a703f179b626698210392c32254c98b",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "II Timothy 4:20\n When I came on, Erastus abode at Corinth - Being chamberlain of the city, Rom 16:23 . But Trophimus I have left sick - Not having power (as neither had any of the apostles) to work miracles when he pleased, but only when God pleased.",
+      "es": "II Timoteo 4:20\n Cuando llegué, Erasto residía en Corinto - Siendo chambelán de la ciudad, Romanos 16:23. Pero a Trófimo lo he dejado enfermo - No teniendo poder (como ninguno de los apóstoles) para hacer milagros cuando quisiera, sino solo cuando Dios quisiera.",
+      "enHash": "2a7f1806f48d259c4d91e6cbeb7531bc5c74c03e467fc8935e3f0987bda6ea33",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:3": "b1",
+    "1:4": "b2",
+    "1:5": "b3",
+    "1:6": "b4",
+    "1:7": "b5",
+    "1:8": "b6",
+    "1:9": "b7",
+    "1:10": "b8",
+    "1:12": "b9",
+    "1:13": "b10",
+    "1:14": "b11",
+    "1:15": "b12",
+    "1:16": "b13",
+    "2:2": "b14",
+    "2:4": "b15",
+    "2:6": "b16",
+    "2:8": "b17",
+    "2:9": "b18",
+    "2:10": "b19",
+    "2:11": "b20",
+    "2:12": "b21",
+    "2:13": "b22",
+    "2:14": "b23",
+    "2:15": "b24",
+    "2:16": "b25",
+    "2:17": "b26",
+    "2:18": "b27",
+    "2:19": "b28",
+    "2:20": "b29",
+    "2:21": "b30",
+    "2:22": "b31",
+    "2:24": "b32",
+    "2:25": "b33",
+    "2:26": "b34",
+    "3:1": "b35",
+    "3:2": "b36",
+    "3:3": "b37",
+    "3:4": "b38",
+    "3:5": "b39",
+    "3:6": "b40",
+    "3:7": "b41",
+    "3:8": "b42",
+    "3:9": "b43",
+    "3:12": "b44",
+    "3:13": "b45",
+    "3:14": "b46",
+    "3:15": "b47",
+    "3:16": "b48",
+    "3:17": "b49",
+    "4:1": "b50",
+    "4:2": "b51",
+    "4:3": "b52",
+    "4:5": "b53",
+    "4:6": "b54",
+    "4:8": "b55",
+    "4:9": "b56",
+    "4:10": "b57",
+    "4:11": "b58",
+    "4:13": "b59",
+    "4:14": "b60",
+    "4:16": "b61",
+    "4:17": "b62",
+    "4:18": "b63",
+    "4:20": "b64"
+  }
+}

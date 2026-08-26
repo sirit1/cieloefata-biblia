@@ -30,7 +30,7 @@ function mapUiVersion(version) {
   if (v === 'dhh') return 'DHH';
   if (v === 'tla') return 'TLA';
   if (v === 'nvi') return 'NVI';
-  if (v === 'kjv') return 'KJV';
+  if (v === 'kjv' || v === 'kingjames') return 'RVR1960';
   if (v === 'lxx' || v === 'septuaginta' || v === 'textual' || v === 'rahlfs') return 'LXX';
   return String(version || 'RVR1960').toUpperCase();
 }

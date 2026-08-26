@@ -1,0 +1,17 @@
+{
+  "book": "Filemón",
+  "usfm": "PHM",
+  "authorId": "charles-spurgeon",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Paul, a prisoner of Jesus Christ, &mdash;\n\n This is one of Paul's private letters, though it has the stamp of inspiration upon it. It was not written concerning church business, nor to teach some great doctrinal truth, but there was a runaway slave who had come to Rome, and who had been converted under Paul's ministry, and Paul was sending him back to his master; and this was the letter which he was to take with him, to make some sort of apology for him, and to ask his master to receive him with kindness, and to forgive his fault. Every word of this Epistle is very wisely put. Paul begins by calling himself \"a prisoner of Jesus Christ.\" Who would not grant him his desire when he was wearing a chain for Christ's sake? If a letter were to come to you from some beloved minister, whom you knew to be lying in a dungeon and likely soon to die, you would be greatly touched if you noticed the traces of the rust of his fetters on the letter. \"Paul, a prisoner of Jesus Christ,\" &mdash;",
+      "es": "Pablo, prisionero de Jesucristo, -\n\n Esta es una de las cartas privadas de Pablo, aunque tiene el sello de la inspiración. No fue escrito acerca de asuntos de la iglesia, ni para enseñar alguna gran verdad doctrinal, sino que había un esclavo fugitivo que había llegado a Roma y que se había convertido bajo el ministerio de Pablo, y Pablo lo estaba enviando de regreso a su amo; y ésta era la carta que debía llevar consigo, para disculparse por él y pedirle a su amo que lo recibiera con bondad y le perdonara su falta. Cada palabra de esta Epístola está muy sabiamente expresada. Pablo comienza llamándose a sí mismo \"prisionero de Jesucristo\". ¿Quién no le concedería su deseo estando encadenado por amor a Cristo? Si te llegara una carta de algún querido ministro, de quien sabías que estaba en un calabozo y que probablemente moriría pronto, te conmoverías mucho si notaras las huellas del óxido de sus grilletes en la carta. \"Pablo, prisionero de Jesucristo\", -",
+      "enHash": "74c5ec3922ae88b8cbb54315e926b3e2a56a6387dc5d986281e3277ab19a61ae",
+      "source": "corpus:charles-spurgeon"
+    }
+  },
+  "verses": {
+    "1:1": "b1"
+  }
+}

@@ -1,10 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
-import { fetchConTimeout, resaltarCoincidencia, VERSIONES, LIBROS } from '../lib/biblia.js';
+import { obtenerConcordancia } from '../lib/concordancia.js';
 
-// Concordancia bíblica REAL: busca una palabra o frase en todo el texto de
-// una traducción completa vía Bolls Bible (bolls.life/find/), la misma
-// fuente ya usada para el lector. No es una lista generada por IA: son
-// coincidencias reales dentro del texto de la versión elegida.
+// Concordancia bíblica REAL: el mismo motor para RVR1960 / NVI / DHH / TLA.
+// PRODUCT LAW (Alejandro): version chooses which text is scanned, never
+// whether the engine runs. Never Gemini.
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -20,8 +19,6 @@ async function authenticate(req) {
   return error ? null : data.user;
 }
 
-const MAX_RESULTADOS = 40;
-
 export default async function handler(req, res) {
   res.setHeader?.('Access-Control-Allow-Origin', '*');
   res.setHeader?.('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -36,7 +33,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método no permitido.' });
   }
 
-  // Lectura pública: la concordancia usa Bolls (texto real). Auth opcional.
   await authenticate(req);
 
   const q = {
@@ -51,31 +47,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'La búsqueda es demasiado larga.' });
   }
 
-  const versionKey = typeof q.version === 'string' ? q.version : 'rv1960';
-  const version = VERSIONES.find((v) => v.key === versionKey) || VERSIONES[0];
-
   try {
-    const url = `https://bolls.life/find/${version.bolls}/?search=${encodeURIComponent(termino)}&match_case=false&match_whole=false`;
-    const data = await fetchConTimeout(url, {}, 9000);
-    if (!Array.isArray(data)) {
-      return res.status(502).json({ error: 'No fue posible buscar en la Biblia en este momento. Intenta de nuevo.' });
-    }
-
-    const resultados = data.slice(0, MAX_RESULTADOS).map((r) => {
-      const libro = LIBROS[r.book - 1] || null;
-      return {
-        libro,
-        capitulo: r.chapter,
-        verso: r.verse,
-        ref: libro ? `${libro} ${r.chapter}:${r.verse}` : null,
-        html: resaltarCoincidencia(r.text, termino)
-      };
-    }).filter((r) => r.libro);
-
-    return res.status(200).json({
-      success: true,
-      data: { termino, version: version.key, etiqueta: version.etiqueta, total: data.length, resultados }
+    const payload = await obtenerConcordancia({
+      termino,
+      version: q.version || q.traduccion || 'rv1960',
     });
+    return res.status(200).json(payload);
   } catch (error) {
     console.error('Error en concordancia:', error?.message);
     return res.status(502).json({ error: 'No fue posible buscar en la Biblia en este momento. Intenta de nuevo.' });
