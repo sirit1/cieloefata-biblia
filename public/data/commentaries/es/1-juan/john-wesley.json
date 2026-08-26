@@ -1,0 +1,696 @@
+{
+  "book": "1 Juan",
+  "usfm": "1JN",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "I John 1:1\n That which was - Here means, He which was the Word himself; afterwards it means, that which they had heard from him. Which was - Namely, with the Father, ver. 2 , before he was manifested. From the beginning - This phrase is sometimes used in a limited sense; but here it properly means from eternity, being equivalent with, \"in the beginning,\" John 1:1 . That which we - The apostles. Have not only heard, but seen with our eyes, which we have beheld - Attentively considered on various occasions. Of the Word of life - He is termed\n the Word, John 1:1 ; the Life, John 1:4 ;\n as he is the living Word of God, who, with the Father and the Spirit, is the fountain of life to all creatures, particularly of spiritual and eternal life.",
+      "es": "1 Juan 1:1\n Lo que era - Aquí significa, El que era la Palabra misma; después significa lo que habían oído de él. Que era - Es decir, con el Padre, ver. 2, antes de que se manifestara. Desde el principio - Esta frase a veces se usa en un sentido limitado; pero aquí significa propiamente desde la eternidad, siendo equivalente a \"en el principio\", Juan 1:1. Lo que nosotros - Los apóstoles. No sólo hemos oído, sino que hemos visto con nuestros ojos, lo que hemos contemplado - Considerado atentamente en varias ocasiones. Del Verbo de vida - Él es llamado\n la Palabra, Juan 1:1; la Vida, Juan 1:4;\n como él es la Palabra viva de Dios, que, con el Padre y el Espíritu, es fuente de vida para todas las criaturas, particularmente de vida espiritual y eterna.",
+      "enHash": "35cc5a868803ad18d0da56aeb25f8e56b3706c83afaf6bd0a6c18f66fa64ec63",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "I John 1:2\n For the life - The living Word. Was manifested - In the flesh, to our very senses. And we testify and declare - We testify by declaring, by preaching, and writing, 1Jo 1:3 ,4. Preaching lays the foundation, 1Jo 1:5 - 10: writing builds there on. To you - Who have not seen. The eternal life - Which always was, and afterward appeared to us. This is mentioned in the beginning of the epistle. In the end of it is mentioned the same eternal life, which we shall always enjoy.",
+      "es": "1 Juan 1:2\n Para la vida - La Palabra viva. Se manifestó - En la carne, hasta nuestros mismos sentidos. Y testificamos y declaramos - Testificamos declarando, predicando y escribiendo, 1 Juan 1:3,4. La predicación sienta las bases, 1 Juan 1:5 - 10; la escritura construye sobre ellas. A ti - Que no lo has visto. La vida eterna - Que siempre fue y luego se nos apareció. Esto se menciona al comienzo de la epístola. Al final se menciona la misma vida eterna, que siempre disfrutaremos.",
+      "enHash": "437e5e6263f06b6a5f52ce14842aeded2a7b8b09a28f73f0fadb8f773cf702d7",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "I John 1:3\n That which we have seen and heard - Of him and from him. Declare we to you - For this end. That ye also may have fellowship with us - May enjoy the same fellowship which we enjoy. And truly our fellowship - Whereby he is in us and we in him. Is with the Father and with the son - Of the Holy Ghost he speaks afterwards.",
+      "es": "1 Juan 1:3\n Lo que hemos visto y oído - De él y de él. Te lo declaramos - Para este fin. Para que vosotros también tengáis comunión con nosotros - Podáis disfrutar de la misma comunión que nosotros disfrutamos. Y verdaderamente nuestra comunión - Por la cual él está en nosotros y nosotros en él. Está con el Padre y con el hijo - Del Espíritu Santo habla después.",
+      "enHash": "4ffbe55477c6034069ebb205c72bf7a64dd0f4b38a87a1a3d7422114884cd63f",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "I John 1:4\n That your joy may be full - So our Lord also, John 15:11 ; 16:22 . There is a joy of hope, a joy of faith, and a joy of love. Here the joy of faith is directly intended. It is a concise expression. Your joy - That is, your faith and the joy arising from it: but it likewise implies the joy of hope and love.",
+      "es": "1 Juan 1:4\n Para que tu alegría sea plena - Así también nuestro Señor, Juan 15:11; 16:22. Hay un gozo de esperanza, un gozo de fe y un gozo de amor. Aquí se pretende directamente el gozo de la fe. Es una expresión concisa. Tu alegría - Es decir, tu fe y la alegría que surge de ella: pero también implica la alegría de la esperanza y el amor.",
+      "enHash": "0bdbe7c296fcc3389c651afe4d300ea24ac66e8f452c0dcdd3c2c6ee2036c65e",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "I John 1:5\n And this is the sum of the message which we have heard of him - The Son of God. That God is light - The light of wisdom, love, holiness, glory. What light is to the natural eye, that God is to the spiritual eye. And in him is no darkness at all - No contrary principle. He is pure, unmixed light.",
+      "es": "1 Juan 1:5\n Y este es el resumen del mensaje que hemos oído de él: El Hijo de Dios. Que Dios es luz - La luz de la sabiduría, del amor, de la santidad, de la gloria. Lo que la luz es para el ojo natural, eso es Dios para el ojo espiritual. Y en él no hay oscuridad alguna, ningún principio contrario. Él es luz pura y sin mezcla.",
+      "enHash": "518c1f05cac0ac708966cd28791951ff20691816cccf6ccbdb4f491fbdfdb38e",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "I John 1:6\n If we say - Either with our tongue, or in our heart, if we endeavour to persuade either ourselves or others. We have fellowship with him, while we walk, either inwardly or outwardly, in darkness - In sin of any kind. We do not the truth - Our actions prove, that the truth is not in us.",
+      "es": "1 Juan 1:6\n Si decimos: ya sea con la lengua o con el corazón, si nos esforzamos por persuadirnos a nosotros mismos o a los demás. Tenemos comunión con él mientras caminamos, ya sea interior o exteriormente, en oscuridad, en pecado de cualquier tipo. No conocemos la verdad - Nuestras acciones prueban que la verdad no está en nosotros.",
+      "enHash": "1ea500534e1cd0776fe251a9c1677db699436c657a0e488e3aff3227f51237ac",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "I John 1:7\n But if we walk in the light - In all holiness. As God is (a deeper word than walk, and more worthy of God) in the light, then we may truly say, we have fellowship one with another - We who have seen, and you who have not seen, do alike enjoy that fellowship with God. The imitation of God being the only sure proof of our having fellowship with him. And the blood of Jesus Christ his Son - With the grace purchased thereby. Cleanseth us from all sin - Both original and actual, taking away all the guilt and all the power.",
+      "es": "1 Juan 1:7\n Pero si caminamos en la luz - En toda santidad. Como Dios está (una palabra más profunda que caminar, y más digna de Dios) en la luz, entonces podemos decir verdaderamente que tenemos comunión unos con otros: nosotros, los que hemos visto, y vosotros, los que no habéis visto, disfrutamos igualmente de esa comunión con Dios. La imitación de Dios es la única prueba segura de que tenemos comunión con él. Y la sangre de Jesucristo su Hijo - Con la gracia adquirida con ello. Nos limpia de todo pecado - Tanto original como actual, quitando toda la culpa y todo el poder.",
+      "enHash": "a82250cd1a25b6a7ea9ff72314c31cb9c4d689445a38b8161a9a8eee1e479359",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "I John 1:8\n If we say - Any child of man, before his blood has cleansed us. We have no sin - To be cleansed from, instead of confessing our sins, 1Jo 1:9 , the truth is not in us - Neither in our mouth nor in our heart.",
+      "es": "1 Juan 1:8\n Si decimos: Cualquier hijo del hombre, antes de que su sangre nos haya limpiado. No tenemos pecado - Para ser limpiados, en lugar de confesar nuestros pecados, 1 Juan 1:9, la verdad no está en nosotros - Ni en nuestra boca ni en nuestro corazón.",
+      "enHash": "837d44935a1077943cec47735e5dd7918666d25c62f0d253096ee49ce39229c6",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "I John 1:9\n But if with a penitent and believing heart, we confess our sins, he is faithful - Because he had promised this blessing, by the unanimous voice of all his prophets. Just - Surely then he will punish: no; for this very reason he will pardon. This may seem strange; but upon the evangelical principle of atonement and redemption, it is undoubtedly true; because, when the debt is paid, or the purchase made, it is the part of equity to cancel the bond, and consign over the purchased possession. Both to forgive us our sins - To take away all the guilt of them. And to cleanse us from all unrighteousness - To purify our souls from every kind and every degree of it.",
+      "es": "1 Juan 1:9\n Pero si con corazón penitente y creyente confesamos nuestros pecados, él es fiel - Porque había prometido esta bendición, por la voz unánime de todos sus profetas. Solo - Seguramente entonces castigará: no; por eso mismo perdonará. Esto puede parecer extraño; pero según el principio evangélico de expiación y redención, es indudable que es cierto; porque, cuando se paga la deuda, o se hace la compra, corresponde al patrimonio cancelar el bono y consignar la posesión comprada. Tanto para perdonarnos nuestros pecados - Para quitar toda la culpa de ellos. Y para limpiarnos de toda injusticia - Para purificar nuestras almas de todo tipo y grado.",
+      "enHash": "cbfd31d320a39657e8d7ea63551de4c34df76f3c5bde9f938a664e366079758b",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "I John 1:10\n Yet still we are to retain, even to our lives' end, a deep sense of our past sins. Still if we say, we have not sinned, we make him a liar - Who saith, all have sinned. And his word is not in us - We do not receive it; we give it no place in our hearts.",
+      "es": "1 Juan 1:10\n Sin embargo, aún debemos retener, incluso hasta el final de nuestras vidas, un profundo sentido de nuestros pecados pasados. Aún así, si decimos que no hemos pecado, hacemos mentiroso al que dice: todos hemos pecado. Y su palabra no está en nosotros - No la recibimos; no le damos lugar en nuestros corazones.",
+      "enHash": "e56e7466e1cf35b29135e9ac50d9d61d234c5a282057ef2fbd8dc4e144c5c617",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "I John 2:1\n My beloved children - So the apostle frequently addresses the whole body of Christians. It is a term of tenderness and endearment, used by our Lord himself to his disciples, John 13:33 . And perhaps many to whom St. John now wrote were converted by his ministry. It is a different word from that which is translated \"little children,\" in several parts of the epistle, to distinguish it from which, it is here rendered beloved children. I write these things to you, that ye may not sin - Thus he guards them beforehand against abusing the doctrine of reconciliation. All the words, institutions, and judgments of God are levelled against sin, either that it may not be committed, or that it may be abolished. But if any one sin - Let him not lie in sin, despairing of help. We have an advocate - We have for our advocate, not a mean person, but him of whom it was said, \"This is my beloved son.\" Not a guilty person, who stands in need of pardon for himself; but Jesus Christ the righteous; not a mere petitioner, who relies purely upon liberality, but one that has merited, fully merited, whatever he asks.",
+      "es": "1 Juan 2:1\n Mis amados hijos - Así el apóstol se dirige frecuentemente a todo el cuerpo de cristianos. Es un término de ternura y cariño, usado por nuestro Señor mismo para sus discípulos, Juan 13:33. Y quizás muchos a quienes San Juan escribió ahora se convirtieron por su ministerio. Es una palabra diferente de la que se traduce \"hijitos\" en varias partes de la epístola, para distinguirla de la cual aquí se traduce como hijos amados. Os escribo estas cosas para que no pequéis - Así las protege de antemano contra el abuso de la doctrina de la reconciliación. Todas las palabras, instituciones y juicios de Dios se dirigen contra el pecado, ya sea para que no se cometa o para que sea abolido. Pero si alguno peca, no caiga en pecado, desesperando de recibir ayuda. Tenemos un abogado - Tenemos como nuestro abogado, no a una persona mala, sino a aquel de quien se dijo: \"Este es mi hijo amado\". No es una persona culpable, que necesita perdón para sí misma; sino Jesucristo el justo; no un simple peticionario, que se basa puramente en la liberalidad, sino uno que ha merecido, plenamente merecido, todo lo que pide.",
+      "enHash": "64660096bb17f187fd58733c7f40797180a8295dbeaee5b360b34e2c97775db4",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "I John 2:2\n And he is the propitiation - The atoning sacrifice by which the wrath of God is appeased. For our sins - Who believe. And not for ours only, but also for the sins of the whole world - Just as wide as sin extends, the propitiation extends also .",
+      "es": "1 Juan 2:2\n Y él es la propiciación - El sacrificio expiatorio mediante el cual se apacigua la ira de Dios. Por nuestros pecados - Quienes creen. Y no sólo por los nuestros, sino también por los pecados del mundo entero. Así como se extiende el pecado, también se extiende la propiciación.",
+      "enHash": "54078d12d7cee9f9e2fd7fe6087e93f8303c4e093f7fa2f89c5c91872f67eb1e",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "I John 2:3\n And hereby we know that we truly and savingly know him - As he is the advocate, the righteous, the propitiation. If we keep his commandments - Particularly those of faith and love.",
+      "es": "1 Juan 2:3\n Y por este medio sabemos que lo conocemos verdadera y salvadoramente, como él es el abogado, el justo, la propiciación. Si guardamos sus mandamientos - Particularmente los de fe y amor.",
+      "enHash": "79fd5f9de8399ba6e5f549433d4727c7c8747931a5cf99affd797f2fe83b022f",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "I John 2:5\n But whoso keepeth his word - His commandments. Verily in him the love of God - Reconciled to us through Christ. Is perfected - Is perfectly known. Hereby - By our keeping his word. We know that we are in him - So is the tree known by its fruits. To \"know him,\" to be \"in him,\" to \"abide in him,\" are nearly synonymous terms; only with a gradation, - knowledge, communion, constancy.",
+      "es": "1 Juan 2:5\n Pero el que guarda su palabra, sus mandamientos. Verdaderamente en él el amor de Dios - Reconciliado con nosotros por Cristo. Se perfecciona - Se conoce perfectamente. Por la presente - Por nuestro cumplimiento de su palabra. Sabemos que estamos en él - Así se conoce el árbol por sus frutos. \"Conocerlo\", estar \"en él\", \"permanecer en él\" son términos casi sinónimos; sólo con una gradación: conocimiento, comunión, constancia.",
+      "enHash": "eaccf88d141981dd227345598838f44db13f512ba019ddc0d3d66e183a09bbea",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "I John 2:6\n He that saith he abideth in him - which implies a durable state; a constant, lasting knowledge of, and communion with, him. Ought himself - Otherwise they are vain words. So to walk, even as he walked - In the world. As he, are words that frequently occur in this epistle. Believers having their hearts full of him, easily supply his name.",
+      "es": "1 Juan 2:6\n El que dice que permanece en él - lo que implica un estado duradero; un conocimiento constante y duradero de él y una comunión con él. Debería él mismo - De lo contrario, son palabras vanas. Así que caminar, tal como él caminó - En el mundo. Como él, son palabras que aparecen con frecuencia en esta epístola. Los creyentes que tienen el corazón lleno de él, fácilmente suministran su nombre.",
+      "enHash": "8e0b80c0c2166b63fd7659106ff608e17d180cc9c855d09611bd24d132d43c5c",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "I John 2:7\n When I speak of keeping his word, I write not a new commandment - I do not speak of any new one. But the old commandment, which ye had - Even from your forefathers.",
+      "es": "1 Juan 2:7\n Cuando hablo de guardar su palabra, no escribo un mandamiento nuevo; no hablo de ninguno nuevo. Pero el antiguo mandamiento que teníais - Incluso de vuestros antepasados.",
+      "enHash": "d2dbea248500fc7d130024516224e05d7f4967c6af9d25122ee9a92ff707de82",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "I John 2:8\n Again, I do write a new commandment to you - Namely, with regard to loving one another. A commandment which, though it also was given long ago, yet is truly new in him and in you. It was exemplified in him, and is now fulfilled by you, in such a manner as it never was before. For there is no comparison between the state of the Old Testament believers, and that which ye now enjoy: the darkness of that dispensation is passed away; and Christ the true light now shineth in your hearts.",
+      "es": "1 Juan 2:8\n Nuevamente os escribo un mandamiento nuevo, es decir, con respecto al amor unos a otros. Un mandamiento que, si bien fue dado hace mucho tiempo, es verdaderamente nuevo en él y en vosotros. Fue ejemplificado en él, y ahora lo cumples tú, como nunca antes lo había sido. Porque no hay comparación entre el estado de los creyentes del Antiguo Testamento y el que vosotros disfrutáis ahora: las tinieblas de esa dispensación pasaron; y Cristo, la luz verdadera, brilla ahora en vuestros corazones.",
+      "enHash": "7555e3f2a859a497c2a468397bd7e0c5227da9528a0532f94756120f60a28fcf",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "I John 2:9\n He that saith he is in the light - In Christ, united to him. And hateth his brother - The very name shows the love due to him. Is in darkness until now - Void of Christ, and of all true light.",
+      "es": "1 Juan 2:9\n El que dice que está en la luz - En Cristo, unido a él. Y odia a su hermano - El mismo nombre muestra el amor que se le debe. Está en oscuridad hasta ahora - Desprovisto de Cristo y de toda luz verdadera.",
+      "enHash": "3c253cf356fc75a4c1097f3215f04cc753fe01acc11c6b76687c959e6ae3d878",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "I John 2:10\n He that loveth his brother - For Christ's sake. Abideth in the light - Of God. And there is no occasion of stumbling in him - Whereas he that hates his brother is an occasion of stumbling to himself. He stumbles against himself, and against all things within and without; while he that loves his brother, has a free, disencumbered journey.",
+      "es": "1 Juan 2:10\n El que ama a su hermano - Por amor de Cristo. Permanece en la luz - De Dios. Y no hay ocasión de tropezar en él - Mientras que el que odia a su hermano es ocasión de tropezar consigo mismo. Tropieza consigo mismo y con todas las cosas internas y externas; mientras que el que ama a su hermano, tiene el viaje libre y sin cargas.",
+      "enHash": "eabf5978949e3874b41b4a7505b065cbfb3d8d9b35f082e8f269e97f3475d48f",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "I John 2:11\n He that hateth his brother - And he must hate, if he does not love him: there is no medium. Is in darkness - In sin, perplexity, entanglement. He walketh in darkness, and knoweth not that he is in the high road to hell.",
+      "es": "1 Juan 2:11\n El que odia a su hermano - Y debe odiar, si no lo ama: no hay medio. Está en oscuridad - En pecado, perplejidad, enredo. Camina en tinieblas y no sabe que está en el camino real al infierno.",
+      "enHash": "91ae9e09c1e7c8ce371282833941fa7c122192bc58801adf7fd2fd2944a0bb62",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "I John 2:12\n I have written to you, beloved children - Thus St. John bespeaks all to whom he writes. But from the thirteenth to 1John 2:13 - 27 the twentyseventh verse, he divides them particularly into \"fathers,\" \"young men,\" and \"little children.\" Because your sins are forgiven you - As if he had said, This is the sum of what I have now written. He then proceeds to other things, which are built upon this foundation.",
+      "es": "1 Juan 2:12\n Os he escrito, amados hijos - Así habla San Juan a todos a quienes escribe. Pero desde el versículo decimotercero hasta 1 Juan 2:13 - 27, el versículo veintisiete, los divide particularmente en \"padres\", \"jóvenes\" y \"niños pequeños\". Porque tus pecados te son perdonados - Como si hubiera dicho: Esta es la suma de lo que ahora he escrito. Luego pasa a otras cosas que se construyen sobre este fundamento.",
+      "enHash": "58b1e540e2ee777f655074079d4fb2f0c086e9f273be1261af80922acaddf3aa",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "I John 2:13\n The address to spiritual fathers, young men, and little children is first proposed in this verse, wherein he says, I write to you, fathers: I write to you, young men: I write to you, little children: and then enlarged upon; in doing which he says, \"I have written to you, fathers,\" 1Jo 2:14 . \"I have written to you, young men,\" 1Jo 2:14 - 17. \"I have written to you, little children,\" 1Jo 2:18 - 27. Having finished his address to each, he returns to all together, whom he again terms, (as 1Jo 2:12 ,) \"beloved children.\" Fathers, ye have known him that is from the beginning - We have known the eternal God, in a manner wherein no other, even true believers, know him. Young men, ye have overcome the wicked one - In many battles, by the power of faith. Little children, ye have known the Father - As your Father, though ye have not yet overcome, by the Spirit witnessing with your Spirit, that ye are the children of God.\"",
+      "es": "1 Juan 2:13\n El discurso a los padres espirituales, a los jóvenes y a los niños pequeños se propone por primera vez en este versículo, donde dice: Os escribo, padres: os escribo, jóvenes: os escribo, hijitos: y luego se amplía; al hacerlo, dice: \"Os he escrito, padres\", 1 Juan 2:14. \"Os he escrito, jóvenes\", 1 Juan 2:14-17. \"Os he escrito, hijitos\", 1 Juan 2:18-27. Habiendo terminado su discurso a cada uno, regresa a todos juntos, a quienes nuevamente llama (como 1 Juan 2:12) \"hijos amados\". Padres, habéis conocido al que es desde el principio - Hemos conocido al Dios eterno, de una manera en la que ningún otro, ni siquiera los verdaderos creyentes, lo conoce. Jóvenes, habéis vencido al maligno - En muchas batallas, por el poder de la fe. Hijitos, habéis conocido al Padre - Como vuestro Padre, aunque aún no habéis vencido, por el Espíritu que testifica con vuestro Espíritu que sois hijos de Dios \".",
+      "enHash": "1fdb66b8429d5a3fb0e3b03ccb42561cf0491e9ce6ab60d95bbd6eacb50ccd59",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "I John 2:14\n I have written to you, fathers - As if he had said, Observe well what I but now wrote. He speaks very briefly and modestly to these, who needed not much to be said to them, as having that deep acquaintance with God which comprises all necessary knowledge. Young men, ye are strong - In faith. And the word of God abideth in you - Deeply rooted in your hearts, whereby ye have often foiled your great adversary.",
+      "es": "1 Juan 2:14\n Les he escrito, padres - Como si hubiera dicho: Observen bien lo que escribí ahora. Les habla muy breve y modestamente a estos, quienes no necesitaban mucho que se les dijera, ya que tenían ese profundo conocimiento de Dios que comprende todo el conocimiento necesario. Jóvenes, sois fuertes - En la fe. Y la palabra de Dios permanece en vosotros - Profundamente arraigada en vuestros corazones, por lo que a menudo habéis frustrado a vuestro gran adversario.",
+      "enHash": "c4c75db67aacaf55541ad376aefb7875dce0aa0b0c9ca5f2a94709ec5e64d950",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "I John 2:15\n To you all, whether fathers, young men, or little children, I say, Love not the world - Pursue your victory by overcoming the world. If any man love the world - Seek happiness in visible things, he does not love God.",
+      "es": "1 Juan 2:15\n A todos vosotros, ya sean padres, jóvenes o niños pequeños, os digo: No améis al mundo; buscad vuestra victoria venciendo al mundo. Si alguno ama al mundo - busca la felicidad en las cosas visibles, no ama a Dios.",
+      "enHash": "1c23a3fd6a785b19553717e818312d173903dcff87dcd1cf83e7c89524d2d958",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "I John 2:16\n The desire of the flesh - Of the pleasure of the outward senses, whether of the taste, smell, or touch. The desire of the eye - Of the pleasures of imagination, to which the eye chiefly is subservient; of that internal sense whereby we relish whatever is grand, new, or beautiful. The pride of life - All that pomp in clothes, houses, furniture, equipage, manner of living, which generally procure honour from the bulk of mankind, and so gratify pride and vanity. It therefore directly includes the desire of praise, and, remotely, covetousness. All these desires are not from God, but from the prince of this world.",
+      "es": "1 Juan 2:16\n El deseo de la carne - Del placer de los sentidos externos, ya sea el gusto, el olfato o el tacto. El deseo del ojo - De los placeres de la imaginación, a los que el ojo está principalmente subordinado; de ese sentido interno mediante el cual saboreamos todo lo que es grandioso, nuevo o hermoso. El orgullo de la vida - Toda esa pompa en ropa, casas, muebles, equipos, forma de vida, que generalmente procura el honor de la mayor parte de la humanidad y, por lo tanto, gratifica el orgullo y la vanidad. Por tanto, incluye directamente el deseo de alabanza y, remotamente, la codicia. Todos estos deseos no provienen de Dios, sino del príncipe de este mundo.",
+      "enHash": "bcb7e59b0bec09951f43ec5b741b1cc472093061ef733d8e79c13b56047e95e6",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "I John 2:17\n The world passeth away, and the desire thereof - That is, all that can gratify those desires passeth away with it. But he that doeth the will of God - That loves God, not the world. Abideth - In the enjoyment of what he loves, for ever.",
+      "es": "1 Juan 2:17\n El mundo pasa y su deseo - Es decir, todo lo que puede satisfacer esos deseos pasa con él. Pero el que hace la voluntad de Dios - Que ama a Dios, no al mundo. Permanece - En el disfrute de lo que ama, para siempre.",
+      "enHash": "7c666c08f9eb6623322fb7e29e073e9b657a88772484fa3c27eb52f509095253",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "I John 2:18\n My little children, it is the last time - The last dispensation of grace, that which is to continue to the end of time, is begun. Ye have heard that antichrist cometh - Under the term antichrist, or the spirit of antichrist, he includes all false teachers and enemies to the truth; yea, whatever doctrines or men are contrary to Christ. It seems to have been long after this that the name of antichrist was appropriated to that grand adversary of Christ, \"the man of sin,\" 2Thess 2:3 Antichrist, in St. John's sense, that is, antichristianism, has been spreading from his time till now; and will do so, till that great adversary arises, and is destroyed by Christ's coming.",
+      "es": "1 Juan 2:18\n Hijitos míos, es la última vez - Se inicia la última dispensación de la gracia, la que continuará hasta el fin de los tiempos. Habéis oído que viene el anticristo - Bajo el término anticristo, o el espíritu del anticristo, incluye a todos los falsos maestros y enemigos de la verdad; sí, cualesquiera doctrinas u hombres que sean contrarios a Cristo. Parece haber sido mucho después de esto que el nombre de anticristo fue apropiado para ese gran adversario de Cristo, \"el hombre de pecado\", 2 Tes 2:3 El anticristo, en el sentido de San Juan, es decir, el anticristianismo, se ha ido extendiendo desde su tiempo hasta ahora; y lo haremos hasta que ese gran adversario se levante y sea destruido por la venida de Cristo.",
+      "enHash": "c67200744b2b1ce63ec070fdb9b300b5d1d2d168e5d9865764ef710c197e68e3",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "I John 2:19\n They were not of us - When they went; their hearts were before departed from God, otherwise, they would have continued with us: but they went out, that they might be made manifest - That is, this was made manifest by their going out.",
+      "es": "1 Juan 2:19\n No eran de nosotros - Cuando se fueron; sus corazones antes se habían apartado de Dios; de lo contrario, habrían continuado con nosotros: pero salieron para manifestarse - Es decir, esto se manifestó al salir.",
+      "enHash": "c371c45352cbd2b580ca9ca427b06e8a27b8d23dc1c6f009487acd650e6f30be",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "I John 2:20\n But ye have an anointing - A chrism; perhaps so termed in opposition to the name of antichrist; an inward teaching from the Holy Ghost, whereby ye know all things - Necessary for your preservation from these seducers, and for your eternal salvation. St. John here but just touches upon the Holy Ghost, of whom he speaks more largely, 1Jo 3:24 ; 4:13 ; 5:6 .",
+      "es": "1 Juan 2:20\n Pero tenéis una unción - Un crisma; tal vez llamado así en oposición al nombre de anticristo; una enseñanza interna del Espíritu Santo, por la cual sabéis todas las cosas - Necesaria para vuestra preservación de estos seductores y para vuestra salvación eterna. San Juan aquí solo toca el Espíritu Santo, de quien habla más ampliamente, 1 Juan 3:24; 4:13; 5:6.",
+      "enHash": "a5112e05c0d5852d787d594eb3ce640bd1e80a69c78b3cc7fd25bc89386f0aa2",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "I John 2:21\n I have written - Namely, 1Jo 2:13 . To you because ye know the truth - That is, to confirm you in the knowledge ye have already. Ye know that no lie is of the truth - That all the doctrines of these antichrists are irreconcilable to it.",
+      "es": "1 Juan 2:21\n He escrito - Es decir, 1 Juan 2:13 . A ti porque sabes la verdad - Es decir, para confirmarte en el conocimiento que ya tienes. Sabéis que ninguna mentira proviene de la verdad - Que todas las doctrinas de estos anticristos son irreconciliables con ella.",
+      "enHash": "3fd98579b8f46ee5771654bd708607cebdbbc5f3ec6a41ab45a1ef8267fbffd1",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "I John 2:22\n Who is that liar - Who is guilty of that lying, but he who denies that truth which is the sum of all Christianity? That Jesus is the Christ; that he is the Son of God; that he came in the flesh, is one undivided truth. and he that denies any part of this, in effect denies the whole. He is antichrist - And the spirit of antichrist, who in denying the Son denies the Father also.",
+      "es": "1 Juan 2:22\n ¿Quién es ese mentiroso? ¿Quién es culpable de esa mentira, sino el que niega esa verdad que es la suma de todo el cristianismo? Que Jesús es el Cristo; que él es el Hijo de Dios; que vino en carne, es una verdad indivisa. y quien niega alguna parte de esto, en efecto niega el todo. Él es el anticristo - Y el espíritu del anticristo, que al negar al Hijo también niega al Padre.",
+      "enHash": "76395a155e4fc9a2d6d3743a1219a6b29ad82b81ae72813206c69db47ff0b060",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "I John 2:23\n Whosoever denieth the eternal Son of God, he hath not communion with the Father; but he that truly and believingly acknowledgeth the Son, hath communion with the Father also.",
+      "es": "1 Juan 2:23\n Quien niega al eterno Hijo de Dios, no tiene comunión con el Padre; pero el que verdadera y creyentemente reconoce al Hijo, también tiene comunión con el Padre.",
+      "enHash": "6bd8c9d069b2b88ad95fd66057c959bdabee8be536cfc41d40b3448121a4c8d4",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "I John 2:24\n If that truth concerning the Father and the Son, which ye have heard from the beginning, abide fixed and rooted in you, ye also shall abide in that happy communion with the Son and the Father.",
+      "es": "1 Juan 2:24\n Si esa verdad acerca del Padre y del Hijo, que habéis oído desde el principio, permanece fija y arraigada en vosotros, también vosotros permaneceréis en esa feliz comunión con el Hijo y el Padre.",
+      "enHash": "5d2bf9bb80e261aa8abe259d4012b44e7079913019e2d045478826269bfa6f8c",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "He — The Son.\n\n Hath promised us — If we abide in him.",
+      "es": "Él: el Hijo.\n\n Nos ha prometido si permanecemos en él.",
+      "enHash": "bd83fa37ae90b9e1bb6a5eb734d31de91e9a05a7ef81f526c42933130ef65f3d",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "I John 2:26\n These things - From 1Jo 2:21 . I have written to you - St. John, according to his custom, begins and ends with the same form, and having finished a kind of parenthesis, 1Jo 2:20 - 26, continues, 2:27 , what he said in the twentieth verse, concerning them that would seduce you.",
+      "es": "1 Juan 2:26\n Estas cosas - De 1 Juan 2:21 . Os he escrito - San Juan, según su costumbre, comienza y termina con la misma forma, y ​​habiendo terminado una especie de paréntesis, 1Jn 2,20-26, continúa, 2,27, lo que dijo en el versículo veinte, acerca de los que os seducirían.",
+      "enHash": "5978edb6b6390b2e44d40912548f049c95c6659aa8d217b797dda9562409aad1",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "I John 2:27\n Ye need not that any should teach you, save as that anointing teacheth you - Which is always the same, always consistent with itself. But this does not exclude our need of being taught by them who partake of the same anointing. Of all things - Which it is necessary for you to know. And is no lie - Like that which antichrist teaches. Ye shall abide in him - This is added both by way of comfort and of exhortation. The whole discourse, from verse 18 to this, 1Jo 2:18 - 27 is peculiarly adapted to little children.",
+      "es": "1 Juan 2:27\n No necesitáis que nadie os enseñe, salvo que os enseñe la unción, que es siempre la misma, siempre coherente consigo misma. Pero esto no excluye nuestra necesidad de ser enseñados por aquellos que participan de la misma unción. De todas las cosas, que es necesario que sepas. Y no es mentira - Como lo que enseña el anticristo. Permanecerás en él - Esto se agrega tanto a modo de consuelo como de exhortación. Todo el discurso, desde el versículo 18 hasta este, 1 Juan 2:18-27, está particularmente adaptado a los niños pequeños.",
+      "enHash": "4da539bd1146dd9b72c8e490a6c9c34e4342ca0ad2e6dd27450af34235c5911c",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "I John 2:28\n And now, beloved children - Having finished his address to each, he now returns to all in general. Abide in him, that we - A modest expression. May not be ashamed before him at his coming - O how will ye, Jews, Socinians, nominal Christians, be ashamed in that day!",
+      "es": "1 Juan 2:28\n Y ahora, amados hijos - Habiendo terminado su discurso a cada uno, ahora regresa a todos en general. Permaneced en él, que nosotros - Una expresión modesta. No os avergoncéis delante de él en su venida. ¡Oh, cómo os avergonzaréis vosotros, judíos, socinianos, cristianos nominales, en aquel día!",
+      "enHash": "eb2d3ee3c3018a2760d83a585aed8a0172e85eaeaf82fed427336acdcb204cd5",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "I John 2:29\n Every one - And none else. Who practiseth righteousness - From a believing, loving heart. Is born of him - For all his children are like himself.",
+      "es": "1 Juan 2:29\n Todos - Y nadie más. Quien practica la justicia - De un corazón creyente y amoroso. Nace de él - Porque todos sus hijos son como él.",
+      "enHash": "1948d31a5173dab65ad54f170a94a7ab662de58e473a328c2ce7be7344b8004c",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "I John 3:1\n That we should be called - That is, should be, the children of God. Therefore the world knoweth us not - They know not what to make of us. We are a mystery to them.",
+      "es": "1 Juan 3:1\n Que deberíamos ser llamados - Es decir, deberíamos ser hijos de Dios. Por tanto, el mundo no nos conoce; no saben qué hacer con nosotros. Somos un misterio para ellos.",
+      "enHash": "f47574fcdefbe5b8a936e9c96d295400e21fcc4dadebdbd76a5e4ee525feb9de",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "I John 3:2\n It doth not yet appear - Even to ourselves. What we shall be - It is something ineffable, which will raise the children of God to be, in a manner, as God himself. But we know, in general, that when he, the Son of God, shall appear, we shall be like him - The glory of God penetrating our inmost substance. For we shall see him as he is - Manifestly, without a veil. And that sight will transform us into the same likeness.",
+      "es": "1 Juan 3:2\n Todavía no aparece, ni siquiera a nosotros mismos. Lo que seremos - Es algo inefable, que criará a los hijos de Dios para que sean, en cierto modo, como Dios mismo. Pero sabemos, en general, que cuando él, el Hijo de Dios, aparezca, seremos como él: la gloria de Dios penetrando en nuestra sustancia más íntima. Porque lo veremos tal como es - Manifiestamente, sin velo. Y esa vista nos transformará a la misma semejanza.",
+      "enHash": "08126b667c5bf77e4848d9728e1c0adef771e898dadfa0d24cebc7fbeb592de0",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "And every one that hath this hope in him — In God.",
+      "es": "Y todo aquel que tiene esta esperanza en él, en Dios.",
+      "enHash": "919bf1ecbd491fbade8031f08114f0e496cf43d64367b28323c2d33e9451700b",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "I John 3:4\n Whosoever committeth sin - Thereby transgresseth the holy, just, and good law of God, and so sets his authority at nought; for this is implied in the very nature of sin.",
+      "es": "1 Juan 3:4\n Quien comete pecado - De ese modo transgrede la santa, justa y buena ley de Dios, y por eso anula su autoridad; porque esto está implícito en la naturaleza misma del pecado.",
+      "enHash": "d54270c11edee7809afd21578fbc1f6314d7e4198675010b280149747234f13b",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "I John 3:5\n And ye know that he - Christ. Was manifested - That he came into the world for this very purpose. To take away our sins - To destroy them all, root and branch, and leave none remaining. And in him is no sin - So that he could not suffer on his own account, but to make us as himself.",
+      "es": "1 Juan 3:5\n Y sabéis que él es Cristo. Se manifestó - Que vino al mundo con este mismo propósito. Quitar nuestros pecados - Destruirlos todos, de raíz y rama, y ​​no dejar ninguno. Y en él no hay pecado - De modo que no pudo sufrir por su propia cuenta, sino para hacernos como él mismo.",
+      "enHash": "da618eb9f80fe94d8d12d74576346c8eb6c241021e490387ffead161db76b0a3",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "I John 3:6\n Whosoever abideth in communion with him, by loving faith, sinneth not - While he so abideth. Whosoever sinneth certainly seeth him not - The loving eye of his soul is not then fixed upon God; neither doth he then experimentally know him - Whatever he did in time past.",
+      "es": "1 Juan 3:6\n Quien permanece en comunión con él, por una fe amorosa, no peca, mientras así permanece. Quien peca, ciertamente no lo ve - El ojo amoroso de su alma no está entonces fijo en Dios; Tampoco lo conoce experimentalmente - Lo que sea que haya hecho en el pasado.",
+      "enHash": "c3a26229a75dcf12301dd2deb86314dfee94bfe045db76575bc84f6081bf00e1",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "I John 3:7\n Let no one deceive you - Let none persuade you that any man is righteous but he that uniformly practises righteousness; he alone is righteous, after the example of his Lord.",
+      "es": "1 Juan 3:7\n Que nadie os engañe - Que nadie os convenza de que alguien es justo excepto el que practica uniformemente la justicia; sólo él es justo, según el ejemplo de su Señor.",
+      "enHash": "e031b7a0ef31779632afb0fc5be607ddd7c8062372e01c0585c713c8515dfed4",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "I John 3:8\n He that committeth sin is a child of the devil; for the devil sinneth from the beginning - That is, was the first sinner in the universe, and has continued to sin ever since. The Son of God was manifested to destroy the works of the devil - All sin. And will he not perform this in all that trust in him?",
+      "es": "1 Juan 3:8\n El que comete pecado es hijo del diablo; porque el diablo peca desde el principio - Es decir, fue el primer pecador en el universo y ha continuado pecando desde entonces. El Hijo de Dios fue manifestado para destruir las obras del diablo - Todo pecado. ¿Y no hará esto con todos los que confían en él?",
+      "enHash": "41e1e4351fddf8bb83699bb52ae6f1052892354c0b4f0bf80e02c5c0d9d0d6e1",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "I John 3:9\n Whosoever is born of God - By living faith, whereby God is continually breathing spiritual life into his soul, and his soul is continually breathing out love and prayer to God, doth not commit sin. For the divine seed of loving faith abideth in him; and, so long as it doth, he cannot sin, because he is born of God - Is inwardly and universally changed.",
+      "es": "1 Juan 3:9\n Todo aquel que nace de Dios - Por la fe viva, por la cual Dios continuamente respira vida espiritual en su alma, y su alma continuamente exhala amor y oración a Dios, no comete pecado. Porque la semilla divina de la fe amorosa permanece en él; y, mientras lo haga, no puede pecar, porque es nacido de Dios - Ha cambiado interna y universalmente.",
+      "enHash": "1d14b48a0794c7a98211c570cf80e3f722bbc22c1bd6b0cc6eb70fee0ccf11d0",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "Neither he that loveth not his brother — Here is the transition from the general proposition to one particular.",
+      "es": "Ni el que no ama a su hermano. Aquí está la transición de la proposición general a una particular.",
+      "enHash": "278eeca134aee360cbbd5292f4f06991cb6ee052108c8af46da6847cd86f5e24",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "I John 3:12\n Who was of the wicked one - Who showed he was a child of the devil by killing his brother. And wherefore slew he him - For any fault? No, but just the reverse; for his goodness.",
+      "es": "1 Juan 3:12\n ¿Quién era del malvado? Quien demostró que era hijo del diablo al matar a su hermano. ¿Y por qué lo mató? ¿Por alguna culpa? No, sino todo lo contrario; por su bondad.",
+      "enHash": "55391cc01b29261a6bba5939c31cbc2e57a0f65e6e1846d034d8353a42e30090",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "Marvel not if the world hate you — For the same cause.",
+      "es": "No te maravilles si el mundo te odia, por la misma causa.",
+      "enHash": "9180e9aa2e4275b941045370d3b6e2671c974aedc5619cb79efe30b092cba713",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "I John 3:14\n We know - As if he had said, We ourselves could not love our brethren, unless we were passed from spiritual death to life, that is, born of God. He that loveth not his brother abideth in death - That is, is not born of God. And he that is not born of God, cannot love his brother.",
+      "es": "1 Juan 3:14\n Sabemos - Como si hubiera dicho: Nosotros mismos no podríamos amar a nuestros hermanos, a menos que pasemos de la muerte espiritual a la vida, es decir, nacidos de Dios. El que no ama a su hermano permanece en la muerte - Es decir, no nace de Dios. Y el que no es nacido de Dios, no puede amar a su hermano.",
+      "enHash": "f3e5802e0ddea6e992d44994110cebe37001e44957296194eddfb91e520f085b",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "I John 3:15\n He, I say, abideth in spiritual death, is void of the life of God. For whosoever hateth his brother, and there is no medium between loving and hating him, is, in God's account, a murderer: every degree of hatred being a degree of the same temper which moved Cain to murder his brother. And no murderer hath eternal life abiding in him - But every loving believer hath. For love is the beginning of eternal life. It is the same, in substance, with glory.",
+      "es": "1 Juan 3:15\n Él, digo, permanece en muerte espiritual, está desprovisto de la vida de Dios. Porque cualquiera que odia a su hermano, y no hay término medio entre amarlo y odiarlo, es, según Dios, un asesino: cada grado de odio es un grado del mismo temperamento que impulsó a Caín a asesinar a su hermano. Y ningún asesino tiene vida eterna permanente en él, pero todo creyente amoroso la tiene. Porque el amor es el comienzo de la vida eterna. Lo mismo ocurre, en esencia, con la gloria.",
+      "enHash": "1e604f22912d99e726f2d1b5268998269e661316d863f4081a50a57bb375133c",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "I John 3:16\n The word God is not in the original. It was omitted by the apostle just as the particular name is omitted by Mary, when she says to the gardener, \"Sir, if thou hast borne him hence;\" and by the church, when she says, \"Let him kiss me with the kisses of his mouth,\" So 1:2 ; in both which places there is a language, a very emphatical language, even in silence. It declares how totally the thoughts were possessed by the blessed and glorious subject. It expresses also the superlative dignity and amiableness of the person meant, as though He, and He alone, was, or deserved to be, both known and admired by all. Because he laid down his life - Not merely for sinners, but for us in particular. From this truth believed, from this blessing enjoyed, the love of our brethren takes its rise, which may very justly be admitted as an evidence that our faith is no delusion.",
+      "es": "1 Juan 3:16\n La palabra Dios no está en el original. El apóstol lo omitió así como María omite el nombre particular cuando le dice al jardinero: \"Señor, si lo has traído de aquí\"; y por la iglesia, cuando ella dice: \"Que me bese con los besos de su boca\", So 1:2; en ambos lugares hay un lenguaje, un lenguaje muy enfático, incluso en el silencio. Declara cuán totalmente los pensamientos estaban poseídos por el bendito y glorioso sujeto. Expresa también la superlativa dignidad y amabilidad de la persona a la que se refiere, como si Él, y sólo Él, fuera o mereciera ser conocido y admirado por todos. Porque dio su vida - No sólo por los pecadores, sino por nosotros en particular. De esta verdad creída, de esta bendición disfrutada, surge el amor de nuestros hermanos, lo que muy justamente puede admitirse como evidencia de que nuestra fe no es un engaño.",
+      "enHash": "d47e4d5a907f7adb196024bd6f72476a291bf9b98b8112d63a30487ee51171a7",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "I John 3:17\n But whoso hath this world's good - Worldly substance, far less valuable than life. And seeth his brother have need - The very sight of want knocks at the door of the spectator's heart. And shutteth up - Whether asked or not. His bowels of compassion from him, how dwelleth the love of God in him - Certainly not at all, however he may talk, 1Jo 3:18 , of loving God.",
+      "es": "1 Juan 3:17\n Pero quien tiene el bien de este mundo - Sustancia mundana, mucho menos valiosa que la vida. Y ve a su hermano tener necesidad - La sola visión de la necesidad llama a la puerta del corazón del espectador. Y se calla - Ya sea que se lo pregunten o no. Sus entrañas de compasión de él, cómo habita el amor de Dios en él - Ciertamente no en absoluto, sin importar cómo hable, 1 Juan 3:18, de amar a Dios.",
+      "enHash": "3eefefc71b04d18d00476321abda88eb592648b514c7e4543f81d7d3f40473d0",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "Not in word — Only.\n\n But in deed — In action: not in tongue by empty professions, but in truth.",
+      "es": "No de palabra, solo.\n\n Pero de hecho - En acción: no en lengua mediante profesiones vacías, sino en verdad.",
+      "enHash": "19b85bb676aef4bd1595effe0d9300cc0efea58c36df8d6fb4f2c1ee9d434e78",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "I John 3:19\n And hereby we know - We have a farther proof by this real, operative love. That we are of the truth - That we have true faith, that we are true children of God. And shall assure our hearts before him - Shall enjoy the assurance of his favour, and the \"testimony of a good conscience toward God.\" The heart, in St. John's language, is the conscience. The word conscience is not found in his writings.",
+      "es": "1 Juan 3:19\n Y por la presente sabemos: tenemos una prueba más mediante este amor real y operativo. Que somos de la verdad - Que tenemos verdadera fe, que somos verdaderos hijos de Dios. Y asegurará nuestros corazones ante él - Disfrutará de la seguridad de su favor y del \"testimonio de una buena conciencia hacia Dios\". El corazón, en lenguaje de San Juan, es la conciencia. La palabra conciencia no se encuentra en sus escritos.",
+      "enHash": "65f26a411bf1bbc497709227023cd8b9d0925dacf0becc38cf2f2c26e5a6e45a",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "I John 3:20\n For if we have not this testimony, if in anything our heart, our own conscience, condemn us, much more does God, who is greater than our heart - An infinitely holier and a more impartial Judge. And knoweth all things - So that there is no hope of hiding it from him.",
+      "es": "1 Juan 3:20\n Porque si no tenemos este testimonio, si en algo nos condena nuestro corazón, nuestra propia conciencia, mucho más lo hace Dios, que es más grande que nuestro corazón, un Juez infinitamente más santo e imparcial. Y lo sabe todo - Para que no haya esperanza de ocultárselo.",
+      "enHash": "bfc15ed42980260f0fd0454ed14f2ef8f59533ef296af02fa081907723e45888",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "I John 3:21\n If our heart condemn us not - If our conscience, duly enlightened by the word and Spirit of God, and comparing all our thoughts, words, and works with that word, pronounce that they agree therewith. Then have we confidence toward God - Not only our consciousness of his favour continues and increases, but we have a full persuasion, that whatsoever we ask we shall receive of him.",
+      "es": "1 Juan 3:21\n Si nuestro corazón no nos condena - Si nuestra conciencia, debidamente iluminada por la palabra y el Espíritu de Dios, y comparando todos nuestros pensamientos, palabras y obras con esa palabra, pronuncia que están de acuerdo con ella. Entonces tenemos confianza en Dios - No solo nuestra conciencia de su favor continúa y aumenta, sino que tenemos una completa persuasión de que todo lo que pidamos lo recibiremos de él.",
+      "enHash": "e8c50a5997df9e11384b3f6767dd6f2c9d8ec758ab08dc810d9e718049ea000b",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "I John 3:23\n And this is his commandment - All his commandments in one word. That we should believe and love - in the manner and degree which he hath taught. This is the greatest and most important command that ever issued from the throne of glory. If this be neglected, no other can be kept: if this be observed, all others are easy.",
+      "es": "1 Juan 3:23\n Y este es su mandamiento: Todos sus mandamientos en una palabra. Que debemos creer y amar - en la forma y grado que él ha enseñado. Este es el mandato más grande e importante que jamás haya salido del trono de gloria. Si esto se descuida, no se puede conservar ningún otro; si se observa esto, todos los demás son fáciles.",
+      "enHash": "43311d3921e5fb5842f77dd7bcb3b27b08fdedf39006cee0bcd713a9e0d4737d",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "I John 3:24\n And he that keepeth his commandments - That thus believes and loves. Abideth in him, and God in him: and hereby we know that he abideth in us, by the Spirit which he hath given us - Which witnesses with our spirits that we are his children, and brings forth his fruits of peace, love, holiness. This is the transition to the treating of the Holy Spirit which immediately follows.",
+      "es": "1 Juan 3:24\n Y el que guarda sus mandamientos - El que así cree y ama. Permanece en él, y Dios en él: y por esto sabemos que él permanece en nosotros, por el Espíritu que nos ha dado, que testifica con nuestro espíritu que somos sus hijos y produce sus frutos de paz, amor y santidad. Esta es la transición al tratamiento del Espíritu Santo que sigue inmediatamente.",
+      "enHash": "a78aba75652842b89a26f5c10e57e3e801e2686503cadbeb06e41a61e3575538",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "I John 4:1\n Believe not every spirit - Whereby any teacher is actuated. But try the spirits - By the rule which follows. We are to try all spirits by the written word: \"To the law and to the testimony!\" If any man speak not according to these, the spirit which actuates him is not of God.",
+      "es": "1 Juan 4:1\n No creas en todos los espíritus - Por los cuales actúa cualquier maestro. Pero prueba los espíritus - Según la regla que sigue. Debemos probar todos los espíritus con la palabra escrita: \"¡A la ley y al testimonio!\" Si alguno no habla conforme a estas, el espíritu que lo impulsa no es de Dios.",
+      "enHash": "7e95644c28ab47290430ae4657fa443e0c15889f5abf5ae22751fa3fcb373218",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "I John 4:2\n Every spirit - Or teacher. Which confesseth - Both with heart and voice. Jesus Christ, who is come in the flesh, is of God - This his coming presupposes, contains, and draws after it, the whole doctrine of Christ.",
+      "es": "1 Juan 4:2\n Cada espíritu - O maestro. Que confiesa - Tanto con el corazón como con la voz. Jesucristo, que ha venido en carne, es de Dios - Esta su venida presupone, contiene y atrae toda la doctrina de Cristo.",
+      "enHash": "a567efa4a4d1e86f9ba789f97068171aa26a1e5a5439bca92d1cd70242a8e12b",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "Ye have heard — From our Lord and us, that it cometh.",
+      "es": "Habéis oído de nuestro Señor y de nosotros que viene.",
+      "enHash": "6e80c2127844479c9b406c12c511a4ba2107b95375ac061e75cf3664aab66310",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "I John 4:4\n Ye have overcome these seducers, because greater is the Spirit of Christ that is in you than the spirit of antichrist that is in the world.",
+      "es": "1 Juan 4:4\n Habéis vencido a estos seductores, porque mayor es el Espíritu de Cristo que está en vosotros que el espíritu del anticristo que está en el mundo.",
+      "enHash": "9d5a4457f0bd4ea7746fffaf9d12e63d70d83ee76027a5f9a431ab976e7af644",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "I John 4:5\n They - Those false prophets. Are of the world - Of the number of those that know not God. Therefore speak they of the world - From the same principle, wisdom, spirit; and, of consequence, the world heareth them - With approbation.",
+      "es": "1 Juan 4:5\n Ellos... Esos falsos profetas. Son del mundo - Del número de aquellos que no conocen a Dios. Por eso hablan del mundo - Del mismo principio, sabiduría, espíritu; y, en consecuencia, el mundo los escucha - Con aprobación.",
+      "enHash": "91801730503f35758ca02ee14dbff87b1a1d8f71ba116fab925fe29d7e9fdc80",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "We — Apostles.\n\n Are of God — Immediately taught, and sent by him.\n\n Hereby we know — From what is said, 1 John 4:2-6 .",
+      "es": "Nosotros, los apóstoles.\n\n Son de Dios: inmediatamente enseñados y enviados por él.\n\n Por esto sabemos por lo que se dice, 1 Juan 4:2-6 .",
+      "enHash": "b91ed923534aa16b3f6aa927ccea5bbd84dddeaa71a199261d14789ae9458e5a",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "I John 4:7\n Let us love one another - From the doctrine he has just been defending he draws this exhortation. It is by the Spirit that the love of God is shed abroad in our hearts. Every one that truly loveth God and his neighbour is born of God.",
+      "es": "1 Juan 4:7\n Amémonos unos a otros - De la doctrina que acaba de defender extrae esta exhortación. Es por el Espíritu que el amor de Dios se derrama en nuestros corazones. Todo aquel que verdaderamente ama a Dios y a su prójimo es nacido de Dios.",
+      "enHash": "117c27696ea407a376a1337f09b28942ef556ce9ad5b34a22e94271803838a69",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "I John 4:8\n God is love - This little sentence brought St. John more sweetness, even in the time he was writing it, than the whole world can bring. God is often styled holy, righteous, wise; but not holiness, righteousness, or wisdom in the abstract, as he is said to be love; intimating that this is his darling, his reigning attribute, the attribute that sheds an amiable glory on all his other perfections.",
+      "es": "1 Juan 4:8\n Dios es amor - Esta pequeña frase trajo a San Juan más dulzura, incluso en el momento en que la escribió, de la que el mundo entero puede traer. A Dios a menudo se le llama santo, justo y sabio; pero no la santidad, la justicia o la sabiduría en abstracto, como se dice que es amor; insinuando que este es su atributo amado, su reinante, el atributo que derrama una gloria amable sobre todas sus demás perfecciones.",
+      "enHash": "b2c6be5acda45827fa2cd2c6a400ac4146f9cf266c7d9b6b0020d7bbff848ad3",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "I John 4:12\n If we love one another, God abideth in us - This is treated of, 1John 4:13 - 16. And his love is perfected - Has its full effect. In us - This is treated of, 1John 4:17 - 19.",
+      "es": "1 Juan 4:12\n Si nos amamos unos a otros, Dios permanece en nosotros - De esto se trata, 1 Juan 4:13 - 16. Y su amor se perfecciona - Tiene todo su efecto. En nosotros - Esto se trata, 1 Juan 4:17 - 19.",
+      "enHash": "abe1455d5b43edea560d4e7aed49206248e1eb8c50b2a11432896dd61e8994b9",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "I John 4:14\n And in consequence of this we have seen and testify that the Father sent the Son - These are the foundation and the criteria of our abiding in God and God in us, the communion of the Spirit, and the confession of the Son.",
+      "es": "1 Juan 4:14\n Y como consecuencia de esto hemos visto y testificado que el Padre envió al Hijo. Estos son el fundamento y los criterios de nuestra permanencia en Dios y Dios en nosotros, la comunión del Espíritu y la confesión del Hijo.",
+      "enHash": "a43e963c0088d3e6a5a4fd4f7a0988fde147b9f7e5f20739e95092fbc25b6b9a",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "I John 4:15\n Whosoever shall, from a principle of loving faith, openly confess in the face of all opposition and danger, that Jesus is the Son of God, God abideth in him.",
+      "es": "1 Juan 4:15\n Cualquiera que, por un principio de fe amorosa, confiese abiertamente, frente a toda oposición y peligro, que Jesús es el Hijo de Dios, Dios permanece en él.",
+      "enHash": "51f9d51f2de4b8bdcd9e72711dcefdff04767d38e6d287bbdcca586677bf6fee",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "And we know and believe — By the same Spirit, the love that God hath to us.",
+      "es": "Y conocemos y creemos: por el mismo Espíritu, el amor que Dios nos tiene.",
+      "enHash": "625f1b8cd4f1bc7a36bb3faa19566c270067c48f19f5bc4e8d6fb476e5e7ddbb",
+      "source": "corpus:john-wesley"
+    },
+    "b73": {
+      "en": "I John 4:17\n Hereby - That is, by this communion with God. Is our love made perfect; that we may - That is, so that we shall have boldness in the day of judgment - When all the stout - hearted shall tremble. Because as he - Christ. Is - All love. So are we - Who are fathers in Christ, even in this world.",
+      "es": "1 Juan 4:17\n Por la presente - Es decir, por esta comunión con Dios. ¿Nuestro amor se ha perfeccionado? para que podamos - Es decir, para que tengamos valentía en el día del juicio - Cuando todos los valientes - de corazón temblarán. Porque como él - Cristo. Es - Todo amor. Nosotros también - Que somos padres en Cristo, incluso en este mundo.",
+      "enHash": "554b465874a08ea339f3a0cf3de2abea36bfea32cbdcf5c50063e116aa746939",
+      "source": "corpus:john-wesley"
+    },
+    "b74": {
+      "en": "I John 4:18\n There is no fear in love - No slavish fear can be where love reigns. But perfect, adult love casteth out slavish fear: because such fear hath torment - And so is inconsistent with the happiness of love. A natural man has neither fear nor love; one that is awakened, fear without love; a babe in Christ, love and fear; a father in Christ, love without fear.",
+      "es": "1 Juan 4:18\n No hay miedo en el amor - No puede haber miedo servil donde reina el amor. Pero el amor perfecto y adulto expulsa el miedo servil: porque ese miedo conlleva tormento, y por eso es incompatible con la felicidad del amor. El hombre natural no tiene miedo ni amor; uno que está despierto, miedo sin amor; un bebé en Cristo, amor y temor; un padre en Cristo, ama sin miedo.",
+      "enHash": "c452ee439ccbd881d09295e3c6c6643eb7be5919436495fa197a91dea1d8a0f4",
+      "source": "corpus:john-wesley"
+    },
+    "b75": {
+      "en": "I John 4:19\n We love him, because he first loved us - This is the sum of all religion, the genuine model of Christianity. None can say more: why should any one say less, or less intelligibly?",
+      "es": "1 Juan 4:19\n Lo amamos, porque él nos amó primero. Ésta es la suma de toda religión, el modelo genuino del cristianismo. Nadie puede decir más: ¿por qué debería alguien decir menos o de manera menos inteligible?",
+      "enHash": "e013e27f1e750af7eb261de625934df0460ed16826b9c371de4c52a9dce340cc",
+      "source": "corpus:john-wesley"
+    },
+    "b76": {
+      "en": "I John 4:20\n Whom he hath seen - Who is daily presented to his senses, to raise his esteem, and move his kindness or compassion toward him.",
+      "es": "1 Juan 4:20\n A quién ha visto - Quién se presenta diariamente a sus sentidos, para elevar su estima y mover su bondad o compasión hacia él.",
+      "enHash": "d84c109e81b7fb3eff24ef7ef999f8f99d2313c857e381df30d9cc5990c06586",
+      "source": "corpus:john-wesley"
+    },
+    "b77": {
+      "en": "I John 4:21\n And this commandment have we from him - Both God and Christ. That he who loveth God love his brother - Every one, whatever his opinions or mode of worship be, purely because he is the child, and bears the image, of God. Bigotry is properly the want of this pure and universal love. A bigot only loves those who embrace his opinions, and receive his way of worship; and he loves them for that, and not for Christ's sake.",
+      "es": "1 Juan 4:21\n Y este mandamiento tenemos de él: tanto Dios como Cristo. Que el que ama a Dios ame a su hermano - Cada uno, cualquiera que sea su opinión o modo de adoración, simplemente porque es hijo y lleva la imagen de Dios. La intolerancia es propiamente la falta de este amor puro y universal. Un intolerante sólo ama a aquellos que abrazan sus opiniones y reciben su forma de adoración; y los ama por eso, y no por amor de Cristo.",
+      "enHash": "3de1499e1d0a75979745cc9e93932055251861b1b528adec06bf4ad92044d854",
+      "source": "corpus:john-wesley"
+    },
+    "b78": {
+      "en": "I John 5:1\n The scope and sum of this whole paragraph appears from the conclusion of it, 1Jo 5:13: \"These things have I written to you who believe, that ye may know that ye who believe have eternal life.\" So faith is the first and last point with St. John also. Every one who loveth - God that begat loveth him also that is begotten of him - Hath a natural affection to all his brethren.",
+      "es": "1 Juan 5:1\n El alcance y la suma de todo este párrafo se desprende de la conclusión del mismo, 1 Juan 5:13: \"Estas cosas os he escrito a vosotros los que creéis, para que sepáis que los que creéis tenéis vida eterna\". Así que la fe es el primer y último punto también para San Juan. Todo aquel que ama, Dios que engendró, ama también a quien es engendrado de él, tiene un afecto natural hacia todos sus hermanos.",
+      "enHash": "d44f09c57b97b902e49702c819d78f30a3dd8bd32fd15f89115bf14967393dfa",
+      "source": "corpus:john-wesley"
+    },
+    "b79": {
+      "en": "Hereby we know — This is a plain proof.\n\n That we love the children of God — As his children.",
+      "es": "Por la presente sabemos: esta es una prueba clara.\n\n Que amemos a los hijos de Dios, como sus hijos.",
+      "enHash": "e622ef902510fd1b1d3cfb15eef8877b313bba5211f74cc475e49cd1fc238cd7",
+      "source": "corpus:john-wesley"
+    },
+    "b80": {
+      "en": "I John 5:3\n For this is the love of God - The only sure proof of it. That we keep his commandments: and his commandments are not grievous - To any that are born of God.",
+      "es": "1 Juan 5:3\n Porque este es el amor de Dios - La única prueba segura de ello. Que guardemos sus mandamientos: y sus mandamientos no son gravosos - Para cualquiera que sea nacido de Dios.",
+      "enHash": "43da564d17ef2ec651d337ff9b1120cf2c3f94f95760ca0c19733c52b0cf3633",
+      "source": "corpus:john-wesley"
+    },
+    "b81": {
+      "en": "I John 5:4\n For whatsoever - This expression implies the most unlimited universality. Is born of God overcometh the world - Conquers whatever it can lay in the way, either to allure or fright the children of God from keeping his commandments. And this is the victory - The grand means of overcoming. Even our faith - Seeing all things are possible to him that believeth.",
+      "es": "1 Juan 5:4\n Para cualquier cosa - Esta expresión implica la universalidad más ilimitada. Nace de Dios, vence al mundo - Conquista todo lo que pueda interponerse en el camino, ya sea para atraer o asustar a los hijos de Dios para que no guarden sus mandamientos. Y esta es la victoria: el gran medio de superación. Incluso nuestra fe - Ver que todo es posible para el que cree.",
+      "enHash": "4d18e1ca4135240f6f10137e7289ac40534c40509700c734d32368f3f5f03f98",
+      "source": "corpus:john-wesley"
+    },
+    "b82": {
+      "en": "I John 5:5\n Who is he that overcometh the world - That is superior to all worldly care, desire, fear? Every believer, and none else. The seventh verse 1Jo 5:7 (usually so reckoned) is a brief recapitulation of all which has been before advanced concerning the Father, the Son, and the Spirit. It is cited, in conjunction with the sixth and eighth, 1Jo 5:6 ,8 by Tertullian, Cyprian, and an uninterrupted train of Fathers. And, indeed, what the sun is in the world, what the heart is in a man, what the needle is in the mariner's compass, this verse is in the epistle. By this the sixth, eighth, and ninth verses 1Jo 5:6 ,8,9 are indissolubly connected; as will be evident, beyond all contradiction, when they are accurately considered.",
+      "es": "1 Juan 5:5\n ¿Quién es el que vence al mundo, que es superior a todo cuidado, deseo y temor mundanos? Todo creyente y nadie más. El séptimo versículo 1 Juan 5:7 (usualmente así se considera) es una breve recapitulación de todo lo que se ha adelantado anteriormente acerca del Padre, el Hijo y el Espíritu. Es citado, junto con el sexto y el octavo, 1 Juan 5:6, 8 por Tertuliano, Cipriano y una serie ininterrumpida de Padres. Y, en efecto, lo que es el sol en el mundo, lo que es el corazón en el hombre, lo que es la aguja en la brújula del marinero, está este versículo en la epístola. Por esto los versículos sexto, octavo y noveno 1 Juan 5:6,8,9 están indisolublemente conectados; como será evidente, más allá de toda contradicción, cuando se consideren con precisión.",
+      "enHash": "0008a59931690df5fa85c2bf8a297846ed4300d62f3ceb2a90f229ea9316dca8",
+      "source": "corpus:john-wesley"
+    },
+    "b83": {
+      "en": "I John 5:6\n This is he - St. John here shows the immovable foundation of that faith that Jesus is the Son of God; not only the testimony of man, but the firm, indubitable testimony of God. Who came - Jesus is he of whom it was promised that he should come; and who accordingly, is come. And this the Spirit, and the water, and the blood testify. Even Jesus - Who, coming by water and blood, is by this very thing demonstrated to be the Christ. Not by the water only - Wherein he was baptized. But by the water and the blood - Which he shed when he had finished the work his Father had given him to do. He not only undertook at his baptism \"to fulfil all righteousness,\" but on the cross accomplished what he had undertaken; in token whereof, when all was finished, blood and water came out of his side. And it is the Spirit who likewise testifieth - Of Jesus Christ, namely, by Moses and all the prophets, by John the Baptist, by all the apostles, and in all the writings of the New Testament. And against his testimony there can be no exception, because the Spirit is truth - The very God of truth.",
+      "es": "1 Juan 5:6\n Este es él: San Juan aquí muestra el fundamento inamovible de esa fe en que Jesús es el Hijo de Dios; no sólo el testimonio del hombre, sino el testimonio firme e indudable de Dios. Quien vino - Jesús es aquel de quien se prometió que vendría; y quién, en consecuencia, ha venido. Y esto lo testifican el Espíritu, el agua y la sangre. Incluso Jesús - Quien, viniendo por agua y sangre, por esto mismo se demuestra que es el Cristo. No sólo por el agua - Donde fue bautizado. Pero por el agua y la sangre - Que derramó cuando terminó el trabajo que su Padre le había encomendado. No sólo se comprometió en su bautismo a \"cumplir toda justicia\", sino que en la cruz cumplió lo que se había comprometido; en señal de lo cual, cuando todo estuvo acabado, salió sangre y agua de su costado. Y es el Espíritu quien también da testimonio de Jesucristo, es decir, de Moisés y de todos los profetas, de Juan el Bautista, de todos los apóstoles y de todos los escritos del Nuevo Testamento. Y contra su testimonio no puede haber excepción, porque el Espíritu es verdad, el mismo Dios de verdad.",
+      "enHash": "02ca02c4ba4cc01f130988ed3da73efc44272dc3ee6b18ce2ded1cc6b34d121f",
+      "source": "corpus:john-wesley"
+    },
+    "b84": {
+      "en": "I John 5:7\n What Bengelius has advanced, both concerning the transposition of these two verses, and the authority of the controverted verse, partly in his \"Gnomon,\" and partly in his \"Apparatus Criticus,\" will abundantly satisfy any impartial person. For there are three that testify - Literally, testifying, or bearing witness. The participle is put for the noun witnesses, to intimate that the act of testifying, and the effect of it, are continually present. Properly, persons only can testify; and that three are described testifying on earth, as if they were persons, is elegantly subservient to the three persons testifying in heaven. The Spirit - In the word, confirmed by miracles. The water - Of baptism, wherein we are dedicated to the Son, (with the Father and Spirit,) typifying his spotless purity, and the inward purifying of our nature. And the blood - Represented in the Lord's supper, and applied to the consciences of believer. And these three harmoniously agree in one - In bearing the same testimony, - that Jesus Christ is the divine, the complete, the only Saviour of the world.",
+      "es": "1 Juan 5:7\n Lo que Bengelius ha avanzado, tanto en lo que respecta a la transposición de estos dos versículos como a la autoridad del versículo controvertido, en parte en su \"Gnomon\" y en parte en su \"Apparatus Criticus\", satisfará ampliamente a cualquier persona imparcial. Porque hay tres que testifican - Literalmente, testificando o dando testimonio. El participio se pone para el sustantivo testigos, para dar a entender que el acto de testificar y el efecto del mismo están continuamente presentes. Propiamente, sólo las personas pueden testificar; y que se describa a tres testificando en la tierra, como si fueran personas, está elegantemente subordinado a las tres personas que testifican en el cielo. El Espíritu - En la palabra, confirmado por milagros. El agua - Del bautismo, en el que estamos dedicados al Hijo (con el Padre y el Espíritu), tipificando su pureza inmaculada y la purificación interior de nuestra naturaleza. Y la sangre - Representada en la cena del Señor y aplicada a la conciencia del creyente. Y estos tres concuerdan armoniosamente en uno - al dar el mismo testimonio - que Jesucristo es el divino, el completo, el único Salvador del mundo.",
+      "enHash": "e470bb2d7fbfa0f390b94cf9ddabb19c4137e7fbedb36912a3022c9a13cc27b3",
+      "source": "corpus:john-wesley"
+    },
+    "b85": {
+      "en": "I John 5:8\n And there are three that testify in heaven - The testimony of the Spirit, the water, and the blood, is by an eminent gradation corroborated by three, who give a still greater testimony. The Father - Who clearly testified of the Son, both at his baptism and at his transfiguration. The Word - Who testified of himself on many occasions, while he was on earth; and again, with still greater solemnity, after his ascension into heaven, Rev 1:5 ; Rev 19:13 . And the Spirit - Whose testimony was added chiefly after his glorification, 1Jo 2:27; Joh 15:26; Ac 5:32; Ro 8:16 . And these three are one - Even as those two, the Father and the Son, are one, John 10:30 . Nothing can separate the Spirit from the Father and the Son. If he were not one with the Father and the Son, the apostle ought to have said, The Father and the Word, who are one, and the Spirit, are two. But this is contrary to the whole tenor of revelation. It remains that these three are one. They are one in essence, in knowledge, in will, and in their testimony.\n It is observable, the three in the one verse are opposed, not conjointly, but severally, to the three in the other: as if he had said, Not only the Spirit testifies, but also the Father, John 5:37 ; not only the water, but also the Word, John 3:11 , John 10:41 ; not only the blood, but also the Holy Ghost, John 15:26 , 1Jo 5:8 . St. John could not think of the testimony of the Spirit, and water, and blood, and subjoin, \"The testimony of God is greater,\" without thinking also of the testimony of the Son and Holy Ghost; yea, and mentioning it in so solemn an enumeration. Nor can any possible reason be devised, why, without three testifying in heaven, he should enumerate three, and no more, who testify on earth. The testimony of all is given on earth, not in heaven; but they who testify are part on earth, part in heaven. The witnesses who are on earth testify chiefly concerning his abode on earth, though not excluding his state of exaltation: the witnesses who are in heaven testify chiefly concerning his glory at God's right hand, though not excluding his state of humiliation.\n The seventh verse, therefore, with the sixth, 1Jo 5:7 ,6 contains a recapitulation of the whole economy of Christ, from his baptism to pentecost; the eighth, 1Jo 5:8 the sum of the divine economy, from the time of his exaltation. Hence it farther appears, that this position of the seventh 1Jo 5:7 ,8 and eighth verses, which places those who testify on earth before those who testify in heaven, is abundantly preferable to the other, and affords a gradation admirably suited to the subject.",
+      "es": "1 Juan 5:8\n Y hay tres que testifican en el cielo - El testimonio del Espíritu, el agua y la sangre, es corroborado por una gradación eminente por tres, quienes dan un testimonio aún mayor. El Padre - Quien claramente testificó del Hijo, tanto en su bautismo como en su transfiguración. La Palabra - Quien testificó de sí mismo en muchas ocasiones, mientras estuvo en la tierra; y nuevamente, con aún mayor solemnidad, después de su ascensión al cielo, Apocalipsis 1:5; Apocalipsis 19:13. Y el Espíritu - Cuyo testimonio se agregó principalmente después de su glorificación, 1 Juan 2:27; Juan 15:26; Hechos 5:32; Romanos 8:16. Y estos tres son uno - Así como esos dos, el Padre y el Hijo, son uno, Juan 10:30 . Nada puede separar al Espíritu del Padre y del Hijo. Si no fuera uno con el Padre y el Hijo, el apóstol debería haber dicho: El Padre y el Verbo, que son uno, y el Espíritu, dos son. Pero esto es contrario a todo el tenor de la revelación. Lo que queda es que estos tres son uno. Son uno en esencia, en conocimiento, en voluntad y en su testimonio. Es observable que los tres en un versículo se oponen, no conjuntamente, sino por separado, a los tres en el otro: como si hubiera dicho: No sólo el Espíritu da testimonio, sino también el Padre, Juan 5:37; no solo el agua, sino también la Palabra, Juan 3:11, Juan 10:41; no sólo la sangre, sino también el Espíritu Santo, Juan 15:26, 1 Juan 5:8. San Juan no podía pensar en el testimonio del Espíritu, el agua y la sangre, y añadir: \"El testimonio de Dios es mayor\", sin pensar también en el testimonio del Hijo y del Espíritu Santo; sí, y mencionándolo en una enumeración tan solemne. Tampoco se puede idear ninguna razón posible por la que, sin que tres testifiquen en el cielo, deba enumerar tres, y nada más, que testifiquen en la tierra. El testimonio de todos se da en la tierra, no en el cielo; pero los que dan testimonio son parte en la tierra y parte en el cielo. Los testigos que están en la tierra testifican principalmente acerca de su morada en la tierra, aunque sin excluir su estado de exaltación: los testigos que están en el cielo testifican principalmente acerca de su gloria a la diestra de Dios, aunque sin excluir su estado de humillación. El séptimo versículo, por tanto, con el sexto, 1Juan 5:7,6 contiene una recapitulación de toda la economía de Cristo, desde su bautismo hasta pentecostés; el octavo, 1Juan 5:8 la suma de la economía divina, desde el tiempo de su exaltación.\n\nPor lo tanto, parece además que esta posición del séptimo 1 Juan 5:7, 8 y octavo versículo, que coloca a los que testifican en la tierra antes que a los que testifican en el cielo, es abundantemente preferible a la otra, y proporciona una gradación admirablemente adecuada al tema.",
+      "enHash": "c4ac8c69a2120600b46f80af25b2fedf0b4496604674de38c0f717da7520ab8c",
+      "source": "corpus:john-wesley"
+    },
+    "b86": {
+      "en": "I John 5:9\n If we receive the testimony of men - As we do continually, and must do in a thousand instances. The testimony of God is greater - Of higher authority, and much more worthy to be received; namely, this very testimony which God the Father, together with the Word and the Spirit, hath testified of the Son, as the Saviour of the world.",
+      "es": "1 Juan 5:9\n Si recibimos el testimonio de los hombres - Como lo hacemos continuamente y debemos hacerlo en mil casos. El testimonio de Dios es mayor - De mayor autoridad y mucho más digno de ser recibido; es decir, este mismo testimonio que Dios Padre, junto con la Palabra y el Espíritu, ha testificado del Hijo, como Salvador del mundo.",
+      "enHash": "99b3fa54b5716caf87c85ef709072dec3ae9860281b9579209bfc4649a210615",
+      "source": "corpus:john-wesley"
+    },
+    "b87": {
+      "en": "I John 5:10\n He that believeth on the Son of God hath the testimony - The dear evidence of this, in himself: he that believeth not God, in this, hath made him a liar; because he supposes that to be false which God has expressly testified.",
+      "es": "1 Juan 5:10\n El que cree en el Hijo de Dios tiene el testimonio - La clara evidencia de esto, en sí mismo: el que no cree en Dios, en esto, lo ha hecho mentiroso; porque supone que es falso lo que Dios ha testificado expresamente.",
+      "enHash": "1d3944b987de26a6ce3dd322794e5b49ccac2cf80b4014ab3250b6251ee4479b",
+      "source": "corpus:john-wesley"
+    },
+    "b88": {
+      "en": "I John 5:11\n And this is the sum of that testimony, that God hath given us a title to, and the real beginning of, eternal life; and that this is purchased by, and treasured up in, his Son, who has all the springs and the fulness of it in himself, to communicate to his body, the church, first in grace and then in glory.",
+      "es": "1 Juan 5:11\n Y esta es la suma de ese testimonio, que Dios nos ha dado un título y el verdadero comienzo de la vida eterna; y que esto es comprado y atesorado en su Hijo, quien tiene todos los manantiales y la plenitud de ello en sí mismo, para comunicarlo a su cuerpo, la iglesia, primero en gracia y luego en gloria.",
+      "enHash": "a5ed816ef2f6cf15c2a778b392f290c3a0735f342785e53cbfe244311d24b592",
+      "source": "corpus:john-wesley"
+    },
+    "b89": {
+      "en": "I John 5:12\n It plainly follows, he that hath the Son - Living and reigning in him by faith. Hath this life; he that hath not the Son of God hath not this life - Hath no part or lot therein. In the former clause, the apostle says simply, the Son; because believers know him: in the latter, the Son of God; that unbelievers may know how great a blessing they fall short of.",
+      "es": "1 Juan 5:12\n Se sigue claramente, el que tiene al Hijo, viviendo y reinando en él por la fe. Tiene esta vida; el que no tiene al Hijo de Dios no tiene esta vida - No tiene parte ni suerte en ella. En la cláusula anterior, el apóstol dice simplemente, el Hijo; porque los creyentes lo conocen: en este último, el Hijo de Dios; para que los incrédulos sepan cuán grande es la bendición que les falta.",
+      "enHash": "b3161f33924c4ba5fb450a4899b109520edebc30aa17ee3e92e624e5f1bc2c5f",
+      "source": "corpus:john-wesley"
+    },
+    "b90": {
+      "en": "I John 5:13\n These things have I written - In the introduction, 1John 1:4 , he said, I write: now, in the close, I have written. That ye may know - With a fuller and stronger assurance, that ye have eternal life.",
+      "es": "1 Juan 5:13\n Estas cosas he escrito - En la introducción, 1 Juan 1:4 , dijo, escribo: ahora, al final, he escrito. Para que sepáis - Con una seguridad más plena y fuerte, que tenéis vida eterna.",
+      "enHash": "ea07943e15fa35be117086933f6f8cb1444783b338d525903131530fd8991cb8",
+      "source": "corpus:john-wesley"
+    },
+    "b91": {
+      "en": "I John 5:14\n And we - Who believe. Have this farther confidence in him, that he heareth - That is, favourably regards, whatever prayer we offer in faith, according to his revealed will.",
+      "es": "1 Juan 5:14\n Y nosotros, los que creemos. Tenga más confianza en él, que él escucha - Es decir, considera favorablemente cualquier oración que ofrezcamos con fe, según su voluntad revelada.",
+      "enHash": "4d06c36e8df45ec9ed541639cb88f29fd71668dfdaccee73e169575cfefa5cef",
+      "source": "corpus:john-wesley"
+    },
+    "b92": {
+      "en": "I John 5:15\n We have - Faith anticipates the blessings. The petitions which we asked of him - Even before the event. And when the event comes, we know it comes in answer to our prayer.",
+      "es": "1 Juan 5:15\n Tenemos - La fe anticipa las bendiciones. Las peticiones que le hicimos - Incluso antes del evento. Y cuando llega el evento, sabemos que viene en respuesta a nuestra oración.",
+      "enHash": "b3779c6fb70e24e41d48b7a517baac5cee3283dda452a176cda5b9a22a1760ee",
+      "source": "corpus:john-wesley"
+    },
+    "b93": {
+      "en": "I John 5:16\n This extends to things of the greatest importance. If any one see his brother - That is. any man. Sin a sin which is not unto death - That is, any sin but total apostasy from both the power and form of godliness. Let him ask, and God will give him life - Pardon and spiritual life, for that sinner. There is a sin unto death: I do not say that he shall pray for that - That is, let him not pray for it. A sin unto death may likewise mean, one which God has determined to punish with death.",
+      "es": "1 Juan 5:16\n Esto se extiende a cosas de la mayor importancia. Si alguien ve a su hermano - Eso es. cualquier hombre. Pecar, un pecado que no es de muerte - Es decir, cualquier pecado que no sea la apostasía total tanto del poder como de la forma de la piedad. Que pida, y Dios le dará vida - Perdón y vida espiritual, para ese pecador. Hay pecado de muerte: no digo que ore por eso - Es decir, que no ore por ello. Un pecado de muerte también puede significar uno que Dios ha determinado castigar con la muerte.",
+      "enHash": "7f89896c0216c2420a1f182f6867b24fa7f221976808b666957ca4df2ddaf808",
+      "source": "corpus:john-wesley"
+    },
+    "b94": {
+      "en": "All deviation from perfect holiness is sin; but all sin is not unpardonable.",
+      "es": "Toda desviación de la perfecta santidad es pecado; pero no todo pecado es imperdonable.",
+      "enHash": "c8c31304cdf9186f1a47119be7ae8c3d3e82cac39b6e0583fb4aba153647e569",
+      "source": "corpus:john-wesley"
+    },
+    "b95": {
+      "en": "I John 5:18\n Yet this gives us no encouragement to sin: on the contrary, it is an indisputable truth, he that is born of God - That sees and loves God. Sinneth not - So long as that loving faith abides in him, he neither speaks nor does anything which God hath forbidden. He keepeth himself - Watching unto prayer. And, while he does this, the wicked one toucheth him not - So as to hurt him.",
+      "es": "1 Juan 5:18\n Sin embargo, esto no nos incita a pecar: al contrario, es una verdad indiscutible, el que es nacido de Dios, el que ve y ama a Dios. No peca - Mientras esa fe amorosa permanezca en él, no habla ni hace nada que Dios haya prohibido. Se mantiene a sí mismo - Vigilando la oración. Y, mientras hace esto, el maligno no lo toca - Para lastimarlo.",
+      "enHash": "bf00494f6b676bae95e89632f8d25bd4202da0b9f20193cbc7de75d1e15cf844",
+      "source": "corpus:john-wesley"
+    },
+    "b96": {
+      "en": "I John 5:19\n We know that we are children of God - By the witness and the fruit of his Spirit, 1John 3:24 . But the whole world - All who have not his Spirit, not only is \"touched\" by him, but by idolatry, fraud, violence lasciviousness, impiety, all manner of wickedness. Lieth in the wicked one - Void of life, void of sense. In this short expression the horrible state of the world is painted in the most lively colours; a comment on which we have in the actions, conversations, contracts, quarrels, and friendships of worldly men.",
+      "es": "1 Juan 5:19\n Sabemos que somos hijos de Dios - Por el testimonio y el fruto de su Espíritu, 1 Juan 3:24 . Pero el mundo entero - Todos los que no tienen su Espíritu, no sólo son \"tocados\" por él, sino también por la idolatría, el fraude, la violencia, lascivia, la impiedad, todo tipo de maldad. Yace en el maligno - Sin vida, sin sentido. En esta breve expresión, el horrible estado del mundo se pinta con los colores más vivos; un comentario sobre el cual tenemos en las acciones, conversaciones, contratos, peleas y amistades de los hombres mundanos.",
+      "enHash": "ff0a6edfeadfdedcc30f0f5791add60b94aa096ef607a8c80ca4a3664fb0ced8",
+      "source": "corpus:john-wesley"
+    },
+    "b97": {
+      "en": "I John 5:20\n And we know - By all these infallible proofs. That the Son of God is come - Into the world. And he hath given us a spiritual understanding, that we may know him, the true one - \"The faithful and true witness.\" And we are in the true one - As branches in the vine, even in Jesus Christ, the eternal Son of God. This Jesus is the only living and true God, together with the father and the Spirit, and the original fountain of eternal life. So the beginning and the end of the epistle agree.",
+      "es": "1 Juan 5:20\n Y lo sabemos - Por todas estas pruebas infalibles. Que el Hijo de Dios ha venido - Al mundo. Y él nos ha dado entendimiento espiritual, para que podamos conocerlo, el verdadero: \"El testigo fiel y verdadero\". Y estamos en el verdadero - Como pámpanos de la vid, incluso en Jesucristo, el eterno Hijo de Dios. Este Jesús es el único Dios vivo y verdadero, junto con el padre y el Espíritu, y la fuente original de la vida eterna. Entonces el principio y el final de la epístola coinciden.",
+      "enHash": "bb89baefa2e72041a7397ad5923ba83af33b86ad960fa98bb8c07836c945a0a7",
+      "source": "corpus:john-wesley"
+    },
+    "b98": {
+      "en": "I John 5:21\n Keep yourselves from idols - From all worship of false gods, from all worship of images or of any creature, and from every inward idol; from loving, desiring, fearing anything more than God. Seek all help and defence from evil, all happiness in the true God alone.",
+      "es": "1 Juan 5:21\n Manténganse alejados de los ídolos - De toda adoración a dioses falsos, de toda adoración de imágenes o de cualquier criatura, y de todo ídolo interno; de amar, desear, temer cualquier cosa más que a Dios. Buscad toda ayuda y defensa contra el mal, toda felicidad sólo en el Dios verdadero.",
+      "enHash": "bb64c1ae5b1cb184c7543decc36778920cc1d8dd00890b7bd1f6fcea7b3a94a3",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:3": "b3",
+    "1:4": "b4",
+    "1:5": "b5",
+    "1:6": "b6",
+    "1:7": "b7",
+    "1:8": "b8",
+    "1:9": "b9",
+    "1:10": "b10",
+    "2:1": "b11",
+    "2:2": "b12",
+    "2:3": "b13",
+    "2:5": "b14",
+    "2:6": "b15",
+    "2:7": "b16",
+    "2:8": "b17",
+    "2:9": "b18",
+    "2:10": "b19",
+    "2:11": "b20",
+    "2:12": "b21",
+    "2:13": "b22",
+    "2:14": "b23",
+    "2:15": "b24",
+    "2:16": "b25",
+    "2:17": "b26",
+    "2:18": "b27",
+    "2:19": "b28",
+    "2:20": "b29",
+    "2:21": "b30",
+    "2:22": "b31",
+    "2:23": "b32",
+    "2:24": "b33",
+    "2:25": "b34",
+    "2:26": "b35",
+    "2:27": "b36",
+    "2:28": "b37",
+    "2:29": "b38",
+    "3:1": "b39",
+    "3:2": "b40",
+    "3:3": "b41",
+    "3:4": "b42",
+    "3:5": "b43",
+    "3:6": "b44",
+    "3:7": "b45",
+    "3:8": "b46",
+    "3:9": "b47",
+    "3:10": "b48",
+    "3:12": "b49",
+    "3:13": "b50",
+    "3:14": "b51",
+    "3:15": "b52",
+    "3:16": "b53",
+    "3:17": "b54",
+    "3:18": "b55",
+    "3:19": "b56",
+    "3:20": "b57",
+    "3:21": "b58",
+    "3:23": "b59",
+    "3:24": "b60",
+    "4:1": "b61",
+    "4:2": "b62",
+    "4:3": "b63",
+    "4:4": "b64",
+    "4:5": "b65",
+    "4:6": "b66",
+    "4:7": "b67",
+    "4:8": "b68",
+    "4:12": "b69",
+    "4:14": "b70",
+    "4:15": "b71",
+    "4:16": "b72",
+    "4:17": "b73",
+    "4:18": "b74",
+    "4:19": "b75",
+    "4:20": "b76",
+    "4:21": "b77",
+    "5:1": "b78",
+    "5:2": "b79",
+    "5:3": "b80",
+    "5:4": "b81",
+    "5:5": "b82",
+    "5:6": "b83",
+    "5:7": "b84",
+    "5:8": "b85",
+    "5:9": "b86",
+    "5:10": "b87",
+    "5:11": "b88",
+    "5:12": "b89",
+    "5:13": "b90",
+    "5:14": "b91",
+    "5:15": "b92",
+    "5:16": "b93",
+    "5:17": "b94",
+    "5:18": "b95",
+    "5:19": "b96",
+    "5:20": "b97",
+    "5:21": "b98"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "book": "3 Juan",
+  "usfm": "3JN",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "III John 1:1\n Caius was probably that Caius of Corinth whom St. Paul mentions, Rom 16:23 . If so, either he was removed from Achaia into Asia, or St. John sent this letter to Corinth.",
+      "es": "III Juan 1:1\n Cayo era probablemente ese Cayo de Corinto a quien menciona San Pablo, Romanos 16:23. Si es así, o fue trasladado de Acaya a Asia, o San Juan envió esta carta a Corinto.",
+      "enHash": "62902ec4be6e0d22d599dfa1eaf0042f468d2eea73811fdebf26c0cc7f9e08d3",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "III John 1:3\n For - I know thou usest all thy talents to his glory. The truth that is in thee - The true faith and love.",
+      "es": "III Juan 1:3\n Porque... sé que utilizas todos tus talentos para su gloria. La verdad que hay en ti - La verdadera fe y el amor.",
+      "enHash": "566ee4a96682e9b78b22c491e6d8ddff85b86ed223eae1bb1ca6ea4a7970be25",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "III John 1:4\n I have no greater joy than this - Such is the spirit of every true Christian pastor. To hear that my children walk in the truth - Caius probably was converted by St. Paul. Therefore when St. John speaks of him. with other believers, as his children, it may be considered as the tender style of paternal love, whoever were the instruments of their conversion. And his using this appellation, when writing under the character of the elder, has its peculiar beauty.",
+      "es": "III Juan 1:4\n No tengo mayor alegría que esta - Tal es el espíritu de todo verdadero pastor cristiano. Escuchar que mis hijos caminan en la verdad - Cayo probablemente fue convertido por San Pablo. Por eso cuando San Juan habla de él. con los demás creyentes, como hijos suyos, puede considerarse como el estilo tierno del amor paternal, quienes fueron los instrumentos de su conversión. Y el uso de esta denominación, cuando escribe bajo el carácter del mayor, tiene su peculiar belleza.",
+      "enHash": "697e0bac5a3cb4e57d8e2dd1169732e5726594d80b6f42f47fe92cd4a30213a8",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "Faithfully — Uprightly and sincerely.",
+      "es": "Fielmente: honradamente y sinceramente.",
+      "enHash": "da92202c2f4a07f88f1232b069b07a1ef3c5f9bce674e127934ec6d605ebb3c6",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "III John 1:6\n Who have testified of thy love before the church - The congregation with whom I now reside. Whom if thou send forward on their journey - Supplied with what is needful. Thou shalt do well - How tenderly does the apostle enjoin this!",
+      "es": "III Juan 1:6\n Quienes han testificado de tu amor ante la iglesia - La congregación con la que ahora resido. A quién, si envías adelante en su viaje - Suministrado con lo necesario. Harás bien - ¡Con qué ternura ordena esto el apóstol!",
+      "enHash": "42f048626f65c3358f9de100547ec87e95bf72490bcab92d86b54d14d1aa4217",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "They went forth — To preach the gospel.",
+      "es": "Salieron a predicar el evangelio.",
+      "enHash": "dd86852a0bff02e44960d992839366e0bf61ee312249dab2329bc2cff4cf4941",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "To receive — With all kindness.\n\n The truth — Which they preach.",
+      "es": "Recibir - Con toda bondad.\n\n La verdad que predican.",
+      "enHash": "6a12788674443cc1436362aacabb6cac8047b5fb0020f74bb47a20b48b9c850b",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "III John 1:9\n I wrote to the church - Probably that to which they came. But Diotrephes - Perhaps the pastor of it. Who loveth to have the preeminence among them - To govern all things according to his own will. Receiveth us not - Neither them nor me. So did the mystery of iniquity already work!",
+      "es": "III Juan 1:9\n Le escribí a la iglesia - Probablemente aquello a lo que vinieron. Pero Diótrefes, quizás su pastor. Quien ama tener la preeminencia entre ellos - Gobernar todas las cosas según su propia voluntad. No nos recibe - Ni a ellos ni a mí. ¡Así ya obraba el misterio de la iniquidad!",
+      "enHash": "6f3f007d4832b80354df2d7af2dc35249fab05e45eeb59d558c2e8481b78d73b",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "He prateth against us — Both them and me, thereby endeavouring to excuse himself.",
+      "es": "Habla contra nosotros, tanto contra ellos como contra mí, tratando así de excusarse.",
+      "enHash": "bf71f38b3c65b232d5577ecf862a4654c6a59bb75f7911d76590135d8692d048",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "III John 1:11\n Follow not that which is evil - In Diotrephes. But that which is good - In Demetrius. He hath not seen God - Is a stranger to him.",
+      "es": "III Juan 1:11\n No sigas lo que es malo - En Diótrefes. Pero lo que es bueno - En Demetrius. No ha visto a Dios - Es un extraño para él.",
+      "enHash": "a5a6b07a01ad0b438189a257450b09d26e6abc540d1501a3ad5f299e904ca30c",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "III John 1:12\n And from the truth itself - That is, what they testify is the very truth. Yea, we also bear testimony - I and they that are with me.",
+      "es": "III Juan 1:12\n Y de la verdad misma - Es decir, lo que testifican es la verdad misma. Sí, también nosotros damos testimonio, yo y los que están conmigo.",
+      "enHash": "dbe5fc7cfaa5fb4606a66a87ef72c73ef8243aa93f635c7f422f6a172b5cf5b0",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "III John 1:14\n Salute the friends by name - That is, in the same manner as if I had named them one by one. The word friend does not often occur in the New Testament, being swallowed up in the more endearing one of brother.",
+      "es": "III Juan 1:14\n Saludar a los amigos por su nombre - Es decir, de la misma manera que si los hubiera nombrado uno por uno. La palabra amigo no aparece con frecuencia en el Nuevo Testamento, siendo absorbida por la más entrañable palabra hermano.",
+      "enHash": "eaab6a9e0df0bbc8909fcf4bca3d08b72394b84e4156c47ee03c60cfeb99c3be",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:3": "b2",
+    "1:4": "b3",
+    "1:5": "b4",
+    "1:6": "b5",
+    "1:7": "b6",
+    "1:8": "b7",
+    "1:9": "b8",
+    "1:10": "b9",
+    "1:11": "b10",
+    "1:12": "b11",
+    "1:14": "b12"
+  }
+}

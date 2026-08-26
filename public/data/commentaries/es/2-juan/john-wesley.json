@@ -1,0 +1,101 @@
+{
+  "book": "2 Juan",
+  "usfm": "2JN",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "II John 1:1\n The elder - An appellation suited to a familiar letter, but upon a weighty subject. To the elect - That is, Christian. Kuria is undoubtedly a proper name, both here and in 2Jo 1:5 ; for it was not then usual to apply the title of lady to any but the Roman empress; neither would such a manner of speaking have been suitable to the simplicity and dignity of the apostle. Whom - Both her and her children. I love in the truth - With unfeigned and holy love.",
+      "es": "II Juan 1:1\n El mayor: denominación adecuada para una carta familiar, pero sobre un tema importante. A los elegidos - Es decir, cristiano. Kuria es sin duda un nombre propio, tanto aquí como en 2 Juan 1:5; porque entonces no era habitual aplicar el título de dama a nadie más que a la emperatriz romana; tampoco tal manera de hablar hubiera sido adecuada a la sencillez y dignidad del apóstol. Quién: tanto ella como sus hijos. Amo en la verdad - Con amor santo y sincero.",
+      "enHash": "da7967531fba7fda7d192c860daa001668541baa40bb238063bb5a8f28d3b631",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "For the truth's sake, which abideth in us — As a living principle of faith and holiness.",
+      "es": "Por amor de la verdad, que permanece en nosotros, como principio vivo de fe y santidad.",
+      "enHash": "a40ac0b9ef331eb9d9aaea633fb7cecccf6b1eba68eab01c0936f2106a86bbeb",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "II John 1:3\n Grace takes away guilt; mercy, misery: peace implies the abiding in grace and mercy. It includes the testimony of God's Spirit, both that we are his children, and that all our ways are acceptable to him. This is the very foretaste of heaven itself, where it is perfected. In truth and love - Or, faith and love, as St. Paul speaks. Faith and truth are here synonymous terms.",
+      "es": "2 Juan 1:3\n La gracia quita la culpa; misericordia, miseria: la paz implica permanecer en la gracia y la misericordia. Incluye el testimonio del Espíritu de Dios, tanto de que somos sus hijos como de que todos nuestros caminos le son aceptables. Éste es el anticipo mismo del cielo mismo, donde se perfecciona. En verdad y amor - O fe y amor, como habla San Pablo. Fe y verdad son aquí términos sinónimos.",
+      "enHash": "b2d5a279750df767441bc072037ddb2008e4b7f640fc86d5fd504f882f4ba892",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "I found of thy children — Probably in their aunt's house, 2 John 1:13 .\n\n Walking in the truth — In faith and love.",
+      "es": "Encontré a tus hijos Probablemente en la casa de su tía, 2 Juan 1:13 .\n\n Caminando en la verdad: en fe y amor.",
+      "enHash": "167b27e58e4e1c26c74532168578d8eb0300342327261b7048092fd2c9195c9f",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "II John 1:5\n That which we had from the beginning - Of our Lord's ministry. Indeed it was, in some sense, from the beginning of the world. That we may love one another - More abundantly.",
+      "es": "2 Juan 1:5\n Lo que tuvimos desde el principio - Del ministerio de nuestro Señor. De hecho, lo fue, en cierto sentido, desde el principio del mundo. Para que nos amemos unos a otros - Más abundantemente.",
+      "enHash": "a689420f1f5cece790fa531769e873a29f3d35638562f5ad320bb457b981a7db",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "II John 1:6\n And this is the proof of true love, universal obedience built on the love of God. This - Love. Is the great commandment which ye have heard from the beginning - Of our preaching.",
+      "es": "2 Juan 1:6\n Y ésta es la prueba del amor verdadero, de la obediencia universal construida sobre el amor de Dios. Esto - Amor. Es el gran mandamiento que habéis oído desde el principio - De nuestra predicación.",
+      "enHash": "d12c6134b7456504a5a4f7d9df8329321c04645be961253e3d2392d205450cf1",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "II John 1:7\n Carefully keep what ye have heard from the beginning, for many seducers are entered into the world, who confess not Jesus Christ that came in the flesh - Who disbelieve either his prophetic, or priestly, or kingly office. Whosoever does this is the seducer - From God. And the antichrist - Fighting against Christ.",
+      "es": "2 Juan 1:7\n Guardad cuidadosamente lo que habéis oído desde el principio, porque muchos seductores han entrado en el mundo, que no confiesan a Jesucristo que vino en carne, que no creen en su oficio profético, sacerdotal o real. Quien hace esto es el seductor - De Dios. Y el anticristo - Luchando contra Cristo.",
+      "enHash": "be734d769fdbc3a5d5336474db57e8a0690fe2dd06c7331486d96ae0eeaa03fc",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "II John 1:8\n That we lose not the things which we have wrought - Which every apostate does. But receive a full reward - Having fully employed all our talents to the glory of him that gave them. Here again the apostle modestly transfers it to himself.",
+      "es": "II Juan 1:8\n Que no perdamos las cosas que hemos realizado - Lo que hace todo apóstata. Pero reciba una recompensa completa - Habiendo empleado plenamente todos nuestros talentos para la gloria de quien los dio. Aquí nuevamente el apóstol se lo transfiere modestamente a sí mismo.",
+      "enHash": "93ba5e043b7a52755087d3754ba8ff117c746efe7dcd4272123a6a1e84948845",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "II John 1:9\n Receive this as a certain rule: Whosoever transgresseth - Any law of God. Hath not God - For his Father and his God. He that abideth in the doctrine of Christ - Believing and obeying it. He hath both the Father and the Son - For his God.",
+      "es": "2 Juan 1:9\n Reciba esto como una regla cierta: Quien transgrede - Cualquier ley de Dios. ¿No tiene Dios - Para su Padre y su Dios? El que permanece en la doctrina de Cristo - Creyéndola y obedeciéndola. Él tiene tanto al Padre como al Hijo - Para su Dios.",
+      "enHash": "794104dc76f28c16b58f4cdf9281a5d9721b3bbe3f53a4e5f1178762559903f9",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "II John 1:10\n If any came to you - Either as a teacher or a brother. And bring not this doctrine - That is, advance anything contrary to it. Receive him not into your house - As either a teacher or a brother - Neither bid him God speed - Give him no encouragement therein.",
+      "es": "II Juan 1:10\n Si alguno vino a ti, ya sea como maestro o como hermano. Y no traigas esta doctrina - Es decir, avance cualquier cosa contraria a ella. No lo recibas en tu casa - Como maestro o como hermano - Ni le des la buena suerte de Dios - No le des aliento en eso.",
+      "enHash": "bc7a04ec70f472864762f6f365e155860a894f963b478b95b82be4e481958d77",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "For he that biddeth him God speed — That gives him any encouragement, is accessory to his evil deeds.",
+      "es": "Porque el que le ordena que Dios le acompañe, eso le da algún aliento, es cómplice de sus malas acciones.",
+      "enHash": "5ad72d7c00b28a3f473871aea066617d082ec0e806a5d69b68535b68ea72087a",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "II John 1:12\n Having many things to write, I was not minded to write now - Only of these, which were then peculiarly needful.",
+      "es": "II Juan 1:12\n Como tenía muchas cosas que escribir, no tenía intención de escribir ahora... sólo aquellas que entonces eran particularmente necesarias.",
+      "enHash": "4b1edc1a2b0e6964285cac444faf5b36991a90a5ce378d0b104e3a46a3da5951",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "The children of thy elect or Christian sister - Absent, if not dead, when the apostle wrote this.\n\n << 1 John 5 | 2 John 1 | 3 John 1 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 2 John 2 John 1\n\n Related Commentaries\n 2 John 1\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Los hijos de tu hermana cristiana o elegida - Ausentes, si no muertos, cuando el apóstol escribió esto.\n\n << 1 Juan 5 | 2 Juan 1 | 3 Juan 1 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 2 Juan 2 Juan 1\n\n Comentarios relacionados\n 2 Juan 1\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "a87040326a3ed9c784ac7bb110c9c87c41a55217b008657ccbb992b361829d9e",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:3": "b3",
+    "1:4": "b4",
+    "1:5": "b5",
+    "1:6": "b6",
+    "1:7": "b7",
+    "1:8": "b8",
+    "1:9": "b9",
+    "1:10": "b10",
+    "1:11": "b11",
+    "1:12": "b12",
+    "1:13": "b13"
+  }
+}

@@ -39,9 +39,9 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Hebreos | sí | sí | sí | sí | — | — | — |
 | Santiago | sí | sí | sí | sí | — | — | — |
 | 1–2 Pedro | sí | sí | sí | sí | — | — | — |
-| 1–3 Juan | sí | sí | sí | pendiente | — | — | — |
-| Judas | sí | sí | sí | pendiente | — | — | — |
-| Apocalipsis | sí | sí | sí | pendiente | — | — | — |
+| 1–3 Juan | sí | sí | sí | sí | — | — | — |
+| Judas | sí | sí | sí | sí | — | — | — |
+| Apocalipsis | sí | sí | sí | en curso | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | sí | sí |
 
 Henry NT: **completo** salvo Mateo 19–28 (helloao 404).
