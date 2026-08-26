@@ -1,0 +1,514 @@
+{
+  "book": "Colosenses",
+  "usfm": "COL",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Colossians 1:2\n The saints - This word expresses their union with God. And brethren - This, their union with their fellow - Christians.",
+      "es": "Colosenses 1:2\n Los santos - Esta palabra expresa su unión con Dios. Y hermanos - Esta, su unión con sus compañeros cristianos.",
+      "enHash": "6331552c385135daf683894130a61f1fcee22dd8f167096b434148ef93545863",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "Colossians 1:3\n We give thanks - There is a near resemblance between this epistle, and those to the Ephesians and Philippians.",
+      "es": "Colosenses 1:3\n Damos gracias - Hay una gran semejanza entre esta epístola y las de los Efesios y Filipenses.",
+      "enHash": "dd04b9c9812a23b08223d69e695ac1f294691570cacca830773dce8f596f38b7",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "Ye heard before — I wrote to you.\n\n In the word of truth, of the gospel — The true gospel preached to you.",
+      "es": "Ya lo has oído antes... te escribí.\n\n En la palabra de verdad, del evangelio: el verdadero evangelio os ha sido predicado.",
+      "enHash": "388fa5fee68b32fc19dbca9057b07ee16b557f76516df9641e1dd6f72626933f",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "Colossians 1:6\n It bringeth forth fruit in all the world - That is, in every place where it is preached. Ye knew the grace of God in truth - Truly experienced the gracious power of God.",
+      "es": "Colosenses 1:6\n Da frutos en todo el mundo - Es decir, en cada lugar donde se predica. Conocisteis la gracia de Dios en verdad - Verdaderamente experimentasteis el misericordioso poder de Dios.",
+      "enHash": "9ada83429efad638dc9abf93be248c0ef1dc3d6ffa4a22e38caaf82c138570df",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "The fellowservant — Of Paul and Timotheus.",
+      "es": "El consiervo de Pablo y Timoteo.",
+      "enHash": "899c41b95bc0170c02ff3c192b141c07b436c9a849a6ec30bcb5ee9598cdafd7",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "Your love in the Spirit — Your love wrought in you by the Spirit.",
+      "es": "Tu amor en el Espíritu: tu amor obrado en ti por el Espíritu.",
+      "enHash": "df454c6971519f32386c94d1ef8e01cb5c1691014c5aeb91a59ed0b66980dd71",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "Colossians 1:9\n We pray for you - This was mentioned in general, Col 1:3 , but now more particularly. That ye may be filled with the knowledge of his will - Of his revealed will. In all wisdom - With all the wisdom from above. And spiritual understanding - To discern by that light whatever agrees with, or differs from, his will.",
+      "es": "Colosenses 1:9\n Oramos por ti - Esto fue mencionado en general, Col 1:3, pero ahora más particularmente. Para que os llenéis del conocimiento de su voluntad - De su voluntad revelada. Con toda sabiduría - Con toda la sabiduría de arriba. Y comprensión espiritual - Para discernir con esa luz todo lo que concuerda o difiere de su voluntad.",
+      "enHash": "36525ac57256c158a256d835399786ba2c4a593e2ce033d3d32f2dc5f17aa3d8",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "Colossians 1:10\n That, knowing his whole will, ye may walk worthy of the Lord, unto all pleasing - So as actually to please him in all things; daily increasing in the living, experimental knowledge of God, our Father, Saviour, Sanctifier.",
+      "es": "Colosenses 1:10\n Para que, conociendo toda su voluntad, podáis caminar digno del Señor, para agradar a todos - Para agradarle en todas las cosas; aumento diario en el conocimiento vivo y experimental de Dios, nuestro Padre, Salvador y Santificador.",
+      "enHash": "1211f1eb20ac7c787914b184a069831a34571efcaea94e6cf8fe0530da47fbb6",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "Colossians 1:11\n Strengthened unto all patience and longsuffering with joyfulness - This is the highest point: not only to know, to do, to suffer, the whole will of God; but to suffer it to the end, not barely with patience, but with thankful joy.",
+      "es": "Colosenses 1:11\n Fortalecidos para toda paciencia y paciencia con alegría - Este es el punto más alto: no sólo conocer, hacer, sufrir, toda la voluntad de Dios; sino sufrirlo hasta el fin, no apenas con paciencia, sino con alegría agradecida.",
+      "enHash": "1516659878648964010eb67fb669da2bee40cd5bade5e7c492fe036fc76d3168",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "Who, by justifying and sanctifying us, hath made us meet for glory.",
+      "es": "Quien, justificándonos y santificándonos, nos hizo aptos para la gloria.",
+      "enHash": "a14b554025e0833a4106a6ef8b21c09401821a22c792c4df09216ea062858f7e",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "Colossians 1:13\n Power detains reluctant captives, a kingdom cherishes willing subjects. His beloved Son - This is treated of in the fifteenth and following verses. Col 1:15",
+      "es": "Colosenses 1:13\n El poder retiene a cautivos reacios, un reino aprecia a súbditos dispuestos. Su amado Hijo - Esto se trata en los versículos decimoquinto y siguientes. Col 1:15",
+      "enHash": "077a9142c7d616a224e6947aa791cc5cc2af54204f31e4dad62b53c6091df9e0",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "Colossians 1:14\n In whom we have redemption - This is treated of from the middle of Col 1:18 . The voluntary passion of our Lord appeased the Father's wrath, obtained pardon and acceptance for us, and, consequently, dissolved the dominion and power which Satan had over us through our sins. So that forgiveness is the beginning of redemption, as the resurrection is the completion of it.",
+      "es": "Colosenses 1:14\n En quien tenemos redención - Esto se trata desde la mitad de Col 1:18. La pasión voluntaria de nuestro Señor aplacó la ira del Padre, obtuvo perdón y aceptación para nosotros y, en consecuencia, disolvió el dominio y poder que Satanás tenía sobre nosotros a través de nuestros pecados. De modo que el perdón es el comienzo de la redención, como la resurrección es su consumación.",
+      "enHash": "3741ab7f80efc970b2308477c33b2c2604f1d0e38896cf8505008ccbdfb1fbcb",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "Colossians 1:15\n Who is - By describing the glory of Christ, and his pre - eminence over the highest angels, the apostle here lays a foundation for the reproof of all worshippers of angels. The image of the invisible God - Whom none can represent, but his only begotten Son; in his divine nature the invisible image, in his human the visible image, of the Father. The first begotten of every creature - That is, begotten before every creature; subsisting before all worlds, before all time, from all eternity.",
+      "es": "Colosenses 1:15\n Quién es - Al describir la gloria de Cristo y su preeminencia sobre los ángeles más elevados, el apóstol aquí sienta las bases para la reprensión de todos los adoradores de ángeles. La imagen del Dios invisible - A quien nadie puede representar, sino su Hijo unigénito; en su naturaleza divina la imagen invisible, en su naturaleza humana la imagen visible, del Padre. El primogénito de toda criatura - Es decir, engendrado antes que toda criatura; subsistiendo ante todos los mundos, antes de todos los tiempos, desde toda la eternidad.",
+      "enHash": "ea575be8fa74e5c4c85a40770f128d257df981d80f49e5bb1264800bea8eb04d",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "Colossians 1:16\n For - This explains the latter part of the preceding verse. Through implies something prior to the particles by and for; so denoting the beginning, the progress, and the end. Him - This word, frequently repeated, signifies his supreme majesty, and excludes every creature. Were created all things that are in heaven - And heaven itself. But the inhabitants are named, because more noble than the house. Invisible - The several species of which are subjoined. Thrones are superior to dominions; principalities, to powers. Perhaps the two latter may express their office with regard to other creatures: the two former may refer to God, who maketh them his chariots, and, as it were, rideth upon their wings.",
+      "es": "Colosenses 1:16\n Para - Esto explica la última parte del verso anterior. A través implica algo anterior a las partículas por y para; denotando así el principio, el progreso y el final. Él - Esta palabra, repetida con frecuencia, significa su suprema majestad y excluye a toda criatura. Fueron creadas todas las cosas que están en el cielo - Y el cielo mismo. Pero los habitantes son nombrados porque son más nobles que la casa. Invisible: las diversas especies a las que se unen. Los tronos son superiores a los dominios; principados, a potestades. Quizás los dos últimos puedan expresar su oficio con respecto a otras criaturas: los dos primeros pueden referirse a Dios, quien los convierte en sus carros y, por así decirlo, cabalga sobre sus alas.",
+      "enHash": "91b3580390c14842a11c60ddcd765d171e9c14e5f0f901b34d122ec60bcc0004",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "Colossians 1:17\n And he is before all things - It is not said, he was: he is from everlasting to everlasting. And by him all things consist - The original expression not only implies, that he sustains all things in being, but more directly, All things were and are compacted in him into one system. He is the cement, as well as support, of the universe. And is he less than the supreme God?",
+      "es": "Colosenses 1:17\n Y él es antes de todas las cosas - No se dice, él era: él es desde la eternidad hasta la eternidad. Y por él todas las cosas consisten - La expresión original no solo implica que él sostiene todas las cosas en el ser, sino más directamente, todas las cosas fueron y están compactadas en él en un solo sistema. Él es el cemento, además del soporte, del universo. ¿Y es él menos que el Dios supremo?",
+      "enHash": "bfc755a15b58f93e1247e4bf1a6cd98968aeeb95f5ee4d2a2b305657e0a0ca77",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "Colossians 1:18\n And - From the whole he now descends to the most eminent part, the church. He is the head of the church - Universal; the supreme and only head both of influence and of government to the whole body of believers. Who is - The repetition of the expression { Col 1:15 } points out the entrance on a new paragraph. The beginning - Absolutely, the Eternal. The first begotten from the dead - From whose resurrection flows all the life, spiritual and eternal, of all his brethren. That in all things - Whether of nature or grace. He might have the pre - eminence - Who can sound this depth?",
+      "es": "Colosenses 1:18\n Y - Del todo desciende ahora a la parte más eminente, la iglesia. Él es el jefe de la iglesia - Universal; la suprema y única cabeza tanto de influencia como de gobierno para todo el cuerpo de creyentes. Quién es - La repetición de la expresión { Col 1:15 } señala la entrada a un nuevo párrafo. El comienzo - Absolutamente, el Eterno. El primogénito de entre los muertos - De cuya resurrección fluye toda la vida, espiritual y eterna, de todos sus hermanos. Que en todas las cosas - Ya sea de naturaleza o de gracia. Podría tener la preeminencia. ¿Quién puede sondear esta profundidad?",
+      "enHash": "82c5d84031642488603de27c7a2401ff01316edcfa199a43dee03cf9cdc3f620",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "Colossians 1:19\n For it pleased the Father that all fulness - All the fulness of God. Should dwell in him - Constantly, as in a temple; and always ready for our approach to him.",
+      "es": "Colosenses 1:19\n Porque agradó al Padre que toda plenitud - Toda la plenitud de Dios. Debería habitar en él - Constantemente, como en un templo; y siempre listo para nuestro acercamiento a él.",
+      "enHash": "4f9beaa93f465a5670fb9e29c7a591bb44d3787102ebf5fc4ec42a94150de2aa",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "Colossians 1:20\n Through the blood of the cross - The blood shed thereon. Whether things on earth - Here the enmity began: therefore this is mentioned first. Or things in heaven - Those who are now in paradise; the saints who died before Christ came.",
+      "es": "Colosenses 1:20\n A través de la sangre de la cruz - La sangre derramada sobre ella. Si las cosas en la tierra - Aquí comenzó la enemistad: por eso esto se menciona primero. O cosas en el cielo - Aquellos que ahora están en el paraíso; los santos que murieron antes de que viniera Cristo.",
+      "enHash": "72edeaf90976816bc687d5e0a096e8326a0bdbbae9440d99a74ed2e3602da468",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "Colossians 1:21\n And you that were alienated, and enemies - Actual alienation of affection makes habitual enmity. In your mind - Both your understanding and your affections. By wicked works - Which continually feed and increase inward alienation from, and enmity to, God. He hath now reconciled - From the moment ye believed.",
+      "es": "Colosenses 1:21\n Y ustedes que estaban alienados y enemigos - La alienación real del afecto genera enemistad habitual. En tu mente - Tanto tu comprensión como tus afectos. Por obras malvadas - Que continuamente alimentan y aumentan la alienación interna y la enemistad hacia Dios. Ahora se ha reconciliado - Desde el momento en que creíste.",
+      "enHash": "b97146db77dd4e8bbf5ebae4f78616a94cc013a555430240beb82eede2f86da0",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "Colossians 1:22\n By the body of his flesh - So distinguished from his body, the church. The body here denotes his entire manhood. Through death - Whereby he purchased the reconciliation which we receive by faith. To present you - The very end of that reconciliation. Holy - Toward God. Spotless - In yourselves. Unreprovable - As to your neighbour.",
+      "es": "Colosenses 1:22\n Por el cuerpo de su carne - Tan distinguido de su cuerpo, la iglesia. El cuerpo aquí denota toda su virilidad. A través de la muerte - Por la cual compró la reconciliación que recibimos por fe. Para presentarles... El final de esa reconciliación. Santo - Hacia Dios. Impecable - En vosotros mismos. Irreprochable - En cuanto a tu vecino.",
+      "enHash": "f32022f84a8ffda777bf902d4e794dd53f2c7c98cd5f4dc10a815b776f04873e",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "Colossians 1:23\n If ye continue in the faith - Otherwise, ye will lose all the blessings which ye have already begun to enjoy. And be not removed from the hope of the gospel - The glorious hope of perfect love. Which is preached - Is already begun to be preached to every creature under heaven.",
+      "es": "Colosenses 1:23\n Si continúas en la fe - De lo contrario, perderás todas las bendiciones que ya has comenzado a disfrutar. Y no te alejes de la esperanza del evangelio - La gloriosa esperanza del amor perfecto. Que se predica - Ya ha comenzado a predicarse a toda criatura bajo el cielo.",
+      "enHash": "dcc54fe9c4c1cbfc424cdb76c8e4e5ace670c8005dfc356cedbc3f47a60d9a85",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "Colossians 1:24\n Now I rejoice in my sufferings for you, and fill up - That is, whereby I fill up. That which is behind of the sufferings of Christ - That which remains to be suffered by his members. These are termed the sufferings of Christ, Because the suffering of any member is the suffering of the whole; and of the head especially, which supplies strength, spirits, sense, and motion to all. Because they are for his sake, for the testimony of his truth. And these also are necessary for the church; not to reconcile it to God, or satisfy for sin, (for that Christ did perfectly,) but for example to others, perfecting of the saints, and increasing their reward.",
+      "es": "Colosenses 1:24\n Ahora me regocijo en mis sufrimientos por ti y me lleno - Es decir, por lo que me lleno. Lo que queda detrás de los sufrimientos de Cristo - Lo que queda por sufrir por sus miembros. Estos se denominan sufrimientos de Cristo, porque el sufrimiento de cualquier miembro es el sufrimiento del todo; y especialmente de la cabeza, que proporciona fuerza, ánimo, sentido y movimiento a todos. Porque son para él, para el testimonio de su verdad. Y éstos también son necesarios para la iglesia; no para reconciliarlo con Dios, ni satisfacer por el pecado, (porque eso Cristo lo hizo perfectamente), sino por ejemplo para con los demás, perfeccionando a los santos y aumentando su recompensa.",
+      "enHash": "2139ccd10f6b3e25dcdae54a5c7b3a2086ae4dc0a2603469bfdae732a07073fa",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "According to the dispensation of God which is given me — Or, the stewardship with which I am intrusted.",
+      "es": "Según la dispensación de Dios que me ha sido dada O la mayordomía que se me ha confiado.",
+      "enHash": "84952ed39e917352d71a91b82e26b97860bc3388667e583779b964ff43ee2370",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "Colossians 1:26\n The mystery - Namely, Christ both justifying and sanctifying gentiles, as well as Jews. Which hath been comparatively hid from former ages and past generations of men.",
+      "es": "Colosenses 1:26\n El misterio - Es decir, Cristo justificando y santificando a los gentiles, así como a los judíos. Lo cual ha estado relativamente oculto a épocas pasadas y a generaciones pasadas de hombres.",
+      "enHash": "094f34bbe5cf186cbf17df8a34106337575df4ff81ef9af8fd64529fbf9f1581",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "Christ dwelling and reigning in you, The hope of glory - The ground of your hope.",
+      "es": "Cristo morando y reinando en vosotros, la esperanza de gloria, la base de vuestra esperanza.",
+      "enHash": "6daf040e029dfb405c4b6e353d31e0e7c42bd80ca9846dc395d8ad1e3e9af440",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "We teach the ignorant, and admonish them that are already taught.\n\n << Philippians 4 | Colossians 1 | Colossians 2 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Colossians Colossians 1\n\n Related Commentaries\n Colossians 1\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Enseñamos a los ignorantes y amonestamos a los que ya han sido enseñados.\n\n << Filipenses 4 | Colosenses 1 | Colosenses 2 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Colosenses Colosenses 1\n\n Comentarios relacionados\n Colosenses 1\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "9b43f62d0d67a56f8579c87b032f7b07ccbfb5fdd8619090fe94c38405f6ceba",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "Colossians 2:1\n How great a conflict - Of care, desire, prayer. As many as have not seen my face - Therefore, in writing to the Colossians, he refrains from those familiar appellations, \"Brethren,\" \"Beloved.\"",
+      "es": "Colosenses 2:1\n Qué gran conflicto - De cuidado, deseo, oración. Todos los que no han visto mi rostro - Por lo tanto, al escribir a los Colosenses, se abstiene de esas denominaciones familiares, \"Hermanos\", \"Amados\".",
+      "enHash": "89ade994f15175d19a45a925be7776e84e518a479422f2784ba84108baef65e2",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "Colossians 2:2\n Unto all riches of the full assurance of understanding, unto the acknowledgment of the mystery of God - That is, unto the fullest and clearest understanding and knowledge of the gospel.",
+      "es": "Colosenses 2:2\n A todas las riquezas de la plena seguridad de la comprensión, al reconocimiento del misterio de Dios - Es decir, a la comprensión y conocimiento más completos y claros del evangelio.",
+      "enHash": "9d23c5c436d19d0a08629a91e052b9f6bcee5ecbdff5c8084ceff80330218f90",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "So walk in him — In the same faith, love, holiness.",
+      "es": "Caminen, pues, en él: en la misma fe, amor y santidad.",
+      "enHash": "499b644573e43882ee46ef3ebafb5634bce5a53c8948d5007810097bd8f788ba",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "Rooted in him — As the vine.\n\n Built — On the sure foundation.",
+      "es": "Arraigado en él - Como la vid.\n\n Construido sobre cimientos seguros.",
+      "enHash": "a67a77ed4fd6ed8217a1b97629ed66d50ba3406126dffd3a19386c0a42bf8d46",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "Colossians 2:8\n Through philosophy and empty deceit - That is, through the empty deceit of philosophy blended with Christianity. This the apostle condemns, Because it was empty and deceitful, promising happiness, but giving none. Because it was grounded, not on solid reason, but the traditions of men, Zeno, Epicurus, and the rest. And, Because it was so shallow and superficial, not advancing beyond the knowledge of sensible things; no, not beyond the first rudiments of them.",
+      "es": "Colosenses 2:8\n A través de la filosofía y el engaño vacío - Es decir, a través del engaño vacío de la filosofía mezclado con el cristianismo. Esto el apóstol lo condena, porque era vacío y engañoso, prometiendo felicidad pero no dando ninguna. Porque se basaba, no en una razón sólida, sino en las tradiciones de los hombres, Zenón, Epicuro y los demás. Y, porque era tan superficial y superficial, que no avanzaba más allá del conocimiento de las cosas sensibles; no, no más allá de los primeros rudimentos de ellos.",
+      "enHash": "2f590c95094c1be1ec3da0161fc45d5d18632210493c53a95c3a2972a8b47380",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "Colossians 2:9\n For in him dwelleth - Inhabiteth, continually abideth, all the fulness of the Godhead. Believers are \"filled with all the fulness of God,\" Eph 3:19 . But in Christ dwelleth all the fulness of the Godhead; the most full Godhead; not only divine powers, but divine nature, Col 1:19 . Bodily - Personally, really, substantially. The very substance of God, if one might so speak, dwells in Christ in the most full sense.",
+      "es": "Colosenses 2:9\n Porque en él habita - Habita, permanece continuamente, toda la plenitud de la Deidad. Los creyentes están \"llenos de toda la plenitud de Dios\", Efesios 3:19. Pero en Cristo habita toda la plenitud de la Deidad; la Divinidad más plena; no sólo poderes divinos, sino naturaleza divina, Col 1:19. Corporal - Personalmente, realmente, sustancialmente. La sustancia misma de Dios, por así decirlo, habita en Cristo en el sentido más pleno.",
+      "enHash": "361b8b12d9df5d764df3ded7cd89e4202ee1b256c57e058758bac316a27ec1ce",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "Colossians 2:10\n And ye - Who believe. Are filled with him - John 1:16 . Christ is filled with God, and ye are filled with Christ. And ye are filled by him. The fulness of Christ overflows his church, Psa 133:3 . He is originally full. We are filled by him with wisdom and holiness. Who is the head of all principality and power - Of angels as well as men Not from angels therefore, but from their head, are we to ask whatever we stand in need of.",
+      "es": "Colosenses 2:10\n Y vosotros, los que creéis. Están llenos de él - Juan 1:16 . Cristo está lleno de Dios, y vosotros estáis llenos de Cristo. Y sois llenos de él. La plenitud de Cristo desborda su iglesia, Salmo 133:3. Originalmente está lleno. Estamos llenos de él de sabiduría y santidad. ¿Quién es la cabeza de todo principado y potestad? Tanto de los ángeles como de los hombres. No a los ángeles, sino a sus cabezas, debemos pedir todo lo que necesitemos.",
+      "enHash": "2ac6f69be64ff78954eacd412513abb292762549f0dc85b9f1d934a8be3a9c31",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "Colossians 2:11\n By whom also ye have been circumcised - Ye have received the spiritual blessings typified of old by circumcision. With a circumcision not performed with hands - By an inward, spiritual operation. In putting off, not a little skin, but the whole body of the sins of the flesh - All the sins of your evil nature. By the circumcision of Christ - By that spiritual circumcision which Christ works in your heart.",
+      "es": "Colosenses 2:11\n Por quien también habéis sido circuncidados - Habéis recibido las bendiciones espirituales tipificadas antiguamente por la circuncisión. Con una circuncisión no realizada con las manos - Por una operación espiritual interna. Al despojarte, no de un poco de piel, sino de todo el cuerpo de los pecados de la carne, todos los pecados de tu mala naturaleza. Por la circuncisión de Cristo - Por esa circuncisión espiritual que Cristo obra en tu corazón.",
+      "enHash": "81aaaa3862027ece9a8f9d650b2bee783426eec1059fb5c7e64247d91503eb2e",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "Colossians 2:12\n Which he wrought in you, when ye were as it were buried with him in baptism - The ancient manner of baptizing by immersion is as manifestly alluded to here, as the other manner of baptizing by sprinkling or pouring of water is, Heb 10:22 . But no stress is laid on the age of the baptized, or the manner of performing it, in one or the other; but only on our being risen with Christ, through the powerful operation of God in the soul; which we cannot but know assuredly, if it really is so: and if we do not experience this, our baptism has not answered the end of its institution. By which ye are also risen with him - From the death of sin to the life of holiness. It does not appear, that in all this St. Paul speaks of justification at all, but of sanctification altogether.",
+      "es": "Colosenses 2:12\n Lo cual obró en vosotros, cuando erais como sepultados con él en el bautismo - La antigua manera de bautizar por inmersión se alude tan manifiestamente aquí, como lo es la otra manera de bautizar por aspersión o vertido de agua, Hebreos 10:22 . Pero no se pone énfasis en la edad del bautizado, ni en la manera de realizarlo, ni en uno ni en otro; pero sólo al ser resucitados con Cristo, mediante la poderosa operación de Dios en el alma; lo cual no podemos dejar de saber con certeza si realmente es así: y si no experimentamos esto, nuestro bautismo no ha respondido al fin de su institución. Por el cual también habéis resucitado con él - De la muerte del pecado a la vida de santidad. No parece que en todo esto San Pablo hable de justificación en absoluto, sino de santificación por completo.",
+      "enHash": "9f694adfbb6375ab79c73d9791e69e92652eced99e7256e755e61719edd289f1",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "Colossians 2:13\n And you who were dead - Doubly dead to God, not only wallowing in trespasses, outward sins, but also in the uncircumcision of your flesh - A beautiful expression for original sin, the inbred corruption of your nature, your uncircumcised heart and affections. Hath he - God the Father. Quickened together with him - Making you partakers of the power of his resurrection. It is evident the apostle thus far speaks, not of justification, but of sanctification only.",
+      "es": "Colosenses 2:13\n Y tú que estabas muerto - Doblemente muerto para Dios, no sólo revolcándote en tus transgresiones, pecados externos, sino también en la incircuncisión de tu carne - Una hermosa expresión para el pecado original, la corrupción innata de tu naturaleza, tu corazón y tus afectos incircuncisos. Tiene él - Dios el Padre. Avivado junto con él - Haciéndolos partícipes del poder de su resurrección. Es evidente que hasta ahora el apóstol habla, no de justificación, sino sólo de santificación.",
+      "enHash": "476af1db7d02e11e56bedc208a973fb39f2598d913a1a8e2fbb4ffaa49da4b1b",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "Colossians 2:14\n Having blotted out - in consequence of his gracious decrees, that Christ should come into the world to save sinners, and that whosoever believeth on him should have everlasting life. The handwriting against us - Where a debt is contracted, it is usually testified by some handwriting; and when the debt is forgiven, the handwriting is destroyed, either by blotting it out, by taking it away, or by tearing it. The apostle expresses in all these three ways, God's destroying the handwriting which was contrary to us, or at enmity with us. This was not properly our sins themselves, (they were the debt,) but their guilt and cry before God.",
+      "es": "Colosenses 2:14\n Habiendo borrado - como consecuencia de sus misericordiosos decretos, que Cristo debería venir al mundo para salvar a los pecadores, y que todo aquel que crea en él tenga vida eterna. La escritura contra nosotros - Cuando se contrae una deuda, generalmente se atestigua mediante alguna escritura; y cuando la deuda es perdonada, la escritura se destruye, ya sea borrándola, quitándola o rompiéndola. El apóstol expresa de estas tres maneras que Dios está destruyendo la escritura que era contraria a nosotros o en enemistad con nosotros. Estos no fueron propiamente nuestros pecados en sí (eran la deuda), sino su culpa y su clamor ante Dios.",
+      "enHash": "b86db7ed3df2f9cd2966cade5950d2af3c9464c48706b7411c88c60fd9623f65",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "Colossians 2:15\n And having spoiled the principalities and powers - The evil angels, of their usurped dominion. He - God the Father. Exposed them openly - Before all the hosts of hell and heaven. Triumphing over them in or by him - By Christ. Thus the paragraph begins with Christ, goes on with him, and ends with him.",
+      "es": "Colosenses 2:15\n Y habiendo despojado a los principados y potestades - Los ángeles malignos, de su dominio usurpado. Él - Dios el Padre. Los expuso abiertamente - Ante todas las huestes del infierno y del cielo. Triunfando sobre ellos en o por él - Por Cristo. Así, el párrafo comienza con Cristo, continúa con él y termina con él.",
+      "enHash": "243d83824a7055e6a3bb2b0b7a94134a06788cbc04c580d81190caafe8e69775",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "Colossians 2:16\n Therefore - Seeing these things are so. Let none judge you - That is, regard none who judge you. In meat or drink - For not observing the ceremonial law in these or any other particulars. Or in respect of a yearly feast, the new moon, or the weekly Jewish sabbaths.",
+      "es": "Colosenses 2:16\n Por lo tanto - Al ver que estas cosas son así. Que nadie te juzgue - Es decir, no consideres a nadie que te juzgue. En carne o bebida - Por no observar la ley ceremonial en estos u otros detalles. O con respecto a una fiesta anual, la luna nueva o los sábados judíos semanales.",
+      "enHash": "d600ca71c89f78ff53f25618205d009c4317194d819d1d9593b306cbe341c289",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "Which are but a lifeless shadow; but the body, the substance, is of Christ.",
+      "es": "Que no son más que una sombra sin vida; pero el cuerpo, la sustancia, es de Cristo.",
+      "enHash": "99e1fe59b61f75154a59505993c2a3defb4d5f058bd1f7f5366f3c33845dd365",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "Colossians 2:18\n Out of pretended humility, they worshipped angels, as not daring to apply immediately to God. Yet this really sprung from their being puffed up: (the constant forerunner of a fall, Prov 16:18 ) so far was it from being an instance of true humility.",
+      "es": "Colosenses 2:18\n Por fingida humildad, adoraban a los ángeles, como si no se atrevieran a dirigirse inmediatamente a Dios. Sin embargo, esto realmente surgió de su envanecimiento: (el constante precursor de una caída, Proverbios 16:18) estaba tan lejos de ser un ejemplo de verdadera humildad.",
+      "enHash": "a8d75ceeefd8a7240e91875d0e2ea7bd58a347f89961798f8fbeb5fef2334118",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "Colossians 2:19\n And not holding the head - He does not hold Christ, who does not trust in him alone. All the members are nourished by faith, and knit together by love and mutual sympathy.",
+      "es": "Colosenses 2:19\n Y sin sostener la cabeza - No sostiene a Cristo, quien no confía sólo en él. Todos los miembros se nutren de la fe y están unidos por el amor y la simpatía mutua.",
+      "enHash": "1870d5f5bd2976f9fcf87add4f756c75d7fbcc7d981c5acd4cfa3089244df341",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "Colossians 2:20\n Therefore - The inference begun, Col 2:16 ; is continued. A new inference follows, Col 3:1 . If ye are dead with Christ from the rudiments of the world - That is, If ye are dead with Christ, and so freed from them, why receive ye ordinances - Which Christ hath not enjoined, from which he hath made you free.",
+      "es": "Colosenses 2:20\n Por lo tanto - Comenzó la inferencia, Col 2:16; se continúa. Sigue una nueva inferencia, Col 3:1. Si estáis muertos con Cristo de los rudimentos del mundo - Es decir, si estáis muertos con Cristo y así libres de ellos, ¿por qué recibís ordenanzas? Que Cristo no ha ordenado, de las cuales os ha hecho libres.",
+      "enHash": "5e8af8444028d76ab6dce25759c0440e3b739a23855484ceb64e254077bc0571",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "Touch not — An unclean thing.\n\n Taste not — Any forbidden meat.\n\n Handle not — Any consecrated vessel.",
+      "es": "No toques: algo inmundo.\n\n No pruebes: ninguna carne prohibida.\n\n No manejes ningún vaso consagrado.",
+      "enHash": "742823fb3068ad253ba129049d1281c33d68e7ea1673336c6458543bf03790f9",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "Perish in the using — Have no farther use, no influence on the mind.",
+      "es": "Perece en el uso: no tendrás más uso ni influencia en la mente.",
+      "enHash": "4facc42e0ceab9200117891293d69af49c54bc2430a1e2fb40d671a8558429e7",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "Colossians 2:23\n Not sparing the body - Denying it many gratifications, and putting it to many inconveniences. Yet they are not of any real value before God, nor do they, upon the whole, mortify, but satisfy, the flesh. They indulge our corrupt nature, our self - will, pride, and desire of being distinguished from others.",
+      "es": "Colosenses 2:23\n No perdonar el cuerpo - Negarle muchas gratificaciones y exponerlo a muchos inconvenientes. Sin embargo, no tienen ningún valor real ante Dios, ni, en general, mortifican la carne, sino que la satisfacen. Satisfacen nuestra naturaleza corrupta, nuestra voluntad propia, nuestro orgullo y nuestro deseo de distinguirnos de los demás.",
+      "enHash": "5fb45f7d2f47376ea32003e3c1027014858b5a27cfe64f3be66a5ac93b615fba",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "If ye are risen, seek the things above — As Christ being risen, immediately went to heaven.",
+      "es": "Si habéis resucitado, buscad las cosas de arriba. Como Cristo resucitado, inmediatamente fue al cielo.",
+      "enHash": "0ef69a7b871f76a942c6e545c26559a5361366486cfb30b6684eff8d48654132",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "Colossians 3:3\n For ye are dead - To the things on earth. And your real, spiritual life is hid from the world, and laid up in God, with Christ - Who hath merited, promised, prepared it for us, and gives us the earnest and foretaste of it in our hearts.",
+      "es": "Colosenses 3:3\n Porque estáis muertos - A las cosas de la tierra. Y tu verdadera vida espiritual está escondida del mundo y guardada en Dios, con Cristo, quien la mereció, la prometió, la preparó para nosotros y nos da la seriedad y el anticipo de ella en nuestros corazones.",
+      "enHash": "12ba9cbfffb70b097482d3f6b53fd8c94f1581bba42b3a028d3f063b48aaa0a6",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "Colossians 3:4\n When Christ - The abruptness of the sentence surrounds us with sudden light. Our life - The fountain of holiness and glory. Shall appear - In the clouds of heaven.",
+      "es": "Colosenses 3:4\n Cuando Cristo - La brusquedad de la frase nos rodea con una luz repentina. Nuestra vida - La fuente de santidad y gloria. Aparecerá - En las nubes del cielo.",
+      "enHash": "4ddee53a9c8c5d26f53c4056963be76b9be2760f886770d0e8e0e1a09a568d40",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "Colossians 3:5\n Mortify therefore - Put to death, slay with a continued stroke. Your members - Which together make up the body of sin. Which are upon the earth - Where they find their nourishment. Uncleanness - In act, word, or thought. Inordinate affection - Every passion which does not flow from and lead to the love of God. Evil desire - The desire of the flesh, the desire of the eye, and the pride of life. Covetousness - According to the derivation of the word, means the desire of having more, or of any thing independent on God. Which is idolatry - Properly and directly; for it is giving the heart to a creature.",
+      "es": "Colosenses 3:5\n Mortificar, por tanto - Ejecutar, matar con un golpe continuo. Tus miembros - Que juntos forman el cuerpo del pecado. Que están sobre la tierra - Donde encuentran su alimento. Inmundicia - En acto, palabra o pensamiento. Afecto excesivo - Toda pasión que no fluye ni conduce al amor de Dios. Mal deseo - El deseo de la carne, el deseo de los ojos y el orgullo de la vida. Codicia - Según la derivación de la palabra, significa el deseo de tener más, o de cualquier cosa independiente de Dios. Que es idolatría - De manera adecuada y directa; porque es darle el corazón a una criatura.",
+      "enHash": "02bede70db9da96e269c4f57761e076a7d7c26d32a1e3b7da1b24554851e7073",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "For which — Though the heathens lightly regarded them.",
+      "es": "Por lo cual, aunque los paganos los miraron a la ligera.",
+      "enHash": "b8f3888094b8178f6adf596bf69f3bb63561696e5f3f1713ab1cb3b18b07261b",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "Living denotes the inward principle; walking, the outward acts.",
+      "es": "Vivir denota el principio interno; Al caminar, lo exterior actúa.",
+      "enHash": "ada80d1c1f54efaef18f8859263cca23a905efa17503659dd390f9d41dcd94dd",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "Colossians 3:8\n Wrath - Is lasting anger. Filthy discourse - And was there need to warn even these saints of God against so gross and palpable a sin as this? O what is man, till perfect love casts out both fear and sin.",
+      "es": "Colosenses 3:8\n Ira: es ira duradera. Discurso inmundo - ¿Y era necesario advertir incluso a estos santos de Dios contra un pecado tan grave y palpable como este? ¡Oh, qué es el hombre, hasta que el amor perfecto expulse tanto el miedo como el pecado!",
+      "enHash": "fda4e9de56adedf9080f4053b83c9048995586a7d3e880dd144298ced5f4a849",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "In knowledge — The knowledge of God, his will, his word.",
+      "es": "En conocimiento: el conocimiento de Dios, su voluntad, su palabra.",
+      "enHash": "ea26e86b8bebd8f344e132f5e081622171298bd70c431074dfbe883d9656aad8",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "Colossians 3:11\n Where - In which case, it matters not what a man is externally, whether Jew or gentile, circumcised, or uncircumcised, barbarian, void of all the advantages of education, yea, Scythian, of all barbarians most barbarous. But Christ is in all that are thus renewed, and is all things in them and to them.",
+      "es": "Colosenses 3:11\n Dónde - En cuyo caso, no importa lo que un hombre sea externamente, ya sea judío o gentil, circuncidado o incircunciso, bárbaro, desprovisto de todas las ventajas de la educación, sí, escita, el más bárbaro de todos los bárbaros. Pero Cristo está en todos los que así se renuevan, y es todo en ellos y para ellos.",
+      "enHash": "b651193604bda513d0d1869e1ac251c98432fdba3fb460274645148c3227f903",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "Colossians 3:12\n All who are thus renewed are elected of God, holy, and therefore the more beloved of him. Holiness is the consequence of their election, and God's superior love, of their holiness.",
+      "es": "Colosenses 3:12\n Todos los que así se renuevan son elegidos de Dios, santos y, por tanto, más amados por él. La santidad es consecuencia de su elección, y el amor superior de Dios, de su santidad.",
+      "enHash": "6a4aebb379c5ffcbf00aeb49508e539e5cc95c2639a68daa05b25f5c518eccad",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "Forbearing one another — If anything is now wrong.\n\n And forgiving one another — What is past.",
+      "es": "Tolerándonos unos a otros: si algo anda mal ahora.\n\n Y perdonándonos unos a otros: lo pasado.",
+      "enHash": "5fed1296fb58a9b75dc1fef522cd193febe926043dc75d9502648de5a82d4102",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "The love of God contains the whole of Christian perfection, and connects all the parts of it together.",
+      "es": "El amor de Dios contiene toda la perfección cristiana y conecta todas sus partes.",
+      "enHash": "ae344f9ad30d8fc88aec8558537b01761a686eb6d266ff124ed0ee6d1cee0248",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "Colossians 3:15\n And then the peace of God shall rule in your hearts - Shall sway every temper, affection, thought, as the reward (so the Greek word implies) of your preceding love and obedience.",
+      "es": "Colosenses 3:15\n Y entonces la paz de Dios gobernará en vuestros corazones - Influirá en cada temperamento, afecto, pensamiento, como recompensa (así lo implica la palabra griega) de su amor y obediencia anteriores.",
+      "enHash": "7e8beead0a66c0e3ec03c61fabbdb25ee1e1919d95b374632c689af3440206f2",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "Colossians 3:16\n Let the word of Christ - So the apostle calls the whole scripture, and thereby asserts the divinity of his Master. Dwell - Not make a short stay, or an occasional visit, but take up its stated residence. Richly - In the largest measure, and with the greatest efficacy; so as to fill and govern the whole soul.",
+      "es": "Colosenses 3:16\n Dejemos que la palabra de Cristo - Así llama el apóstol a toda la Escritura, y así afirma la divinidad de su Maestro. Habitar - No realizar una estancia corta, ni una visita ocasional, sino fijar su residencia declarada. Ricamente - En la mayor medida y con la mayor eficacia; para llenar y gobernar toda el alma.",
+      "enHash": "a377518b7a24f14eaa902cee7ef6f99f44f24d4cd190a3c5cb1d1976c880d158",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "Colossians 3:17\n In the name - In the power and Spirit of the Lord Jesus. Giving thanks unto God - The Holy Ghost. And the Father through him - Christ.",
+      "es": "Colosenses 3:17\n En el nombre - En el poder y el Espíritu del Señor Jesús. Dando gracias a Dios - El Espíritu Santo. Y el Padre a través de él - Cristo.",
+      "enHash": "18ef1c85634dd5acefe7b053152be3425ca3625283303943943e4735a60cdab0",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "Colossians 3:18\n Wives, submit - Or be subject to. It is properly a military term, alluding to that entire submission that soldiers pay to their general. Eph 5:22 ,",
+      "es": "Colosenses 3:18\n Esposas, sométanse - O estén sujetas a. Es propiamente un término militar, en alusión a toda esa sumisión que los soldados rinden a su general. Ef 5:22,",
+      "enHash": "9dffadfea0ebc1be4d079e32c7e6a716c9529bdcdd0ed0811b26048e7d2d4406",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "Just — According to your contract.\n\n Equitable — Even beyond the letter of your contract.",
+      "es": "Sólo: según su contrato.\n\n Equitativo: incluso más allá de la letra de su contrato.",
+      "enHash": "2265fca700ee8327e3b157f6fa4bbbd49b792d25e3de7e893aa6fedabda2fb40",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "Colossians 4:3\n That God would open to us a door of utterance - That is, give us utterance, that we \"may open our mouth boldly,\" Eph 6:19 , and give us an opportunity of speaking, so that none may be able to hinder.",
+      "es": "Colosenses 4:3\n Que Dios nos abra una puerta de expresión - Es decir, nos dé expresión, para que \"pudamos abrir la boca con valentía\", Efesios 6:19, y nos dé la oportunidad de hablar, para que nadie pueda obstaculizar.",
+      "enHash": "7d0baa2d31d94febab95b28a1bb91598ab852d49cfba8afce2cb0c035065196d",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "Colossians 4:6\n Let your speech be always with grace - Seasoned with the grace of God, as flesh is with salt.",
+      "es": "Colosenses 4:6\n Que tu discurso sea siempre con gracia - Sazonado con la gracia de Dios, como la carne con sal.",
+      "enHash": "506b816f469545c7d8a933be040fa7ec3752408fc84b65e1b4b0c04707b54d01",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "Colossians 4:10\n Aristarchus my fellowprisoner - Such was Epaphras likewise for a time, Phm 1:23 . Ye have received directions - Namely, by Tychicus, bringing this letter. The ancients adapted their language to the time of reading the letter; not, as we do, to the time when it was written. It is not improbable, they might have scrupled to receive him, without this fresh direction, after he had left St. Paul, and \"departed from the work.\"",
+      "es": "Colosenses 4:10\n Aristarco, mi compañero de prisión - Así fue Epafras también por un tiempo, Fil 1:23. Habéis recibido instrucciones - Es decir, por parte de Tychicus, trayendo esta carta. Los antiguos adaptaron su lengua al momento de leer la carta; no, como lo hacemos nosotros, al momento en que fue escrito. No es improbable que hubieran tenido escrúpulos en recibirlo, sin esta nueva dirección, después de que dejó a San Pablo y \"se apartó de la obra\".",
+      "enHash": "fe978680b288a41fd26508c92001054a0992e5098fd8b23148b6cf3a1827ea83",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "Colossians 4:11\n These - Three, Aristarchus, Marcus, and Justus. Of all the circumcision - That is, of all my Jewish fellowlabourers. Are the only fellowworkers unto the kingdom of God - That is, in preaching the gospel. Who have been a comfort to me - What, then, can we expect? that all our fellowworkers should be a comfort to us?",
+      "es": "Colosenses 4:11\n Estos: Tres, Aristarco, Marco y Justo. De toda la circuncisión - Es decir, de todos mis compañeros judíos. Son los únicos compañeros de trabajo para el reino de Dios - Es decir, en la predicación del evangelio. ¿Quiénes han sido un consuelo para mí? ¿Qué podemos esperar entonces? ¿Que todos nuestros compañeros de trabajo deberían ser un consuelo para nosotros?",
+      "enHash": "f8e426f2395d95ec27daa5c5fb3fce86c5750560fd4d2c4be94f3af0c3966ff4",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "Colossians 4:12\n Perfect - Endued with every Christian grace. Filled - As no longer being babes, but grown up to the measure of the stature of Christ; being full of his light, grace, wisdom, holiness.",
+      "es": "Colosenses 4:12\n Perfecto - Dotado de toda gracia cristiana. Lleno - Como ya no somos bebés, sino crecidos a la medida de la estatura de Cristo; estando lleno de su luz, gracia, sabiduría, santidad.",
+      "enHash": "8be41ed044f5bfce0910eea4123569d83deb451081ea79c9971ab748eee531cf",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "Luke, the physician — Such he had been, at least, if he was not then.",
+      "es": "Luke, el médico: así había sido, al menos, si no lo era entonces.",
+      "enHash": "847b1e9ee1194b0d388ac0fb2bccfd22ed34ae2b4c64c6073ef8b655bde98500",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "Nymphas — Probably an eminent Christian at Laodicea.",
+      "es": "Ninfas: probablemente una cristiana eminente en Laodicea.",
+      "enHash": "5717029a99a01d8ac8c5e0a435ed82da08873e4c31757d2cdb690325796f6fcc",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "Colossians 4:16\n The epistle from Laodicea - Not to Laodicea. Perhaps some letter had been written to St. Paul from thence.",
+      "es": "Colosenses 4:16\n La epístola de Laodicea - No a Laodicea. Quizás desde allí se había escrito alguna carta a San Pablo.",
+      "enHash": "a56e43ccfbeacbd41591da5edf0e31994f71d3319fa81e0be7297dd1cb47a664",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "Colossians 4:17\n And say to Archippus - One of the pastors of that church. Take heed - It is the duty of the flock to try them that say they are apostles to reject the false, and to warn, as well as to receive, the real. The ministry - Not a lordship, but a service; a laborious and painful work; an obligation to do and suffer all things; to be the least, and the servant, of all. In the Lord - Christ by whom, and for whose sake, we receive the various gifts of the Holy Spirit.",
+      "es": "Colosenses 4:17\n Y dile a Arquipo: uno de los pastores de esa iglesia. Preste atención - Es deber del rebaño probar a los que dicen ser apóstoles para que rechacen lo falso y adviertan, además de recibir, lo real. El ministerio - No es un señorío, sino un servicio; un trabajo laborioso y doloroso; una obligación de hacer y sufrir todas las cosas; ser el menor y el servidor de todos. En el Señor, Cristo por quien y por quien recibimos los diversos dones del Espíritu Santo.",
+      "enHash": "d682bdc985e9a78e99d2e02b10e1c494549eb60e595ff381da0d4ffe9d6a309e",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:2": "b1",
+    "1:3": "b2",
+    "1:5": "b3",
+    "1:6": "b4",
+    "1:7": "b5",
+    "1:8": "b6",
+    "1:9": "b7",
+    "1:10": "b8",
+    "1:11": "b9",
+    "1:12": "b10",
+    "1:13": "b11",
+    "1:14": "b12",
+    "1:15": "b13",
+    "1:16": "b14",
+    "1:17": "b15",
+    "1:18": "b16",
+    "1:19": "b17",
+    "1:20": "b18",
+    "1:21": "b19",
+    "1:22": "b20",
+    "1:23": "b21",
+    "1:24": "b22",
+    "1:25": "b23",
+    "1:26": "b24",
+    "1:27": "b25",
+    "1:28": "b26",
+    "2:1": "b27",
+    "2:2": "b28",
+    "2:6": "b29",
+    "2:7": "b30",
+    "2:8": "b31",
+    "2:9": "b32",
+    "2:10": "b33",
+    "2:11": "b34",
+    "2:12": "b35",
+    "2:13": "b36",
+    "2:14": "b37",
+    "2:15": "b38",
+    "2:16": "b39",
+    "2:17": "b40",
+    "2:18": "b41",
+    "2:19": "b42",
+    "2:20": "b43",
+    "2:21": "b44",
+    "2:22": "b45",
+    "2:23": "b46",
+    "3:1": "b47",
+    "3:3": "b48",
+    "3:4": "b49",
+    "3:5": "b50",
+    "3:6": "b51",
+    "3:7": "b52",
+    "3:8": "b53",
+    "3:10": "b54",
+    "3:11": "b55",
+    "3:12": "b56",
+    "3:13": "b57",
+    "3:14": "b58",
+    "3:15": "b59",
+    "3:16": "b60",
+    "3:17": "b61",
+    "3:18": "b62",
+    "4:1": "b63",
+    "4:3": "b64",
+    "4:6": "b65",
+    "4:10": "b66",
+    "4:11": "b67",
+    "4:12": "b68",
+    "4:14": "b69",
+    "4:15": "b70",
+    "4:16": "b71",
+    "4:17": "b72"
+  }
+}

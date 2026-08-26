@@ -28,11 +28,11 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Juan | sí | sí | sí | sí | sí | sí | sí |
 | Hechos | sí | sí | sí | sí | — | — | — |
 | Romanos | sí | sí | sí | sí | — | — | — |
-| 1–2 Corintios | sí | sí | sí | pendiente | — | — | — |
-| Gálatas | sí | sí | sí | pendiente | — | — | — |
-| Efesios | sí | sí | sí | pendiente | — | — | — |
-| Filipenses | sí | sí | sí | pendiente | — | — | — |
-| Colosenses | sí | sí | sí | pendiente | — | — | — |
+| 1–2 Corintios | sí | sí | sí | sí | — | — | — |
+| Gálatas | sí | sí | sí | sí | — | — | — |
+| Efesios | sí | sí | sí | sí | — | — | — |
+| Filipenses | sí | sí | sí | sí | — | — | — |
+| Colosenses | sí | sí | sí | sí | — | — | — |
 | 1–2 Tesalonicenses | sí | sí | sí | pendiente | — | — | — |
 | 1 Timoteo | sí | sí | sí | pendiente | — | — | — |
 | 2 Timoteo / Tito | sí | sí | sí | pendiente | — | — | — |

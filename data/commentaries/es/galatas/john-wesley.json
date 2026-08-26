@@ -1,0 +1,1004 @@
+{
+  "book": "Gálatas",
+  "usfm": "GAL",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "Galatians 1:1\n Paul, an apostle - Here it was necessary for St. Paul to assert his authority; otherwise he is very modest in the use of this title. He seldom mentions it when he mentions others in the salutations with himself, as in the Epistles to the Philippians and Thessalonians; or when he writes about secular affairs, as in that to Philemon; nor yet in writing to the Hebrews because he was not properly their apostle. Not of men - Not commissioned from them, but from God the Father. Neither by man - Neither by any man as an instrument, but by Jesus Christ. Who raised him from the dead - Of which it was the peculiar business of an apostle to bear witness.",
+      "es": "Gálatas 1:1\n Pablo, un apóstol - Aquí era necesario que San Pablo hiciera valer su autoridad; por lo demás, es muy modesto en el uso de este título. Rara vez lo menciona cuando menciona a otros en los saludos a sí mismo, como en las Epístolas a los Filipenses y Tesalonicenses; o cuando escribe sobre asuntos seculares, como en el caso de Filemón; ni todavía por escrito a los hebreos porque no era propiamente su apóstol. No de los hombres - No encargado de ellos, sino de Dios Padre. Ni por el hombre - Ni por ningún hombre como instrumento, sino por Jesucristo. Quién lo resucitó de entre los muertos - De lo cual era tarea peculiar de un apóstol dar testimonio.",
+      "enHash": "c5dace48116aa0b0c82c434147905e86c687eeecfd3206d0fedd9b084a9079b8",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "And all the brethren — Who agree with me in what I now write.",
+      "es": "Y todos los hermanos que están de acuerdo conmigo en lo que ahora escribo.",
+      "enHash": "f7805f8d0b7832c2176e2ec6f1425ce29c67b3e6d611bdb38d34669669adaaa3",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "Galatians 1:4\n That he might deliver us from the present evil world - From the guilt, wickedness, and misery wherein it is involved, and from its vain and foolish customs and pleasures. According to the will of God - Without any merit of ours. St. Paul begins most of his epistles with thanksgiving; but, writing to the Galatians, he alters his style, and first sets down his main proposition, That by the merits of Christ alone, giving himself for our sins, we are justified: neither does he term them, as he does others, either saints,\" elect,\" or churches of God.\"",
+      "es": "Gálatas 1:4\n Para poder librarnos del presente mundo malvado - De la culpa, la maldad y la miseria en las que está involucrado, y de sus costumbres y placeres vanos y tontos. Según la voluntad de Dios - Sin ningún mérito nuestro. San Pablo comienza la mayoría de sus epístolas con acción de gracias; pero, escribiendo a los Gálatas, altera su estilo y primero establece su proposición principal: que sólo por los méritos de Cristo, entregándose a sí mismo por nuestros pecados, somos justificados: ni los llama, como lo hace a los demás, ni santos, \"elegidos\" ni iglesias de Dios.",
+      "enHash": "6d5f150f47924fe1f8219c4f58382158fb89d7fb849ed6e8cb409e1afdfb9571",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "To whom be glory — For this his gracious will.",
+      "es": "A quien sea la gloria, por esta su misericordiosa voluntad.",
+      "enHash": "6f424da726dd2b14a70628a2c01f1d44d899b51ad8e96b1de8d06ee5476966ed",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "Galatians 1:6\n I marvel that ye are removed so soon - After my leaving you. From him who called you by the grace of Christ - His gracious gospel, and his gracious power.",
+      "es": "Gálatas 1:6\n Me maravilla que os hayan eliminado tan pronto - Después de que yo os dejé. Del que os llamó por la gracia de Cristo: su evangelio misericordioso y su poder misericordioso.",
+      "enHash": "2f5195af58547867e647fa642340de1ea043fca8cd062d5315be0362939891eb",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "Galatians 1:7\n Which, indeed, is not properly another gospel. For what ye have now received is no gospel at all; it is not glad, but heavy, tidings, as setting your acceptance with God upon terms impossible to be performed. But there are some that trouble you - The same word occurs, Acts 15:24 . And would - If they were able. Subvert or overthrow the gospel of Christ - The better to effect which, they suggest, that the other apostles, yea, and I myself, insist upon the observance of the law.",
+      "es": "Gálatas 1:7\n Lo cual, de hecho, no es propiamente otro evangelio. Porque lo que habéis recibido ahora no es evangelio alguno; No son noticias alegres, sino pesadas, que establecen su aceptación ante Dios en términos imposibles de realizar. Pero hay algunos que te preocupan - Ocurre la misma palabra, Hechos 15:24 . Y lo harían... si pudieran. Subvertir o derrocar el evangelio de Cristo - Para lograrlo mejor, sugieren, que los otros apóstoles, sí, y yo mismo, insistimos en la observancia de la ley.",
+      "enHash": "a33ebd709594de7bf62f5c915e80a7814e9363c09fd722a0a2bbfd91d685a665",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "Galatians 1:8\n But if we - I and all the apostles. Or an angel from heaven - If it were possible. Preach another gospel, let him be accursed - Cut off from Christ and God.",
+      "es": "Gálatas 1:8\n Pero si nosotros, yo y todos los apóstoles. O un ángel del cielo - Si fuera posible. Predicad otro evangelio, sea anatema - Separados de Cristo y de Dios.",
+      "enHash": "1cd088436e09555a6bc5b6cfbf4a55a092d28d523f05a433d65b5adb6ca345b0",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "As — He speaks upon mature deliberation; after pausing, it seems, between the two verses.\n\n We — I and the brethren who are with me.\n\n Have said before — Many times, in effect, if not in terms.\n\n So I say — All those brethren knew the truth of the gospel. St. Paul knew the Galatians had received the true gospel.",
+      "es": "Como: habla con una deliberación madura; después de una pausa, al parecer, entre los dos versos.\n\n Nosotros, yo y los hermanos que están conmigo.\n\n Lo he dicho antes: muchas veces, en efecto, si no en términos.\n\n Por eso digo: todos esos hermanos conocían la verdad del evangelio. San Pablo sabía que los gálatas habían recibido el verdadero evangelio.",
+      "enHash": "e498f7549bb28e7d479927a8d290899319253c679764cb88bf5569060d722790",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "Galatians 1:10\n For - He adds the reason why he speaks so confidently. Do I now satisfy men - Is this what I aim at in preaching or writing? If I still - Since I was an apostle. Pleased men - Studied to please them; if this were my motive of action; nay, if I did in fact please the men who know not God. I should not be the servant of Christ - Hear this, all ye who vainly hope to keep in favour both with God and with the world!",
+      "es": "Gálatas 1:10\n Porque - añade la razón por la que habla con tanta seguridad. ¿Satisfago ahora a los hombres? ¿Es esto lo que pretendo al predicar o escribir? Si todavía - Desde que era apóstol. Hombres complacidos - Estudiados para complacerlos; si este fuera mi motivo de acción; es más, si de hecho agradara a los hombres que no conocen a Dios. No debería ser siervo de Cristo. ¡Escuchen esto todos los que en vano esperan mantener el favor tanto de Dios como del mundo!",
+      "enHash": "2af6d2fdf18e19ccf7d3fb5b20e757dff13156445a67b86cb0a52c3354e9df61",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "Galatians 1:11\n But I certify you, brethren - He does not till now give them even this appellation. That the gospel which was preached by me among you is not according to man - Not from man, not by man, not suited to the taste of man.",
+      "es": "Gálatas 1:11\n Pero os certifico, hermanos, que hasta ahora ni siquiera les da esta denominación. Que el evangelio que yo prediqué entre vosotros no es según hombre - No de hombre, no por hombre, no es adecuado al gusto del hombre.",
+      "enHash": "ebb785b2220dfaf358bb2fd76fbda3fe53fc7a3b2cbe1a6411f402e378417283",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "Galatians 1:12\n For neither did I receive it - At once. Nor was I taught it - Slowly and gradually, by any man. But by the revelation of Jesus Christ - Our Lord revealed to him at first, his resurrection, ascension, and the calling of the gentiles, and his own apostleship; and told him then, there were other things for which he would appear to him.",
+      "es": "Gálatas 1:12\n Porque tampoco lo recibí - De inmediato. Tampoco me lo enseñó ningún hombre, lenta y gradualmente. Pero por la revelación de Jesucristo - Nuestro Señor le reveló al principio su resurrección, ascensión y el llamado de los gentiles, y su propio apostolado; y le dijo entonces que había otras cosas por las cuales se le aparecería.",
+      "enHash": "7b800ad04cd34503c8038802dc93e56807caefd2d07460bc093335f535aff0a4",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "I Persecuted the church of God — That is, the believers in Christ.",
+      "es": "Perseguí a la iglesia de Dios, es decir, a los creyentes en Cristo.",
+      "enHash": "f594bd97932285c1218d743c48861648886a07897377e8b84b881c5894292fe3",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "Being zealous of the unwritten traditions - Over and above those written in the law.",
+      "es": "Ser celoso de las tradiciones no escritas - Más allá de las escritas en la ley.",
+      "enHash": "eb54c7bde18f4e48fece1f64fe7fa5c1cc08679b7ff19c87d96bab4e0d0c9259",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "Galatians 1:15\n But when it pleased God - He ascribes nothing to his own merits, endeavours, or sincerity. Who separated me from my mother's womb - Set me apart for an apostle, as he did Jeremiah for a prophet. Jer 1:5 . Such an unconditional predestination as this may consist, both with God's justice and mercy. And called me by his grace - By his free and almighty love, to be both a Christian and an apostle.",
+      "es": "Gálatas 1:15\n Pero cuando a Dios le agradó, Él no atribuye nada a sus propios méritos, esfuerzos o sinceridad. Quien me separó desde el vientre de mi madre - Apartadme para apóstol, como hizo con Jeremías como profeta. Jeremías 1:5. Una predestinación tan incondicional como ésta puede consistir, tanto con la justicia como con la misericordia de Dios. Y me llamó por su gracia - Por su amor libre y todopoderoso, para ser cristiano y apóstol.",
+      "enHash": "92e66a8d50778fb134164daca067a413e12c80324f4d7efc48a0107e314b786b",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "Galatians 1:16\n To reveal his Son in me - By the powerful operation of his Spirit, 2Cor 4:6 ; as well as to me, by the heavenly vision. That I might preach him to others - Which I should have been ill qualified to do, had I not first known him myself. I did not confer with flesh and blood - Being fully satisfied of the divine will, and determined to obey, I took no counsel with any man, neither with my own reason or inclinations, which might have raised numberless objections.",
+      "es": "Gálatas 1:16\n Para revelar a su Hijo en mí - Por la poderosa operación de su Espíritu, 2 Corintios 4:6; así como a mí, por la visión celestial. Para poder predicarlo a otros - Lo cual no habría estado calificado para hacer si no lo hubiera conocido primero. No consulté con carne ni sangre - Estando completamente satisfecho de la voluntad divina y decidido a obedecer, no consulté con ningún hombre, ni con mi propia razón o inclinaciones, que podrían haber planteado innumerables objeciones.",
+      "enHash": "da6e1e1185e426558a30940b13758c05f8124c448c79d84a84f545c5f7c73452",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "Galatians 1:17\n Neither did I go up to Jerusalem - The residence of the apostles. But I immediately went again into Arabia, and returned again to Damascus - He presupposes the journey to Damascus, in which he was converted, as being known to them all.",
+      "es": "Gálatas 1:17\n Tampoco subí a Jerusalén - La residencia de los apóstoles. Pero inmediatamente volví a Arabia y regresé de nuevo a Damasco - Él presupone el viaje a Damasco, en el que se convirtió, como conocido por todos.",
+      "enHash": "e302e7f699af05dea601eeedfa0a822ea46ca62e318baf7232b604f9ce656ca6",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "Galatians 1:18\n Then after three years - Wherein I had given full proof of my apostleship. I went to visit Peter - To converse with him.",
+      "es": "Gálatas 1:18\n Luego, después de tres años - En los cuales había dado plena prueba de mi apostolado. Fui a visitar a Peter - Para conversar con él.",
+      "enHash": "3e143bcef529fe422a39564691f9612097a70e66cb40c03318d1c8f8fda7d350",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "Galatians 1:19\n But other of the apostles I saw none, save James the brother (that is, the kinsman) of the Lord - Therefore when Barnabas is said to have \"brought him into the apostles,\" Acts 9:27 , only St. Peter and St James are meant.",
+      "es": "Gálatas 1:19\n Pero a otros de los apóstoles no vi a ninguno, excepto a Santiago, el hermano (es decir, el pariente) del Señor - Por lo tanto, cuando se dice que Bernabé \"lo trajo a los apóstoles\", Hechos 9:27, sólo se refieren a San Pedro y Santiago.",
+      "enHash": "98d1afebb48d3aa719cd42132fd58b57e034e7608c14f50bf5d31d08a3c3abea",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "In me — That is, on my account.\n\n << 2 Corinthians 13 | Galatians 1 | Galatians 2 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Galatians Galatians 1\n\n Related Commentaries\n Galatians 1\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Martin Luther's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "En mí, es decir, por mi cuenta.\n\n << 2 Corintios 13 | Gálatas 1 | Gálatas 2 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Gálatas Gálatas 1\n\n Comentarios relacionados\n Gálatas 1\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Martín Lutero Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "094843210eda0c8cd8f7a9d0c03e05b9ecf50370212cb7b50c72dafff18fa95f",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "Galatians 2:1\n Then fourteen years after - My first journey thither. I went up again to Jerusalem - This seems to be the journey mentioned Acts 15:2 ; several passages here referring to that great council, wherein all the apostles showed that they were of the same judgment with him.",
+      "es": "Gálatas 2:1\n Luego, catorce años después, mi primer viaje allí. Subí de nuevo a Jerusalén - Este parece ser el viaje mencionado Hechos 15:2 ; Aquí hay varios pasajes que se refieren a ese gran concilio, en el que todos los apóstoles demostraron que tenían el mismo juicio que él.",
+      "enHash": "ee52abdf072295a926a8fae72a73e9afdbd306cefa690aa4bbeb2c0e6aab69bc",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "Galatians 2:2\n I went up - Not by any command from them, but by an express revelation from God. And laid before them - The chief of the church in Jerusalem. The gospel which I preach among the gentiles - Acts 15:4 , touching justification by faith alone; not that they might confirm me therein, but that I might remove prejudice from them. Yet not publicly at first, but severally to those of eminence - Speaking to them one by one. Lest I should run, or should have run, in vain - Lest I should lose the fruit either of my present or past labours. For they might have greatly hindered this, had they not been fully satisfied both of his mission and doctrine. The word run beautifully expresses the swift progress of the gospel.",
+      "es": "Gálatas 2:2\n Subí - No por ninguna orden de ellos, sino por una revelación expresa de Dios. Y puesto ante ellos - El jefe de la iglesia en Jerusalén. El evangelio que predico entre los gentiles – Hechos 15:4, toca la justificación solo por la fe; no para que me confirmen en ello, sino para que pueda quitarles el prejuicio. Sin embargo, al principio no públicamente, sino individualmente a los eminentes, hablándoles uno por uno. No sea que corra, o debería haber corrido, en vano - No sea que pierda el fruto de mis trabajos presentes o pasados. Porque podrían haberlo dificultado mucho si no hubieran estado plenamente satisfechos tanto con su misión como con su doctrina. La palabra correr expresa maravillosamente el rápido progreso del evangelio.",
+      "enHash": "6de014b66ec2235d263513cb1502b92551be695eb1b76bd0c35ab6e60b12f231",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "Galatians 2:3\n But neither was Titus who was with me - When I conversed with them. Compelled to be circumcised - A clear proof that none of the apostles insisted on the circumcising gentile believers. The sense is, And it is true, some of those false brethren would fain have compelled Titus to be circumcised; but I utterly refused it.",
+      "es": "Gálatas 2:3\n Pero tampoco era Tito el que estaba conmigo - Cuando conversaba con ellos. Obligado a circuncidarse - Una prueba clara de que ninguno de los apóstoles insistió en circuncidar a los creyentes gentiles. El sentido es, y es cierto, algunos de esos falsos hermanos de buena gana hubieran obligado a Tito a circuncidarse; pero lo rechacé por completo.",
+      "enHash": "b2a33f893824794fc42e54e3cc4ae9f2371bacaaee4152bff6741161971710ac",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "Galatians 2:4\n Because of false brethren - Who seem to have urged it. Introduced unawares - Into some of those private conferences at Jerusalem. Who had slipped in to spy out our liberty - From the ceremonial law. That they might, if possible, bring us into that bondage again.",
+      "es": "Gálatas 2:4\n Debido a los falsos hermanos - Quienes parecen haberlo instado. Introducido desprevenido - En algunas de esas conferencias privadas en Jerusalén. Que se había colado para espiar nuestra libertad - De la ley ceremonial. Que, si es posible, nos vuelvan a llevar a esa esclavitud.",
+      "enHash": "837ad0e7b22a2592c0a5e0a5d78b514d72f7f88f69c2ae5df200928538e96c11",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "Galatians 2:5\n To whom we did not yield by submission - Although in love he would have yielded to any. With such wonderful prudence did the apostle use his Christian liberty ! circumcising Timothy, Acts 16:3 , because of weak brethren, but not Titus, because of false brethren. That the truth of the gospel - That is, the true genuine gospel. Might continue with you - With you gentiles. So we defend, for your sakes, the privilege which you would give up.",
+      "es": "Gálatas 2:5\n A quien no cedimos por sumisión - Aunque enamorado se habría rendido ante cualquiera. ¡Con tan maravillosa prudencia usó el apóstol su libertad cristiana! circuncidar a Timoteo, Hechos 16:3, a causa de los hermanos débiles, pero no a Tito, a causa de los falsos hermanos. Esa la verdad del evangelio - Es decir, el verdadero evangelio genuino. Podría continuar contigo - Con ustedes gentiles. Por eso defendemos, por su bien, el privilegio al que usted renunciaría.",
+      "enHash": "8293c85f9ef1769d2ed049f6385761fadba713093ba64fcc426bf1a8198126c1",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "Galatians 2:6\n And they who undoubtedly were something - Above all others. What they were - How eminent soever. It is no difference to me - So that I should alter either my doctrine or my practice. God accepteth no man's person - For any eminence in gifts or outward prerogatives. In that conference added nothing to me - Neither as to doctrine nor mission.",
+      "es": "Gálatas 2:6\n Y ellos que sin duda fueron algo - Por encima de todos los demás. Qué eran - Qué eminentes en absoluto. No hay diferencia para mí - De modo que debería alterar mi doctrina o mi práctica. Dios no acepta la persona de ningún hombre - Por ninguna eminencia en regalos o prerrogativas externas. En esa conferencia no me añadió nada - Ni en cuanto a doctrina ni a misión.",
+      "enHash": "26a3597ea09838919f0f2292fca6e06b609d2f747c70a69badd480f59dc5ebc9",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "Galatians 2:7\n But when they saw - By the effects which I laid before them, Gal 2:8 ; Acts 15:12. That I was intrusted with the gospel of the uncircumcision - That is, with the charge of preaching it to the uncircumcised heathens.",
+      "es": "Gálatas 2:7\n Pero cuando vieron - Por los efectos que les presenté, Gálatas 2:8; Hechos 15:12. Que se me confió el evangelio de la incircuncisión - Es decir, con el cargo de predicarlo a los paganos incircuncisos.",
+      "enHash": "53400108e1b5adca54a0f6a917f8b0093459313e5f74ef724015fd8b969e5341",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "Galatians 2:8\n For he that wrought effectually in Peter for the apostleship of the circumcision - To qualify him for, and support him in, the discharge of that office to the Jews. Wrought likewise effectually in and by me - For and in the discharge of my office toward the gentiles.",
+      "es": "Gálatas 2:8\n Porque el que obró eficazmente en Pedro para el apostolado de la circuncisión - Para calificarlo y apoyarlo en el desempeño de ese oficio ante los judíos. Obtuvo igualmente efectivamente en y por mí - Para y en el desempeño de mi cargo hacia los gentiles.",
+      "enHash": "e8bffb464f6f7b1e20fb717980ab9d8c7f57879e7780bfd17156b03f59d04850",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "Galatians 2:9\n And when James - Probably named first because he was bishop of the church in Jerusalem. And Cephas - Speaking of him at Jerusalem he calls him by his Hebrew name. And John - Hence it appears that he also was at the council, though he is not particularly named in the Acts. Who undoubtedly were pillars - The principal supporters and defenders of the gospel. Knew - After they had heard the account I gave them. The grace - Of apostleship. Which was given me, they - In the name of all. Gave to me and Barnabas - My fellow - labourer. The right hands of fellowship - They gave us their hands in token of receiving us as their fellow - labourers, mutually agreeing that we - I and those in union with me. Should go to the gentiles - Chiefly. And they - With those that were in union with them, chiefly to the circumcision - The Jews.",
+      "es": "Gálatas 2:9\n Y cuando James - Probablemente nombrado primero porque era obispo de la iglesia en Jerusalén. Y Cefas - Hablando de él en Jerusalén, lo llama por su nombre hebreo. Y Juan - Por lo tanto, parece que él también estuvo en el concilio, aunque no se le menciona particularmente en los Hechos. Quienes sin duda fueron pilares - Los principales partidarios y defensores del evangelio. Sabía - Después de que escucharon el relato que les di. La gracia - Del apostolado. Que me dieron, ellos - En nombre de todos. Nos dio a mí y a Bernabé, mi compañero de trabajo. Las manos derechas de compañerismo - Nos dieron sus manos en señal de recibirnos como sus compañeros de trabajo, acordando mutuamente que nosotros, yo y los que estamos en unión conmigo. Debería ir a los gentiles - Principalmente. Y ellos - Con los que estaban en unión con ellos, principalmente a la circuncisión - Los judíos.",
+      "enHash": "1611857d4516091f5660b2ad802931629115dd16ed146b8f2adf2135da8bdf92",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "Of the poor — The poor Christians in Judea, who had lost all they had for Christ's sake.",
+      "es": "De los pobres: los cristianos pobres de Judea, que habían perdido todo lo que tenían por causa de Cristo.",
+      "enHash": "79471d8ec03816415bebb564c3dd596e8323d66d646d62a2c8beaf5d4cc4c958",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "Galatians 2:11\n But - The argument here comes to the height. Paul reproves Peter himself. So far was he from receiving his doctrine from man, or from being inferior to the chief of the apostles. When Peter - Afterwards, Came to Antioch - Then the chief of all the Gentile churches. I withstood him to the face, because he was to be blamed - For fear of man, Gal 2:12 ; for dissimulation, Gal 2:13; and for not walking uprightly. Gal 2:14 .",
+      "es": "Gálatas 2:11\n Pero... El argumento aquí llega a su punto culminante. Pablo reprende al propio Pedro. Tan lejos estaba de recibir su doctrina del hombre, o de ser inferior a los principales de los apóstoles. Cuando Pedro - Después vino a Antioquía - Entonces el jefe de todas las iglesias gentiles. Lo resistí cara a cara, porque era culpable - Por miedo al hombre, Gálatas 2:12; para disimulo, Gálatas 2:13; y por no caminar erguidamente. Gálatas 2:14.",
+      "enHash": "0a6fca11c0d3832ee9c8d4fbf8a8bd5cf19b71d5087587ad4bee2511cff93775",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "Galatians 2:13\n And the other believing Jews - Who were at Antioch. Dissembled with him, so that even Barnabas was carried away with their dissimulation - Was borne away, as with a torrent, into the same ill practice.",
+      "es": "Gálatas 2:13\n Y los otros judíos creyentes - Que estaban en Antioquía. Disimuló con él, de modo que incluso Bernabé se dejó llevar por su disimulo - Fue arrastrado, como por un torrente, a la misma mala práctica.",
+      "enHash": "de3873ddf787544ef410bd9da2363febe7f15fa016b7cddd0cba96a9ef544051",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "Galatians 2:14\n I said to Cephas before them all - See Paul single against Peter and all the Jews! If thou being a Jew, yet livest, in thy ordinary conversation, after the manner of the gentiles - Not observing the ceremonial law, which thou knowest to be now abolished. Why compellest thou the gentiles - By withdrawing thyself and all the ministers from them; either to judaize, to keep the ceremonial law, or to be excluded from church communion ?",
+      "es": "Gálatas 2:14\n Le dije a Cefas delante de todos: ¡Mira a Pablo solo contra Pedro y todos los judíos! Si eres judío y vives, en tu conversación ordinaria, a la manera de los gentiles, sin observar la ley ceremonial, que sabes que ahora está abolida. ¿Por qué obligas a los gentiles? Al retirarte a ti mismo y a todos los ministros de ellos; ¿Judaizarse, guardar la ley ceremonial o ser excluido de la comunión de la iglesia?",
+      "enHash": "0289eb4adb51b1f181bd8a1de50f097d32a2f6e0d07fa92aa928bc84dc8a7915",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "Galatians 2:15\n We - St. Paul, to spare St. Peter, drops the first person singular, and speaks in the plural number. Gal 2:18 , he speaks in the first person singular again by a figure; and without a figure, Gal 2:19 , &c. Who are Jews by nature - By birth, not proselytes only. And not sinners of the gentiles - That is, not sinful Gentiles; not such gross, enormous, abandoned sinners, as the heathens generally were.",
+      "es": "Gálatas 2:15\n Nosotros, San Pablo, para perdonar a San Pedro, eliminamos la primera persona del singular y hablamos en plural. Gal 2:18, habla en primera persona del singular nuevamente mediante una figura; y sin figura, Gálatas 2:19, etc. ¿Quiénes son judíos por naturaleza? Por nacimiento, no sólo prosélitos. Y no pecadores de los gentiles - Es decir, no gentiles pecadores; no pecadores tan groseros, enormes y abandonados como lo eran generalmente los paganos.",
+      "enHash": "19ac5f41681f9b7d7587310f0cfcf637bcf472ecf81433718d8f16bcf35e0c45",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "Galatians 2:16\n Knowing that a man is not justified by the works of the law - Not even of the moral, much less the ceremonial, law. But by the faith of Jesus Christ - That is, by faith in him. The name Jesus was first known by the gentiles; the name Christ by the Jews. And they are not always placed promiscuously; but generally in a more solemn way of speaking, the Apostle says, Christ Jesus; in a more familiar, Jesus Christ. Even we - And how much more must the Gentiles, who have still less pretence to depend on their own works! Have believed - Knowing there is no other way. Because - Considering the demands of the law, and the fate of human nature, it is evident, that by the works of the law - By such an obedience as it requires. Shall no flesh living - No human creature, Jew or Gentile, be justified. Hitherto St. Paul had been considering that single question, \"Are Christians obliged to observe the ceremonial law? But he here insensibly goes farther, and, by citing this scripture, shows that what he spoke directly of the ceremonial, included also the moral, law. For David undoubtedly did so, when he said, Psalm 143:2 , the place here referred to, \"In thy sight shall no man living be justified;\" which the Apostle likewise explains, Rom 3:19 ,20, in such a manner as can agree to none but the moral law.",
+      "es": "Gálatas 2:16\n Sabiendo que el hombre no es justificado por las obras de la ley - Ni siquiera de la ley moral, mucho menos de la ceremonial. Pero por la fe de Jesucristo - Es decir, por la fe en él. El nombre Jesús fue conocido por primera vez por los gentiles; el nombre de Cristo por los judíos. Y no siempre se colocan de forma promiscua; pero generalmente en una manera más solemne de hablar, dice el Apóstol, Cristo Jesús; en una forma más familiar, Jesucristo. Incluso nosotros - ¡Y cuánto más deben hacerlo los gentiles, que tienen aún menos pretensiones de depender de sus propias obras! Haber creído - Sabiendo que no hay otro camino. Porque - Considerando las exigencias de la ley y el destino de la naturaleza humana, es evidente que por las obras de la ley - Por la obediencia que requiere. Ninguna carne viva - Ninguna criatura humana, judía o gentil, será justificada. Hasta ahora, San Pablo había estado considerando esa única pregunta: \"¿Están los cristianos obligados a observar la ley ceremonial? Pero aquí, insensiblemente, va más allá y, al citar esta Escritura, muestra que lo que habló directamente del ceremonial incluía también la ley moral. Porque David, sin duda, lo hizo cuando dijo, Salmo 143:2, el lugar al que aquí se hace referencia: \"Ante ti, ningún viviente será justificado\", lo cual el Apóstol también explica, Rom. 3:19, 20, de tal manera que nadie pueda estar de acuerdo excepto con la ley moral.",
+      "enHash": "ff31d89649fd0e6c88945150576f5c38ecff3dbcd9feea56e77b5be398bc320e",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "Galatians 2:17\n But if while we seek to be justified by Christ, we ourselves are still found sinners - If we continue in sin, will it therefore follow, that Christ is the minister or countenancer of sin?",
+      "es": "Gálatas 2:17\n Pero si mientras buscamos ser justificados por Cristo, nosotros mismos todavía somos pecadores. Si continuamos en pecado, ¿se seguirá que Cristo es el ministro o el rostro del pecado?",
+      "enHash": "d14868134819e4a0946e412c7e39abbf99b6719876482e152c52ef061c20412d",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "Galatians 2:18\n By no means. For if I build again - By my sinful practice. The things which I destroyed - By my preaching, I only make myself - Or show myself, not Christ, to be a transgressor; the whole blame lies on me, not him or his gospel. As if he had said, The objection were just, if the gospel promised justification to men continuing in sin. But it does not. Therefore if any who profess the gospel do not live according to it, they are sinners, it is certain, but not justified, and so the gospel is clear.",
+      "es": "Gálatas 2:18\n De ninguna manera. Porque si construyo de nuevo - Por mi práctica pecaminosa. Las cosas que destruí - Por mi predicación, sólo me hago a mí mismo - O muestro a mí mismo, no a Cristo, como un transgresor; Toda la culpa es mía, no de él ni de su evangelio. Como si hubiera dicho: La objeción sería justa si el evangelio prometiera justificación a los hombres que continuaran en pecado. Pero no es así. Por tanto, si alguno que profesa el evangelio no vive conforme a él, es pecador, es cierto, pero no está justificado, y por eso el evangelio es claro.",
+      "enHash": "a36fbfd31248ff91156253178441572e866a11a261a9ede1db077b409617249b",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "Galatians 2:19\n For I through the law - Applied by the Spirit to my heart, and deeply convincing me of my utter sinfulness and helplessness. Am dead to the law - To all hope of justification from it. That I may live to God - Not continue in sin. For this very end am I, in this sense, freed from the law, that I may be freed from sin.",
+      "es": "Gálatas 2:19\n Porque yo a través de la ley - Aplicada por el Espíritu a mi corazón y convenciéndome profundamente de mi total pecaminosidad e impotencia. Estoy muerto a la ley - A toda esperanza de justificación por parte de ella. Para poder vivir para Dios - No continuar en pecado. Precisamente por este fin estoy, en este sentido, libre de la ley, para ser libre del pecado.",
+      "enHash": "f6a585a05641eebef7897a859417c1d9889fe2fd4f3f4f2269843752dc438071",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "Galatians 2:20\n The Apostle goes on to describe how he is freed from sin; how far he is from continuing therein. I am crucified with Christ - Made conformable to his death; \"the body of sin is destroyed.\" Rom 6:6 . And I - As to my corrupt nature. Live no longer - Being dead to sin. But Christ liveth in me - Is a fountain of life in my inmost soul, from which all my tempers, words, and actions flow. And the life that I now live in the flesh - Even in this mortal body, I live by faith in the Son of God - I derive every moment from that supernatural principle; from a divine evidence and conviction, that \"he loved me, and delivered up himself for me.\"",
+      "es": "Gálatas 2:20\n El Apóstol continúa describiendo cómo es liberado del pecado; cuán lejos está de continuar en ello. Estoy crucificado con Cristo - Hecho conforme a su muerte; \"el cuerpo del pecado es destruido\". Romanos 6:6 . Y yo - En cuanto a mi naturaleza corrupta. No vivas más - Estar muerto al pecado. Pero Cristo vive en mí - Es una fuente de vida en lo más íntimo de mi alma, de donde fluyen todos mis temperamentos, palabras y acciones. Y la vida que ahora vivo en la carne -incluso en este cuerpo mortal, la vivo por fe en el Hijo de Dios- deriva cada momento de ese principio sobrenatural; desde una evidencia y convicción divina, de que \"él me amó y se entregó por mí\".",
+      "enHash": "47c967d031d63fcf437033d8e9cea2a38c42756be692683fa2eabd2fe088dc26",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "Galatians 2:21\n Meantime I do not make void - In seeking to be justified by my own works. The grace of God - The free love of God in Christ Jesus. But they do, who seek justification by the law. For if righteousness is by the law - If men might be justified by their obedience to the law, moral or ceremonial. Then Christ died in vain - Without any necessity for it, since men might have been saved without his death; might by their own obedience have been both discharged from condemnation, and entitled to eternal life.",
+      "es": "Gálatas 2:21\n Mientras tanto, no anulo - Al buscar ser justificado por mis propias obras. La gracia de Dios - El amor gratuito de Dios en Cristo Jesús. Pero sí lo hacen aquellos que buscan la justificación en la ley. Porque si la justicia es por la ley - Si los hombres pudieran ser justificados por su obediencia a la ley, moral o ceremonial. Entonces Cristo murió en vano - Sin necesidad alguna, ya que los hombres podrían haber sido salvos sin su muerte; podrían por su propia obediencia haber sido liberados de la condenación y tener derecho a la vida eterna.",
+      "enHash": "df4ab8454289e4a6a1ff4645737f57154b95359f66512c9aba431b672917622d",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "Galatians 3:1\n O thoughtless Galatians - He breaks in upon them with a beautiful abruptness. Who hath bewitched you - Thus to contradict both your own reason and experience. Before whose eyes Jesus Christ hath been as evidently set forth - By our preaching, as if he had been crucified among you.",
+      "es": "Gálatas 3:1\n Oh gálatas irreflexivos - Él irrumpe en ellos con una hermosa brusquedad. ¿Quién te ha hechizado? Para contradecir tanto tu propia razón como tu experiencia. Ante cuyos ojos Jesucristo ha sido presentado con tanta evidencia - Por nuestra predicación, como si hubiera sido crucificado entre ustedes.",
+      "enHash": "9930995fd3531c50a46b62495d1209ffd960528f86b621ce53732164be53c58c",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "Galatians 3:2\n This only would I learn of you - That is, this one argument might convince you. Did ye receive the witness and the fruit of the Spirit by performing the works of the law, or by hearing of and receiving faith?",
+      "es": "Gálatas 3:2\n Sólo esto aprenderé de usted - Es decir, este argumento podría convencerlo. ¿Recibisteis el testimonio y el fruto del Espíritu al realizar las obras de la ley o al oír y recibir la fe?",
+      "enHash": "5e4cdc6f02def43fc74b41596df90e1d90f8c3f9e5c7e03cce06ad6a63fce6c9",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "Galatians 3:3\n Are ye so thoughtless - As not to consider what you have yourselves experienced? Having begun in the Spirit - Having set out under the light and power of the Spirit by faith, do ye now, when ye ought to be more spiritual, and more acquainted with the power of faith, expect to be made perfect by the flesh? Do you think to complete either your justification or sanctification, by giving up that faith, and depending on the law, which is a gross and carnal thing when opposed to the gospel?",
+      "es": "Gálatas 3:3\n ¿Sois tan irreflexivos - Como para no considerar lo que habéis experimentado? Habiendo comenzado en el Espíritu - Habiendo iniciado bajo la luz y el poder del Espíritu por la fe, ¿esperan ahora, cuando deberían ser más espirituales y más familiarizados con el poder de la fe, ser perfeccionados por la carne? ¿Piensas completar tu justificación o santificación renunciando a esa fe y dependiendo de la ley, que es algo grosero y carnal cuando se opone al evangelio?",
+      "enHash": "c47493ec9fee6b08b4ea9108993a89bdfa8b214ff226470cfeebe7169fb7ffb4",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "Galatians 3:4\n Have ye suffered - Both from the zealous Jews and from the heathens. So many things - For adhering to the gospel. In vain - So as to lose all the blessings which ye might have obtained, by enduring to the end. If it be yet in vain - As if he had said, I hope better things, even that ye will endure to the end.",
+      "es": "Gálatas 3:4\n ¿Habéis sufrido? Tanto por los celosos judíos como por los paganos. Tantas cosas - Por adherirse al evangelio. En vano - Para perder todas las bendiciones que podrías haber obtenido al aguantar hasta el final. Si aún es en vano - Como si hubiera dicho, espero cosas mejores, incluso que perseveréis hasta el final.",
+      "enHash": "b3eec9b7512db6a0c4d68f06f281dfb82545810d0a7cd3f17b0c4cd34ff09a30",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "Galatians 3:5\n And, at the present time, Doth he that ministereth the gift of the Spirit to you, and worketh miracles among you, do it by the works of the law - That is, in confirmation of his preaching justification by works, or of his preaching justification by faith?",
+      "es": "Gálatas 3:5\n Y, en la actualidad, el que os ministra el don del Espíritu y hace milagros entre vosotros, ¿lo hace por las obras de la ley, es decir, en confirmación de su predicación de la justificación por las obras, o de su predicación de la justificación por la fe?",
+      "enHash": "bd8eda8dbae49d8633c13ae73874b6fd4854c567e362978362c940192000e2a8",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "Galatians 3:6\n Doubtless in confirmation of that grand doctrine, that we are justified by faith, even as Abraham was. The Apostle, both in this and in the epistle to the Romans, makes great use of the instance of Abraham: the rather, because from Abraham the Jews drew their great argument, as they do this day, both for their own continuance in Judaism, and for denying the gentiles to be the church of God. Gen 15:6",
+      "es": "Gálatas 3:6\n Sin duda, en confirmación de esa gran doctrina de que somos justificados por la fe, así como lo fue Abraham. El Apóstol, tanto en esta como en la epístola a los Romanos, hace gran uso del ejemplo de Abraham: más bien, porque de Abraham los judíos sacaron su gran argumento, como lo hacen hoy, tanto para su propia permanencia en el judaísmo como para negar que los gentiles sean la iglesia de Dios. Génesis 15:6",
+      "enHash": "1106a14ef28764859dcbd84f99202bf14b8a6e98e85453f3a24e90ca1726c922",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "Galatians 3:7\n Know then that they who are partakers of his faith, these, and these only, are the sons of Abraham, and therefore heirs of the promises made to him.",
+      "es": "Gálatas 3:7\n Sepa entonces que los que son participantes de su fe, estos, y sólo estos, son hijos de Abraham, y por tanto herederos de las promesas que le hicieron.",
+      "enHash": "15628aeb63d2d7772f4f58226bc99e16f3637f45143ae77e6585803ee1b4f337",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "Galatians 3:8\n And the scripture - That is, the Holy Spirit, who gave the scripture. Foreseeing that God would justify the gentiles also by faith, declared before - So great is the excellency and fulness of the scripture, that all the things which can ever be controverted are therein both foreseen and determined. In or through thee - As the father of the Messiah, shall all the nations be blessed. Gen 12:3",
+      "es": "Gálatas 3:8\n Y la Escritura - Es decir, el Espíritu Santo, quien dio la Escritura. Previendo que Dios justificaría también a los gentiles por la fe, declarado antes: Tan grande es la excelencia y plenitud de la Escritura, que todas las cosas que alguna vez pueden ser controvertidas están en ella previstas y determinadas. En ti o a través de ti - Como padre del Mesías, todas las naciones serán bendecidas. Génesis 12:3",
+      "enHash": "13005f6cbf80fcda4e669cec05c6de444758b512aced32d3a60e964a09ffc8f8",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "Galatians 3:9\n So then all they, and they only, who are of faith - Who truly believe. Are blessed with faithful Abraham - Receive the blessing as he did, namely, by faith.",
+      "es": "Gálatas 3:9\n Entonces todos ellos, y sólo ellos, los que son de fe, los que verdaderamente creen. Son bendecidos con el fiel Abraham - Reciban la bendición como él lo hizo, es decir, por la fe.",
+      "enHash": "5e1f8e02962c4528437505aeb6943d5c542702dad589d6c88ea6e2105081dcbd",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "Galatians 3:10\n They only receive it. For as many as are of the works of the law - As God deals with on that footing, only on the terms the law proposes, are under a curse; for it is written, Cursed is every one who continueth not in all the things which are written in the law. Who continueth not in all the things - So it requires what no man can perform, namely, perfect, uninterrupted, and perpetual obedience. Deu 27:26",
+      "es": "Gálatas 3:10\n Sólo lo reciben. Porque todos los que son de las obras de la ley - Como Dios trata de esa manera, solo en los términos que propone la ley, están bajo maldición; porque escrito está: Maldito todo aquel que no persevere en todo lo que está escrito en la ley. Quien no continúa en todas las cosas - Por lo tanto, requiere lo que ningún hombre puede realizar, es decir, obediencia perfecta, ininterrumpida y perpetua. Deuteronomio 27:26",
+      "enHash": "0f1266cf872bb0fe969ecd03757aa59f601ccd9b49509c02b26318ffa1f7dfda",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "Galatians 3:11\n But that none is justified by his obedience to the law in the sight of God - Whatever may be done in the sight of man, is farther evident from the words of Habakkuk, The just shall live by faith - That is, the man who is accounted just or righteous before God, shall continue in a state of acceptance, life, and salvation, by faith. This is the way God hath chosen. Hab 2:4 .",
+      "es": "Gálatas 3:11\n Pero que nadie es justificado por su obediencia a la ley ante los ojos de Dios - Cualquier cosa que se pueda hacer ante los ojos del hombre, es más evidente por las palabras de Habacuc: El justo por la fe vivirá - Es decir, el hombre que es considerado justo ante Dios, continuará en un estado de aceptación, vida y salvación, por la fe. Este es el camino que Dios ha elegido. Hab 2:4 .",
+      "enHash": "2d345c0ceffc74f5c96f6914fb9b974a134c562022d619da8a450820bacc547f",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "And the law is not of faith — But quite opposite to it: it does not say, Believe; but, Do. Leviticus 18:5",
+      "es": "Y la ley no es de fe, sino todo lo contrario: no dice: Creer; pero hazlo. Levítico 18:5",
+      "enHash": "49e6bcbdea22580e02c28280c47b142b8d385e6e18049754ba316655db38eb25",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "Galatians 3:13\n Christ - Christ alone. The abruptness of the sentence shows an holy indignation at those who reject so great a blessing. Hath redeemed us - Whether Jews or gentiles, at an high price. From the curse of the law - The curse of God, which the law denounces against all transgressors of it. Being made a curse for us - Taking the curse upon himself, that we might be delivered from it, willingly submitting to that death which the law pronounces peculiarly accursed. Deu 21:23 .",
+      "es": "Gálatas 3:13\n Cristo - Cristo solo. La brusquedad de la sentencia muestra una santa indignación hacia quienes rechazan una bendición tan grande. Nos ha redimido - Ya sean judíos o gentiles, a un precio alto. De la maldición de la ley - La maldición de Dios, que la ley denuncia contra todos los transgresores de la misma. Siendo hecho una maldición por nosotros - Tomando la maldición sobre sí mismo, para que podamos ser liberados de ella, sometiéndonos voluntariamente a esa muerte que la ley declara peculiarmente maldita. Deuteronomio 21:23.",
+      "enHash": "7d422cb24efc8576f6813a0ed485f07f05fb76d9a6257c94a6d77c64db05932e",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "Galatians 3:14\n That the blessing of Abraham - The blessing promised to him. Might come on the gentiles - Also. That we - Who believe, whether Jews or gentiles. Might receive the promise of the Spirit - Which includes all the other promises. Through faith - Not by works; for faith looks wholly to the promise.",
+      "es": "Gálatas 3:14\n Que la bendición de Abraham - La bendición que le prometió. Podría venir sobre los gentiles - También. Que nosotros - Quienes creemos, ya sean judíos o gentiles. Podría recibir la promesa del Espíritu - Que incluye todas las demás promesas. A través de la fe - No por obras; porque la fe mira enteramente a la promesa.",
+      "enHash": "c7646897466776efd177a838ff334a3989261e60b4807fb195d0db26c30ed7ba",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "Galatians 3:15\n I speak after the manner of men - I illustrate this by a familiar instance, taken from the practice of men. Though it be but a man's covenant, yet, if it be once legally confirmed, none - No, not the covenanter himself, unless something unforeseen occur, which cannot be the case with God. Disannulleth, or addeth thereto - Any new conditions.",
+      "es": "Gálatas 3:15\n Hablo a la manera de los hombres; lo ilustro con un ejemplo familiar, tomado de la práctica de los hombres. Aunque no sea más que un pacto de un hombre, una vez confirmado legalmente, ninguno - No, no el pactante mismo, a menos que ocurra algo imprevisto, lo cual no puede ser el caso con Dios. Lo anula o lo agrega: cualquier condición nueva.",
+      "enHash": "b4a08c8b70f28433aebd66fce68c1a52e80642e3ec5708dc94db63dd9a091fea",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "Galatians 3:16\n Now the promises were made to Abraham and his seed - Several promises were made to Abraham; but the chief of all, and which was several times repeated, was that of the blessing through Christ. He - That is, God. Saith not, And to seeds, as of many - As if the promise were made to several kinds of seed. But as of one - That is, one kind of seed, one posterity, one kind of sons. And to all these the blessing belonged by promise. Which is Christ - including all that believe in him. Gen 22:18 .",
+      "es": "Gálatas 3:16\n Ahora las promesas se hicieron a Abraham y su descendencia - Se le hicieron varias promesas a Abraham; pero el principal de todos, y que se repitió varias veces, fue el de la bendición por medio de Cristo. Él - Es decir, Dios. No dice, y a las semillas, como a muchas - Como si la promesa se hiciera a varios tipos de semillas. Pero a partir de uno - Es decir, un tipo de semilla, una posteridad, un tipo de hijos. Y a todos éstos les pertenecía la bendición por promesa. Que es Cristo, incluidos todos los que creen en él. Génesis 22:18.",
+      "enHash": "ed556cba449ae9127c7084e963fbddc81b9223f20d564e42ac35a2853d0e8738",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "Galatians 3:17\n And this I say - What I mean is this. The covenant which was before confirmed of God - By the promise itself, by the repetition of it, and by a solemn oath, concerning the blessing all nations. Through Christ, the law which was four hundred and thirty years after - Counting from the time when the promise was first made to Abraham, Gen 12:2 ,3. Doth not disannul, so as to make the promise of no effect - With regard to all nations, if only the Jewish were to receive it; yea, with regard to them also, if it was by works, so as to supersede it, and introduce another way of obtaining the blessing.",
+      "es": "Gálatas 3:17\n Y esto digo. Lo que quiero decir es esto. El pacto que antes fue confirmado por Dios - Por la promesa misma, por su repetición y por un juramento solemne sobre la bendición de todas las naciones. Por Cristo, la ley que fue cuatrocientos treinta años después - Contando desde el momento en que se hizo la promesa a Abraham por primera vez, Génesis 12:2,3. No anula, de modo que la promesa no tenga efecto - Con respecto a todas las naciones, si tan solo los judíos la recibieran; sí, también con respecto a ellos, si fue por obras, para reemplazarlo e introducir otra manera de obtener la bendición.",
+      "enHash": "25bc499bc7f431920caf74319f471d72ff1a0d45de60129941458c24a7a69a47",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "Galatians 3:18\n And again - This is a new argument. The former was drawn from the time, this from the nature, of the transaction. If the eternal inheritance be obtained by keeping the law, it is no more by virtue of the free promise - These being just opposite to each other. But it is by promise. Therefore it is not by the law.",
+      "es": "Gálatas 3:18\n Y nuevamente: este es un argumento nuevo. Lo primero se deduce del momento, y éste de la naturaleza de la transacción. Si la herencia eterna se obtiene guardando la ley, ya no es en virtud de la promesa gratuita, siendo éstas justamente opuestas entre sí. Pero es por promesa. Luego no es por ley.",
+      "enHash": "a4fa8bdb852d8d9d061593adef0bfdcd9af8adaaee72be1d6156df38b8bd9524",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "Galatians 3:19\n It - The ceremonial law. Was added - To the promise. Because of transgressions - Probably, the yoke of the ceremonial law was inflicted as a punishment for the national sin of idolatry, Exod 32:1 , at least the more grievous parts of it; and the whole of it was a prophetic type of Christ. The moral law was added to the promise to discover and restrain transgressions, to convince men of their guilt, and need of the promise, and give some check to sin. And this law passeth not away; but the ceremonial law was only introduced till Christ, the seed to or through whom the promise was made, should come. And it was ordained by angels in the hand of a mediator - It was not given to Israel, like the promise to Abraham, immediately from God himself; but was conveyed by the ministry of angels to Moses, and delivered into his hand as a mediator between God and them, to remind them of the great Mediator.",
+      "es": "Gálatas 3:19\n Eso - La ley ceremonial. Se agregó - A la promesa. Debido a las transgresiones - Probablemente, el yugo de la ley ceremonial fue infligido como castigo por el pecado nacional de la idolatría, Éxodo 32:1, al menos las partes más graves; y todo ello era un tipo profético de Cristo. La ley moral se añadió a la promesa para descubrir y reprimir las transgresiones, para convencer a los hombres de su culpabilidad y de la necesidad de la promesa, y para dar algún freno al pecado. Y esta ley no pasa; pero la ley ceremonial sólo se introdujo hasta que viniera Cristo, la simiente a través de quien se hizo la promesa. Y fue ordenado por ángeles en mano de un mediador - No fue dado a Israel, como la promesa a Abraham, inmediatamente de Dios mismo; pero fue transmitido por el ministerio de ángeles a Moisés, y entregado en su mano como mediador entre Dios y ellos, para recordarles al gran Mediador.",
+      "enHash": "cb1861335d08d89986c081b35cde01df5e16086de4a9cae3833873f24ae3444b",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "Galatians 3:20\n Now the mediator is not a mediator of one - There must be two parties, or there can be no mediator between them; but God who made the free promise to Abraham is only one of the parties. The other, Abraham, was not present at the time of Moses. Therefore in the promise Moses had nothing to do. The law, wherein he was concerned, was a transaction of quite another nature.",
+      "es": "Gálatas 3:20\n Ahora bien, el mediador no es mediador de una sola: debe haber dos partes, o no puede haber ningún mediador entre ellas; pero Dios, que le hizo la promesa gratuita a Abraham, es sólo una de las partes. El otro, Abraham, no estaba presente en tiempos de Moisés. Por tanto, en la promesa Moisés no tuvo nada que hacer. La ley, en lo que a él se refería, era una transacción de naturaleza completamente diferente.",
+      "enHash": "9b7c4ec09d6008f20bfb35aa3e2045594476e2d9ad6a59e69eb7f73217db2d12",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "Galatians 3:21\n Will it follow from hence that the law is against, opposite to, the promises of God? By no means. They are well consistent. But yet the law cannot give life, as the promise doth. If there had been a law which could have given life - Which could have entitled a sinner to life, God would have spared his own Son, and righteousness, or justification. with all the blessings consequent upon it, would have been by that law.",
+      "es": "Gálatas 3:21\n ¿Se seguirá de aquí que la ley es contraria a las promesas de Dios? De ninguna manera. Son bien consistentes. Pero, sin embargo, la ley no puede dar vida como lo hace la promesa. Si hubiera habido una ley que podría haber dado vida - Que podría haber dado derecho a la vida a un pecador, Dios habría perdonado a su propio Hijo y la justicia o la justificación. con todas las bendiciones consiguientes, habría sido por esa ley.",
+      "enHash": "cd4f339623b174859da7294b4b1943f131b13e11902b3dd15579c12016b24e15",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "Galatians 3:22\n But, on the contrary, the scripture wherein that law is written hath concluded all under sin - Hath shut them up together, (so the word properly signifies,) as in a prison, under sentence of death, to the end that all being cut off from expecting justification by the law, the promise might be freely given to them that believe.",
+      "es": "Gálatas 3:22\n Pero, por el contrario, la Escritura en la que está escrita esa ley ha encerrado a todos bajo pecado - Los ha encerrado juntos (así significa la palabra propiamente), como en una prisión, bajo sentencia de muerte, con el fin de que todos, al estar excluidos de esperar la justificación por la ley, la promesa pueda ser dada libremente a los que creen.",
+      "enHash": "2f708a99318b194d83b650250994391a8a60affcdd5c57170138c122a72d8518",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "Galatians 3:23\n But before faith - That is, the gospel dispensation. Came, we were kept - As in close custody. Under the law - The Mosaic dispensation. Shut up unto the faith which was to be revealed - Reserved and prepared for the gospel dispensation.",
+      "es": "Gálatas 3:23\n Pero antes de la fe - Es decir, la dispensación del evangelio. Cuando llegamos, nos mantuvieron bajo custodia. Bajo la ley - La dispensación mosaica. Cállate a la fe que iba a ser revelada - Reservado y preparado para la dispensación del evangelio.",
+      "enHash": "40de1432430fa201bca2b94bcd8913897832d29bd740f31610bd3065a23bd883",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "Galatians 3:24\n Wherefore the law was our schoolmaster unto Christ - It was designed to train us up for Christ. And this it did both by its commands, which showed the need we had of his atonement; and its ceremonies, which all pointed us to him.",
+      "es": "Gálatas 3:24\n Por lo tanto, la ley fue nuestro maestro de escuela para Cristo - Fue diseñada para capacitarnos para Cristo. Y esto lo hizo tanto por sus mandatos, que mostraban la necesidad que teníamos de su expiación; y sus ceremonias, que todas nos señalaron hacia él.",
+      "enHash": "44d203cc70d83123d77ad3283730b05d85b7b6aca7293a1715656e4c22be5c01",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "Galatians 3:25\n But faith - That is, the gospel dispensation. Being come, we are no longer under that schoolmaster - The Mosaic dispensation.",
+      "es": "Gálatas 3:25\n Pero la fe - Es decir, la dispensación del evangelio. Habiendo venido, ya no estamos bajo ese maestro de escuela: la dispensación mosaica.",
+      "enHash": "9b7efe86d234b4ca6acc68f42304361ecb732489225acd98d84588f0e1ec07d9",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "For ye — Christians. Are all adult sons of God - And so need a schoolmaster no longer.",
+      "es": "Para vosotros, cristianos. Son todos hijos adultos de Dios - Y por eso ya no necesitan un maestro de escuela.",
+      "enHash": "3270a63c365a468de381b6e431fb783aac67f28fa6e535280904508b8b8a58c5",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "Galatians 3:27\n For as many of you as have testified your faith by being baptized in the name of Christ, have put on Christ - Have received him as your righteousness, and are therefore sons of God through him.",
+      "es": "Gálatas 3:27\n Porque todos los que habéis testificado vuestra fe al ser bautizados en el nombre de Cristo, os habéis revestido de Cristo; lo habéis recibido como vuestra justicia y, por tanto, sois hijos de Dios por medio de él.",
+      "enHash": "6ff69b8f48291498c80342b8c26227655821de229ef6771787f02aaabad72149",
+      "source": "corpus:john-wesley"
+    },
+    "b67": {
+      "en": "Galatians 3:28\n There is neither Jew nor Greek - That is, there is no difference between them; they are equally accepted through faith. There is neither male nor female - Circumcision being laid aside, which was peculiar to males, and was designed to put a difference, during that dispensation, between Jews and gentiles.",
+      "es": "Gálatas 3:28\n No hay judío ni griego - Es decir, no hay diferencia entre ellos; son igualmente aceptados a través de la fe. No hay ni hombre ni mujer - Se dejó de lado la circuncisión, que era peculiar de los hombres, y fue diseñada para marcar una diferencia, durante esa dispensación, entre judíos y gentiles.",
+      "enHash": "f2e3b4d39011c663f1a3f20cd69b7eacf65cf815a9c88323fde9eca36018b1c2",
+      "source": "corpus:john-wesley"
+    },
+    "b68": {
+      "en": "If ye are Christ's — That is, believers in him.\n\n << Galatians 2 | Galatians 3 | Galatians 4 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes Galatians Galatians 3\n\n Related Commentaries\n Galatians 3\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Martin Luther's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Si sois de Cristo, es decir, creyentes en él.\n\n << Gálatas 2 | Gálatas 3 | Gálatas 4 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley Gálatas Gálatas 3\n\n Comentarios relacionados\n Gálatas 3\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Martín Lutero Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "08652b85f166b81300d918b8c70066ddc83336b1ad5233b350599536226283ca",
+      "source": "corpus:john-wesley"
+    },
+    "b69": {
+      "en": "Galatians 4:1\n Now - To illustrate by a plain similitude the preeminence of the Christian, over the legal, dispensation. The heir, as long as he is a child - As he is under age. Differeth nothing from a servant - Not being at liberty either to use or enjoy his estate. Though he be lord - Proprietor of it all.",
+      "es": "Gálatas 4:1\n Ahora - Para ilustrar con una simple similitud la preeminencia de la dispensación cristiana sobre la legal. El heredero, siempre que sea niño - Por ser menor de edad. No se diferencia en nada de un sirviente - No tiene libertad para usar ni disfrutar de su patrimonio. Aunque él sea el señor, propietario de todo.",
+      "enHash": "e6ea3cbb71ddf34069837729c041e96aa240bfd5bdd0903af63351185a41d81e",
+      "source": "corpus:john-wesley"
+    },
+    "b70": {
+      "en": "But is under tutors — As to his person.\n\n And stewards — As to his substance.",
+      "es": "Pero está bajo tutores en cuanto a su persona.\n\n Y mayordomos - En cuanto a su sustancia.",
+      "enHash": "00be86b24848fdd63f596142896b09fe0e1b0f546a86ce38dabbd4eaccb235ae",
+      "source": "corpus:john-wesley"
+    },
+    "b71": {
+      "en": "Galatians 4:3\n So we - The church of God. When we were children - In our minority, under the legal dispensation. Were in bondage - In a kind of servile state. Under the elements of the world - Under the typical observances of the law, which were like the first elements of grammar, the A B C of children; and were of so gross a nature, as hardly to carry our thoughts beyond this world.",
+      "es": "Gálatas 4:3\n Entonces nosotros - La iglesia de Dios. Cuando éramos niños - En nuestra minoría, bajo la dispensación legal. Estaban en esclavitud - En una especie de estado servil. Bajo los elementos del mundo - Bajo las observancias típicas de la ley, que eran como los primeros elementos de la gramática, el A B C de los niños; y eran de una naturaleza tan burda que difícilmente podíamos llevar nuestros pensamientos más allá de este mundo.",
+      "enHash": "061da2833926ea9b66bf61b34a2ba50e171f5a93f465917a65b02241d7c1abcb",
+      "source": "corpus:john-wesley"
+    },
+    "b72": {
+      "en": "Galatians 4:4\n But when the fulness of the time - Appointed by the Father, Gal 4:2 . Was come, God sent forth - From his own bosom. His Son, miraculously made of the substance of a woman - A virgin, without the concurrence of a man. Made under the law - Both under the precept, and under the curse, of it.",
+      "es": "Gálatas 4:4\n Pero cuando llegue el cumplimiento del tiempo - Designado por el Padre, Gálatas 4:2 . Vino, Dios envió - Desde su propio seno. Su Hijo, milagrosamente hecho de sustancia de mujer - Virgen, sin el concurso de un hombre. Hecho bajo la ley - Tanto bajo el precepto como bajo la maldición de la misma.",
+      "enHash": "5285bbe020ca15e5967be99c5edd10e8e1a79d4878509deb170c7862a13b46b7",
+      "source": "corpus:john-wesley"
+    },
+    "b73": {
+      "en": "Galatians 4:5\n To redeem those under the law - From the curse of it, and from that low, servile state. That we - Jews who believe. Might receive the adoption - All the privileges of adult sons.",
+      "es": "Gálatas 4:5\n Para redimir a los que están bajo la ley - De su maldición y de ese estado bajo y servil. Que nosotros, los judíos que creemos. Podría recibir la adopción - Todos los privilegios de los hijos adultos.",
+      "enHash": "69aa078b963e0f5314c8c0e4b76d740bc451abc39a321484dca43634b849b8ee",
+      "source": "corpus:john-wesley"
+    },
+    "b74": {
+      "en": "Galatians 4:6\n And because ye - Gentiles who believe, are also thus made his adult sons, God hath sent forth the Spirit of his Son into your hearts likewise, crying, Abba, Father - Enabling you to call upon God both with the confidence, and the tempers, of dutiful children. The Hebrew and Greek word are joined together, to express the joint cry of the Jews and gentiles.",
+      "es": "Gálatas 4:6\n Y debido a que vosotros, los gentiles que creéis, también sois hechos sus hijos adultos, Dios ha enviado el Espíritu de su Hijo a vuestros corazones de la misma manera, clamando: Abba, Padre, permitiéndoos invocar a Dios con la confianza y el temperamento de hijos obedientes. La palabra hebrea y griega se unen para expresar el grito conjunto de judíos y gentiles.",
+      "enHash": "8d172e29b0228e976d88848a46410bab50185897b1fbcf7b0fc88d55283d3228",
+      "source": "corpus:john-wesley"
+    },
+    "b75": {
+      "en": "Galatians 4:7\n Wherefore thou - Who believest in Christ. Art no more a servant - Like those who are under the law. But a son - Of mature age. And if a son, then an heir of all the promises, and of the all - sufficient God himself.",
+      "es": "Gálatas 4:7\n Por eso tú - Quien cree en Cristo. Ya no eres un sirviente - Como los que están bajo la ley. Pero un hijo - De edad madura. Y si es hijo, entonces heredero de todas las promesas y del mismo Dios todo suficiente.",
+      "enHash": "ddec7b06875c82a65743555de3f2768da80b1ce07661d0441bb629e0b60f326f",
+      "source": "corpus:john-wesley"
+    },
+    "b76": {
+      "en": "Indeed then when ye knew not God, ye served them that by nature — That is, in reality.\n\n Are no gods — And so were under a far worse bondage than even that of the Jews. For they did serve the true God, though in a low, slavish manner.",
+      "es": "De hecho, cuando no conocíais a Dios, les servisteis por naturaleza, es decir, en realidad.\n\n No hay dioses, y por eso estábamos bajo una servidumbre mucho peor que incluso la de los judíos. Porque servían al Dios verdadero, aunque de manera humilde y servil.",
+      "enHash": "27ec278e4b0df3919f38e54edfa866048422e469af941284982299a3c64db115",
+      "source": "corpus:john-wesley"
+    },
+    "b77": {
+      "en": "Galatians 4:9\n But now being known of God - As his beloved children. How turn ye back to the weak and poor elements - Weak, utterly unable to purge your conscience from guilt, or to give that filial confidence in God. Poor - incapable of enriching the soul with such holiness and happiness as ye are heirs to. Ye desire to be again in bondage - Though of another kind; now to these elements, as before to those idols.",
+      "es": "Gálatas 4:9\n Pero ahora siendo conocido por Dios - Como sus amados hijos. ¿Cómo volver a los elementos débiles y pobres? Débil, completamente incapaz de purgar su conciencia de la culpa o de dar esa confianza filial en Dios. Pobre - incapaz de enriquecer el alma con tanta santidad y felicidad como sois herederos. Deseas volver a estar en cautiverio - Aunque de otro tipo; ahora a estos elementos, como antes a esos ídolos.",
+      "enHash": "6f49aca028a2445b411f77681816bc53da51de8c6cd350cc4ea42197a4a975cb",
+      "source": "corpus:john-wesley"
+    },
+    "b78": {
+      "en": "Galatians 4:10\n Ye observe days - Jewish sabbaths. And months - New moons. And times - As that of the passover, pentecost, and the feast of tabernacles. And years - Annual solemnities. it does not mean sabbatic years. These were not to be observed out of the land of Canaan.",
+      "es": "Gálatas 4:10\n Observáis los días - sábados judíos. Y meses - Lunas nuevas. Y tiempos - Como el de la Pascua, Pentecostés y la fiesta de los tabernáculos. Y años - Solemnidades anuales. no significa años sabáticos. Estos no debían observarse fuera de la tierra de Canaán.",
+      "enHash": "84979747c09ee8cd2aabffddfb540f4d8bc69e43c90be5c9dbbb9827fed5eb4a",
+      "source": "corpus:john-wesley"
+    },
+    "b79": {
+      "en": "Galatians 4:11\n The apostle here, dropping the argument, applies to the affections, Gal 4:11 - 20, and humbles himself to the Galatians, with an inexpressible tenderness.",
+      "es": "Gálatas 4:11\n El apóstol aquí, abandonando el argumento, se aplica a los afectos, Gálatas 4:11-20, y se humilla ante los gálatas con una ternura inexpresable.",
+      "enHash": "22be448ed96939bee8a92d57c6d9d5450eee44984af813c7335bb0bbc367de86",
+      "source": "corpus:john-wesley"
+    },
+    "b80": {
+      "en": "Galatians 4:12\n Brethren, I beseech you, be as I am - Meet me in mutual love. For I am as ye were - I still love you as affectionately as ye once loved me. Why should I not? Ye have not injured me at all - I have received no personal injury from you.",
+      "es": "Gálatas 4:12\n Hermanos, os ruego que seáis como yo soy. Encontradme en amor mutuo. Porque soy como eras tú; todavía te amo con tanto cariño como tú me amaste una vez. ¿Por qué no debería hacerlo? No me habéis herido en absoluto; no he recibido ningún daño personal de vuestra parte.",
+      "enHash": "b1ba97a6dadc4fc4edfe4afadc7c20b88fb5ec47fb6e8fb26f2466fcd475b15e",
+      "source": "corpus:john-wesley"
+    },
+    "b81": {
+      "en": "Galatians 4:13\n I preached to you, notwithstanding infirmity of the flesh - That is, notwithstanding bodily weakness, and under great disadvantage from the despicableness of my outward appearance.",
+      "es": "Gálatas 4:13\n Les prediqué, a pesar de la enfermedad de la carne - Es decir, a pesar de la debilidad corporal y en gran desventaja por lo despreciable de mi apariencia exterior.",
+      "enHash": "d0acc937db0bb33fb2ea7c44e730d81e4bf3e4e99fb20479cab5d17f56e257bc",
+      "source": "corpus:john-wesley"
+    },
+    "b82": {
+      "en": "And ye did not slight my temptation — That is, ye did not slight or disdain me for my temptation, my \"thorn in the flesh.\"",
+      "es": "Y no menospreciasteis mi tentación ] Es decir, no me menospreciasteis ni me desdeñasteis por mi tentación, mi \"aguijón en la carne\".",
+      "enHash": "3be0542de54033ae10e749fdb237ca86dbbf10a030cd044b74ed81d7852741c2",
+      "source": "corpus:john-wesley"
+    },
+    "b83": {
+      "en": "What was then the blessedness ye spake of — On which ye so congratulated one another.",
+      "es": "¿Cuál era entonces la bienaventuranza de la que hablabais? Por la que tanto os felicitabais unos a otros.",
+      "enHash": "47588486edaf0506786d2105144e222ea1fa447d24f6e77b9e3408a362fa9bfe",
+      "source": "corpus:john-wesley"
+    },
+    "b84": {
+      "en": "Galatians 4:17\n They - The judaizing teachers who are come among you. Zealously affect you - Express an extraordinary regard for you. But not well - Their zeal is not according to knowledge; neither have they a single eye to your spiritual advantage. Yea, they would exclude you - From me and from the blessings of the gospel. That ye might affect - Love and esteem them.",
+      "es": "Gálatas 4:17\n Ellos - Los maestros judaizantes que vienen entre ustedes. Te afecta con celo - Expresa un respeto extraordinario por ti. Pero no bien - Su celo no es según el conocimiento; ni tienen un solo ojo puesto en vuestra ventaja espiritual. Sí, te excluirían - De mí y de las bendiciones del evangelio. Para que puedas afectar - Ámalos y espéralos.",
+      "enHash": "b57df949d945e0ee42bf873221aa7c808b2d10af371ab41b6fc59e234dbc3102",
+      "source": "corpus:john-wesley"
+    },
+    "b85": {
+      "en": "Galatians 4:18\n In a good thing - In what is really worthy our zeal. True zeal is only fervent love.",
+      "es": "Gálatas 4:18\n En algo bueno - En lo que realmente merece nuestro celo. El verdadero celo es sólo amor ferviente.",
+      "enHash": "4923f3047a428f8e5fac553042f4cfa40042268ba54ea68815c2951db3e5e676",
+      "source": "corpus:john-wesley"
+    },
+    "b86": {
+      "en": "Galatians 4:19\n My little children - He speaks as a parent, both with authority, and the most tender sympathy, toward weak and sickly children. Of whom I travail in birth again - As I did before, Gal 4:13 , in vehement pain, sorrow, desire, prayer. Till Christ be formed in you - Till there be in you all the mind that was in him.",
+      "es": "Gálatas 4:19\n Hijitos míos - Él habla como padre, con autoridad y con la más tierna simpatía, hacia los niños débiles y enfermizos. De quien vuelvo a sufrir dolores de parto - Como lo hice antes, Gálatas 4:13, con dolor vehemente, tristeza, deseo, oración. Hasta que Cristo sea formado en ti - Hasta que haya en ti toda la mente que había en él.",
+      "enHash": "0a102b25e93a7d0dea47d631155a6a0cb56e31ed12b368a2809268a941e83631",
+      "source": "corpus:john-wesley"
+    },
+    "b87": {
+      "en": "Galatians 4:20\n I could wish to be present with you now - Particularly in this exigence. And to change - Variously to attemper. My voice - He writes with much softness; but he would speak with more. The voice may more easily be varied according to the occasion than a letter can. For I stand in doubt of you - So that I am at a loss how to speak at this distance.",
+      "es": "Gálatas 4:20\n Me gustaría estar presente con usted ahora - Especialmente en esta exigencia. Y cambiar - De diversas maneras intentarlo. Mi voz - Escribe con mucha suavidad; pero hablaría con más. La voz puede variarse más fácilmente según la ocasión que una letra. Porque tengo dudas sobre ti - De modo que no sé cómo hablar a esta distancia.",
+      "enHash": "5c9c653696b0793f42f4ec5ae950eee5e30e4aa168a2df4a6e39bff48cb4acce",
+      "source": "corpus:john-wesley"
+    },
+    "b88": {
+      "en": "Do ye not hear the law — Regard what it says.",
+      "es": "¿No oís la ley? Mirad lo que dice.",
+      "enHash": "8901638dfb7852a15942fa81c0026e193b32ec922221536bee114be85c44993c",
+      "source": "corpus:john-wesley"
+    },
+    "b89": {
+      "en": "Gen 21:2,9.\n\n Galatians 4:23\n But he who was of the bondwoman was born after the flesh; but he of the freewoman was by promise.",
+      "es": "Génesis 21:2,9.\n\n Gálatas 4:23\n Pero el que era de la esclava nació según la carne; pero el de la libre fue por promesa.",
+      "enHash": "04c03bdad938ba431d7bea55123e55af2f1fb0af5aa7839bf5a52893f81bfda9",
+      "source": "corpus:john-wesley"
+    },
+    "b90": {
+      "en": "Galatians 4:23\n Was born after the flesh - In a natural way. By promise - Through that supernatural strength which was given Abraham in consequence of the promise.",
+      "es": "Gálatas 4:23\n Nació según la carne - De forma natural. Por promesa - A través de esa fuerza sobrenatural que le fue dada a Abraham como consecuencia de la promesa.",
+      "enHash": "70bef4a41b8d0fd0295db9d5c644015280ec18b71a0d1a5cba869c03f183ed95",
+      "source": "corpus:john-wesley"
+    },
+    "b91": {
+      "en": "Galatians 4:24\n Which things are an allegory - An allegory is a figurative speech, wherein one thing is expressed, and another intended. For those two sons are types of the two covenants. One covenant is that given from mount Sinai, which beareth children to bondage - That is, all who are under this, the Jewish covenant, are in bondage. Which covenant is typified by Agar.",
+      "es": "Gálatas 4:24\n Qué cosas son una alegoría - Una alegoría es un discurso figurado, en el que se expresa una cosa y se pretende otra. Porque esos dos hijos son tipos de los dos pactos. Un pacto es el dado desde el monte Sinaí, que engendra hijos para servidumbre - Es decir, todos los que están bajo este, el pacto judío, están en servidumbre. Cual pacto está tipificado por Agar.",
+      "enHash": "e935f739ae8dddfd3f3a3a3cbcdb62648cf45660d2233da074254707c474fa56",
+      "source": "corpus:john-wesley"
+    },
+    "b92": {
+      "en": "Galatians 4:25\n For this is mount Sinai in Arabia - That is, the type of mount Sinai. And answereth to - Resembles Jerusalem that now is, and is in bondage - Like Agar, both to the law and to the Romans.",
+      "es": "Gálatas 4:25\n Porque este es el monte Sinaí en Arabia - Es decir, el tipo de monte Sinaí. Y responde a - Se parece a la Jerusalén actual, y está en servidumbre - Como Agar, tanto para la ley como para los romanos.",
+      "enHash": "fed68ce2904968c77bfe9359d8b4a506b4386455cb795b62722bd517b8a615db",
+      "source": "corpus:john-wesley"
+    },
+    "b93": {
+      "en": "Galatians 4:26\n But the other covenant is derived from Jerusalem that is above, which is free - Like Sarah from all inward and outward bondage, and is the mother of us all - That is, all who believe in Christ, are free citizens of the New Jerusalem.",
+      "es": "Gálatas 4:26\n Pero el otro pacto se deriva de la Jerusalén de arriba, que es libre - Como Sara de toda esclavitud interior y exterior, y es madre de todos nosotros - Es decir, todos los que creen en Cristo, son ciudadanos libres de la Nueva Jerusalén.",
+      "enHash": "d5ef2de9834161a3d38dbf971c9d4a79d560276807582a0ba02ff5ce1811dbeb",
+      "source": "corpus:john-wesley"
+    },
+    "b94": {
+      "en": "Galatians 4:27\n For it is written - Those words in the primary sense promise a flourishing state to Judea, after its desolation by the Chaldeans. Rejoice. thou barren, that bearest not - Ye heathen nations, who, like a barren woman, were destitute, for many ages, of a seed to serve the Lord. Break forth and cry aloud for joy, thou that, in former time, travailedst not: for the desolate hath many more children than she that hath an husband - For ye that were so long utterly desolate shall at length bear more children than the Jewish church, which was of old espoused to God. Isa 54:1 .",
+      "es": "Gálatas 4:27\n Porque está escrito: Esas palabras en el sentido primario prometen un estado floreciente para Judea, después de su desolación por los caldeos. Alegrarse. Tú, estéril, que no tienes hijos - Vosotros, naciones paganas, que, como una mujer estéril, carecisteis, durante muchas edades, de una semilla para servir al Señor. Prorrumpe y llora de alegría, tú que en tiempos pasados ​​no tuviste dolores de parto: porque la desolada tiene muchos más hijos que la que tiene marido - Porque vosotros, que estuvisteis completamente desoladas durante tanto tiempo, al final engendraréis más hijos que la iglesia judía, que antiguamente estaba desposada con Dios. Isaías 54:1.",
+      "enHash": "5b1fd019dc5b9d46f0a50e2ee9e853986df0e4e5179e69e15b21e370bddbc040",
+      "source": "corpus:john-wesley"
+    },
+    "b95": {
+      "en": "Galatians 4:28\n Now we - Who believe, whether Jews or Gentiles. Are children of the promise - Not born in a natural way, but by the supernatural power of God. And as such we are heirs of the promise made to believing Abraham.",
+      "es": "Gálatas 4:28\n Ahora nosotros, los que creemos, ya sean judíos o gentiles. Son hijos de la promesa - No nacen de manera natural, sino por el poder sobrenatural de Dios. Y como tales somos herederos de la promesa hecha al creyente Abraham.",
+      "enHash": "4daea590063b46f40f419fa3a45855a3da09a6118ff0bfd60cf295faf8bf9649",
+      "source": "corpus:john-wesley"
+    },
+    "b96": {
+      "en": "Galatians 4:29\n But as then, he that was born after the flesh persecuted him that was born after the Spirit, so it is now also - And so it will be in all ages and nations to the end of the world.",
+      "es": "Gálatas 4:29\n Pero como entonces el que había nacido según la carne perseguía al que había nacido según el Espíritu, así también ahora, y así será en todos los siglos y naciones hasta el fin del mundo.",
+      "enHash": "eb0a7cd2fc6d44c887e4857f0a9898cd9025d3ee4585f86e7daf3c74b386468b",
+      "source": "corpus:john-wesley"
+    },
+    "b97": {
+      "en": "Galatians 4:30\n But what saith the scripture - Showing the consequence of this. Cast out the bondwoman and her son - Who mocked Isaac. In like manner will God cast out all who seek to be justified by the law; especially if they persecute them who are his children by faith. Gen 21:10 .",
+      "es": "Gálatas 4:30\n Pero, ¿qué dice la Escritura? Mostrando las consecuencias de esto. Expulse a la esclava y a su hijo - Quien se burló de Isaac. De la misma manera Dios echará fuera a todos los que buscan ser justificados por la ley; especialmente si persiguen a los que son sus hijos por la fe. Génesis 21:10.",
+      "enHash": "b3cbee7bbe50cb29d1a58897ea411f1c13b0ce471a7e5caded3c6faad4f8ec8e",
+      "source": "corpus:john-wesley"
+    },
+    "b98": {
+      "en": "Galatians 4:31\n So then - To sum up all. We - Who believe. Are not children of the bondwoman - Have nothing to do with the servile Mosaic dispensation. But of the free - Being free from the curse and the bond of that law, and from the power of sin and Satan.",
+      "es": "Gálatas 4:31\n Entonces, para resumir todo. Nosotros - los que creemos. No son hijos de la esclava - No tienen nada que ver con la servil dispensación mosaica. Pero de los libres - Estar libre de la maldición y del vínculo de esa ley, y del poder del pecado y de Satanás.",
+      "enHash": "789a99cefa563b155c81f40a929a572903dd96271df3df4e0cc99bafb9d77b65",
+      "source": "corpus:john-wesley"
+    },
+    "b99": {
+      "en": "Galatians 5:1\n Stand fast therefore in the liberty - From the ceremonial law. Wherewith Christ hath made us - And all believers, free; and be not entangled again with the yoke of legal bondage.",
+      "es": "Gálatas 5:1\n Manténganse firmes, por tanto, en la libertad - De la ley ceremonial. Con lo cual Cristo nos hizo - Y a todos los creyentes, libres; y no estéis otra vez sujetos al yugo de la servidumbre legal.",
+      "enHash": "b638baa360407c80678f471e2eb89c87e932978714b58f35a46909729f692a2b",
+      "source": "corpus:john-wesley"
+    },
+    "b100": {
+      "en": "Galatians 5:2\n If ye be circumcised - And seek to be justified thereby. Christ - The Christian institution. Will profit you nothing - For you hereby disclaim Christ, and all the blessings which are through faith in him.",
+      "es": "Gálatas 5:2\n Si estáis circuncidados - Y buscáis ser justificados por ello. Cristo - La institución cristiana. No te beneficiará de nada - Porque por la presente renuncias a Cristo y todas las bendiciones que se obtienen a través de la fe en él.",
+      "enHash": "64b810609553b1924a1c9ab9d58b96701c4eb638a0fa4206f4847acbf2b6e30a",
+      "source": "corpus:john-wesley"
+    },
+    "b101": {
+      "en": "Galatians 5:3\n I testify to every man - Every gentile. That is circumcised - He thereby makes himself a debtor - Obliges.",
+      "es": "Gálatas 5:3\n Testifico a cada hombre - Cada gentil. Que está circuncidado - Por lo tanto se hace deudor - Obliga.",
+      "enHash": "b2a6a706ec477aa82a8bf5fdce4e0b95f0ea86fe0c9e52fa74c2db953991ea77",
+      "source": "corpus:john-wesley"
+    },
+    "b102": {
+      "en": "Galatians 5:4\n Therefore Christ is become of no effect to you - Who seek to be justified by the law. Ye are fallen from grace - Ye renounce the new covenant. Ye disclaim the benefit of this gracious dispensation.",
+      "es": "Gálatas 5:4\n Por lo tanto, Cristo ha dejado de tener efecto para ustedes, que buscan ser justificados por la ley. Habéis caído en desgracia - Renunciais al nuevo pacto. Rechazáis el beneficio de esta graciosa dispensación.",
+      "enHash": "bea4d0da4e7bf04a77f4ca9fd3f08d843c36abfd50ee842f06de9f4a1bce4800",
+      "source": "corpus:john-wesley"
+    },
+    "b103": {
+      "en": "Galatians 5:5\n For we - Who believe in Christ, Who are under the gospel dispensation. Through the Spirit - Without any of those carnal ordinances. Wait for - in sure confidence of attaining. The hope of righteousness - The righteousness we hope for, and full reward of it. This righteousness we receive of God through faith; and by faith we shall obtain the reward.",
+      "es": "Gálatas 5:5\n Para nosotros, que creemos en Cristo, que estamos bajo la dispensación del evangelio. A través del Espíritu - Sin ninguna de esas ordenanzas carnales. Espere, con la confianza segura de lograrlo. La esperanza de la justicia - La justicia que esperamos y su recompensa total. Esta justicia la recibimos de Dios a través de la fe; y por la fe obtendremos la recompensa.",
+      "enHash": "8128bc1385c7f05f4e0d9dbe4fbffb37b99b999dc66bac705ac3e156b1012cbb",
+      "source": "corpus:john-wesley"
+    },
+    "b104": {
+      "en": "Galatians 5:6\n For in Christ Jesus - According to the institution which he hath established, according to the tenor of the Christian covenant. Neither circumcision - With the most punctual observance of the law. Nor uncircumcision - With the most exact heathen morality. Availeth anything - Toward present justification or eternal salvation. But faith - Alone; even that faith which worketh by love - All inward and outward holiness.",
+      "es": "Gálatas 5:6\n Porque en Cristo Jesús - Según la institución que él ha establecido, según el tenor del pacto cristiano. Ni circuncisión - Con la más puntual observancia de la ley. Ni incircuncisión - Con la moral pagana más exacta. Sirve cualquier cosa - Hacia la justificación presente o la salvación eterna. Pero la fe - sola; incluso esa fe que obra por el amor - Toda santidad interior y exterior.",
+      "enHash": "56054e22ea6fc05fce4209c7e327abf066128d39986b48dfb460290ddb9c7ea3",
+      "source": "corpus:john-wesley"
+    },
+    "b105": {
+      "en": "Galatians 5:7\n Ye did run well - In the race of faith. Who hath hindered you in your course, that ye should not still obey the truth?",
+      "es": "Gálatas 5:7\n Corriste bien - En la carrera de la fe. ¿Quién os ha estorbado en vuestro proceder para que todavía no obedezcáis la verdad?",
+      "enHash": "a97fef94a6796b8502fca03f5eb01992cd6ae246ba9b63d864e415e354a5e47b",
+      "source": "corpus:john-wesley"
+    },
+    "b106": {
+      "en": "This your present persuasion cometh not from God, who called you - to his kingdom and glory.",
+      "es": "Esta vuestra persuasión actual no proviene de Dios, quien os llamó a su reino y gloria.",
+      "enHash": "7be0525763f5d51a6c45118d4c5756a686493d671a7a40737e6c76ed1efa77fe",
+      "source": "corpus:john-wesley"
+    },
+    "b107": {
+      "en": "A little leaven leaveneth the whole lump — One troubler, verse 10 , troubles all.",
+      "es": "Un poco de levadura fermenta toda la masa. Un alborotador, versículo 10, perturba a todos.",
+      "enHash": "3a38321ad543abbc5c7f0da18cf00c8ffdfd9b9872da6b3cd4b48b62fe71164e",
+      "source": "corpus:john-wesley"
+    },
+    "b108": {
+      "en": "Galatians 5:10\n Yet I have confidence that - After ye have read this. Ye will be no otherwise minded - Than I am, and ye were. But he that troubleth you - It seems to have been one person chiefly who endeavoured to seduce them. Shall bear his judgment - A heavy burden, already hanging over his head.",
+      "es": "Gálatas 5:10\n Sin embargo, tengo confianza en que... después de haber leído esto. No pensaréis de otra manera - Que yo y vosotros. Pero el que te preocupa - Parece haber sido principalmente una persona la que se esforzó por seducirlos. Soportará su juicio - Una carga pesada, que ya pende sobre su cabeza.",
+      "enHash": "64ceb294ff5a5f82bb1be493bcab76bdae65a36fb8b6eb3591e01b5aacca71a0",
+      "source": "corpus:john-wesley"
+    },
+    "b109": {
+      "en": "Galatians 5:11\n But if I still preach circumcision - As that troubler seems to have affirmed, probably taking occasion from his having circumcised Timothy. Why do I still suffer persecution? then is the offence of the cross ceased - The grand reason why the Jews were so offended at his preaching Christ crucified, and so bitterly persecuted him for it, was, that it implied the abolition of the law. Yet St. Paul did not condemn the conforming, out of condescension to the weakness of any one, even to the ceremonial law; but he did absolutely condemn those who taught it as necessary to justification.",
+      "es": "Gálatas 5:11\n Pero si todavía predico la circuncisión - Como parece haber afirmado ese alborotador, probablemente aprovechando la ocasión de haber circuncidado a Timoteo. ¿Por qué todavía sufro persecución? entonces cesó la ofensa de la cruz - La gran razón por la que los judíos se ofendieron tanto por su predicación de Cristo crucificado, y lo persiguieron tan amargamente por ello, fue que implicaba la abolición de la ley. Sin embargo, San Pablo no condenó el conformarse, por condescendencia a la debilidad de nadie, ni siquiera a la ley ceremonial; pero condenó absolutamente a quienes lo enseñaban como necesario para la justificación.",
+      "enHash": "bc7636e17aed387a0b3faf9c4833e3cbd9889b18be65cb7be37e2cf6c0e1772d",
+      "source": "corpus:john-wesley"
+    },
+    "b110": {
+      "en": "Galatians 5:12\n I would they were even cut off - From your communion; cast out of your church, that thus trouble you.",
+      "es": "Gálatas 5:12\n Ojalá fueran incluso cortados - De tu comunión; expulsados ​​de vuestra iglesia, que así os perturban.",
+      "enHash": "c30a07448fbb49dd2dcaf37f024672e514d123c4d87e0034dc268c6f0546692f",
+      "source": "corpus:john-wesley"
+    },
+    "b111": {
+      "en": "Galatians 5:13\n Ye have been called to liberty - From sin and misery, as well as from the ceremonial law. Only use not liberty for an occasion to the flesh - Take not occasion from hence to gratify corrupt nature. But by love serve one another - And hereby show that Christ has made you free.",
+      "es": "Gálatas 5:13\n Habéis sido llamados a la libertad - Del pecado y la miseria, así como de la ley ceremonial. Sólo no uses la libertad para una ocasión para la carne - No aproveches de aquí la ocasión para gratificar la naturaleza corrupta. Pero sírvanse por amor unos a otros - Y demuestren por la presente que Cristo los ha hecho libres.",
+      "enHash": "b352bd22abfcfaa56db4ccdc84ed7f1f140f7a15149d316a49cc26edcb4877c8",
+      "source": "corpus:john-wesley"
+    },
+    "b112": {
+      "en": "Galatians 5:14\n For all the law is fulfilled in this, Thou shalt love thy neighbour as thyself - inasmuch as none can do this without loving God, 1John 4:12 ; and the love of God and man includes all perfection. Lev 19:18 .",
+      "es": "Gálatas 5:14\n Porque toda la ley se cumple en esto: Amarás a tu prójimo como a ti mismo, ya que nadie puede hacer esto sin amar a Dios, 1 Juan 4:12; y el amor de Dios y del hombre incluye toda perfección. Lev 19:18 .",
+      "enHash": "acd8d78c3f1e78e92d1471033605f2ed691df19a75b91c982eec4d67c4a966bb",
+      "source": "corpus:john-wesley"
+    },
+    "b113": {
+      "en": "Galatians 5:15\n But if - On the contrary, in consequence of the divisions which those troublers have occasioned among you, ye bite one another by evil speaking. And devour one another - By railing and clamour. Take heed ye be not consumed one of another - By bitterness, strife, and contention, our health and strength, both of body and soul, are consumed, as well as our substance and reputation.",
+      "es": "Gálatas 5:15\n Pero si - Por el contrario, como consecuencia de las divisiones que esos alborotadores han ocasionado entre ustedes, se muerden unos a otros hablando mal. Y devorarse unos a otros - Por quejas y clamores. Tengan cuidado de no consumirse unos de otros - Por amargura, lucha y contienda, nuestra salud y fuerza, tanto del cuerpo como del alma, se consumen, así como nuestra sustancia y reputación.",
+      "enHash": "0126cb0e9e1359fa12a1fe83651d5baeffc3ebec0c1dfea04381da3831757aae",
+      "source": "corpus:john-wesley"
+    },
+    "b114": {
+      "en": "Galatians 5:16\n I say then - He now explains what he proposed, Gal 5:13 . Walk by the Spirit - Follow his guidance in all things. And fulfil not - In anything. The desire of the flesh - Of corrupt nature.",
+      "es": "Gálatas 5:16\n Digo entonces - Ahora explica lo que propuso, Gálatas 5:13 . Camine según el Espíritu: siga su guía en todas las cosas. Y no cumplir - En nada. El deseo de la carne - De naturaleza corrupta.",
+      "enHash": "168a5a2402d8d04edcbd8d15dd876281be266c760b309ac82c794a726ed2fd20",
+      "source": "corpus:john-wesley"
+    },
+    "b115": {
+      "en": "Galatians 5:17\n For the flesh desireth against the Spirit - Nature desires what is quite contrary to the Spirit of God. But the Spirit against the flesh - - But the Holy Spirit on his part opposes your evil nature. These are contrary to each other - The flesh and the Spirit; there can be no agreement between them. That ye may not do the things which ye would - - That, being thus strengthened by the Spirit, ye may not fulfil the desire of the flesh, as otherwise ye would do.",
+      "es": "Gálatas 5:17\n Porque la carne desea contra el Espíritu - La naturaleza desea lo que es totalmente contrario al Espíritu de Dios. Pero el Espíritu contra la carne - - Pero el Espíritu Santo por su parte se opone a vuestra mala naturaleza. Estos son contrarios entre sí: la carne y el Espíritu; no puede haber acuerdo entre ellos. Para que no hagáis las cosas que queréis - - Para que, fortalecidos así por el Espíritu, no satisfagáis el deseo de la carne, como lo haríais de otro modo.",
+      "enHash": "94ded8ae74e0a739b1c38bdb4c0ce1bff688bb9c55234f342fd727db434818f3",
+      "source": "corpus:john-wesley"
+    },
+    "b116": {
+      "en": "Galatians 5:18\n But if ye are led by the Spirit - Of liberty and love, into all holiness. Ye are not under the law - Not under the curse or bondage of it; not under the guilt or the power of sin.",
+      "es": "Gálatas 5:18\n Pero si sois guiados por el Espíritu - De libertad y amor, a toda santidad. No estáis bajo la ley - No bajo maldición o esclavitud de ella; no bajo la culpa o el poder del pecado.",
+      "enHash": "b20f9336c98b2c0aead9477ae247bf5b12eed655ec7fe7674e876bd657f1ed99",
+      "source": "corpus:john-wesley"
+    },
+    "b117": {
+      "en": "Galatians 5:19\n Now the works of the flesh - By which that inward principle is discovered. Are manifest - Plain and undeniable. Works are mentioned in the plural because they are distinct from, and often inconsistent with, each other. But \"the fruit of the Spirit\" is mentioned in the singular, Ga 5:22 , as being all consistent and connected together. Which are these - He enumerates those \"works of the flesh\" to which the Galatians were most inclined; and those parts of \"the fruit of the Spirit\" of which they stood in the greatest need. Lasciviousness - The Greek word means anything inward or outward that is contrary to chastity, and yet short of actual uncleanness.",
+      "es": "Gálatas 5:19\n Ahora las obras de la carne - Por las cuales se descubre ese principio interno. Son manifiestos - Sencillos e innegables. Las obras se mencionan en plural porque son distintas y a menudo inconsistentes entre sí. Pero \"el fruto del Espíritu\" se menciona en singular, Gál 5:22, como todos consistentes y conectados entre sí. ¿Cuáles son estas? Enumera aquellas \"obras de la carne\" a las que los gálatas estaban más inclinados; y aquellas partes del \"fruto del Espíritu\" que más necesitaban. Lascivia - La palabra griega significa cualquier cosa interior o exterior que sea contraria a la castidad y, sin embargo, que no llegue a ser impureza real.",
+      "enHash": "01bd31cd7653dad40ee38fd13903ce18c2d8534658fa9ea1d02a1f92d4a533df",
+      "source": "corpus:john-wesley"
+    },
+    "b118": {
+      "en": "Galatians 5:20\n Idolatry, witchcraft - That this means witchcraft, strictly speaking, (not poisoning,) appears from its being joined with the worship of devil - gods, and not with murder. This is frequently and solemnly forbidden in the Old Testament. To deny therefore that there is, or ever was, any such thing, is, by plain consequence, to deny the authority both of the Old and New Testament. Divisions - In domestic or civil matters. Heresies are divisions in religious communities.",
+      "es": "Gálatas 5:20\n Idolatría, brujería - Que esto significa brujería, estrictamente hablando (no envenenamiento), surge de su unión con la adoración del diablo, dioses, y no con el asesinato. Esto está frecuente y solemnemente prohibido en el Antiguo Testamento. Por lo tanto, negar que exista o haya existido tal cosa es, por consecuencia, negar la autoridad tanto del Antiguo como del Nuevo Testamento. Divisiones - En materia doméstica o civil. Las herejías son divisiones en las comunidades religiosas.",
+      "enHash": "cd2bbaa69db60c798a4b61d626fadcd6fb7375e5461f9e488e1483b8931f4b34",
+      "source": "corpus:john-wesley"
+    },
+    "b119": {
+      "en": "Galatians 5:21\n Revellings - Luxurious entertainments. Some of the works here mentioned are wrought principally, if not entirely, in the mind; and yet they are called \"works of the flesh.\" Hence it is clear, the apostle does not by \"the flesh\" mean the body, or sensual appetites and inclinations only, but the corruption of human nature, as it spreads through all the powers of the soul, as well as all the members of the body. Of which I tell you before - Before the event, I forewarn you.",
+      "es": "Gálatas 5:21\n Juergas - Entretenimientos de lujo. Algunas de las obras aquí mencionadas se realizan principalmente, si no enteramente, en la mente; y, sin embargo, se les llama \"obras de la carne\". Por lo tanto, queda claro que el apóstol no entiende por carne el cuerpo, o sólo los apetitos e inclinaciones sensuales, sino la corrupción de la naturaleza humana, tal como se extiende a todas las potencias del alma, así como a todos los miembros del cuerpo. De lo que os cuento antes - Antes del suceso, os lo advierto.",
+      "enHash": "3255cfc036d6254682e0dcd8fcc6fd882a3f36680716052f7886839eb9c8aa70",
+      "source": "corpus:john-wesley"
+    },
+    "b120": {
+      "en": "Galatians 5:22\n Love - The root of all the rest. Gentleness - Toward all men; ignorant and wicked men in particular. Goodness - The Greek word means all that is benign, soft, winning, tender, either in temper or behaviour.",
+      "es": "Gálatas 5:22\n Amor: la raíz de todo lo demás. Gentileza - Hacia todos los hombres; Hombres ignorantes y malvados en particular. Bondad - La palabra griega significa todo lo que es benigno, suave, atractivo, tierno, ya sea en temperamento o en comportamiento.",
+      "enHash": "38e5f8757b0326d5d3c9cf196d1b1126d537d7543fd7fe31691c20ed1155e159",
+      "source": "corpus:john-wesley"
+    },
+    "b121": {
+      "en": "Meekness — Holding all the affections and passions in even balance.",
+      "es": "Mansedumbre: mantener todos los afectos y pasiones en equilibrio.",
+      "enHash": "e751464764729c4dd13642c1b5a14e46917c93372dfa5febccc4071297e63829",
+      "source": "corpus:john-wesley"
+    },
+    "b122": {
+      "en": "Galatians 5:24\n And they that are Christ's - True believers in him. Have thus crucified the flesh - Nailed it, as it were, to a cross whence it has no power to break loose, but is continually weaker and weaker. With its affections and desires - All its evil passions, appetites, and inclinations.",
+      "es": "Gálatas 5:24\n Y los que son de Cristo, verdaderos creyentes en él. Así crucificé la carne - La clavé, por así decirlo, en una cruz de la que no tiene poder para soltarse, sino que es cada vez más débil. Con sus afectos y deseos - Todas sus malas pasiones, apetitos e inclinaciones.",
+      "enHash": "840319cb838aebdddeff3a7357b010da8217b20915f4d87287218b7fc5f01635",
+      "source": "corpus:john-wesley"
+    },
+    "b123": {
+      "en": "Galatians 6:1\n Brethren, if a man be overtaken in any fault - By surprise, ignorance, or stress of temptation. Ye who are spiritual - Who continue to live and walk by the Spirit. Restore such an one - By reproof, instruction, or exhortation. Every one who can, ought to help herein; only in the spirit of meekness - This is essential to a spiritual man; and in this lies the whole force of the cure. Considering thyself - The plural is beautifully changed into the singular. Let each take heed to himself. Lest thou also be tempted - Temptation easily and swiftly passes from one to another; especially if a man endeavours to cure another without preserving his own meekness.",
+      "es": "Gálatas 6:1\n Hermanos, si un hombre es sorprendido en alguna falta - Por sorpresa, ignorancia o estrés de la tentación. Vosotros que sois espirituales - Quienes continúan viviendo y caminando por el Espíritu. Restaurar a tal - Mediante reprensión, instrucción o exhortación. Todo el que pueda, debe ayudar en esto; sólo con espíritu de mansedumbre - Esto es esencial para un hombre espiritual; y en esto reside toda la fuerza de la cura. Considerándote a ti mismo - El plural se cambia maravillosamente al singular. Que cada uno tenga cuidado de sí mismo. Para que tú también seas tentado - La tentación pasa fácil y rápidamente de uno a otro; especialmente si un hombre se esfuerza por curar a otro sin conservar su propia mansedumbre.",
+      "enHash": "94e62c9748faccc92afea9244c1750eda678192ba0fa2a439c8110a75470eecd",
+      "source": "corpus:john-wesley"
+    },
+    "b124": {
+      "en": "Galatians 6:2\n Bear ye one another's burdens - Sympathize with, and assist, each other, in all your weaknesses, grievances, trials. And so fulfil the law of Christ - The law of Christ (an uncommon expression) is the law of love: this our Lord peculiarly recommends; this he makes the distinguishing mark of his disciples.",
+      "es": "Gálatas 6:2\n Soporten las cargas de los demás - Simpatizen y ayúdense unos a otros en todas sus debilidades, agravios y pruebas. Y así cumplir la ley de Cristo - La ley de Cristo (una expresión poco común) es la ley del amor: esto nuestro Señor lo recomienda particularmente; esto él hace la marca distintiva de sus discípulos.",
+      "enHash": "99f16a78e87c5fc4358d52a17025a473ef835bedada42be14ee8f2cf268ff13c",
+      "source": "corpus:john-wesley"
+    },
+    "b125": {
+      "en": "Galatians 6:3\n If any one think himself to be something - Above his brethren, or by any strength of his own. When he is nothing, he deceiveth himself - He alone will bear their burdens, who knows himself to be nothing.",
+      "es": "Gálatas 6:3\n Si alguien piensa que es algo - Por encima de sus hermanos, o por alguna fuerza propia. Cuando no es nada, se engaña a sí mismo. Sólo llevará sus cargas aquel que se sabe nada.",
+      "enHash": "33e6aefe63e35ac239ab745b8f9e6cb881c3c4fab0a2fb8a5551a0c81e856e45",
+      "source": "corpus:john-wesley"
+    },
+    "b126": {
+      "en": "Galatians 6:4\n But let every man try his own work - Narrowly examine all he is, and all he doeth. And then he shall have rejoicing in himself - He will find in himself matter of rejoicing, if his works are right before God. And not in another - Not in glorying over others.",
+      "es": "Gálatas 6:4\n Pero que cada uno pruebe su propio trabajo - Examine detenidamente todo lo que es y todo lo que hace. Y luego se regocijará en sí mismo - Encontrará en sí mismo motivo de regocijo, si sus obras son correctas ante Dios. Y no en otro - No en gloriarse de los demás.",
+      "enHash": "87d043d2443dd2e709f20fcbf5481e9de7e5f28c6d322961cbec05467dcc3afa",
+      "source": "corpus:john-wesley"
+    },
+    "b127": {
+      "en": "For every one shall bear his own burden — ln that day shall give an account of himself to God.",
+      "es": "Porque cada uno llevará su propia carga; aquel día dará cuenta de sí mismo a Dios.",
+      "enHash": "7cd006f9ec92d50ad020207524c2cd5c6b9fb788a1d3dc2c03a72dbfdbef4241",
+      "source": "corpus:john-wesley"
+    },
+    "b128": {
+      "en": "Galatians 6:6\n Let him that is taught impart to him that teacheth all such temporal good things as he stands in need of.",
+      "es": "Gálatas 6:6\n El que es instruido, que imparta al que enseña todos los bienes temporales que necesite.",
+      "enHash": "aa28ef41037d0a066359a172f9429c2cc5f4b05ff37b4c2df1e5f566f91f6249",
+      "source": "corpus:john-wesley"
+    },
+    "b129": {
+      "en": "God is not mocked — Although they attempt to mock him, who think to reap otherwise than they sow.",
+      "es": "Dios no se deja burlar, aunque intenten burlarse de él los que piensan cosechar diferente de lo que siembran.",
+      "enHash": "337f7b874764ef244324e5124960b947a8cdf08fb359df67b1b67f9376691eee",
+      "source": "corpus:john-wesley"
+    },
+    "b130": {
+      "en": "Galatians 6:8\n For he that now soweth to the flesh - That follows the desires of corrupt nature. Shall hereafter of the flesh - Out of this very seed. Reap corruption - Death everlasting. But he that soweth to the Spirit - That follows his guidance in all his tempers and conversation. Shall of the Spirit - By the free grace and power of God, reap life everlasting.",
+      "es": "Gálatas 6:8\n Porque el que ahora siembra para la carne - Eso sigue los deseos de la naturaleza corrupta. En lo sucesivo será de la carne - De esta misma semilla. Cosechar corrupción - Muerte eterna. Pero el que siembra para el Espíritu - Eso sigue su guía en todos sus temperamentos y conversaciones. La voluntad del Espíritu - Por la gracia gratuita y el poder de Dios, cosecharemos vida eterna.",
+      "enHash": "3291fcc7b494b345bf2a60640cf549921274ea13fe5cfcce1b8f64777bd611ea",
+      "source": "corpus:john-wesley"
+    },
+    "b131": {
+      "en": "Galatians 6:9\n But let us not be weary in well doing - Let us persevere in sowing to the Spirit. For in due season - When the harvest is come, we shall reap, if we faint not.",
+      "es": "Gálatas 6:9\n Pero no nos cansemos de hacer el bien - Perseveremos en sembrar para el Espíritu. Porque a su debido tiempo - Cuando llegue la cosecha, cosecharemos, si no desmayamos.",
+      "enHash": "73ffea42378c36acce8f6994d5a91714d3d24ad4db24ea844c792496bfd3d143",
+      "source": "corpus:john-wesley"
+    },
+    "b132": {
+      "en": "Galatians 6:10\n Therefore as we have opportunity - At whatever time or place, and in whatever manner we can. The opportunity in general is our lifetime; but there are also many particular opportunities. Satan is quickened in doing hurt, by the shortness of the time, Rev 12:12 . By the same consideration let us be quickened in doing good. Let us do good - In every possible kind, and in every possible degree. Unto all men - Neighbours or strangers, good or evil, friends or enemies. But especially to them who are of the household of faith. For all believers are but one family.",
+      "es": "Gálatas 6:10\n Por lo tanto, cuando tengamos oportunidad, en cualquier momento o lugar y de cualquier manera que podamos. La oportunidad en general es nuestra vida; pero también hay muchas oportunidades particulares. Satanás se anima a hacer daño por la brevedad del tiempo, Apocalipsis 12:12. Por la misma consideración, seamos vivificados para hacer el bien. Hagamos el bien - En todos los tipos posibles y en todos los grados posibles. A todos los hombres - Vecinos o extraños, buenos o malos, amigos o enemigos. Pero especialmente a los que son de la familia de la fe. Porque todos los creyentes son sólo una familia.",
+      "enHash": "567fb429eb5b0081ecd531ff1db675e95d5f4d3eafa24893acc4b90e692c18af",
+      "source": "corpus:john-wesley"
+    },
+    "b133": {
+      "en": "Galatians 6:11\n Ye see how large a letter - St. Paul had not yet wrote a larger to any church. I have written with my own hand - He generally wrote by an amanuensis.",
+      "es": "Gálatas 6:11\n Ya ves qué carta tan grande: San Pablo aún no había escrito una carta más grande a ninguna iglesia. He escrito con mi propia mano - Generalmente escribía por un amanuense.",
+      "enHash": "49b7a7d0f293c9c014132a067851bdc9f6a2e9870f8080a45705013c85d93896",
+      "source": "corpus:john-wesley"
+    },
+    "b134": {
+      "en": "Galatians 6:12\n As many as desire to make a fair appearance in the flesh - To preserve a fair character. These constrain you - Both by their example and importunity. To be circumcised - Not so much from a principle of conscience, as lest they should suffer persecution - From the unbelieving Jews. For the cross of Christ - For maintaining that faith in a crucified Saviour is alone sufficient for justification.",
+      "es": "Gálatas 6:12\n Tantos como deseen tener una apariencia justa en la carne - Para preservar un carácter justo. Estos te limitan - Tanto por su ejemplo como por su importunidad. Ser circuncidado - No tanto por un principio de conciencia, sino para que no sufran persecución - Por parte de los judíos incrédulos. Por la cruz de Cristo - Por mantener que la fe en un Salvador crucificado es suficiente para la justificación.",
+      "enHash": "bcf0600e723ce423f675dc88faefa8bfa885fb98ac67160b2458dd4c297ba712",
+      "source": "corpus:john-wesley"
+    },
+    "b135": {
+      "en": "Galatians 6:13\n For neither they themselves keep the whole law - So far are they from a real zeal for it. But yet they desire to have you circumcised, that they may glory in your flesh - That they may boast of you as their proselytes, and make a merit of this with the other Jews.",
+      "es": "Gálatas 6:13\n Porque ni ellos mismos guardan toda la ley - Hasta ahora están lejos de tener un verdadero celo por ella. Pero aún así desean circuncidarte para poder gloriarse en tu carne - Para jactarse de ti como sus prosélitos y hacer de esto un mérito con los otros judíos.",
+      "enHash": "acb9d4efa637207f4f2b345994174413b54942f447b08d9e68741612523f96a2",
+      "source": "corpus:john-wesley"
+    },
+    "b136": {
+      "en": "Galatians 6:14\n But God forbid that I should glory - Should boast of anything I have, am, or do; or rely on anything for my acceptance with God, but what Christ hath done and suffered for me. By means of which the world is crucified to me - All the things and persons in it are to me as nothing. And I unto the world - I am dead to all worldly pursuits, cares, desires, and enjoyments.",
+      "es": "Gálatas 6:14\n Pero Dios no permita que me gloríe - Debería jactarme de cualquier cosa que tengo, soy o hago; ni confiar en nada para mi aceptación ante Dios, sino en lo que Cristo ha hecho y sufrido por mí. Por medio del cual el mundo me es crucificado - Todas las cosas y personas que hay en él son para mí como nada. Y yo para el mundo - Estoy muerto a todas las búsquedas, preocupaciones, deseos y disfrutes mundanos.",
+      "enHash": "9eda936158772df082eca73502787d380ad8dd18dfae7b604e025b1359e0f035",
+      "source": "corpus:john-wesley"
+    },
+    "b137": {
+      "en": "Galatians 6:15\n For neither circumcision is anything, nor uncircumcision - Neither of these is of any account. But a new creation - Whereby all things in us become new.",
+      "es": "Gálatas 6:15\n Porque ni la circuncisión es nada, ni la incircuncisión - Ninguna de estas tiene importancia. Sino una nueva creación - Por la cual todas las cosas en nosotros se vuelven nuevas.",
+      "enHash": "abadc46ba6133514b8d5ecbdfdef9cac7accafe86d2e23223199543c7bdc94b1",
+      "source": "corpus:john-wesley"
+    },
+    "b138": {
+      "en": "Galatians 6:16\n And as many as walk according to this rule - Glorying only in the cross of Christ. Being crucified to the world. And, Created anew. Peace and mercy be upon them, and upon the Israel, that is, the Church, of God - Which consists of all those, and those only, of every nation and kindred, who walk by this rule.",
+      "es": "Gálatas 6:16\n Y todos los que caminan según esta regla, gloriándose sólo en la cruz de Cristo. Ser crucificado para el mundo. Y creado de nuevo. Paz y misericordia sean con ellos, y con Israel, es decir, la Iglesia de Dios, que está formada por todos aquellos, y sólo aquellos, de cada nación y ascendencia, que caminan según esta regla.",
+      "enHash": "62e0fdd5969f5d450380b9383ec96101877d07074dee64ad556d7153674e53ca",
+      "source": "corpus:john-wesley"
+    },
+    "b139": {
+      "en": "Galatians 6:17\n From henceforth let none trouble me - By quarrels and disputes. For I bear - And afflictions should not be added to the afflicted. In my body the marks of the Lord Jesus - The scars, marks, and brands of my sufferings for Him.",
+      "es": "Gálatas 6:17\n De ahora en adelante nadie me moleste - Por peleas y disputas. Porque soporto - Y no se deben agregar aflicciones a los afligidos. En mi cuerpo las marcas del Señor Jesús - Las cicatrices, marcas y marcas de mis sufrimientos por Él.",
+      "enHash": "3843d1854bbede28c27d26c075f27130bcab0f747bfed79d92019c10d7fdfdec",
+      "source": "corpus:john-wesley"
+    },
+    "b140": {
+      "en": "Ephesians 1:1\n By the will of God - Not by any merit of my own. To the saints who are at Ephesus - And in all the adjacent places. For this epistle is not directed to the Ephesians only, but likewise to all the other churches of Asia.",
+      "es": "Efesios 1:1\n Por voluntad de Dios - No por ningún mérito propio. A los santos que están en Éfeso - Y en todos los lugares adyacentes. Porque esta epístola no está dirigida sólo a los efesios, sino también a todas las demás iglesias de Asia.",
+      "enHash": "303a378c254748aa03de41f0ef5b724806d8f20279a72904b357f78b084b3881",
+      "source": "corpus:john-wesley"
+    },
+    "b141": {
+      "en": "Ephesians 1:3\n Blessed be the God and Father of our Lord Jesus Christ, who hath blessed us - God's blessing us is his bestowing all spiritual and heavenly blessings upon us. Our blessing God is the paying him our solemn and grateful acknowledgments, both on account of his own essential blessedness, and of the blessings which he bestows upon us. He is the God of our Lord Jesus Christ, as man and Mediator: he is his Father, primarily, with respect to his divine nature, as his only begotten Son; and, secondarily, with respect to his human nature, as that is personally united to the divine. With all spiritual blessings in heavenly things - With all manner of spiritual blessings, which are heavenly in their nature, original, and tendency, and shall be completed in heaven: far different from the external privileges of the Jews, and the earthly blessings they expected from the Messiah.",
+      "es": "Efesios 1:3\n Bendito sea el Dios y Padre de nuestro Señor Jesucristo, que nos ha bendecido; la bendición de Dios es que nos concede todas las bendiciones espirituales y celestiales. Nuestra bendición a Dios es rendirle nuestros reconocimientos solemnes y agradecidos, tanto por su propia bienaventuranza esencial como por las bendiciones que nos otorga. Él es el Dios de nuestro Señor Jesucristo, como hombre y Mediador: es su Padre, principalmente, respecto de su naturaleza divina, como su Hijo unigénito; y, en segundo lugar, respecto de su naturaleza humana, en cuanto que está personalmente unida a la divina. Con todas las bendiciones espirituales en las cosas celestiales - Con todo tipo de bendiciones espirituales, que son celestiales en su naturaleza, original y tendencia, y se completarán en el cielo: muy diferentes de los privilegios externos de los judíos y las bendiciones terrenales que esperaban del Mesías.",
+      "enHash": "a3a2f321796c6bd8959610908e73dbadf06fe5f2f887e91d4161016b865dfd7f",
+      "source": "corpus:john-wesley"
+    },
+    "b142": {
+      "en": "Ephesians 1:5\n Having predestinated us to the adoption of sons - Having foreordained that all who afterwards believed should enjoy the dignity of being sons of God, and joint - heirs with Christ. According to the good pleasure of his will - According to his free, fixed, unalterable purpose to confer this blessing on all those who should believe in Christ, and those only.",
+      "es": "Efesios 1:5\n Habiéndonos predestinado a la adopción de hijos - Habiendo preordenado que todos los que después creyeron disfrutaran de la dignidad de ser hijos de Dios y coherederos con Cristo. Según el beneplácito de su voluntad - Según su propósito libre, fijo e inalterable de conferir esta bendición a todos aquellos que crean en Cristo, y solo a ellos.",
+      "enHash": "0e7bcd89c4a0a867bc4e61bc4c99e0c1e770cd1e6f24a8063271c987acccfe54",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:4": "b3",
+    "1:5": "b4",
+    "1:6": "b5",
+    "1:7": "b6",
+    "1:8": "b7",
+    "1:9": "b8",
+    "1:10": "b9",
+    "1:11": "b10",
+    "1:12": "b11",
+    "1:13": "b12",
+    "1:14": "b13",
+    "1:15": "b14",
+    "1:16": "b15",
+    "1:17": "b16",
+    "1:18": "b17",
+    "1:19": "b18",
+    "1:24": "b19",
+    "2:1": "b20",
+    "2:2": "b21",
+    "2:3": "b22",
+    "2:4": "b23",
+    "2:5": "b24",
+    "2:6": "b25",
+    "2:7": "b26",
+    "2:8": "b27",
+    "2:9": "b28",
+    "2:10": "b29",
+    "2:11": "b30",
+    "2:13": "b31",
+    "2:14": "b32",
+    "2:15": "b33",
+    "2:16": "b34",
+    "2:17": "b35",
+    "2:18": "b36",
+    "2:19": "b37",
+    "2:20": "b38",
+    "2:21": "b39",
+    "3:1": "b40",
+    "3:2": "b41",
+    "3:3": "b42",
+    "3:4": "b43",
+    "3:5": "b44",
+    "3:6": "b45",
+    "3:7": "b46",
+    "3:8": "b47",
+    "3:9": "b48",
+    "3:10": "b49",
+    "3:11": "b50",
+    "3:12": "b51",
+    "3:13": "b52",
+    "3:14": "b53",
+    "3:15": "b54",
+    "3:16": "b55",
+    "3:17": "b56",
+    "3:18": "b57",
+    "3:19": "b58",
+    "3:20": "b59",
+    "3:21": "b60",
+    "3:22": "b61",
+    "3:23": "b62",
+    "3:24": "b63",
+    "3:25": "b64",
+    "3:26": "b65",
+    "3:27": "b66",
+    "3:28": "b67",
+    "3:29": "b68",
+    "4:1": "b69",
+    "4:2": "b70",
+    "4:3": "b71",
+    "4:4": "b72",
+    "4:5": "b73",
+    "4:6": "b74",
+    "4:7": "b75",
+    "4:8": "b76",
+    "4:9": "b77",
+    "4:10": "b78",
+    "4:11": "b79",
+    "4:12": "b80",
+    "4:13": "b81",
+    "4:14": "b82",
+    "4:15": "b83",
+    "4:17": "b84",
+    "4:18": "b85",
+    "4:19": "b86",
+    "4:20": "b87",
+    "4:21": "b88",
+    "4:22": "b89",
+    "4:23": "b90",
+    "4:24": "b91",
+    "4:25": "b92",
+    "4:26": "b93",
+    "4:27": "b94",
+    "4:28": "b95",
+    "4:29": "b96",
+    "4:30": "b97",
+    "4:31": "b98",
+    "5:1": "b99",
+    "5:2": "b100",
+    "5:3": "b101",
+    "5:4": "b102",
+    "5:5": "b103",
+    "5:6": "b104",
+    "5:7": "b105",
+    "5:8": "b106",
+    "5:9": "b107",
+    "5:10": "b108",
+    "5:11": "b109",
+    "5:12": "b110",
+    "5:13": "b111",
+    "5:14": "b112",
+    "5:15": "b113",
+    "5:16": "b114",
+    "5:17": "b115",
+    "5:18": "b116",
+    "5:19": "b117",
+    "5:20": "b118",
+    "5:21": "b119",
+    "5:22": "b120",
+    "5:23": "b121",
+    "5:24": "b122",
+    "6:1": "b123",
+    "6:2": "b124",
+    "6:3": "b125",
+    "6:4": "b126",
+    "6:5": "b127",
+    "6:6": "b128",
+    "6:7": "b129",
+    "6:8": "b130",
+    "6:9": "b131",
+    "6:10": "b132",
+    "6:11": "b133",
+    "6:12": "b134",
+    "6:13": "b135",
+    "6:14": "b136",
+    "6:15": "b137",
+    "6:16": "b138",
+    "6:17": "b139",
+    "6:19": "b140",
+    "6:21": "b141",
+    "6:23": "b142"
+  }
+}
