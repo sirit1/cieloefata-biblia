@@ -26,7 +26,7 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Marcos | sí | sí | sí | sí | — | — | — |
 | Lucas | sí | sí | sí | sí | sí | sí | sí |
 | Juan | sí | sí | sí | sí | sí | sí | sí |
-| Hechos | sí | sí | sí | pendiente | — | — | — |
+| Hechos | sí | sí | sí | sí | — | — | — |
 | Romanos | sí | sí | sí | pendiente | — | — | — |
 | 1–2 Corintios | sí | sí | sí | pendiente | — | — | — |
 | Gálatas | sí | sí | sí | pendiente | — | — | — |
