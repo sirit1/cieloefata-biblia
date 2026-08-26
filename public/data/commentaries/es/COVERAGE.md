@@ -26,27 +26,14 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Marcos | sí | sí | sí | sí | — | — | — |
 | Lucas | sí | sí | sí | sí | sí | sí | sí |
 | Juan | sí | sí | sí | sí | sí | sí | sí |
-| Hechos | sí | sí | sí | sí | — | — | — |
-| Romanos | sí | sí | sí | sí | — | — | — |
-| 1–2 Corintios | sí | sí | sí | sí | — | — | — |
-| Gálatas | sí | sí | sí | sí | — | — | — |
-| Efesios | sí | sí | sí | sí | — | — | — |
-| Filipenses | sí | sí | sí | sí | — | — | — |
-| Colosenses | sí | sí | sí | sí | — | — | — |
-| 1–2 Tesalonicenses | sí | sí | sí | sí | — | — | — |
-| 1 Timoteo | sí | sí | sí | sí | — | — | — |
-| 2 Timoteo / Tito | sí | sí | sí | sí | — | — | — |
-| Hebreos | sí | sí | sí | sí | — | — | — |
-| Santiago | sí | sí | sí | sí | — | — | — |
-| 1–2 Pedro | sí | sí | sí | sí | — | — | — |
-| 1–3 Juan | sí | sí | sí | sí | — | — | — |
-| Judas | sí | sí | sí | sí | — | — | — |
-| Apocalipsis | sí | sí | sí | en curso | — | — | — |
+| Hechos … Judas | sí | sí | sí | sí | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | sí | sí |
+| Apocalipsis | sí | sí | sí | sí | — | — | — |
 
-Henry NT: **completo** salvo Mateo 19–28 (helloao 404).
-Spurgeon NT: **completo** donde SPE tiene inglés (2–3 Juan = 0 hits).
+Henry NT: **completo** salvo Mateo 19–28 (helloao 404; miss honesto).
+Spurgeon NT: **completo** donde SPE tiene inglés (2 Juan y 3 Juan = 0 hits).
 Clarke NT: **completo** (Mateo vía ACC PD).
+Wesley NT: **completo**.
 Calvino / JFB / Gill: **completo** en Mateo, Juan, Lucas, Filemón.
 
 ## Notas

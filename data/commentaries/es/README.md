@@ -30,8 +30,8 @@ Una nota de rango se mapea a **cada** versículo cubierto (p. ej. Lucas 15:11–
 
 | Autor | NT completo en esta corrida | Notas |
 | --- | --- | --- |
-| Matthew Henry | sí | helloao complete commentary (no Concise) |
-| C. H. Spurgeon | sí | SPE / prayerrequest |
+| Matthew Henry | sí | helloao complete commentary (no Concise). Mateo 19–28: helloao 404, miss honesto |
+| C. H. Spurgeon | sí | SPE / prayerrequest. 2 Juan y 3 Juan: 0 hits. Filemón: 1 hit |
 | Adam Clarke | sí | helloao cuando el libro existe; **Mateo no está en helloao** → ACC PD (truthaccordingtoscripture / StudyLight) |
 | John Wesley | sí | CrossWire + Christianity.com + BibleHub |
 | Juan Calvino | Mateo, Juan, Lucas, Filemón | helloao; NT entero omitido por volumen |
