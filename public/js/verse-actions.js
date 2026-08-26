@@ -585,6 +585,7 @@
     let activeText = "";
 
     const hide = () => {
+      const wasOpen = !bar.hidden || bar.classList.contains("is-on");
       bar.hidden = true;
       bar.classList.remove("is-on");
       activeEl?.classList.remove("is-va-active", "is-verse-on");
@@ -594,6 +595,13 @@
       global.currentSelectedPassage = "";
       global.currentSelectedText = "";
       document.body.classList.remove("is-verse-study");
+      if (wasOpen) {
+        try {
+          (global.RV?.audio || global.revelatioAudio)?.stopAll?.("Overlay cerrado");
+        } catch {
+          /* ignore */
+        }
+      }
     };
 
     const place = (el) => {

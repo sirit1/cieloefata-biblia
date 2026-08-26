@@ -1,8 +1,9 @@
 /**
  * Éfata RevelatiO — audio-engine.js
  * Única capa de audio: instrumental (#rv-music) + narración ElevenLabs (#rv-voice).
- * No duplica nodos <audio>. La música persiste entre vistas; la voz se detiene
- * al cambiar de versículo o de ruta. Aposento apaga la música al salir.
+ * Un solo dueño de reproducción: no se superponen dos voces ni dos camas.
+ * Al cerrar modal/popup/tarjeta/overlay se silencia TODO (TTS, cama, speechSynthesis).
+ * Abrir otro versículo corta la narración anterior. Aposento apaga la música al salir.
  */
 (function (global) {
   "use strict";
@@ -13,17 +14,34 @@
     {
       id: "meditation-impromptu-02",
       src: "audio/beds/meditation-impromptu-02.mp3",
-      label: "Instrumental de oración",
+      title: "Meditation Impromptu 02",
+      license: "CC BY 4.0",
     },
     {
       id: "meditation-impromptu-01",
       src: "audio/beds/meditation-impromptu-01.mp3",
-      label: "Instrumental de oración",
+      title: "Meditation Impromptu 01",
+      license: "CC BY 4.0",
+    },
+    {
+      id: "virtutes-instrumenti",
+      src: "audio/beds/virtutes-instrumenti.mp3",
+      title: "Virtutes Instrumenti",
+      license: "CC BY 3.0",
+    },
+    {
+      id: "comfortable-mystery",
+      src: "audio/beds/comfortable-mystery.mp3",
+      title: "Comfortable Mystery",
+      license: "CC BY 3.0",
+    },
+    {
+      id: "sovereign",
+      src: "audio/beds/sovereign.mp3",
+      title: "Sovereign",
+      license: "CC BY 3.0",
     },
   ];
-  const TRACK_LABEL = "Instrumental de oración";
-  const ATTRIBUTION =
-    '"Meditation Impromptu" Kevin MacLeod (incompetech.com) · CC BY 4.0';
   const PREFS_KEY = "revelatio_audio_dual_v1";
   const TTS_MAX = 4500;
   const DEFAULTS = {
@@ -33,6 +51,7 @@
     expanded: false,
     musicMuted: false,
     voiceMuted: false,
+    bedIndex: 0,
   };
 
   function assetUrl(rel) {
@@ -127,11 +146,108 @@
     return chunks;
   }
 
+  const MEDIA_IDS = ["rv-music", "rv-voice", "rv-welcome-voice"];
+  const OVERLAY_IDS = [
+    "panel-asistente-ia",
+    "ai-modal",
+    "modal-efata-card",
+    "efata-cards-modal",
+    "efata-social-modal",
+    "study-drawer",
+    "rv-study-panel",
+    "modulo-cuaderno",
+    "panel-strong",
+    "rv-verse-actions",
+    "modulo-marginnote",
+    "rv-popover",
+    "rv-strong-modal",
+  ];
+  const CLOSE_HIT =
+    "[data-ia-close],[data-sp-close],[data-va-act='clear'],[data-cuaderno-close],[data-oia-close],[data-atlas-close],[data-efata-card-close],[data-strong-close],#btn-cerrar-ia,#btn-close-ai-modal,#cerrar-efata-card,#cerrar-strong,#cerrar-cuaderno,#cerrar-nota";
+
   function reuseAudio(id) {
-    return (
-      document.getElementById(id) ||
-      Object.assign(document.createElement("audio"), { id, playsInline: true })
-    );
+    const nodes = document.querySelectorAll(`audio#${id}`);
+    const el = nodes[0] || document.getElementById(id);
+    if (nodes.length > 1) {
+      nodes.forEach((node, i) => {
+        if (i === 0) return;
+        try {
+          node.pause();
+          node.removeAttribute("src");
+          node.remove();
+        } catch {
+          /* ignore */
+        }
+      });
+    }
+    if (el) {
+      el.playsInline = true;
+      el.setAttribute("playsinline", "");
+      return el;
+    }
+    return Object.assign(document.createElement("audio"), { id, playsInline: true });
+  }
+
+  function haltMedia(el, { keepSrc = false } = {}) {
+    if (!el) return;
+    try {
+      el.pause();
+    } catch {
+      /* ignore */
+    }
+    try {
+      el.currentTime = 0;
+    } catch {
+      /* ignore */
+    }
+    const src = String(el.getAttribute("src") || el.src || "");
+    if (src.startsWith("blob:")) {
+      try {
+        URL.revokeObjectURL(src);
+      } catch {
+        /* ignore */
+      }
+    }
+    if (keepSrc) return;
+    try {
+      el.removeAttribute("src");
+      el.removeAttribute("srcObject");
+      el.load?.();
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function cancelSpeechSynthesis() {
+    try {
+      if (global.speechSynthesis) {
+        global.speechSynthesis.cancel();
+        global.speechSynthesis.pause?.();
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function isOverlayOpen(el) {
+    if (!el || !el.isConnected) return false;
+    const id = el.id;
+    if (id === "efata-cards-modal" || id === "efata-social-modal" || id === "rv-strong-modal") {
+      return true;
+    }
+    if (el.hidden || el.getAttribute("hidden") != null) return false;
+    if (id === "ai-modal") return el.classList.contains("is-open");
+    if (id === "rv-verse-actions" || id === "rv-popover") {
+      return el.classList.contains("is-on") || el.classList.contains("is-open");
+    }
+    if (el.getAttribute("aria-hidden") === "true" && !el.classList.contains("is-open")) {
+      return false;
+    }
+    return el.classList.contains("is-open") || el.classList.contains("is-on");
+  }
+
+  function anySilenceOverlayOpen() {
+    return OVERLAY_IDS.some((id) => isOverlayOpen(document.getElementById(id)));
   }
 
   function createEngine() {
@@ -160,9 +276,26 @@
       ttsAbort: null,
       speakQueue: [],
       ducking: false,
+      voiceToken: 0,
+      musicToken: 0,
     };
 
     const engine = { music, voiceEl, state };
+
+    const currentBed = () => {
+      const len = BEDS.length;
+      let idx = Number(prefs.bedIndex);
+      if (!Number.isFinite(idx) || idx < 0) idx = 0;
+      idx = ((idx % len) + len) % len;
+      prefs.bedIndex = idx;
+      return BEDS[idx];
+    };
+
+    const bedLabel = () => currentBed().title;
+    const bedCredit = () => {
+      const bed = currentBed();
+      return `"${bed.title}" Kevin MacLeod (incompetech.com) · ${bed.license}`;
+    };
 
     const setStatus = (text) => {
       const el = document.getElementById("estado-audio");
@@ -172,13 +305,25 @@
     };
 
     const applyVolumes = () => {
-      const musicVol = state.ducking
-        ? Math.min(prefs.volMusica, 0.12)
-        : Math.max(0, Math.min(1, prefs.volMusica));
-      music.volume = musicVol;
-      voiceEl.volume = Math.max(0, Math.min(1, prefs.volVoz));
-      music.muted = Boolean(prefs.musicMuted);
-      voiceEl.muted = Boolean(prefs.voiceMuted);
+      const silentBed = Boolean(prefs.musicMuted) || Number(prefs.volMusica) <= 0;
+      const silentVoice = Boolean(prefs.voiceMuted);
+      if (silentBed) {
+        music.muted = true;
+        music.volume = 0;
+      } else {
+        music.muted = false;
+        const musicVol = state.ducking
+          ? Math.min(prefs.volMusica, 0.12)
+          : Math.max(0, Math.min(1, prefs.volMusica));
+        music.volume = musicVol;
+      }
+      if (silentVoice) {
+        voiceEl.muted = true;
+        voiceEl.volume = 0;
+      } else {
+        voiceEl.muted = false;
+        voiceEl.volume = Math.max(0, Math.min(1, prefs.volVoz));
+      }
     };
 
     const syncUi = () => {
@@ -219,20 +364,25 @@
         const max = Number(readerVol.max) || 1;
         readerVol.value = String(max > 1 ? Math.round(prefs.volMusica * 100) : prefs.volMusica);
       }
-      if (title) title.textContent = TRACK_LABEL;
+      if (title) title.textContent = bedLabel();
       const credit = document.getElementById("dock-music-credit");
-      if (credit) credit.textContent = ATTRIBUTION;
+      if (credit) credit.textContent = bedCredit();
       const muteM = document.getElementById("dock-mute-musica");
       if (muteM) {
-        muteM.setAttribute("aria-pressed", String(Boolean(prefs.musicMuted)));
-        muteM.textContent = prefs.musicMuted ? "🔇 Música" : "🎵 Música";
-        muteM.title = prefs.musicMuted
+        const on = Boolean(prefs.musicMuted) || Number(prefs.volMusica) <= 0;
+        muteM.setAttribute("aria-pressed", String(on));
+        muteM.classList.toggle("is-muted", on);
+        muteM.innerHTML = on
+          ? '<span aria-hidden="true">🔇</span> Silencio'
+          : '<span aria-hidden="true">🔊</span> Música';
+        muteM.title = on
           ? "Activar instrumental (no afecta la voz)"
           : "Silenciar instrumental (no afecta la voz)";
       }
       const muteV = document.getElementById("dock-mute-voz");
       if (muteV) {
         muteV.setAttribute("aria-pressed", String(Boolean(prefs.voiceMuted)));
+        muteV.classList.toggle("is-muted", Boolean(prefs.voiceMuted));
         muteV.textContent = prefs.voiceMuted ? "🔇 Voz" : "🗣️ Voz";
         muteV.title = prefs.voiceMuted
           ? "Activar narración (no afecta la música)"
@@ -240,13 +390,18 @@
       }
       if (dock) dock.classList.toggle("is-expanded", Boolean(prefs.expanded));
       if (expand) expand.setAttribute("aria-expanded", String(Boolean(prefs.expanded)));
-      if (toggle) toggle.checked = playing;
-      if (home) home.checked = playing;
-      if (expToggle) expToggle.checked = playing;
+      if (toggle) toggle.checked = playing && !prefs.musicMuted;
+      if (home) home.checked = playing && !prefs.musicMuted;
+      if (expToggle) expToggle.checked = playing && !prefs.musicMuted;
       const sel = document.getElementById("dock-bgm-select");
-      if (sel && !sel.dataset.filled) {
-        sel.innerHTML = `<option value="oracion">${TRACK_LABEL}</option>`;
-        sel.dataset.filled = "1";
+      if (sel) {
+        if (!sel.dataset.filled) {
+          sel.innerHTML = BEDS.map(
+            (bed, i) => `<option value="${i}">${bed.title}</option>`
+          ).join("");
+          sel.dataset.filled = "1";
+        }
+        if (document.activeElement !== sel) sel.value = String(prefs.bedIndex || 0);
       }
     };
 
@@ -262,22 +417,23 @@
     };
 
     const loadInstrumental = () => {
-      const idx = Number(music.dataset.bedIndex || 0);
-      const bed = BEDS[idx] || BEDS[0];
+      const bed = currentBed();
+      music.dataset.bedIndex = String(prefs.bedIndex || 0);
       const src = assetUrl(bed.src);
       if (music.getAttribute("src") !== src) {
         music.src = src;
         music.setAttribute("src", src);
       }
       music.loop = Boolean(prefs.loop);
-      music.muted = Boolean(prefs.musicMuted);
+      applyVolumes();
     };
 
     music.addEventListener("error", () => {
-      const idx = Number(music.dataset.bedIndex || 0);
+      const idx = Number(prefs.bedIndex || 0);
       const next = idx + 1;
       if (next < BEDS.length) {
-        music.dataset.bedIndex = String(next);
+        prefs.bedIndex = next;
+        savePrefs(prefs);
         loadInstrumental();
         if (state.musicOn) {
           music.play().catch(() => {
@@ -294,6 +450,7 @@
     });
 
     const playMusic = async (opts = {}) => {
+      const token = claimMusic();
       if (Number.isFinite(opts.volume)) {
         prefs.volMusica = Math.max(0, Math.min(1, opts.volume));
         savePrefs(prefs);
@@ -302,9 +459,14 @@
       applyVolumes();
       try {
         await music.play();
+        if (token !== state.musicToken) {
+          haltMedia(music, { keepSrc: true });
+          return;
+        }
         state.musicOn = true;
-        setStatus(`${TRACK_LABEL}`);
+        setStatus(bedLabel());
       } catch {
+        if (token !== state.musicToken) return;
         state.musicOn = false;
         setStatus("Activa el audio con un toque");
       }
@@ -338,6 +500,8 @@
 
     const setMusicVolume = (vol) => {
       prefs.volMusica = Math.max(0, Math.min(1, Number(vol) || 0));
+      if (prefs.volMusica <= 0) prefs.musicMuted = true;
+      else prefs.musicMuted = false;
       savePrefs(prefs);
       applyVolumes();
       syncUi();
@@ -345,15 +509,29 @@
 
     const toggleMusicMute = () => {
       prefs.musicMuted = !prefs.musicMuted;
+      if (!prefs.musicMuted && prefs.volMusica <= 0) prefs.volMusica = 0.28;
       savePrefs(prefs);
       applyVolumes();
+      try {
+        music.muted = Boolean(prefs.musicMuted);
+        if (prefs.musicMuted) music.volume = 0;
+      } catch {
+        /* ignore */
+      }
       syncUi();
     };
 
     const toggleVoiceMute = () => {
       prefs.voiceMuted = !prefs.voiceMuted;
       savePrefs(prefs);
+      if (prefs.voiceMuted) stopVoice("Voz en silencio");
       applyVolumes();
+      try {
+        voiceEl.muted = Boolean(prefs.voiceMuted);
+        if (prefs.voiceMuted) voiceEl.volume = 0;
+      } catch {
+        /* ignore */
+      }
       syncUi();
     };
 
@@ -368,7 +546,44 @@
       }
     };
 
+    const clearNarrationHighlight = () => {
+      document.querySelectorAll(".rv-verse-surface.is-narrating, .is-narrating").forEach((n) => {
+        n.classList.remove("is-narrating");
+      });
+    };
+
+    const markNarratingVerse = (el) => {
+      clearNarrationHighlight();
+      if (!el) return;
+      el.classList.add("is-narrating");
+      try {
+        el.scrollIntoView({ block: "center", behavior: "smooth" });
+      } catch {
+        /* ignore */
+      }
+    };
+
+    const chapterVerseEls = () =>
+      [
+        ...document.querySelectorAll(
+          "#texto-biblico .rv-verse-surface[data-versiculo], #verses-container .rv-verse-surface[data-versiculo]"
+        ),
+      ];
+
+    const claimVoice = () => {
+      state.voiceToken += 1;
+      return state.voiceToken;
+    };
+
+    const claimMusic = () => {
+      state.musicToken += 1;
+      return state.musicToken;
+    };
+
+    const isVoiceOwner = (token) => token === state.voiceToken;
+
     const stopVoice = (reason) => {
+      claimVoice();
       if (state.ttsAbort) {
         try {
           state.ttsAbort.abort();
@@ -378,18 +593,10 @@
         state.ttsAbort = null;
       }
       state.speakQueue = [];
-      try {
-        voiceEl.pause();
-      } catch {
-        /* ignore */
-      }
-      try {
-        voiceEl.removeAttribute("src");
-        voiceEl.load?.();
-      } catch {
-        /* ignore */
-      }
+      haltMedia(voiceEl, { keepSrc: false });
       revokeVoiceUrl();
+      cancelSpeechSynthesis();
+      clearNarrationHighlight();
       state.speaking = false;
       state.pausedVoice = false;
       state.voiceContext = null;
@@ -397,28 +604,100 @@
       applyVolumes();
       markSpeakingButtons(false);
       if (!state.musicOn) setStatus(reason || "En silencio");
-      else setStatus(TRACK_LABEL);
+      else setStatus(bedLabel());
       syncUi();
     };
 
-    const playBlob = (blob) =>
+    const stopAll = (reason) => {
+      claimVoice();
+      claimMusic();
+      if (state.ttsAbort) {
+        try {
+          state.ttsAbort.abort();
+        } catch {
+          /* ignore */
+        }
+        state.ttsAbort = null;
+      }
+      state.speakQueue = [];
+      haltMedia(voiceEl, { keepSrc: false });
+      haltMedia(music, { keepSrc: true });
+      const welcome = document.getElementById("rv-welcome-voice");
+      haltMedia(welcome, { keepSrc: false });
+      document.querySelectorAll("audio").forEach((el) => {
+        if (el === music) {
+          haltMedia(el, { keepSrc: true });
+          return;
+        }
+        haltMedia(el, { keepSrc: false });
+      });
+      revokeVoiceUrl();
+      cancelSpeechSynthesis();
+      clearNarrationHighlight();
+      try {
+        global.__rvWelcomePlaying = false;
+      } catch {
+        /* ignore */
+      }
+      state.speaking = false;
+      state.pausedVoice = false;
+      state.voiceContext = null;
+      state.ducking = false;
+      state.musicOn = false;
+      applyVolumes();
+      markSpeakingButtons(false);
+      setStatus(reason || "En silencio");
+      syncUi();
+    };
+
+    const playBlob = (blob, token) =>
       new Promise((resolve, reject) => {
+        if (!isVoiceOwner(token)) {
+          resolve();
+          return;
+        }
         revokeVoiceUrl();
         const url = URL.createObjectURL(blob);
         state.voiceObjectUrl = url;
-        const onEnd = () => {
+        const signal = state.ttsAbort?.signal;
+        const cleanup = () => {
           voiceEl.removeEventListener("ended", onEnd);
           voiceEl.removeEventListener("error", onErr);
+          if (signal) signal.removeEventListener("abort", onAbort);
+        };
+        const onEnd = () => {
+          cleanup();
           resolve();
         };
         const onErr = () => {
-          voiceEl.removeEventListener("ended", onEnd);
-          voiceEl.removeEventListener("error", onErr);
-          reject(new Error("No se pudo reproducir la narración"));
+          cleanup();
+          if (!isVoiceOwner(token) || signal?.aborted) resolve();
+          else reject(new Error("No se pudo reproducir la narración"));
         };
+        const onAbort = () => {
+          cleanup();
+          haltMedia(voiceEl, { keepSrc: false });
+          resolve();
+        };
+        if (signal?.aborted || !isVoiceOwner(token)) {
+          try {
+            URL.revokeObjectURL(url);
+          } catch {
+            /* ignore */
+          }
+          if (state.voiceObjectUrl === url) state.voiceObjectUrl = null;
+          resolve();
+          return;
+        }
         voiceEl.addEventListener("ended", onEnd);
         voiceEl.addEventListener("error", onErr);
+        if (signal) signal.addEventListener("abort", onAbort, { once: true });
         voiceEl.src = url;
+        try {
+          voiceEl.currentTime = 0;
+        } catch {
+          /* ignore */
+        }
         voiceEl.play().catch(onErr);
       });
 
@@ -451,6 +730,7 @@
         return;
       }
       stopVoice();
+      const token = state.voiceToken;
       const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
       state.ttsAbort = ctrl;
       state.voiceContext = opts.contextId || "verse";
@@ -465,16 +745,17 @@
       const chunks = chunkText(plain);
       try {
         for (const chunk of chunks) {
-          if (ctrl?.signal?.aborted) return;
+          if (!isVoiceOwner(token) || ctrl?.signal?.aborted) return;
           const blob = await fetchTtsChunk(chunk, ctrl?.signal);
-          if (ctrl?.signal?.aborted) return;
-          await playBlob(blob);
+          if (!isVoiceOwner(token) || ctrl?.signal?.aborted) return;
+          await playBlob(blob, token);
         }
       } catch (err) {
         if (err?.name === "AbortError") return;
+        if (!isVoiceOwner(token)) return;
         setStatus(err?.message || "No se pudo narrar");
       } finally {
-        if (state.ttsAbort === ctrl) {
+        if (isVoiceOwner(token) && state.ttsAbort === ctrl) {
           state.speaking = false;
           state.pausedVoice = false;
           state.voiceContext = null;
@@ -482,7 +763,7 @@
           state.ttsAbort = null;
           applyVolumes();
           markSpeakingButtons(false);
-          if (state.musicOn) setStatus(TRACK_LABEL);
+          if (state.musicOn) setStatus(bedLabel());
           else if (!String(document.getElementById("estado-audio")?.textContent || "").startsWith("No se")) {
             setStatus("En silencio");
           }
@@ -496,9 +777,53 @@
       return speak(text, { ...opts, contextId: opts.contextId || "verse", passage: currentPassage() });
     };
 
-    const speakChapter = (opts = {}) => {
-      const text = chapterTextFromDom();
-      return speak(text, { ...opts, contextId: "chapter", passage: currentPassage() });
+    const speakChapter = async (opts = {}) => {
+      const verses = chapterVerseEls()
+        .map((el) => ({ el, text: verseTextFromEl(el) }))
+        .filter((v) => v.text.length >= 2);
+      if (!verses.length) {
+        setStatus("No hay capítulo en pantalla");
+        return;
+      }
+      stopVoice();
+      const token = state.voiceToken;
+      const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+      state.ttsAbort = ctrl;
+      state.voiceContext = "chapter";
+      state.speaking = true;
+      state.pausedVoice = false;
+      state.ducking = state.musicOn;
+      applyVolumes();
+      markSpeakingButtons(true, opts.button);
+      setStatus("Narrando el capítulo…");
+      syncUi();
+      try {
+        for (const verse of verses) {
+          if (!isVoiceOwner(token) || ctrl?.signal?.aborted) return;
+          markNarratingVerse(verse.el);
+          const blob = await fetchTtsChunk(verse.text, ctrl?.signal);
+          if (!isVoiceOwner(token) || ctrl?.signal?.aborted) return;
+          await playBlob(blob, token);
+        }
+      } catch (err) {
+        if (err?.name === "AbortError") return;
+        if (!isVoiceOwner(token)) return;
+        setStatus(err?.message || "No se pudo narrar el capítulo");
+      } finally {
+        if (isVoiceOwner(token) && state.ttsAbort === ctrl) {
+          clearNarrationHighlight();
+          state.speaking = false;
+          state.pausedVoice = false;
+          state.voiceContext = null;
+          state.ducking = false;
+          state.ttsAbort = null;
+          applyVolumes();
+          markSpeakingButtons(false);
+          if (state.musicOn) setStatus(bedLabel());
+          else setStatus("En silencio");
+          syncUi();
+        }
+      }
     };
 
     const pauseVoice = () => {
@@ -511,19 +836,172 @@
       } else {
         voiceEl.pause();
         state.pausedVoice = true;
+        clearNarrationHighlight();
         setStatus("Voz en pausa");
       }
       syncUi();
     };
 
     const onRouteChange = () => {
-      if (state.speaking || state.pausedVoice) stopVoice("Narración detenida al cambiar de vista");
-      applyVolumes();
-      syncUi();
+      stopAll("Audio detenido al cambiar de vista");
     };
 
     const onVerseChange = () => {
-      if (state.voiceContext === "chapter" || state.voiceContext === "verse") stopVoice();
+      if (state.voiceContext === "chapter") return;
+      if (state.voiceContext === "verse" || state.speaking || state.pausedVoice) {
+        stopVoice();
+      }
+    };
+
+    const selectBed = (index, { resume = true } = {}) => {
+      const len = BEDS.length;
+      prefs.bedIndex = ((Number(index) % len) + len) % len;
+      savePrefs(prefs);
+      const keepPlaying = resume && (!music.paused || state.musicOn);
+      loadInstrumental();
+      if (keepPlaying) playMusic();
+      else syncUi();
+    };
+
+    const stepBed = (delta) => selectBed((Number(prefs.bedIndex) || 0) + delta);
+
+    const bindOverlaySilence = () => {
+      if (document.documentElement.dataset.rvAudioOverlayWatch === "1") return;
+      document.documentElement.dataset.rvAudioOverlayWatch = "1";
+
+      const openMap = new Map();
+      OVERLAY_IDS.forEach((id) => openMap.set(id, isOverlayOpen(document.getElementById(id))));
+
+      const checkOverlays = () => {
+        OVERLAY_IDS.forEach((id) => {
+          const open = isOverlayOpen(document.getElementById(id));
+          const was = openMap.get(id);
+          openMap.set(id, open);
+          if (was === true && open === false) stopAll("Overlay cerrado");
+        });
+      };
+
+      const observer = new MutationObserver(checkOverlays);
+      observer.observe(document.documentElement, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        attributeFilter: ["class", "hidden", "aria-hidden", "style", "data-ia-closed"],
+      });
+
+      document.addEventListener(
+        "click",
+        (event) => {
+          const t = event.target;
+          if (!t?.closest) return;
+          if (t.closest("#btn-asistente-ia")) {
+            if (document.getElementById("panel-asistente-ia")?.classList.contains("is-open")) {
+              stopAll("Overlay cerrado");
+            }
+            return;
+          }
+          const closer = t.closest(CLOSE_HIT);
+          const backdrop =
+            t.id === "ai-modal" ||
+            t.id === "modal-efata-card" ||
+            t.id === "efata-cards-modal" ||
+            t.id === "efata-social-modal";
+          if ((closer || backdrop) && (backdrop || anySilenceOverlayOpen())) {
+            stopAll("Overlay cerrado");
+          }
+        },
+        true
+      );
+
+      document.addEventListener(
+        "keydown",
+        (event) => {
+          if (event.key !== "Escape") return;
+          if (anySilenceOverlayOpen() || document.body.classList.contains("aposento-active")) {
+            stopAll("Overlay cerrado");
+          }
+        },
+        true
+      );
+
+      document.addEventListener("revelatio:silence-audio", () => stopAll("Overlay cerrado"));
+      document.addEventListener("revelatio:overlay-closed", () => stopAll("Overlay cerrado"));
+      global.addEventListener("pagehide", () => stopAll());
+      global.addEventListener("beforeunload", () => stopAll());
+    };
+
+    const bindControlDelegation = () => {
+      if (document.documentElement.dataset.rvAudioDelegate === "1") return;
+      document.documentElement.dataset.rvAudioDelegate = "1";
+      document.addEventListener("click", (event) => {
+        const t = event.target;
+        if (!t?.closest) return;
+        if (t.closest("#dock-mute-musica")) {
+          event.preventDefault();
+          toggleMusicMute();
+          return;
+        }
+        if (t.closest("#dock-mute-voz")) {
+          event.preventDefault();
+          toggleVoiceMute();
+          return;
+        }
+        if (t.closest("#reader-audio-play, #dock-musica")) {
+          event.preventDefault();
+          toggleMusic();
+          return;
+        }
+        if (t.closest("#dock-bed-prev")) {
+          event.preventDefault();
+          stepBed(-1);
+          return;
+        }
+        if (t.closest("#dock-bed-next")) {
+          event.preventDefault();
+          stepBed(1);
+          return;
+        }
+        if (t.closest("#narrar-capitulo") && !t.closest("[data-listen]")) {
+          event.preventDefault();
+          speakChapter({ button: t.closest("button") });
+          return;
+        }
+        if (t.closest("#pausa-narracion, #dock-stop-voz")) {
+          event.preventDefault();
+          t.closest("#pausa-narracion") ? pauseVoice() : stopVoice();
+        }
+      });
+      document.addEventListener("input", (event) => {
+        const id = event.target?.id;
+        if (
+          id === "reader-audio-vol" ||
+          id === "dock-vol-musica" ||
+          id === "vol-musica" ||
+          id === "aposento-volume-slider"
+        ) {
+          const raw = Number(event.target.value);
+          setMusicVolume(raw > 1 ? raw / 100 : raw);
+        }
+        if (id === "dock-vol-voz" || id === "vol-voz") {
+          const raw = Number(event.target.value);
+          prefs.volVoz = raw > 1 ? raw / 100 : raw;
+          if (prefs.volVoz > 0) prefs.voiceMuted = false;
+          savePrefs(prefs);
+          applyVolumes();
+          syncUi();
+        }
+      });
+      document.addEventListener("change", (event) => {
+        const id = event.target?.id;
+        if (id === "dock-bgm-select") selectBed(event.target.value);
+        if (id === "ambient-audio-toggle" || id === "entrar-con-musica" || id === "toggle-musica") {
+          if (event.target.checked) {
+            prefs.musicMuted = false;
+            savePrefs(prefs);
+            playMusic();
+          } else pauseMusic();
+        }
+      });
     };
 
     const bindOnce = (el, event, handler) => {
@@ -533,25 +1011,15 @@
     };
 
     const mountDock = () => {
+      bindOverlaySilence();
+      bindControlDelegation();
       loadInstrumental();
       applyVolumes();
       syncUi();
 
-      bindOnce(document.getElementById("dock-musica"), "click", (e) => {
-        e.preventDefault();
-        toggleMusic();
-      });
-      bindOnce(document.getElementById("reader-audio-play"), "click", (e) => {
-        e.preventDefault();
-        toggleMusic();
-      });
       bindOnce(document.getElementById("dock-voz"), "click", (e) => {
         e.preventDefault();
         pauseVoice();
-      });
-      bindOnce(document.getElementById("dock-stop-voz"), "click", (e) => {
-        e.preventDefault();
-        stopVoice();
       });
       bindOnce(document.getElementById("dock-expand"), "click", () => {
         prefs.expanded = !prefs.expanded;
@@ -563,39 +1031,6 @@
         music.loop = prefs.loop;
         savePrefs(prefs);
       });
-      bindOnce(document.getElementById("dock-vol-musica"), "input", (e) => {
-        setMusicVolume(Number(e.target.value) / 100);
-      });
-      bindOnce(document.getElementById("reader-audio-vol"), "input", (e) => {
-        const raw = Number(e.target.value);
-        setMusicVolume(raw > 1 ? raw / 100 : raw);
-      });
-      bindOnce(document.getElementById("dock-vol-voz"), "input", (e) => {
-        prefs.volVoz = Number(e.target.value) / 100;
-        if (Number(e.target.value) > 0) prefs.voiceMuted = false;
-        savePrefs(prefs);
-        applyVolumes();
-      });
-      bindOnce(document.getElementById("dock-mute-musica"), "click", (e) => {
-        e.preventDefault();
-        toggleMusicMute();
-      });
-      bindOnce(document.getElementById("dock-mute-voz"), "click", (e) => {
-        e.preventDefault();
-        toggleVoiceMute();
-      });
-      bindOnce(document.getElementById("ambient-audio-toggle"), "change", (e) => {
-        if (e.target.checked) playMusic();
-        else pauseMusic();
-      });
-      bindOnce(document.getElementById("entrar-con-musica"), "change", (e) => {
-        if (e.target.checked) playMusic();
-        else pauseMusic();
-      });
-      bindOnce(document.getElementById("toggle-musica"), "change", (e) => {
-        if (e.target.checked) playMusic();
-        else pauseMusic();
-      });
 
       if (!document.documentElement.dataset.rvListenBound) {
         document.documentElement.dataset.rvListenBound = "1";
@@ -606,6 +1041,10 @@
           event.stopPropagation();
           if (btn.classList.contains("is-speaking")) {
             stopVoice();
+            return;
+          }
+          if (btn.dataset.listen === "chapter") {
+            speakChapter({ button: btn });
             return;
           }
           let text = btn.getAttribute("data-listen-text") || "";
@@ -636,6 +1075,9 @@
     engine.currentVerseText = currentVerseText;
     engine.chapterTextFromDom = chapterTextFromDom;
     engine.stopVoice = stopVoice;
+    engine.stopAll = stopAll;
+    engine.silence = stopAll;
+    engine.detenerTodo = stopAll;
     engine.pauseVoice = pauseVoice;
     engine.playMusic = playMusic;
     engine.pauseMusic = pauseMusic;
@@ -651,7 +1093,10 @@
     engine.reproducirMusica = playMusic;
     engine.detenerMusica = pauseMusic;
     engine.pausarVoz = pauseVoice;
-    engine.isMusicOn = () => state.musicOn && !music.paused;
+    engine.selectBed = selectBed;
+    engine.stepBed = stepBed;
+    engine.isMusicOn = () => !music.paused;
+    engine.isMusicMuted = () => Boolean(prefs.musicMuted) || music.muted || music.volume === 0;
     engine.iniciarExperiencia = (fromSplash) => {
       if (fromSplash) {
         const homeCb = document.getElementById("entrar-con-musica");
@@ -678,7 +1123,7 @@
   RV.audio = RV.audio && RV.audio.mount ? RV.audio : Object.assign(RV.audio || {}, {
     mount: mountAudioEngine,
     create: createEngine,
-    trackLabel: TRACK_LABEL,
+    trackLabel: BEDS[0].title,
   });
 
   const boot = () => {

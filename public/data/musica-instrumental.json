@@ -1,13 +1,13 @@
 {
   "schema": "revelatio.musica.v1",
   "producto": "Éfata RevelatiO",
-  "descripcion": "Camas instrumentales de oración, en la app. Solo CC BY / CC0 verificadas. Etiqueta honesta: Instrumental de oración.",
+  "descripcion": "Camas instrumentales de oración, en la app. Solo CC BY / CC0 verificadas.",
   "licencia_nota": "Ver audio/LICENSES.md. No himnos con copyright. No Pixabay. No rips.",
-  "attribution": "Meditation Impromptu 01/02 — Kevin MacLeod (incompetech.com) — CC BY 4.0",
+  "attribution": "Kevin MacLeod (incompetech.com) — CC BY 3.0 / 4.0",
   "tracks": [
     {
       "id": "meditation-impromptu-02",
-      "title": "Instrumental de oración",
+      "title": "Meditation Impromptu 02",
       "originalTitle": "Meditation Impromptu 02",
       "author": "Kevin MacLeod",
       "url": "/audio/beds/meditation-impromptu-02.mp3",
@@ -19,12 +19,48 @@
     },
     {
       "id": "meditation-impromptu-01",
-      "title": "Instrumental de oración II",
+      "title": "Meditation Impromptu 01",
       "originalTitle": "Meditation Impromptu 01",
       "author": "Kevin MacLeod",
       "url": "/audio/beds/meditation-impromptu-01.mp3",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "source": "https://incompetech.com/",
+      "mood": "oracion",
+      "enabled": true
+    },
+    {
+      "id": "virtutes-instrumenti",
+      "title": "Virtutes Instrumenti",
+      "originalTitle": "Virtutes Instrumenti",
+      "author": "Kevin MacLeod",
+      "url": "/audio/beds/virtutes-instrumenti.mp3",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "source": "https://incompetech.com/",
+      "mood": "oracion",
+      "enabled": true
+    },
+    {
+      "id": "comfortable-mystery",
+      "title": "Comfortable Mystery",
+      "originalTitle": "Comfortable Mystery",
+      "author": "Kevin MacLeod",
+      "url": "/audio/beds/comfortable-mystery.mp3",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "source": "https://incompetech.com/",
+      "mood": "oracion",
+      "enabled": true
+    },
+    {
+      "id": "sovereign",
+      "title": "Sovereign",
+      "originalTitle": "Sovereign",
+      "author": "Kevin MacLeod",
+      "url": "/audio/beds/sovereign.mp3",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
       "source": "https://incompetech.com/",
       "mood": "oracion",
       "enabled": true

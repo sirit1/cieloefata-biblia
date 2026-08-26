@@ -936,12 +936,21 @@
             syncPanelPassageTitle(prefill || "", currentMode);
         };
 
+        const silenceAudio = () => {
+            try {
+                (RV.audio || global.revelatioAudio)?.stopAll?.("Overlay cerrado");
+            } catch {
+                /* ignore */
+            }
+        };
+
         const closePanel = (event) => {
             if (event) {
                 event.preventDefault?.();
                 event.stopPropagation?.();
                 if (typeof event.stopImmediatePropagation === "function") event.stopImmediatePropagation();
             }
+            const wasOpen = panel.classList.contains("is-open");
             panel.classList.remove("is-open");
             panel.setAttribute("hidden", "");
             panel.setAttribute("data-ia-closed", "1");
@@ -949,6 +958,7 @@
             panel.setAttribute("aria-hidden", "true");
             fab.setAttribute("aria-expanded", "false");
             syncBackdrop(false);
+            if (wasOpen) silenceAudio();
         };
 
         // API global pedida por landing / chips
@@ -1000,6 +1010,11 @@
                         backdrop.setAttribute("aria-hidden", "true");
                     }
                     document.body.classList.remove("rv-ia-modal-open");
+                    try {
+                        (RV.audio || global.revelatioAudio)?.stopAll?.("Overlay cerrado");
+                    } catch {
+                        /* ignore */
+                    }
                 },
                 true
             );

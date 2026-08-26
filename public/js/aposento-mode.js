@@ -73,8 +73,11 @@ class AposentoController {
 
   toggleAmbient() {
     this.bindControls();
-    if (aposentoSound.isPlaying) {
-      aposentoSound.stop();
+    const eng = audio();
+    if (eng?.isMusicOn?.() && !eng?.isMusicMuted?.()) {
+      eng.toggleMusicMute?.();
+    } else if (eng?.isMusicMuted?.()) {
+      eng.toggleMusicMute?.();
     } else {
       const vol = this.volumeSlider ? parseFloat(this.volumeSlider.value) : 0.28;
       aposentoSound.start(vol);
@@ -107,7 +110,7 @@ class AposentoController {
       this.btn.setAttribute("aria-pressed", on ? "true" : "false");
     }
     if (this.audioToggle) {
-      const playing = aposentoSound.isPlaying;
+      const playing = Boolean(audio()?.isMusicOn?.()) && !audio()?.isMusicMuted?.();
       this.audioToggle.classList.toggle("text-amber-400", playing);
       this.audioToggle.classList.toggle("text-stone-400", !playing);
       this.audioToggle.textContent = playing ? "🔊" : "🔇";

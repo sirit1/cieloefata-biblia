@@ -216,30 +216,33 @@
 
     <footer id="rv-audio-dock" class="rv-reader-footer" aria-label="Barra de lectura y audio">
         <div class="rv-reader-footer-left">
-            <label class="rv-ambient-switch" for="ambient-audio-toggle" title="Ambiente de oración instrumental">
-                <input type="checkbox" id="ambient-audio-toggle" />
-                <span>Oración Instrumental</span>
-            </label>
             <button type="button" id="reader-audio-play" class="rv-reader-play" aria-pressed="false"
                 title="Reproducir o pausar instrumental">▶</button>
-            <span id="dock-track-title" class="rv-reader-track">Instrumental de oración</span>
-            <button type="button" id="dock-mute-musica" class="rv-reader-listen" aria-pressed="false"
-                title="Silenciar instrumental (no afecta la voz)">🎵 Música</button>
+            <button type="button" id="dock-bed-prev" class="rv-reader-listen" title="Cama anterior">‹</button>
+            <button type="button" id="dock-bed-next" class="rv-reader-listen" title="Cama siguiente">›</button>
+            <span id="dock-track-title" class="rv-reader-track">Meditation Impromptu 02</span>
+            <button type="button" id="dock-mute-musica" class="rv-reader-listen rv-mute-bed" aria-pressed="false"
+                title="Silenciar instrumental (no afecta la voz)">🔊 Música</button>
             <input id="reader-audio-vol" type="range" min="0" max="1" step="0.05" value="0.28"
                 class="rv-reader-vol" aria-label="Volumen instrumental">
             <button type="button" id="reader-listen-passage" class="rv-reader-listen" data-listen="verse"
-                title="Escuchar el versículo en pantalla">🔊 Escuchar</button>
+                title="Escuchar el versículo en pantalla">🔊 Verso</button>
             <button type="button" id="dock-mute-voz" class="rv-reader-listen" aria-pressed="false"
                 title="Silenciar narración (no afecta la música)">🗣️ Voz</button>
             <input id="dock-vol-voz" type="range" min="0" max="100" step="1" value="100"
                 class="rv-reader-vol" aria-label="Volumen de lectura">
+            <label class="rv-ambient-switch" for="ambient-audio-toggle" title="Ambiente de oración instrumental">
+                <input type="checkbox" id="ambient-audio-toggle" />
+                <span>Oración Instrumental</span>
+            </label>
         </div>
         <p id="dock-music-credit" class="rv-reader-legal text-[11px] text-stone-500 truncate max-w-md"
-            title="Atribución CC BY 4.0">Kevin MacLeod (incompetech.com) · CC BY 4.0</p>
+            title="Atribución CC BY">"Meditation Impromptu 02" Kevin MacLeod (incompetech.com) · CC BY 4.0</p>
         <p id="estado-audio" class="sr-only" role="status">En silencio</p>
         <button type="button" id="reader-ia-open" class="rv-reader-ia" title="RevelatiO IA">
             🧠 RevelatiO IA
         </button>
+        <select id="dock-bgm-select" class="sr-only" aria-label="Elegir cama instrumental"></select>
         <button type="button" id="dock-musica" hidden aria-hidden="true"></button>
         <input type="range" id="dock-vol-musica" hidden aria-hidden="true" value="28">
     </footer>

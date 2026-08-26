@@ -3502,7 +3502,6 @@ function descargarBackup(kind) {
     }
 
     function montarAudio() {
-        // Motor de doble pista vive en js/audio-engine.js
         try {
             if (window.RV?.audio?.mount) window.RV.audio.mount();
             else if (window.RV?.audio?.create) {
@@ -3513,23 +3512,6 @@ function descargarBackup(kind) {
         } catch (err) {
             console.warn("[revelatio] audio-engine", err);
         }
-        // Re-wire controles legacy del panel experiencia si existen
-        document.getElementById("narrar-capitulo")?.addEventListener("click", () => {
-            window.revelatioAudio?.speakChapter?.() || window.RV?.audio?.speakChapter?.();
-        });
-        document.getElementById("pausa-narracion")?.addEventListener("click", () => {
-            window.revelatioAudio?.pausarVoz?.() || window.RV?.audio?.pauseVoice?.();
-        });
-        const volM = document.getElementById("vol-musica");
-        const volV = document.getElementById("vol-voz");
-        volM?.addEventListener("input", () => {
-            const dock = document.getElementById("dock-vol-musica");
-            if (dock) { dock.value = volM.value; dock.dispatchEvent(new Event("input")); }
-        });
-        volV?.addEventListener("input", () => {
-            const dock = document.getElementById("dock-vol-voz");
-            if (dock) { dock.value = volV.value; dock.dispatchEvent(new Event("input")); }
-        });
     }
     function montarSelectores() {
         const version = document.getElementById('selector-version');
