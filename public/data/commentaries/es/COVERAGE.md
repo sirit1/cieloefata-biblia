@@ -22,9 +22,11 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD) | sí | sí | sí | pendiente |
 | Marcos | sí | sí | pendiente | pendiente | — | — | — |
-| Lucas | sí | sí | sí | sí | sí | pendiente | pendiente |
-| Juan | sí | sí | sí | sí | sí | pendiente | pendiente |
-| Hechos … Judas | sí | pendiente | pendiente | pendiente | — | — | — |
+| Lucas | sí | sí | sí | sí | sí | sí | pendiente |
+| Juan | sí | sí | sí | sí | sí | en curso | pendiente |
+| Hechos | sí | sí | pendiente | pendiente | — | — | — |
+| Romanos | sí | sí | pendiente | pendiente | — | — | — |
+| 1 Corintios … Judas | sí | en curso | pendiente | pendiente | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | pendiente | pendiente |
 | Apocalipsis | sí | pendiente | pendiente | pendiente | — | — | — |
 
