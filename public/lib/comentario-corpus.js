@@ -2,6 +2,12 @@
  * Comentarios clásicos: texto histórico de dominio público, versículo a versículo.
  * Nunca Gemini, nunca «Actúa como Spurgeon», nunca el respaldo teológico fingiendo autor.
  *
+ * PRODUCT LAW (Alejandro): ALL menu commentators, ANY passage, ANY version.
+ * Spanish body whenever English corpus exists. Honest miss only when the
+ * corpus has no covering note. Range matching where the corpus is range-keyed
+ * (Spurgeon, Wesley, Luther, Augustine, Henry pericopes) — never a one-verse
+ * special case. Version never decides whether a note exists.
+ *
  * Fuentes:
  * - helloao (JFB, Henry, Calvino, Gill, Clarke when the book exists)
  * - Adam Clarke PD fallback (truthaccordingtoscripture ACC / StudyLight) when helloao omits a book (e.g. Mateo)
@@ -10,7 +16,7 @@
  * - Lutero / Agustín: CrossWire cuando hay nota real; si no, found:false
  */
 import { parsearReferencia, LIBROS } from './biblia.js';
-import { attachStoredSpanish } from './comentario-es.js';
+import { attachStoredSpanish, lookupStoredVerse } from './comentario-es.js';
 
 const HELLOAO = 'https://bible.helloao.org';
 const CROSSWIRE = 'https://www.crosswire.org/study/passagestudy.jsp';
@@ -312,7 +318,7 @@ function pickNote(notes, verse) {
   const exact = list.find((n) => n.start === v && (!n.end || n.end === v));
   if (exact) return exact;
 
-  // Comentarios que agrupan (Henry, Calvino, Spurgeon por perícopa): pocos bloques.
+  // Sparse pericope corpora (any book): few blocks covering several verses.
   if (list.length <= 8) {
     const prev = list.filter((n) => n.start <= v).sort((a, b) => b.start - a.start)[0];
     const next = list.filter((n) => n.start > v).sort((a, b) => a.start - b.start)[0];
@@ -641,6 +647,10 @@ function parseWesleyHtmlNotes(html) {
     if (!start || text.length < 20) continue;
     notes.push({ start, end: start, text });
   }
+  for (let i = 0; i < notes.length - 1; i++) {
+    const nxt = notes[i + 1].start;
+    if (nxt > notes[i].start) notes[i].end = nxt - 1;
+  }
   return notes;
 }
 
@@ -806,6 +816,20 @@ export async function obtenerComentarioCorpus({ passage, author } = {}) {
           );
         }
       }
+      const storedHelloao = lookupStoredVerse(ref.libro, authorId, ref.capitulo, ref.verse);
+      const storedHelloaoEn = String(storedHelloao?.en || '').trim();
+      const storedHelloaoEs = String(storedHelloao?.es || '').trim();
+      if (storedHelloaoEn || storedHelloaoEs) {
+        return attachStoredSpanish(
+          hitPayload(
+            authorName,
+            etiqueta,
+            authorId,
+            storedHelloao?.source || `corpus:${helloaoId}`,
+            storedHelloaoEn || storedHelloaoEs,
+          ),
+        );
+      }
       return missPayload(authorName, etiqueta, authorId);
     }
 
@@ -817,6 +841,20 @@ export async function obtenerComentarioCorpus({ passage, author } = {}) {
 
     if (got?.text) {
       return attachStoredSpanish(hitPayload(authorName, etiqueta, authorId, got.source, got.text));
+    }
+    const stored = lookupStoredVerse(ref.libro, authorId, ref.capitulo, ref.verse);
+    const storedEn = String(stored?.en || '').trim();
+    const storedEs = String(stored?.es || '').trim();
+    if (storedEn || storedEs) {
+      return attachStoredSpanish(
+        hitPayload(
+          authorName,
+          etiqueta,
+          authorId,
+          stored?.source || `corpus:${authorId}`,
+          storedEn || storedEs,
+        ),
+      );
     }
     return missPayload(authorName, etiqueta, authorId);
   } catch (err) {

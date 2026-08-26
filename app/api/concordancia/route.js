@@ -1,7 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { fetchConTimeout, resaltarCoincidencia, VERSIONES, LIBROS } from '../../../lib/biblia.js'
-
-const MAX_RESULTADOS = 40
+import { obtenerConcordancia } from '../../../lib/concordancia.js'
 
 function getSupabaseConfig() {
   return {
@@ -29,29 +27,12 @@ async function buscar(request, params) {
   if (termino.length < 3) return Response.json({ error: 'Escribe al menos 3 letras para buscar en la Biblia.' }, { status: 400 })
   if (termino.length > 60) return Response.json({ error: 'La búsqueda es demasiado larga.' }, { status: 400 })
 
-  const versionKey = params.version || 'rv1960'
-  const version = VERSIONES.find((item) => item.key === versionKey) || VERSIONES[0]
-
   try {
-    const url = `https://bolls.life/find/${version.bolls}/?search=${encodeURIComponent(termino)}&match_case=false&match_whole=false`
-    const data = await fetchConTimeout(url, {}, 9000)
-    if (!Array.isArray(data)) return Response.json({ error: 'No fue posible buscar en la Biblia en este momento. Intenta de nuevo.' }, { status: 502 })
-
-    const resultados = data.slice(0, MAX_RESULTADOS).map((item) => {
-      const libro = LIBROS[item.book - 1] || null
-      return {
-        libro,
-        capitulo: item.chapter,
-        verso: item.verse,
-        ref: libro ? `${libro} ${item.chapter}:${item.verse}` : null,
-        html: resaltarCoincidencia(item.text, termino),
-      }
-    }).filter((item) => item.libro)
-
-    return Response.json({
-      success: true,
-      data: { termino, version: version.key, etiqueta: version.etiqueta, total: data.length, resultados },
+    const payload = await obtenerConcordancia({
+      termino,
+      version: params.version || 'rv1960',
     })
+    return Response.json(payload)
   } catch (error) {
     console.error('[v0] Error en concordancia:', error?.message)
     return Response.json({ error: 'No fue posible buscar en la Biblia en este momento. Intenta de nuevo.' }, { status: 502 })

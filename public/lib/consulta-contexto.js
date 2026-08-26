@@ -1,6 +1,10 @@
 /**
  * Contexto canónico de cualquier consulta: referencia, capítulo, versículo,
- * palabra o tema. Texto real (Bolls) + original Strong, sin anclarse a Romanos.
+ * palabra o tema. Texto real (Bolls) + original Strong, sin anclarse a un libro.
+ *
+ * PRODUCT LAW (Alejandro): do not silently serve another version's text as
+ * DHH/NVI/TLA. Empty verse text means this version has no source at that
+ * coordinate. TSK quote fallback lives in lib/tsk.js, not here.
  */
 import {
   parsearReferencia,
@@ -13,7 +17,7 @@ import {
   obtenerDefinicionStrong,
   fetchConTimeout,
   LIBROS,
-  VERSIONES,
+  resolverVersion,
 } from './biblia.js';
 import { cargarPack, versosDesdePack } from './versiones.js';
 import { glosaEspanol as traducirGlosa, pareceIngles, limpiarTextoVerso } from './glosa-es.js';
@@ -80,7 +84,7 @@ function mapVersos(raw, versoInicio, versoFin) {
 
 export async function obtenerTextoVersion(ref, bolls = 'RV1960') {
   const localKey = String(bolls || 'rv1960').toLowerCase().replace(/[^a-z0-9]/g, '');
-  const pack = cargarPack(localKey) || cargarPack('rv1960');
+  const pack = cargarPack(localKey);
   if (pack) {
     const versosLocal = versosDesdePack(pack, ref.libro, ref.capitulo, ref.versoInicio, ref.versoFin);
     if (versosLocal && versosLocal.length) {
@@ -100,9 +104,7 @@ export async function obtenerTextoVersion(ref, bolls = 'RV1960') {
 
 export async function contextoConsulta(input, opts = {}) {
   const ref = parseConsultaFlexible(input);
-  const wanted = String(opts.version || 'RV1960').toUpperCase().replace(/[^A-Z0-9]/g, '');
-  const versionMeta =
-    VERSIONES.find((v) => v.bolls === wanted || v.key.toUpperCase() === wanted) || VERSIONES[0];
+  const versionMeta = resolverVersion(opts.version || 'RV1960');
 
   const vacio = {
     ref: ref || null,
@@ -126,12 +128,7 @@ export async function contextoConsulta(input, opts = {}) {
     }).catch(() => null),
   ]);
 
-  let { versos, texto } = principal;
-  if (!versos.length) {
-    const fb = await obtenerTextoVersion(ref, 'RV1960').catch(() => ({ versos: [], texto: '' }));
-    versos = fb.versos;
-    texto = fb.texto;
-  }
+  const { versos, texto } = principal;
 
   const codes = original ? strongsUnicos(original).slice(0, 10) : [];
   const strongs = (

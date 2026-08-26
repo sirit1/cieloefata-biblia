@@ -1,8 +1,10 @@
 /**
  * Éfata RevelatiO — api/ai.js
- * Motor universal: Lentes Élite (Hermeneútica & Cognitiva), Comentarios Clásicos,
- * TSK, Léxico Strong y Concordancia con timeout calibrado (15s)
- * y síntesis teológica profunda inmediata (<50ms).
+ * Motor de Lentes (Hermeneútica & Cognitiva). TSK, comentarios, léxico y
+ * concordancia NO pasan por aquí.
+ *
+ * PRODUCT LAW (Alejandro): timeout, gobernanza and honest IA failure apply to
+ * EVERY passage and EVERY lens id. Never a per-verse special case.
  */
 import { resolveGeminiApiKey } from '../lib/load-env.js';
 import { obtenerComentarioCorpus } from '../lib/comentario-corpus.js';
@@ -26,7 +28,7 @@ const GEMINI_MODELS_PREFERRED = [
   'gemini-flash-latest',
   'gemini-3.1-pro-preview',
 ];
-const GEMINI_TIMEOUT_MS = 35000;
+const GEMINI_TIMEOUT_MS = 45000;
 const MSG_FALTA_IA =
   'Falta Gemini o AI Gateway. Configure GEMINI_API_KEY (o GOOGLE_GENERATIVE_AI_API_KEY) o AI_GATEWAY_API_KEY. Las lentes no inventarán un dictamen.';
 

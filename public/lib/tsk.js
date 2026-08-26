@@ -1,9 +1,14 @@
 /**
  * TSK / OpenBible cross-references (helloao open-cross-ref).
+ *
+ * PRODUCT LAW (Alejandro): lookup by book+chapter+verse coordinates for EVERY
+ * passage. Version (RVR1960/NVI/DHH/TLA) only chooses the Spanish quote of
+ * each ref, never whether refs exist. Empty only when TSK has no row for that
+ * coordinate. No per-verse special cases.
+ *
  * Verse-keyed corpus. Never Gemini. Never Bolls keyword search.
- * Scripture quotes: Spanish consulted version only (never KJV).
  */
-import { LIBROS } from './biblia.js';
+import { LIBROS, resolverVersion } from './biblia.js';
 import {
   parseConsultaFlexible,
   etiquetaReferencia,
@@ -27,29 +32,10 @@ const USFM = [
 
 const chapterCache = new Map();
 
-function foldVersion(raw) {
-  return String(raw || '')
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]/g, '');
-}
-
-/** Spanish packs only. KJV / English codes fall back to RV1960. */
+/** Spanish catalog only. KJV / English codes fall back to RV1960. */
 export function versionTskEspanol(raw) {
-  const key = foldVersion(raw || 'rv1960');
-  if (!key || key === 'kjv' || key === 'kjva' || key === 'kingjames' || key === 'lxx' || key === 'septuaginta') {
-    return { key: 'rv1960', bolls: 'RV1960', etiqueta: 'RVR1960' };
-  }
-  if (key === 'rvr1960' || key === 'rv60' || key === 'reina') {
-    return { key: 'rv1960', bolls: 'RV1960', etiqueta: 'RVR1960' };
-  }
-  if (key === 'nvi') return { key: 'nvi', bolls: 'NVI', etiqueta: 'NVI' };
-  if (key === 'dhh') return { key: 'dhh', bolls: 'DHH', etiqueta: 'DHH' };
-  if (key === 'tla') return { key: 'tla', bolls: 'TLA', etiqueta: 'TLA' };
-  if (key === 'ntv') return { key: 'ntv', bolls: 'NTV', etiqueta: 'NTV' };
-  if (key === 'rv1960') return { key: 'rv1960', bolls: 'RV1960', etiqueta: 'RVR1960' };
-  return { key: 'rv1960', bolls: 'RV1960', etiqueta: 'RVR1960' };
+  const v = resolverVersion(raw);
+  return { key: v.key, bolls: v.bolls, etiqueta: v.etiqueta };
 }
 
 function esCitaInglesa(texto) {
@@ -116,6 +102,22 @@ function refsForVerse(content, verse) {
   return refs.slice(0, MAX_REFS);
 }
 
+async function citarEnEspanol(refObj, preferredBolls) {
+  const order = [preferredBolls, 'RV1960', 'NVI', 'TLA'].filter(
+    (v, i, a) => v && a.indexOf(v) === i,
+  );
+  for (const bolls of order) {
+    try {
+      const got = await obtenerTextoVersion(refObj, bolls);
+      const texto = textoDeVersos(got);
+      if (texto && !esCitaInglesa(texto)) return texto;
+    } catch {
+      /* siguiente versión */
+    }
+  }
+  return '';
+}
+
 /**
  * @returns {Promise<{success:boolean, found:boolean, fuente:string, data:{referencia:string, version:string, fuente:string, referencias:Array}}>}
  */
@@ -155,7 +157,7 @@ export async function obtenerTsk(input = {}) {
   const verse = ref.versoInicio || 1;
   const content = await loadOpenCrossRef(usfm, ref.capitulo);
   const cruzadas = refsForVerse(content, verse);
-  const out = [];
+  const pending = [];
   const seen = new Set();
 
   for (const cruz of cruzadas) {
@@ -171,30 +173,28 @@ export async function obtenerTsk(input = {}) {
     const k = cita.toLowerCase();
     if (seen.has(k)) continue;
     seen.add(k);
-
-    let got;
-    try {
-      got = await obtenerTextoVersion(
-        {
-          libro,
-          libroId: idx + 1,
-          capitulo,
-          versoInicio: verso,
-          versoFin: fin,
-        },
-        versionMeta.bolls,
-      );
-    } catch {
-      continue;
-    }
-    const texto = textoDeVersos(got);
-    if (!texto || esCitaInglesa(texto)) continue;
-    out.push({
-      ref: cita,
-      texto,
-      nota: 'TSK / OpenBible',
+    pending.push({
+      cita,
+      refObj: {
+        libro,
+        libroId: idx + 1,
+        capitulo,
+        versoInicio: verso,
+        versoFin: fin,
+      },
     });
   }
+
+  const out = await Promise.all(
+    pending.map(async (row) => {
+      const texto = await citarEnEspanol(row.refObj, versionMeta.bolls);
+      return {
+        ref: row.cita,
+        texto,
+        nota: 'TSK / OpenBible',
+      };
+    }),
+  );
 
   return {
     success: true,

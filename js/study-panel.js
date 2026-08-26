@@ -1,6 +1,11 @@
 /**
  * RevelatiO — Panel Unificado de Estudio Bíblico
  * Integra Comentarios Clásicos, Referencias TSK, Concordancia, Léxico Strong y Lentes Hermenéuticas & Cognitivas Élite
+ *
+ * PRODUCT LAW (Alejandro): every panel action is GENERAL — any passage, any
+ * version (RVR1960/NVI/DHH/TLA), any commentator, any lens id. Timeout / dedupe
+ * / abort-previous apply to ALL lenses. Life-topic chips do not live on this
+ * study door. Hebrews 10:6 / Mateo 9:12 / Juan 14:6 are acceptance tests only.
  */
 (function (global) {
   'use strict';
@@ -165,6 +170,16 @@
   let strongAbort = null;
   let strongStamp = 0;
   const lensAbortMap = new Map();
+  /** Global: any passage, any lens id. Client aborts previous in-flight lens. */
+  const LENS_TIMEOUT_MS = 45000;
+
+  function consultedVersion() {
+    try {
+      return localStorage.getItem('revelatio_version') || 'rv1960';
+    } catch {
+      return 'rv1960';
+    }
+  }
 
   function drawerRoot() {
     return document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
@@ -314,7 +329,7 @@
         ).trim();
         if (q.length >= 3) {
           const res = await fetch(
-            `/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(bodyPayload.version || 'rv1960')}`,
+          `/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(bodyPayload.version || consultedVersion())}`,
             { method: 'GET', headers: { Accept: 'application/json' }, signal: controller.signal },
           );
           const data = await res.json().catch(() => ({}));
@@ -478,7 +493,7 @@
     try {
       let data = {};
       let lastStatus = 0;
-      const version = (typeof localStorage !== 'undefined' && localStorage.getItem('revelatio_version')) || 'rv1960';
+      const version = consultedVersion();
       const res = await fetch('/api/tsk', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -599,19 +614,15 @@
       </div>`;
   }
 
-  function getConcordanceSuggestions(passage) {
-    const s = String(passage || '').toLowerCase();
-    let list = ['Gracia', 'Pacto', 'Creer', 'Justificación', 'Paz', 'Verdad'];
-    if (s.includes('juan') || s.includes('amor') || s.includes('gracia')) {
-      list = ['Amor', 'Gracia', 'Verdad', 'Luz', 'Vida Eterna', 'Creer'];
-    } else if (s.includes('rom') || s.includes('fe') || s.includes('justific')) {
-      list = ['Justificación', 'Creer', 'Paz', 'Espíritu', 'Ley', 'Gracia'];
-    } else if (s.includes('salm') || s.includes('alab')) {
-      list = ['Misericordia', 'Alabanza', 'Refugio', 'Paz', 'Justicia'];
-    } else if (s.includes('mat') || s.includes('mar') || s.includes('luc')) {
-      list = ['Reino de Dios', 'Creer', 'Discipulado', 'Oración', 'Perdón'];
+  function getConcordanceSuggestions(_passage) {
+    const fromVerse = keywordsFromVerse(currentVerseText).slice(0, 4);
+    const base = ['Gracia', 'Pacto', 'Creer', 'Justificación', 'Paz', 'Verdad'];
+    const out = [];
+    for (const t of [...fromVerse, ...base]) {
+      const key = String(t || '').toLowerCase();
+      if (key && !out.some((x) => x.toLowerCase() === key)) out.push(t);
     }
-    return list.filter((tag) => String(tag).replace(/\s+/g, '').length >= 3);
+    return out.filter((tag) => String(tag).replace(/\s+/g, '').length >= 3).slice(0, 6);
   }
 
   function renderConcordanceShell(initialTerm = '', passage = currentActivePassage) {
@@ -691,7 +702,7 @@
         <p class="text-[11px] text-stone-500 font-mono">${escapeHtml(passage)}</p>
       </div>`;
         const res = await fetch(
-          `/api/concordancia?q=${encodeURIComponent(q)}`,
+          `/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(consultedVersion())}`,
           { method: 'GET', headers: { Accept: 'application/json' }, signal: concordanceAbort.signal },
         );
         const data = await res.json().catch(() => ({}));
@@ -893,10 +904,16 @@
     const cardId = id;
     const verseText = String(currentVerseText || global.activeStudyText || '').trim();
 
-    let resultBox = drawerEl(`lens-result-${cardId}`);
-    if (resultBox) {
-      resultBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      return;
+    for (const [pendingId, pending] of lensAbortMap.entries()) {
+      try {
+        pending.abort('replaced');
+      } catch {
+        pending.abort();
+      }
+      if (pendingId !== cardId) {
+        document.getElementById(`lens-result-${pendingId}`)?.remove();
+      }
+      lensAbortMap.delete(pendingId);
     }
 
     const root = drawerRoot();
@@ -907,9 +924,22 @@
 
     if (!targetCard) return;
 
-    resultBox = document.createElement('div');
-    resultBox.id = `lens-result-${cardId}`;
-    resultBox.className = 'mt-3 p-4 bg-amber-50/95 border-2 border-[#C59B27]/60 rounded-xl font-serif text-xs leading-relaxed text-stone-900 shadow-md animate-in fade-in duration-200';
+    let resultBox = targetCard.querySelector(`#lens-result-${cardId}`) || drawerEl(`lens-result-${cardId}`);
+    if (resultBox?.dataset.lensState === 'done') {
+      resultBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      return;
+    }
+    if (!resultBox) {
+      resultBox = document.createElement('div');
+      resultBox.id = `lens-result-${cardId}`;
+      resultBox.className = 'mt-3 p-4 bg-amber-50/95 border-2 border-[#C59B27]/60 rounded-xl font-serif text-xs leading-relaxed text-stone-900 shadow-md animate-in fade-in duration-200';
+      targetCard.querySelectorAll(`#lens-result-${cardId}`).forEach((el) => el.remove());
+      document.querySelectorAll(`#lens-result-${cardId}`).forEach((el) => {
+        if (el !== resultBox) el.remove();
+      });
+      targetCard.appendChild(resultBox);
+    }
+    resultBox.dataset.lensState = 'loading';
     resultBox.innerHTML = `
       <div class="flex items-center gap-2.5 text-[#855D10] font-sans font-semibold py-2">
         <span class="animate-spin inline-block text-base">⏳</span>
@@ -919,14 +949,16 @@
         </div>
       </div>
     `;
-    targetCard.appendChild(resultBox);
 
-    if (lensAbortMap.has(cardId)) {
-      lensAbortMap.get(cardId).abort();
-    }
     const controller = new AbortController();
     lensAbortMap.set(cardId, controller);
-    const timer = setTimeout(() => controller.abort(), 18000);
+    const timer = setTimeout(() => {
+      try {
+        controller.abort('timeout');
+      } catch {
+        controller.abort();
+      }
+    }, LENS_TIMEOUT_MS);
 
     try {
       let res = await fetch('/api/lente-elite', {
@@ -976,6 +1008,7 @@
 
       const formatted = formatAnswerHtml(answer);
 
+      resultBox.dataset.lensState = 'done';
       resultBox.innerHTML = `
         <div class="flex justify-between items-center pb-2 mb-2.5 border-b border-[#C59B27]/40">
           <div class="flex items-center gap-2">
@@ -990,6 +1023,11 @@
       `;
     } catch (err) {
       clearTimeout(timer);
+      const replaced = controller.signal.reason === 'replaced' || /replaced/i.test(String(controller.signal.reason || err?.message || ''));
+      if (replaced) {
+        resultBox.remove();
+        return;
+      }
       const isAbort = err?.name === 'AbortError' || /aborted|tiempo de espera/i.test(err?.message || '');
       const msg = isAbort ? 'La consulta requirió más tiempo de procesamiento.' : (err.message || 'Error en RevelatiO IA');
       const escapedId = escapeJsParam(id);
@@ -1337,6 +1375,7 @@
       }
       const lensBtn = event.target.closest('[data-sp-lens-id]');
       if (lensBtn) {
+        event.preventDefault();
         triggerEliteLens(lensBtn.dataset.spLensId, lensBtn.dataset.spLensTitle);
         return;
       }

@@ -3,7 +3,8 @@
  * Comentario → /api/commentary (corpus)
  * TSK → /api/tsk (nunca Gemini)
  * Léxico → /api/lexico
- * Lentes → /api/study-engine / /api/lente-elite
+ * PRODUCT LAW (Alejandro): TSK / commentary / lexicon / lenses — any passage.
+ * Lentes timeout 45s globally. Concordance is GET /api/concordancia, never IA.
  */
 (function (global) {
   'use strict';
@@ -135,6 +136,7 @@
 
     for (const url of endpoints) {
       try {
+        const lensCall = type === 'lens' || type === 'lente' || type === 'vida' || type === 'elite_lens' || type === 'elite';
         const { data } = await postJson(url, {
           passage: ref,
           ref,
@@ -145,7 +147,7 @@
           autor: author,
           lensTitle,
           prompt,
-        }, 18000);
+        }, lensCall ? 45000 : 18000);
         const answer = extractAnswer(data);
         if (data.success !== false && answer) {
           return { success: true, answer, source: data.source || url, raw: data };

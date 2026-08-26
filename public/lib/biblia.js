@@ -23,12 +23,43 @@ export const INDICE_NT_INICIO = 39; // libroId 40 (Mateo) en adelante es Nuevo T
 
 // Catálogo v1.0: solo versiones con licencia SBU o texto base libre.
 // Las claves coinciden con data/versiones/*.json para inyectar packs locales.
+//
+// PRODUCT LAW (Alejandro): every study correction is GENERAL and DEEP.
+// RVR1960 / NVI / DHH / TLA share the same engines. Version never decides
+// whether TSK refs, commentary notes, concordance hits, or lexicon entries
+// exist. Any passage. Hebrews 10:6, Mateo 9:12, Romanos 12, Juan 14:6 are
+// acceptance tests only — never `if (passage === …)` special cases.
 export const VERSIONES = [
   { key: 'rv1960', bolls: 'RV1960', etiqueta: 'RVR1960' },
   { key: 'nvi', bolls: 'NVI', etiqueta: 'NVI' },
   { key: 'tla', bolls: 'TLA', etiqueta: 'TLA' },
   { key: 'dhh', bolls: 'DHH', etiqueta: 'DHH' },
 ];
+
+export function foldVersionKey(raw) {
+  return String(raw || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+/** Map UI / storage / Bolls labels onto the four Spanish catalog rows. */
+export function resolverVersion(raw) {
+  const key = foldVersionKey(raw || 'rv1960');
+  if (!key || key === 'kjv' || key === 'kjva' || key === 'kingjames' || key === 'lxx' || key === 'septuaginta') {
+    return VERSIONES[0];
+  }
+  if (key === 'rvr1960' || key === 'rv60' || key === 'reina' || key === 'rv1960') {
+    return VERSIONES.find((v) => v.key === 'rv1960') || VERSIONES[0];
+  }
+  const hit = VERSIONES.find((v) => (
+    key === foldVersionKey(v.key)
+    || key === foldVersionKey(v.bolls)
+    || key === foldVersionKey(v.etiqueta)
+  ));
+  return hit || VERSIONES[0];
+}
 
 // Idiomas originales reales disponibles en Bolls (con números de Strong).
 export const ORIGINAL_AT = { bolls: 'WLCa', etiqueta: 'Hebreo · Texto Masorético (Códice de Leningrado, con Strong\'s)', prefijo: 'H' };

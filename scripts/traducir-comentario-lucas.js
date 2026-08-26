@@ -4,6 +4,10 @@
  * Does NOT live-translate at request time. Does NOT impersonate authors.
  * Faithful translation of the stored English blob only.
  *
+ * PRODUCT LAW (Alejandro): whole NT for every menu author when English exists
+ * (calvin, luther, gill, jfb, henry, spurgeon, clarke, wesley, augustine).
+ * Skip blobs whose enHash already has Spanish. No one-book-only default.
+ *
  * Usage:
  *   node scripts/traducir-comentario-lucas.js
  *   BOOKS=Mateo,Juan,Lucas,Filemón AUTHORS=matthew-henry,adam-clarke node scripts/traducir-comentario-lucas.js
@@ -56,7 +60,14 @@ const NT_BOOKS = [
 ];
 
 const FULL_NT_AUTHORS = ['matthew-henry', 'charles-spurgeon', 'adam-clarke', 'john-wesley'];
-const PRIORITY_AUTHORS = ['john-calvin', 'jamieson-fausset-brown', 'john-gill'];
+const PRIORITY_AUTHORS = [
+  'john-calvin',
+  'jamieson-fausset-brown',
+  'john-gill',
+  'martin-luther',
+  'agustin-de-hipona',
+];
+/** Used only when PRIORITY_ONLY=1. Default harvest is the whole NT. */
 const PRIORITY_BOOKS = new Set(['Mateo', 'Juan', 'Lucas', 'Filemón']);
 
 const AUTHOR_FILTER = (process.env.AUTHORS || '')
@@ -96,11 +107,9 @@ function selectedBooks() {
   return NT_BOOKS.filter((b) => wanted.has(foldName(b.book)) || wanted.has(foldName(b.usfm)));
 }
 
-function authorsForBook(bookName) {
-  const all = [...FULL_NT_AUTHORS, ...PRIORITY_AUTHORS];
-  const list = AUTHOR_FILTER.length ? all.filter((a) => AUTHOR_FILTER.includes(a)) : all;
-  if (PRIORITY_ONLY || PRIORITY_BOOKS.has(bookName)) return list;
-  return list.filter((a) => FULL_NT_AUTHORS.includes(a));
+function authorsForBook(_bookName) {
+  if (AUTHOR_FILTER.length) return AUTHOR_FILTER;
+  return [...FULL_NT_AUTHORS, ...PRIORITY_AUTHORS];
 }
 
 function layerFile(bookName, authorId) {

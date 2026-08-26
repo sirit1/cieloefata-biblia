@@ -7,6 +7,8 @@ import { consumirCuota, respuestaCuotaAgotada } from '../lib/quota.js';
 // Diccionario léxico REAL (Brown-Driver-Briggs para hebreo, Thayer para
 // griego, vía Bolls Bible) para consultar el significado exacto de una
 // palabra original al tocarla en el lector. No es texto generado por IA.
+// PRODUCT LAW (Alejandro): lexicon is original-language Strong, any passage.
+// Version never decides whether a Strong entry exists.
 
 const getSupabaseConfig = () => ({
   url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,

@@ -27,6 +27,8 @@
     let selectedRef = '';
     let panelStamp = 0;
     let commentaryFetchAbort = null;
+    let lensFetchAbort = null;
+    const LENS_TIMEOUT_MS = 45000;
     let navLockUntil = 0;
     let gotoTimer = 0;
     let lastGotoKey = '';
@@ -586,9 +588,17 @@
     }
 
     function claveMotor(version) {
-        if (version === 'lxx' || version === 'septuaginta') return 'septuaginta';
-        if (version === 'rv1909' || version === 'btx3' || version === 'interlineal') return 'rv1960';
-        return version;
+        const v = String(version || 'rv1960')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]/g, '');
+        if (v === 'lxx' || v === 'septuaginta') return 'septuaginta';
+        if (v === 'rvr1960' || v === 'rv60' || v === 'reina' || v === 'rv1909' || v === 'btx3' || v === 'interlineal') {
+            return 'rv1960';
+        }
+        if (v === 'nvi' || v === 'dhh' || v === 'tla' || v === 'rv1960') return v;
+        return v || 'rv1960';
     }
 
     function etiquetaVersion(version, passage) {
@@ -2679,27 +2689,41 @@ function descargarBackup(kind) {
         const loc = libro || estado();
         const ref = referenciaComentario(loc);
         const verseText = versoTextoActual(loc);
-        const res = await fetch('/api/lente-elite', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({
-                passage: ref,
-                subLensId,
-                lensId: subLensId,
-                lensTitle,
-                verseText,
-                mode: 'elite_lens',
-                type: 'elite_lens',
-                prompt: `Analiza ${ref} bajo ${lensTitle}`,
-            }),
-        });
-        const data = await res.json().catch(() => ({}));
-        if (data.success === false || data.source === 'ai-unavailable') {
-            const err = data.error || data.meta?.error || data.meta?.geminiError || data.meta?.gatewayError
-                || 'Falta Gemini o AI Gateway. Las lentes no inventarán un dictamen.';
-            throw new Error(err);
+        if (lensFetchAbort) {
+            try { lensFetchAbort.abort('replaced'); } catch { lensFetchAbort.abort(); }
         }
-        return String(data.answer || data.respuesta || data.text || '').trim();
+        const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        lensFetchAbort = controller;
+        const timer = controller ? setTimeout(() => {
+            try { controller.abort('timeout'); } catch { controller.abort(); }
+        }, LENS_TIMEOUT_MS) : null;
+        try {
+            const res = await fetch('/api/lente-elite', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                signal: controller?.signal,
+                body: JSON.stringify({
+                    passage: ref,
+                    subLensId,
+                    lensId: subLensId,
+                    lensTitle,
+                    verseText,
+                    mode: 'elite_lens',
+                    type: 'elite_lens',
+                    prompt: `Analiza ${ref} bajo ${lensTitle}`,
+                }),
+            });
+            const data = await res.json().catch(() => ({}));
+            if (data.success === false || data.source === 'ai-unavailable') {
+                const err = data.error || data.meta?.error || data.meta?.geminiError || data.meta?.gatewayError
+                    || 'Falta Gemini o AI Gateway. Las lentes no inventarán un dictamen.';
+                throw new Error(err);
+            }
+            return String(data.answer || data.respuesta || data.text || '').trim();
+        } finally {
+            if (timer) clearTimeout(timer);
+            if (lensFetchAbort === controller) lensFetchAbort = null;
+        }
     }
 
     function htmlDictamenLente(text) {
