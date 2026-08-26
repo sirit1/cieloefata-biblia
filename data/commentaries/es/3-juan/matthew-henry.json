@@ -1,0 +1,47 @@
+{
+  "book": "3 Juan",
+  "usfm": "3JN",
+  "authorId": "matthew-henry",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "I. The sacred penman writes and sends the letter, referred to as \"The elder,\" meaning by years and office, deserving honor. Some question whether this was John the apostle, but his style and spirit are evident. Gaius could not question who wrote it. John humbly refers to himself as \"the elder,\" aligning with ordinary church pastors. II. The recipient is Gaius, a well-beloved individual, possibly the same Gaius mentioned by Paul in Romans 16:23. John expresses his love for him \"in the truth,\" for walking in truth, which shows true love rooted in the gospel. III. John prays for Gaius, asking for the prosperity of both his soul and body. Soul prosperity is the greatest blessing, often housed in a fragile body, but the desire for both spiritual and physical well-being is evident.",
+      "es": "I. El escribano sagrado escribe y envía la carta, denominado \"El mayor\", es decir, por años y oficio, merecedor de honor. Algunos se preguntan si se trataba de Juan el apóstol, pero su estilo y espíritu son evidentes. Cayo no podía cuestionar quién lo escribió. Juan humildemente se refiere a sí mismo como \"el anciano\", alineándose con los pastores ordinarios de la iglesia. II. El destinatario es Gayo, un individuo muy querido, posiblemente el mismo Gayo mencionado por Pablo en Romanos 16:23. Juan expresa su amor por él \"en la verdad\", por caminar en la verdad, lo que muestra el verdadero amor arraigado en el evangelio. III. Juan ora por Gayo, pidiendo la prosperidad tanto de su alma como de su cuerpo. La prosperidad del alma es la mayor bendición, a menudo alojada en un cuerpo frágil, pero el deseo de bienestar tanto espiritual como físico es evidente.",
+      "enHash": "2f0b2b9b202abbf780dbafc5f4476e759c6072c17040852ab776854a2c80dc52",
+      "source": "corpus:matthew-henry"
+    },
+    "b2": {
+      "en": "I. John receives a good report of Gaius's faith and charity from the brethren. Gaius’s love for the brethren and hospitality to strangers proves his sincerity in the faith. II. Gaius is commended for his hospitality, a virtue extended to strangers and those of different churches. III. John expresses great joy in hearing of Gaius's walk in truth. This reflects the joy of ministers when they see their followers living out their faith. IV. John advises Gaius to continue supporting the brethren by aiding them on their journeys in a godly manner, reflecting Christian generosity. V. The brethren went forth preaching for God's sake, taking nothing from the Gentiles. John emphasizes the need for the church to support such ministers, as they help propagate the truth.",
+      "es": "I. Juan recibe de los hermanos un buen informe de la fe y la caridad de Gayo. El amor de Gayo por los hermanos y la hospitalidad hacia los extraños prueba su sinceridad en la fe. II. Cayo es elogiado por su hospitalidad, una virtud extendida a los extraños y a los de diferentes iglesias. III. Juan expresa gran alegría al oír hablar del caminar de Gayo en la verdad. Esto refleja el gozo de los ministros cuando ven a sus seguidores vivir su fe. IV. Juan aconseja a Gayo que continúe apoyando a los hermanos ayudándolos en sus viajes de manera piadosa, reflejando la generosidad cristiana. V. Los hermanos salieron predicando por amor de Dios, sin recibir nada de los gentiles. Juan enfatiza la necesidad de que la iglesia apoye a tales ministros, ya que ayudan a propagar la verdad.",
+      "enHash": "4e00f3b73a632284a7f6c018dd4cd9684c3a6e8f4ec4c1166d834cd3a3df111c",
+      "source": "corpus:matthew-henry"
+    },
+    "b3": {
+      "en": "I. Diotrephes, unlike Gaius, loved preeminence and refused apostolic authority, spreading malicious words. He did not accept John’s letter and discouraged others from showing hospitality, casting them out of the church. John warns that he will address this behavior when he visits. II. John cautions against following Diotrephes’ evil example and encourages believers to imitate what is good, for those who do good are of God, while those who do evil have not seen God.",
+      "es": "I. Diótrefes, a diferencia de Gayo, amaba la preeminencia y rechazó la autoridad apostólica, difundiendo palabras maliciosas. No aceptó la carta de Juan y disuadió a otros de mostrar hospitalidad, expulsándolos de la iglesia. John advierte que abordará este comportamiento cuando lo visite. II. Juan advierte contra el ejemplo malvado de Diótrefes y anima a los creyentes a imitar el bien, porque los que hacen el bien son de Dios, mientras que los que hacen el mal no han visto a Dios.",
+      "enHash": "774c506ecb686d0124af320b11256aeb39deeac80ac84124d4cef961b141163d",
+      "source": "corpus:matthew-henry"
+    },
+    "b4": {
+      "en": "I. Demetrius, on the other hand, has a good report from all and of the truth itself. John and others also bear witness to his character, and Gaius can trust this testimony. Demetrius was likely well known to both John’s church and Gaius's. II. John closes the letter expressing a desire to see Gaius soon and wishing him peace. He also sends greetings from mutual friends and instructs Gaius to greet their friends by name, indicating a personal connection.",
+      "es": "I. Demetrio, en cambio, tiene buen informe de todos y de la verdad misma. Juan y otros también dan testimonio de su carácter, y Gayo puede confiar en ese testimonio. Demetrio probablemente era bien conocido tanto en la iglesia de Juan como en la de Gayo. II. Juan cierra la carta expresando su deseo de ver pronto a Cayo y deseándole paz. También envía saludos de amigos en común e instruye a Gaius a saludar a sus amigos por su nombre, indicando una conexión personal.",
+      "enHash": "689086c6ce4b8db77af070ef802017fcb3ef24cab9a7a88830b43a08c12b1f0e",
+      "source": "corpus:matthew-henry"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:3": "b2",
+    "1:4": "b2",
+    "1:5": "b2",
+    "1:6": "b2",
+    "1:7": "b2",
+    "1:8": "b2",
+    "1:9": "b3",
+    "1:10": "b3",
+    "1:11": "b3",
+    "1:12": "b4",
+    "1:13": "b4",
+    "1:14": "b4"
+  }
+}
