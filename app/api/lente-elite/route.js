@@ -1,6 +1,7 @@
 import legacyHandler from '../../../api/lente-elite.js'
 
 export const runtime = 'nodejs'
+export const maxDuration = 60
 
 function bridge() {
   const headers = new Headers()

@@ -72,7 +72,7 @@
           autor: author,
           author: resolveAuthor(author),
           verseText: global.activeStudyText || '',
-        }, 18000);
+        }, 55000);
         const answer = String(data?.textEs || data?.text || extractAnswer(data) || '').trim();
         if (ok && data?.success && answer) {
           return { success: true, answer, source: data.source || 'corpus', raw: data };
@@ -147,7 +147,7 @@
           autor: author,
           lensTitle,
           prompt,
-        }, lensCall ? 45000 : 18000);
+        }, lensCall ? 60000 : 18000);
         const answer = extractAnswer(data);
         if (data.success !== false && answer) {
           return { success: true, answer, source: data.source || url, raw: data };

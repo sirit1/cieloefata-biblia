@@ -637,32 +637,18 @@
 
     function elegirVersosPasaje(libro, version, passage) {
         const key = claveMotor(version);
-        const orden = [key, 'rv1960', 'nvi', 'tla', 'dhh'].filter((k) => k && k !== 'kjv' && k !== 'kingjames');
-        const seen = new Set();
-        for (const k of orden) {
-            if (!k || seen.has(k)) continue;
-            seen.add(k);
-            const versos = normalizarVersos(passage?.versionesVersos?.[k]);
-            if (versos.length) {
-                return {
-                    versos,
-                    usedKey: k,
-                    isFallback: Boolean(k && key && k !== key),
-                };
-            }
-            const bloque = passage?.versiones?.[k];
-            if (bloque && !esTextoPlaceholder(bloque)) {
-                const partidos = partirVersos(bloque).filter((v) => !esTextoPlaceholder(v.texto));
-                if (partidos.length) {
-                    return {
-                        versos: partidos,
-                        usedKey: k,
-                        isFallback: Boolean(k && key && k !== key),
-                    };
-                }
+        const versos = normalizarVersos(passage?.versionesVersos?.[key]);
+        if (versos.length) {
+            return { versos, usedKey: key, isFallback: false };
+        }
+        const bloque = passage?.versiones?.[key];
+        if (bloque && !esTextoPlaceholder(bloque)) {
+            const partidos = partirVersos(bloque).filter((v) => !esTextoPlaceholder(v.texto));
+            if (partidos.length) {
+                return { versos: partidos, usedKey: key, isFallback: false };
             }
         }
-        return { versos: [], usedKey: null, isFallback: false };
+        return { versos: [], usedKey: key, isFallback: false };
     }
 
     function badgeFallbackHtml() {

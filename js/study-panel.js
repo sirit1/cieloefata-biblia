@@ -170,8 +170,10 @@
   let strongAbort = null;
   let strongStamp = 0;
   const lensAbortMap = new Map();
-  /** Global: any passage, any lens id. Client aborts previous in-flight lens. */
-  const LENS_TIMEOUT_MS = 45000;
+  /** Global: any passage, any lens id. Client waits >= server (45s). */
+  const LENS_TIMEOUT_MS = 60000;
+  const COMMENTARY_TIMEOUT_MS = 55000;
+  const CONCORDANCE_TIMEOUT_MS = 40000;
 
   function consultedVersion() {
     try {
@@ -266,6 +268,7 @@
     } else if (currentTab === 'strong') {
       loadStrongLexicon();
     } else if (currentTab === 'dogmatica' || currentTab === 'lentes') {
+      abortInFlightLenses('Cambio de versículo. El dictamen no llegó.');
       renderDualLensPanel();
     }
   }
@@ -357,7 +360,7 @@
 
     if (commentaryAbort) commentaryAbort.abort();
     commentaryAbort = new AbortController();
-    const timer = setTimeout(() => commentaryAbort.abort(), 18000);
+    const timer = setTimeout(() => commentaryAbort.abort(), COMMENTARY_TIMEOUT_MS);
 
     container.innerHTML = `
       <div class="py-8 px-4 text-center font-serif text-[#855D10] space-y-2 animate-pulse">
@@ -525,6 +528,7 @@
         : (Array.isArray(data.referencias)
             ? data.referencias
             : (Array.isArray(data.references) ? data.references : []));
+      const quotePackNote = String(data.data?.quotePackNote || '').trim();
 
       if (refs.length === 0) {
         const answer = data.answer || data.text || '';
@@ -549,18 +553,21 @@
             <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Referencias Cruzadas TSK (${refs.length})</span>
             <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
           </div>
+          ${quotePackNote ? `<div class="p-2.5 rounded-lg border border-[#C59B27]/50 bg-amber-50 text-[11px] text-stone-700">${escapeHtml(quotePackNote)}</div>` : ''}
           <div class="space-y-2">
             ${refs.map((r) => {
               const rRef = r.referencia || r.ref || r.cita || '';
               const rTxt = r.texto || r.text || '';
               const rTheme = r.tema || r.theme || '';
+              const missing = r.quoteMissing === true || r.quotePackMissing === true;
+              const missNote = r.nota && missing ? r.nota : `Sin cita de ${consultedVersion().toUpperCase()}: el texto de esta versión no está disponible.`;
               return `
                 <div class="p-3 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all text-xs font-serif space-y-1">
                   <div class="flex items-center justify-between font-mono font-bold text-[#855D10]">
                     <span>${escapeHtml(rRef)}</span>
                     ${rTheme ? `<span class="text-[9px] font-normal text-stone-500 bg-amber-50 px-1.5 py-0.5 rounded border border-[#E8DFC8]">${escapeHtml(rTheme)}</span>` : ''}
                   </div>
-                  ${rTxt ? `<p class="text-stone-700 italic text-[11px] leading-relaxed">"${escapeHtml(rTxt)}"</p>` : ''}
+                  ${rTxt ? `<p class="text-stone-700 italic text-[11px] leading-relaxed">"${escapeHtml(rTxt)}"</p>` : (missing ? `<p class="text-[10px] text-stone-500">${escapeHtml(missNote)}</p>` : '')}
                 </div>`;
             }).join('')}
           </div>
@@ -593,9 +600,13 @@
     return keywordsFromVerse(text)[0] || '';
   }
 
-  function renderConcordanceHits(container, term, passage, resultados) {
+  function renderConcordanceHits(container, term, passage, resultados, banner = '') {
+    const bannerHtml = banner
+      ? `<div class="p-2.5 rounded-lg border border-[#C59B27]/50 bg-amber-50 text-[11px] text-stone-700">${escapeHtml(banner)}</div>`
+      : '';
     container.innerHTML = `
       <div class="space-y-2">
+        ${bannerHtml}
         <div class="flex items-center justify-between pb-1.5 border-b border-[#E8DFC8]">
           <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(term)}" (${resultados.length})</span>
           <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
@@ -670,7 +681,7 @@
     const stamp = ++concordanceStamp;
     if (concordanceAbort) concordanceAbort.abort();
     concordanceAbort = new AbortController();
-    const timer = setTimeout(() => concordanceAbort.abort(), 18000);
+    const timer = setTimeout(() => concordanceAbort.abort(), CONCORDANCE_TIMEOUT_MS);
 
     const candidates = [];
     if (typed.length >= 3) candidates.push(typed);
@@ -694,6 +705,8 @@
       let hits = [];
       let used = candidates[0];
       let indexable = true;
+      let banner = '';
+      let fallbackEtiqueta = '';
       for (const q of candidates) {
         if (q.length < 3) continue;
         container.innerHTML = `
@@ -711,28 +724,34 @@
         if (!res.ok) {
           throw new Error(httpErrorMessage(data, res.status));
         }
-        const got = data.data?.resultados || data.resultados || [];
+        const payload = data.data || data;
+        const got = payload.resultados || [];
         used = q;
-        if (data.data && data.data.indexable === false) indexable = false;
+        if (payload.indexable === false) indexable = false;
+        if (payload.fallbackUsed && payload.banner) banner = String(payload.banner);
+        if (payload.fallbackEtiqueta) fallbackEtiqueta = String(payload.fallbackEtiqueta);
         if (Array.isArray(got) && got.length) {
           hits = got;
-          indexable = true;
           break;
         }
+        if (payload.fallbackUsed) break;
       }
       clearTimeout(timer);
       if (stamp !== concordanceStamp) return;
       const input = pane.querySelector('#concordance-search-input');
       if (input) input.value = used;
       if (hits.length) {
-        renderConcordanceHits(container, used, passage, hits);
+        renderConcordanceHits(container, used, passage, hits, banner);
         return;
       }
-      const emptyMsg = indexable
-        ? `No hay coincidencias para «${escapeHtml(used)}».`
-        : `El motor de concordancia es el mismo para todas las versiones; ${escapeHtml(consultedVersion().toUpperCase())} aún no tiene texto indexable (Bolls/pack vacío). No es un fallo de un versículo.`;
+      const emptyMsg = banner
+        ? `No hay coincidencias para «${escapeHtml(used)}» en ${escapeHtml(fallbackEtiqueta || 'RVR1960')}.`
+        : (indexable
+          ? `No hay coincidencias para «${escapeHtml(used)}».`
+          : `${escapeHtml(consultedVersion().toUpperCase())} no tiene índice y no fue posible usar un índice alterno.`);
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
+          ${banner ? `<div class="p-2.5 rounded-lg border border-[#C59B27]/50 bg-amber-50 text-[11px] text-stone-700">${escapeHtml(banner)}</div>` : ''}
           <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
             <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(used)}"</span>
           </div>
@@ -903,6 +922,39 @@
     if (secMental) secMental.hidden = currentOpticTab !== 'mental';
   }
 
+  function paintLensError(cardId, msg, titleHint = '') {
+    const box = document.getElementById(`lens-result-${cardId}`);
+    if (!box) return;
+    const btn = document.querySelector(`[data-sp-lens-id="${cardId}"]`);
+    const title = titleHint || btn?.getAttribute('data-sp-lens-title') || 'Lente';
+    box.dataset.lensState = 'error';
+    const escapedId = escapeJsParam(cardId);
+    const escapedTitle = escapeJsParam(title);
+    box.innerHTML = `
+        <div class="p-4 bg-amber-50/95 border border-[#C59B27]/50 text-stone-900 rounded-xl text-xs font-serif text-center space-y-2.5 shadow-sm">
+          <div class="flex justify-between items-center pb-1 border-b border-[#C59B27]/30">
+            <strong class="font-mono font-bold text-[11px] text-[#855D10] uppercase tracking-wider">${escapeHtml(title)}</strong>
+            <button type="button" onclick="event.stopPropagation(); document.getElementById('lens-result-${cardId}')?.remove()" class="text-stone-400 hover:text-stone-800 font-bold text-sm px-1 cursor-pointer" aria-label="Cerrar">&times;</button>
+          </div>
+          <p class="text-[11px] text-stone-600">${escapeHtml(msg)}</p>
+          <button type="button" onclick="event.stopPropagation(); window.triggerEliteLens('${escapedId}', '${escapedTitle}')" class="px-3 py-1.5 bg-[#0A192F] text-[#DFB743] rounded-lg text-[11px] font-mono font-bold hover:bg-[#1E293B] transition-colors cursor-pointer">Reintentar Dictamen</button>
+        </div>
+      `;
+  }
+
+  function abortInFlightLenses(reason) {
+    const msg = String(reason || 'El dictamen no llegó.');
+    for (const [pendingId, pending] of lensAbortMap.entries()) {
+      paintLensError(pendingId, msg);
+      try {
+        pending.abort('replaced');
+      } catch {
+        pending.abort();
+      }
+    }
+    lensAbortMap.clear();
+  }
+
   async function triggerEliteLens(subLensId, lensTitle) {
     const ref = String(currentActivePassage || global.activeStudyPassage || global.currentStudyRef || 'Romanos 12:2').trim();
     const title = String(lensTitle || 'Análisis Bíblico Élite').trim();
@@ -930,12 +982,12 @@
 
     for (const [pendingId, pending] of lensAbortMap.entries()) {
       if (pendingId === cardId) continue;
+      paintLensError(pendingId, 'Se pidió otra lente. El dictamen no llegó.');
       try {
         pending.abort('replaced');
       } catch {
         pending.abort();
       }
-      document.getElementById(`lens-result-${pendingId}`)?.remove();
       lensAbortMap.delete(pendingId);
     }
 
