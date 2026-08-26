@@ -14,23 +14,30 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Lucas 15:18 | Henry / Spurgeon | true | true | ES | EN |
 | Juan 14:6 | Henry | true | true | ES | EN |
 | Filemón 1:5 | Henry | true | true | ES | EN |
+| Apocalipsis 1:1 | Henry | true | true | ES | EN |
 | Mateo 16:2 | Spurgeon | false | — | No hay nota | — |
+| Marcos 1:1 | Spurgeon | false | — | No hay nota (SPE no tiene hit) | — |
 
 ## Archivos persistidos (blobs con `es`)
 
 | Libro | Henry | Spurgeon | Clarke | Wesley | Calvino | JFB | Gill |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD) | sí | sí | sí | pendiente |
+| Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD) | sí | sí | sí | en curso |
 | Marcos | sí | sí | pendiente | pendiente | — | — | — |
 | Lucas | sí | sí | sí | sí | sí | sí | pendiente |
-| Juan | sí | sí | sí | sí | sí | en curso | pendiente |
+| Juan | sí | sí | sí | sí | sí | sí | pendiente |
 | Hechos | sí | sí | pendiente | pendiente | — | — | — |
 | Romanos | sí | sí | pendiente | pendiente | — | — | — |
-| 1 Corintios … Judas | sí | en curso | pendiente | pendiente | — | — | — |
-| Filemón | sí | 1 hit SPE | sí | sí | sí | pendiente | pendiente |
+| 1–2 Corintios | sí | sí | pendiente | pendiente | — | — | — |
+| Gálatas | sí | sí | pendiente | pendiente | — | — | — |
+| Efesios | sí | sí | pendiente | pendiente | — | — | — |
+| Filipenses … Colosenses | sí | en curso | pendiente | pendiente | — | — | — |
+| 1 Tes … Judas | sí | pendiente | pendiente | pendiente | — | — | — |
+| Filemón | sí | 1 hit SPE | sí | sí | sí | sí | pendiente |
 | Apocalipsis | sí | pendiente | pendiente | pendiente | — | — | — |
 
 Henry NT: **completo** salvo el hueco honesto de Mateo 19–28 (helloao 404; no se inventa español).
+JFB: **completo** en los 4 libros de prioridad.
 
 ## Notas
 
