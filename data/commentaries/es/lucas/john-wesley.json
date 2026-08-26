@@ -5325,6 +5325,24 @@
       "es": "Y comenzando por Moisés y por todos los profetas, les explicó en todas las Escrituras lo que concernía a él.",
       "enHash": "a1c3f109fb7dfb9561eccbb2791292b047217fa2a03e0dcff18b0b10998e959d",
       "source": "corpus:john-wesley"
+    },
+    "b888": {
+      "en": "Luke 11:4\n Forgive us; for we forgive them - Not once, but continually. This does not denote the meritorious cause of our pardon; but the removal of that hinderance which otherwise would render it impossible.",
+      "es": "Lucas 11:4\n Perdónanos; porque los perdonamos - No una vez, sino continuamente. Esto no denota la causa meritoria de nuestro perdón; sino la eliminación de ese obstáculo que de otro modo lo haría imposible.",
+      "enHash": "b299c738aaaf35a2a2e6cb6003a4ac42558254b28d19dde132783d8cf2950a2f",
+      "source": "corpus:john-wesley"
+    },
+    "b889": {
+      "en": "Luke 11:21\n The strong one armed - The devil, strong in himself, and armed with the pride, obstinacy, and security of him in whom he dwells.",
+      "es": "Lucas 11:21\n El fuerte armado - El diablo, fuerte en sí mismo y armado con el orgullo, la obstinación y la seguridad de aquel en quien habita.",
+      "enHash": "558e3ca24fb21329a51336523fb9ec1b1b75ec7fbc250b660f6c9cd8e8e56d72",
+      "source": "corpus:john-wesley"
+    },
+    "b890": {
+      "en": "Luke 20:16\n He will destroy these husbandmen - Probably he pointed to the scribes, chief priests, and elders: who allowed, he will miserably destroy those wicked men, Mt 21:41 ; but could not bear that this should be applied to themselves. They might also mean, God forbid that we should be guilty of such a crime as your parable seems to charge us with, namely, rejecting and killing the heir. Our Saviour answers, But yet will ye do it, as is prophesied of you.",
+      "es": "Lucas 20:16\n Destruirá a estos labradores - Probablemente señaló a los escribas, principales sacerdotes y ancianos: quienes lo permitieron, destruirá miserablemente a esos hombres malvados, Mt 21:41 ; pero no podían soportar que esto se les aplicara a ellos mismos. También podrían querer decir: Dios no permita que seamos culpables de un crimen como el que su parábola parece acusarnos, es decir, rechazar y matar al heredero. Nuestro Salvador responde: Pero aún así lo haréis, como está profetizado de vosotros.",
+      "enHash": "f58ee7b9ff1827a68a18a6a1cf00f6d51bb9a514548861429e93ec408f6cc1c4",
+      "source": "corpus:john-wesley"
     }
   },
   "verses": {
@@ -5783,7 +5801,7 @@
     "11:1": "b434",
     "11:2": "b435",
     "11:3": "b436",
-    "11:4": "b437",
+    "11:4": "b888",
     "11:5": "b438",
     "11:6": "b439",
     "11:7": "b440",
@@ -5800,7 +5818,7 @@
     "11:18": "b451",
     "11:19": "b452",
     "11:20": "b453",
-    "11:21": "b454",
+    "11:21": "b889",
     "11:22": "b455",
     "11:23": "b456",
     "11:24": "b457",
@@ -6083,7 +6101,7 @@
     "20:13": "b729",
     "20:14": "b730",
     "20:15": "b731",
-    "20:16": "b732",
+    "20:16": "b890",
     "20:17": "b733",
     "20:18": "b734",
     "20:19": "b735",

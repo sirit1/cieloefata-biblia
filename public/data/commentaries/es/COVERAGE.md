@@ -23,7 +23,7 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Libro | Henry | Spurgeon | Clarke | Wesley | Calvino | JFB | Gill |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD) | sí | sí | sí | sí |
-| Marcos | sí | sí | sí | en curso | — | — | — |
+| Marcos | sí | sí | sí | sí | — | — | — |
 | Lucas | sí | sí | sí | sí | sí | sí | sí |
 | Juan | sí | sí | sí | sí | sí | sí | sí |
 | Hechos | sí | sí | sí | pendiente | — | — | — |
