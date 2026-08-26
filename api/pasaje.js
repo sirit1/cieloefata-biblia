@@ -137,23 +137,6 @@ export default async function handler(req, res) {
       versionesVersos.original = original.versos;
     }
 
-    if (!versionesLista.length && !original?.versos?.length) {
-      const fallbackTexto = (ref.libro === 'Mateo' && ref.capitulo === 16)
-        ? 'Respondiendo él, les dijo: Cuando anochece, decís: Buen tiempo; porque el cielo tiene arreboles. Y por la mañana: Hoy habrá tempestad; porque tiene arreboles el cielo nublado. ¡Hipócritas! que sabéis distinguir el aspecto del cielo, ¡mas las señales de los tiempos no podéis!'
-        : `Texto canónico de ${ref.libro} ${ref.capitulo}`;
-      const fallbackVersos = [
-        { n: ref.versoInicio || 1, verse: ref.versoInicio || 1, texto: fallbackTexto, text: fallbackTexto }
-      ];
-      versiones.rv1960 = fallbackTexto;
-      versionesVersos.rv1960 = fallbackVersos;
-      versionesLista.push({
-        key: 'rv1960',
-        etiqueta: 'Reina-Valera 1960',
-        nombre: 'Reina-Valera 1960 (RVR1960)',
-        licencia: 'public',
-      });
-    }
-
     const referenciaNormalizada = ref.versoInicio
       ? `${ref.libro} ${ref.capitulo}:${ref.versoInicio}${ref.versoFin && ref.versoFin !== ref.versoInicio ? `-${ref.versoFin}` : ''}`
       : `${ref.libro} ${ref.capitulo}`;
@@ -161,16 +144,10 @@ export default async function handler(req, res) {
     const reqVerRaw = String(q.version || q.versionKey || 'rv1960');
     const reqVer = esInglesLector(reqVerRaw) ? 'rv1960' : reqVerRaw.toLowerCase();
     const cleanKey = claveVersion(reqVer);
-    let matchedVersos = versionesVersos[reqVer] || versionesVersos[cleanKey] || versionesVersos['rv1960'] || versionesVersos['rvr1960'];
-    if (!matchedVersos || !matchedVersos.length) {
-      for (const [k, arr] of Object.entries(versionesVersos)) {
-        if (k === 'original' || k === 'septuaginta' || esInglesLector(k)) continue;
-        if (!esEspanolLector(k) && k !== 'nvi') continue;
-        if (Array.isArray(arr) && arr.length) {
-          matchedVersos = arr;
-          break;
-        }
-      }
+    const rvrAsked = cleanKey === 'rv1960' || cleanKey === 'rvr1960' || cleanKey === 'rv1909' || cleanKey === 'rvr1909';
+    let matchedVersos = versionesVersos[reqVer] || versionesVersos[cleanKey] || [];
+    if ((!matchedVersos || !matchedVersos.length) && rvrAsked) {
+      matchedVersos = versionesVersos.rv1960 || versionesVersos.rvr1960 || [];
     }
     const verses = (matchedVersos || []).map((v) => ({
       verse: Number(v.n || v.verse || v.verso) || 0,
@@ -178,9 +155,21 @@ export default async function handler(req, res) {
       n: Number(v.n || v.verse || v.verso) || 0,
       texto: v.texto || v.text || '',
     }));
+    const matchedMeta = versionesLista.find((v) => v.key === cleanKey || v.key === reqVer)
+      || (rvrAsked ? versionesLista.find((v) => v.key === 'rv1960') : null);
+    const versionLabel = matchedMeta?.etiqueta
+      || (cleanKey === 'dhh' ? 'Dios Habla Hoy'
+        : cleanKey === 'tla' ? 'Traducción en Lenguaje Actual'
+        : cleanKey === 'nvi' ? 'Nueva Versión Internacional'
+        : 'Reina-Valera 1960');
+    const versionEmpty = !verses.length && !rvrAsked;
+    const note = versionEmpty
+      ? `Pack local y Bolls vacíos para ${versionLabel}. No se sustituye por Reina-Valera.`
+      : undefined;
 
     return res.status(200).json({
-      success: true,
+      success: !versionEmpty || Boolean(original?.versos?.length) || Boolean(versionesLista.length),
+      note,
       data: {
         referencia: referenciaNormalizada,
         versiones,
@@ -191,7 +180,7 @@ export default async function handler(req, res) {
       verses,
       book: ref.libro,
       chapter: ref.capitulo,
-      version: esInglesLector(q.version) ? 'RVR1960' : (q.version || 'RVR1960'),
+      version: versionLabel,
     });
   } catch (error) {
     console.error('Error obteniendo pasaje:', error?.message);

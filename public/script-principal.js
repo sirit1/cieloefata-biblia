@@ -357,7 +357,19 @@
         return pasajeTieneVersosReales(data);
     }
 
-    async function fetchPasajeRemoto(referencia) {
+    function claveDesdeEtiquetaApi(versionLabel, packKey) {
+        const pk = String(packKey || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (pk === 'rv1960' || pk === 'nvi' || pk === 'dhh' || pk === 'tla' || pk === 'septuaginta') return pk;
+        const u = String(versionLabel || '').toUpperCase();
+        if (u.includes('DHH') || u.includes('DIOS HABLA')) return 'dhh';
+        if (u.includes('TLA') || u.includes('LENGUAJE ACTUAL')) return 'tla';
+        if (u.includes('NVI')) return 'nvi';
+        if (u.includes('SEPTUAGINTA') || u.includes('LXX')) return 'septuaginta';
+        if (u.includes('1960') || u.includes('1909') || u.includes('REINA')) return 'rv1960';
+        return '';
+    }
+
+    async function fetchPasajeRemoto(referencia, opts = {}) {
         const token = await tokenAuth();
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
         if (token) headers.Authorization = `Bearer ${token}`;
@@ -368,26 +380,32 @@
             const res = await fetch('/api/pasaje', {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({ referencia }),
+                body: JSON.stringify({ referencia, version: opts.version || undefined }),
                 signal: ctrl?.signal
             });
             if (!res.ok) return null;
             const json = await res.json();
-            if (json?.success && json.data) return json.data;
+            if (json?.data) {
+                if (json.note) json.data.note = json.note;
+                return json.data;
+            }
             if (json?.success && Array.isArray(json.verses) && json.verses.length) {
+                const key = claveDesdeEtiquetaApi(json.version, json.metadata?.packKey);
+                if (!key) return json.data || null;
                 return json.data || {
                     referencia: `${json.book || ''} ${json.chapter || ''}`.trim(),
                     versionesVersos: {
-                        rv1960: json.verses.map((v) => ({ n: v.verse, texto: v.text })),
+                        [key]: json.verses.map((v) => ({ n: v.verse, texto: v.text })),
                     },
                     versiones: {
-                        rv1960: json.verses.map((v) => `${v.verse} ${v.text}`).join(' '),
+                        [key]: json.verses.map((v) => `${v.verse} ${v.text}`).join(' '),
                     },
-                    versionesLista: [{ key: 'rv1960', etiqueta: json.version, licencia: 'remote' }],
+                    versionesLista: [{ key, etiqueta: json.version, licencia: 'remote' }],
                     original: null,
+                    note: json.note || null,
                 };
             }
-            return null;
+            return json?.data || null;
         } catch {
             return null;
         } finally {
@@ -494,9 +512,9 @@
         try { local = await fetchCapituloLocal(ref); } catch (_e) { local = null; }
 
         if (!pasajeTieneVersos(local)) {
-            try { remoto = await fetchPasajeRemoto(ref); } catch (_e) { remoto = null; }
+            try { remoto = await fetchPasajeRemoto(ref, opts); } catch (_e) { remoto = null; }
         } else {
-            fetchPasajeRemoto(ref)
+            fetchPasajeRemoto(ref, opts)
                 .then((r) => {
                     if (!r || !pasajeTieneVersos(r)) return;
                     const merged = fusionarPasajesLocalRemoto(local, r);
@@ -507,38 +525,38 @@
 
         let data = fusionarPasajesLocalRemoto(local, remoto);
 
-        // Si la versión pedida (DHH/TLA/…) no trae texto real, forzar canónica pública.
+        // DHH/TLA/NVI vacíos se quedan vacíos. Contingencia RVR1909 solo si se pidió RVR.
         const keyWanted = wanted === 'rv1909' || wanted === 'btx3' ? 'rv1960' : wanted;
+        const rvrAsked = !keyWanted || keyWanted === 'rv1960' || keyWanted === 'rv1909' || keyWanted === 'rvr1960';
         const tienePedida = keyWanted
             ? normalizarListaVersos(data?.versionesVersos?.[keyWanted]).length > 0
             : pasajeTieneVersos(data);
         const tieneCanon = normalizarListaVersos(data?.versionesVersos?.rv1960).length > 0
             || normalizarListaVersos(data?.versionesVersos?.rv1909).length > 0;
 
-        if (!tienePedida && !tieneCanon) {
+        if (rvrAsked && !tienePedida && !tieneCanon) {
             try {
                 const contingencia = await fetchPasajeContingenciaAgente(ref, {
-                    version: keyWanted || 'rv1909',
+                    version: 'rv1909',
                     book: opts.book,
                     chapter: opts.chapter,
                 });
                 if (pasajeTieneVersos(contingencia)) data = contingencia;
             } catch (_e) { /* keep empty */ }
-        } else if (keyWanted && !tienePedida && tieneCanon) {
-            // Sin aviso de contingencia: no etiquetar otra versión como RVR1909.
+        } else if (keyWanted && !tienePedida) {
             data = {
                 ...data,
                 fallbackVersion: null,
                 fallbackNotice: null,
                 contingencia: false,
+                note: data?.note || `Pack local y Bolls vacíos para esta versión. No se sustituye por Reina-Valera.`,
             };
         }
 
-        // Última red: si aún no hay versos reales, agente get_chapter.
-        if (!pasajeTieneVersos(data)) {
+        if (rvrAsked && !pasajeTieneVersos(data)) {
             try {
                 const contingencia = await fetchPasajeContingenciaAgente(ref, {
-                    version: keyWanted || 'rv1909',
+                    version: 'rv1909',
                     book: opts.book,
                     chapter: opts.chapter,
                 });

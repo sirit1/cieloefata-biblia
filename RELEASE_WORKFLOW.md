@@ -15,7 +15,7 @@ Production must be deployed only from the approved integration branch or a deplo
 
 - `npm run check`
 - syntax check for API modules and inline scripts
-- verify `index.html` and `public/index.html` match
+- `npm run sync:public` (canonical `js/`, `views/`, `css/` → `public/`; do not hand-edit the mirrors)
 - verify the production deployment is Ready before assigning aliases
 
 ## Guardrails

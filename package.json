@@ -10,8 +10,9 @@
     "test:backend": "node tests/qa-backend.js",
     "dev:next": "next dev",
     "start:next": "next start",
+    "sync:public": "node scripts/sync-public-static.mjs",
     "build:css": "tailwindcss -i ./styles/tailwind.input.css -o ./public/assets/tailwind.css --minify",
-    "build": "npm run build:css && next build",
+    "build": "npm run sync:public && npm run build:css && next build",
     "check": "node --check lib/biblia.js && node --check api/config.js && node --check api/exegesis.js && node --check api/lente.js && node --check api/referencias.js && node --check api/pasaje.js && node --check api/bible.js && node --check api/lexico.js && node --check api/biblia.js"
   },
   "dependencies": {

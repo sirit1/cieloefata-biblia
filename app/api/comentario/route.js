@@ -2,6 +2,7 @@ import { catalogoPublicoComentarios } from '../../../lib/comentarios.js'
 import { obtenerComentarioCorpus, jsonComentarioCorpus } from '../../../lib/comentario-corpus.js'
 
 export const runtime = 'nodejs'
+export const maxDuration = 60
 
 async function responder(passage, author) {
   const result = await obtenerComentarioCorpus({ passage, author })

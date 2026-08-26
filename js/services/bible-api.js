@@ -1,7 +1,7 @@
 /**
  * Éfata RevelatiO — bible-api.js
  * Cliente: /api/bible + fallback directo a bolls.life get-chapter.
- * Nunca pinta "HTTP Error: 404". TLA/DHH vacíos → RVR1960 con nota visible.
+ * Nunca pinta "HTTP Error: 404". DHH/TLA/NVI vacíos no se sustituyen por RVR.
  */
 
 export const VERSION_MAP = {
@@ -102,49 +102,51 @@ async function fetchPassageOnce(book, chapter, verKey, signal = null) {
   );
   const ctype = (res.headers.get('content-type') || '').toLowerCase();
   const json = ctype.includes('application/json') ? await res.json().catch(() => null) : null;
-  if (res.ok && json?.success && Array.isArray(json.verses) && json.verses.length) {
-    return json;
+  if (res.ok && json && typeof json === 'object') {
+    if (json.success && Array.isArray(json.verses) && json.verses.length) return json;
+    if (json.success === false) return json;
   }
   return null;
 }
 
+function versionLabelOf(verKey) {
+  return (VERSION_MAP[verKey] || VERSION_MAP.RVR1960).label;
+}
+
 export async function getPassageData(book, chapter, version = 'RVR1960', signal = null) {
   const verKey = normalizeVersionKey(version);
-  const tries = [verKey];
-  if (verKey !== 'RVR1960') tries.push('RVR1960');
-  if (!tries.includes('RVR1909')) tries.push('RVR1909');
+  const label = versionLabelOf(verKey);
+  const rvrFamily = verKey === 'RVR1960' || verKey === 'RV1960' || verKey === 'RVR1909' || verKey === 'RV1909';
 
-  for (const key of tries) {
-    try {
-      const data = await fetchPassageOnce(book, chapter, key, signal);
-      if (data?.verses?.length) {
-        if (key !== verKey) {
-          data.note =
-            data.note ||
-            `Mostrando ${data.version || 'RVR1960'} (el texto ${verKey} no está disponible en este momento).`;
-          if (verKey === 'TLA' || verKey === 'DHH') {
-            data.version = data.version && !/tla|dhh/i.test(String(data.version))
-              ? data.version
-              : 'RVR1960';
-          }
-        }
-        return data;
-      }
-    } catch (err) {
-      if (err?.name === 'AbortError') throw err;
-      console.warn(`[BibleAPI] ${book} ${chapter} @ ${key}:`, err?.message || err);
+  try {
+    const data = await fetchPassageOnce(book, chapter, verKey, signal);
+    if (data?.verses?.length) return data;
+    if (data && data.success === false) {
+      return {
+        ...data,
+        book: data.book || book,
+        chapter: Number(data.chapter) || Number(chapter) || 1,
+        version: data.version || label,
+        verses: Array.isArray(data.verses) ? data.verses : [],
+        note: data.note || data.error || `Pack local y Bolls vacíos para ${label}. No se sustituye por Reina-Valera.`,
+      };
     }
+  } catch (err) {
+    if (err?.name === 'AbortError') throw err;
+    console.warn(`[BibleAPI] ${book} ${chapter} @ ${verKey}:`, err?.message || err);
   }
 
-  for (const key of tries) {
+  try {
+    const remote = await fetchBollsChapter(book, chapter, verKey, signal);
+    if (remote?.verses?.length) return remote;
+  } catch (err) {
+    if (err?.name === 'AbortError') throw err;
+  }
+
+  if (rvrFamily && verKey !== 'RVR1909') {
     try {
-      const remote = await fetchBollsChapter(book, chapter, key, signal);
-      if (remote?.verses?.length) {
-        if (key !== verKey) {
-          remote.note = `Mostrando ${remote.version} (el texto ${verKey} no está disponible en este momento).`;
-        }
-        return remote;
-      }
+      const remote1909 = await fetchBollsChapter(book, chapter, 'RVR1909', signal);
+      if (remote1909?.verses?.length) return remote1909;
     } catch (err) {
       if (err?.name === 'AbortError') throw err;
     }
@@ -152,10 +154,11 @@ export async function getPassageData(book, chapter, version = 'RVR1960', signal 
 
   return {
     success: false,
-    error: `No se pudo cargar ${book} ${chapter}. Revisa la conexión.`,
+    error: `Pack local y Bolls vacíos para ${label}. No se sustituye por Reina-Valera.`,
+    note: `Pack local y Bolls vacíos para ${label}. No se sustituye por Reina-Valera.`,
     book,
     chapter: Number(chapter) || 1,
-    version: verKey,
+    version: label,
     verses: [],
   };
 }

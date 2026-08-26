@@ -28,11 +28,11 @@
     maestro: {
       id: 'dictamen_maestro',
       icon: '⚡',
-      title: 'DICTAMEN MAESTRO INTEGRADO',
-      subtitle: 'Convergencia Total',
-      discipline: 'Cátedra Suprema RevelatiO IA',
-      blurb: 'Convergencia cuádruple: Exégesis Cristocéntrica, Diagnóstico Cognitivo, Neuroplasticidad del Nous y Matriz Decisional Innegociable.',
-      prompt: 'Emite el Dictamen Maestro Integrado (I. Exégesis Cristocéntrica, II. Diagnóstico Cognitivo, III. Neuroplasticidad & Nous, IV. Matriz Decisional) para'
+      title: 'Dictamen integrado',
+      subtitle: '',
+      discipline: '',
+      blurb: 'La IA redacta el dictamen de este pasaje. No hay texto prefabricado.',
+      prompt: 'Emite un dictamen integrado (exégesis, diagnóstico cognitivo, renovación del nous y matriz decisional) para'
     },
     biblica: [
       {
@@ -108,10 +108,10 @@
     {
       id: 'dictamen_maestro',
       icon: '⚡',
-      title: 'Dictamen Maestro Integrado',
-      discipline: 'Cátedra Suprema RevelatiO IA',
-      blurb: 'Convergencia total: Exégesis Cristocéntrica, Diagnóstico Cognitivo, Neuroplasticidad del Nous y Matriz Decisional.',
-      prompt: 'Emite el Dictamen Maestro Integrado para'
+      title: 'Dictamen integrado',
+      discipline: '',
+      blurb: 'La IA redacta el dictamen de este pasaje.',
+      prompt: 'Emite un dictamen integrado para'
     },
     {
       id: 'biblica_exegesis',
@@ -158,7 +158,7 @@
     return REVELATIO_LENSES.find((l) => l.id === s || l.title.toLowerCase().includes(s)) || null;
   }
 
-  let currentActivePassage = 'Mateo 16:2';
+  let currentActivePassage = '';
   let currentVerseText = '';
   let currentOpticTab = 'biblica';
   let commentaryAbort = null;
@@ -170,8 +170,10 @@
   let strongAbort = null;
   let strongStamp = 0;
   const lensAbortMap = new Map();
-  /** Global: any passage, any lens id. Client aborts previous in-flight lens. */
-  const LENS_TIMEOUT_MS = 45000;
+  /** Global: any passage, any lens id. Client waits >= server (45s). */
+  const LENS_TIMEOUT_MS = 60000;
+  const COMMENTARY_TIMEOUT_MS = 55000;
+  const CONCORDANCE_TIMEOUT_MS = 40000;
 
   function consultedVersion() {
     try {
@@ -266,6 +268,7 @@
     } else if (currentTab === 'strong') {
       loadStrongLexicon();
     } else if (currentTab === 'dogmatica' || currentTab === 'lentes') {
+      abortInFlightLenses('Cambio de versículo. El dictamen no llegó.');
       renderDualLensPanel();
     }
   }
@@ -357,7 +360,7 @@
 
     if (commentaryAbort) commentaryAbort.abort();
     commentaryAbort = new AbortController();
-    const timer = setTimeout(() => commentaryAbort.abort(), 18000);
+    const timer = setTimeout(() => commentaryAbort.abort(), COMMENTARY_TIMEOUT_MS);
 
     container.innerHTML = `
       <div class="py-8 px-4 text-center font-serif text-[#855D10] space-y-2 animate-pulse">
@@ -525,6 +528,7 @@
         : (Array.isArray(data.referencias)
             ? data.referencias
             : (Array.isArray(data.references) ? data.references : []));
+      const quotePackNote = String(data.data?.quotePackNote || '').trim();
 
       if (refs.length === 0) {
         const answer = data.answer || data.text || '';
@@ -549,18 +553,21 @@
             <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Referencias Cruzadas TSK (${refs.length})</span>
             <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
           </div>
+          ${quotePackNote ? `<div class="p-2.5 rounded-lg border border-[#C59B27]/50 bg-amber-50 text-[11px] text-stone-700">${escapeHtml(quotePackNote)}</div>` : ''}
           <div class="space-y-2">
             ${refs.map((r) => {
               const rRef = r.referencia || r.ref || r.cita || '';
               const rTxt = r.texto || r.text || '';
               const rTheme = r.tema || r.theme || '';
+              const missing = r.quoteMissing === true || r.quotePackMissing === true;
+              const missNote = r.nota && missing ? r.nota : `Sin cita de ${consultedVersion().toUpperCase()}: el texto de esta versión no está disponible.`;
               return `
                 <div class="p-3 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all text-xs font-serif space-y-1">
                   <div class="flex items-center justify-between font-mono font-bold text-[#855D10]">
                     <span>${escapeHtml(rRef)}</span>
                     ${rTheme ? `<span class="text-[9px] font-normal text-stone-500 bg-amber-50 px-1.5 py-0.5 rounded border border-[#E8DFC8]">${escapeHtml(rTheme)}</span>` : ''}
                   </div>
-                  ${rTxt ? `<p class="text-stone-700 italic text-[11px] leading-relaxed">"${escapeHtml(rTxt)}"</p>` : ''}
+                  ${rTxt ? `<p class="text-stone-700 italic text-[11px] leading-relaxed">"${escapeHtml(rTxt)}"</p>` : (missing ? `<p class="text-[10px] text-stone-500">${escapeHtml(missNote)}</p>` : '')}
                 </div>`;
             }).join('')}
           </div>
@@ -593,9 +600,13 @@
     return keywordsFromVerse(text)[0] || '';
   }
 
-  function renderConcordanceHits(container, term, passage, resultados) {
+  function renderConcordanceHits(container, term, passage, resultados, banner = '') {
+    const bannerHtml = banner
+      ? `<div class="p-2.5 rounded-lg border border-[#C59B27]/50 bg-amber-50 text-[11px] text-stone-700">${escapeHtml(banner)}</div>`
+      : '';
     container.innerHTML = `
       <div class="space-y-2">
+        ${bannerHtml}
         <div class="flex items-center justify-between pb-1.5 border-b border-[#E8DFC8]">
           <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(term)}" (${resultados.length})</span>
           <span class="text-[10px] text-stone-500 font-mono">${escapeHtml(passage)}</span>
@@ -657,7 +668,7 @@
   }
 
   async function loadConcordance(passageRef = currentActivePassage, customTerm = '') {
-    const passage = String(passageRef || currentActivePassage || 'Romanos 12:2').trim();
+    const passage = String(passageRef || currentActivePassage || '').trim();
     const typed = String(customTerm || '').trim();
     let term = typed;
     if (!term) term = keywordFromVerse(currentVerseText);
@@ -670,7 +681,7 @@
     const stamp = ++concordanceStamp;
     if (concordanceAbort) concordanceAbort.abort();
     concordanceAbort = new AbortController();
-    const timer = setTimeout(() => concordanceAbort.abort(), 18000);
+    const timer = setTimeout(() => concordanceAbort.abort(), CONCORDANCE_TIMEOUT_MS);
 
     const candidates = [];
     if (typed.length >= 3) candidates.push(typed);
@@ -694,6 +705,8 @@
       let hits = [];
       let used = candidates[0];
       let indexable = true;
+      let banner = '';
+      let fallbackEtiqueta = '';
       for (const q of candidates) {
         if (q.length < 3) continue;
         container.innerHTML = `
@@ -711,28 +724,34 @@
         if (!res.ok) {
           throw new Error(httpErrorMessage(data, res.status));
         }
-        const got = data.data?.resultados || data.resultados || [];
+        const payload = data.data || data;
+        const got = payload.resultados || [];
         used = q;
-        if (data.data && data.data.indexable === false) indexable = false;
+        if (payload.indexable === false) indexable = false;
+        if (payload.fallbackUsed && payload.banner) banner = String(payload.banner);
+        if (payload.fallbackEtiqueta) fallbackEtiqueta = String(payload.fallbackEtiqueta);
         if (Array.isArray(got) && got.length) {
           hits = got;
-          indexable = true;
           break;
         }
+        if (payload.fallbackUsed) break;
       }
       clearTimeout(timer);
       if (stamp !== concordanceStamp) return;
       const input = pane.querySelector('#concordance-search-input');
       if (input) input.value = used;
       if (hits.length) {
-        renderConcordanceHits(container, used, passage, hits);
+        renderConcordanceHits(container, used, passage, hits, banner);
         return;
       }
-      const emptyMsg = indexable
-        ? `No hay coincidencias para «${escapeHtml(used)}».`
-        : `El motor de concordancia es el mismo para todas las versiones; ${escapeHtml(consultedVersion().toUpperCase())} aún no tiene texto indexable (Bolls/pack vacío). No es un fallo de un versículo.`;
+      const emptyMsg = banner
+        ? `No hay coincidencias para «${escapeHtml(used)}» en ${escapeHtml(fallbackEtiqueta || 'RVR1960')}.`
+        : (indexable
+          ? `No hay coincidencias para «${escapeHtml(used)}».`
+          : `${escapeHtml(consultedVersion().toUpperCase())} no tiene índice y no fue posible usar un índice alterno.`);
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
+          ${banner ? `<div class="p-2.5 rounded-lg border border-[#C59B27]/50 bg-amber-50 text-[11px] text-stone-700">${escapeHtml(banner)}</div>` : ''}
           <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
             <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(used)}"</span>
           </div>
@@ -903,8 +922,41 @@
     if (secMental) secMental.hidden = currentOpticTab !== 'mental';
   }
 
+  function paintLensError(cardId, msg, titleHint = '') {
+    const box = document.getElementById(`lens-result-${cardId}`);
+    if (!box) return;
+    const btn = document.querySelector(`[data-sp-lens-id="${cardId}"]`);
+    const title = titleHint || btn?.getAttribute('data-sp-lens-title') || 'Lente';
+    box.dataset.lensState = 'error';
+    const escapedId = escapeJsParam(cardId);
+    const escapedTitle = escapeJsParam(title);
+    box.innerHTML = `
+        <div class="p-4 bg-amber-50/95 border border-[#C59B27]/50 text-stone-900 rounded-xl text-xs font-serif text-center space-y-2.5 shadow-sm">
+          <div class="flex justify-between items-center pb-1 border-b border-[#C59B27]/30">
+            <strong class="font-mono font-bold text-[11px] text-[#855D10] uppercase tracking-wider">${escapeHtml(title)}</strong>
+            <button type="button" onclick="event.stopPropagation(); document.getElementById('lens-result-${cardId}')?.remove()" class="text-stone-400 hover:text-stone-800 font-bold text-sm px-1 cursor-pointer" aria-label="Cerrar">&times;</button>
+          </div>
+          <p class="text-[11px] text-stone-600">${escapeHtml(msg)}</p>
+          <button type="button" onclick="event.stopPropagation(); window.triggerEliteLens('${escapedId}', '${escapedTitle}')" class="px-3 py-1.5 bg-[#0A192F] text-[#DFB743] rounded-lg text-[11px] font-mono font-bold hover:bg-[#1E293B] transition-colors cursor-pointer">Reintentar Dictamen</button>
+        </div>
+      `;
+  }
+
+  function abortInFlightLenses(reason) {
+    const msg = String(reason || 'El dictamen no llegó.');
+    for (const [pendingId, pending] of lensAbortMap.entries()) {
+      paintLensError(pendingId, msg);
+      try {
+        pending.abort('replaced');
+      } catch {
+        pending.abort();
+      }
+    }
+    lensAbortMap.clear();
+  }
+
   async function triggerEliteLens(subLensId, lensTitle) {
-    const ref = String(currentActivePassage || global.activeStudyPassage || global.currentStudyRef || 'Romanos 12:2').trim();
+    const ref = String(currentActivePassage || global.activeStudyPassage || global.currentStudyRef || '').trim();
     const title = String(lensTitle || 'Análisis Bíblico Élite').trim();
     const id = String(subLensId || 'dictamen_maestro').trim();
     const cardId = id;
@@ -930,12 +982,12 @@
 
     for (const [pendingId, pending] of lensAbortMap.entries()) {
       if (pendingId === cardId) continue;
+      paintLensError(pendingId, 'Se pidió otra lente. El dictamen no llegó.');
       try {
         pending.abort('replaced');
       } catch {
         pending.abort();
       }
-      document.getElementById(`lens-result-${pendingId}`)?.remove();
       lensAbortMap.delete(pendingId);
     }
 
@@ -954,8 +1006,8 @@
       <div class="flex items-center gap-2.5 text-[#855D10] font-sans font-semibold py-2">
         <span class="animate-spin inline-block text-base">⏳</span>
         <div class="flex-1 min-w-0">
-          <p class="text-xs font-bold uppercase tracking-wide text-[#0A192F]">RevelatiO IA · Cátedra Doctoral</p>
-          <p class="text-[11px] text-stone-600 font-serif">Redactando dictamen de alta densidad para <strong>${escapeHtml(ref)}</strong>...</p>
+          <p class="text-xs font-bold uppercase tracking-wide text-[#0A192F]">RevelatiO IA</p>
+          <p class="text-[11px] text-stone-600 font-serif">Redactando dictamen para <strong>${escapeHtml(ref || 'el pasaje en lectura')}</strong>…</p>
         </div>
       </div>
     `;
@@ -1031,6 +1083,9 @@
           ${formatted}
         </div>
       `;
+      if (id === 'dictamen_maestro') {
+        document.getElementById('lentes-opticas')?.removeAttribute('hidden');
+      }
     } catch (err) {
       clearTimeout(timer);
       const replaced = controller.signal.reason === 'replaced' || /replaced/i.test(String(controller.signal.reason || err?.message || ''));
@@ -1072,84 +1127,50 @@
     });
 
     const m = ELITE_LENSES.maestro;
-    const ref = currentActivePassage || global.activeStudyPassage || 'Romanos 12:2';
+    const ref = currentActivePassage || global.activeStudyPassage || '';
+    const maestroDone = saved['lens-result-dictamen_maestro']?.dataset?.lensState === 'done';
+
+    const opticBtn = (l) => `
+              <div id="lens-card-${l.id}" class="rv-sp-lens-block">
+                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}"
+                  class="group cursor-pointer px-3 py-2 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-lg text-left w-full">
+                  <h4 class="font-bold text-sm text-[#0F172A] group-hover:text-[#855D10] transition-colors">${escapeHtml(l.title)}</h4>
+                </button>
+              </div>`;
 
     const html = `
       <div id="tab-lentes" class="space-y-3.5 font-serif text-[#0F172A]">
         <div class="pb-2 border-b border-[#E8DFC8]">
-          <h3 class="text-sm font-bold text-[#0A192F] uppercase tracking-wider">Lentes Hermenéuticas & Cognitivas</h3>
-          <p class="text-xs text-[#C59B27] font-sans mt-0.5">Alta densidad académica, filología & neurociencia · ${escapeHtml(ref)}</p>
+          <h3 class="text-sm font-bold text-[#0A192F] uppercase tracking-wider">Lentes</h3>
+          <p class="text-xs text-stone-600 font-sans mt-0.5">${ref ? escapeHtml(ref) : 'Pasaje en lectura'}</p>
         </div>
 
         <div id="lentes-content-area" class="space-y-3">
-          <!-- Tarjeta Prominente: DICTAMEN MAESTRO INTEGRADO -->
           <div id="lens-card-${m.id}" class="rv-sp-lens-block">
             <button type="button" data-sp-lens-id="${m.id}" data-sp-lens-title="${escapeHtml(m.title)}"
-              class="group cursor-pointer p-4 bg-gradient-to-br from-[#071324] via-[#0A192F] to-[#132238] border-2 border-[#C59B27] hover:border-[#DFB743] rounded-xl shadow-md transition-all hover:shadow-lg text-left w-full text-white">
-              <div class="flex items-start gap-3.5">
-                <div class="w-10 h-10 rounded-lg bg-[#C59B27]/20 border border-[#C59B27]/50 flex items-center justify-center text-xl shrink-0">
-                  ${m.icon}
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center justify-between gap-2">
-                    <h4 class="font-bold text-sm text-[#DFB743] group-hover:text-amber-300 transition-colors tracking-wide">${escapeHtml(m.title)}</h4>
-                    <span class="text-[9px] font-mono uppercase bg-[#C59B27]/25 text-[#DFB743] border border-[#C59B27]/50 px-2 py-0.5 rounded font-bold">${escapeHtml(m.subtitle)}</span>
-                  </div>
-                  <p class="text-[10px] font-mono text-stone-300 uppercase tracking-wider font-semibold my-1">${escapeHtml(m.discipline)}</p>
-                  <p class="text-xs text-stone-200/90 leading-snug">${escapeHtml(m.blurb)}</p>
-                </div>
-              </div>
+              class="group cursor-pointer p-4 bg-[#0A192F] border border-[#C59B27] hover:border-[#DFB743] rounded-xl shadow-md transition-all text-left w-full text-white">
+              <h4 class="font-bold text-sm text-[#DFB743] tracking-wide">${escapeHtml(m.title)}</h4>
+              <p class="text-xs text-stone-200/90 leading-snug mt-1">${escapeHtml(m.blurb)}</p>
             </button>
           </div>
 
-          <!-- Selector de Ópticas Duales -->
-          <div class="flex items-center gap-1.5 p-1 bg-stone-100 border border-[#E8DFC8] rounded-xl select-none">
-            <button type="button" id="btn-optic-biblica" onclick="window.switchOpticTab('biblica')"
-              class="flex-1 py-2 px-3 rounded-lg text-xs font-bold font-mono text-center transition-all cursor-pointer ${currentOpticTab === 'biblica' ? 'bg-[#0A192F] text-[#DFB743] shadow-sm border border-[#C59B27]/40' : 'text-stone-600 hover:text-stone-900 border border-transparent'}">
-              🏛️ ÓPTICA BÍBLICA
-            </button>
-            <button type="button" id="btn-optic-mental" onclick="window.switchOpticTab('mental')"
-              class="flex-1 py-2 px-3 rounded-lg text-xs font-bold font-mono text-center transition-all cursor-pointer ${currentOpticTab === 'mental' ? 'bg-[#0A192F] text-[#DFB743] shadow-sm border border-[#C59B27]/40' : 'text-stone-600 hover:text-stone-900 border border-transparent'}">
-              🧠 ÓPTICA MENTAL & COGNITIVA
-            </button>
-          </div>
-
-          <!-- Sección 1: Óptica Bíblica & Revelación -->
-          <div id="optic-section-biblica" class="space-y-2.5" ${currentOpticTab === 'biblica' ? '' : 'hidden'}>
-            ${ELITE_LENSES.biblica.map(l => `
-              <div id="lens-card-${l.id}" class="rv-sp-lens-block">
-                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}"
-                  class="group cursor-pointer p-3.5 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all hover:shadow-md text-left w-full">
-                  <div class="flex items-start gap-3">
-                    <span class="text-2xl select-none" aria-hidden="true">${l.icon}</span>
-                    <div class="flex-1 min-w-0">
-                      <h4 class="font-bold text-sm text-[#0F172A] group-hover:text-[#855D10] transition-colors">${escapeHtml(l.title)}</h4>
-                      <p class="text-[10px] font-mono text-[#855D10] uppercase tracking-wider font-semibold my-0.5">${escapeHtml(l.discipline)}</p>
-                      <p class="text-xs text-stone-600 leading-snug">${escapeHtml(l.blurb)}</p>
-                    </div>
-                  </div>
-                </button>
-              </div>
-            `).join('')}
-          </div>
-
-          <!-- Sección 2: Óptica Mental & Cognitiva -->
-          <div id="optic-section-mental" class="space-y-2.5" ${currentOpticTab === 'mental' ? '' : 'hidden'}>
-            ${ELITE_LENSES.mental.map(l => `
-              <div id="lens-card-${l.id}" class="rv-sp-lens-block">
-                <button type="button" data-sp-lens-id="${l.id}" data-sp-lens-title="${escapeHtml(l.title)}"
-                  class="group cursor-pointer p-3.5 bg-white border border-[#E8DFC8] hover:border-[#C59B27] rounded-xl shadow-sm transition-all hover:shadow-md text-left w-full">
-                  <div class="flex items-start gap-3">
-                    <span class="text-2xl select-none" aria-hidden="true">${l.icon}</span>
-                    <div class="flex-1 min-w-0">
-                      <h4 class="font-bold text-sm text-[#0F172A] group-hover:text-[#855D10] transition-colors">${escapeHtml(l.title)}</h4>
-                      <p class="text-[10px] font-mono text-[#855D10] uppercase tracking-wider font-semibold my-0.5">${escapeHtml(l.discipline)}</p>
-                      <p class="text-xs text-stone-600 leading-snug">${escapeHtml(l.blurb)}</p>
-                    </div>
-                  </div>
-                </button>
-              </div>
-            `).join('')}
+          <div id="lentes-opticas" class="space-y-3" ${maestroDone ? '' : 'hidden'}>
+            <div class="flex items-center gap-1.5 p-1 bg-stone-100 border border-[#E8DFC8] rounded-xl select-none">
+              <button type="button" id="btn-optic-biblica" onclick="window.switchOpticTab('biblica')"
+                class="flex-1 py-2 px-3 rounded-lg text-xs font-bold font-mono text-center transition-all cursor-pointer ${currentOpticTab === 'biblica' ? 'bg-[#0A192F] text-[#DFB743] shadow-sm border border-[#C59B27]/40' : 'text-stone-600 hover:text-stone-900 border border-transparent'}">
+                Óptica bíblica
+              </button>
+              <button type="button" id="btn-optic-mental" onclick="window.switchOpticTab('mental')"
+                class="flex-1 py-2 px-3 rounded-lg text-xs font-bold font-mono text-center transition-all cursor-pointer ${currentOpticTab === 'mental' ? 'bg-[#0A192F] text-[#DFB743] shadow-sm border border-[#C59B27]/40' : 'text-stone-600 hover:text-stone-900 border border-transparent'}">
+                Óptica mental
+              </button>
+            </div>
+            <div id="optic-section-biblica" class="space-y-2" ${currentOpticTab === 'biblica' ? '' : 'hidden'}>
+              ${ELITE_LENSES.biblica.map(opticBtn).join('')}
+            </div>
+            <div id="optic-section-mental" class="space-y-2" ${currentOpticTab === 'mental' ? '' : 'hidden'}>
+              ${ELITE_LENSES.mental.map(opticBtn).join('')}
+            </div>
           </div>
         </div>
       </div>

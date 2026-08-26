@@ -914,59 +914,6 @@ select.rv-select:focus {
     align-items: end;
 }
 
-.rv-exp-btn {
-    width: 2.75rem;
-    height: 2.75rem;
-    min-width: 44px;
-    min-height: 44px;
-    border-radius: 12px;
-    border: 1px solid rgba(26, 26, 26, 0.08);
-    background: #fff;
-    color: var(--gold);
-    box-shadow: var(--shadow-card);
-    display: grid;
-    place-items: center;
-}
-
-.rv-exp-btn:hover,
-.rv-exp-btn.is-on {
-    background: rgba(197, 160, 89, 0.14);
-    border-color: var(--gold);
-}
-
-.rv-exp-wrap {
-    position: relative;
-    align-self: end;
-}
-
-.rv-exp-panel {
-    display: none;
-    position: absolute;
-    top: calc(100% + .55rem);
-    right: 0;
-    z-index: 60;
-    width: min(19.5rem, calc(100vw - 2.5rem));
-    padding: 1rem 1.05rem;
-    background: var(--paper);
-    color: var(--graphite);
-    border: 1px solid rgba(26, 26, 26, 0.08);
-    border-radius: 16px;
-    box-shadow: var(--shadow-deep);
-}
-
-.rv-exp-panel.is-open {
-    display: block;
-}
-
-.rv-exp-panel label span {
-    color: var(--gold);
-}
-
-.rv-exp-panel input[type="range"] {
-    width: 100%;
-    accent-color: var(--gold);
-}
-
 body:not(.is-santuario):not(.is-acompanamiento) .rv-chrome,
 body:not(.is-santuario):not(.is-acompanamiento) .rv-shell,
 body:not(.is-santuario):not(.is-acompanamiento) #breadcrumbs,
@@ -3794,11 +3741,15 @@ body.is-aposento .rv-footer {
     display: none !important;
 }
 
-.rv-strong-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .28rem .4rem;
-    margin-top: .4rem;
+.rv-verse-surface:not(.is-aligned) .rv-token-meta,
+.rv-verse-surface:not(.is-aligned) .rv-strong-row,
+.rv-verse-surface:not(.is-aligned) .rv-strong-num {
+    display: none !important;
+}
+
+.rv-verse-surface:not(.is-aligned) .rv-verse-text {
+    display: inline;
+    position: static;
 }
 
 /* Fase 2 · Interlineal inverso (data grid) */
@@ -4451,7 +4402,6 @@ body.is-aposento .rv-footer {
         min-height: 2.85rem;
     }
 
-    .rv-exp-btn,
     .rv-canon-toggle,
     .rv-btn-gold {
         min-height: 44px;
@@ -5882,7 +5832,6 @@ mark.rv-hl-rubi {
 .is-va-active { outline: 1px solid rgba(212, 175, 55, 0.55); }
 
 /* —— Lectura minimalista —— */
-#modulo-estudio[hidden],
 #rv-verse-study[hidden],
 #rv-popover[hidden] {
     display: none !important;

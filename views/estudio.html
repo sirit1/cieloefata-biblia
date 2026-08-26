@@ -61,7 +61,7 @@
                     ← Dashboard
                 </button>
                 <label class="sr-only" for="buscador-canon">Ir a libro, capítulo o versículo</label>
-                <input id="buscador-canon" type="search" autocomplete="off" placeholder="Ir a: Romanos 12:2"
+                <input id="buscador-canon" type="search" autocomplete="off" placeholder="Ir a libro, capítulo o versículo"
                     class="w-full px-3 py-2 text-sm outline-none mt-2.5">
                 <button type="button" id="abrir-cuaderno" class="rv-nav-cuaderno mt-2.5">Cuaderno del Peregrino</button>
             </div>
@@ -91,51 +91,6 @@
                                 <option value="john-gill">John Gill (Exposition of the Bible)</option>
                             </select>
                         </label>
-                        <div class="rv-exp-wrap">
-                            <button type="button" id="btn-experiencia" class="rv-exp-btn" aria-expanded="false"
-                                aria-controls="panel-experiencia" title="Configuración de experiencia">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <path d="M9 18V6l10 6-10 6Z" stroke="currentColor" stroke-width="1.6"
-                                        stroke-linejoin="round" />
-                                    <circle cx="6.2" cy="16.2" r="2.1" stroke="currentColor" stroke-width="1.5" />
-                                    <path d="M6.2 14.1V8.4" stroke="currentColor" stroke-width="1.5" />
-                                </svg>
-                            </button>
-                            <div id="panel-experiencia" class="rv-exp-panel" role="dialog"
-                                aria-label="Configuración de experiencia">
-                                <p class="mb-3 text-[10px] uppercase tracking-[0.2em] text-[#C5A059]">Experiencia de
-                                    audio</p>
-                                <label class="mb-3 block">
-                                    <span class="mb-1 block text-[10px] uppercase tracking-[0.16em]">Voz humana</span>
-                                    <select id="selector-voz" class="rv-select w-full">
-                                        <option value="varon">Varón latinoamericano</option>
-                                        <option value="hembra">Hembra latinoamericana</option>
-                                    </select>
-                                </label>
-                                <label class="mb-3 flex items-center justify-between gap-3 text-[13px]">
-                                    <span>Música cristiana instrumental</span>
-                                    <input type="checkbox" id="toggle-musica" class="accent-[#C5A059]">
-                                </label>
-                                <label class="mb-2 block">
-                                    <span class="mb-1 block text-[10px] uppercase tracking-[0.16em]">Volumen de la
-                                        música</span>
-                                    <input type="range" id="vol-musica" min="0" max="100" value="28">
-                                </label>
-                                <label class="mb-3 block">
-                                    <span class="mb-1 block text-[10px] uppercase tracking-[0.16em]">Volumen de la
-                                        voz</span>
-                                    <input type="range" id="vol-voz" min="0" max="100" value="100">
-                                </label>
-                                <div class="flex gap-2">
-                                    <button type="button" id="pausa-narracion"
-                                        class="rv-btn-gold flex-1 py-2 text-[10px] uppercase tracking-[0.14em]">Pausar
-                                        voz</button>
-                                    <button type="button" id="narrar-capitulo"
-                                        class="rv-btn-gold flex-1 py-2 text-[10px] uppercase tracking-[0.14em]">Narrar
-                                        capítulo</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Ficha de contexto histórico · pergamino editorial -->
@@ -208,57 +163,7 @@
                         </div>
                     </main>
                 </article>
-                <section id="modulo-estudio" class="rv-estudio-modulo" aria-label="Estudio del pasaje">
-                    <div id="tabs-estudio" class="rv-estudio-tabs" role="tablist" aria-label="Módulos de estudio">
-                        <button type="button" class="is-on" data-estudio-tab="comentario" role="tab"
-                            aria-selected="true">Comentario</button>
-                        <button type="button" data-estudio-tab="tsk" role="tab"
-                            aria-selected="false">TSK</button>
-                        <button type="button" data-estudio-tab="perspectivas" role="tab"
-                            aria-selected="false">Perspectivas</button>
-                        <button type="button" data-estudio-tab="concordancia" role="tab"
-                            aria-selected="false">Concordancia</button>
-                    </div>
-                    <section id="panel-neuro" class="rv-comentario" role="tabpanel" aria-label="Comentario exegético">
-                        <p class="rv-comentario-kicker">Comentario exegético</p>
-                        <p id="etiqueta-autor">Matthew Henry</p>
-                        <p id="ref-comentario" class="rv-comentario-ref"></p>
-                        <div id="analisis-neuro" class="rv-comentario-cuerpo"></div>
-                    </section>
-                    <section id="panel-tsk" class="rv-comentario is-hidden-tab" role="tabpanel"
-                        aria-label="Referencias cruzadas TSK" hidden>
-                        <p class="rv-comentario-kicker">Treasury of Scripture Knowledge</p>
-                        <p id="ref-tsk" class="rv-comentario-ref"></p>
-                        <div id="lista-tsk" class="rv-xref-list"></div>
-                    </section>
-                    <section id="panel-perspectivas" class="rv-comentario is-hidden-tab" role="tabpanel"
-                        aria-label="Lentes de estudio profundo">
-                        <p id="ref-perspectivas" class="rv-comentario-ref"></p>
-                        <div id="tab-lentes">
-                            <div id="lentes-content-area"></div>
-                        </div>
-                        <div id="rv-persp-tip" class="rv-persp-tip" hidden>
-                            <h4 id="rv-persp-tip-title"></h4>
-                            <p id="rv-persp-tip-body"></p>
-                        </div>
-                        <div id="rv-persp-compare-pick" hidden>
-                            <select id="rv-persp-b" aria-label="Segunda lente"></select>
-                        </div>
-                        <div id="rv-persp-grid" class="rv-persp-grid" aria-live="polite"></div>
-                        <div id="rv-persp-synth-report" class="rv-persp-synth-report" aria-live="polite"></div>
-                        <button type="button" id="rv-persp-compare" hidden></button>
-                        <button type="button" id="rv-persp-synth" hidden></button>
-                    </section>
-                    <section id="panel-concordancia" class="rv-concordancia is-hidden-tab" role="tabpanel"
-                        aria-label="Concordancia" hidden>
-                        <p id="ref-concordancia" class="rv-comentario-ref"></p>
-                        <div id="tab-concordancia">
-                            <div id="concordance-content-area"></div>
-                        </div>
-                        <div id="lista-cruzadas" class="rv-xref-list"></div>
-                        <div id="lista-strong-verso" class="rv-interlineal-grid"></div>
-                    </section>
-                </section>
+                <!-- Estudio del versículo: un solo UI — js/study-panel.js (COMENT/TSK/CONCORD/LÉXICO/LENTES). -->
             </div>
         </div>
     </div>

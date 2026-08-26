@@ -186,6 +186,11 @@ function fetchLocalPack(packKey, bookName, chapter) {
   }
 }
 
+export function isRvrFamily(bolls) {
+  const key = String(bolls || '').toUpperCase();
+  return key === 'RV1960' || key === 'RVR1960' || key === 'RV1909' || key === 'RVR1909';
+}
+
 function okPayload(bookMeta, chapter, label, verses, source, extra = {}) {
   const packKey = extra.packKey || 'rv1960';
   const versos = verses.map((v) => {
@@ -201,6 +206,7 @@ function okPayload(bookMeta, chapter, label, verses, source, extra = {}) {
     chapter,
     version: label,
     verses,
+    note: extra.note || null,
     data: {
       referencia: `${bookMeta.name} ${chapter}`,
       versiones: { [packKey]: bloque },
@@ -215,6 +221,42 @@ function okPayload(bookMeta, chapter, label, verses, source, extra = {}) {
       source,
       esAT: bookMeta.esAT,
       ...extra,
+    },
+  };
+}
+
+/** Honest empty chapter: keep the requested version's label. Never relabel as RVR. */
+export function emptyVersionPayload(bookMeta, chapter, ver, extra = {}) {
+  const label = ver?.label || extra.label || 'versión consultada';
+  const packKey = ver?.packKey || extra.packKey || 'rv1960';
+  const note = extra.note
+    || `Pack local y Bolls vacíos para ${label}. No se sustituye por Reina-Valera.`;
+  return {
+    success: false,
+    book: bookMeta.name,
+    chapter,
+    version: label,
+    verses: [],
+    note,
+    error: note,
+    data: {
+      referencia: `${bookMeta.name} ${chapter}`,
+      versiones: { [packKey]: '' },
+      versionesVersos: { [packKey]: [] },
+      versionesLista: [{ key: packKey, etiqueta: label, licencia: 'empty' }],
+      original: null,
+    },
+    metadata: {
+      book: bookMeta.name,
+      chapter,
+      version: label,
+      source: extra.source || 'empty',
+      requestedVersion: ver?.requested || extra.requestedVersion || null,
+      packKey,
+      note,
+      packEmpty: true,
+      bollsEmpty: true,
+      esAT: bookMeta.esAT,
     },
   };
 }
@@ -286,42 +328,6 @@ export default async function handler(req, res) {
       }
     }
 
-    if (!verses.length && ver.fallbackBolls) {
-      verses = await fetchBolls(ver.fallbackBolls, bookMeta.id, chapter);
-      if (verses.length) {
-        resolvedLabel = ver.fallbackLabel || 'Reina-Valera 1960';
-        source = 'bolls-fallback';
-      } else if (ver.fallbackPack) {
-        verses = fetchLocalPack(ver.fallbackPack, bookMeta.name, chapter);
-        if (verses.length) {
-          resolvedLabel = ver.fallbackLabel || 'Reina-Valera 1960';
-          source = 'local-pack-fallback';
-        }
-      }
-    }
-
-    if (!verses.length && ver.bolls !== 'RV1960' && ver.bolls !== 'LXX') {
-      verses = await fetchBolls('RV1960', bookMeta.id, chapter);
-      if (verses.length) {
-        resolvedLabel = 'Reina-Valera 1960';
-        source = 'bolls-rv1960';
-      }
-    }
-
-    if (!verses.length && ver.bolls !== 'RV1909' && ver.bolls !== 'LXX') {
-      verses = await fetchBolls('RV1909', bookMeta.id, chapter);
-      if (verses.length) {
-        resolvedLabel = 'Reina-Valera 1909';
-        source = 'bolls-rv1909';
-      } else {
-        verses = fetchLocalPack('rv1960', bookMeta.name, chapter);
-        if (verses.length) {
-          resolvedLabel = 'Reina-Valera 1960';
-          source = 'local-pack-rv1960';
-        }
-      }
-    }
-
     if (verses.length) {
       if (ver.packKey === 'septuaginta' && ver.bolls === 'LXX') {
         const paraTraducir = verses.map((v) => ({ n: v.verse, texto: v.text }));
@@ -342,29 +348,37 @@ export default async function handler(req, res) {
       );
     }
 
-    const denoVerses = await fetchDeno(bookMeta.en, chapter);
-    if (denoVerses.length) {
-      return res.status(200).json(
-        okPayload(bookMeta, chapter, 'Reina-Valera 1909', denoVerses, 'deno', {
-          requestedVersion: ver.requested,
-          packKey: 'rv1960',
-        })
-      );
+    if (!verses.length && isRvrFamily(ver.bolls)) {
+      const denoVerses = await fetchDeno(bookMeta.en, chapter);
+      if (denoVerses.length) {
+        const denoLabel = ver.bolls === 'RV1909' ? 'Reina-Valera 1909' : ver.label;
+        return res.status(200).json(
+          okPayload(bookMeta, chapter, denoLabel, denoVerses, 'deno', {
+            requestedVersion: ver.requested,
+            packKey: ver.packKey,
+            note: ver.note || null,
+          })
+        );
+      }
     }
 
-    throw new Error('No se pudo recuperar el texto bíblico de las fuentes canónicas.');
+    return res.status(200).json(
+      emptyVersionPayload(bookMeta, chapter, ver, {
+        source: source === 'none' ? 'empty' : source,
+      })
+    );
   } catch (err) {
     console.error('[api/bible]', err?.message || err);
     const safeBook = bookMeta?.name || book || '';
     const safeChapter = Number.isInteger(chapter) && chapter > 0 ? chapter : 1;
-    return res.status(200).json({
-      success: false,
-      book: safeBook,
-      chapter: safeChapter,
-      version: ver?.label || 'Reina-Valera 1960',
-      verses: [],
-      source: 'error',
-      error: err?.message || 'Fuente remota temporalmente no disponible',
-    });
+    const note = err?.message || 'Fuente remota temporalmente no disponible. No se sustituye por Reina-Valera.';
+    return res.status(200).json(
+      emptyVersionPayload(
+        { name: safeBook, esAT: bookMeta?.esAT },
+        safeChapter,
+        ver,
+        { source: 'error', note },
+      )
+    );
   }
 }
