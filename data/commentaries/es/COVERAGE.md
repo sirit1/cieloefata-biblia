@@ -35,7 +35,8 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Colosenses | sí | sí | sí | pendiente | — | — | — |
 | 1–2 Tesalonicenses | sí | sí | sí | pendiente | — | — | — |
 | 1 Timoteo | sí | sí | sí | pendiente | — | — | — |
-| 2 Timoteo … Apocalipsis | sí | sí | en curso | pendiente | — | — | — |
+| 2 Timoteo / Tito | sí | sí | sí | pendiente | — | — | — |
+| Hebreos … Apocalipsis | sí | sí | en curso | pendiente | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | sí | sí |
 
 Henry NT: **completo** salvo Mateo 19–28 (helloao 404).
