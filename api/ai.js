@@ -26,7 +26,7 @@ const GEMINI_MODELS_PREFERRED = [
   'gemini-flash-latest',
   'gemini-3.1-pro-preview',
 ];
-const GEMINI_TIMEOUT_MS = 15000;
+const GEMINI_TIMEOUT_MS = 35000;
 const MSG_FALTA_IA =
   'Falta Gemini o AI Gateway. Configure GEMINI_API_KEY (o GOOGLE_GENERATIVE_AI_API_KEY) o AI_GATEWAY_API_KEY. Las lentes no inventarán un dictamen.';
 
@@ -286,43 +286,7 @@ function extraerTextoCandidato(data) {
   return { text, finishReason };
 }
 
-async function listUsableGeminiModels(apiKey, signal) {
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`,
-      { signal },
-    );
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      console.warn('[api/ai] listModels HTTP', response.status, data?.error?.message);
-      return [];
-    }
-    return (data.models || [])
-      .filter((m) => (m.supportedGenerationMethods || []).includes('generateContent'))
-      .map((m) => String(m.name || '').replace(/^models\//, ''))
-      .filter((n) => n && !/image|tts|live|embedding|aqa/i.test(n));
-  } catch (err) {
-    console.warn('[api/ai] listModels:', err?.message || err);
-    return [];
-  }
-}
-
-function pickGeminiModels(available) {
-  if (!available.length) return GEMINI_MODELS_PREFERRED;
-  const preferred = GEMINI_MODELS_PREFERRED.filter((id) => available.includes(id));
-  if (preferred.length) return preferred.slice(0, 4);
-  const flash = available.filter((n) => /flash/i.test(n) && !/preview-image/i.test(n));
-  return (flash.length ? flash : available).slice(0, 4);
-}
-
-async function generateGeminiOnce(apiKey, model, systemInstruction, signal, { disableThinking } = {}) {
-  const generationConfig = {
-    temperature: 0.3,
-    maxOutputTokens: 4096,
-  };
-  if (disableThinking) {
-    generationConfig.thinkingConfig = { thinkingBudget: 0 };
-  }
+async function generateGeminiOnce(apiKey, model, systemInstruction, signal) {
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`,
     {
@@ -331,7 +295,10 @@ async function generateGeminiOnce(apiKey, model, systemInstruction, signal, { di
       signal,
       body: JSON.stringify({
         contents: [{ parts: [{ text: systemInstruction }] }],
-        generationConfig,
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 4096,
+        },
       }),
     },
   );
@@ -340,21 +307,15 @@ async function generateGeminiOnce(apiKey, model, systemInstruction, signal, { di
 }
 
 async function callGemini(apiKey, systemInstruction, timeoutMs = GEMINI_TIMEOUT_MS) {
-  const deadline = Date.now() + Math.min(Number(timeoutMs) || GEMINI_TIMEOUT_MS, 15000);
+  const budget = Math.min(Math.max(Number(timeoutMs) || GEMINI_TIMEOUT_MS, 8000), 45000);
+  const deadline = Date.now() + budget;
   let lastError = null;
-
-  const listController = new AbortController();
-  const listMs = Math.min(3500, Math.max(800, deadline - Date.now() - 11000));
-  const listTimer = setTimeout(() => listController.abort(), listMs);
-  const available = await listUsableGeminiModels(apiKey, listController.signal);
-  clearTimeout(listTimer);
-  const models = pickGeminiModels(available);
-  console.info('[api/ai] Gemini models:', models.join(', '));
+  const models = GEMINI_MODELS_PREFERRED;
 
   for (const model of models) {
-    for (const disableThinking of [true, false]) {
+    for (let attempt = 0; attempt < 2; attempt++) {
       const remaining = deadline - Date.now();
-      if (remaining < 400) break;
+      if (remaining < 600) break;
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), remaining);
@@ -364,23 +325,31 @@ async function callGemini(apiKey, systemInstruction, timeoutMs = GEMINI_TIMEOUT_
           model,
           systemInstruction,
           controller.signal,
-          { disableThinking },
         );
         clearTimeout(timeoutId);
 
         if (!response.ok) {
           const msg = data?.error?.message || `Gemini ${model} HTTP ${response.status}`;
           lastError = new Error(msg);
-          console.warn(`[api/ai] Gemini ${model} HTTP ${response.status}:`, msg);
-          if (disableThinking && /thinking/i.test(msg)) continue;
+          console.warn(
+            `[api/ai] Gemini ${model} HTTP ${response.status}:`,
+            msg,
+            data?.error?.status || '',
+            JSON.stringify(data?.error?.details || '').slice(0, 300),
+          );
+          const busy = response.status === 503 || /high demand|unavailable|overload|try again/i.test(msg);
+          if (busy && attempt === 0 && deadline - Date.now() > 1200) {
+            await new Promise((r) => setTimeout(r, 700));
+            continue;
+          }
           break;
         }
-        const { text } = extraerTextoCandidato(data);
+        const { text, finishReason } = extraerTextoCandidato(data);
         if (text && text.trim() && text.length > 80 && !pareceCortado(text)) {
+          console.info(`[api/ai] Gemini ok ${model} chars=${text.trim().length}`);
           return text.trim();
         }
-        lastError = new Error(`Gemini (${model}) devolvió vacío o incompleto`);
-        if (disableThinking) continue;
+        lastError = new Error(`Gemini (${model}) devolvió vacío o incompleto (finish=${finishReason || 'n/a'})`);
         break;
       } catch (err) {
         clearTimeout(timeoutId);
