@@ -1333,6 +1333,10 @@
             const ver = claveMotor(versionActiva());
             const res = await fetch(`/api/concordancia?q=${encodeURIComponent(term)}&version=${encodeURIComponent(ver)}`);
             const json = await res.json().catch(() => null);
+            if (!res.ok) {
+                if (cruzadasEl) cruzadasEl.innerHTML = `<p class="rv-estudio-vacio">${escapeHtml(json?.error || 'No fue posible buscar en la Biblia en este momento.')}</p>`;
+                return;
+            }
             const resultados = json?.data?.resultados || [];
             if (!cruzadasEl) return;
             if (!resultados.length) {
@@ -2643,7 +2647,9 @@ function descargarBackup(kind) {
         const ver = claveMotor(versionActiva());
         const res = await fetch(`/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(ver)}`);
         const json = await res.json().catch(() => null);
-        if (!res.ok) return { hits: [], indexable: true };
+        if (!res.ok) {
+          throw new Error(json?.error || 'No fue posible buscar en la Biblia en este momento.');
+        }
         return {
             hits: json?.data?.resultados || json?.resultados || [],
             indexable: json?.data?.indexable !== false,
@@ -2663,6 +2669,7 @@ function descargarBackup(kind) {
         let hits = [];
         let used = keys[0] || '';
         let indexable = true;
+        let searchError = '';
         try {
             for (const term of keys) {
                 const got = await cargarConcordanciaHits(term);
@@ -2674,12 +2681,19 @@ function descargarBackup(kind) {
                     break;
                 }
             }
-        } catch {
+        } catch (err) {
             hits = [];
+            searchError = err?.message || 'No fue posible buscar en la Biblia en este momento.';
         }
 
         if (referenciaComentario(estado()) !== ref && referenciaComentario(libro) !== ref) {
             /* stale */
+        }
+        if (searchError) {
+            const msg = `<p class="rv-estudio-vacio">${escapeHtml(searchError)}</p>`;
+            if (cruzadasEl) cruzadasEl.innerHTML = msg;
+            if (contentEl && contentEl !== cruzadasEl) contentEl.innerHTML = msg;
+            return;
         }
         const mapped = hits.map((item) => ({
             ref: item.ref || (item.libro ? `${item.libro} ${item.capitulo}:${item.verso}` : ''),

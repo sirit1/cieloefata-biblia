@@ -910,18 +910,6 @@
     const cardId = id;
     const verseText = String(currentVerseText || global.activeStudyText || '').trim();
 
-    for (const [pendingId, pending] of lensAbortMap.entries()) {
-      try {
-        pending.abort('replaced');
-      } catch {
-        pending.abort();
-      }
-      if (pendingId !== cardId) {
-        document.getElementById(`lens-result-${pendingId}`)?.remove();
-      }
-      lensAbortMap.delete(pendingId);
-    }
-
     const root = drawerRoot();
     const targetCard =
       (root && root.querySelector(`#lens-card-${cardId}`)) ||
@@ -935,6 +923,22 @@
       resultBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       return;
     }
+    if (resultBox?.dataset.lensState === 'loading' && lensAbortMap.has(cardId)) {
+      resultBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      return;
+    }
+
+    for (const [pendingId, pending] of lensAbortMap.entries()) {
+      if (pendingId === cardId) continue;
+      try {
+        pending.abort('replaced');
+      } catch {
+        pending.abort();
+      }
+      document.getElementById(`lens-result-${pendingId}`)?.remove();
+      lensAbortMap.delete(pendingId);
+    }
+
     if (!resultBox) {
       resultBox = document.createElement('div');
       resultBox.id = `lens-result-${cardId}`;
@@ -1031,9 +1035,12 @@
       clearTimeout(timer);
       const replaced = controller.signal.reason === 'replaced' || /replaced/i.test(String(controller.signal.reason || err?.message || ''));
       if (replaced) {
-        resultBox.remove();
         return;
       }
+      if (lensAbortMap.get(cardId) && lensAbortMap.get(cardId) !== controller) {
+        return;
+      }
+      resultBox.dataset.lensState = 'error';
       const isAbort = err?.name === 'AbortError' || /aborted|tiempo de espera/i.test(err?.message || '');
       const msg = isAbort ? 'La consulta requirió más tiempo de procesamiento.' : (err.message || 'Error en RevelatiO IA');
       const escapedId = escapeJsParam(id);
@@ -1050,7 +1057,7 @@
         </div>
       `;
     } finally {
-      lensAbortMap.delete(cardId);
+      if (lensAbortMap.get(cardId) === controller) lensAbortMap.delete(cardId);
     }
   }
 
