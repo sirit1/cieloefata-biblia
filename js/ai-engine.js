@@ -133,11 +133,8 @@
         const looksFake =
             source === "theological-engine-fallback" ||
             /c\.\s*h\.\s*spurgeon|charles spurgeon|tabernáculo metropolitano/i.test(text);
-        const honest = looksFake && /c\.\s*h\.\s*spurgeon|charles spurgeon|tabernáculo metropolitano/i.test(text)
-            ? String(json?.answer && !/spurgeon/i.test(json.answer) ? json.answer : text).replace(
-                /c\.\s*h\.\s*spurgeon|charles spurgeon/gi,
-                "Respaldo teológico",
-              )
+        const honest = looksFake
+            ? "RevelatiO IA no pudo completar esta consulta. Reintenta. No se inventará un comentario clásico."
             : text;
 
         return {
@@ -147,8 +144,8 @@
             gated: Boolean(json?.gated),
             mode: json?.mode || resolvedMode,
             model: json?.model || "gemini-1.5-flash",
-            source: json?.source || null,
-            author: looksFake ? "Respaldo teológico" : json?.author || null,
+            source: looksFake ? "ai-unavailable" : (json?.source || null),
+            author: looksFake ? null : json?.author || null,
             governance: json?.governance || "revelatio_dual_v1",
             audit: json?.audit || context?.audit || null,
             error: null,

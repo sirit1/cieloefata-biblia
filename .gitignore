@@ -2,6 +2,10 @@ node_modules/
 .next/
 .vercel/
 .DS_Store
+# Generated mirrors — edit js/, views/, css/ only (npm run sync:public)
+/public/js/
+/public/views/
+/public/css/
 .env
 .env.local
 .env.*.local

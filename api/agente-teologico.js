@@ -262,9 +262,7 @@ function respuestaSinCorpus({ prompt, contextPassage }) {
   const ref = String(contextPassage || '').trim()
   const q = String(prompt || '').trim()
   const ancla = ref || 'las Escrituras'
-  return `### Respaldo teológico
-
-RevelatiO IA no tiene ahora un corpus clásico verificado para esta consulta (sin atribución a comentaristas históricos).
+  return `RevelatiO IA no tiene ahora un corpus clásico verificado para esta consulta (sin atribución a comentaristas históricos).
 
 **Ancla:** ${ancla}${q ? `\n**Consulta:** ${q}` : ''}
 
@@ -389,8 +387,7 @@ export default async function handler(req, res) {
         success: true,
         answer: data,
         commentary: { text: data },
-        source: isFallback ? 'theological-engine-fallback' : usedModel,
-        author: isFallback ? 'Respaldo teológico' : undefined,
+        source: isFallback ? 'ai-unavailable' : usedModel,
       }),
     )
   } catch (error) {

@@ -5882,7 +5882,6 @@ mark.rv-hl-rubi {
 .is-va-active { outline: 1px solid rgba(212, 175, 55, 0.55); }
 
 /* —— Lectura minimalista —— */
-#modulo-estudio[hidden],
 #rv-verse-study[hidden],
 #rv-popover[hidden] {
     display: none !important;

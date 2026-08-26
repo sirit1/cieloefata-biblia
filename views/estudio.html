@@ -208,57 +208,7 @@
                         </div>
                     </main>
                 </article>
-                <section id="modulo-estudio" class="rv-estudio-modulo" aria-label="Estudio del pasaje">
-                    <div id="tabs-estudio" class="rv-estudio-tabs" role="tablist" aria-label="Módulos de estudio">
-                        <button type="button" class="is-on" data-estudio-tab="comentario" role="tab"
-                            aria-selected="true">Comentario</button>
-                        <button type="button" data-estudio-tab="tsk" role="tab"
-                            aria-selected="false">TSK</button>
-                        <button type="button" data-estudio-tab="perspectivas" role="tab"
-                            aria-selected="false">Perspectivas</button>
-                        <button type="button" data-estudio-tab="concordancia" role="tab"
-                            aria-selected="false">Concordancia</button>
-                    </div>
-                    <section id="panel-neuro" class="rv-comentario" role="tabpanel" aria-label="Comentario exegético">
-                        <p class="rv-comentario-kicker">Comentario exegético</p>
-                        <p id="etiqueta-autor">Matthew Henry</p>
-                        <p id="ref-comentario" class="rv-comentario-ref"></p>
-                        <div id="analisis-neuro" class="rv-comentario-cuerpo"></div>
-                    </section>
-                    <section id="panel-tsk" class="rv-comentario is-hidden-tab" role="tabpanel"
-                        aria-label="Referencias cruzadas TSK" hidden>
-                        <p class="rv-comentario-kicker">Treasury of Scripture Knowledge</p>
-                        <p id="ref-tsk" class="rv-comentario-ref"></p>
-                        <div id="lista-tsk" class="rv-xref-list"></div>
-                    </section>
-                    <section id="panel-perspectivas" class="rv-comentario is-hidden-tab" role="tabpanel"
-                        aria-label="Lentes de estudio profundo">
-                        <p id="ref-perspectivas" class="rv-comentario-ref"></p>
-                        <div id="tab-lentes">
-                            <div id="lentes-content-area"></div>
-                        </div>
-                        <div id="rv-persp-tip" class="rv-persp-tip" hidden>
-                            <h4 id="rv-persp-tip-title"></h4>
-                            <p id="rv-persp-tip-body"></p>
-                        </div>
-                        <div id="rv-persp-compare-pick" hidden>
-                            <select id="rv-persp-b" aria-label="Segunda lente"></select>
-                        </div>
-                        <div id="rv-persp-grid" class="rv-persp-grid" aria-live="polite"></div>
-                        <div id="rv-persp-synth-report" class="rv-persp-synth-report" aria-live="polite"></div>
-                        <button type="button" id="rv-persp-compare" hidden></button>
-                        <button type="button" id="rv-persp-synth" hidden></button>
-                    </section>
-                    <section id="panel-concordancia" class="rv-concordancia is-hidden-tab" role="tabpanel"
-                        aria-label="Concordancia" hidden>
-                        <p id="ref-concordancia" class="rv-comentario-ref"></p>
-                        <div id="tab-concordancia">
-                            <div id="concordance-content-area"></div>
-                        </div>
-                        <div id="lista-cruzadas" class="rv-xref-list"></div>
-                        <div id="lista-strong-verso" class="rv-interlineal-grid"></div>
-                    </section>
-                </section>
+                <!-- Estudio del versículo: un solo UI — js/study-panel.js (COMENT/TSK/CONCORD/LÉXICO/LENTES). -->
             </div>
         </div>
     </div>

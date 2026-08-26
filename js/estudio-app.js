@@ -1,7 +1,7 @@
 /**
  * Éfata RevelatiO — estudio-app.js
- * Núcleo de lectura, canon, cuaderno y perspectivas.
- * Depende de: bible-data.js · router.js · navigation.js · ai-engine.js · ui-ux.js
+ * Núcleo de lectura y canon. El estudio por versículo vive en js/study-panel.js.
+ * Depende de: bible-data.js · router.js · navigation.js · study-panel.js · ui-ux.js
  */
 /**
  * RevelatiO — navegación jerárquica, lectura limpia y módulos.
@@ -26,9 +26,6 @@
     let selectedText = '';
     let selectedRef = '';
     let panelStamp = 0;
-    let commentaryFetchAbort = null;
-    let lensFetchAbort = null;
-    const LENS_TIMEOUT_MS = 45000;
     let navLockUntil = 0;
     let gotoTimer = 0;
     let lastGotoKey = '';
@@ -301,37 +298,6 @@
         return known ? saved : 'charles-spurgeon';
     }
 
-    function lentes(libro, autor) {
-        const cap = `${libro.n} ${libro.cap || 1}`;
-        const packs = {
-            cieloefata: [
-                { t: 'El texto', c: `${cap} se lee bajo la cruz: no como consejo de bienestar, sino como Palabra que llama al arrepentimiento y a la fe.` },
-                { t: 'Cristo', c: 'Toda la Escritura testifica de Él. Este capítulo no se agota en la historia humana: anuncia o aplica la obra del Hijo.' },
-                { t: 'Pastoreo', c: `Las técnicas consuelan un rato. ${CREDO}` }
-            ],
-            'jamieson-fausset-brown': [
-                { t: 'Contexto', c: `${cap}: la línea de JFB lee el pasaje en su marco histórico-gramatical y lo ancla en la redención prometida.` },
-                { t: 'Sentido', c: 'El comentario histórico insiste en el sentido del autor inspirado, no en usos posteriores del texto.' },
-                { t: 'Cristo', c: 'La unidad de la Escritura conduce al Mesías: promesa, cumplimiento y aplicación a la iglesia.' }
-            ],
-            'matthew-henry': [
-                { t: 'Devoción', c: `${cap} se medita para adorar: Henry busca que el lector tema a Dios y se consuele en Cristo.` },
-                { t: 'Doctrina', c: 'La observación práctica nace de la doctrina: pecado, gracia, fe y obediencia no se separan.' },
-                { t: 'Llamado', c: 'El texto pide una respuesta del corazón, no un comentario ornamental.' }
-            ],
-            'albert-barnes': [
-                { t: 'Exposición', c: `${cap}: Barnes aclara términos, conexiones y el argumento del escritor sagrado.` },
-                { t: 'Gramática', c: 'La exégesis sigue el orden del texto: qué dice, a quién, y con qué fin.' },
-                { t: 'Fe', c: 'La explicación sirve a la fe; no sustituye la autoridad de la Escritura.' }
-            ],
-            patristica: [
-                { t: 'Testimonio', c: `${cap} se lee con la iglesia antigua: Cristo como clave de la Ley, los Profetas y el Evangelio.` },
-                { t: 'Regla', c: 'La analogía de la fe guarda el sentido: un solo Dios, un solo Señor, una sola salvación.' },
-                { t: 'Límite', c: 'Los Padres iluminan; no rivalizan con la Palabra. La Escritura permanece suficiente.' }
-            ]
-        };
-        return packs[autor] || packs.cieloefata;
-    }
 
     function actualizarBreadcrumbs(libro) {
         const nav = document.getElementById('breadcrumbs');
@@ -500,92 +466,6 @@
         }
     }
 
-    async function cargarComentario(referencia, autor) {
-        const ref = String(referencia || '').trim();
-        const nombre = AUTOR_LABEL[autor] || autor || 'Matthew Henry';
-        if (!ref) {
-            return { ia: false, vacio: true, titulo: nombre, entradas: [], cuerpo: '', paragraphs: [] };
-        }
-        try {
-            if (commentaryFetchAbort) commentaryFetchAbort.abort();
-            commentaryFetchAbort = new AbortController();
-            const controller = commentaryFetchAbort;
-            const timer = setTimeout(() => controller.abort(), 37000);
-            const verseText =
-                window.activeStudyText ||
-                document.querySelector('.rv-verse-surface.is-verse-on .rv-verse-text, [data-verse].is-verse-on .rv-verse-text')?.textContent ||
-                '';
-            const res = await fetch('/api/commentary', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                signal: controller.signal,
-                body: JSON.stringify({
-                    passage: ref,
-                    author: autor || nombre,
-                    autor: autor || nombre,
-                    verseText: String(verseText || '').trim(),
-                }),
-            });
-            clearTimeout(timer);
-            if (!res.ok) {
-                return {
-                    ia: false,
-                    vacio: true,
-                    titulo: nombre,
-                    entradas: [],
-                    cuerpo: '',
-                    paragraphs: [],
-                    error: `No se pudo consultar el comentario (${res.status}). Reintenta.`,
-                };
-            }
-            const json = await res.json().catch(() => ({}));
-            const textEs = String(json?.textEs || '').trim();
-            const textEn = String(json?.textEn || json?.data?.cuerpoEn || '').trim();
-            const apiText = String(json?.text || json?.answer || '').trim();
-            const spanish = textEs || (json.translated === true ? apiText : '');
-            const english = textEn || (!spanish ? apiText : '');
-            const text = spanish || apiText;
-            const found = json.found === true && json.source !== 'corpus-miss' && json.source !== 'theological-engine-fallback';
-            if (json.success && found && text && !esRuidoEditorial(text) && !/^No hay nota/i.test(text)) {
-                const bodyForPane = spanish || text;
-                const paragraphs = bodyForPane.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
-                return {
-                    ia: false,
-                    vacio: false,
-                    titulo: nombre,
-                    obra: '',
-                    entradas: paragraphs.map((t, i) => ({ n: String(i + 1), texto: t })),
-                    cuerpo: bodyForPane,
-                    cuerpoEs: spanish,
-                    cuerpoEn: english,
-                    traducido: Boolean(spanish),
-                    disclaimer: String(json.disclaimer || '').trim(),
-                    paragraphs,
-                };
-            }
-            const miss = /^No hay nota/i.test(apiText || text)
-                ? (apiText || text)
-                : `No hay nota de ${nombre} para ${ref}.`;
-            return {
-                ia: false,
-                vacio: true,
-                titulo: nombre,
-                entradas: [],
-                cuerpo: miss,
-                paragraphs: [],
-            };
-        } catch (err) {
-            return {
-                ia: false,
-                vacio: true,
-                titulo: nombre,
-                entradas: [],
-                cuerpo: '',
-                paragraphs: [],
-                error: err?.name === 'AbortError' ? 'El motor tardó demasiado. Reintenta.' : err.message,
-            };
-        }
-    }
 
     function claveMotor(version) {
         const v = String(version || 'rv1960')
@@ -838,32 +718,53 @@
             <button type="button" class="rv-sp-retry mt-3" data-rv-retry-pasaje="${escapeHtml(libro.n)} ${libro.cap}">Actualizar texto</button>`;
     }
 
-    function esRuidoEditorial(texto) {
-        return /no hay transcripci[oó]n|nota general del comentarista|este panel no admite|s[íi]ntesis de IA|texto hist[oó]rico de dominio público|consigna gen[eé]rica de otro libro/i.test(String(texto || ''));
-    }
-
-    function esAutorInglesPd(autor) {
-        return /spurgeon|henry|calvin|calvino|gill|clarke|jamieson|jfb|wesley/i.test(String(autor || ''));
-    }
-
-    function pareceInglesPd(texto) {
-        const t = String(texto || '');
-        if (!t) return false;
-        return /\b(the|and|that|which|this|from|but|not)\b/i.test(t)
-            && !/[áéíóúñü¿¡]/.test(t.slice(0, 500));
-    }
-
-    const LABEL_TR_ES = 'Traducción automática del original inglés (dominio público). No es la edición de CLIE.';
-    const LABEL_PD_EN = 'Texto original en inglés (dominio público). No es una traducción de IA.';
-
-    function bloquesHtml(bloques) {
-        return bloques.map((t) => `<p class="rv-exegesis indent-2 leading-relaxed">${escapeHtml(t)}</p>`).join('');
-    }
 
     function referenciaComentario(libro) {
         const n = Number(libro?.verso || 0);
         if (!libro?.n) return '';
         return `${libro.n} ${libro.cap}:${n || 1}`;
+    }
+
+    function versoTextoActual(libro) {
+        const n = Number(libro?.verso || 0);
+        if (!n) return '';
+        const el = document.querySelector(`#texto-biblico .rv-verse-surface[data-versiculo="${n}"] .rv-verse-text`);
+        if (el) {
+            const clone = el.cloneNode(true);
+            clone.querySelectorAll('.rv-verse-num, .rv-strong-row, .rv-token-meta, sup')?.forEach?.(node => node.remove());
+            return String(clone.textContent || '').replace(/\s+/g, ' ').trim();
+        }
+        const passage = window.__revelatioPassageData;
+        const version = versionActiva();
+        const lista = passage?.versionesVersos?.[claveMotor(version)] || [];
+        const hit = lista.find(v => Number(v.n) === n);
+        return String(hit?.texto || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function syncEstudioAlPanel(libro, tab) {
+        const loc = libro || estado();
+        const ref = referenciaComentario(loc);
+        const verseText = versoTextoActual(loc);
+        const RV = window.Revelatio || window.RV;
+        const map = {
+            comentario: 'comentarios',
+            comentarios: 'comentarios',
+            tsk: 'tsk',
+            concordancia: 'concordancia',
+            perspectivas: 'lentes',
+            lentes: 'lentes',
+            lexico: 'strong',
+            strong: 'strong',
+        };
+        try {
+            if (ref) RV?.setStudyContext?.(ref, verseText);
+            if (tab) {
+                RV?.studyPanel?.open?.({ tab: map[tab] || tab, ref });
+                return;
+            }
+            const panel = document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
+            if (panel?.classList.contains('is-open')) RV?.syncStudyPanelToVerse?.(ref, verseText);
+        } catch { /* el cajón de estudio es opcional */ }
     }
 
     function mapUiVersion(version) {
@@ -891,108 +792,6 @@
         } catch {
             /* ignore */
         }
-    }
-
-    async function refrescarComentario(libro) {
-        const panel = document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
-        if (panel?.classList.contains('is-open')) return;
-        const autor = autorActivo();
-        const ref = referenciaComentario(libro);
-        const neuro = document.getElementById('analisis-neuro');
-        if (neuro) {
-            neuro.innerHTML = `<div class="py-8 text-center font-serif text-amber-800 text-sm"><span class="animate-spin inline-block mr-1">⏳</span> Generando exposición para <strong>${escapeHtml(ref)}</strong>...</div>`;
-        }
-        try {
-            const comentario = await cargarComentario(ref, autor);
-            if (comentario?.error) {
-                pintarComentario(libro, autor, {
-                    titulo: AUTOR_LABEL[autor] || autor,
-                    vacio: true,
-                    error: comentario.error,
-                });
-            } else if (comentario?.cuerpo && !comentario?.vacio) {
-                pintarComentario(libro, autor, comentario);
-            } else {
-                pintarComentario(libro, autor, {
-                    titulo: AUTOR_LABEL[autor] || autor,
-                    vacio: true,
-                    cuerpo: comentario?.cuerpo || '',
-                });
-            }
-        } catch (err) {
-            pintarComentario(libro, autor, {
-                titulo: AUTOR_LABEL[autor] || autor,
-                vacio: true,
-                error: err?.name === 'AbortError' ? 'El motor tardó demasiado. Reintenta.' : (err.message || 'No se pudo consultar el comentario. Reintenta.'),
-            });
-        }
-    }
-
-    function pintarComentario(libro, autor, extra) {
-        const etiqueta = document.getElementById('etiqueta-autor');
-        if (etiqueta) etiqueta.textContent = extra?.titulo || AUTOR_LABEL[autor] || autor || '';
-        const neuro = document.getElementById('analisis-neuro');
-        if (!neuro) return;
-        const ref = referenciaComentario(libro) || extra?.referencia || '';
-
-        const textos = (extra?.paragraphs || extra?.entradas || [])
-            .map((item) => String(typeof item === 'string' ? item : item?.texto || '').trim())
-            .filter((t) => t && !esRuidoEditorial(t));
-        const cuerpo = String(extra?.cuerpo || '').trim();
-        let bloques = textos.length ? textos : (cuerpo && !esRuidoEditorial(cuerpo) && !extra?.vacio ? [cuerpo] : []);
-        // Prohibido: síntesis de libro / plantillas / frases genéricas
-        bloques = bloques.filter(
-            (t) =>
-                !/predica\s+\S+\s+para llevar|Henry lee\s+|sitúan\s+\S+\s+en su marco|expone .+ a la luz de la Escritura, para que el lector crea/i.test(
-                    t
-                )
-        );
-
-        const refEl = document.getElementById('ref-comentario');
-        if (refEl) refEl.textContent = ref;
-        if (extra?.error) {
-            const fallo = /respaldo teol[oó]gico|gemini|\.env/i.test(String(extra.error))
-                ? 'No se pudo consultar el comentario. Reintenta.'
-                : String(extra.error).trim();
-            neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm space-y-2">
-                <p>${escapeHtml(fallo)}</p>
-                <button type="button" class="rv-sp-retry" data-rv-retry-comentario>Reintentar</button>
-            </div>`;
-            return;
-        }
-        if (!bloques.length) {
-            const nombre = extra?.titulo || AUTOR_LABEL[autor] || autor || 'este autor';
-            const miss = extra?.cuerpo && /^No hay nota/i.test(String(extra.cuerpo))
-                ? String(extra.cuerpo).trim()
-                : `No hay nota de ${nombre} para ${ref || 'este pasaje'}.`;
-            neuro.innerHTML = `<div class="p-3 bg-stone-50 border border-[#E8DFC8] rounded-xl text-stone-600 font-serif text-sm">${escapeHtml(miss)}</div>`;
-            return;
-        }
-        const spanishCuerpo = String(extra?.cuerpoEs || (extra?.traducido ? extra?.cuerpo : '') || '').trim();
-        const englishCuerpo = String(extra?.cuerpoEn || '').trim();
-        if (spanishCuerpo) {
-            const esBloques = spanishCuerpo.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
-            const disclaimer = extra?.disclaimer || LABEL_TR_ES;
-            const enBloques = englishCuerpo.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
-            neuro.innerHTML = `
-                <div data-rv-tr-root>
-                  <div data-rv-tr-pane="es">
-                    ${bloquesHtml(esBloques)}
-                    <p class="text-[11px] leading-snug mt-3" style="color:#2C3E4A">${escapeHtml(disclaimer)}</p>
-                    ${englishCuerpo ? `<button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver original (inglés)</button>` : ''}
-                  </div>
-                  ${englishCuerpo ? `<div data-rv-tr-pane="en" hidden>
-                    <p class="rv-pd-en text-[11px] font-mono mb-2" style="color:#2C3E4A">${LABEL_PD_EN}</p>
-                    ${bloquesHtml(enBloques)}
-                    <button type="button" data-rv-tr-toggle class="mt-2 font-mono text-[11px] font-bold px-3 py-1.5 rounded-lg" style="color:#2C3E4A;background:#EEF2F4;border:1px solid #C9A84C">Ver traducción (español)</button>
-                  </div>` : ''}
-                </div>`;
-            return;
-        }
-        const pd = (esAutorInglesPd(autor) || esAutorInglesPd(extra?.titulo) || pareceInglesPd(bloques.join(' ')))
-            ? `<p class="rv-pd-en text-[11px] text-stone-500 font-mono mb-2">${LABEL_PD_EN}</p>`
-            : '';
-        neuro.innerHTML = pd + bloquesHtml(bloques);
     }
 
 
@@ -1106,11 +905,7 @@
         try { pintarIndiceVersiculos(libro, esperado ? Array.from({ length: esperado }, (_, i) => i + 1) : []); } catch { /* ignore */ }
         try { pintarContextoHistorico(libro); } catch { /* ignore */ }
         try { pintarFichaAcademica(libro); } catch { /* ignore */ }
-        try {
-            pintarComentario(libro, autor, window.revelatioLectura?.comentarioInmediato?.(referenciaComentario(libro), autor) || { titulo: AUTOR_LABEL[autor] || autor });
-        } catch { /* ignore */ }
-        try { refrescarConcordancia(libro); } catch { /* ignore */ }
-        try { refrescarTsk(libro); } catch { /* ignore */ }
+        try { syncEstudioAlPanel(libro); } catch { /* ignore */ }
 
         let passage = window.__revelatioPassageData;
         try {
@@ -1164,11 +959,7 @@
                 else if (versesBox) versesBox.innerHTML = cuerpoLectura(libro, version, passage);
             }
         }
-        try {
-            const comentario = await cargarComentario(referenciaComentario(libro), autor);
-            if (stamp !== panelStamp) return;
-            pintarComentario(libro, autor, comentario || window.revelatioLectura?.comentarioInmediato?.(referenciaComentario(libro), autor) || { titulo: AUTOR_LABEL[autor] || autor });
-        } catch (_e) { /* se conserva el comentario local */ }
+        try { syncEstudioAlPanel(libro); } catch { /* ignore */ }
         const plano = passage?.versiones?.[claveMotor(version)] || '';
         document.querySelectorAll('[data-paralelo-cuerpo]')?.forEach?.((el) => {
             el.textContent = plano ? `${libro.n} ${libro.cap} — ${plano}` : `${libro.n} ${libro.cap}`;
@@ -1189,9 +980,7 @@
         });
         try { pintarIndiceVersiculos(libro, numerosDelPasaje(passage, version)); } catch { /* ignore */ }
         try { restaurarMarcasCapitulo(libro); } catch { /* ignore */ }
-        try { refrescarConcordancia(libro); } catch { /* ignore */ }
-        try { refrescarTsk(libro); } catch { /* ignore */ }
-        try { refrescarPerspectivas(libro); } catch { /* ignore */ }
+        try { syncEstudioAlPanel(libro); } catch { /* ignore */ }
         if (libro.verso) requestAnimationFrame(() => { try { irAVersiculo(Number(libro.verso)); } catch { /* ignore */ } });
         try {
             document.dispatchEvent(new CustomEvent('revelatio:passage-ready', {
@@ -1323,37 +1112,8 @@
         const term = String(query || '').trim();
         if (term.length < 3) return;
         try { abrirEstudioTab('concordancia'); } catch { /* ignore */ }
-        const cruzadasEl = document.getElementById('lista-cruzadas');
-        const refEl = document.getElementById('ref-concordancia');
-        if (refEl) refEl.textContent = `Búsqueda: ${term}`;
-        if (cruzadasEl) {
-            cruzadasEl.innerHTML = `<p class="rv-estudio-vacio py-6 text-center text-amber-800 text-sm"><span class="animate-spin inline-block mr-1">⏳</span> Buscando «${escapeHtml(term)}» en toda la Escritura…</p>`;
-        }
-        try {
-            const ver = claveMotor(versionActiva());
-            const res = await fetch(`/api/concordancia?q=${encodeURIComponent(term)}&version=${encodeURIComponent(ver)}`);
-            const json = await res.json().catch(() => null);
-            if (!res.ok) {
-                if (cruzadasEl) cruzadasEl.innerHTML = `<p class="rv-estudio-vacio">${escapeHtml(json?.error || 'No fue posible buscar en la Biblia en este momento.')}</p>`;
-                return;
-            }
-            const resultados = json?.data?.resultados || [];
-            if (!cruzadasEl) return;
-            if (!resultados.length) {
-                const msg = json?.data?.indexable === false
-                    ? `El motor de concordancia es el mismo para todas las versiones; ${escapeHtml(String(ver || '').toUpperCase())} aún no tiene texto indexable.`
-                    : `No hay coincidencias de «${escapeHtml(term)}» en esta versión.`;
-                cruzadasEl.innerHTML = `<p class="rv-estudio-vacio">${msg}</p>`;
-                return;
-            }
-            cruzadasEl.innerHTML = resultados.map((item) => {
-                const cita = item.ref || '';
-                const nota = String(item.html || '').replace(/<[^>]+>/g, '');
-                return `<button type="button" class="rv-xref-item" data-ir-ref="${escapeHtml(cita)}"><span class="rv-xref-ref">${escapeHtml(cita)}</span>${nota ? `<span class="rv-xref-nota">${escapeHtml(nota)}</span>` : ''}</button>`;
-            }).join('');
-        } catch {
-            if (cruzadasEl) cruzadasEl.innerHTML = `<p class="rv-estudio-vacio">No se pudo buscar «${escapeHtml(term)}» ahora.</p>`;
-        }
+        const RV = window.Revelatio || window.RV;
+        try { RV?.loadConcordance?.(referenciaComentario(estado()), term); } catch { /* ignore */ }
     }
 
     function montarCanon() {
@@ -2295,10 +2055,7 @@ function descargarBackup(kind) {
             }
         }
         const next = { ...loc, verso: n };
-        refrescarComentario(next);
-        refrescarConcordancia(next);
-        refrescarTsk(next);
-        refrescarPerspectivas(next);
+        syncEstudioAlPanel(next);
         if (opts.entrarModo || document.body.classList.contains('is-verse-study')) {
             pintarModoVersiculo(n);
         }
@@ -2414,29 +2171,7 @@ function descargarBackup(kind) {
     }
 
     function abrirEstudioTab(tab) {
-        document.querySelectorAll('[data-estudio-tab]').forEach(btn => {
-            const on = btn.dataset.estudioTab === tab;
-            btn.classList.toggle('is-on', on);
-            btn.setAttribute('aria-selected', String(on));
-        });
-        document.getElementById('panel-neuro')?.classList.toggle('is-hidden-tab', tab !== 'comentario');
-        document.getElementById('panel-tsk')?.classList.toggle('is-hidden-tab', tab !== 'tsk');
-        document.getElementById('panel-perspectivas')?.classList.toggle('is-hidden-tab', tab !== 'perspectivas');
-        document.getElementById('panel-concordancia')?.classList.toggle('is-hidden-tab', tab !== 'concordancia');
-        const neuroPanel = document.getElementById('panel-neuro');
-        if (neuroPanel) neuroPanel.hidden = tab !== 'comentario';
-        const tskPanel = document.getElementById('panel-tsk');
-        if (tskPanel) tskPanel.hidden = tab !== 'tsk';
-        const perspPanel = document.getElementById('panel-perspectivas');
-        if (perspPanel) perspPanel.hidden = tab !== 'perspectivas';
-        const concPanel = document.getElementById('panel-concordancia');
-        if (concPanel) concPanel.hidden = tab !== 'concordancia';
-        if (tab === 'perspectivas' || tab === 'concordancia' || tab === 'tsk') {
-            document.getElementById('modulo-estudio')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        if (tab === 'perspectivas') refrescarPerspectivas(estado());
-        if (tab === 'concordancia') refrescarConcordancia(estado());
-        if (tab === 'tsk') refrescarTsk(estado());
+        syncEstudioAlPanel(estado(), tab);
     }
 
     function strongsDelVersoSeleccionado(n) {
@@ -2473,667 +2208,8 @@ function descargarBackup(kind) {
         return pack;
     }
 
-    function celdaInterlineal(item) {
-        const esHeb = /^H/i.test(item.strong);
-        const lang = esHeb ? 'he' : 'el';
-        const resolve = window.resolveSpanishStrong || window.RV?.Strongs?.resolveSpanishEntry;
-        const entry = typeof resolve === 'function'
-            ? resolve(item.strong, {
-                word: item.original,
-                translit: item.translit,
-                def: item.glosa || item.meaning,
-                morph: item.morph,
-            })
-            : null;
-        const es = entry?.def?.split(/[.;]/)[0]
-            || (window.translateGlossToSpanish
-                ? window.translateGlossToSpanish(item.glosa || item.palabra || '')
-                : (item.glosa || item.palabra || item.strong));
-        const orig = entry?.word || item.original || '—';
-        const translit = entry?.translit || item.translit || '—';
-        const morph = entry?.part || item.morph || '—';
-        const code = entry?.strongCode || item.strong;
-        return `<button type="button" class="rv-il-cell rv-strong-pill bg-amber-100/70 hover:bg-amber-200 border border-[#C59B27]/40 text-[#0F172A] text-xs font-serif px-2 py-0.5 rounded-md cursor-pointer transition-all shadow-sm" role="listitem" data-strong="${escapeHtml(code)}" data-lemma="${escapeHtml(orig)}" aria-label="Strong ${escapeHtml(code)}: ${escapeHtml(es)}">
-            <span class="rv-il-es font-semibold text-[#0F172A]">${escapeHtml(es)}</span>
-            <span class="rv-il-orig ${esHeb ? 'is-he' : 'is-el'} font-bold text-[#0A192F]" lang="${lang}">${escapeHtml(orig)}</span>
-            <span class="rv-il-trans text-stone-600">${escapeHtml(translit)}</span>
-            <span class="rv-il-morph text-[#855D10]">${escapeHtml(morph)}</span>
-            <span class="rv-il-code text-[9px] font-mono font-bold text-[#855D10]">${escapeHtml(code)}</span>
-        </button>`;
-    }
-
-    async function enriquecerTokensStrong(keys) {
-        if (!keys.length) return keys;
-        const lexico = await cargarLexicoStrong();
-        const resolve = window.resolveSpanishStrong || window.RV?.Strongs?.resolveSpanishEntry;
-        return keys.map((t) => {
-            const local = lexico[t.strong] || lexico[String(t.strong).toUpperCase()] || {};
-            const rawGlosa = t.glosa || GLOSA[t.strong] || local.definicion || local.definition || t.palabra || '';
-            const entry = typeof resolve === 'function'
-                ? resolve(t.strong, {
-                    word: t.original || local.lemma,
-                    translit: t.translit || local.translit,
-                    def: rawGlosa,
-                    morph: t.morph || local.morph,
-                })
-                : null;
-            return {
-                ...t,
-                original: entry?.word || t.original || local.lemma || local.lexema || local.raiz || '',
-                translit: entry?.translit || t.translit || local.translit || local.transliteracion || '',
-                glosa: entry?.def?.split(/[.;]/)[0]
-                    || (window.translateGlossToSpanish ? window.translateGlossToSpanish(rawGlosa) : rawGlosa)
-                    || t.palabra,
-                morph: entry?.part || t.morph || local.morph || local.morfologia || local.parsing || '—',
-            };
-        });
-    }
-
-    function pintarConcordancia(libro, cruzadas, termino = '', opts = {}) {
-        const refEl = document.getElementById('ref-concordancia');
-        const cruzadasEl = document.getElementById('lista-cruzadas');
-        const strongEl = document.getElementById('lista-strong-verso');
-        const ref = referenciaComentario(libro);
-        if (refEl) {
-            refEl.textContent = termino
-                ? `${ref || ''} · «${termino}»`.trim()
-                : (ref || `${libro?.n || ''} ${libro?.cap || ''}`.trim());
-        }
-        const n = Number(libro?.verso || 0);
-        const keys = n ? strongsDelVersoSeleccionado(n) : [];
-        if (strongEl) {
-            if (!n) {
-                strongEl.innerHTML = `<p class="rv-estudio-vacio">Elige un versículo para abrir el interlineal inverso (español → hebreo/griego).</p>`;
-            } else if (!keys.length) {
-                strongEl.innerHTML = `<p class="rv-estudio-vacio">No hay raíces Strong para este versículo en el texto original cargado.</p>`;
-            } else {
-                strongEl.innerHTML = keys.map(celdaInterlineal).join('');
-                enriquecerTokensStrong(keys).then((rich) => {
-                    if (Number(estado()?.verso || 0) !== n) return;
-                    const el = document.getElementById('lista-strong-verso');
-                    if (el) el.innerHTML = rich.map(celdaInterlineal).join('');
-                }).catch(() => {});
-            }
-        }
-        if (cruzadasEl) {
-            const emptyTerm = termino
-                ? (opts.indexable === false
-                    ? `El motor de concordancia es el mismo para todas las versiones; ${escapeHtml(String(claveMotor(versionActiva()) || '').toUpperCase())} aún no tiene texto indexable.`
-                    : `No hay coincidencias para «${escapeHtml(termino)}».`)
-                : (n ? 'No hay un término de 5+ letras en este versículo para concordancia. Usa la búsqueda del canon.' : 'Elige un versículo o busca una palabra de al menos 3 letras.');
-            cruzadasEl.innerHTML = (cruzadas || []).length
-                ? cruzadas.map(item => {
-                    const cita = item.ref || item.reference || '';
-                    const nota = item.nota || item.description || item.text || '';
-                    return `<button type="button" class="rv-xref-item" data-ir-ref="${escapeHtml(cita)}"><span class="rv-xref-ref">${escapeHtml(cita)}</span>${nota ? `<span class="rv-xref-nota">${escapeHtml(nota)}</span>` : ''}</button>`;
-                }).join('')
-                : `<p class="rv-estudio-vacio">${emptyTerm}</p>`;
-        }
-    }
-
-    async function cargarCruzadas(ref) {
-        const passage = String(ref || '').trim();
-        if (!passage) return [];
-        try {
-            const token = await tokenAuth();
-            const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
-            if (token) headers.Authorization = `Bearer ${token}`;
-            const res = await fetch('/api/tsk', {
-                method: 'POST',
-                headers,
-                body: JSON.stringify({ consulta: passage, passage, version: versionActiva() })
-            });
-            if (!res.ok) return [];
-            const json = await res.json();
-            const lista = json.data?.referencias || json.referencias || [];
-            if (!lista.length) return [];
-            return lista.map(x => ({
-                ref: x.ref || x.referencia || x.reference || x.cita || '',
-                texto: x.texto || x.text || '',
-            }));
-        } catch {
-            return [];
-        }
-    }
-
-    function pintarTsk(libro, refs) {
-        const refEl = document.getElementById('ref-tsk');
-        const listEl = document.getElementById('lista-tsk');
-        const passage = referenciaComentario(libro);
-        if (refEl) refEl.textContent = passage;
-        if (!listEl) return;
-        if (!Array.isArray(refs) || !refs.length) {
-            listEl.innerHTML = `<p class="rv-estudio-vacio">No hay referencias TSK catalogadas para ${escapeHtml(passage)}.</p>`;
-            return;
-        }
-        listEl.innerHTML = refs.map((item) => {
-            const cita = item.ref || '';
-            const texto = String(item.texto || '').trim();
-            return `<button type="button" class="rv-xref-item" data-ir-ref="${escapeHtml(cita)}">
-                <span class="rv-xref-ref">${escapeHtml(cita)}</span>
-                ${texto ? `<span class="rv-xref-texto">«${escapeHtml(texto)}»</span>` : ''}
-            </button>`;
-        }).join('');
-    }
-
-    async function refrescarTsk(libro) {
-        const listEl = document.getElementById('lista-tsk');
-        const passage = referenciaComentario(libro);
-        if (listEl) listEl.innerHTML = `<p class="rv-estudio-vacio">Cargando TSK para ${escapeHtml(passage)}…</p>`;
-        const refs = await cargarCruzadas(passage);
-        pintarTsk(libro, refs);
-    }
-
-    function palabrasClaveConcordancia(texto) {
-        const stop = new Set(
-            `el la los las un una unos unas de del al a en y o u que se su sus le les lo
-             por para con sin sobre entre hasta desde como cuando donde porque pues asi
-             este esta estos estas ese esa eso aquel aquella hay ser son fue eran muy
-             mas pero sino tambien ya no ni me te nos os yo tu el oh jehova
-             nunca jamas siempre todos todas este esta`.split(/\s+/).filter(Boolean)
-        );
-        return String(texto || '')
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^a-z0-9ñ\s]/g, ' ')
-            .split(/\s+/)
-            .filter((w) => w.length >= 5 && !stop.has(w));
-    }
-
-    async function cargarConcordanciaHits(term) {
-        const q = String(term || '').trim();
-        if (q.length < 3) return { hits: [], indexable: true };
-        const ver = claveMotor(versionActiva());
-        const res = await fetch(`/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(ver)}`);
-        const json = await res.json().catch(() => null);
-        if (!res.ok) {
-          throw new Error(json?.error || 'No fue posible buscar en la Biblia en este momento.');
-        }
-        return {
-            hits: json?.data?.resultados || json?.resultados || [],
-            indexable: json?.data?.indexable !== false,
-        };
-    }
-
-    async function refrescarConcordancia(libro) {
-        const ref = referenciaComentario(libro);
-        const texto = versoTextoActual(libro);
-        const keys = palabrasClaveConcordancia(texto);
-        const cruzadasEl = document.getElementById('lista-cruzadas');
-        const contentEl = document.getElementById('concordance-content-area');
-        const loading = `<p class="rv-estudio-vacio py-6 text-center text-amber-800 text-sm"><span class="animate-spin inline-block mr-1">⏳</span> Buscando concordancia para ${escapeHtml(ref)}...</p>`;
-        if (cruzadasEl) cruzadasEl.innerHTML = loading;
-        if (contentEl && contentEl !== cruzadasEl) contentEl.innerHTML = loading;
-
-        let hits = [];
-        let used = keys[0] || '';
-        let indexable = true;
-        let searchError = '';
-        try {
-            for (const term of keys) {
-                const got = await cargarConcordanciaHits(term);
-                used = term;
-                indexable = got.indexable;
-                if (got.hits.length) {
-                    hits = got.hits;
-                    indexable = true;
-                    break;
-                }
-            }
-        } catch (err) {
-            hits = [];
-            searchError = err?.message || 'No fue posible buscar en la Biblia en este momento.';
-        }
-
-        if (referenciaComentario(estado()) !== ref && referenciaComentario(libro) !== ref) {
-            /* stale */
-        }
-        if (searchError) {
-            const msg = `<p class="rv-estudio-vacio">${escapeHtml(searchError)}</p>`;
-            if (cruzadasEl) cruzadasEl.innerHTML = msg;
-            if (contentEl && contentEl !== cruzadasEl) contentEl.innerHTML = msg;
-            return;
-        }
-        const mapped = hits.map((item) => ({
-            ref: item.ref || (item.libro ? `${item.libro} ${item.capitulo}:${item.verso}` : ''),
-            nota: String(item.html || item.texto || item.text || '').replace(/<[^>]+>/g, ''),
-            html: item.html || '',
-        }));
-        pintarConcordancia(libro, mapped, used, { indexable });
-    }
-
-
-    const PERSPECTIVAS = (window.RV_DATA && window.RV_DATA.PERSPECTIVAS) || {};
-    const PERSP_TO_LENS = {
-        exegesis: { id: 'biblica_exegesis', title: 'Exégesis Filológica & Textual' },
-        hermeneutica: { id: 'biblica_pactos', title: 'Teología del Pacto & Metarrelato' },
-        apologetica: { id: 'biblica_apologetica', title: 'Apologética Clásica & Cosmovisión' },
-        mente: { id: 'mental_metanoia', title: 'Metanoia & Renovación del Nous' },
-        alma: { id: 'mental_psicologia', title: 'Psicología del Alma & Shalom' },
-    };
-
-    async function pedirLenteElite(subLensId, lensTitle, libro) {
-        const loc = libro || estado();
-        const ref = referenciaComentario(loc);
-        const verseText = versoTextoActual(loc);
-        if (lensFetchAbort) {
-            try { lensFetchAbort.abort('replaced'); } catch { lensFetchAbort.abort(); }
-        }
-        const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-        lensFetchAbort = controller;
-        const timer = controller ? setTimeout(() => {
-            try { controller.abort('timeout'); } catch { controller.abort(); }
-        }, LENS_TIMEOUT_MS) : null;
-        try {
-            const res = await fetch('/api/lente-elite', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                signal: controller?.signal,
-                body: JSON.stringify({
-                    passage: ref,
-                    subLensId,
-                    lensId: subLensId,
-                    lensTitle,
-                    verseText,
-                    mode: 'elite_lens',
-                    type: 'elite_lens',
-                    prompt: `Analiza ${ref} bajo ${lensTitle}`,
-                }),
-            });
-            const data = await res.json().catch(() => ({}));
-            if (data.success === false || data.source === 'ai-unavailable') {
-                const err = data.error || data.meta?.error || data.meta?.geminiError || data.meta?.gatewayError
-                    || 'Falta Gemini o AI Gateway. Las lentes no inventarán un dictamen.';
-                throw new Error(err);
-            }
-            return String(data.answer || data.respuesta || data.text || '').trim();
-        } finally {
-            if (timer) clearTimeout(timer);
-            if (lensFetchAbort === controller) lensFetchAbort = null;
-        }
-    }
-
-    function htmlDictamenLente(text) {
-        return escapeHtml(String(text || '').trim())
-            .replace(/^###\s+(.*?)$/gm, '<h5 class="font-bold text-[#855D10] my-2">$1</h5>')
-            .replace(/\n\n+/g, '</p><p>')
-            .replace(/\n/g, '<br/>');
-    }
-
-    let perspState = {
-        activa: 'exegesis',
-        compare: false,
-        segunda: 'hermeneutica',
-        cacheKey: '',
-        packs: null,
-        sintetizando: false,
-    };
-
-    function versoTextoActual(libro) {
-        const n = Number(libro?.verso || 0);
-        if (!n) return '';
-        const el = document.querySelector(`#texto-biblico .rv-verse-surface[data-versiculo="${n}"] .rv-verse-text`);
-        if (el) {
-            const clone = el.cloneNode(true);
-            clone.querySelectorAll('.rv-verse-num, .rv-strong-row, .rv-token-meta, sup')?.forEach?.(node => node.remove());
-            return String(clone.textContent || '').replace(/\s+/g, ' ').trim();
-        }
-        const passage = window.__revelatioPassageData;
-        const version = versionActiva();
-        const lista = passage?.versionesVersos?.[claveMotor(version)] || [];
-        const hit = lista.find(v => Number(v.n) === n);
-        return String(hit?.texto || '').replace(/\s+/g, ' ').trim();
-    }
-
-    function comentarioBaseParaPerspectiva(libro) {
-        const autor = autorActivo();
-        const ref = referenciaComentario(libro);
-        const data = window.revelatioLectura?.comentarioInmediato?.(ref, autor);
-        const textos = (data?.entradas || []).map(e => String(e?.texto || '').trim()).filter(t => t && !esRuidoEditorial(t));
-        if (textos.length) return textos.slice(0, 2).join(' ');
-        const cuerpo = String(data?.cuerpo || '').trim();
-        return cuerpo && !esRuidoEditorial(cuerpo) ? cuerpo.slice(0, 900) : '';
-    }
-
-    function strongResumen(libro) {
-        const n = Number(libro?.verso || 0);
-        if (!n) return '';
-        const keys = strongsDelVersoSeleccionado(n).slice(0, 4);
-        if (!keys.length) return '';
-        return keys.map(k => `${k.palabra || 'término'} (${k.strong})`).join(', ');
-    }
-
-    function construirPackPerspectivas(libro) {
-        const ref = referenciaComentario(libro) || `${libro?.n || ''} ${libro?.cap || ''}`.trim();
-        const texto = versoTextoActual(libro);
-        const cita = texto ? `«${texto}»` : `el pasaje de ${ref}`;
-        const autor = AUTOR_LABEL[autorActivo()] || 'los comentaristas históricos';
-        const base = comentarioBaseParaPerspectiva(libro);
-        const strong = strongResumen(libro);
-        const conStrong = strong
-            ? ` Las raíces léxicas disponibles — ${strong} — orientan el sentido original sin sustituir el contexto canónico.`
-            : ' El léxico Strong, cuando está disponible en el texto original cargado, afina el sentido sin desplazar el contexto.';
-
-        return {
-            exegesis: {
-                ...PERSPECTIVAS.exegesis,
-                cuerpo: [
-                    `TRATADO EXEGÉTICO · ${ref}. El punto de partida no es la experiencia contemporánea sino el texto inspirado en su marco histórico-gramatical. ${cita} pertenece a un género literario, un argumento y una intención del autor humano bajo la soberanía del Espíritu (2 P 1:20-21).`,
-                    base
-                        ? `Testimonio clásico (${autor}): ${base}`
-                        : `Los comentaristas clásicos (${autor}) se leen como siervos de la Escritura: iluminan el sentido del autor, jamás rivalizan con la autoridad canónica.`,
-                    `Léxico y raíces.${conStrong} Cada término significativo se pesa en su campo semántico (hebreo/griego) y en su uso canónico, evitando etimologías curiosas que ignoren el contexto inmediato.`,
-                    `Preguntas control: ¿Qué dijo el texto a sus primeros oidores? ¿Qué contraste corrige? ¿Qué mandato, promesa o indicativo sostiene la unidad del pasaje? La exégesis responde con evidencia textual, no con eslóganes.`,
-                    `Devolución normativa: la misma verdad permanece vigente hoy porque Dios no miente. El sentido histórico no se diluye en “relevancia”; se aplica porque Cristo es el mismo ayer, y hoy, y por los siglos (Heb 13:8).`,
-                    `Cierre teológico: toda exégesis fiel conduce al Padre que habla, al Hijo que cumple y al Espíritu que ilumina. Sin cruz, el análisis gramatical queda estéril; con cruz, el léxico sirve a la adoración.`,
-                ],
-            },
-            hermeneutica: {
-                ...PERSPECTIVAS.hermeneutica,
-                cuerpo: [
-                    `TRATADO HERMENÉUTICO · ${ref}. La Escritura interpreta la Escritura. ${cita} no se aísla: se lee en el analogía fidei —promesa, cumplimiento y teología de la gracia en Cristo (Lc 24:27, 44-47).`,
-                    `Canon y coherencia: Ley, Profetas, Escritos y Nuevo Testamento dialogan. Ninguna doctrina florece fuera del conjunto; ninguna aplicación legitima contradice el evangelio de la gracia.`,
-                    `Gracia y verdad: lo que el texto manda, la cruz capacita. La hermenéutica cristiana no produce mérito; revela necesidad y provee a Cristo como justicia imputada y vida nueva (Ro 3:21-26; 8:1-4).`,
-                    `Regla pastoral: distingue indicativo y imperativo. Primero lo que Dios ha hecho en Cristo; luego lo que el Espíritu produce en el creyente. Invertir el orden es legalismo o desesperación.`,
-                    `Cierre: el Padre glorificado, el Hijo exaltado, el Espíritu aplicando la Palabra. Hermenéutica sin Trinidad es técnica; con Trinidad es adoración inteligente.`,
-                ],
-            },
-            apologetica: {
-                ...PERSPECTIVAS.apologetica,
-                cuerpo: [
-                    `TRATADO APOLOGÉTICO · ${ref}. ${cita} no es opinión religiosa privada: es revelación pública que sostiene la fe una vez dada a los santos (Judas 3).`,
-                    `Veracidad: coherencia interna del testimonio, continuidad canónica y poder transformador del texto. La apologética bíblica no inventa pruebas cosméticas; muestra que Dios ha hablado y que Cristo resucitó según las Escrituras (1 Co 15:3-4).`,
-                    `Defensa ante la crítica: el escándalo de la cruz no se negocia. Ante el escepticismo, este pasaje ancla autoridad, pecado real, gracia real y juicio real —sin relativismo moral.`,
-                    `Uso ministerial: responde con mansedumbre y temor (1 P 3:15), pero sin ceder el terreno. La verdad no se disuelve en empatía secular; la empatía se ordena bajo la verdad.`,
-                    `Cierre: el Padre testifica del Hijo; el Espíritu convence de pecado, justicia y juicio (Jn 16:8-11). Apologética sin Espíritu es debate; con Espíritu es testimonio.`,
-                ],
-            },
-            mente: {
-                ...PERSPECTIVAS.mente,
-                cuerpo: [
-                    `TRATADO DE MENTE · ${ref}. La Escritura manda renovación del entendimiento (Ro 12:2). ${cita} confronta guiones mentales que la carne normaliza y que el humanismo celebra como “autenticidad”.`,
-                    `Diseño creado: la neuroplasticidad describe —con prudencia— que atención, repetición y hábitos reconfiguran circuitos. Eso no prueba la doctrina; ilustra por qué meditar día y noche en la Ley (Sal 1) no es ornamento sino obediencia ilustrada.`,
-                    `Prohibición: autoayuda, coaching secular y psicología que excluyan la cruz. La metanoia no es técnica de bienestar; es arrepentimiento y fe bajo la Palabra (Mr 1:15).`,
-                    `Práctica densa: identifica un pensamiento automático que este verso corrige; escribe el mentiroso “si… entonces…”; sustituye por la verdad textual durante siete días en oración, con dominio propio y rendición de cuentas eclesial.`,
-                    `Cierre: el Padre renueva por su Palabra; el Hijo es la verdad (Jn 14:6); el Espíritu guía a toda verdad (Jn 16:13). Mente renovada es mente crucificada al mundo y viva para Dios.`,
-                ],
-            },
-            alma: {
-                ...PERSPECTIVAS.alma,
-                cuerpo: [
-                    `TRATADO DEL ALMA · ${ref}. Las pasiones —miedo, ira, frustración, vergüenza— encuentran diagnóstico y remedio aquí. ${cita} no anestesia el corazón: lo quebranta para sanarlo (Sal 51:17).`,
-                    `Corazón de piedra → corazón de carne (Ez 36:26-27). La inteligencia emocional bíblica no eleva el yo: entrega el afecto al Espíritu, que produce amor, gozo, paz y dominio propio (Gá 5:22-23).`,
-                    `Pastoral densa: nombra la emoción sin justificar el pecado; confiesa delante de Cristo; pide una respuesta de gracia en una relación concreta hoy —palabra, límite o servicio— bajo la autoridad del texto.`,
-                    `Comunión: el alma no se restaura en aislamiento terapéutico secular, sino en la iglesia, los medios de gracia y la cruz. El quebrantamiento verdadero llora el pecado y abraza al Redentor.`,
-                    `Cierre: el Padre compasivo, el Hijo que carga nuestras iniquidades (Is 53), el Espíritu Consolador. Alma restaurada es alma adoradora.`,
-                ],
-            },
-        };
-    }
-
-    function renderPerspCard(pack) {
-        if (!pack) return '';
-        const body = (pack.cuerpo || []).map(p => `<p>${escapeHtml(p)}</p>`).join('');
-        return `
-            <article class="rv-persp-card" data-persp-card="${escapeHtml(pack.id)}">
-                <p class="rv-persp-card-kicker">${escapeHtml(pack.subtitulo || '')}</p>
-                <h3 class="rv-persp-card-title">${escapeHtml(pack.mark || '')} ${escapeHtml(pack.titulo || '')}</h3>
-                <div class="rv-persp-card-body">${body}</div>
-                <p class="rv-persp-meta">Éfata RevelatiO · lente de estudio bajo autoridad bíblica</p>
-            </article>`;
-    }
-
-    function pintarTipPerspectiva(id, modo) {
-        const meta = PERSPECTIVAS[id] || PERSPECTIVAS.exegesis;
-        const tip = document.getElementById('rv-persp-tip');
-        const title = document.getElementById('rv-persp-tip-title');
-        const body = document.getElementById('rv-persp-tip-body');
-        if (!tip || !title || !body) return;
-        title.textContent = `${meta.mark || ''} ${meta.titulo || ''}`.trim();
-        body.textContent = meta.tip || '';
-        tip.classList.add('is-on');
-        tip.hidden = false;
-        tip.dataset.modo = modo || 'activa';
-    }
-
-    function pintarPerspectivasUI() {
-        const grid = document.getElementById('rv-persp-grid');
-        if (!grid || !perspState.packs) return;
-        const a = perspState.packs[perspState.activa] || perspState.packs.exegesis;
-        if (!perspState.compare) {
-            grid.classList.remove('is-compare');
-            grid.innerHTML = renderPerspCard(a);
-            return;
-        }
-        let bId = perspState.segunda;
-        if (bId === perspState.activa) {
-            bId = Object.keys(PERSPECTIVAS).find(k => k !== perspState.activa) || 'hermeneutica';
-            perspState.segunda = bId;
-            const sel = document.getElementById('rv-persp-b');
-            if (sel) sel.value = bId;
-        }
-        const b = perspState.packs[bId];
-        grid.classList.add('is-compare');
-        grid.innerHTML = renderPerspCard(a) + renderPerspCard(b);
-    }
-
-    function refrescarPerspectivas(libro) {
-        const loc = libro || estado();
-        const refEl = document.getElementById('ref-perspectivas');
-        const ref = referenciaComentario(loc) || `${loc?.n || ''} ${loc?.cap || ''}`.trim();
-        if (refEl) refEl.textContent = ref || 'Selecciona un versículo';
-        const key = `${ref}|${versoTextoActual(loc).slice(0, 80)}|${autorActivo()}`;
-        if (key !== perspState.cacheKey || !perspState.packs) {
-            perspState.cacheKey = key;
-            perspState.packs = construirPackPerspectivas(loc);
-            const report = document.getElementById('rv-persp-synth-report');
-            if (report) {
-                report.classList.remove('is-on');
-                report.innerHTML = '';
-            }
-        }
-        // Migrar IDs antiguos si quedaron en estado.
-        if (!PERSPECTIVAS[perspState.activa]) perspState.activa = 'exegesis';
-        if (!PERSPECTIVAS[perspState.segunda]) perspState.segunda = 'hermeneutica';
-        document.querySelectorAll('#panel-perspectivas [data-persp]').forEach(btn => {
-            const on = btn.dataset.persp === perspState.activa;
-            btn.classList.toggle('is-on', on);
-            btn.setAttribute('aria-selected', String(on));
-        });
-        pintarTipPerspectiva(perspState.activa, 'activa');
-        pintarPerspectivasUI();
-        cargarLentePerspectivaActiva(loc);
-    }
-
-    async function cargarLentePerspectivaActiva(libro) {
-        const loc = libro || estado();
-        const grid = document.getElementById('rv-persp-grid');
-        const mapped = PERSP_TO_LENS[perspState.activa] || PERSP_TO_LENS.exegesis;
-        if (grid) {
-            grid.innerHTML = `<p class="rv-persp-loading">Consultando lente «${escapeHtml(mapped.title)}»…</p>`;
-        }
-        try {
-            const answer = await pedirLenteElite(mapped.id, mapped.title, loc);
-            if (!grid) return;
-            if (!answer) {
-                grid.innerHTML = `<p class="rv-estudio-vacio">No se pudo generar el dictamen de la lente. Reintenta.</p>`;
-                return;
-            }
-            grid.innerHTML = `
-                <article class="rv-persp-card">
-                    <p class="rv-persp-card-kicker">${escapeHtml(mapped.id)}</p>
-                    <h3 class="rv-persp-card-title">${escapeHtml(mapped.title)}</h3>
-                    <div class="rv-persp-card-body"><p>${htmlDictamenLente(answer)}</p></div>
-                    <p class="rv-persp-meta">RevelatiO IA · /api/lente-elite</p>
-                </article>`;
-        } catch (err) {
-            if (grid) {
-                grid.innerHTML = `<p class="rv-estudio-vacio">${escapeHtml(err?.message || 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.')}</p>`;
-            }
-        }
-    }
-
-    function construirSintesisMaestra(libro) {
-        const ref = referenciaComentario(libro) || `${libro?.n || ''} ${libro?.cap || ''}`.trim();
-        const texto = versoTextoActual(libro);
-        const cita = texto ? `«${texto}»` : `el testimonio de ${ref}`;
-        const packs = perspState.packs || construirPackPerspectivas(libro);
-        return {
-            verdad: `En ${ref}, la Escritura revela verdad normativa. ${cita} se interpreta por exégesis e historia (${packs.exegesis.titulo}), hermenéutica canónica (${packs.hermeneutica.titulo}) y apologética de veracidad (${packs.apologetica.titulo}). Toda verdad desemboca en el Padre, la cruz de Jesucristo y la obra del Espíritu Santo.`,
-            impacto: `Unida a neuroplasticidad y pensamiento (${packs.mente.titulo}) y a la restauración del alma (${packs.alma.titulo}), esta revelación confronta hábitos mentales y pasiones del corazón. La metanoia no es humanismo: es renovación bajo la Palabra. El Espíritu quita el corazón de piedra y da corazón de carne.`,
-            decreto: `Por tanto, delante de la Cruz: 1) Confiesa lo que ${ref} expone. 2) Cree de nuevo el evangelio que capacita lo que el texto manda. 3) Practica hoy un acto concreto —palabra, límite o servicio— alineado con este verso. 4) Medita el pasaje pidiendo al Espíritu que escriba la verdad en la mente y en el alma. Así se unen las cinco lentes en una sola obediencia gozosa.`,
-        };
-    }
-
-    async function sintetizarPerspectivasConIA(libro) {
-        const loc = libro || estado();
-        const report = document.getElementById('rv-persp-synth-report');
-        if (!report) return;
-        if (perspState.sintetizando) return;
-        perspState.sintetizando = true;
-        report.classList.add('is-on');
-        report.innerHTML = `
-            <div class="rv-persp-synth-head">
-                <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
-                <div>
-                    <strong>RevelatiO IA</strong>
-                    <span>Dictamen maestro en curso…</span>
-                </div>
-            </div>
-            <p class="rv-persp-loading">Consultando /api/lente-elite · dictamen_maestro…</p>`;
-
-        try {
-            const answer = await pedirLenteElite(
-                'dictamen_maestro',
-                'DICTAMEN MAESTRO INTEGRADO',
-                loc,
-            );
-            report.innerHTML = `
-            <div class="rv-persp-synth-head">
-                <img src="brand/revelatio-mark.png" alt="" class="rv-ia-isotipo">
-                <div>
-                    <strong>Síntesis maestra · RevelatiO IA</strong>
-                    <span>${escapeHtml(referenciaComentario(loc) || 'Pasaje')}</span>
-                </div>
-            </div>
-            <div class="rv-persp-block">
-                <p>${htmlDictamenLente(answer || 'No se pudo generar el dictamen de la lente. Reintenta.')}</p>
-            </div>`;
-        } catch (err) {
-            report.innerHTML = `
-            <div class="rv-persp-synth-head">
-                <div>
-                    <strong>Síntesis maestra</strong>
-                    <span>${escapeHtml(referenciaComentario(loc) || 'Pasaje')}</span>
-                </div>
-            </div>
-            <p class="rv-estudio-vacio">${escapeHtml(err?.message || 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.')}</p>`;
-        }
-        perspState.sintetizando = false;
-        report.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function montarPerspectivas() {
-        const compareBtn = document.getElementById('rv-persp-compare');
-        const comparePick = document.getElementById('rv-persp-compare-pick');
-        const segunda = document.getElementById('rv-persp-b');
-        const synth = document.getElementById('rv-persp-synth');
-        const root = document.getElementById('panel-perspectivas');
-        if (!root || window.__RV_PERSP_WIRED__) return;
-        window.__RV_PERSP_WIRED__ = true;
-
-        root.addEventListener('click', (event) => {
-            const btn = event.target.closest('[data-persp]');
-            if (!btn || !root.contains(btn)) return;
-            event.preventDefault();
-            perspState.activa = btn.dataset.persp || 'exegesis';
-            pintarTipPerspectiva(perspState.activa, 'activa');
-            refrescarPerspectivas(estado());
-        });
-
-        root.addEventListener('pointerover', (event) => {
-            const btn = event.target.closest?.('[data-persp]');
-            if (!btn || !root.contains(btn)) return;
-            pintarTipPerspectiva(btn.dataset.persp || 'exegesis', 'hover');
-        });
-
-        root.addEventListener('focusin', (event) => {
-            const btn = event.target.closest?.('[data-persp]');
-            if (!btn || !root.contains(btn)) return;
-            pintarTipPerspectiva(btn.dataset.persp || 'exegesis', 'focus');
-        });
-
-        root.addEventListener('pointerout', (event) => {
-            if (event.relatedTarget && root.contains(event.relatedTarget)) return;
-            pintarTipPerspectiva(perspState.activa, 'activa');
-        });
-
-        compareBtn?.addEventListener('click', () => {
-            perspState.compare = !perspState.compare;
-            compareBtn.classList.toggle('is-on', perspState.compare);
-            compareBtn.setAttribute('aria-pressed', String(perspState.compare));
-            if (comparePick) {
-                comparePick.hidden = !perspState.compare;
-                comparePick.classList.toggle('is-on', perspState.compare);
-            }
-            pintarPerspectivasUI();
-        });
-
-        segunda?.addEventListener('change', () => {
-            perspState.segunda = segunda.value || 'hermeneutica';
-            pintarPerspectivasUI();
-        });
-
-        synth?.addEventListener('click', () => {
-            abrirEstudioTab('perspectivas');
-            sintetizarPerspectivasConIA(estado());
-        });
-
-        window.revelatioPerspectivas = {
-            refrescar: refrescarPerspectivas,
-            sintetizar: sintetizarPerspectivasConIA,
-            estado: () => ({ ...perspState }),
-        };
-        pintarTipPerspectiva(perspState.activa, 'activa');
-    }
-
 
     function montarEstudio() {
-        document.getElementById('tabs-estudio')?.addEventListener('click', event => {
-            const tab = event.target.closest('[data-estudio-tab]')?.dataset.estudioTab;
-            if (tab) abrirEstudioTab(tab);
-        });
-        document.getElementById('lista-cruzadas')?.addEventListener('click', event => {
-            const btn = event.target.closest('[data-ir-ref]');
-            if (!btn?.dataset.irRef) return;
-            const parsed = parseGoto(btn.dataset.irRef);
-            const nombre = resolverLibro(parsed?.libroQ || '');
-            if (nombre && parsed?.cap) irGoto(nombre, parsed.cap, parsed.verso);
-        });
-        document.getElementById('lista-tsk')?.addEventListener('click', event => {
-            const btn = event.target.closest('[data-ir-ref]');
-            if (!btn?.dataset.irRef) return;
-            const parsed = parseGoto(btn.dataset.irRef);
-            const nombre = resolverLibro(parsed?.libroQ || '');
-            if (nombre && parsed?.cap) irGoto(nombre, parsed.cap, parsed.verso);
-        });
-        document.getElementById('analisis-neuro')?.addEventListener('click', (event) => {
-            if (!event.target.closest('[data-rv-retry-comentario]')) return;
-            refrescarComentario(estado());
-        });
-        document.getElementById('analisis-neuro')?.addEventListener('click', (event) => {
-            const btn = event.target.closest('[data-rv-tr-toggle]');
-            if (!btn) return;
-            const root = btn.closest('[data-rv-tr-root]');
-            if (!root) return;
-            const es = root.querySelector('[data-rv-tr-pane="es"]');
-            const en = root.querySelector('[data-rv-tr-pane="en"]');
-            if (!es || !en) return;
-            const showEn = Boolean(es.hidden);
-            es.hidden = !showEn;
-            en.hidden = showEn;
-        });
         document.getElementById('texto-biblico')?.addEventListener('click', (event) => {
             const retry = event.target.closest('[data-rv-retry-pasaje]');
             if (!retry) return;
@@ -3149,8 +2225,6 @@ function descargarBackup(kind) {
                 });
             } else pintarPaneles(estado());
         });
-        montarPerspectivas();
-        abrirEstudioTab('comentario');
     }
 
     function esSuperficieVerso(node) {
@@ -3442,18 +2516,12 @@ function descargarBackup(kind) {
                 verse.classList.remove('is-verse-on');
                 hide(true);
                 window.__revelatioLibroActivo = { ...loc, verso: 0 };
-                refrescarComentario({ ...loc, verso: 0 });
-                refrescarConcordancia({ ...loc, verso: 0 });
-                refrescarTsk({ ...loc, verso: 0 });
                 return;
             }
             captureFromVerse(verse);
             if (n) {
                 window.__revelatioLibroActivo = { ...loc, verso: n };
-                refrescarComentario({ ...loc, verso: n });
-                refrescarConcordancia({ ...loc, verso: n });
-                refrescarTsk({ ...loc, verso: n });
-                refrescarPerspectivas({ ...loc, verso: n });
+                syncEstudioAlPanel({ ...loc, verso: n });
             }
         };
         document.addEventListener('click', event => {
@@ -3863,7 +2931,14 @@ function descargarBackup(kind) {
         }
         const recargar = () => pintarPaneles(estado());
         version?.addEventListener('change', recargar);
-        autor?.addEventListener('change', recargar);
+        autor?.addEventListener('change', () => {
+            const key = autor.value;
+            try { localStorage.setItem('revelatio_autor', key); } catch { /* ignore */ }
+            const RV = window.Revelatio || window.RV;
+            const loc = estado();
+            const ref = referenciaComentario(loc);
+            RV?.loadCommentaryForVerse?.(ref, key, versoTextoActual(loc));
+        });
     }
 
     const RACHA_KEY = 'revelatio_racha_v1';
@@ -5164,7 +4239,6 @@ function descargarBackup(kind) {
         seguro(montarSelectores);
         seguro(montarCanon);
         seguro(montarEstudio);
-        seguro(montarPerspectivas);
         seguro(montarStrong);
         seguro(montarAtlas);
         seguro(montarMarginNote);
@@ -5264,7 +4338,6 @@ function descargarBackup(kind) {
                 ).join('');
                 if ([...sel.options].some(o => o.value === current)) sel.value = current;
             }
-            refrescarComentario(estado());
         });
     }
 

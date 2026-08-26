@@ -254,7 +254,7 @@
         }
 
         let data = null;
-        // Versiones completas (RVR, KJV, DHH, TLA, NBLA…): siempre intentar carga AT/NT.
+        // Versiones completas (RVR, NVI, DHH, TLA…): siempre intentar carga AT/NT.
         // Septuaginta + AT: carga válida. Septuaginta + NT: no bloquear; aviso + fallback.
         try {
             if (global.revelatioLectura?.fetchPasaje) {
