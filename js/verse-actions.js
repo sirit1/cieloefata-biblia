@@ -732,7 +732,12 @@
         return;
       }
       if (act === "listen") {
-        const text = activeText || verseTextFromEl(activeEl) || global.currentSelectedText;
+        const live = verseTextFromEl(activeEl);
+        const text = live || activeText || global.currentSelectedText;
+        if (live) {
+          activeText = live;
+          global.currentSelectedText = live;
+        }
         (global.RV?.audio || global.revelatioAudio)?.speak?.(text, {
           button: event.target.closest("[data-va-act='listen']"),
           contextId: "verse",

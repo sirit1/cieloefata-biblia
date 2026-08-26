@@ -4,6 +4,9 @@
  * Un solo dueño de reproducción: no se superponen dos voces ni dos camas.
  * Al cerrar modal/popup/tarjeta/overlay se silencia TODO (TTS, cama, speechSynthesis).
  * Abrir otro versículo corta la narración anterior. Aposento apaga la música al salir.
+ *
+ * PRODUCT LAW: audio is general. No book, chapter, or version special cases.
+ * TTS POST { verseText } is the verse currently on screen, whatever version is selected.
  */
 (function (global) {
   "use strict";
@@ -80,31 +83,33 @@
 
   function verseTextFromEl(el) {
     if (!el) return "";
-    if (el.dataset?.text) return String(el.dataset.text).replace(/\s+/g, " ").trim();
     const clone = el.querySelector?.(".rv-verse-text, .verse-text")?.cloneNode(true);
     if (clone) {
       clone
         .querySelectorAll?.(".rv-verse-num, .rv-strong-row, .rv-token-meta, .rv-strong-num, sup")
         ?.forEach?.((n) => n.remove());
-      return String(clone.textContent || "").replace(/\s+/g, " ").trim();
+      const live = String(clone.textContent || "").replace(/\s+/g, " ").trim();
+      if (live) return live;
     }
+    if (el.dataset?.text) return String(el.dataset.text).replace(/\s+/g, " ").trim();
     return String(el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
   }
 
   function selectedVerseEl() {
     return (
-      document.querySelector(".rv-verse-surface.is-verse-on, .rv-verse-surface.is-va-active") ||
+      document.querySelector("#texto-biblico .rv-verse-surface.is-verse-on, #texto-biblico .rv-verse-surface.is-va-active, #verses-container .rv-verse-surface.is-verse-on, #verses-container .rv-verse-surface.is-va-active") ||
       document.querySelector("#texto-biblico .rv-verse-surface, #verses-container .rv-verse-surface")
     );
   }
 
   function currentVerseText() {
+    const fromDom = verseTextFromEl(selectedVerseEl());
+    if (fromDom) return fromDom;
     const selected =
       String(global.currentSelectedText || "").trim() ||
       String(global.activeStudyText || "").trim() ||
       String(RV.currentStudyState?.text || "").trim();
-    if (selected) return selected.replace(/\s+/g, " ").trim();
-    return verseTextFromEl(selectedVerseEl());
+    return selected.replace(/\s+/g, " ").trim();
   }
 
   function currentPassage() {
@@ -114,6 +119,23 @@
         RV.currentStudyState?.ref ||
         ""
     ).trim();
+  }
+
+  function chapterLocationKey() {
+    const loc = global.__revelatioLibroActivo || {};
+    const book = String(loc.n || "").trim();
+    const cap = String(loc.cap || "").trim();
+    const ver = String(document.getElementById("selector-version")?.value || "").toLowerCase();
+    return `${book}|${cap}|${ver}`;
+  }
+
+  function findVerseElByNum(n) {
+    const num = String(n ?? "").trim();
+    if (!num) return null;
+    return (
+      document.querySelector(`#texto-biblico .rv-verse-surface[data-versiculo="${num}"]`) ||
+      document.querySelector(`#verses-container .rv-verse-surface[data-versiculo="${num}"]`)
+    );
   }
 
   function chapterTextFromDom() {
@@ -278,6 +300,7 @@
       ducking: false,
       voiceToken: 0,
       musicToken: 0,
+      chapterOrigin: null,
     };
 
     const engine = { music, voiceEl, state };
@@ -600,6 +623,7 @@
       state.speaking = false;
       state.pausedVoice = false;
       state.voiceContext = null;
+      state.chapterOrigin = null;
       state.ducking = false;
       applyVolumes();
       markSpeakingButtons(false);
@@ -642,6 +666,7 @@
       state.speaking = false;
       state.pausedVoice = false;
       state.voiceContext = null;
+      state.chapterOrigin = null;
       state.ducking = false;
       state.musicOn = false;
       applyVolumes();
@@ -778,10 +803,10 @@
     };
 
     const speakChapter = async (opts = {}) => {
-      const verses = chapterVerseEls()
-        .map((el) => ({ el, text: verseTextFromEl(el) }))
-        .filter((v) => v.text.length >= 2);
-      if (!verses.length) {
+      const nums = chapterVerseEls()
+        .map((el) => String(el.getAttribute("data-versiculo") || "").trim())
+        .filter(Boolean);
+      if (!nums.length) {
         setStatus("No hay capítulo en pantalla");
         return;
       }
@@ -790,6 +815,7 @@
       const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
       state.ttsAbort = ctrl;
       state.voiceContext = "chapter";
+      state.chapterOrigin = chapterLocationKey();
       state.speaking = true;
       state.pausedVoice = false;
       state.ducking = state.musicOn;
@@ -798,10 +824,14 @@
       setStatus("Narrando el capítulo…");
       syncUi();
       try {
-        for (const verse of verses) {
+        for (const n of nums) {
           if (!isVoiceOwner(token) || ctrl?.signal?.aborted) return;
-          markNarratingVerse(verse.el);
-          const blob = await fetchTtsChunk(verse.text, ctrl?.signal);
+          if (state.chapterOrigin && chapterLocationKey() !== state.chapterOrigin) return;
+          const el = findVerseElByNum(n);
+          const text = verseTextFromEl(el);
+          if (text.length < 2) continue;
+          markNarratingVerse(el);
+          const blob = await fetchTtsChunk(text, ctrl?.signal);
           if (!isVoiceOwner(token) || ctrl?.signal?.aborted) return;
           await playBlob(blob, token);
         }
@@ -815,6 +845,7 @@
           state.speaking = false;
           state.pausedVoice = false;
           state.voiceContext = null;
+          state.chapterOrigin = null;
           state.ducking = false;
           state.ttsAbort = null;
           applyVolumes();
@@ -847,7 +878,12 @@
     };
 
     const onVerseChange = () => {
-      if (state.voiceContext === "chapter") return;
+      if (state.voiceContext === "chapter") {
+        if (state.chapterOrigin && chapterLocationKey() !== state.chapterOrigin) {
+          stopVoice();
+        }
+        return;
+      }
       if (state.voiceContext === "verse" || state.speaking || state.pausedVoice) {
         stopVoice();
       }
@@ -1047,14 +1083,17 @@
             speakChapter({ button: btn });
             return;
           }
-          let text = btn.getAttribute("data-listen-text") || "";
-          const sel = btn.getAttribute("data-listen-target");
-          if (!text && sel) {
-            const node = document.querySelector(sel);
-            text = node ? String(node.innerText || node.textContent || "") : "";
+          let text = "";
+          if (btn.dataset.listen === "verse") {
+            text = currentVerseText();
+          } else {
+            text = btn.getAttribute("data-listen-text") || "";
+            const sel = btn.getAttribute("data-listen-target");
+            if (!text && sel) {
+              const node = document.querySelector(sel);
+              text = node ? String(node.innerText || node.textContent || "") : "";
+            }
           }
-          if (!text && btn.dataset.listen === "verse") text = currentVerseText();
-          if (!text && btn.dataset.listen === "chapter") text = chapterTextFromDom();
           speak(text, {
             button: btn,
             contextId: btn.dataset.listen || "ui",
@@ -1065,6 +1104,7 @@
         document.addEventListener("revelatio:verse-study", onVerseChange);
         document.addEventListener("revelatio:verse-selected", onVerseChange);
         document.addEventListener("revelatio:active-passage", onVerseChange);
+        document.addEventListener("revelatio:passage-ready", onVerseChange);
       }
     };
 
