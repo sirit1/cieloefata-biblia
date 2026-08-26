@@ -437,12 +437,27 @@ async function main() {
     coverage.push({ ...coverageRow(meta.book, authorId, unique, layer), ...stats, hits, misses });
   }
 
+  const reportPath = join(ROOT, 'data', 'commentaries', 'es', 'COVERAGE.json');
+  let prev = { coverage: [] };
+  try {
+    if (existsSync(reportPath)) prev = JSON.parse(readFileSync(reportPath, 'utf8'));
+  } catch {
+    prev = { coverage: [] };
+  }
+  const byKey = new Map();
+  for (const row of prev.coverage || []) {
+    if (row?.book && row?.authorId) byKey.set(`${row.book}:${row.authorId}`, row);
+  }
+  for (const row of coverage) {
+    byKey.set(`${row.book}:${row.authorId}`, row);
+  }
   const report = {
     generatedAt: new Date().toISOString(),
     disclaimer: DISCLAIMER_ES,
-    coverage,
+    coverage: [...byKey.values()].sort((a, b) =>
+      String(a.book).localeCompare(String(b.book), 'es') || String(a.authorId).localeCompare(String(b.authorId)),
+    ),
   };
-  const reportPath = join(ROOT, 'data', 'commentaries', 'es', 'COVERAGE.json');
   writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   const pub = join(ROOT, 'public', 'data', 'commentaries', 'es');
   mkdirSync(pub, { recursive: true });
