@@ -56,9 +56,9 @@ async function run(name, fn) {
 const savedKey = process.env.ELEVENLABS_API_KEY;
 process.env.ELEVENLABS_API_KEY = '';
 
-await run('resolveSpeakText usa verseText, nunca passage solo', () => {
+await run('resolveSpeakText usa solo verseText', () => {
   assert(resolveSpeakText({ verseText: '  En el principio  ' }) === 'En el principio', 'verseText no se normalizó');
-  assert(resolveSpeakText({ text: 'Y la tierra estaba desordenada' }) === 'Y la tierra estaba desordenada', 'text no se usó');
+  assert(resolveSpeakText({ text: 'Y la tierra estaba desordenada' }) === '', 'text no debe narrarse');
   assert(resolveSpeakText({ passage: 'Génesis 1:1' }) === '', 'passage no debe inventar texto');
   assert(resolveSpeakText({ passage: 'Génesis 1:1', verseText: '' }) === '', 'verseText vacío debe quedar vacío');
   assert(resolveSpeakText({}) === '', 'cuerpo vacío');
@@ -71,15 +71,15 @@ await run('POST sin verseText → 400', async () => {
   assert(res.body?.error === 'verseText vacío', `error inesperado: ${JSON.stringify(res.body)}`);
 });
 
-await run('POST { text: "" } → 400', async () => {
+await run('POST { text } sin verseText → 400', async () => {
   const res = mockRes();
-  await handleTts({ method: 'POST', body: { text: '   ' } }, res);
+  await handleTts({ method: 'POST', body: { text: 'Los sanos no tienen necesidad de médico.' } }, res);
   assert(res.statusCode === 400, `esperado 400, recibido ${res.statusCode}`);
 });
 
-await run('POST con texto y sin clave → 503 exacto', async () => {
+await run('POST con verseText y sin clave → 503 exacto', async () => {
   const res = mockRes();
-  await handleTts({ method: 'POST', body: { text: 'Porque de tal manera amó Dios al mundo.' } }, res);
+  await handleTts({ method: 'POST', body: { verseText: 'Los sanos no tienen necesidad de médico, sino los enfermos.' } }, res);
   assert(res.statusCode === 503, `esperado 503, recibido ${res.statusCode}`);
   assert(res.body?.error === TTS_MISSING_KEY, `error inesperado: ${JSON.stringify(res.body)}`);
   assert(typeof res.body?.error === 'string', 'debe ser JSON, no audio falso');

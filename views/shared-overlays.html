@@ -222,17 +222,21 @@
             </label>
             <button type="button" id="reader-audio-play" class="rv-reader-play" aria-pressed="false"
                 title="Reproducir o pausar instrumental">▶</button>
-            <span id="dock-track-title" class="rv-reader-track">Oración Instrumental</span>
+            <span id="dock-track-title" class="rv-reader-track">Instrumental de oración</span>
+            <button type="button" id="dock-mute-musica" class="rv-reader-listen" aria-pressed="false"
+                title="Silenciar instrumental (no afecta la voz)">🎵 Música</button>
             <input id="reader-audio-vol" type="range" min="0" max="1" step="0.05" value="0.28"
                 class="rv-reader-vol" aria-label="Volumen instrumental">
             <button type="button" id="reader-listen-passage" class="rv-reader-listen" data-listen="verse"
                 title="Escuchar el versículo en pantalla">🔊 Escuchar</button>
+            <button type="button" id="dock-mute-voz" class="rv-reader-listen" aria-pressed="false"
+                title="Silenciar narración (no afecta la música)">🗣️ Voz</button>
             <input id="dock-vol-voz" type="range" min="0" max="100" step="1" value="100"
                 class="rv-reader-vol" aria-label="Volumen de lectura">
         </div>
-        <p id="estado-audio" class="rv-reader-legal text-[11px] text-stone-500 truncate max-w-md">
-            Textos © SBU · Uso con permiso · Éfata RevelatiO · sin fines de lucro
-        </p>
+        <p id="dock-music-credit" class="rv-reader-legal text-[11px] text-stone-500 truncate max-w-md"
+            title="Atribución CC BY 4.0">Kevin MacLeod (incompetech.com) · CC BY 4.0</p>
+        <p id="estado-audio" class="sr-only" role="status">En silencio</p>
         <button type="button" id="reader-ia-open" class="rv-reader-ia" title="RevelatiO IA">
             🧠 RevelatiO IA
         </button>

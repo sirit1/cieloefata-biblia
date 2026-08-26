@@ -1,14 +1,31 @@
 {
   "schema": "revelatio.musica.v1",
   "producto": "Éfata RevelatiO",
-  "descripcion": "Catálogo de música cristiana instrumental ambiental. Una sola pista: local si existe, Pixabay CC como respaldo.",
-  "licencia_nota": "Etiqueta honesta: Instrumental de oración. No usar nombres de himnos con copyright. Activar pistas (enabled:true) solo cuando el archivo exista en /audio.",
+  "descripcion": "Camas instrumentales de oración, en la app. Solo CC BY / CC0 verificadas. Etiqueta honesta: Instrumental de oración.",
+  "licencia_nota": "Ver audio/LICENSES.md. No himnos con copyright. No Pixabay. No rips.",
+  "attribution": "Meditation Impromptu 01/02 — Kevin MacLeod (incompetech.com) — CC BY 4.0",
   "tracks": [
     {
-      "id": "oracion-instrumental",
+      "id": "meditation-impromptu-02",
       "title": "Instrumental de oración",
-      "url": "/audio/oracion-instrumental.m4a",
-      "fallbackUrl": "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3",
+      "originalTitle": "Meditation Impromptu 02",
+      "author": "Kevin MacLeod",
+      "url": "/audio/beds/meditation-impromptu-02.mp3",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "source": "https://incompetech.com/",
+      "mood": "oracion",
+      "enabled": true
+    },
+    {
+      "id": "meditation-impromptu-01",
+      "title": "Instrumental de oración II",
+      "originalTitle": "Meditation Impromptu 01",
+      "author": "Kevin MacLeod",
+      "url": "/audio/beds/meditation-impromptu-01.mp3",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "source": "https://incompetech.com/",
       "mood": "oracion",
       "enabled": true
     }

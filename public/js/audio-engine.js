@@ -9,10 +9,21 @@
 
   const RV = (global.RV = global.RV || {});
 
-  const LOCAL_INSTRUMENTAL = "audio/oracion-instrumental.m4a";
-  const PIXABAY_FALLBACK =
-    "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3";
+  const BEDS = [
+    {
+      id: "meditation-impromptu-02",
+      src: "audio/beds/meditation-impromptu-02.mp3",
+      label: "Instrumental de oración",
+    },
+    {
+      id: "meditation-impromptu-01",
+      src: "audio/beds/meditation-impromptu-01.mp3",
+      label: "Instrumental de oración",
+    },
+  ];
   const TRACK_LABEL = "Instrumental de oración";
+  const ATTRIBUTION =
+    '"Meditation Impromptu" Kevin MacLeod (incompetech.com) · CC BY 4.0';
   const PREFS_KEY = "revelatio_audio_dual_v1";
   const TTS_MAX = 4500;
   const DEFAULTS = {
@@ -20,6 +31,8 @@
     volMusica: 0.28,
     loop: true,
     expanded: false,
+    musicMuted: false,
+    voiceMuted: false,
   };
 
   function assetUrl(rel) {
@@ -164,6 +177,8 @@
         : Math.max(0, Math.min(1, prefs.volMusica));
       music.volume = musicVol;
       voiceEl.volume = Math.max(0, Math.min(1, prefs.volVoz));
+      music.muted = Boolean(prefs.musicMuted);
+      voiceEl.muted = Boolean(prefs.voiceMuted);
     };
 
     const syncUi = () => {
@@ -205,6 +220,24 @@
         readerVol.value = String(max > 1 ? Math.round(prefs.volMusica * 100) : prefs.volMusica);
       }
       if (title) title.textContent = TRACK_LABEL;
+      const credit = document.getElementById("dock-music-credit");
+      if (credit) credit.textContent = ATTRIBUTION;
+      const muteM = document.getElementById("dock-mute-musica");
+      if (muteM) {
+        muteM.setAttribute("aria-pressed", String(Boolean(prefs.musicMuted)));
+        muteM.textContent = prefs.musicMuted ? "🔇 Música" : "🎵 Música";
+        muteM.title = prefs.musicMuted
+          ? "Activar instrumental (no afecta la voz)"
+          : "Silenciar instrumental (no afecta la voz)";
+      }
+      const muteV = document.getElementById("dock-mute-voz");
+      if (muteV) {
+        muteV.setAttribute("aria-pressed", String(Boolean(prefs.voiceMuted)));
+        muteV.textContent = prefs.voiceMuted ? "🔇 Voz" : "🗣️ Voz";
+        muteV.title = prefs.voiceMuted
+          ? "Activar narración (no afecta la música)"
+          : "Silenciar narración (no afecta la música)";
+      }
       if (dock) dock.classList.toggle("is-expanded", Boolean(prefs.expanded));
       if (expand) expand.setAttribute("aria-expanded", String(Boolean(prefs.expanded)));
       if (toggle) toggle.checked = playing;
@@ -229,38 +262,35 @@
     };
 
     const loadInstrumental = () => {
-      const local = assetUrl(LOCAL_INSTRUMENTAL);
-      if (music.dataset.fallbackTried === "1") {
-        if (music.getAttribute("src") !== PIXABAY_FALLBACK) {
-          music.src = PIXABAY_FALLBACK;
-          music.setAttribute("src", PIXABAY_FALLBACK);
-        }
-        return;
-      }
-      if (!music.getAttribute("src") || !String(music.src || "").includes("oracion-instrumental")) {
-        music.src = local;
-        music.setAttribute("src", local);
+      const idx = Number(music.dataset.bedIndex || 0);
+      const bed = BEDS[idx] || BEDS[0];
+      const src = assetUrl(bed.src);
+      if (music.getAttribute("src") !== src) {
+        music.src = src;
+        music.setAttribute("src", src);
       }
       music.loop = Boolean(prefs.loop);
+      music.muted = Boolean(prefs.musicMuted);
     };
 
     music.addEventListener("error", () => {
-      if (music.dataset.fallbackTried === "1") {
-        state.musicOn = false;
-        setStatus("Instrumental no disponible");
-        syncUi();
+      const idx = Number(music.dataset.bedIndex || 0);
+      const next = idx + 1;
+      if (next < BEDS.length) {
+        music.dataset.bedIndex = String(next);
+        loadInstrumental();
+        if (state.musicOn) {
+          music.play().catch(() => {
+            state.musicOn = false;
+            setStatus("Activa el audio con un toque");
+            syncUi();
+          });
+        }
         return;
       }
-      music.dataset.fallbackTried = "1";
-      music.src = PIXABAY_FALLBACK;
-      music.setAttribute("src", PIXABAY_FALLBACK);
-      if (state.musicOn) {
-        music.play().catch(() => {
-          state.musicOn = false;
-          setStatus("Activa el audio con un toque");
-          syncUi();
-        });
-      }
+      state.musicOn = false;
+      setStatus("Instrumental no disponible");
+      syncUi();
     });
 
     const playMusic = async (opts = {}) => {
@@ -308,6 +338,20 @@
 
     const setMusicVolume = (vol) => {
       prefs.volMusica = Math.max(0, Math.min(1, Number(vol) || 0));
+      savePrefs(prefs);
+      applyVolumes();
+      syncUi();
+    };
+
+    const toggleMusicMute = () => {
+      prefs.musicMuted = !prefs.musicMuted;
+      savePrefs(prefs);
+      applyVolumes();
+      syncUi();
+    };
+
+    const toggleVoiceMute = () => {
+      prefs.voiceMuted = !prefs.voiceMuted;
       savePrefs(prefs);
       applyVolumes();
       syncUi();
@@ -378,8 +422,8 @@
         voiceEl.play().catch(onErr);
       });
 
-    async function fetchTtsChunk(text, passage, signal) {
-      const payload = passage ? { passage, verseText: text } : { text };
+    async function fetchTtsChunk(text, signal) {
+      const payload = { verseText: text };
       const res = await fetch("/api/tts", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "audio/mpeg" },
@@ -422,7 +466,7 @@
       try {
         for (const chunk of chunks) {
           if (ctrl?.signal?.aborted) return;
-          const blob = await fetchTtsChunk(chunk, opts.passage || currentPassage(), ctrl?.signal);
+          const blob = await fetchTtsChunk(chunk, ctrl?.signal);
           if (ctrl?.signal?.aborted) return;
           await playBlob(blob);
         }
@@ -528,8 +572,17 @@
       });
       bindOnce(document.getElementById("dock-vol-voz"), "input", (e) => {
         prefs.volVoz = Number(e.target.value) / 100;
+        if (Number(e.target.value) > 0) prefs.voiceMuted = false;
         savePrefs(prefs);
         applyVolumes();
+      });
+      bindOnce(document.getElementById("dock-mute-musica"), "click", (e) => {
+        e.preventDefault();
+        toggleMusicMute();
+      });
+      bindOnce(document.getElementById("dock-mute-voz"), "click", (e) => {
+        e.preventDefault();
+        toggleVoiceMute();
       });
       bindOnce(document.getElementById("ambient-audio-toggle"), "change", (e) => {
         if (e.target.checked) playMusic();
@@ -589,6 +642,8 @@
     engine.stopMusic = stopMusic;
     engine.toggleMusic = toggleMusic;
     engine.setMusicVolume = setMusicVolume;
+    engine.toggleMusicMute = toggleMusicMute;
+    engine.toggleVoiceMute = toggleVoiceMute;
     engine.setStatus = setStatus;
     engine.syncUi = syncUi;
     engine.onRouteChange = onRouteChange;
