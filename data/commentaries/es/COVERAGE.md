@@ -23,7 +23,7 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Libro | Henry | Spurgeon | Clarke | Wesley | Calvino | JFB | Gill |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD) | sí | sí | sí | sí |
-| Marcos | sí | sí | sí | pendiente | — | — | — |
+| Marcos | sí | sí | sí | en curso | — | — | — |
 | Lucas | sí | sí | sí | sí | sí | sí | sí |
 | Juan | sí | sí | sí | sí | sí | sí | sí |
 | Hechos | sí | sí | sí | pendiente | — | — | — |
@@ -40,11 +40,13 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Santiago | sí | sí | sí | pendiente | — | — | — |
 | 1–2 Pedro | sí | sí | sí | pendiente | — | — | — |
 | 1–3 Juan | sí | sí | sí | pendiente | — | — | — |
-| Judas / Apocalipsis | sí | sí | en curso | pendiente | — | — | — |
+| Judas | sí | sí | sí | pendiente | — | — | — |
+| Apocalipsis | sí | sí | sí | pendiente | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | sí | sí |
 
 Henry NT: **completo** salvo Mateo 19–28 (helloao 404).
 Spurgeon NT: **completo** donde SPE tiene inglés (2–3 Juan = 0 hits).
+Clarke NT: **completo** (Mateo vía ACC PD).
 Calvino / JFB / Gill: **completo** en Mateo, Juan, Lucas, Filemón.
 
 ## Notas
