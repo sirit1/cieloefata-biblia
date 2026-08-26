@@ -2,8 +2,13 @@
  * Éfata RevelatiO — aposento-mode.js
  * Controlador UI del Modo Aposento (ESM).
  * El botón vive en views/estudio.html (inyectado por el router).
+ * Audio: motor único (instrumental + ElevenLabs). Al salir se apaga la música.
  */
 import { aposentoSound } from "./aposento-audio.js";
+
+function audio() {
+  return window.__RV_AUDIO_ENGINE__ || window.RV?.audio || window.revelatioAudio || null;
+}
 
 class AposentoController {
   constructor() {
@@ -25,7 +30,6 @@ class AposentoController {
   }
 
   initEvents() {
-    // Delegación: la vista Estudio se monta después de DOMContentLoaded
     document.addEventListener("click", (e) => {
       if (e.target.closest?.("#btn-aposento")) {
         e.preventDefault();
@@ -58,33 +62,32 @@ class AposentoController {
       }
     });
 
-    document.addEventListener("rv:route", () => {
+    document.addEventListener("rv:route", (event) => {
+      const name = event.detail?.name || event.detail?.route;
+      if (this.isActive && name && name !== "estudio") {
+        this.exitAposento({ skipFullscreen: true });
+      }
       setTimeout(() => this.bindControls(), 60);
     });
   }
 
   toggleAmbient() {
     this.bindControls();
-    if (aposentoSound.isPlaying) {
-      aposentoSound.stop();
-      this.audioToggle?.classList.remove("text-amber-400");
-      this.audioToggle?.classList.add("text-stone-400");
-      if (this.audioToggle) this.audioToggle.textContent = "🔇";
+    const eng = audio();
+    if (eng?.isMusicOn?.() && !eng?.isMusicMuted?.()) {
+      eng.toggleMusicMute?.();
+    } else if (eng?.isMusicMuted?.()) {
+      eng.toggleMusicMute?.();
     } else {
-      const vol = this.volumeSlider ? parseFloat(this.volumeSlider.value) : 0.3;
+      const vol = this.volumeSlider ? parseFloat(this.volumeSlider.value) : 0.28;
       aposentoSound.start(vol);
-      this.audioToggle?.classList.add("text-amber-400");
-      this.audioToggle?.classList.remove("text-stone-400");
-      if (this.audioToggle) this.audioToggle.textContent = "🔊";
     }
+    this.syncUi();
   }
 
   toggleMode() {
-    if (!this.isActive) {
-      this.enterAposento();
-    } else {
-      this.exitAposento();
-    }
+    if (!this.isActive) this.enterAposento();
+    else this.exitAposento();
   }
 
   syncUi() {
@@ -107,9 +110,11 @@ class AposentoController {
       this.btn.setAttribute("aria-pressed", on ? "true" : "false");
     }
     if (this.audioToggle) {
-      const playing = aposentoSound.isPlaying;
+      const playing = Boolean(audio()?.isMusicOn?.()) && !audio()?.isMusicMuted?.();
       this.audioToggle.classList.toggle("text-amber-400", playing);
+      this.audioToggle.classList.toggle("text-stone-400", !playing);
       this.audioToggle.textContent = playing ? "🔊" : "🔇";
+      this.audioToggle.setAttribute("aria-pressed", playing ? "true" : "false");
     }
   }
 
@@ -122,8 +127,8 @@ class AposentoController {
       document.documentElement.requestFullscreen().catch(() => {});
     }
 
-    const vol = this.volumeSlider ? parseFloat(this.volumeSlider.value) : 0.3;
-    aposentoSound.start(vol);
+    if (this.volumeSlider) this.volumeSlider.value = "0.28";
+    aposentoSound.start(0.28);
 
     this.syncUi();
   }
@@ -136,6 +141,7 @@ class AposentoController {
       document.exitFullscreen().catch(() => {});
     }
 
+    audio()?.stopVoice?.();
     aposentoSound.stop();
     this.syncUi();
   }
@@ -154,47 +160,7 @@ function boot() {
     exit: () => ctrl.exitAposento(),
     toggle: () => ctrl.toggleMode(),
   };
-  wireReaderFooter();
   return ctrl;
-}
-
-/** Barra inferior del Visor → aposentoSound + IA */
-function wireReaderFooter() {
-  if (window.__rvReaderFooterWired) return;
-  window.__rvReaderFooterWired = true;
-
-  const syncPlayUi = () => {
-    const btn = document.getElementById("reader-audio-play");
-    if (!btn) return;
-    const on = Boolean(window.ambientAudio?.isPlaying || aposentoSound.isPlaying);
-    btn.textContent = on ? "⏸" : "▶";
-    btn.setAttribute("aria-pressed", on ? "true" : "false");
-    btn.classList.toggle("is-on", on);
-  };
-
-  document.addEventListener("click", (e) => {
-    if (e.target.closest?.("#reader-audio-play")) {
-      return;
-    }
-    if (e.target.closest?.("#reader-ia-open")) {
-      e.preventDefault();
-      const RV = window.RV || {};
-      if (typeof RV.ai?.open === "function") RV.ai.open();
-      else document.getElementById("btn-asistente-ia")?.click();
-    }
-  });
-
-  document.addEventListener("input", (e) => {
-    if (e.target?.id === "aposento-volume-slider") {
-      aposentoSound.setVolume(parseFloat(e.target.value) || 0);
-      return;
-    }
-    if (e.target?.id === "reader-audio-vol") {
-      window.ambientAudio?.setVolume?.(parseFloat(e.target.value) || 0);
-    }
-  });
-
-  document.addEventListener("rv:route", () => setTimeout(syncPlayUi, 80));
 }
 
 if (document.readyState === "loading") {

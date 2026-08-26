@@ -8,6 +8,7 @@
 
     const VERSIONES = [
         { key: 'rv1960', etiqueta: 'RVR1960', licencia: 'sbu' },
+        { key: 'nvi', etiqueta: 'NVI', licencia: 'remote' },
         { key: 'kjv', etiqueta: 'KJV', licencia: 'public' },
         { key: 'tla', etiqueta: 'TLA', licencia: 'sbu' },
         { key: 'dhh', etiqueta: 'DHH', licencia: 'sbu' },
@@ -231,8 +232,8 @@
     }
 
     function pasajeDesdeCapituloLocal(json, referencia) {
-        const keys = ['rv1960', 'tla', 'dhh'];
-        const etiquetas = { rv1960: 'RVR1960', tla: 'TLA', dhh: 'DHH' };
+        const keys = ['rv1960', 'nvi', 'tla', 'dhh'];
+        const etiquetas = { rv1960: 'RVR1960', nvi: 'NVI', tla: 'TLA', dhh: 'DHH' };
         const versiones = {};
         const versionesVersos = {};
         const versionesLista = [];

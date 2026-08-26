@@ -20,6 +20,7 @@ import referenciasHandler from './api/referencias.js';
 import concordanciaHandler from './api/concordancia.js';
 import strongHandler from './api/strong.js';
 import lexicoHandler from './api/lexico.js';
+import ttsHandler from './api/tts.js';
 
 loadProjectEnv();
 
@@ -219,6 +220,10 @@ app.get('/api/lexico', mount(lexicoHandler));
 app.post('/api/lexico', mount(lexicoHandler));
 app.get('/api/lexicon', mount(lexicoHandler));
 app.post('/api/lexicon', mount(lexicoHandler));
+
+// —— Audio: ElevenLabs TTS (texto bíblico en pantalla, sin Gemini) ——
+app.post('/api/tts', mount(ttsHandler));
+app.options('/api/tts', mount(ttsHandler));
 
 const STUDY_PATHS = ['/api/study-engine', '/api/lente-elite', '/api/ai', '/api/exegesis', '/api/lente', '/api/recursos', '/api/concordance', '/api/concordancia'];
 for (const route of STUDY_PATHS) {

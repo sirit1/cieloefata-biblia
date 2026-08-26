@@ -1314,6 +1314,18 @@ mark.rv-hl-purpura {
     outline-offset: 2px;
 }
 
+.rv-verse-surface.is-narrating {
+    background: rgba(201, 168, 76, 0.2);
+    box-shadow: inset 4px 0 0 #C9A84C, 0 0 18px rgba(201, 168, 76, 0.22);
+    outline: 1px solid rgba(201, 168, 76, 0.55);
+    outline-offset: 2px;
+}
+
+body.is-santuario .rv-verse-surface.is-narrating {
+    background: rgba(201, 168, 76, 0.22) !important;
+    box-shadow: inset 4px 0 0 #C9A84C, 0 0 16px rgba(201, 168, 76, 0.2) !important;
+}
+
 /* —— Fase 2 · Modo de Estudio por Versículo —— */
 .rv-verse-study {
     margin: 0 0 1.25rem;
@@ -6282,8 +6294,11 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
     place-items: center;
     flex-shrink: 0;
 }
-.rv-reader-play.is-on {
-    background: rgba(197, 155, 39, 0.18);
+.rv-reader-listen.is-muted,
+.rv-mute-bed.is-muted {
+    color: #B42318 !important;
+    border-color: rgba(180, 35, 24, 0.55) !important;
+    background: rgba(180, 35, 24, 0.08);
 }
 .rv-reader-track {
     font-size: 0.65rem;

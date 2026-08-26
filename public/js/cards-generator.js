@@ -32,7 +32,7 @@ export function openCardGenerator(passage, text, version = 'RVR1960') {
           <span class="text-xl">✨</span>
           <span class="font-mono text-xs font-bold tracking-widest text-[#855D10] uppercase">ÉFATA CARDS · GENERADOR</span>
         </div>
-        <button onclick="document.getElementById('efata-cards-modal').remove()" class="text-stone-400 hover:text-stone-800 text-xl font-bold px-2">&times;</button>
+        <button onclick="window.closeEfataCardModal && window.closeEfataCardModal()" data-efata-card-close class="text-stone-400 hover:text-stone-800 text-xl font-bold px-2" type="button" aria-label="Cerrar">&times;</button>
       </div>
 
       <!-- VISTA PREVIA DE LA TARJETA (CANVAS CONTENEDOR) -->
@@ -127,6 +127,9 @@ export function openCardGenerator(passage, text, version = 'RVR1960') {
 
   // Aplicar estilos iniciales
   applyCardTheme();
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeEfataCardModal();
+  });
 }
 
 // 2. FUNCIÓN PARA CAMBIO DE FONDO Y CONTRASTE
@@ -396,6 +399,16 @@ export function abrirEfataCard(detail = {}) {
   return openCardGenerator(passage, text, version);
 }
 
+export function closeEfataCardModal() {
+  try {
+    window.revelatioAudio?.stopAll?.("Overlay cerrado");
+  } catch {
+    /* ignore */
+  }
+  document.getElementById("efata-cards-modal")?.remove();
+  document.getElementById("efata-social-modal")?.remove();
+}
+
 // Blindaje y vinculación global segura en el objeto window
 if (typeof window !== 'undefined') {
   window.cardState = cardState;
@@ -411,6 +424,7 @@ if (typeof window !== 'undefined') {
   window.openCardFromActiveVerse = openCardFromActiveVerse;
   window.abrirEfataCard = abrirEfataCard;
   window.openEfataCard = openCardGenerator;
+  window.closeEfataCardModal = closeEfataCardModal;
 
   // Registrar namespace RV para integración con la arquitectura de la app
   window.RV = window.RV || {};

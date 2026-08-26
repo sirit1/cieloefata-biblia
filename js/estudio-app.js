@@ -376,7 +376,7 @@
         base.versiones = { ...(base.versiones || {}) };
         base.versionesVersos = { ...(base.versionesVersos || {}) };
         base.versionesLista = Array.isArray(base.versionesLista) ? [...base.versionesLista] : [];
-        for (const key of ['rv1960', 'tla', 'dhh', 'septuaginta']) {
+        for (const key of ['rv1960', 'nvi', 'dhh', 'tla', 'kjv', 'septuaginta']) {
             const pack = await cargarPackLocal(key);
             const versos = versosDePackLocal(pack, libro);
             if (!versos.length) continue;
@@ -388,6 +388,51 @@
             }
         }
         return base;
+    }
+
+    async function asegurarVersionSeleccionada(passage, libro, version) {
+        const key = claveMotor(version);
+        const base = passage || { versiones: {}, versionesVersos: {}, versionesLista: [], original: null };
+        if (!libro?.n || !libro?.cap || !key) return base;
+        if (normalizarVersos(base.versionesVersos?.[key]).length) return base;
+        try {
+            const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+            const timer = ctrl ? setTimeout(() => ctrl.abort(), 20000) : null;
+            const res = await fetch(
+                `/api/bible?book=${encodeURIComponent(libro.n)}&chapter=${encodeURIComponent(libro.cap)}&version=${encodeURIComponent(key)}`,
+                { headers: { Accept: 'application/json' }, signal: ctrl?.signal }
+            );
+            if (timer) clearTimeout(timer);
+            if (!res.ok) return base;
+            const json = await res.json();
+            const fromMap = normalizarVersos(json?.data?.versionesVersos?.[key]);
+            const fromVerses = Array.isArray(json?.verses)
+                ? json.verses.map((v) => ({
+                    n: Number(v.verse || v.n || 0),
+                    texto: String(v.text || v.texto || '').trim(),
+                })).filter((v) => v.n > 0 && v.texto)
+                : [];
+            const versos = fromMap.length ? fromMap : fromVerses;
+            if (!versos.length) return base;
+            const next = {
+                ...base,
+                versiones: { ...(base.versiones || {}) },
+                versionesVersos: { ...(base.versionesVersos || {}) },
+                versionesLista: Array.isArray(base.versionesLista) ? [...base.versionesLista] : [],
+            };
+            next.versionesVersos[key] = versos;
+            next.versiones[key] = versos.map((v) => `${v.n} ${v.texto}`).join(' ');
+            if (!next.versionesLista.some((v) => v.key === key)) {
+                next.versionesLista.push({
+                    key,
+                    etiqueta: json.version || json?.data?.versionesLista?.[0]?.etiqueta || key,
+                    licencia: 'remote',
+                });
+            }
+            return next;
+        } catch {
+            return base;
+        }
     }
 
     async function completarTraduccionLxx(libro, passage) {
@@ -488,9 +533,9 @@
 
         try {
             const fused = await fusionarPacksLocales(data, loc);
-            // Si packs locales vacíos no aportan, conservar contingencia del fetch.
-            window.__revelatioPassageData = fused;
-            return fused;
+            const withWanted = await asegurarVersionSeleccionada(fused, loc, version);
+            window.__revelatioPassageData = withWanted;
+            return withWanted;
         } catch {
             const out = data || { versiones: {}, versionesVersos: {}, versionesLista: [], original: null };
             window.__revelatioPassageData = out;
@@ -549,9 +594,19 @@
     }
 
     function claveMotor(version) {
-        if (version === 'lxx' || version === 'septuaginta') return 'septuaginta';
-        if (version === 'rv1909' || version === 'btx3' || version === 'interlineal') return 'rv1960';
-        return version;
+        const v = String(version || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]/g, '');
+        if (v === 'lxx' || v === 'septuaginta' || v === 'textual' || v === 'rahlfs') return 'septuaginta';
+        if (v === 'rv1909' || v === 'rvr1909' || v === 'btx3' || v === 'interlineal') return 'rv1960';
+        if (v === 'rvr1960' || v === 'rv1960' || v === 'rvr' || v === 'rv') return 'rv1960';
+        if (v === 'nvi') return 'nvi';
+        if (v === 'dhh') return 'dhh';
+        if (v === 'tla') return 'tla';
+        if (v === 'kjv') return 'kjv';
+        return v || 'rv1960';
     }
 
     function etiquetaVersion(version, passage) {
@@ -710,7 +765,7 @@
 
     function elegirVersosPasaje(libro, version, passage) {
         const key = claveMotor(version);
-        const orden = [key, 'rv1960', 'rv1909', 'kjv', 'tla', 'dhh'];
+        const orden = [key, 'nvi', 'rv1960', 'rv1909', 'kjv', 'tla', 'dhh'];
         const seen = new Set();
         for (const k of orden) {
             if (!k || seen.has(k)) continue;
@@ -2115,6 +2170,7 @@ function descargarBackup(kind) {
     function numerosDelPasaje(passage, version) {
         const key = claveMotor(version || versionActiva());
         const lista = passage?.versionesVersos?.[key]
+            || passage?.versionesVersos?.nvi
             || passage?.versionesVersos?.rv1960
             || passage?.versionesVersos?.tla
             || passage?.versionesVersos?.dhh
@@ -3502,7 +3558,6 @@ function descargarBackup(kind) {
     }
 
     function montarAudio() {
-        // Motor de doble pista vive en js/audio-engine.js
         try {
             if (window.RV?.audio?.mount) window.RV.audio.mount();
             else if (window.RV?.audio?.create) {
@@ -3513,48 +3568,29 @@ function descargarBackup(kind) {
         } catch (err) {
             console.warn("[revelatio] audio-engine", err);
         }
-        // Re-wire controles legacy del panel experiencia si existen
-        document.getElementById("narrar-capitulo")?.addEventListener("click", () => {
-            document.querySelector('[data-listen="chapter"]')?.click();
-        });
-        document.getElementById("pausa-narracion")?.addEventListener("click", () => {
-            window.revelatioAudio?.pausarVoz?.() || window.RV?.audio?.pauseVoice?.();
-        });
-        document.getElementById("toggle-musica")?.addEventListener("change", (e) => {
-            if (e.target.checked) window.revelatioAudio?.reproducirMusica?.();
-            else window.revelatioAudio?.detenerMusica?.();
-        });
-        const volM = document.getElementById("vol-musica");
-        const volV = document.getElementById("vol-voz");
-        volM?.addEventListener("input", () => {
-            const dock = document.getElementById("dock-vol-musica");
-            if (dock) { dock.value = volM.value; dock.dispatchEvent(new Event("input")); }
-        });
-        volV?.addEventListener("input", () => {
-            const dock = document.getElementById("dock-vol-voz");
-            if (dock) { dock.value = volV.value; dock.dispatchEvent(new Event("input")); }
-        });
     }
     function montarSelectores() {
         const version = document.getElementById('selector-version');
         const autor = document.getElementById('selector-autor');
         const VERSIONES_FIJAS = [
             { key: 'rv1960', etiqueta: 'RVR1960' },
-            { key: 'kjv', etiqueta: 'KJV' },
-            { key: 'tla', etiqueta: 'TLA' },
+            { key: 'nvi', etiqueta: 'NVI' },
             { key: 'dhh', etiqueta: 'DHH' },
+            { key: 'tla', etiqueta: 'TLA' },
+            { key: 'kjv', etiqueta: 'KJV' },
             { key: 'septuaginta', etiqueta: 'Septuaginta (Rahlfs)' }
         ];
-        if (version) {
-            version.innerHTML = VERSIONES_FIJAS.map(v =>
+        const fillVersionSelect = (el) => {
+            if (!el) return;
+            el.innerHTML = VERSIONES_FIJAS.map(v =>
                 `<option value="${v.key}">${v.etiqueta}</option>`
             ).join('');
-            const raw = localStorage.getItem('revelatio_version') || 'rv1960';
-            const savedV = VERSIONES_FIJAS.some(v => v.key === raw)
-                ? raw
-                : (raw === 'lxx' ? 'septuaginta' : 'rv1960');
-            version.value = savedV;
-        }
+            const raw = localStorage.getItem('revelatio_version') || el.value || 'rv1960';
+            const savedV = claveMotor(raw);
+            el.value = VERSIONES_FIJAS.some(v => v.key === savedV) ? savedV : 'rv1960';
+        };
+        fillVersionSelect(version);
+        fillVersionSelect(document.getElementById('pop-selector-version'));
         if (autor) {
             const lista = (window.REVELATIO_AUTORES || []).filter(a => a?.key);
             const extras = [
