@@ -16,15 +16,19 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Filemón 1:5 | Henry | true | true | ES | EN |
 | Mateo 16:2 | Spurgeon | false | — | No hay nota | — |
 
-## Archivos en esta corrida
+## Archivos persistidos (blobs con `es`)
 
-| Libro | Henry | Spurgeon | Clarke | Wesley | Calvino / JFB / Gill |
-| --- | --- | --- | --- | --- | --- |
-| Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD; helloao no tiene MAT) | en curso | pendiente / en curso |
-| Lucas | sí NT del libro | sí | sí | 15:18 previo; resto en curso | pendiente |
-| Juan | sí | sí | sí | en curso | pendiente |
-| Filemón | sí | 1 hit SPE | sí | pendiente | pendiente |
-| Resto del NT (23 libros) | pendiente (Henry+Spurgeon+Clarke+Wesley) | idem | idem | idem | solo los 4 libros de prioridad |
+| Libro | Henry | Spurgeon | Clarke | Wesley | Calvino | JFB | Gill |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD) | sí | sí | en curso | pendiente |
+| Marcos | sí | en curso | pendiente | pendiente | — | — | — |
+| Lucas | sí | sí | sí | sí | sí | pendiente | pendiente |
+| Juan | sí | sí | sí | sí | sí | pendiente | pendiente |
+| Hechos … Judas | sí | pendiente | pendiente | pendiente | — | — | — |
+| Filemón | sí | 1 hit SPE | sí | sí | sí | pendiente | pendiente |
+| Apocalipsis | sí | pendiente | pendiente | pendiente | — | — | — |
+
+Henry NT: **completo** salvo el hueco honesto de Mateo 19–28 (helloao 404; no se inventa español).
 
 ## Notas
 
