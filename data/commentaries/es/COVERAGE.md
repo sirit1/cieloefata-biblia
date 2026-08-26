@@ -31,8 +31,12 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | 1–2 Corintios | sí | sí | pendiente | pendiente | — | — | — |
 | Gálatas | sí | sí | pendiente | pendiente | — | — | — |
 | Efesios | sí | sí | pendiente | pendiente | — | — | — |
-| Filipenses … Colosenses | sí | en curso | pendiente | pendiente | — | — | — |
-| 1 Tes … Judas | sí | pendiente | pendiente | pendiente | — | — | — |
+| Filipenses | sí | sí | pendiente | pendiente | — | — | — |
+| Colosenses | sí | sí | pendiente | pendiente | — | — | — |
+| 1–2 Tesalonicenses | sí | sí | pendiente | pendiente | — | — | — |
+| 1–2 Timoteo / Tito | sí | sí | pendiente | pendiente | — | — | — |
+| Hebreos | sí | en curso | pendiente | pendiente | — | — | — |
+| Santiago … Judas | sí | pendiente | pendiente | pendiente | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | sí | pendiente |
 | Apocalipsis | sí | pendiente | pendiente | pendiente | — | — | — |
 
