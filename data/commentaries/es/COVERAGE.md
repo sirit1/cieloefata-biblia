@@ -27,8 +27,8 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Lucas | sí | sí | sí | sí | sí | sí | en curso |
 | Juan | sí | sí | sí | sí | sí | sí | pendiente |
 | Hechos | sí | sí | sí | pendiente | — | — | — |
-| Romanos | sí | sí | en curso | pendiente | — | — | — |
-| 1 Corintios … Apocalipsis | sí | sí | pendiente | pendiente | — | — | — |
+| Romanos | sí | sí | sí | pendiente | — | — | — |
+| 1 Corintios … Apocalipsis | sí | sí | en curso | pendiente | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | sí | pendiente |
 
 Henry NT: **completo** salvo el hueco honesto de Mateo 19–28 (helloao 404).
