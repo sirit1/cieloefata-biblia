@@ -25,20 +25,22 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD) | sí | sí | sí | sí |
 | Marcos | sí | sí | sí | pendiente | — | — | — |
 | Lucas | sí | sí | sí | sí | sí | sí | sí |
-| Juan | sí | sí | sí | sí | sí | sí | en curso |
+| Juan | sí | sí | sí | sí | sí | sí | sí |
 | Hechos | sí | sí | sí | pendiente | — | — | — |
 | Romanos | sí | sí | sí | pendiente | — | — | — |
-| 1 Corintios | sí | sí | sí | pendiente | — | — | — |
-| 2 Corintios | sí | sí | sí | pendiente | — | — | — |
+| 1–2 Corintios | sí | sí | sí | pendiente | — | — | — |
 | Gálatas | sí | sí | sí | pendiente | — | — | — |
 | Efesios | sí | sí | sí | pendiente | — | — | — |
 | Filipenses | sí | sí | sí | pendiente | — | — | — |
-| Colosenses … Apocalipsis | sí | sí | en curso | pendiente | — | — | — |
-| Filemón | sí | 1 hit SPE | sí | sí | sí | sí | pendiente |
+| Colosenses | sí | sí | sí | pendiente | — | — | — |
+| 1–2 Tesalonicenses | sí | sí | sí | pendiente | — | — | — |
+| 1 Timoteo | sí | sí | sí | pendiente | — | — | — |
+| 2 Timoteo … Apocalipsis | sí | sí | en curso | pendiente | — | — | — |
+| Filemón | sí | 1 hit SPE | sí | sí | sí | sí | sí |
 
-Henry NT: **completo** salvo el hueco honesto de Mateo 19–28 (helloao 404).
-Spurgeon NT: **completo** donde SPE tiene inglés. 2 Juan y 3 Juan: 0 hits SPE (miss honesto). Filemón: 1 hit.
-JFB: **completo** en los 4 libros de prioridad.
+Henry NT: **completo** salvo Mateo 19–28 (helloao 404).
+Spurgeon NT: **completo** donde SPE tiene inglés (2–3 Juan = 0 hits).
+Calvino / JFB / Gill: **completo** en Mateo, Juan, Lucas, Filemón.
 
 ## Notas
 
