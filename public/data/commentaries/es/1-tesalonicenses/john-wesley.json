@@ -1,0 +1,474 @@
+{
+  "book": "1 Tesalonicenses",
+  "usfm": "1TH",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "I Thessalonians 1:1\n Paul - In this epistle St. Paul neither uses the title of an apostle, nor any other, as writing to pious and simple - hearted men, with the utmost familiarity. There is a peculiar sweetness in this epistle, unmixed with any sharpness or reproof: those evils which the apostles afterward reproved having not yet crept into the church.",
+      "es": "1 Tesalonicenses 1:1\n Pablo - En esta epístola, San Pablo no utiliza el título de apóstol, ni ningún otro, como si escribiera a hombres piadosos y sencillos de corazón, con la mayor familiaridad. Hay una dulzura peculiar en esta epístola, sin mezcla alguna de dureza o reprensión: aquellos males que los apóstoles reprocharon después aún no se habían infiltrado en la iglesia.",
+      "enHash": "d522f4907452b505a200c58218a443b84a59fb3b970cf1a3ca7b9a59273905b1",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "I Thessalonians 1:3\n Remembering in the sight of God - That is, praising him for it. Your work of faith - Your active, ever - working faith. And labour of love - Love continually labouring for the bodies or souls of men. They who do not thus labour, do not love. Faith works, love labours, hope patiently suffers all things.",
+      "es": "1 Tesalonicenses 1:3\n Recordando ante los ojos de Dios - Es decir, alabandolo por ello. Tu obra de fe: tu fe activa y siempre activa. Y trabajo de amor - Amor trabajando continuamente por los cuerpos o almas de los hombres. Quienes no trabajan así, no aman. La fe obra, el amor trabaja, la esperanza sufre pacientemente todas las cosas.",
+      "enHash": "36375695839264da31e85441f5b21e4032ad424cd7e7f4d05d7a67d5db1e555d",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "Knowing your election — Which is through faith, by these plain proofs.",
+      "es": "Conociendo vuestra elección, que es por la fe, por estas pruebas claras.",
+      "enHash": "f1a466ca4f8a254d53be0e81aa916d12b1e3345cbc0ff3408e0d1d338efe93a3",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "I Thessalonians 1:5\n With power - Piercing the very heart with a sense of sin and deeply convincing you of your want of a Saviour from guilt, misery, and eternal ruin. With the Holy Ghost - Bearing an outward testimony, by miracles, to the truth of what we preached, and you felt: also by his descent through laying on of hands. With much assurance - Literally, with full assurance, and much of it: the Spirit bearing witness by shedding the love of God abroad in your hearts, which is the highest testimony that can be given. And these signs, if not the miraculous gifts, always attend the preaching of the gospel, unless it be in vain: neither are the extraordinary operations of the Holy Ghost ever wholly withheld, where the gospel is preached with power, and men are alive to God. For your sake - Seeking your advantage, not our own.",
+      "es": "1 Tesalonicenses 1:5\n Con poder - Perforando el corazón con un sentimiento de pecado y convenciéndolo profundamente de su necesidad de un Salvador de la culpa, la miseria y la ruina eterna. Con el Espíritu Santo - Dando un testimonio externo, por milagros, de la verdad de lo que predicamos y sentiste: también por su descenso mediante la imposición de manos. Con mucha seguridad - Literalmente, con total seguridad, y mucha de ella: el Espíritu da testimonio al derramar el amor de Dios en sus corazones, que es el testimonio más alto que se puede dar. Y estas señales, si no los dones milagrosos, siempre acompañan a la predicación del evangelio, a menos que sea en vano: ni las operaciones extraordinarias del Espíritu Santo son nunca completamente retenidas, donde el evangelio se predica con poder y los hombres están vivos para Dios. Por tu bien: buscando tu ventaja, no la nuestra.",
+      "enHash": "8a5294936ecfb0ce7d082ca726e14c077f8133ee07b78d8e4afc193e7b8a0488",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "Though in much affliction, yet with much joy.",
+      "es": "Aunque en mucha aflicción, pero con mucha alegría.",
+      "enHash": "96c600ab3422607a0b99fa19139d49af259623fe87a86e236770dfbe58d737d2",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "I Thessalonians 1:8\n For from you the word sounded forth - (Thessalonica being a city of great commerce.) Being echoed, as it were, from you. And your conversion was divulged far beyond Macedonia and Achaia. So that we need not speak anything - Concerning it.",
+      "es": "1 Tesalonicenses 1:8\n Porque de ti sonó la palabra - (Tesalónica es una ciudad de gran comercio). Se hizo eco, por así decirlo, de ti. Y vuestra conversión fue difundida mucho más allá de Macedonia y Acaya. De modo que no necesitamos hablar nada al respecto.",
+      "enHash": "dd0ca13d39a40bc436d44094308ffa6dc2fdfb37f9b441333969e8a3cc4fe9d9",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "For they themselves — The people wherever we come.",
+      "es": "Para ellos mismos: la gente de dondequiera que vayamos.",
+      "enHash": "2741b64a6b3923f85d2f2c5e3c07328bd983f3d8c55c1165841e5fbdca347eb2",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "I Thessalonians 1:10\n Whom he hath raised from the dead - In proof of his future coming to judgment. Who delivereth us - He redeemed us once; he delivers us continually; and will deliver all that believe from the wrath, the eternal vengeance, which will then come upon the ungodly.",
+      "es": "1 Tesalonicenses 1:10\n A quien resucitó de entre los muertos - En prueba de su futuro juicio. Quien nos libra - Él nos redimió una vez; él nos libra continuamente; y librará a todos los que crean de la ira, la venganza eterna, que luego vendrá sobre los impíos.",
+      "enHash": "2b277197f313d9111ff3a0f09ccb66fbbb9c68161b727c0557eca6012a3e6eb4",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "I Thessalonians 2:1\n What was proposed, 1Thess 1:5 ,6, is now more largely treated of: concerning Paul and his fellowlabourers, 1Th 2:1 - 12; concerning the Thessalonians, 1Th 2:13 - 16.",
+      "es": "1 Tesalonicenses 2:1\n Lo que se propuso, 1 Tes 1:5, 6, ahora se trata más ampliamente: con respecto a Pablo y sus colaboradores, 1 Tes 2:1 - 12; concerniente a los Tesalonicenses, 1 Tesalonicenses 2:13-16.",
+      "enHash": "afafa7576b8c35705756cd817764b615dea934dc1d8c1232f69244a6d95ee94b",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "I Thessalonians 2:2\n We had suffered - In several places. We are bold - Notwithstanding. With much contention - Notwithstanding both inward and outward conflicts of all kinds.",
+      "es": "1 Tesalonicenses 2:2\n Habíamos sufrido - En varios lugares. Somos audaces - No obstante. Con mucha contención - A pesar de los conflictos internos y externos de todo tipo.",
+      "enHash": "ad40f41ea3dbcf16c4849a0e8d6524bdd11435abce93877cc1f48e9428846f53",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "I Thessalonians 2:3\n For our exhortation - That is, our preaching. A part is put for the whole. Is not, at any time, of deceit - We preach not a lie, but the truth of God. Nor of uncleanness - With any unholy or selfish view. This expression is not always appropriated to lust, although it is sometimes emphatically applied thereto. Nor in guile - But with great plainness of speech.",
+      "es": "1 Tesalonicenses 2:3\n Para nuestra exhortación - Es decir, nuestra predicación. Se pone una parte por el todo. No es, en ningún momento, de engaño - Predicamos no mentira, sino la verdad de Dios. Ni de impureza - Con ningún punto de vista impío o egoísta. Esta expresión no siempre es apropiada para la lujuria, aunque a veces se aplica enfáticamente a ella. Ni con astucia - Pero con gran sencillez de expresión.",
+      "enHash": "84d2aabbfd985baf2d9f3d1ecc3962b3210ec605fb622e9214b2c3743dd86422",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "I Thessalonians 2:5\n Flattering words - This ye know. Nor a cloak of covetousness - Of this God is witness. He calls men to witness an open fact; God, the secret intentions of the heart. In a point of a mixed nature, 1Th 2:10 , he appeals both to God and man.",
+      "es": "1 Tesalonicenses 2:5\n Palabras halagadoras: esto lo sabéis. Ni un manto de codicia - De esto Dios es testigo. Llama a los hombres a ser testigos de un hecho abierto; Dios, las intenciones secretas del corazón. En un punto de naturaleza mixta, 1 Tes 2:10, apela tanto a Dios como al hombre.",
+      "enHash": "8db148b3b724aff8c16d759d5aaffd6b3901c0dd92e590165c1bc6321308b86e",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "I Thessalonians 2:6\n Nor from others - Who would have honoured us more, if we had been burdensome - That is, taken state upon ourselves.",
+      "es": "1 Tesalonicenses 2:6\n Ni de otros - Quienes nos habrían honrado más, si hubiéramos sido gravosos - Es decir, asumidos el estado sobre nosotros mismos.",
+      "enHash": "fbcb774827f7fd9046dbe10ca51cdb8bbe74696d53e6f1e614430e28ec7e3636",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "I Thessalonians 2:7\n But we were gentle - Mild, tender. In the midst of you - Like a hen surrounded with her young. Even as a nurse cherisheth her own children - The offspring of her own womb.",
+      "es": "1 Tesalonicenses 2:7\n Pero fuimos gentiles... gentiles, tiernos. En medio de ti - Como una gallina rodeada de sus crías. Incluso como una enfermera aprecia a sus propios hijos - La descendencia de su propio vientre.",
+      "enHash": "8dd9890d53dda0d7be0b8a04983e2c16efb7240d9ff32d7a043c61609d8992ca",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "To impart our own souls — To lay down our lives for your sake.",
+      "es": "Para impartir nuestras propias almas, para dar nuestras vidas por ti.",
+      "enHash": "a3eb94482c4c15a7423c2075038c3ae49f0a3bfc2936eebff4358a34d764294b",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "I Thessalonians 2:10\n Holily - In the things of God. Justly - With regard to men. Unblamable - In respect of ourselves. Among you that believe - Who were the constant observers of our behaviour.",
+      "es": "1 Tesalonicenses 2:10\n Santo - En las cosas de Dios. Justamente - Con respecto a los hombres. Inculpable - Respecto a nosotros mismos. Entre ustedes que creen - Quienes fueron los observadores constantes de nuestro comportamiento.",
+      "enHash": "8bf97937def6f53558e7c64fddc4829f90fa502c5cda8d6a11df19ca405a4f24",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "By exhorting, we are moved to do a thing willingly; by comforting, to do it joyfully; by charging, to do it carefully.",
+      "es": "Al exhortar, nos sentimos impulsados ​​a hacer algo de buena gana; consolando, hacerlo con alegría; cargando, para hacerlo con cuidado.",
+      "enHash": "ed5f1038485cac0194b308afa06c92a7e832e95679ff7ae9cd2b09e6f59d2934",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "To his kingdom here, and glory hereafter.",
+      "es": "A su reino aquí y gloria en el futuro.",
+      "enHash": "1e7b1a45906ac79ca52b747981f2b9fd32e7cfacb4865b63b971bbb812828f5e",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "I Thessalonians 2:14\n Ye suffered the same things - The same fruit, the same afflictions, and the same experience, at all times, and in all places, are an excellent criterion of evangelical truth. As they from the Jews - Their countrymen.",
+      "es": "1 Tesalonicenses 2:14\n Sufristeis las mismas cosas - El mismo fruto, las mismas aflicciones y la misma experiencia, en todo momento y en todo lugar, son un excelente criterio de la verdad evangélica. Como ellos de los judíos - Sus compatriotas.",
+      "enHash": "e12789d2c6214b0c1a0dc9674cbe43360344663474225d3104b5713bddee15f5",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "I Thessalonians 2:15\n Us - Apostles and preachers of the gospel. They please not God - Nor are they even careful to please him, notwithstanding their fair professions. And are contrary to all men - Are common enemies of mankind; not only by their continual seditions and insurrections, and by their utter contempt of all other nations; but in particular, by their endeavouring to hinder their hearing or receiving the gospel.",
+      "es": "1 Tesalonicenses 2:15\n Nosotros - Apóstoles y predicadores del evangelio. No agradan a Dios - Ni siquiera tienen cuidado de complacerlo, a pesar de sus justas profesiones. Y son contrarios a todos los hombres - Son enemigos comunes de la humanidad; no sólo por sus continuas sediciones e insurrecciones, y por su total desprecio por todas las demás naciones; pero en particular, por su esfuerzo por impedir que escuchen o reciban el evangelio.",
+      "enHash": "ba34ff757eecd195db6f338636517f8f81eb6bc47101f7e7fe706b267a79c94a",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "I Thessalonians 2:16\n To fill up - The measure of their sins always, as they have ever done. But the vengeance of God is come upon them - Hath overtaken them unawares, whilst they were seeking to destroy others, and will speedily complete their destruction.",
+      "es": "1 Tesalonicenses 2:16\n Para llenar - La medida de sus pecados siempre, como siempre lo han hecho. Pero la venganza de Dios ha caído sobre ellos - Los ha alcanzado por sorpresa, mientras buscaban destruir a otros, y rápidamente completará su destrucción.",
+      "enHash": "63eec33fa10e4a145c95cf577ff7ed66319bc441d3cd5966f48b8deb4dbcdcfc",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "I Thessalonians 2:17\n In this verse we have a remarkable instance, not so much of the transient affections of holy grief, desire, or joy, as of that abiding tenderness, that loving temper, which is so apparent in all St. Paul's writings, towards those he styles his children in the faith. This is the more carefully to be observed, because the passions occasionally exercising themselves, and flowing like a torrent, in the apostle, are observable to every reader; whereas it requires a nicer attention to discern those calm standing tempers, that fixed posture of his soul, from whence the others only flow out, and which more peculiarly distinguish his character.",
+      "es": "1 Tesalonicenses 2:17\n En este versículo tenemos un ejemplo notable, no tanto de los afectos transitorios de dolor, deseo o alegría santos, como de esa ternura permanente, ese temperamento amoroso, que es tan evidente en todos los escritos de San Pablo, hacia aquellos a quienes llama sus hijos en la fe. Esto debe observarse con mayor atención porque las pasiones que ocasionalmente se ejercitan y fluyen como un torrente en el apóstol son observables para todo lector; mientras que se requiere una mayor atención para discernir esos temperamentos tranquilos y firmes, esa postura fija de su alma, de donde surgen las demás y que distinguen de manera más peculiar su carácter.",
+      "enHash": "1943b15b8090aa77415edbcbd5e9ebc6a3b07d2194efeab0abf977b26f8261e9",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "Satan — By those persecuting Jews, Acts 17:13 .",
+      "es": "Satanás - Por aquellos que persiguen a los judíos, Hechos 17:13 .",
+      "enHash": "d8fd417f2e4b1385b5d973611aeec6f1c62ca5c7fec9423b2a53fb7a13d92b41",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "Ye also — As well as our other children.\n\n << 1 Thessalonians 1 | 1 Thessalonians 2 | 1 Thessalonians 3 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 1 Thessalonians 1 Thessalonians 2\n\n Related Commentaries\n 1 Thessalonians 2\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Vosotros también, así como nuestros otros hijos.\n\n << 1 Tesalonicenses 1 | 1 Tesalonicenses 2 | 1 Tesalonicenses 3 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 1 Tesalonicenses 1 Tesalonicenses 2\n\n Comentarios relacionados\n 1 Tesalonicenses 2\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "0ace047bb5faa5a94e6fb99ab9a3bdebfc00d74c5e0a88f3f74611b5e00e4989",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "We — Paul and Silvanus.\n\n Could bear no longer — Our desire and fear for you.",
+      "es": "Nosotros: Pablo y Silvano.\n\n No pude soportar más: nuestro deseo y temor por ti.",
+      "enHash": "5e8821de7c08cd9cbd14de3e8749a8dbe000f09a3c38c16fba1c412070c56063",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "We are appointed hereto — Are in every respect laid in a fit posture for it, by the very design and contrivance of God himself for the trial and increase of our faith and all other graces. He gives riches to the world; but stores up his treasure of wholesome afflictions for his children.",
+      "es": "Estamos designados para esto - Estamos en todos los aspectos en una postura adecuada para ello, por el mismo diseño y artificio de Dios mismo para la prueba y el aumento de nuestra fe y todas las demás gracias. Él da riquezas al mundo; sino que acumula su tesoro de aflicciones saludables para sus hijos.",
+      "enHash": "93d424f811136773aaee64e5466928fa2421f201885989b64f416734bc0478c9",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "But now when Timotheus was come to us from you — Immediately after his return, St. Paul wrote; while his joy was fresh, and his tenderness at the height.",
+      "es": "Pero ahora que Timoteo vino a nosotros procedente de vosotros, inmediatamente después de su regreso, escribió San Pablo; mientras su alegría estaba fresca y su ternura en la cima.",
+      "enHash": "3cbaeacafac61916fcc3b98963446c2bc484805bd7a945c6b1b819f29be5f9d3",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "Now we live — Indeed; we enjoy life: so great is our affection for you.",
+      "es": "Ahora vivimos - De hecho; disfrutamos de la vida: tan grande es nuestro cariño por vosotros.",
+      "enHash": "3cc8baa686b78701953b4333bf74e821e8821158f39560f2e9d041f1deb4f96a",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "And perfect that which is wanting in your faith — So St. Paul did not know that \"they who are once upon the rock no longer need to be taught by man.\"",
+      "es": "Y perfeccionad lo que os falta en la fe. Así San Pablo no sabía que \"los que una vez estuvieron sobre la roca, ya no necesitan ser enseñados por el hombre\".",
+      "enHash": "66e6237fec8f3ab9c286e9f050e15af64828313f329e087da126566ad09fccf8",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "Direct our way — This prayer is addressed to Christ, as well as to the Father.",
+      "es": "Dirige nuestro camino: esta oración está dirigida a Cristo, así como al Padre.",
+      "enHash": "cf70cc123ede3ebacd9d9b75248a23e243c42b762a231e013098fa61b566a141",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "With all his, Christ's, saints - Both angels and men.\n\n << 1 Thessalonians 2 | 1 Thessalonians 3 | 1 Thessalonians 4 >>\n\n Bible > Bible Commentary Wesley's Explanatory Notes 1 Thessalonians 1 Thessalonians 3\n\n Related Commentaries\n 1 Thessalonians 3\n John Darby's Synopsis The Geneva Study Bible John Gill's Exposition of the Bible Jamieson, Faussett, and Brown B. W. Johnson's Bible Commentary Matthew Henry Bible Commentary (complete) Matthew Henry's Bible Commentary (concise) Wesley's Explanatory Notes\n\n About Us\n Privacy Policy\n California - CCPA Notice\n\n &copy; 2026 Christianity.com. All Rights Reserved.\nArticle Images Copyright &copy; 2026 JupiterImages Corporation.",
+      "es": "Con todos sus santos, los de Cristo, tanto ángeles como hombres.\n\n << 1 Tesalonicenses 2 | 1 Tesalonicenses 3 | 1 Tesalonicenses 4 >>\n\n Biblia > Comentario Bíblico Notas Explicativas de Wesley 1 Tesalonicenses 1 Tesalonicenses 3\n\n Comentarios relacionados\n 1 Tesalonicenses 3\n Sinopsis de John Darby La Biblia de estudio de Ginebra Exposición de la Biblia de John Gill Jamieson, Faussett y Brown Comentario bíblico de B. W. Johnson Comentario bíblico de Matthew Henry (completo) Comentario bíblico de Matthew Henry (conciso) Notas explicativas de Wesley\n\n Sobre nosotros\n Política de privacidad\n California - Aviso CCPA\n\n © 2026 Cristianismo.com. Reservados todos los derechos.\nImágenes del artículo Copyright © 2026 JupiterImages Corporation.",
+      "enHash": "98bf8d26cf0fb3b236a0188f44707351348b38cf36d9796af68d6ea860cad825",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "More and more — It is not enough to have faith, even so as to please God, unless we abound more and more therein.",
+      "es": "Cada vez más: no basta con tener fe, ni siquiera para agradar a Dios, a menos que abundemos más y más en ella.",
+      "enHash": "d1471fdc3b4849022fa5a2246d64fb2da5ac53c7bee2cb54140da1a7e9ac151e",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "Sanctification — Entire holiness of heart and life: particular branches of it are subjoined.\n\n That ye abstain from fornication — A beautiful transition from sanctification to a single branch of the contrary; and this shows that nothing is so seemingly distant, or below our thoughts, but we have need to guard against it.",
+      "es": "Santificación: entera santidad de corazón y vida: ramas particulares de ella están unidas.\n\n Que os abstengáis de la fornicación Una hermosa transición de la santificación a una sola rama de lo contrario; y esto muestra que nada está aparentemente tan distante o por debajo de nuestros pensamientos, sin que tengamos que protegernos de ello.",
+      "enHash": "b6e8c435bec6431a2c817b1a8ff24788a7b97550ac3bca3091509ef1cd0397d1",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "That every one know — For this requires knowledge, as well as chastity.\n\n To possess his vessel — His wife.\n\n In sanctification and honour — So as neither to dishonour God or himself, nor to obstruct, but further, holiness; remembering, marriage is not designed to inflame, but to conquer, natural desires.",
+      "es": "Que todo el mundo sepa, porque esto requiere conocimiento, además de castidad.\n\n Poseer su vasija: su esposa.\n\n En santificación y honor, para no deshonrar a Dios ni a sí mismo, ni obstruir, sino promover, la santidad; Recordemos que el matrimonio no está diseñado para inflamar, sino para conquistar, los deseos naturales.",
+      "enHash": "54216eac8bd45ea32102706a34bcfb5b56f27f294af52cebc2ab68951127a095",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "Not in passionate desire — Which had no place in man when in a state of innocence.\n\n Who know not God — And so may naturally seek happiness in a creature. What seemingly accidental words slide in; and yet how fine, and how vastly important!",
+      "es": "No en el deseo apasionado, que no tenía cabida en el hombre en estado de inocencia.\n\n Que no conocen a Dios y, por eso, naturalmente pueden buscar la felicidad en una criatura. Qué palabras aparentemente accidentales se deslizan; y, sin embargo, ¡qué hermoso y cuán inmensamente importante!",
+      "enHash": "25c26b6ba7eac66f6b504ee4383d5cd8b1995199cf6a2578a48868244092870e",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "I Thessalonians 4:6\n In this matter - By violating his bed. The things forbidden, here are three: fornication, 1Th 4:3 ; the passion of desire, or inordinate affection in the married state, 1Th 4:5 ; and the breach of the marriage contract.",
+      "es": "1 Tesalonicenses 4:6\n En este asunto - Violando su cama. Las cosas prohibidas, aquí son tres: fornicación, 1 Tes 4:3; la pasión del deseo, o afecto desmesurado en el estado matrimonial, 1 Tesalonicenses 4:5; y el incumplimiento del contrato matrimonial.",
+      "enHash": "a47086634b798399daa2fef60345a43a81fed2670cae28a36e53a23c7ffd0686",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "I Thessalonians 4:8\n He that despiseth - The commandments we gave. Despiseth God - Himself. Who hath also given you his Holy Spirit - To convince you of the truth, and enable you to be holy. What naked majesty of words! How oratorical, and yet with what great simplicity! - a simplicity that does not impair, but improve, the understanding to the utmost; that, like the rays of heat through a glass, collects all the powers of reason into one orderly point, from being scattered abroad in utter confusion.",
+      "es": "1 Tesalonicenses 4:8\n El que desprecia - Los mandamientos que dimos. Desprecia a Dios - a sí mismo. Quien también te ha dado su Espíritu Santo - Para convencerte de la verdad y permitirte ser santo. ¡Qué desnuda majestad de las palabras! ¡Qué oratoria y, sin embargo, con qué gran sencillez! - una simplicidad que no perjudica sino que mejora al máximo la comprensión; que, como los rayos de calor a través de un cristal, reúne todos los poderes de la razón en un punto ordenado, para evitar que se dispersen en total confusión.",
+      "enHash": "4473b3a9ddac48bccb1285e14d3952d16f8413b0f26e63c5c7ea28fa0e93525e",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "We need not write — Largely.\n\n For ye are taught of God — By his Spirit.",
+      "es": "No necesitamos escribir: en gran medida.\n\n Porque sois enseñados por Dios por su Espíritu.",
+      "enHash": "07e1ce409573eb3012e106fc0425c34f2d53e921b40047c658bc8a2177ab3c0a",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "I Thessalonians 4:11\n That ye study - Literally, that ye be ambitious: an ambition worthy a Christian. To work with your hands - Not a needless caution; for temporal concerns are often a cross to them who are newly filled with the love of God.",
+      "es": "1 Tesalonicenses 4:11\n Que estudiéis - Literalmente, que seáis ambiciosos: una ambición digna de un cristiano. Trabajar con las manos - No es una precaución innecesaria; porque las preocupaciones temporales son a menudo una cruz para aquellos que están recién llenos del amor de Dios.",
+      "enHash": "eced6f1f945022ec4106859cd28fcf62eec39587e5e36e982211dc57fdcbecc1",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "I Thessalonians 4:12\n Decently - That they may have no pretence to say, (but they will say it still,) \"This religion makes men idle, and brings them to beggary.\" And may want nothing - Needful for life and godliness. What Christian desires more?",
+      "es": "1 Tesalonicenses 4:12\n Decentemente - Para que no tengan pretensión de decir (pero aún así lo dirán) \"Esta religión deja a los hombres ociosos y los lleva a la mendicidad\". Y puede que no quiera nada - Necesario para la vida y la piedad. ¿Qué cristiano desea más?",
+      "enHash": "ce206654eeeb07c5aef733c16513af860ef90bc74b3b7f87178cd2c1d0b4f62f",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "I Thessalonians 4:13\n Now - Herein the efficacy of Christianity greatly appears, - that it neither takes away nor embitters, but sweetly tempers, that most refined of all affections, our desire of or love to the dead.",
+      "es": "1 Tesalonicenses 4:13\n Ahora bien, aquí aparece en gran medida la eficacia del cristianismo: que ni quita ni amarga, sino que templa dulcemente, el más refinado de todos los afectos, nuestro deseo o amor por los muertos.",
+      "enHash": "171ca983f34d890e5438ac678947449dd4824f2389c501a110f9b06ad4a7132f",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "So — As God raised him.\n\n With him — With their living head.",
+      "es": "Entonces, como Dios lo resucitó.\n\n Con él - Con su cabeza viva.",
+      "enHash": "d530275a4b92e70697544c4ddde392b4d1cbcf1e038d3081ffd42375d4626fb2",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "I Thessalonians 4:15\n By the word of the Lord - By a particular revelation. We who are left - This intimates the fewness of those who will be then alive, compared to the multitude of the dead. Believers of all ages and nations make up, as it were, one body; in consideration of which, the believers of that age might put themselves in the place, and speak in the person, of them who were to live till the coming of the Lord. Not that St. Paul hereby asserted (though some seem to have imagined so) that the day of the Lord was at hand.",
+      "es": "1 Tesalonicenses 4:15\n Por la palabra del Señor - Por una revelación particular. Nosotros, los que quedamos - Esto da a entender la escasez de aquellos que estarán vivos, en comparación con la multitud de los muertos. Los creyentes de todas las épocas y naciones forman, por así decirlo, un solo cuerpo; en consideración a lo cual, los creyentes de esa época podrían ponerse en el lugar y hablar en persona de aquellos que vivirían hasta la venida del Señor. No es que San Pablo afirmara (aunque algunos parecen haberlo imaginado) que el día del Señor estuviera cerca.",
+      "enHash": "8da72ea194be77acc70d7e0a4c901eee3474bfae84c31112b957a87d5ffb252e",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "I Thessalonians 4:16\n With a shout - Properly, a proclamation made to a great multitude. Above this is, the voice of the archangel; above both, the trumpet of God; the voice of God, somewhat analogous to the sound of a trumpet.",
+      "es": "1 Tesalonicenses 4:16\n Con un grito - Correctamente, una proclamación hecha a una gran multitud. Sobre esto está la voz del arcángel; sobre ambos, la trompeta de Dios; la voz de Dios, algo análoga al sonido de una trompeta.",
+      "enHash": "a7b15d5ed3e4b330b1bb91fe818f7fbe83f01497fe62e559ac2d0eb9466caf1f",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "I Thessalonians 4:17\n Together - In the same moment. In the air - The wicked will remain beneath, while the righteous, being absolved, shall be assessors with their Lord in the judgment. With the Lord - In heaven.",
+      "es": "1 Tesalonicenses 4:17\n Juntos - En el mismo momento. En el aire - Los malvados permanecerán debajo, mientras que los justos, absueltos, serán asesores de su Señor en el juicio. Con el Señor - En el cielo.",
+      "enHash": "b75bc1f9649da449b6a8fb8ef4097de92370e0469242b3766d6c7e1e3f60e877",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "But of the precise times when this shall be.",
+      "es": "Pero de los tiempos precisos en que esto será.",
+      "enHash": "fd8fd60efbce03d567efaa6c62fbb924151e24d59338e50244839b05d327407c",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "For this in general ye do know; and ye can and need know no more.",
+      "es": "Porque esto en general ya lo sabéis; y no podéis ni necesitáis saber más.",
+      "enHash": "8d7aa24f5c1d5457dd5d2ad3b141324736f7ca0023c827e2b5cba84ad0402cab",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "When they — The men of the world say.",
+      "es": "Cuando ellos... dicen los hombres del mundo.",
+      "enHash": "d78f5decf158816e6e41ec19523b4c5845fb1cf6171a333d783b964b69382d2b",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "Ye are not in darkness — Sleeping secure in sin.",
+      "es": "No estáis en oscuridad, durmiendo seguros en el pecado.",
+      "enHash": "67fad1006d92e8937bfd3f424222c58d95edea1783c443cc1130b35405169255",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "Awake, and keep awake — Being awakened, let us have all our spiritual senses about us.",
+      "es": "Despertad y manteneos despiertos. Al estar despiertos, tengamos todos nuestros sentidos espirituales a nuestro alrededor.",
+      "enHash": "789ccb30db024ecaa08041d14a2105320107bc1d310c8a72c3d1f8faaa79a0f3",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "They usually sleep and are drunken in the night - These things do not love the light.",
+      "es": "Generalmente duermen y se emborrachan por la noche. Estas cosas no aman la luz.",
+      "enHash": "660543aede2ab8e19b7dd454669bb78a1ebf29e6eaed08e9c1983d283969aa21",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "God hath not appointed us to wrath — As he hath the obstinately impenitent.",
+      "es": "Dios no nos ha designado para la ira como lo ha hecho con los obstinadamente impenitentes.",
+      "enHash": "18a4c0f92287ab30d576ae795af8ebdf42ac51dd4c751b208d3c3e8366a9dc48",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "Whether we wake or sleep — Be alive or dead at his coming.",
+      "es": "Ya sea que despertemos o durmamos, estaremos vivos o muertos en su venida.",
+      "enHash": "64ebb4dbcf5cd617e52483f53ce879f7b27a9739cd6994ab14cb3fd5785a981e",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "I Thessalonians 5:12\n Know them that, Labour among you: Are over you in the Lord: Admonish you. Know - See, mark, take knowledge of them and their work. Sometimes the same person may both labour, that is, preach; be over, or govern; and admonish the flock by particular application to each: sometimes two or more different persons, according as God variously dispenses his gifts. But O, what a misery is it when a man undertakes this whole work without either gifts or graces for any part of it! Why, then, will he undertake it? for pay? What! will he sell both his own soul and all the souls of the flock? What words can describe such a wretch as this? And yet even this may be \"an honourable man!\"",
+      "es": "1 Tesalonicenses 5:12\n Sepan que trabajan entre ustedes: están sobre ustedes en el Señor: les amonestarán. Conocer - Ver, marcar, tomar conocimiento de ellos y de su trabajo. A veces la misma persona puede trabajar ambas, es decir, predicar; estar sobre, o gobernar; y amonestar al rebaño mediante una aplicación particular a cada uno: a veces dos o más personas diferentes, según Dios distribuya sus dones de diversas maneras. Pero ¡oh, qué miseria es cuando un hombre emprende toda esta obra sin dones ni gracias para ninguna parte! ¿Por qué entonces lo emprenderá? por pago? ¡Qué! ¿Venderá su propia alma y todas las almas del rebaño? ¿Qué palabras pueden describir a un desgraciado como este? Y, sin embargo, incluso éste puede ser \"un hombre honorable\".",
+      "enHash": "4d2666c0d80e102621e5afec25bb4059e1a73594297d044e96ce07f4f23ca2b5",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "I Thessalonians 5:13\n Esteem them very highly - Literally, more than abundantly, in love - The inexpressible sympathy that is between true pastors and their flock is intimated, not only here, but also in divers other places of this epistle. See 1Thess 2:7 ,8. For their work's sake - The principal ground of their vast regard for them. But how are we to esteem them who do not work at all?",
+      "es": "1 Tesalonicenses 5:13\n Estímalos muy altamente - Literalmente, más que abundantemente, en amor - La inexpresable simpatía que hay entre los verdaderos pastores y su rebaño se insinúa, no solo aquí, sino también en otros lugares diversos de esta epístola. Ver 1 Tes 2:7, 8. Por el bien de su trabajo - El motivo principal de su gran respeto por ellos. Pero ¿cómo debemos estimar a los que no trabajan en absoluto?",
+      "enHash": "967dc8c759813316ebd46613888af0d34d1a4531b40af726a16c20648dc464cc",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "I Thessalonians 5:14\n Warn the disorderly - Them that stand, as it were, out of their rank in the spiritual warfare. Some such were even in that church. The feeble - minded - Literally, them of little soul; such as have no spiritual courage.",
+      "es": "1 Tesalonicenses 5:14\n Advertir a los desordenados - Aquellos que están, por así decirlo, fuera de su rango en la guerra espiritual. Algunos de ellos incluso estaban en esa iglesia. Los débiles de mente - Literalmente, los de poca alma; los que no tienen valor espiritual.",
+      "enHash": "f80161363c0d980fc6f26837db4bf3ebff1f3e743e542c73bb515782b5f5282c",
+      "source": "corpus:john-wesley"
+    },
+    "b57": {
+      "en": "I Thessalonians 5:15\n See that none - Watch over both yourselves and each other. Follow that which is good - Do it resolutely and perseveringly.",
+      "es": "1 Tesalonicenses 5:15\n Vean que ninguno - Cuídense a ustedes mismos y a los demás. Sigue lo bueno. Hazlo con resolución y perseverancia.",
+      "enHash": "f5f6fa94835fd74d8c220c8c1b2389bea781646af20fc2f04f97e78a4b751b18",
+      "source": "corpus:john-wesley"
+    },
+    "b58": {
+      "en": "I Thessalonians 5:16\n Rejoice evermore - In uninterrupted happiness in God. Pray without ceasing - Which is the fruit of always rejoicing in the Lord. In everything give thanks - Which is the fruit of both the former. This is Christian perfection. Farther than this we cannot go; and we need not stop short of it. Our Lord has purchased joy, as well as righteousness, for us. It is the very design of the gospel that, being saved from guilt, we should be happy in the love of Christ. Prayer may be said to be the breath of our spiritual life. He that lives cannot possibly cease breathing. So much as we really enjoy of the presence of God, so much prayer and praise do we offer up without ceasing; else our rejoicing is but delusion. Thanksgiving is inseparable from true prayer: it is almost essentially connected with it. He that always prays is ever giving praise, whether in ease or pain, both for prosperity and for the greatest adversity. He blesses God for all things, looks on them as coming from him, and receives them only for his sake; not choosing nor refusing, liking nor disliking, anything, but only as it is agreeable or disagreeable to his perfect will.",
+      "es": "1 Tesalonicenses 5:16\n Regocíjense siempre más - En la felicidad ininterrumpida en Dios. Oren sin cesar - Que es el fruto de regocijarse siempre en el Señor. En todo den gracias - Que es fruto de ambos. Esta es la perfección cristiana. Más allá de esto no podemos ir; y no debemos detenernos antes de llegar a ello. Nuestro Señor ha comprado el gozo, así como la justicia, para nosotros. El diseño mismo del evangelio es que, siendo salvos de la culpa, seamos felices en el amor de Cristo. Se puede decir que la oración es el aliento de nuestra vida espiritual. El que vive no puede dejar de respirar. Por mucho que realmente disfrutemos de la presencia de Dios, tanta oración y alabanza ofrecemos sin cesar; de lo contrario, nuestro regocijo no es más que engaño. La acción de gracias es inseparable de la verdadera oración: está casi esencialmente relacionada con ella. El que siempre ora siempre está alabando, ya sea en la comodidad o en el dolor, tanto por la prosperidad como por la mayor adversidad. Bendice a Dios por todas las cosas, las considera como provenientes de él y las recibe sólo por él; no eligiendo ni rechazando, sin agradar ni desagradar nada, sino sólo en lo que es agradable o desagradable a su perfecta voluntad.",
+      "enHash": "a6808973ad252639359e5bd7fa254c8ac67e92d1d6aad09bc07a9e4075adeb90",
+      "source": "corpus:john-wesley"
+    },
+    "b59": {
+      "en": "I Thessalonians 5:18\n For this - That you should thus rejoice, pray, give thanks. Is the will of God - Always good, always pointing at our salvation.",
+      "es": "1 Tesalonicenses 5:18\n Por esto - Para que así os regocijéis, oréis, deis gracias. Es la voluntad de Dios - Siempre buena, siempre apuntando a nuestra salvación.",
+      "enHash": "595d0b91061b5a9188841d9fe05a22e833fc8de317c9ca2eabaa458244edddfd",
+      "source": "corpus:john-wesley"
+    },
+    "b60": {
+      "en": "I Thessalonians 5:19\n Quench not the Spirit - Wherever it is, it burns; it flames in holy love, in joy, prayer, thanksgiving. O quench it not, damp it not in yourself or others, either by neglecting to do good, or by doing evil!",
+      "es": "1 Tesalonicenses 5:19\n No apagues el Espíritu - Dondequiera que esté, arde; arde en amor santo, en alegría, oración, acción de gracias. ¡Oh, no lo apagues, no lo humedezcas en ti mismo ni en los demás, ya sea descuidando hacer el bien o haciendo el mal!",
+      "enHash": "f90c64a67d4ffdbb1fa908a415fbfdc250ab1a3ff8ff32c32c3ded8036a37f18",
+      "source": "corpus:john-wesley"
+    },
+    "b61": {
+      "en": "I Thessalonians 5:20\n Despise not prophesyings - That is, preaching; for the apostle is not here speaking of extraordinary gifts. It seems, one means of grace is put for all; and whoever despises any of these, under whatever pretence, will surely (though perhaps gradually and almost insensibly) quench the Spirit.",
+      "es": "1 Tesalonicenses 5:20\n No desprecies las profecías - Es decir, la predicación; porque el apóstol no está hablando aquí de dones extraordinarios. Parece que se pone un medio de gracia para todos; y quienquiera que desprecie cualquiera de estos, bajo cualquier pretexto, seguramente (aunque quizás de manera gradual y casi insensible) apagará el Espíritu.",
+      "enHash": "a49743937af1926175f72bb0a0d9610e76929597cb2bb516f3ddd7c6c820dafe",
+      "source": "corpus:john-wesley"
+    },
+    "b62": {
+      "en": "I Thessalonians 5:21\n Meantime, prove all things - Which any preacher recommends. (He speaks of practice, not of doctrines.) Try every advice by the touchstone of scripture, and hold fast that which is good - Zealously, resolutely, diligently practise it, in spite of all opposition.",
+      "es": "1 Tesalonicenses 5:21\n Mientras tanto, prueba todas las cosas - Lo que recomienda cualquier predicador. (Habla de práctica, no de doctrinas). Pruebe cada consejo con la piedra de toque de las Escrituras y retenga lo que es bueno. Practíquelo con celo, resolución y diligencia, a pesar de toda oposición.",
+      "enHash": "757043d61427956373a7ca57236cab52d06952f5bc3bf12a42bd34592d30ec97",
+      "source": "corpus:john-wesley"
+    },
+    "b63": {
+      "en": "I Thessalonians 5:22\n And be equally zealous and careful to abstain from all appearance of evil - Observe, those who \"heap to themselves teachers, having itching ears,\" under pretence of proving all things, have no countenance or excuse from this scripture.",
+      "es": "1 Tesalonicenses 5:22\n Y sea igualmente celoso y cuidadoso de abstenerse de toda apariencia de maldad - Observe que aquellos que \"se amontonan maestros, teniendo comezón de oídos\", con el pretexto de probar todas las cosas, no tienen rostro ni excusa de esta Escritura.",
+      "enHash": "6c58dc9c8b5b67813ea9d0a4f228776f6947f78e5998305691a871ea39ce8018",
+      "source": "corpus:john-wesley"
+    },
+    "b64": {
+      "en": "I Thessalonians 5:23\n And may the God of peace sanctify you - By the peace he works in you, which is a great means of sanctification. Wholly - The word signifies wholly and perfectly; every part and all that concerns you; all that is of or about you. And may the whole of you, the spirit and the soul and the body - Just before he said you; now he denominates them from their spiritual state. The spirit - Gal 6:8 ; wishing that it may be preserved whole and entire: then from their natural state, the soul and the body; (for these two make up the whole nature of man, Matt 10:28 ;) wishing it may be preserved blameless till the coming of Christ. To explain this a little further: of the three here mentioned, only the two last are the natural constituent parts of man. The first is adventitious, and the supernatural gift of God, to be found in Christians only. That man cannot possibly consist of three parts, appears hence: The soul is either matter or not matter: there is no medium. But if it is matter, it is part of the body: if not matter, it coincides with the Spirit.",
+      "es": "1 Tesalonicenses 5:23\n Y que el Dios de paz os santifique - Por la paz que obra en vosotros, que es un gran medio de santificación. Totalmente - La palabra significa total y perfectamente; cada parte y todo lo que os concierne; todo lo que es de o sobre ti. Y que todos vosotros, el espíritu y el alma y el cuerpo - Justo antes de que os dijera; ahora los denomina por su estado espiritual. El espíritu – Gálatas 6:8; deseando que se conserve entera y íntegra: luego de su estado natural, el alma y el cuerpo; (porque estos dos constituyen toda la naturaleza del hombre, Mateo 10:28;) deseando que se conserve irreprensible hasta la venida de Cristo. Para explicar esto un poco más: de los tres aquí mencionados, sólo los dos últimos son las partes constitutivas naturales del hombre. El primero es adventicio y don sobrenatural de Dios, que se encuentra únicamente en los cristianos. De esto se desprende que el hombre no puede constar de tres partes: El alma es materia o no es materia: no hay medio. Pero si es materia, es parte del cuerpo; si no es materia, coincide con el Espíritu.",
+      "enHash": "418d10884c8a3bb091706bec5422ff330017f858890505514ad78fb30a79a558",
+      "source": "corpus:john-wesley"
+    },
+    "b65": {
+      "en": "Who also will do it — Unless you quench the Spirit.",
+      "es": "¿Quién también lo hará, a menos que apaguéis el Espíritu?",
+      "enHash": "7f1dea2563c769bfbbc5dabbb228e61883a4ccd24829bcb3755f77199525eb08",
+      "source": "corpus:john-wesley"
+    },
+    "b66": {
+      "en": "I Thessalonians 5:27\n I charge you by the Lord - Christ, to whom proper divine worship is here paid. That this epistle - The first he wrote. Be read to all the brethren - That is, in all the churches. They might have concealed it out of modesty, had not this been so solemnly enjoined: but what Paul commands under so strong an adjuration, Rome forbids under pain of excommunication.",
+      "es": "1 Tesalonicenses 5:27\n Os lo encargo por el Señor, Cristo, a quien aquí se rinde el debido culto divino. Que esta epístola - La primera que escribió. Léase a todos los hermanos - Es decir, en todas las iglesias. Podrían haberlo ocultado por modestia, si esto no hubiera sido ordenado tan solemnemente: pero lo que Pablo ordena bajo un juramento tan fuerte, Roma lo prohíbe bajo pena de excomunión.",
+      "enHash": "f3ded3a250f4163c81e23f171a2ec37d0f3aae8ec64a88b3678bfc5c24269827",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:3": "b2",
+    "1:4": "b3",
+    "1:5": "b4",
+    "1:6": "b5",
+    "1:8": "b6",
+    "1:9": "b7",
+    "1:10": "b8",
+    "2:1": "b9",
+    "2:2": "b10",
+    "2:3": "b11",
+    "2:5": "b12",
+    "2:6": "b13",
+    "2:7": "b14",
+    "2:8": "b15",
+    "2:10": "b16",
+    "2:11": "b17",
+    "2:12": "b18",
+    "2:14": "b19",
+    "2:15": "b20",
+    "2:16": "b21",
+    "2:17": "b22",
+    "2:18": "b23",
+    "2:19": "b24",
+    "3:1": "b25",
+    "3:3": "b26",
+    "3:4": "b26",
+    "3:5": "b26",
+    "3:6": "b27",
+    "3:8": "b28",
+    "3:10": "b29",
+    "3:11": "b30",
+    "3:13": "b31",
+    "4:1": "b32",
+    "4:3": "b33",
+    "4:4": "b34",
+    "4:5": "b35",
+    "4:6": "b36",
+    "4:8": "b37",
+    "4:9": "b38",
+    "4:11": "b39",
+    "4:12": "b40",
+    "4:13": "b41",
+    "4:14": "b42",
+    "4:15": "b43",
+    "4:16": "b44",
+    "4:17": "b45",
+    "5:1": "b46",
+    "5:2": "b47",
+    "5:3": "b48",
+    "5:4": "b49",
+    "5:6": "b50",
+    "5:7": "b51",
+    "5:9": "b52",
+    "5:10": "b53",
+    "5:12": "b54",
+    "5:13": "b55",
+    "5:14": "b56",
+    "5:15": "b57",
+    "5:16": "b58",
+    "5:18": "b59",
+    "5:19": "b60",
+    "5:20": "b61",
+    "5:21": "b62",
+    "5:22": "b63",
+    "5:23": "b64",
+    "5:24": "b65",
+    "5:27": "b66"
+  }
+}

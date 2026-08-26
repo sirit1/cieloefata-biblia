@@ -33,9 +33,9 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Efesios | sí | sí | sí | sí | — | — | — |
 | Filipenses | sí | sí | sí | sí | — | — | — |
 | Colosenses | sí | sí | sí | sí | — | — | — |
-| 1–2 Tesalonicenses | sí | sí | sí | pendiente | — | — | — |
-| 1 Timoteo | sí | sí | sí | pendiente | — | — | — |
-| 2 Timoteo / Tito | sí | sí | sí | pendiente | — | — | — |
+| 1–2 Tesalonicenses | sí | sí | sí | sí | — | — | — |
+| 1 Timoteo | sí | sí | sí | sí | — | — | — |
+| 2 Timoteo / Tito | sí | sí | sí | sí | — | — | — |
 | Hebreos | sí | sí | sí | pendiente | — | — | — |
 | Santiago | sí | sí | sí | pendiente | — | — | — |
 | 1–2 Pedro | sí | sí | sí | pendiente | — | — | — |
