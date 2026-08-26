@@ -23,10 +23,11 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Libro | Henry | Spurgeon | Clarke | Wesley | Calvino | JFB | Gill |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Mateo | sí (caps. 1–18 helloao; 19–28 helloao 404) | sí | sí (ACC PD) | sí | sí | sí | en curso |
-| Marcos | sí | sí | en curso | pendiente | — | — | — |
+| Marcos | sí | sí | sí | pendiente | — | — | — |
 | Lucas | sí | sí | sí | sí | sí | sí | pendiente |
 | Juan | sí | sí | sí | sí | sí | sí | pendiente |
-| Hechos … Apocalipsis | sí | sí | pendiente | pendiente | — | — | — |
+| Hechos | sí | sí | en curso | pendiente | — | — | — |
+| Romanos … Apocalipsis | sí | sí | pendiente | pendiente | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | sí | pendiente |
 
 Henry NT: **completo** salvo el hueco honesto de Mateo 19–28 (helloao 404).
