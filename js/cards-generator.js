@@ -1,18 +1,32 @@
 // Estado Reactivo de la Tarjeta
 export const cardState = {
-  background: 'midnight', // 'midnight', 'pergamino', 'obsidian'
-  typography: 'cinzel',    // 'editorial', 'cinzel', 'serif'
-  passage: 'Romanos 12:2',
+  background: 'midnight',
+  typography: 'cinzel',
+  passage: '',
   version: 'RVR1960',
-  verseText: 'No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta.'
+  verseText: ''
 };
+
+function canonicalCardBackground(bgKey) {
+  const k = String(bgKey || '').toLowerCase();
+  if (k === 'noche' || k === 'midnight') return 'midnight';
+  if (k === 'pergamino' || k === 'papiro' || k === 'parchment') return 'pergamino';
+  if (k === 'obsidian' || k === 'obsidiana') return 'obsidian';
+  return k || 'midnight';
+}
+
+function previewCardEl() {
+  return document.querySelector('#efata-cards-modal #efata-card-preview')
+    || document.querySelector('#efata-cards-modal [id="efata-card-preview"]')
+    || document.getElementById('efata-card-preview');
+}
 
 // 1. ABRIR Y RENDERIZAR MODAL DE TARJETA
 export function openCardGenerator(passage, text, version = 'RVR1960') {
   const globalPassage = (typeof window !== 'undefined' && (window.activeStudyPassage || window.currentSelectedPassage)) || '';
   const globalText = (typeof window !== 'undefined' && (window.activeStudyText || window.currentSelectedText)) || '';
-  cardState.passage = passage || globalPassage || cardState.passage;
-  cardState.verseText = text || globalText || cardState.verseText;
+  cardState.passage = passage || globalPassage || cardState.passage || '';
+  cardState.verseText = text || globalText || cardState.verseText || '';
   cardState.version = version || cardState.version;
 
   let modal = document.getElementById('efata-cards-modal');
@@ -131,20 +145,29 @@ export function openCardGenerator(passage, text, version = 'RVR1960') {
 
 // 2. FUNCIÓN PARA CAMBIO DE FONDO Y CONTRASTE
 export function setCardBackground(bgKey) {
-  cardState.background = bgKey;
-  
-  // Actualizar botones visuales
-  document.querySelectorAll('.card-ctrl-btn').forEach(btn => {
-    btn.classList.remove('border-2', 'border-[#DFB743]', 'ring-2', 'ring-[#DFB743]/30');
-    btn.classList.add('border', 'border-[#E8DFC8]');
+  cardState.background = canonicalCardBackground(bgKey);
+  if (typeof window !== 'undefined' && window.__revelatioCardState) {
+    window.__revelatioCardState.fondo = cardState.background === 'midnight' ? 'noche' : cardState.background;
+  }
+
+  document.querySelectorAll('.card-ctrl-btn, .efata-swatch').forEach(btn => {
+    btn.classList.remove('border-2', 'border-[#DFB743]', 'ring-2', 'ring-[#DFB743]/30', 'is-on');
+    if (btn.classList.contains('card-ctrl-btn')) btn.classList.add('border', 'border-[#E8DFC8]');
   });
-  const activeBtn = document.getElementById(`bg-btn-${bgKey}`);
-  if (activeBtn) {
+  const mapped = cardState.background;
+  const activeBtn = document.getElementById(`bg-btn-${mapped}`)
+    || document.querySelector(`[data-fondo="${mapped}"], [data-fondo="noche"], [data-fondo="${bgKey}"]`);
+  document.querySelectorAll(`[data-fondo]`).forEach((el) => {
+    const key = canonicalCardBackground(el.dataset.fondo);
+    el.classList.toggle('is-on', key === mapped);
+  });
+  if (activeBtn && activeBtn.classList.contains('card-ctrl-btn')) {
     activeBtn.classList.remove('border', 'border-[#E8DFC8]');
     activeBtn.classList.add('border-2', 'border-[#DFB743]', 'ring-2', 'ring-[#DFB743]/30');
   }
 
   applyCardTheme();
+  try { window.pintarEfataCard?.(); } catch { /* overlay canvas */ }
 }
 
 // 3. FUNCIÓN PARA CAMBIO DE TIPOGRAFÍA
@@ -167,24 +190,26 @@ export function setCardTypography(fontKey) {
 
 // 4. APLICAR ESTILOS A LA VISTA PREVIA
 export function applyCardTheme() {
-  const card = document.getElementById('efata-card-preview');
-  const quote = document.getElementById('card-verse-quote');
-  const ref = document.getElementById('card-verse-reference');
-  const badge = document.getElementById('card-logo-badge');
+  const card = previewCardEl();
+  const root = document.getElementById('efata-cards-modal') || document;
+  const quote = root.querySelector('#card-verse-quote') || document.getElementById('card-verse-quote');
+  const ref = root.querySelector('#card-verse-reference') || document.getElementById('card-verse-reference');
+  const badge = root.querySelector('#card-logo-badge') || document.getElementById('card-logo-badge');
   if (!card || !quote || !ref) return;
 
-  // Temas de Fondo y Color
-  if (cardState.background === 'midnight') {
+  const bg = canonicalCardBackground(cardState.background);
+
+  if (bg === 'midnight') {
     card.style.background = 'linear-gradient(145deg, #0A192F 0%, #0F172A 50%, #1E293B 100%)';
     quote.style.color = '#F8FAFC';
     ref.style.color = '#DFB743';
     if (badge) badge.className = 'px-3 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase font-bold bg-[#DFB743]/20 text-[#DFB743] border border-[#DFB743]/40';
-  } else if (cardState.background === 'pergamino') {
+  } else if (bg === 'pergamino') {
     card.style.background = 'linear-gradient(145deg, #F9F4E8 0%, #F4EBD9 50%, #E8DFC8 100%)';
-    quote.style.color = '#292524';
+    quote.style.color = '#2C3E4A';
     ref.style.color = '#855D10';
     if (badge) badge.className = 'px-3 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase font-bold bg-[#855D10]/15 text-[#855D10] border border-[#855D10]/30';
-  } else if (cardState.background === 'obsidian') {
+  } else if (bg === 'obsidian') {
     card.style.background = 'linear-gradient(145deg, #18181B 0%, #09090B 100%)';
     quote.style.color = '#FAFAFA';
     ref.style.color = '#EAB308';
@@ -212,8 +237,16 @@ export function applyCardTheme() {
 
 // 5. EXPORTACIÓN CANVAS NATIVO / HTML2CANVAS (ALTA RESOLUCIÓN)
 export async function renderCardToBlob() {
-  const cardElement = document.getElementById('efata-card-preview');
-  if (!cardElement) throw new Error('Elemento de tarjeta no encontrado');
+  const cardElement = previewCardEl();
+  if (!cardElement || !cardElement.querySelector('#card-verse-quote')) {
+    const canvasEl = document.getElementById('canvas-efata-card');
+    if (canvasEl) {
+      return new Promise((resolve, reject) => {
+        canvasEl.toBlob((blob) => blob ? resolve(blob) : reject(new Error('canvas')), 'image/png');
+      });
+    }
+    throw new Error('Elemento de tarjeta no encontrado');
+  }
 
   if (typeof window !== 'undefined' && window.html2canvas) {
     const canvas = await window.html2canvas(cardElement, { scale: 3, useCORS: true, backgroundColor: null });
@@ -228,12 +261,19 @@ export async function renderCardToBlob() {
 
   // Fondo
   const gradient = ctx.createLinearGradient(0, 0, 1080, 1350);
-  if (cardState.background === 'pergamino') {
+  const bg = canonicalCardBackground(cardState.background);
+  if (bg === 'pergamino') {
     gradient.addColorStop(0, '#F9F4E8');
     gradient.addColorStop(1, '#E8DFC8');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 1080, 1350);
-    ctx.fillStyle = '#292524';
+    ctx.fillStyle = '#2C3E4A';
+  } else if (bg === 'obsidian') {
+    gradient.addColorStop(0, '#18181B');
+    gradient.addColorStop(1, '#09090B');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 1080, 1350);
+    ctx.fillStyle = '#FAFAFA';
   } else {
     gradient.addColorStop(0, '#0A192F');
     gradient.addColorStop(1, '#0F172A');
@@ -247,8 +287,7 @@ export async function renderCardToBlob() {
   ctx.textAlign = 'center';
   wrapText(ctx, `«${cardState.verseText}»`, 540, 580, 880, 70);
 
-  // Referencia
-  ctx.fillStyle = '#DFB743';
+  ctx.fillStyle = bg === 'pergamino' ? '#855D10' : '#DFB743';
   ctx.font = 'bold 36px Cinzel, serif';
   ctx.fillText(`${cardState.passage} (${cardState.version})`, 540, 1100);
 

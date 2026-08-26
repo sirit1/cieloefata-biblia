@@ -259,7 +259,7 @@
         jud: 'Judas', ap: 'Apocalipsis', apoc: 'Apocalipsis'
     };
     const PLATAFORMA_URL = 'https://revelatio.efata.app';
-    const cardState = { text: '', ref: '', version: '', fondo: 'celestial', tipo: 'lectura' };
+    const cardState = { text: '', ref: '', version: '', fondo: 'noche', tipo: 'lectura' };
     const texturas = {};
     let isotipoImg = null;
     let lockupImg = null;
@@ -284,7 +284,7 @@
     }
 
     function estado() {
-        return window.__revelatioLibroActivo || { n: 'Romanos', c: 16, cap: 12, testamento: 'nt' };
+        return window.__revelatioLibroActivo || { n: '', c: 0, cap: 1, testamento: 'nt' };
     }
 
     function versionActiva() {
@@ -309,6 +309,16 @@
             <button type="button" data-crumb="${libro.testamento}" class="rv-crumb-link">${tes}</button>
             <span class="rv-crumb-sep" aria-hidden="true">›</span>
             <span class="rv-crumb-here">${escapeHtml(libro.n)} ${libro.cap}${libro.verso ? `:${libro.verso}` : ''}</span>`;
+        try { syncBuscadorPlaceholder(libro); } catch { /* ignore */ }
+    }
+
+    function syncBuscadorPlaceholder(libro) {
+        const el = document.getElementById('buscador-canon');
+        if (!el) return;
+        const here = libro?.n
+            ? `${libro.n} ${libro.cap}${libro.verso ? `:${libro.verso}` : ''}`
+            : '';
+        el.placeholder = here || 'Ir a libro, capítulo o versículo';
     }
 
     async function tokenAuth() {
@@ -344,7 +354,7 @@
         base.versiones = { ...(base.versiones || {}) };
         base.versionesVersos = { ...(base.versionesVersos || {}) };
         base.versionesLista = Array.isArray(base.versionesLista) ? [...base.versionesLista] : [];
-        for (const key of ['rv1960', 'tla', 'dhh', 'septuaginta']) {
+        for (const key of ['rv1960', 'nvi', 'tla', 'dhh', 'septuaginta']) {
             const pack = await cargarPackLocal(key);
             const versos = versosDePackLocal(pack, libro);
             if (!versos.length) continue;
@@ -422,32 +432,63 @@
         const tieneVersos = Object.values(data?.versionesVersos || {}).some(
             (a) => Array.isArray(a) && normalizarVersos(a).length > 0
         );
-        if (!tieneVersos) {
+        const tienePedida = normalizarVersos(data?.versionesVersos?.[claveMotor(version)]).length > 0;
+        if (!tieneVersos || !tienePedida) {
             try {
                 const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-        const timer = ctrl ? setTimeout(() => ctrl.abort(), 25000) : null;
-                const res = await fetch('/api/pasaje', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                    body: JSON.stringify({ referencia }),
-                    signal: ctrl?.signal
-                });
+                const timer = ctrl ? setTimeout(() => ctrl.abort(), 25000) : null;
+                const book = loc?.n || '';
+                const chapter = loc?.cap || '';
+                const bibleUrl = book && chapter
+                    ? `/api/bible?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&version=${encodeURIComponent(version)}`
+                    : '/api/pasaje';
+                const res = bibleUrl === '/api/pasaje'
+                    ? await fetch('/api/pasaje', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                        body: JSON.stringify({ referencia, version }),
+                        signal: ctrl?.signal
+                    })
+                    : await fetch(bibleUrl, { headers: { Accept: 'application/json' }, signal: ctrl?.signal });
                 if (timer) clearTimeout(timer);
                 if (res.ok) {
                     const json = await res.json();
-                    if (json?.success && json.data) data = json.data;
-                    else if (json?.success && Array.isArray(json.verses) && json.verses.length) {
-                        const key = claveMotor(version);
+                    const packKey = json?.metadata?.packKey || claveMotor(json?.version || version);
+                    const asked = claveMotor(version);
+                    const apiIsAsked = packKey === asked
+                        || claveMotor(json?.version) === asked
+                        || /dhh|tla|nvi|1960|dios habla|lenguaje actual/i.test(String(json?.version || ''));
+                    const swapRvr = asked !== 'rv1960' && asked !== 'septuaginta'
+                        && /reina-valera|rv1960|rvr1960|1909/i.test(String(json?.version || ''))
+                        && packKey === 'rv1960';
+                    if (json?.data && !swapRvr) {
+                        data = {
+                            ...(data || {}),
+                            ...json.data,
+                            versiones: { ...(data?.versiones || {}), ...(json.data.versiones || {}) },
+                            versionesVersos: { ...(data?.versionesVersos || {}), ...(json.data.versionesVersos || {}) },
+                            original: data?.original || json.data.original || null,
+                            note: json.note || json.data.note || data?.note,
+                        };
+                    } else if (json?.success && Array.isArray(json.verses) && json.verses.length && apiIsAsked && !swapRvr) {
+                        const key = asked;
                         const versos = json.verses.map((v) => ({
                             n: Number(v.verse || v.n || v.number),
                             texto: String(v.text || v.texto || '').trim(),
+                            textoEs: v.textoEs || v.textEs || undefined,
                         })).filter((v) => v.n > 0 && v.texto);
                         data = {
                             referencia: `${json.book || loc?.n} ${json.chapter || loc?.cap}`,
-                            versiones: { [key]: versos.map((v) => `${v.n} ${v.texto}`).join(' ') },
-                            versionesVersos: { [key]: versos },
+                            versiones: { ...(data?.versiones || {}), [key]: versos.map((v) => `${v.n} ${v.texto}`).join(' ') },
+                            versionesVersos: { ...(data?.versionesVersos || {}), [key]: versos },
                             versionesLista: [{ key, etiqueta: json.version, licencia: 'remote' }],
-                            original: null,
+                            original: data?.original || null,
+                            note: json.note || null,
+                        };
+                    } else if (json?.note || json?.error) {
+                        data = {
+                            ...(data || { versiones: {}, versionesVersos: {}, versionesLista: [], original: null }),
+                            note: json.note || json.error,
                         };
                     }
                 }
@@ -478,6 +519,9 @@
             return 'rv1960';
         }
         if (v === 'nvi' || v === 'dhh' || v === 'tla' || v === 'rv1960') return v;
+        if (v === 'dioshablahoy') return 'dhh';
+        if (v === 'traduccionenlenguajeactual' || v === 'lenguajeactual') return 'tla';
+        if (v === 'nuevaversioninternacional') return 'nvi';
         return v || 'rv1960';
     }
 
@@ -570,20 +614,26 @@
         return t.trim();
     }
 
-    function versosHtml(versos, libro) {
+    function tieneAlineacionToken(version) {
+        const key = claveMotor(version);
+        return key === 'rv1960';
+    }
+
+    function versosHtml(versos, libro, version) {
+        const aligned = tieneAlineacionToken(version);
         return (versos || []).map(v => {
             const n = v.n || v.verse || v.verso || v.versiculo || 1;
             const body = textoVersoLimpio(v.texto || v.text || '', n);
             const ref = `${libro.n} ${libro.cap}:${n}`;
-            const inner = Array.isArray(v.tokens) && v.tokens.length
+            const inner = aligned && Array.isArray(v.tokens) && v.tokens.length
                 ? tokensHtml(v.tokens, n, libro)
                 : escapeHtml(body);
             const es = String(v.textoEs || v.textEs || '').trim();
             const esBlock = es
                 ? `<span class="rv-lxx-es">${escapeHtml(es)}</span>`
                 : '';
-            const strong = strongsHtml(n, v.tokens);
-            return `<p class="rv-verse-surface" data-verse data-versiculo="${n}" data-reference="${escapeHtml(ref)}" tabindex="0" role="button" aria-label="Versículo ${n}">
+            const strong = aligned ? strongsHtml(n, v.tokens) : '';
+            return `<p class="rv-verse-surface${aligned ? ' is-aligned' : ''}" data-verse data-versiculo="${n}" data-reference="${escapeHtml(ref)}" tabindex="0" role="button" aria-label="Versículo ${n}">
                 <span class="rv-verse-text"><sup class="rv-verse-num">${n}</sup>${inner}</span>
                 ${esBlock}
                 ${strong}
@@ -627,12 +677,12 @@
         })));
     }
 
-    function textoComoVersos(texto, libro) {
+    function textoComoVersos(texto, libro, version) {
         const partidos = partirVersos(texto).filter((v) => !esTextoPlaceholder(v.texto));
-        if (partidos.length > 1) return versosHtml(partidos, libro);
+        if (partidos.length > 1) return versosHtml(partidos, libro, version);
         const unico = partidos[0]?.texto || String(texto || '').trim();
         if (!unico || esTextoPlaceholder(unico)) return '';
-        return versosHtml([{ n: 1, texto: unico }], libro);
+        return versosHtml([{ n: 1, texto: unico }], libro, version);
     }
 
     function elegirVersosPasaje(libro, version, passage) {
@@ -672,10 +722,10 @@
                 const notaEs = hayEs
                     ? `<p class="rv-lectura-note text-[13px] leading-relaxed text-[#0F172A]/85 mb-4 border-l-2 border-[#C59B27] pl-3">Septuaginta (Rahlfs): griego LXX completo y traducción al español de este griego, no de la Reina-Valera ni del texto masorético.</p>`
                     : `<p class="rv-lectura-note text-[13px] leading-relaxed text-[#0F172A]/85 mb-4 border-l-2 border-[#C59B27] pl-3">Septuaginta (Rahlfs): capítulo griego completo. La traducción al español se está completando…</p>`;
-                return `${notaEs}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(lxxVersos, libro)}</div>`;
+                return `${notaEs}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(lxxVersos, libro, 'septuaginta')}</div>`;
             }
             if (lxxTexto && !esTextoPlaceholder(lxxTexto)) {
-                return `<div class="rv-lectura-cuerpo text-[#0F172A]">${textoComoVersos(lxxTexto, libro)}</div>`;
+                return `<div class="rv-lectura-cuerpo text-[#0F172A]">${textoComoVersos(lxxTexto, libro, 'septuaginta')}</div>`;
             }
             if (resolvedOT) {
                 // AT + LXX: válido; si no hay griego aún, caer a RVR/otras sin aviso de NT.
@@ -686,20 +736,27 @@
 
         const pick = elegirVersosPasaje(libro, version, passage);
         if (pick.versos.length) {
-            return `${lxxNtNotice}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(pick.versos, libro)}</div>`;
+            return `${lxxNtNotice}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(pick.versos, libro, version)}</div>`;
         }
 
-        const orig = originalComoVersos(passage);
-        if (orig.length) {
-            return `${lxxNtNotice}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(orig, libro)}</div>`;
+        const asked = claveMotor(version);
+        if (asked === 'septuaginta') {
+            const orig = originalComoVersos(passage);
+            if (orig.length) {
+                return `${lxxNtNotice}<div class="rv-lectura-cuerpo text-[#0F172A]">${versosHtml(orig, libro, 'septuaginta')}</div>`;
+            }
         }
 
         if (lxxNtNotice) return lxxNtNotice;
 
+        const etiqueta = etiquetaVersion(version, passage);
+        const notaVacio = passage?.note
+            || `Pack local y Bolls vacíos para ${etiqueta}. No se sustituye por Reina-Valera.`;
         return `
+            <p class="rv-lectura-note text-[13px] leading-relaxed text-[#0F172A]/85 mb-4 border-l-2 border-[#C59B27] pl-3">${escapeHtml(notaVacio)}</p>
             <p class="rv-lectura-muted text-[14px] leading-relaxed text-[#0F172A]">
-                No se pudo obtener el texto de <strong>${escapeHtml(libro.n)} ${libro.cap}</strong>
-                en ${escapeHtml(etiquetaVersion(version, passage))}.
+                No hay texto de <strong>${escapeHtml(libro.n)} ${libro.cap}</strong>
+                en ${escapeHtml(etiqueta)}.
             </p>
             <button type="button" class="rv-sp-retry mt-3" data-rv-retry-pasaje="${escapeHtml(libro.n)} ${libro.cap}">Actualizar texto</button>`;
     }
@@ -1163,7 +1220,7 @@
         });
 
         const dest = destinoDesdeQuery();
-        abrirLibro(dest.libro || 'Romanos', dest.cap || 1, dest.verso);
+        if (dest.libro) abrirLibro(dest.libro, dest.cap || 1, dest.verso);
 
         const btnCanon = document.getElementById('btn-canon');
         const panelCanon = document.getElementById('panel-canon');
@@ -1250,20 +1307,42 @@
     }
 
     function paletaFondo(fondo) {
-        /* Marca editorial: Luz Celestial / Azul Imperial / Oro Sacro */
-        if (fondo === 'celestial' || fondo === 'brand' || !fondo) {
+        const k = String(fondo || '').toLowerCase();
+        if (k === 'noche' || k === 'midnight' || k === 'obsidian' || k === 'obsidiana' || k === 'jerusalem') {
+            const dark = k === 'obsidian' || k === 'obsidiana';
             return {
-                verse: '#0A192F',
-                ref: '#C59B27',
-                url: '#64748B',
-                veil: 'transparent',
+                verse: '#F8FAFC',
+                ref: '#DFB743',
+                url: 'rgba(248, 250, 252, 0.72)',
+                veil: dark ? 'rgba(9, 9, 11, 0.35)' : 'rgba(7, 16, 30, 0.25)',
                 frame: 'rgba(197, 155, 39, 0.55)',
-                celestial: true,
+                bgTop: dark ? '#18181B' : '#0A192F',
+                bgBottom: dark ? '#09090B' : '#07101E',
+                dark: true,
             };
         }
-        if (fondo === 'papiro') return { verse: '#2A1C0E', ref: '#C59B27', url: '#5C4A32', veil: 'rgba(250, 241, 220, 0.18)', frame: 'rgba(122, 90, 30, 0.7)' };
-        if (fondo === 'jerusalem') return { verse: '#F7F1E1', ref: '#C59B27', url: 'rgba(241, 226, 160, 0.8)', veil: 'rgba(9, 10, 15, 0.42)', frame: 'rgba(197, 160, 89, 0.7)' };
-        return { verse: '#0A192F', ref: '#C59B27', url: '#64748B', veil: 'transparent', frame: 'rgba(197, 155, 39, 0.55)', celestial: true };
+        if (k === 'pergamino' || k === 'papiro' || k === 'marmol' || k === 'celestial' || k === 'brand') {
+            return {
+                verse: '#2C3E4A',
+                ref: '#855D10',
+                url: '#5C4A32',
+                veil: 'transparent',
+                frame: 'rgba(122, 90, 30, 0.55)',
+                bgTop: '#F9F4E8',
+                bgBottom: '#E8DFC8',
+                dark: false,
+            };
+        }
+        return {
+            verse: '#F8FAFC',
+            ref: '#DFB743',
+            url: 'rgba(248, 250, 252, 0.72)',
+            veil: 'rgba(7, 16, 30, 0.25)',
+            frame: 'rgba(197, 155, 39, 0.55)',
+            bgTop: '#0A192F',
+            bgBottom: '#07101E',
+            dark: true,
+        };
     }
 
     function tipoCard(tipo, paleta) {
@@ -1276,12 +1355,10 @@
         const canvas = document.getElementById('canvas-efata-card');
         if (!canvas) return;
 
-        const fondoKey = (cardState.fondo === 'papiro' || cardState.fondo === 'jerusalem' || cardState.fondo === 'marmol')
-            ? cardState.fondo
-            : 'celestial';
-        const bgImg = (fondoKey !== 'celestial' && texturas[fondoKey])
-            ? texturas[fondoKey]
-            : (texturas.jerusalem || texturas.marmol || null);
+        const paleta = paletaFondo(cardState.fondo);
+        const fondoKey = String(cardState.fondo || 'noche').toLowerCase();
+        const usaFoto = fondoKey === 'papiro' || fondoKey === 'jerusalem' || fondoKey === 'marmol';
+        const bgImg = (usaFoto && texturas[fondoKey]) ? texturas[fondoKey] : null;
         const logoImg = palabraImg || lockupImg || null;
         const draw = window.RV?.drawVerseCard || window.drawVerseCard;
 
@@ -1293,17 +1370,25 @@
                 tipo: cardState.tipo || 'lectura',
                 logoImg,
                 bgImg,
+                fondo: fondoKey,
+                verseColor: paleta.verse,
+                refColor: paleta.ref,
+                bgTop: paleta.bgTop,
+                bgBottom: paleta.bgBottom,
+                dark: paleta.dark,
             });
             return;
         }
 
-        // Fallback mínimo si verse-actions no cargó
         const ctx = canvas.getContext('2d');
         const w = canvas.width;
         const h = canvas.height;
-        ctx.fillStyle = '#07101E';
+        const grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, paleta.bgTop);
+        grad.addColorStop(1, paleta.bgBottom);
+        ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = '#FFFFFF';
+        ctx.fillStyle = paleta.verse;
         ctx.font = '500 36px Georgia, serif';
         ctx.textAlign = 'center';
         ctx.fillText(cardState.ref || 'Éfata RevelatiO', w / 2, h / 2);
@@ -1430,6 +1515,7 @@
             if (navigator.share) navigator.share({ title: cardState.ref, text: caption }).catch(() => navigator.clipboard?.writeText(caption));
             else navigator.clipboard?.writeText(caption);
         });
+        window.pintarEfataCard = pintarEfataCard;
     }
 
     function uid() {
@@ -1983,11 +2069,7 @@ function descargarBackup(kind) {
 
     function numerosDelPasaje(passage, version) {
         const key = claveMotor(version || versionActiva());
-        const lista = passage?.versionesVersos?.[key]
-            || passage?.versionesVersos?.rv1960
-            || passage?.versionesVersos?.tla
-            || passage?.versionesVersos?.dhh
-            || [];
+        const lista = passage?.versionesVersos?.[key] || [];
         const nums = lista.map(v => Number(v.n || v.verse || v.verso || v.versiculo)).filter(n => n > 0);
         return [...new Set(nums)].sort((a, b) => a - b);
     }
@@ -3054,19 +3136,19 @@ function descargarBackup(kind) {
                 cuaderno: ir === 'cuaderno',
             };
         }
-        if (ir === 'canon') return { libro: libro || estado()?.n || 'Romanos', cap: cap || estado()?.cap || 1, canon: true };
-        if (ir === 'cuaderno') return { libro: libro || estado()?.n || 'Romanos', cap: cap || estado()?.cap || 1, cuaderno: true };
+        if (ir === 'canon') return { libro: libro || estado()?.n || '', cap: cap || estado()?.cap || 1, canon: true };
+        if (ir === 'cuaderno') return { libro: libro || estado()?.n || '', cap: cap || estado()?.cap || 1, cuaderno: true };
         if (ir === 'estudio' || ir === 'estudio-mes' || ir === 'santuario') {
-            return { libro: estado()?.n || 'Romanos', cap: estado()?.cap || 1 };
+            return { libro: estado()?.n || '', cap: estado()?.cap || 1 };
         }
         if (ir === 'devocional') return { ...devoDestino };
         if (libro) return { libro, cap: cap || 1, verso };
-        return { libro: estado()?.n || 'Romanos', cap: estado()?.cap || 12 };
+        return { libro: estado()?.n || '', cap: estado()?.cap || 1, verso: estado()?.verso || null };
     }
 
     function urlLectura(opts = {}) {
         const ir = opts.canon ? 'canon' : opts.cuaderno ? 'cuaderno' : opts.ir || '';
-        const libro = encodeURIComponent(opts.libro || estado()?.n || 'Romanos');
+        const libro = encodeURIComponent(opts.libro || estado()?.n || '');
         const capNum = Number(opts.cap);
         const cap = Number.isFinite(capNum) && capNum > 0 ? capNum : 1;
         const verso = opts.verso ? `/${Number(opts.verso)}` : '';

@@ -425,27 +425,33 @@
 
     ctx.clearRect(0, 0, w, h);
 
-    // 1) Fondo fotográfico o noche sólida
-    if (bgImg && bgImg.complete && bgImg.naturalWidth) {
+    const dark = options.dark !== false && options.fondo !== 'pergamino' && options.fondo !== 'papiro';
+    const verseColor = options.verseColor || (dark ? '#F8FAFC' : '#2C3E4A');
+    const refColor = options.refColor || (dark ? '#DFB743' : '#855D10');
+    const bgTop = options.bgTop || (dark ? '#0A192F' : '#F9F4E8');
+    const bgBottom = options.bgBottom || (dark ? '#07101E' : '#E8DFC8');
+
+    if (bgImg && bgImg.complete && bgImg.naturalWidth && dark) {
       const scale = Math.max(w / bgImg.width, h / bgImg.height);
       const dw = bgImg.width * scale;
       const dh = bgImg.height * scale;
       ctx.drawImage(bgImg, (w - dw) / 2, (h - dh) / 2, dw, dh);
     } else {
       const night = ctx.createLinearGradient(0, 0, 0, h);
-      night.addColorStop(0, "#0A192F");
-      night.addColorStop(1, "#07101E");
+      night.addColorStop(0, bgTop);
+      night.addColorStop(1, bgBottom);
       ctx.fillStyle = night;
       ctx.fillRect(0, 0, w, h);
     }
 
-    // 2) Overlay degradado de alto contraste (Azul Noche profundo)
-    const scrim = ctx.createLinearGradient(0, 0, 0, h);
-    scrim.addColorStop(0, "rgba(7, 16, 30, 0.85)");
-    scrim.addColorStop(0.5, "rgba(7, 16, 30, 0.70)");
-    scrim.addColorStop(1, "rgba(7, 16, 30, 0.90)");
-    ctx.fillStyle = scrim;
-    ctx.fillRect(0, 0, w, h);
+    if (dark) {
+      const scrim = ctx.createLinearGradient(0, 0, 0, h);
+      scrim.addColorStop(0, "rgba(7, 16, 30, 0.85)");
+      scrim.addColorStop(0.5, "rgba(7, 16, 30, 0.70)");
+      scrim.addColorStop(1, "rgba(7, 16, 30, 0.90)");
+      ctx.fillStyle = scrim;
+      ctx.fillRect(0, 0, w, h);
+    }
 
     // 3) Logotipo integrado (sin recuadro cuadrado)
     let brandBottom = h * 0.16;
@@ -504,10 +510,10 @@
 
     lines.forEach((line) => {
       ctx.save();
-      ctx.shadowColor = "rgba(0, 0, 0, 0.85)";
-      ctx.shadowBlur = 12;
-      ctx.shadowOffsetY = 3;
-      ctx.fillStyle = "#FFFFFF";
+      ctx.shadowColor = dark ? "rgba(0, 0, 0, 0.85)" : "rgba(44, 62, 74, 0.08)";
+      ctx.shadowBlur = dark ? 12 : 2;
+      ctx.shadowOffsetY = dark ? 3 : 0;
+      ctx.fillStyle = verseColor;
       ctx.fillText(line, x, y);
       ctx.restore();
       y += leading;
@@ -523,9 +529,9 @@
     ctx.stroke();
 
     ctx.font = fonts.ref;
-    ctx.fillStyle = "#DFB743";
+    ctx.fillStyle = refColor;
     ctx.textAlign = "center";
-    ctx.shadowColor = "rgba(0, 0, 0, 0.45)";
+    ctx.shadowColor = dark ? "rgba(0, 0, 0, 0.45)" : "rgba(44, 62, 74, 0.12)";
     ctx.shadowBlur = 6;
     ctx.fillText((ref || "").toUpperCase(), w / 2, lineY + 42);
     ctx.shadowBlur = 0;

@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   const isGet = req.method === 'GET';
   const body = (req.body && typeof req.body === 'object') ? req.body : (isGet ? req.query || {} : {});
 
-  const passage = body.passage || body.referencia || body.ref || body.consulta || (isGet ? body.q : '') || 'Romanos 12:2';
+  const passage = body.passage || body.referencia || body.ref || body.consulta || (isGet ? body.q : '') || '';
   const subLensId = body.subLensId || body.lensId || body.lente || 'dictamen_maestro';
   const lensTitle = body.lensTitle || body.title || 'Dictamen Maestro Integrado';
   const prompt = body.prompt || body.message || '';

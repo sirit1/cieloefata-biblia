@@ -222,20 +222,21 @@ export function initReader() {
     }
 
     if (!data.success || !data.verses?.length) {
+      const shownVer = data.version || wantVer;
       paintHeader({
         book: wantBook,
         chapter: wantChap,
-        version: wantVer,
+        version: shownVer,
       });
       updateActivePassageState(wantBook, wantChap, 1);
-      const rawErr = String(data.error || '');
+      const rawErr = String(data.note || data.error || '');
       const safeErr = /HTTP\s*Error:\s*404|HTTP\s*404/i.test(rawErr)
-        ? 'No se pudo cargar el capítulo. Revisa la conexión.'
-        : (rawErr || 'Revisa la conexión.');
+        ? `Pack local y Bolls vacíos para ${shownVer}. No se sustituye por Reina-Valera.`
+        : (rawErr || `Pack local y Bolls vacíos para ${shownVer}. No se sustituye por Reina-Valera.`);
       container.innerHTML = `
         <div class="p-6 bg-amber-50 border border-[#E8DFC8] rounded-xl text-center font-serif text-[#0A192F]">
-          <p class="font-bold">No se pudo cargar ${escapeHtml(wantBook)} ${wantChap}.</p>
-          <p class="text-xs text-stone-500 mt-1">${escapeHtml(safeErr)}</p>
+          <p class="font-bold">${escapeHtml(wantBook)} ${wantChap} · ${escapeHtml(String(shownVer))}</p>
+          <p class="text-xs text-stone-600 mt-2 leading-relaxed">${escapeHtml(safeErr)}</p>
         </div>`;
       return;
     }

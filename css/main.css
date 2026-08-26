@@ -3741,11 +3741,15 @@ body.is-aposento .rv-footer {
     display: none !important;
 }
 
-.rv-strong-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .28rem .4rem;
-    margin-top: .4rem;
+.rv-verse-surface:not(.is-aligned) .rv-token-meta,
+.rv-verse-surface:not(.is-aligned) .rv-strong-row,
+.rv-verse-surface:not(.is-aligned) .rv-strong-num {
+    display: none !important;
+}
+
+.rv-verse-surface:not(.is-aligned) .rv-verse-text {
+    display: inline;
+    position: static;
 }
 
 /* Fase 2 · Interlineal inverso (data grid) */
