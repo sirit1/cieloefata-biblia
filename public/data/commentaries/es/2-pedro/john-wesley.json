@@ -1,0 +1,402 @@
+{
+  "book": "2 Pedro",
+  "usfm": "2PE",
+  "authorId": "john-wesley",
+  "disclaimer": "Traducción automática del original inglés (dominio público). No es la edición de CLIE.",
+  "blobs": {
+    "b1": {
+      "en": "II Peter 1:1\n To them that have obtained - Not by their own works, but by the free grace of God. Like precious faith with us - The apostles. The faith of those who have not seen, being equally precious with that of those who saw our Lord in the flesh. Through the righteousness - Both active and passive. Of our God and Saviour - It is this alone by which the justice of God is satisfied, and for the sake of which he gives this precious faith.",
+      "es": "II Pedro 1:1\n A los que han obtenido - No por sus propias obras, sino por la gracia gratuita de Dios. Como fe preciosa con nosotros - Los apóstoles. La fe de los que no han visto, siendo igualmente preciosa que la de los que vieron a nuestro Señor en carne. A través de la justicia - Tanto activa como pasiva. De nuestro Dios y Salvador - Es sólo esto por lo que se satisface la justicia de Dios, y por lo cual él da esta preciosa fe.",
+      "enHash": "4ce099283a0e4dd42e2df4562c0b7419a9f69029e1ae7369ea224cc50e316754",
+      "source": "corpus:john-wesley"
+    },
+    "b2": {
+      "en": "Through the divine, experimental knowledge of God and of Christ.",
+      "es": "A través del conocimiento divino y experimental de Dios y de Cristo.",
+      "enHash": "8ad9582191f6327547523fdb02a3a6b9b99a5831f2a374ed1e83a6aeba3614df",
+      "source": "corpus:john-wesley"
+    },
+    "b3": {
+      "en": "II Peter 1:3\n As his divine power has given us all things - There is a wonderful cheerfulness in this exordium, which begins with the exhortation itself. That pertain to life and godliness - To the present, natural life, and to the continuance and increase of spiritual life. Through that divine knowledge of him - Of Christ. Who hath called us by - His own glorious power, to eternal glory, as the end; by Christian virtue or fortitude, as the means.",
+      "es": "II Pedro 1:3\n Como su divino poder nos ha dado todas las cosas - Hay una maravillosa alegría en este exordio, que comienza con la exhortación misma. Que pertenecen a la vida y la piedad - A la vida natural presente y a la continuidad y aumento de la vida espiritual. A través de ese conocimiento divino de él - De Cristo. Quien nos llamó por - Su propio poder glorioso, a la gloria eterna, como fin; por la virtud o fortaleza cristiana, como medio.",
+      "enHash": "418e4b1be5ee210709f24835f4b7f8b95307db4cb2380098c7f6dbbac4087324",
+      "source": "corpus:john-wesley"
+    },
+    "b4": {
+      "en": "II Peter 1:4\n Through which - Glory and fortitude. He hath given us exceeding great, and inconceivably precious promises - Both the promises and the things promised, which follow in their due season, that, sustained and encouraged by the promises, we may obtain all that he has promised. That, having escaped the manifold corruption which is in the world - From that fruitful fountain, evil desire. Ye may become partakers of the divine nature - Being renewed in the image of God, and having communion with them, so as to dwell in God and God in you.",
+      "es": "II Pedro 1:4\n A través del cual - Gloria y fortaleza. Nos ha dado promesas extremadamente grandes e inconcebiblemente preciosas - Tanto las promesas como las cosas prometidas, que siguen a su debido tiempo, para que, sostenidos y alentados por las promesas, podamos obtener todo lo que él ha prometido. Que, habiendo escapado de la múltiple corrupción que hay en el mundo - De esa fuente fecunda, el mal deseo. Podéis llegar a ser partícipes de la naturaleza divina - Ser renovados a la imagen de Dios y tener comunión con ellos, para morar en Dios y Dios en vosotros.",
+      "enHash": "eb540a5060214b704a69885ee8817c9cd8bcd503a9ef7b7073bb53ba1ede2b4a",
+      "source": "corpus:john-wesley"
+    },
+    "b5": {
+      "en": "II Peter 1:5\n For this very reason - Because God hath given you so great blessings. Giving all diligence - It is a very uncommon word which we render giving. It literally signifies, bringing in by the by, or over and above: implying, that good works the work; yet not unless we are diligent. Our diligence is to follow the gift of God, and is followed by an increase of all his gifts. Add to - And in all the other gifts of God. Superadd the latter, without losing the former. The Greek word properly means lead up, as in dance, one of these after the other, in a beautiful order. Your faith, that \"evidence of things not seen,\" termed before \"the knowledge of God and of Christ,\" the root of all Christian graces. Courage - Whereby ye may conquer all enemies and difficulties, and execute whatever faith dictates. In this most beautiful connexion, each preceding grace leads to the following; each following, tempers and perfects the preceding. They are set down in the order of nature, rather than the order of time. For though every grace bears a relation to every other, yet here they are so nicely ranged, that those which have the closest dependence on each other are placed together. And to your courage knowledge - Wisdom, teaching how to exercise it on all occasions.",
+      "es": "II Pedro 1:5\n Por esta misma razón - Porque Dios les ha dado tantas bendiciones. Dando toda diligencia - Es una palabra muy poco común que traducimos dando. Literalmente significa traer de paso, o más allá: implica que el bien hace el trabajo; pero no a menos que seamos diligentes. Nuestra diligencia es seguir el don de Dios, y es seguida por un aumento de todos sus dones. Agregar a - Y en todos los demás dones de Dios. Superagrega este último, sin perder el primero. La palabra griega propiamente significa conducir, como en la danza, uno tras otro, en un hermoso orden. Vuestra fe, esa \"evidencia de lo que no se ve\", denominada antes \"el conocimiento de Dios y de Cristo\", raíz de todas las gracias cristianas. Coraje: mediante el cual podréis conquistar todos los enemigos y dificultades, y ejecutar lo que la fe dicte. En esta conexión tan hermosa, cada gracia anterior conduce a la siguiente; cada siguiente, templa y perfecciona al anterior. Están establecidos en el orden de la naturaleza, más que en el orden del tiempo. Porque aunque cada gracia tiene una relación entre sí, aquí están tan bien ordenadas, que aquellas que tienen la más estrecha dependencia entre sí se colocan juntas. Y a tu valentía el conocimiento - la Sabiduría, enseñándote a ejercitarla en todas las ocasiones.",
+      "enHash": "30278a4ff78b295faf188623b9af0aa463c97206a3861a521d8ae3c77a0d0b81",
+      "source": "corpus:john-wesley"
+    },
+    "b6": {
+      "en": "II Peter 1:6\n And to your knowledge temperance; and to your temperance patience - Bear and forbear; sustain and abstain; deny yourself and take up your cross daily. The more knowledge you have, the more renounce your own will; indulge yourself the less. \"Knowledge puffeth up,\" and the great boasters of knowledge (the Gnostics) were those that \"turned the grace of God into wantonness.\" But see that your knowledge be attended with temperance. Christian temperance implies the voluntary abstaining from all pleasure which does not lead to God. It extends to all things inward and outward: the due government of every thought, as well as affection. \"It is using the world,\" so to use all outward, and so to restrain all inward things, that they may become a means of what is spiritual; a scaling ladder to ascend to what is above. Intemperance is to abuse the world. He that uses anything below, looking no higher, and getting no farther, is intemperate. He that uses the creature only so as to attain to more of the Creator, is alone temperate, and walks as Christ himself walked. And to patience godliness - Its proper support: a continual sense of God's presence and providence, and a filial fear of, and confidence in, him; otherwise your patience may be pride, surliness, stoicism; but not Christianity.",
+      "es": "II Pedro 1:6\n Y a vuestro conocimiento la templanza; y a tu templanza paciencia - Soporta y abstente; sostener y abstenerse; Niégate a ti mismo y toma tu cruz cada día. Cuanto más conocimiento tengas, más renunciarás a tu propia voluntad; complacerte menos. \"El conocimiento envanece\", y los grandes jactanciosos del conocimiento (los gnósticos) fueron aquellos que \"convirtieron la gracia de Dios en desenfreno\". Pero procura que tu conocimiento esté acompañado de templanza. La templanza cristiana implica la abstención voluntaria de todo placer que no conduzca a Dios. Se extiende a todas las cosas internas y externas: el debido gobierno de cada pensamiento, así como el afecto. \"Es usar el mundo\", para usar todo lo externo y para restringir todas las cosas internas, para que puedan convertirse en un medio de lo espiritual; una escalera para ascender a lo que está arriba. La intemperancia es abusar del mundo. El que usa cualquier cosa de abajo, sin mirar más arriba y sin llegar más lejos, es un intemperante. El que usa la criatura sólo para alcanzar más del Creador, es el único templado y camina como Cristo mismo caminó. Y a la paciencia, la piedad - Su apoyo adecuado: un sentido continuo de la presencia y la providencia de Dios, y un temor filial y confianza en él; de lo contrario, tu paciencia puede convertirse en orgullo, mal humor, estoicismo; pero no el cristianismo.",
+      "enHash": "8e5d438ad6694015808c256874e83c4e5e964f883526bd7bcac58cba98595ea1",
+      "source": "corpus:john-wesley"
+    },
+    "b7": {
+      "en": "II Peter 1:7\n And to godliness brotherly kindness - No sullenness, sternness, moroseness: \"sour godliness,\" so called, is of the devil. Of Christian godliness it may always be said, \"Mild, sweet, serene, and tender is her mood, Nor grave with sternness, nor with lightness free: Against example resolutely good, Fervent in zeal, and warm in charity.\" And to brotherly kindness love - The pure and perfect love of God and of all mankind. The apostle here makes an advance upon the preceding article, brotherly kindness, which seems only to relate to the love of Christians toward one another.",
+      "es": "II Pedro 1:7\n Y a la piedad, bondad fraternal - Sin mal humor, severidad, mal humor: la \"piedad amarga\", así llamada, es del diablo. De la piedad cristiana siempre se puede decir: \"Su estado de ánimo es suave, dulce, sereno y tierno, ni grave con severidad, ni libre con ligereza: contra el ejemplo resueltamente bueno, ferviente en celo y cálida en caridad\". Y al amor fraternal - El amor puro y perfecto de Dios y de toda la humanidad. El apóstol aquí hace un avance sobre el artículo anterior, la bondad fraternal, que parece relacionarse únicamente con el amor de los cristianos unos hacia otros.",
+      "enHash": "496f63d88788ffa4738d173c27cea84872f5891eceacfe8f89d011db4fc9309b",
+      "source": "corpus:john-wesley"
+    },
+    "b8": {
+      "en": "II Peter 1:8\n For these being really in you - Added to your faith. And abounding - Increasing more and more, otherwise we fall short. Make you neither slothful nor unfruitful - Do not suffer you to be faint in your mind, or without fruit in your lives. If there is less faithfulness, less care and watchfulness, since we were pardoned, than there was before, and less diligence, less outward obedience, than when we were seeking remission of sin, we are both slothful and unfruitful in the knowledge of Christ, that is, in the faith, which then cannot work by love.",
+      "es": "II Pedro 1:8\n Por estar estos realmente en ti - Sumado a tu fe. Y en abundancia - Aumentando cada vez más, de lo contrario nos quedaremos cortos. No os hagáis perezosos ni infructuosos - No permitáis que seáis débiles de mente o sin fruto en vuestras vidas. Si hay menos fidelidad, menos cuidado y vigilancia, desde que fuimos perdonados, que antes, y menos diligencia, menos obediencia exterior, que cuando buscábamos la remisión del pecado, somos perezosos e infructuosos en el conocimiento de Cristo, es decir, en la fe, que entonces no puede obrar por amor.",
+      "enHash": "40931d08e956eb085d2230e29ee4b1271477d151fc4df351971e125b18f468eb",
+      "source": "corpus:john-wesley"
+    },
+    "b9": {
+      "en": "II Peter 1:9\n But he that wanteth these - That does not add them to his faith. Is blind - The eyes of his understanding are again closed. He cannot see God, or his pardoning love. He has lost the evidence of things not seen. Not able to see afar off - Literally, purblind. He has lost sight of the precious promises: perfect love and heaven are equally out of his sight. Nay, he cannot now see what himself once enjoyed. Having, as it were, forgot the purification from his former sins - Scarce knowing what he himself then felt, when his sins were forgiven.",
+      "es": "II Pedro 1:9\n Pero el que los quiere - Eso no los agrega a su fe. Está ciego - Los ojos de su entendimiento vuelven a estar cerrados. No puede ver a Dios ni su amor perdonador. Ha perdido la evidencia de las cosas que no se ven. No puedo ver de lejos - Literalmente, ciego. Ha perdido de vista las preciosas promesas: el amor perfecto y el cielo están igualmente fuera de su vista. Es más, ahora no puede ver lo que antes disfrutaba. Habiendo, por así decirlo, olvidado la purificación de sus pecados anteriores, sin saber lo que él mismo sintió entonces, cuando sus pecados fueron perdonados.",
+      "enHash": "14f7e9e85705b4677a3c7586e21338eb906eed6acb719509e4461ebca11aa6b5",
+      "source": "corpus:john-wesley"
+    },
+    "b10": {
+      "en": "II Peter 1:10\n Wherefore - Considering the miserable state of these apostates. Brethren - St. Peter nowhere uses this appellation in either of his epistles, but in this important exhortation. Be the more diligent - By courage, knowledge, temperance, &c. To make your calling and election firm - God hath called you by his word and his Spirit; he hath elected you, separated you from the world, through sanctification of the Spirit. O cast not away these inestimable benefits! If ye are thus diligent to make your election firm, ye shall never finally fall.",
+      "es": "II Pedro 1:10\n Por lo tanto - Considerando el miserable estado de estos apóstatas. Hermanos: San Pedro no usa esta denominación en ninguna de sus epístolas, excepto en esta importante exhortación. Sea más diligente - Con coraje, conocimiento, templanza, etc. Para hacer firme tu llamado y elección - Dios te ha llamado por su palabra y su Espíritu; él os eligió, os separó del mundo, mediante la santificación del Espíritu. ¡Oh, no desechéis estos inestimables beneficios! Si sois tan diligentes para hacer firme vuestra elección, nunca caeréis finalmente.",
+      "enHash": "7ba19cd0d9e0d8178a2f8e24939706e572f9b44be6c124f46a77f726c9e9933f",
+      "source": "corpus:john-wesley"
+    },
+    "b11": {
+      "en": "II Peter 1:11\n For if ye do so, an entrance shall be ministered to you abundantly into the everlasting kingdom - Ye shall go in full triumph to glory.",
+      "es": "II Pedro 1:11\n Porque si lo hacéis, se os proporcionará abundante entrada al reino eterno: iréis en pleno triunfo a la gloria.",
+      "enHash": "338175a61de4cc36893e6023b48af5a9c4018c1b98cf4d773dbc34b957d5e518",
+      "source": "corpus:john-wesley"
+    },
+    "b12": {
+      "en": "II Peter 1:12\n Wherefore - Since everlasting destruction attends your sloth, everlasting glory your diligence, I will not neglect always to remind you of these things - Therefore he wrote another, so soon after the former, epistle. Though ye are established in the present truth - That truth which I am now declaring.",
+      "es": "II Pedro 1:12\n Por lo tanto, ya que la destrucción eterna acompaña a vuestra pereza, la gloria eterna a vuestra diligencia, no dejaré de recordaros siempre estas cosas. Por eso escribió otra epístola, poco después de la anterior. Aunque estéis establecidos en la verdad presente - Esa verdad que ahora estoy declarando.",
+      "enHash": "812cda8b367b18ba7048850440a31147bd17a6e06965552c19b97b7d9bd34e60",
+      "source": "corpus:john-wesley"
+    },
+    "b13": {
+      "en": "In this tabernacle — Or tent. How short is our abode in the body! How easily does a believer pass out of it!",
+      "es": "En este tabernáculo O tienda. ¡Cuán corta es nuestra morada en el cuerpo! ¡Cuán fácilmente un creyente sale de ella!",
+      "enHash": "36bd9fe14dea1bbbb14cb6c9c4178ff93136b9294a6667c01c63617942701b59",
+      "source": "corpus:john-wesley"
+    },
+    "b14": {
+      "en": "Even as the Lord Jesus showed me — In the manner which had foretold, John 21:18 , etc. It is not improbable, he had also showed him that the time was now drawing nigh.",
+      "es": "Así como el Señor Jesús me mostró ] De la manera que había predicho, Juan 21:18 , etc. No es improbable, también le había mostrado que el tiempo se acercaba.",
+      "enHash": "9b690c8381832b4602c80e597e35e8b773e0ab260710b623b5d5adeeea023668",
+      "source": "corpus:john-wesley"
+    },
+    "b15": {
+      "en": "That ye may be able — By having this epistle among you.",
+      "es": "Para que podáis teniendo esta epístola entre vosotros.",
+      "enHash": "ca309515182ff0c9bac1402e6558b68305bde331940f82bb255eb575eea1067c",
+      "source": "corpus:john-wesley"
+    },
+    "b16": {
+      "en": "II Peter 1:16\n These things are worthy to be always had in remembrance For they are not cunningly devised fables - Like those common among the heathens. While we made known to you the power and coming - That is, the powerful coming of Christ in glory. But if what they advanced of Christ was not true, if it was of their own invention, then to impose such a lie on the world as it was, in the very nature of things, above all human power to defend, and to do this at the expense of life and all things only to enrage the whole world, Jews and gentiles, against them, was no cunning, but was the greatest folly that men could have been guilty of. But were eyewitnesses of his majesty - At his transfiguration, which was a specimen of his glory at the last day.",
+      "es": "II Pedro 1:16\n Estas cosas son dignas de ser recordadas siempre porque no son fábulas ingeniosamente ideadas, como las comunes entre los paganos. Mientras les dimos a conocer el poder y la venida - Es decir, la poderosa venida de Cristo en gloria. Pero si lo que afirmaban acerca de Cristo no era cierto, si era de su propia invención, entonces imponer tal mentira al mundo tal como era, por la naturaleza misma de las cosas, por encima de todo poder humano para defenderse, y hacerlo a expensas de la vida y de todas las cosas sólo para enfurecer al mundo entero, judíos y gentiles, contra ellos, no era ninguna astucia, sino la mayor locura de la que los hombres podrían haber sido culpables. Pero fueron testigos presenciales de su majestad - En su transfiguración, que fue una muestra de su gloria en el último día.",
+      "enHash": "47c9f551ebe96c590e0228b9b6a5b8f03129a6a2435e4aa6e5a2675ce1f17b62",
+      "source": "corpus:john-wesley"
+    },
+    "b17": {
+      "en": "II Peter 1:17\n For he received divine honour and inexpressible glory - Shining from heaven above the brightness of the sun. When there came such a voice from the excellent glory - That is, from God the Father. Matt 17:5 .",
+      "es": "II Pedro 1:17\n Porque recibió honor divino y gloria inexpresable - Brillando desde el cielo por encima del brillo del sol. Cuando vino tal voz de la excelente gloria - Es decir, de Dios Padre. Mateo 17:5 .",
+      "enHash": "912c014d7b4dd93d0824839e5aaed1a716533056554ba5e3fc25669ab8bbd9e8",
+      "source": "corpus:john-wesley"
+    },
+    "b18": {
+      "en": "II Peter 1:18\n And we - Peter, James, and John. St. John was still alive. Being with him in the holy mount - Made so by that glorious manifestation, as mount Horeb was of old, Exod 3:4 ,5.",
+      "es": "II Pedro 1:18\n Y nosotros: Pedro, Santiago y Juan. San Juan todavía estaba vivo. Estar con él en el monte santo - Hecho así por esa gloriosa manifestación, como lo era el monte Horeb en la antigüedad, Éxodo 3:4,5.",
+      "enHash": "5c8e73ecf6453dc710610e0c7f5a00173cea705fb5f287e5a8927d1102912a30",
+      "source": "corpus:john-wesley"
+    },
+    "b19": {
+      "en": "II Peter 1:19\n And we - St. Peter here speaks in the name of all Christians. Have the word of prophecy - The words of Moses, Isaiah, and all the prophets, are one and the same word, every way consistent with itself. St. Peter does not cite any particular passage, but speaks of their entire testimony. More confirmed - By that display of his glorious majesty. To which word ye do well that ye take heed, as to a lamp which shone in a dark place - Wherein there was neither light nor window. Such anciently was the whole world, except that little spot where this lamp shone. Till the day should dawn - Till the full light of the gospel should break through the darkness. As is the difference between the light of a lamp and that of the day, such is that between the light of the Old Testament and of the New. And the morning star - Jesus Christ, Rev 22:16 . Arise in your hearts - Be revealed in you.",
+      "es": "II Pedro 1:19\n Y nosotros - San Pedro aquí habla en nombre de todos los cristianos. Tenga la palabra profética - Las palabras de Moisés, Isaías y todos los profetas son una y la misma palabra, coherente en todos los sentidos consigo misma. San Pedro no cita ningún pasaje en particular, pero habla de todo su testimonio. Más confirmado - Por esa muestra de su gloriosa majestad. A esta palabra hacéis bien en prestar atención, como a una lámpara que brilla en un lugar oscuro, donde no había luz ni ventana. Así de antiguo era el mundo entero, excepto aquel pequeño lugar donde brillaba esta lámpara. Hasta que amanezca el día - Hasta que la luz plena del evangelio atraviese la oscuridad. Como es la diferencia entre la luz de una lámpara y la del día, tal es la diferencia entre la luz del Antiguo Testamento y la del Nuevo. Y la estrella de la mañana - Jesucristo, Apocalipsis 22:16 . Levántense en sus corazones - Sea revelado en ustedes.",
+      "enHash": "7abfa69b1a9e655753ce8c10f89fdf17418e5e14ef4402ca0b1a62aa86e5ca46",
+      "source": "corpus:john-wesley"
+    },
+    "b20": {
+      "en": "II Peter 1:20\n Ye do well, as knowing this, that no scripture prophecy is of private interpretation - It is not any man's own word. It is God, not the prophet himself, who thereby interprets things till then unknown.",
+      "es": "II Pedro 1:20\n Hacéis bien en saber esto, que ninguna profecía de las Escrituras es de interpretación privada; no es palabra de ningún hombre. Es Dios, no el profeta mismo, quien interpreta así cosas hasta entonces desconocidas.",
+      "enHash": "3caa49afe703763c164d43ade3603a19796f6f4dca9707ace6c2a0933dc44818",
+      "source": "corpus:john-wesley"
+    },
+    "b21": {
+      "en": "II Peter 1:21\n For prophecy came not of old by the will of man - Of any mere man whatever. But the holy men of God - Devoted to him, and set apart by him for that purpose, spake and wrote. Being moved - Literally, carried. They were purely passive therein.",
+      "es": "II Pedro 1:21\n Porque la profecía no vino en la antigüedad por voluntad del hombre - De ningún simple hombre. Pero los santos hombres de Dios - Dedicados a él y apartados por él para ese propósito, hablaron y escribieron. Ser movido - Literalmente, llevado. En ese sentido fueron puramente pasivos.",
+      "enHash": "e82c67fd1ec58aad2a48dc6ed8cbcf6aac4979f9e2d96a8cf53a9e9fc49192d6",
+      "source": "corpus:john-wesley"
+    },
+    "b22": {
+      "en": "II Peter 2:1\n But there were false prophets also - As well as true. Among the people - Of Israel. Those that spake even the truth, when God had not sent them; and also those that were truly sent of him, and yet corrupted or softened their message, were false prophets. As there shall be false - As well as true. Teachers among you, who will privately briny in - Into the church. Destructive heresies - They first, by denying the Lord, introduced destructive heresies, that is, divisions; or they occasioned first these divisions, and then were given up to a reprobate mind, even to deny the Lord that bought them. Either the heresies are the effect of denying the Lord, or the denying the Lord was the consequence of the heresies. Even denying - Both by their doctrine and their works. The Lord that bought them - With his own blood. Yet these very men perish everlastingly. Therefore Christ bought even them that perish.",
+      "es": "II Pedro 2:1\n Pero también hubo falsos profetas, además de verdaderos. Entre el pueblo - De Israel. Los que incluso hablaban la verdad, cuando Dios no los había enviado; y también aquellos que fueron verdaderamente enviados por él, y sin embargo corrompieron o suavizaron su mensaje, fueron falsos profetas. Como habrá falso - Así como verdadero. Maestros entre ustedes, que entrarán en privado - A la iglesia. Herejías destructivas - Primero, al negar al Señor, introdujeron herejías destructivas, es decir, divisiones; o ocasionaron primero estas divisiones, y luego fueron entregados a una mente reprobada, incluso para negar al Señor que los rescató. O las herejías son el efecto de negar al Señor, o la negación del Señor fue la consecuencia de las herejías. Incluso negando - Tanto por su doctrina como por sus obras. El Señor que los compró - Con su propia sangre. Sin embargo, estos mismos hombres perecen para siempre. Por eso Cristo compró incluso a los que se pierden.",
+      "enHash": "956835acd635fe80b1af57985d87e2621f4e2ce87d6758c77d739cdc00d725e8",
+      "source": "corpus:john-wesley"
+    },
+    "b23": {
+      "en": "The way of truth will be evil spoken of — By those who blend all false and true Christians together.",
+      "es": "Se hablará mal del camino de la verdad por aquellos que mezclan a todos los cristianos falsos y verdaderos.",
+      "enHash": "063d1b4751e9dec6ad3a642ffdec825d640e9ea687a5c9ba9fef332175ec7cfd",
+      "source": "corpus:john-wesley"
+    },
+    "b24": {
+      "en": "II Peter 2:3\n They will make merchandise of you - Only use you to gain by you, as merchants do their wares. Whose judgment now of a long time lingereth not - Was long ago determined, and will be executed speedily. All sinners are adjudged to destruction; and God's punishing some proves he will punish the rest.",
+      "es": "II Pedro 2:3\n Harán mercancías contigo - Sólo te utilizarán para ganar dinero, como hacen los comerciantes con sus mercancías. Cuyo juicio ahora de mucho tiempo no perdura - Fue determinado hace mucho tiempo y será ejecutado rápidamente. Todos los pecadores son condenados a destrucción; y el hecho de que Dios castigue a algunos demuestra que castigará al resto.",
+      "enHash": "87519b4b6cb64d0d7c6e4c25c438e946e42d7434f4d2b98b050848cce1f8ec32",
+      "source": "corpus:john-wesley"
+    },
+    "b25": {
+      "en": "II Peter 2:4\n Cast them down to hell - The bottomless pit, a place of unknown misery. Delivered them - Like condemned criminals to safe custody, as if bound with the strongest chains in a dungeon of darkness, to be reserved unto the judgment of the great day. Though still those chains do not hinder their often walking up and down seeking whom they may devour.",
+      "es": "II Pedro 2:4\n Arrojarlos al infierno - El pozo sin fondo, un lugar de miseria desconocida. Los entregó - Como criminales condenados a custodia segura, como atados con las cadenas más fuertes en un calabozo de oscuridad, para ser reservados para el juicio del gran día. Aunque todavía esas cadenas no les impiden caminar de un lado a otro buscando a quién devorar.",
+      "enHash": "2afefd2e79059d7887c5761ce35346ef1089b89f55267090d7b6c0f33c4e7f09",
+      "source": "corpus:john-wesley"
+    },
+    "b26": {
+      "en": "II Peter 2:5\n And spared not the old, the antediluvian, world, but he preserved Noah the eighth person - that is, Noah and seven others, a preacher as well as practiser, of righteousness. Bringing a flood on the world of the ungodly - Whose numbers stood them in no stead.",
+      "es": "II Pedro 2:5\n Y no perdonó al mundo antiguo, antediluviano, sino que preservó a Noé, la octava persona, es decir, a Noé y a otros siete, predicador y practicante de la justicia. Trayendo una inundación sobre el mundo de los impíos - Cuyos números no les sirvieron de nada.",
+      "enHash": "b6fa4154217639ec5faad91b80771e31d9309e1328391f3eaf3bdcfe30e29220",
+      "source": "corpus:john-wesley"
+    },
+    "b27": {
+      "en": "II Peter 2:9\n It plainly appears, from these instances, that the Lord knoweth, hath both wisdom and power and will, to deliver the godly out of all temptations, and to punish the ungodly.",
+      "es": "II Pedro 2:9\n De estos casos se desprende claramente que el Señor sabe, tiene sabiduría, poder y voluntad, para librar a los piadosos de todas las tentaciones y castigar a los impíos.",
+      "enHash": "74ec5fe827995e659f534388795350d9203a5206dbbf5ad8fc1c344a0644d0f1",
+      "source": "corpus:john-wesley"
+    },
+    "b28": {
+      "en": "II Peter 2:10\n Chiefly them that walk after the flesh - Corrupt nature; particularly in the lust of uncleanness. And despise government - The authority of their governors. Dignities - Persons in authority.",
+      "es": "II Pedro 2:10\n Principalmente los que caminan según la carne - Naturaleza corrupta; particularmente en los deseos de inmundicia. Y desprecian al gobierno - La autoridad de sus gobernadores. Dignidades - Personas con autoridad.",
+      "enHash": "eac3ddbbe8f4825d2b689adf9e77557d6fae283b1abe3fd4dbf74124e4a9e22e",
+      "source": "corpus:john-wesley"
+    },
+    "b29": {
+      "en": "II Peter 2:11\n Whereas angels - When they appear before the Lord, Job 1:6 , Job 2:1 , to give an account of what they have seen and done on the earth.",
+      "es": "II Pedro 2:11\n Mientras que los ángeles - Cuando se presentan ante el Señor, Job 1:6, Job 2:1, para dar cuenta de lo que han visto y hecho en la tierra.",
+      "enHash": "a45b6f9090f2a1a6ec26523cc9cf043be8b963b219f97d285c5d64d4841756a5",
+      "source": "corpus:john-wesley"
+    },
+    "b30": {
+      "en": "II Peter 2:12\n Savage as brute beasts - Several of which in the present disordered state of the world, seem born to be taken and destroyed.",
+      "es": "II Pedro 2:12\n Salvajes como bestias brutas - Varias de las cuales, en el actual estado desordenado del mundo, parecen haber nacido para ser capturadas y destruidas.",
+      "enHash": "5f6d45646062d1a473538a6719c37ccca3189f597a83d85dbcbc23e73b7e52f5",
+      "source": "corpus:john-wesley"
+    },
+    "b31": {
+      "en": "II Peter 2:13\n They count it pleasure to riot in the day time - They glory in doing it in the face of the sun. They are spots in themselves, blemishes to any church. Sporting themselves with their own deceivings - Making a jest of those whom they deceive and even jesting while they are deceiving their own souls.",
+      "es": "II Pedro 2:13\n Consideran un placer alborotarse durante el día; se glorian de hacerlo frente al sol. Son manchas en sí mismas, imperfecciones para cualquier iglesia. Divirtiéndose con sus propios engaños - Burlándose de aquellos a quienes engañan e incluso bromeando mientras engañan a sus propias almas.",
+      "enHash": "34e9d6d25be26ba86533b57d7d55dd656eaaa933f135c6ed6df1eb9862cd4ca5",
+      "source": "corpus:john-wesley"
+    },
+    "b32": {
+      "en": "II Peter 2:15\n The way of Balaam the son of Bosor - So the Chaldeans pronounced what the Jews termed Beor; namely, the way of covetousness. Who loved - Earnestly desired, though he did not dare to take, the reward of unrighteousness - The money which Balak would have given him for cursing Israel.",
+      "es": "II Pedro 2:15\n El camino de Balaam hijo de Bosor - Entonces los caldeos pronunciaron lo que los judíos llamaron Beor; es decir, el camino de la codicia. Quien amaba - Deseaba sinceramente, aunque no se atrevía a aceptar, la recompensa de la injusticia - El dinero que Balac le habría dado por maldecir a Israel.",
+      "enHash": "5ecc0c82cf4cdcda704fe17e22bd12feb98209ef696130af7dccb84b8bfd99b2",
+      "source": "corpus:john-wesley"
+    },
+    "b33": {
+      "en": "The beast — Though naturally dumb.",
+      "es": "La bestia... Aunque naturalmente tonta.",
+      "enHash": "b124b7ccac06260c65a00f7368f601113d8bfd94bd49e0d94513fc6dbb7acd99",
+      "source": "corpus:john-wesley"
+    },
+    "b34": {
+      "en": "Fountains and clouds promise water: so do these promise, but do not perform.",
+      "es": "Las fuentes y las nubes prometen agua: éstas también prometen, pero no cumplen.",
+      "enHash": "2699217a09c517c5453172aac77bdfd68afcccc0b1216700a2eb927590a79f02",
+      "source": "corpus:john-wesley"
+    },
+    "b35": {
+      "en": "II Peter 2:18\n They ensnare in the desires of the flesh - Allowing them to gratify some unholy desire. Those who were before entirely escaped from the spirit, custom, and company of them that live in error - In sin.",
+      "es": "II Pedro 2:18\n Atrapan los deseos de la carne - Permitiéndoles satisfacer algún deseo impío. Aquellos que antes escaparon por completo del espíritu, la costumbre y la compañía de los que viven en el error, en el pecado.",
+      "enHash": "7132d8485638f07d08fca857ee316286cf4b11cbf555eec2593961566bc4f75b",
+      "source": "corpus:john-wesley"
+    },
+    "b36": {
+      "en": "II Peter 2:19\n While they promise them liberty - From needless restraints and scruples; from the bondage of the law. Themselves are slaves of corruption - Even sin, the vilest of all bondage.",
+      "es": "II Pedro 2:19\n Mientras les prometen libertad - De restricciones y escrúpulos innecesarios; de la esclavitud de la ley. Ellos mismos son esclavos de la corrupción - Incluso el pecado, la más vil de todas las esclavitudes.",
+      "enHash": "c742438b20bd4749da09e63e3ba615519ed7aa060f315025066760204b763ea8",
+      "source": "corpus:john-wesley"
+    },
+    "b37": {
+      "en": "II Peter 2:20\n For if after they - Who are thus ensnared. Have escaped the pollutions of the world - The sins which pollute all who know not God. Through the knowledge of Christ - That is, through faith in him, 2Peter 1:3 . They are again entangled therein, and overcome, their last state is worse than the first - More inexcusable, and causing a greater damnation.",
+      "es": "II Pedro 2:20\n Porque si después de ellos - Quienes están así atrapados. Han escapado de las contaminaciones del mundo - Los pecados que contaminan a todos los que no conocen a Dios. A través del conocimiento de Cristo - Es decir, a través de la fe en él, 2 Pedro 1:3 . Vuelven a quedar enredados en él, y vencidos, su último estado es peor que el primero, más imperdonable y causante de mayor condenación.",
+      "enHash": "b270962879e4be24b5d5524b3ecd2a0feb1bc5857f484d70b401b6c1378346d5",
+      "source": "corpus:john-wesley"
+    },
+    "b38": {
+      "en": "The commandment — The whole law of God, once not only delivered to their ears, but written in their hearts.",
+      "es": "El mandamiento: toda la ley de Dios, una vez no sólo entregada a sus oídos, sino escrita en sus corazones.",
+      "enHash": "073cec35088bd49e1904019877be2a3b725bc37542aedca122d4ef379c819643",
+      "source": "corpus:john-wesley"
+    },
+    "b39": {
+      "en": "II Peter 2:22\n The dog, the sow - Such are all men in the sight of God before they receive his grace, and after they have made shipwreck of the faith. Prov 26:11 .",
+      "es": "II Pedro 2:22\n El perro, la cerda - Así son todos los hombres a los ojos de Dios antes de recibir su gracia y después de haber naufragado en la fe. Prov 26:11 .",
+      "enHash": "c7af3eeeb6e23348e5ea780fe5a7f58d04a4eacd9a5e797573b3668b856e6ec7",
+      "source": "corpus:john-wesley"
+    },
+    "b40": {
+      "en": "II Peter 3:1\n The dog, the sow - Such are all men in the sight of God before they receive his grace, and after they have made shipwreck of the faith. Prov 26:11 .",
+      "es": "II Pedro 3:1\n El perro, la cerda - Así son todos los hombres a los ojos de Dios antes de recibir su gracia y después de haber naufragado en la fe. Prov 26:11 .",
+      "enHash": "87d79db8cf6ed09fce4ebbd249190066e3064aad5843cf1361c6e3c0c4b75bc1",
+      "source": "corpus:john-wesley"
+    },
+    "b41": {
+      "en": "II Peter 3:2\n Be the more mindful thereof, because ye know scoffers will come first - Before the Lord comes. Walking after their own evil desires - Here is the origin of the error, the root of libertinism. Do we not see this eminently fulfilled?",
+      "es": "II Pedro 3:2\n Sed más conscientes de ello, porque sabéis que los burladores vendrán primero - Antes de que venga el Señor. Andar tras sus propios malos deseos - He aquí el origen del error, la raíz del libertinaje. ¿No vemos esto eminentemente cumplido?",
+      "enHash": "c27efece53d1ebe774fcbae28f96c6b939bfea41f56007938fe9326b68986fb9",
+      "source": "corpus:john-wesley"
+    },
+    "b42": {
+      "en": "II Peter 3:3\n Be the more mindful thereof, because ye know scoffers will come first - Before the Lord comes. Walking after their own evil desires - Here is the origin of the error, the root of libertinism. Do we not see this eminently fulfilled?",
+      "es": "II Pedro 3:3\n Sed más conscientes de ello, porque sabéis que los burladores vendrán primero - Antes de que venga el Señor. Andar tras sus propios malos deseos - He aquí el origen del error, la raíz del libertinaje. ¿No vemos esto eminentemente cumplido?",
+      "enHash": "d3e874c4305a88a4e932f4acd90b07f02da09da04ba630a216aad83385a19f3f",
+      "source": "corpus:john-wesley"
+    },
+    "b43": {
+      "en": "II Peter 3:4\n Saying, Where is the promise of his coming - To judgment (They do not even deign to name him.) We see no sign of any such thing. For ever since the fathers - Our first ancestors. Fell asleep, all things - Heaven. water, earth. Continue as they were from the beginning of the creation - Without any such material change as might make us believe they will ever end.",
+      "es": "II Pedro 3:4\n Diciendo: ¿Dónde está la promesa de su venida? Al juicio (Ni siquiera se dignan nombrarlo). No vemos señal alguna de tal cosa. Desde los padres, nuestros primeros antepasados. Se durmieron todas las cosas: el cielo. agua, tierra. Continúen como estaban desde el principio de la creación - Sin ningún cambio material que pueda hacernos creer que alguna vez terminarán.",
+      "enHash": "5c4bba7d1144d5928607e82a8735dda64d522a75f639da363535e7c3ff7c26eb",
+      "source": "corpus:john-wesley"
+    },
+    "b44": {
+      "en": "II Peter 3:5\n For this they are willingly ignorant of - They do not care to know or consider. That by the almighty word of God - Which bounds the duration of all things, so that it cannot be either longer or shorter. Of old - Before the flood. The aerial heavens were, and the earth - Not as it is now, but standing out of the water and in the water - Perhaps the interior globe of earth was fixed in the midst of the great deep, the abyss of water; the shell or exterior globe standing out of the water, covering the great deep. This, or some other great and manifest difference between the original and present constitution of the terraqueous globe, seems then to have been so generally known, that St. Peter charges their ignorance of it totally upon their wilfulness.",
+      "es": "II Pedro 3:5\n Por eso ignoran voluntariamente esto; no les importa saberlo ni considerarlo. Eso por la todopoderosa palabra de Dios - Que limita la duración de todas las cosas, de modo que no puede ser ni más larga ni más corta. De antaño - Antes del diluvio. Los cielos aéreos estaban, y la tierra - No como es ahora, sino sobresaliendo del agua y en el agua - Quizás el globo interior de la tierra estaba fijado en medio de la gran profundidad, el abismo del agua; la concha o globo exterior sobresaliendo del agua, cubriendo la gran profundidad. Esta, o alguna otra gran y manifiesta diferencia entre la constitución original y actual del globo terráqueo, parece haber sido tan generalmente conocida, que San Pedro atribuye totalmente su ignorancia a su obstinación.",
+      "enHash": "7e9f47525c55f924030b8a214022151c00752256393c2fd7b2e6ae8423a82e60",
+      "source": "corpus:john-wesley"
+    },
+    "b45": {
+      "en": "II Peter 3:6\n Through which - Heaven and earth, the windows of heaven being opened, and the fountains of the great deep broken up. The world that then was - The whole antediluvian race. Being overflowed with water, perished - And the heavens and earth themselves, though they did not perish, yet underwent a great change. So little ground have these scoffers for saying that all things continue as they were from the creation.",
+      "es": "II Pedro 3:6\n A través del cual - Cielo y tierra, abriéndose las ventanas de los cielos y rompiéndose las fuentes del gran abismo. El mundo que entonces era - Toda la raza antediluviana. Al ser inundado de agua, pereció - Y los cielos y la tierra mismos, aunque no perecieron, sufrieron un gran cambio. Tan poco terreno tienen estos burladores para decir que todas las cosas continúan como estaban desde la creación.",
+      "enHash": "9ceab4e2979f82fecc43dbeb43f79f16febaeb0276820533c6a771d6fef1061b",
+      "source": "corpus:john-wesley"
+    },
+    "b46": {
+      "en": "II Peter 3:7\n But the heavens and the earth, that are now - Since the flood. Are reserved unto fire at the day wherein God will judge the world, and punish the ungodly with everlasting destruction.",
+      "es": "II Pedro 3:7\n Pero los cielos y la tierra, que son ahora - Desde el diluvio. Están reservados para el fuego en el día en que Dios juzgará al mundo y castigará a los impíos con destrucción eterna.",
+      "enHash": "e866f61ece72cd0c52a64aa1ab62c11c4d930d429d0b5f5a200a9c5862e115db",
+      "source": "corpus:john-wesley"
+    },
+    "b47": {
+      "en": "II Peter 3:8\n But be not ye ignorant - Whatever they are. Of this one thing - Which casts much light on the point in hand. That one day is with the Lord as a thousand years, and a thousand years as one day - Moses had said, Psalm 90:4 , \"A thousand years in thy sight are as one day;\" which St. Peter applies with regard to the last day, so as to denote both his eternity, whereby he exceeds all measure of time in his essence and in his operation; his knowledge, to which all things past or to come are present every moment; his power, which needs no long delay, in order to bring its work to perfection; and his longsuffering, which excludes all impatience of expectation, and desire of making haste. One day is with the Lord as a thousand years - That is, in one day, in one moment he can do the work of a thousand years. Therefore he \"is not slow:\" he is always equally ready to fulfil his promise. And a thousand years are as one day - That is, no delay is long to God. A thousand years are as one day to the eternal God. Therefore \"he is longsuffering:\" he gives us space for repentance, without any inconvenience to himself. In a word, with God time passes neither slower nor swifter than is suitable to him and his economy; nor can there be any reason why it should be necessary for him either to delay or hasten the end of all things. How can we comprehend this? If we could comprehend it, St. Peter needed not to have added, with the Lord.",
+      "es": "II Pedro 3:8\n Pero no seáis ignorantes - Cualesquiera que sean. De esta única cosa - Lo que arroja mucha luz sobre el punto que nos ocupa. Que un día es ante el Señor como mil años, y mil años como un día - Moisés había dicho, Salmo 90:4, \"Mil años ante tus ojos son como un día\"; que San Pedro aplica con respecto al último día, para denotar tanto su eternidad, por lo que excede toda medida de tiempo en su esencia y en su operación; su conocimiento, al cual todas las cosas pasadas o por venir están presentes en cada momento; su poder, que no necesita mucha demora para llevar su trabajo a la perfección; y su paciencia, que excluye toda impaciencia de expectativa y deseo de apresurarse. Un día es para el Señor como mil años - Es decir, en un día, en un momento él puede hacer la obra de mil años. Por eso \"no tarda\": está siempre igualmente dispuesto a cumplir su promesa. Y mil años son como un día - Es decir, ninguna demora es larga para Dios. Mil años son como un día para el Dios eterno. Por eso \"es paciente\": nos da espacio para el arrepentimiento, sin ningún inconveniente para sí mismo. En una palabra, para Dios el tiempo no pasa ni más lento ni más rápido de lo que conviene a él y a su economía; Tampoco puede haber ninguna razón por la que le sea necesario retrasar o acelerar el fin de todas las cosas. ¿Cómo podemos comprender esto? Si pudiéramos comprenderlo, San Pedro no necesitaba haber añadido, con el Señor.",
+      "enHash": "ae2615a26f465cbb56cbea17640a34716fd5e5a761de7c2f937e5cb353c56852",
+      "source": "corpus:john-wesley"
+    },
+    "b48": {
+      "en": "II Peter 3:9\n The Lord is not slow - As if the time fixed for it were past. Concerning his promise - Which shall surely be fulfilled in its season. But is longsuffering towards us - Children of men. Not willing that any soul, which he hath made should perish.",
+      "es": "II Pedro 3:9\n El Señor no es lento - Como si el tiempo fijado para ello hubiera pasado. Con respecto a su promesa - Que seguramente se cumplirá a su tiempo. Pero es paciente para con nosotros, hijos de los hombres. No queriendo que perezca ninguna alma que él ha creado.",
+      "enHash": "50db1bb9453f209b8d1cc2b33f40f63eb1e5bc5c2f0e568a3b8806cccf167528",
+      "source": "corpus:john-wesley"
+    },
+    "b49": {
+      "en": "II Peter 3:10\n But the day of the Lord will come as a thief - Suddenly, unexpectedly. In which the heavens shall pass away with a great noise - Surprisingly expressed by the very sound of the original word. The elements shall melt with fervent heat - The elements seem to mean, the sun, moon, and stars; not the four, commonly so called; for air and water cannot melt, and the earth is mentioned immediately after. The earth and all the works - Whether of nature or art. That are therein shall be burned up - And has not God already abundantly provided for this? 1. By the stores of subterranean fire which are so frequently bursting out at Aetna, Vesuvius, Hecla, and many other burning mountains. 2. By the ethereal (vulgarly called electrical) fire, diffused through the whole globe; which, if the secret chain that now binds it up were loosed, would immediately dissolve the whole frame of nature. 3. By comets, one of which, if it touch the earth in its course toward the sun, must needs strike it into that abyss of fire; if in its return from the sun, when it is heated, as a great man computes, two thousand times hotter than a red - hot cannonball, it must destroy all vegetables and animals long before their contact, and soon after burn it up.",
+      "es": "II Pedro 3:10\n Pero el día del Señor vendrá como ladrón - De repente, inesperadamente. En el cual los cielos pasarán con gran ruido - Sorprendentemente expresado por el sonido mismo de la palabra original. Los elementos se derretirán con calor ferviente - Los elementos parecen significar el sol, la luna y las estrellas; no los cuatro, comúnmente llamados así; porque el aire y el agua no pueden derretirse, y la tierra se menciona inmediatamente después. La tierra y todas las obras - Ya sean de la naturaleza o del arte. Los que en él estén serán quemados - ¿Y no ha provisto Dios ya abundantemente para esto? 1. Por los depósitos de fuego subterráneo que con tanta frecuencia estallan en el Etna, el Vesubio, Hecla y muchas otras montañas en llamas. 2. Por el fuego etéreo (vulgarmente llamado eléctrico), difundido por todo el globo; que, si se soltara la cadena secreta que ahora lo ata, disolvería inmediatamente toda la estructura de la naturaleza. 3. Por los cometas, uno de los cuales, si toca la tierra en su trayectoria hacia el sol, necesariamente debe arrojarla a ese abismo de fuego; si a su regreso del sol, cuando se calienta, como calcula un gran hombre, dos mil veces más que una bala de cañón al rojo vivo, debe destruir todos los vegetales y animales mucho antes de su contacto, y poco después quemarlos.",
+      "enHash": "6319aec49924077c4d0820e0edd71be9d4a0e6cda55891b090a798c53e5899da",
+      "source": "corpus:john-wesley"
+    },
+    "b50": {
+      "en": "II Peter 3:11\n Seeing then that all these things are dissolved - To the eye of faith it appears as done already. All these things - Mentioned before; all that are included in that scriptural expression, \"the heavens and the earth;\" that is, the universe. On the fourth day God made the stars, Gen 1:16 , which will be dissolved together with the earth. They are deceived, therefore, who restrain either the history of the creation, or this description of the destruction, of the world to the earth and lower heavens; imagining the stars to be more ancient than the earth, and to survive it. Both the dissolution and renovation are ascribed, not to the one heaven which surrounds the earth, but to the heavens in general, 2Peter 3:10 ,13, without any restriction or limitation. What persons ought ye to be in all holy conversation - With men. And godliness - Toward your Creator.",
+      "es": "II Pedro 3:11\n Viendo entonces que todas estas cosas se disuelven - A los ojos de la fe parece que ya está hecho. Todas estas cosas - Mencionadas antes; todo lo que está incluido en esa expresión bíblica, \"los cielos y la tierra\"; es decir, el universo. En el cuarto día Dios hizo las estrellas, Génesis 1:16, las cuales se disolverán junto con la tierra. Se engañan, por tanto, quienes restringen la historia de la creación o esta descripción de la destrucción del mundo a la tierra y a los cielos inferiores; imaginando que las estrellas son más antiguas que la tierra y que sobreviven a ella. Tanto la disolución como la renovación se atribuyen, no al único cielo que rodea la tierra, sino a los cielos en general, 2 Pedro 3:10,13, sin restricción ni limitación alguna. ¿Qué personas debéis ser en toda conversación santa? Con los hombres. Y piedad: hacia tu Creador.",
+      "enHash": "e3260e426a5d2465b21be3aca35f5aa13d65437119439e6cf8efd88542dbcf26",
+      "source": "corpus:john-wesley"
+    },
+    "b51": {
+      "en": "II Peter 3:12\n Hastening on - As it were by your earnest desires and fervent prayers. The coming of the day of God - Many myriads of days he grants to men: one, the last, is the day of God himself.",
+      "es": "II Pedro 3:12\n Apresurarse - Como si fuera por sus fervientes deseos y fervientes oraciones. La venida del día de Dios - Muchas miríadas de días concede a los hombres: uno, el último, es el día de Dios mismo.",
+      "enHash": "2eefa135ceb798dd37cd651b0cbb9fffbd459699b2b4cdea2186163d1a583f93",
+      "source": "corpus:john-wesley"
+    },
+    "b52": {
+      "en": "II Peter 3:13\n We look for new heavens and a new earth - Raised as it were out of the ashes of the old; we look for an entire new state of things. Wherein dwelleth righteousness - Only righteous spirits. How great a mystery!",
+      "es": "II Pedro 3:13\n Buscamos nuevos cielos y una nueva tierra - Levantados como si fuera de las cenizas de lo viejo; buscamos un estado de cosas completamente nuevo. Donde habita la justicia - Sólo espíritus justos. ¡Qué gran misterio!",
+      "enHash": "1326b2e1576ab30e1854ec10a5d0bcfc915e808a69c5c84dd81d74eb5ded128b",
+      "source": "corpus:john-wesley"
+    },
+    "b53": {
+      "en": "II Peter 3:14\n Labour that whenever he cometh ye may be found in peace - May meet him without terror, being sprinkled with his blood, and sanctified by his Spirit, so as to be without spot and blameless. Isaiah 65:17 ; Isaiah 66:22 .",
+      "es": "II Pedro 3:14\n Trabajad para que cuando él venga os encontréis en paz - Podéis encontrarle sin terror, siendo rociados con su sangre y santificados por su Espíritu, para ser sin mancha y sin culpa. Isaías 65:17 ; Isaías 66:22 .",
+      "enHash": "b5b34d2d8b480cf77a9cf0937b183f37c10791e0c9a7d4f814929c82d949c76a",
+      "source": "corpus:john-wesley"
+    },
+    "b54": {
+      "en": "II Peter 3:15\n And account the longsuffering of the Lord salvation - Not only designed to lead men to repentance, but actually conducing thereto: a precious means of saving many more souls. As our beloved brother Paul also hath written to you - This refers not only to the single sentence preceding, but to all that went before. St. Paul had written to the same effect concerning the end of the world, in several parts of his epistles, and particularly in his Epistle to the Hebrews. Rom 2:4 .",
+      "es": "II Pedro 3:15\n Y considere la paciencia del Señor para la salvación - No solo diseñado para llevar a los hombres al arrepentimiento, sino que realmente lo conduce: un medio precioso para salvar muchas más almas. Como también os ha escrito nuestro amado hermano Pablo - Esto se refiere no solo a la frase anterior, sino a todo lo que sucedió antes. San Pablo había escrito en el mismo sentido sobre el fin del mundo, en varias partes de sus epístolas, y particularmente en su Epístola a los Hebreos. Romanos 2:4.",
+      "enHash": "08a682bf341fc4403622f4e1d215586ac63015f90ed1533a3ae5e837f1e25808",
+      "source": "corpus:john-wesley"
+    },
+    "b55": {
+      "en": "II Peter 3:16\n As also in all his epistles - St. Peter wrote this a little before his own and St. Paul's martyrdom. St. Paul therefore had now written all his epistles; and even from this expression we may learn that St. Peter had read them all, perhaps sent to him by St. Paul himself. Nor was he at all disgusted by what St. Paul had written concerning him in the Epistle to the Galatians. Speaking of these things - Namely, of the coming of our Lord, delayed through his longsuffering, and of the circumstances preceding and accompanying it. Which things the unlearned - They who are not taught of God. And the unstable - Wavering, double - minded, unsettled men. Wrest - As though Christ would not come. As they do also the other scriptures - Therefore St Paul's writings were now part of the scriptures. To their own destruction - But that some use the scriptures ill, is no reason why others should not use them at all.",
+      "es": "II Pedro 3:16\n Como también en todas sus epístolas, San Pedro escribió esto un poco antes de su propio martirio y del de San Pablo. Por tanto, San Pablo ya había escrito todas sus epístolas; e incluso de esta expresión podemos aprender que San Pedro los había leído todos, tal vez enviados por el mismo San Pablo. Tampoco le disgustaba en absoluto lo que San Pablo había escrito sobre él en la Epístola a los Gálatas. Hablando de estas cosas - Es decir, de la venida de nuestro Señor, retrasada por su paciencia, y de las circunstancias que la preceden y acompañan. Qué cosas los no aprendidos - Los que no son enseñados por Dios. Y los inestables: hombres vacilantes, de doble ánimo e inquietos. Wrest - Como si Cristo no viniera. Como lo hacen también con las otras Escrituras - Por lo tanto, los escritos de San Pablo ahora eran parte de las Escrituras. Para su propia destrucción - Pero que algunos usen mal las Escrituras, no es razón para que otros no deban usarlas en absoluto.",
+      "enHash": "2edbde360dbd959aec39d0dade0247d94887802904d72eaa9a129b65d340ea07",
+      "source": "corpus:john-wesley"
+    },
+    "b56": {
+      "en": "II Peter 3:18\n But grow in grace - That is, in every Christian temper. There may be, for a time, grace without growth; as there may be natural life without growth. But such sickly life, of soul or body, will end in death, and every day draw nigher to it. Health is the means of both natural and spiritual growth. If the remaining evil of our fallen nature be not daily mortified, it will, like an evil humour in the body, destroy the whole man. But \"if ye through the Spirit do mortify the deeds of the body,\" (only so far as we do this,) \"ye shall live\" the life of faith, holiness, happiness. The end and design of grace being purchased and bestowed on us, is to destroy the image of the earthy, and restore us to that of the heavenly. And so far as it does this, it truly profits us; and also makes way for more of the heavenly gift, that we may at last be filled with all the fulness of God. The strength and well - being of a Christian depend on what his soul feeds on, as the health of the body depends on whatever we make our daily food. If we feed on what is according to our nature, we grow; if not, we pine away and die. The soul is of the nature of God, and nothing but what is according to his holiness can agree with it. Sin, of every kind, starves the soul, and makes it consume away. Let us not try to invert the order of God in his new creation: we shall only deceive ourselves. It is easy to forsake the will of God, and follow our own; but this will bring leanness into the soul. It is easy to satisfy ourselves without being possessed of the holiness and happiness of the gospel. It is easy to call these frames and feelings, and then to oppose faith to one and Christ to the other. Frames (allowing the expression) are no other than heavenly tempers, \"the mind that was in Christ.\" Feelings are the divine consolations of the Holy Ghost shed abroad in the heart of him that truly believes. And wherever faith is, and wherever Christ is, there are these blessed frames and feelings. If they are not in us, it is a sure sign that though the wilderness became a pool, the pool is become a wilderness again. And in the knowledge of Christ - That is, in faith, the root of all. To him be the glory to the day of eternity - An expression naturally flowing from that sense which the apostle had felt in his soul throughout this whole chapter. Eternity is a day without night, without interruption, without end.",
+      "es": "II Pedro 3:18\n Pero crece en gracia - Es decir, en todo temperamento cristiano. Puede haber, por un tiempo, gracia sin crecimiento; como puede haber vida natural sin crecimiento. Pero esa vida enfermiza, del alma o del cuerpo, terminará en la muerte, y cada día se acerca más a ella. La salud es el medio de crecimiento tanto natural como espiritual. Si el mal restante de nuestra naturaleza caída no es mortificado diariamente, destruirá al hombre entero, como un mal humor en el cuerpo. Pero \"si por el Espíritu mortificáis las obras de la carne\" (sólo en la medida en que lo hagamos), \"viviréis\" la vida de fe, santidad y felicidad. El fin y el diseño de la gracia que se nos compra y se nos otorga es destruir la imagen de lo terrenal y restaurarnos a la de lo celestial. Y en la medida en que lo haga, realmente nos beneficiará; y también da paso a más don celestial, para que por fin podamos ser llenos de toda la plenitud de Dios. La fuerza y ​​el bienestar de un cristiano dependen de lo que alimenta su alma, como la salud del cuerpo depende de lo que hacemos nuestro alimento diario. Si nos alimentamos de lo que es conforme a nuestra naturaleza, crecemos; si no, nos desmayamos y morimos. El alma es de la naturaleza de Dios, y nada más que lo que es conforme a su santidad puede estar de acuerdo con ella. El pecado, de cualquier tipo, mata de hambre al alma y la consume. No intentemos invertir el orden de Dios en su nueva creación: sólo nos engañaremos a nosotros mismos. Es fácil abandonar la voluntad de Dios y seguir la nuestra; pero esto traerá flaqueza al alma. Es fácil satisfacernos sin poseer la santidad y la felicidad del evangelio. Es fácil llamar a estos marcos y sentimientos, y luego oponer la fe a uno y Cristo al otro. Los marcos (permitiendo la expresión) no son otros que los temperamentos celestiales, \"la mente que estaba en Cristo\". Los sentimientos son los consuelos divinos del Espíritu Santo derramados en el corazón del que verdaderamente cree. Y dondequiera que esté la fe, y dondequiera que esté Cristo, allí están estos marcos y sentimientos benditos. Si no están en nosotros, es una señal segura de que, aunque el desierto se convirtió en un estanque, el estanque se ha convertido nuevamente en un desierto. Y en el conocimiento de Cristo - Es decir, en la fe, la raíz de todo. A él sea la gloria hasta el día de la eternidad - Una expresión que fluye naturalmente de ese sentimiento que el apóstol había sentido en su alma a lo largo de todo este capítulo.\n\nLa eternidad es un día sin noche, sin interrupción, sin fin.",
+      "enHash": "3f446ff12f0c3c7c4346baf10f01b7c428ed9ff5143856b21627e958f146615d",
+      "source": "corpus:john-wesley"
+    }
+  },
+  "verses": {
+    "1:1": "b1",
+    "1:2": "b2",
+    "1:3": "b3",
+    "1:4": "b4",
+    "1:5": "b5",
+    "1:6": "b6",
+    "1:7": "b7",
+    "1:8": "b8",
+    "1:9": "b9",
+    "1:10": "b10",
+    "1:11": "b11",
+    "1:12": "b12",
+    "1:13": "b13",
+    "1:14": "b14",
+    "1:15": "b15",
+    "1:16": "b16",
+    "1:17": "b17",
+    "1:18": "b18",
+    "1:19": "b19",
+    "1:20": "b20",
+    "1:21": "b21",
+    "2:1": "b22",
+    "2:2": "b23",
+    "2:3": "b24",
+    "2:4": "b25",
+    "2:5": "b26",
+    "2:9": "b27",
+    "2:10": "b28",
+    "2:11": "b29",
+    "2:12": "b30",
+    "2:13": "b31",
+    "2:15": "b32",
+    "2:16": "b33",
+    "2:17": "b34",
+    "2:18": "b35",
+    "2:19": "b36",
+    "2:20": "b37",
+    "2:21": "b38",
+    "2:22": "b39",
+    "3:1": "b40",
+    "3:2": "b41",
+    "3:3": "b42",
+    "3:4": "b43",
+    "3:5": "b44",
+    "3:6": "b45",
+    "3:7": "b46",
+    "3:8": "b47",
+    "3:9": "b48",
+    "3:10": "b49",
+    "3:11": "b50",
+    "3:12": "b51",
+    "3:13": "b52",
+    "3:14": "b53",
+    "3:15": "b54",
+    "3:16": "b55",
+    "3:18": "b56"
+  }
+}

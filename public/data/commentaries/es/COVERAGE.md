@@ -36,9 +36,9 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | 1–2 Tesalonicenses | sí | sí | sí | sí | — | — | — |
 | 1 Timoteo | sí | sí | sí | sí | — | — | — |
 | 2 Timoteo / Tito | sí | sí | sí | sí | — | — | — |
-| Hebreos | sí | sí | sí | pendiente | — | — | — |
-| Santiago | sí | sí | sí | pendiente | — | — | — |
-| 1–2 Pedro | sí | sí | sí | pendiente | — | — | — |
+| Hebreos | sí | sí | sí | sí | — | — | — |
+| Santiago | sí | sí | sí | sí | — | — | — |
+| 1–2 Pedro | sí | sí | sí | sí | — | — | — |
 | 1–3 Juan | sí | sí | sí | pendiente | — | — | — |
 | Judas | sí | sí | sí | pendiente | — | — | — |
 | Apocalipsis | sí | sí | sí | pendiente | — | — | — |
