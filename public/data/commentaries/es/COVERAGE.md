@@ -29,7 +29,11 @@ Capa almacenada. No se traduce en cada request. Disclaimer: «Traducción autom�
 | Hechos | sí | sí | sí | pendiente | — | — | — |
 | Romanos | sí | sí | sí | pendiente | — | — | — |
 | 1 Corintios | sí | sí | sí | pendiente | — | — | — |
-| 2 Corintios … Apocalipsis | sí | sí | en curso | pendiente | — | — | — |
+| 2 Corintios | sí | sí | sí | pendiente | — | — | — |
+| Gálatas | sí | sí | sí | pendiente | — | — | — |
+| Efesios | sí | sí | sí | pendiente | — | — | — |
+| Filipenses | sí | sí | sí | pendiente | — | — | — |
+| Colosenses … Apocalipsis | sí | sí | en curso | pendiente | — | — | — |
 | Filemón | sí | 1 hit SPE | sí | sí | sí | sí | pendiente |
 
 Henry NT: **completo** salvo el hueco honesto de Mateo 19–28 (helloao 404).
