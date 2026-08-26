@@ -1336,7 +1336,10 @@
             const resultados = json?.data?.resultados || [];
             if (!cruzadasEl) return;
             if (!resultados.length) {
-                cruzadasEl.innerHTML = `<p class="rv-estudio-vacio">No hay coincidencias de «${escapeHtml(term)}» en esta versión.</p>`;
+                const msg = json?.data?.indexable === false
+                    ? `El motor de concordancia es el mismo para todas las versiones; ${escapeHtml(String(ver || '').toUpperCase())} aún no tiene texto indexable.`
+                    : `No hay coincidencias de «${escapeHtml(term)}» en esta versión.`;
+                cruzadasEl.innerHTML = `<p class="rv-estudio-vacio">${msg}</p>`;
                 return;
             }
             cruzadasEl.innerHTML = resultados.map((item) => {
@@ -2522,7 +2525,7 @@ function descargarBackup(kind) {
         });
     }
 
-    function pintarConcordancia(libro, cruzadas, termino = '') {
+    function pintarConcordancia(libro, cruzadas, termino = '', opts = {}) {
         const refEl = document.getElementById('ref-concordancia');
         const cruzadasEl = document.getElementById('lista-cruzadas');
         const strongEl = document.getElementById('lista-strong-verso');
@@ -2549,13 +2552,18 @@ function descargarBackup(kind) {
             }
         }
         if (cruzadasEl) {
+            const emptyTerm = termino
+                ? (opts.indexable === false
+                    ? `El motor de concordancia es el mismo para todas las versiones; ${escapeHtml(String(claveMotor(versionActiva()) || '').toUpperCase())} aún no tiene texto indexable.`
+                    : `No hay coincidencias para «${escapeHtml(termino)}».`)
+                : (n ? 'No hay un término de 5+ letras en este versículo para concordancia. Usa la búsqueda del canon.' : 'Elige un versículo o busca una palabra de al menos 3 letras.');
             cruzadasEl.innerHTML = (cruzadas || []).length
                 ? cruzadas.map(item => {
                     const cita = item.ref || item.reference || '';
                     const nota = item.nota || item.description || item.text || '';
                     return `<button type="button" class="rv-xref-item" data-ir-ref="${escapeHtml(cita)}"><span class="rv-xref-ref">${escapeHtml(cita)}</span>${nota ? `<span class="rv-xref-nota">${escapeHtml(nota)}</span>` : ''}</button>`;
                 }).join('')
-                : `<p class="rv-estudio-vacio">${termino ? `No hay coincidencias para «${escapeHtml(termino)}».` : (n ? 'No hay un término de 5+ letras en este versículo para concordancia. Usa la búsqueda del canon.' : 'Elige un versículo o busca una palabra de al menos 3 letras.')}</p>`;
+                : `<p class="rv-estudio-vacio">${emptyTerm}</p>`;
         }
     }
 
@@ -2631,12 +2639,15 @@ function descargarBackup(kind) {
 
     async function cargarConcordanciaHits(term) {
         const q = String(term || '').trim();
-        if (q.length < 3) return [];
+        if (q.length < 3) return { hits: [], indexable: true };
         const ver = claveMotor(versionActiva());
         const res = await fetch(`/api/concordancia?q=${encodeURIComponent(q)}&version=${encodeURIComponent(ver)}`);
         const json = await res.json().catch(() => null);
-        if (!res.ok) return [];
-        return json?.data?.resultados || json?.resultados || [];
+        if (!res.ok) return { hits: [], indexable: true };
+        return {
+            hits: json?.data?.resultados || json?.resultados || [],
+            indexable: json?.data?.indexable !== false,
+        };
     }
 
     async function refrescarConcordancia(libro) {
@@ -2651,12 +2662,15 @@ function descargarBackup(kind) {
 
         let hits = [];
         let used = keys[0] || '';
+        let indexable = true;
         try {
             for (const term of keys) {
                 const got = await cargarConcordanciaHits(term);
                 used = term;
-                if (got.length) {
-                    hits = got;
+                indexable = got.indexable;
+                if (got.hits.length) {
+                    hits = got.hits;
+                    indexable = true;
                     break;
                 }
             }
@@ -2672,7 +2686,7 @@ function descargarBackup(kind) {
             nota: String(item.html || item.texto || item.text || '').replace(/<[^>]+>/g, ''),
             html: item.html || '',
         }));
-        pintarConcordancia(libro, mapped, used);
+        pintarConcordancia(libro, mapped, used, { indexable });
     }
 
 

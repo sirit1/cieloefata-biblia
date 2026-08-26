@@ -693,6 +693,7 @@
     try {
       let hits = [];
       let used = candidates[0];
+      let indexable = true;
       for (const q of candidates) {
         if (q.length < 3) continue;
         container.innerHTML = `
@@ -712,8 +713,10 @@
         }
         const got = data.data?.resultados || data.resultados || [];
         used = q;
+        if (data.data && data.data.indexable === false) indexable = false;
         if (Array.isArray(got) && got.length) {
           hits = got;
+          indexable = true;
           break;
         }
       }
@@ -725,12 +728,15 @@
         renderConcordanceHits(container, used, passage, hits);
         return;
       }
+      const emptyMsg = indexable
+        ? `No hay coincidencias para «${escapeHtml(used)}».`
+        : `El motor de concordancia es el mismo para todas las versiones; ${escapeHtml(consultedVersion().toUpperCase())} aún no tiene texto indexable (Bolls/pack vacío). No es un fallo de un versículo.`;
       container.innerHTML = `
         <div class="p-4 font-serif text-xs leading-relaxed text-stone-900 bg-amber-50/50 rounded-xl border border-[#C59B27]/40 shadow-sm space-y-2">
           <div class="flex items-center justify-between border-b border-[#C59B27]/30 pb-1.5 mb-2">
             <span class="font-mono text-[10px] font-bold text-[#855D10] uppercase tracking-wider">Concordancia: "${escapeHtml(used)}"</span>
           </div>
-          <p class="text-xs text-stone-700">No hay coincidencias para «${escapeHtml(used)}».</p>
+          <p class="text-xs text-stone-700">${emptyMsg}</p>
         </div>`;
     } catch (err) {
       clearTimeout(timer);
