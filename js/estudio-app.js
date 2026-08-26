@@ -2694,7 +2694,12 @@ function descargarBackup(kind) {
             }),
         });
         const data = await res.json().catch(() => ({}));
-        return String(data.answer || data.respuesta || data.text || data.error || '').trim();
+        if (data.success === false || data.source === 'ai-unavailable') {
+            const err = data.error || data.meta?.error || data.meta?.geminiError || data.meta?.gatewayError
+                || 'Falta Gemini o AI Gateway. Las lentes no inventarán un dictamen.';
+            throw new Error(err);
+        }
+        return String(data.answer || data.respuesta || data.text || '').trim();
     }
 
     function htmlDictamenLente(text) {
@@ -2910,9 +2915,9 @@ function descargarBackup(kind) {
                     <div class="rv-persp-card-body"><p>${htmlDictamenLente(answer)}</p></div>
                     <p class="rv-persp-meta">RevelatiO IA · /api/lente-elite</p>
                 </article>`;
-        } catch {
+        } catch (err) {
             if (grid) {
-                grid.innerHTML = `<p class="rv-estudio-vacio">No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.</p>`;
+                grid.innerHTML = `<p class="rv-estudio-vacio">${escapeHtml(err?.message || 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.')}</p>`;
             }
         }
     }
@@ -2963,7 +2968,7 @@ function descargarBackup(kind) {
             <div class="rv-persp-block">
                 <p>${htmlDictamenLente(answer || 'No se pudo generar el dictamen de la lente. Reintenta.')}</p>
             </div>`;
-        } catch {
+        } catch (err) {
             report.innerHTML = `
             <div class="rv-persp-synth-head">
                 <div>
@@ -2971,7 +2976,7 @@ function descargarBackup(kind) {
                     <span>${escapeHtml(referenciaComentario(loc) || 'Pasaje')}</span>
                 </div>
             </div>
-            <p class="rv-estudio-vacio">No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.</p>`;
+            <p class="rv-estudio-vacio">${escapeHtml(err?.message || 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.')}</p>`;
         }
         perspState.sintetizando = false;
         report.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

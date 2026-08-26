@@ -35,7 +35,34 @@ export default async function handler(req, res) {
       type: 'elite_lens',
     }, req.path || req.url || '/api/lente-elite');
 
-    const answer = payload.answer || payload.text || '';
+    const ok = payload.success !== false && payload.source !== 'ai-unavailable';
+    const answer = ok ? String(payload.answer || payload.text || '').trim() : '';
+    if (!ok || !answer) {
+      const msg =
+        payload.error ||
+        payload.meta?.error ||
+        'Falta Gemini o AI Gateway. Configure GEMINI_API_KEY o AI_GATEWAY_API_KEY. Las lentes no inventarán un dictamen.';
+      return res.status(200).json({
+        success: false,
+        ok: false,
+        error: msg,
+        answer: '',
+        text: '',
+        result: '',
+        respuesta: '',
+        commentary: { text: '' },
+        source: payload.source || 'ai-unavailable',
+        meta: {
+          passage,
+          subLensId,
+          lensTitle,
+          verseText: verseText || undefined,
+          ...(payload.meta || {}),
+          error: payload.meta?.error || msg,
+        },
+      });
+    }
+
     return res.status(200).json({
       success: true,
       ok: true,
@@ -55,22 +82,22 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('[api/lente-elite] Error:', error?.message || error);
-    const msg = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
+    const msg = error?.message || 'Falta Gemini o AI Gateway. Las lentes no inventarán un dictamen.';
     return res.status(200).json({
       success: false,
       ok: false,
       error: msg,
-      answer: msg,
-      text: msg,
-      result: msg,
-      respuesta: msg,
-      commentary: { text: msg },
+      answer: '',
+      text: '',
+      result: '',
+      respuesta: '',
+      commentary: { text: '' },
       source: 'ai-unavailable',
       meta: {
         passage,
         subLensId,
         lensTitle,
-        error: error?.message,
+        error: error?.message || msg,
       },
     });
   }

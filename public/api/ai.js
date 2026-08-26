@@ -6,7 +6,7 @@
  */
 import { resolveGeminiApiKey } from '../lib/load-env.js';
 import { obtenerComentarioCorpus } from '../lib/comentario-corpus.js';
-import { hayMotorIA, generarTexto } from '../lib/ai.js';
+import { hayGatewayIA, generarTexto } from '../lib/ai.js';
 
 const GOBERNANZA_REVELATIO = `GOBERNANZA REVELATIO (no negociable):
 1. El versículo recibido es soberano. Cítalo TAL CUAL entre comillas (el verseText que te pasan). Nunca parafrasees la Escritura ni recites de memoria otro versículo. Si necesitas otra referencia y no tienes su texto en el contexto, nombra solo la cita (p. ej. Ro. 12:2) sin inventar las palabras.
@@ -18,8 +18,17 @@ function withGobernanza(body) {
   return `${GOBERNANZA_REVELATIO}\n\n${body}`;
 }
 
-const GEMINI_MODELS = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash', 'gemini-2.5-pro'];
+/** IDs vivos en 2026. gemini-2.5 / 1.5 / 2.0 flash devuelven 404 y piden 3.6. */
+const GEMINI_MODELS_PREFERRED = [
+  'gemini-3.6-flash',
+  'gemini-3.5-flash-lite',
+  'gemini-3.5-flash',
+  'gemini-flash-latest',
+  'gemini-3.1-pro-preview',
+];
 const GEMINI_TIMEOUT_MS = 15000;
+const MSG_FALTA_IA =
+  'Falta Gemini o AI Gateway. Configure GEMINI_API_KEY (o GOOGLE_GENERATIVE_AI_API_KEY) o AI_GATEWAY_API_KEY. Las lentes no inventarán un dictamen.';
 
 function foldType(raw, pathname = '') {
   const t = String(raw || '').toLowerCase().trim();
@@ -277,57 +286,138 @@ function extraerTextoCandidato(data) {
   return { text, finishReason };
 }
 
+async function listUsableGeminiModels(apiKey, signal) {
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`,
+      { signal },
+    );
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      console.warn('[api/ai] listModels HTTP', response.status, data?.error?.message);
+      return [];
+    }
+    return (data.models || [])
+      .filter((m) => (m.supportedGenerationMethods || []).includes('generateContent'))
+      .map((m) => String(m.name || '').replace(/^models\//, ''))
+      .filter((n) => n && !/image|tts|live|embedding|aqa/i.test(n));
+  } catch (err) {
+    console.warn('[api/ai] listModels:', err?.message || err);
+    return [];
+  }
+}
+
+function pickGeminiModels(available) {
+  if (!available.length) return GEMINI_MODELS_PREFERRED;
+  const preferred = GEMINI_MODELS_PREFERRED.filter((id) => available.includes(id));
+  if (preferred.length) return preferred.slice(0, 4);
+  const flash = available.filter((n) => /flash/i.test(n) && !/preview-image/i.test(n));
+  return (flash.length ? flash : available).slice(0, 4);
+}
+
+async function generateGeminiOnce(apiKey, model, systemInstruction, signal, { disableThinking } = {}) {
+  const generationConfig = {
+    temperature: 0.3,
+    maxOutputTokens: 4096,
+  };
+  if (disableThinking) {
+    generationConfig.thinkingConfig = { thinkingBudget: 0 };
+  }
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal,
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: systemInstruction }] }],
+        generationConfig,
+      }),
+    },
+  );
+  const data = await response.json().catch(() => ({}));
+  return { response, data };
+}
+
 async function callGemini(apiKey, systemInstruction, timeoutMs = GEMINI_TIMEOUT_MS) {
   const deadline = Date.now() + Math.min(Number(timeoutMs) || GEMINI_TIMEOUT_MS, 15000);
   let lastError = null;
 
-  for (const model of GEMINI_MODELS) {
-    const remaining = deadline - Date.now();
-    if (remaining < 300) break;
+  const listController = new AbortController();
+  const listMs = Math.min(3500, Math.max(800, deadline - Date.now() - 11000));
+  const listTimer = setTimeout(() => listController.abort(), listMs);
+  const available = await listUsableGeminiModels(apiKey, listController.signal);
+  clearTimeout(listTimer);
+  const models = pickGeminiModels(available);
+  console.info('[api/ai] Gemini models:', models.join(', '));
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), remaining);
-    try {
-      const contents = [{ parts: [{ text: systemInstruction }] }];
-      const generationConfig = {
-        temperature: 0.3,
-        maxOutputTokens: 2000,
-      };
+  for (const model of models) {
+    for (const disableThinking of [true, false]) {
+      const remaining = deadline - Date.now();
+      if (remaining < 400) break;
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          signal: controller.signal,
-          body: JSON.stringify({
-            contents,
-            generationConfig,
-          }),
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), remaining);
+      try {
+        const { response, data } = await generateGeminiOnce(
+          apiKey,
+          model,
+          systemInstruction,
+          controller.signal,
+          { disableThinking },
+        );
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const msg = data?.error?.message || `Gemini ${model} HTTP ${response.status}`;
+          lastError = new Error(msg);
+          console.warn(`[api/ai] Gemini ${model} HTTP ${response.status}:`, msg);
+          if (disableThinking && /thinking/i.test(msg)) continue;
+          break;
         }
-      );
-      const data = await response.json().catch(() => ({}));
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        const msg = data?.error?.message || `Gemini ${model} HTTP ${response.status}`;
-        console.warn(`[api/ai] Gemini ${model} HTTP ${response.status}:`, msg);
-        lastError = new Error(msg);
-        continue;
+        const { text } = extraerTextoCandidato(data);
+        if (text && text.trim() && text.length > 80 && !pareceCortado(text)) {
+          return text.trim();
+        }
+        lastError = new Error(`Gemini (${model}) devolvió vacío o incompleto`);
+        if (disableThinking) continue;
+        break;
+      } catch (err) {
+        clearTimeout(timeoutId);
+        lastError = err?.name === 'AbortError' ? new Error('Timeout en motor de IA.') : err;
+        console.warn(`[api/ai] Gemini ${model}:`, lastError.message);
+        break;
       }
-      const { text } = extraerTextoCandidato(data);
-      if (text && text.trim() && text.length > 80 && !pareceCortado(text)) {
-        return text.trim();
-      }
-      lastError = new Error(`Gemini (${model}) devolvió vacío o incompleto`);
-    } catch (err) {
-      clearTimeout(timeoutId);
-      lastError = err?.name === 'AbortError' ? new Error('Timeout en motor de IA.') : err;
-      console.warn(`[api/ai] Gemini ${model}:`, lastError.message);
     }
   }
 
   throw lastError || new Error('Gemini no respondió dentro del límite estricto.');
+}
+
+function eliteFailure({ ref, lensTitle, subLensId, error, gatewayError, geminiError, reason }) {
+  const msg = String(error || MSG_FALTA_IA).trim();
+  return {
+    success: false,
+    ok: false,
+    error: msg,
+    answer: '',
+    respuesta: '',
+    result: '',
+    data: '',
+    text: '',
+    commentary: { text: '' },
+    type: 'elite_lens',
+    source: 'ai-unavailable',
+    meta: {
+      passage: ref,
+      subLensId: subLensId || undefined,
+      lensTitle,
+      error: msg,
+      reason: reason || undefined,
+      gatewayError: gatewayError || undefined,
+      geminiError: geminiError || undefined,
+    },
+  };
 }
 
 /**
@@ -559,80 +649,90 @@ export async function generateUniversalAnswer(body = {}, pathname = '') {
       : '');
 
   const apiKey = resolveGeminiApiKey();
-  if (isElite && !hayMotorIA() && !apiKey) {
-    const msg = 'RevelatiO IA no está configurada en este entorno (falta Gemini o AI Gateway). Las lentes requieren el motor de IA. No se inventará un dictamen ni un comentario clásico.';
-    return {
-      success: false,
-      ok: false,
-      error: msg,
-      answer: msg,
-      respuesta: msg,
-      result: msg,
-      data: msg,
-      text: msg,
-      commentary: { text: msg },
-      type: 'elite_lens',
-      source: 'ai-unavailable',
-      meta: { passage: ref, subLensId: subLensId || undefined, lensTitle },
-    };
+  const gatewayOn = hayGatewayIA();
+  if (isElite && !gatewayOn && !apiKey) {
+    return eliteFailure({
+      ref,
+      lensTitle,
+      subLensId,
+      error: MSG_FALTA_IA,
+      reason: 'no-motor',
+    });
   }
 
   let answer = '';
   let source = 'gemini';
+  let gatewayError = '';
+  let geminiError = '';
 
-  if (hayMotorIA()) {
+  if (gatewayOn) {
     try {
       const text = await generarTexto(systemInstruction, { maxOutputTokens: 2000 });
       if (String(text).trim() && !pareceCortado(text)) {
         answer = text;
         source = 'gateway';
+      } else if (!String(text || '').trim()) {
+        gatewayError = 'AI Gateway no devolvió texto.';
       }
     } catch (err) {
-      console.warn('[api/ai] Gateway error:', err?.message || err);
+      gatewayError = err?.message || String(err);
+      console.warn('[api/ai] Gateway error:', gatewayError);
     }
+  } else if (process.env.VERCEL && String(process.env.VERCEL_OIDC_TOKEN || '').trim()) {
+    gatewayError = 'AI Gateway anunciado por OIDC pero sin AI_GATEWAY_API_KEY; se omite (Unauthenticated).';
+    console.warn('[api/ai]', gatewayError);
   }
 
   if (!String(answer || '').trim() && apiKey) {
     try {
       answer = await callGemini(apiKey, systemInstruction, GEMINI_TIMEOUT_MS);
       if (String(answer || '').trim()) source = 'gemini';
-    } catch (geminiError) {
-      console.warn('[api/ai] Gemini no completó a tiempo:', geminiError?.message || geminiError);
+    } catch (err) {
+      geminiError = err?.message || String(err);
+      console.warn('[api/ai] Gemini no completó:', geminiError);
     }
+  } else if (!String(answer || '').trim() && !apiKey) {
+    geminiError = 'Sin GEMINI_API_KEY / GOOGLE_GENERATIVE_AI_API_KEY / GOOGLE_API_KEY.';
   }
 
   if (!String(answer || '').trim() || pareceCortado(answer)) {
+    const detail = [gatewayError && `Gateway: ${gatewayError}`, geminiError && `Gemini: ${geminiError}`]
+      .filter(Boolean)
+      .join(' ');
+    const msg = !gatewayOn && !apiKey
+      ? MSG_FALTA_IA
+      : `El motor de IA no produjo dictamen para ${ref}.${detail ? ` ${detail}` : ''} Las lentes no inventarán un comentario clásico.`;
     if (isElite) {
-      const msg = `No se pudo generar el dictamen de «${lensTitle || 'Lente'}» para ${ref}. Reintenta. No se inventará un comentario clásico ni el texto del versículo.`;
-      return {
-        success: false,
-        ok: false,
+      return eliteFailure({
+        ref,
+        lensTitle,
+        subLensId,
         error: msg,
-        answer: msg,
-        respuesta: msg,
-        result: msg,
-        data: msg,
-        text: msg,
-        commentary: { text: msg },
-        type: 'elite_lens',
-        source: 'ai-unavailable',
-        meta: { passage: ref, subLensId: subLensId || undefined, lensTitle },
-      };
+        gatewayError,
+        geminiError,
+        reason: !gatewayOn && !apiKey ? 'no-motor' : 'empty-answer',
+      });
     }
-    const msg = `No se pudo generar el dictamen de «${lensTitle || 'Lente'}» para ${ref}. Reintenta. No se inventará un comentario clásico ni el texto del versículo.`;
     return {
       success: false,
       ok: false,
       error: msg,
-      answer: msg,
-      respuesta: msg,
-      result: msg,
-      data: msg,
-      text: msg,
-      commentary: { text: msg },
-      type: isElite ? 'elite_lens' : type,
+      answer: '',
+      respuesta: '',
+      result: '',
+      data: '',
+      text: '',
+      commentary: { text: '' },
+      type,
       source: 'ai-unavailable',
-      meta: { passage: ref, subLensId: subLensId || undefined, lensTitle },
+      meta: {
+        passage: ref,
+        subLensId: subLensId || undefined,
+        lensTitle,
+        error: msg,
+        gatewayError: gatewayError || undefined,
+        geminiError: geminiError || undefined,
+      },
     };
   }
 
@@ -693,16 +793,16 @@ export default async function handler(req, res) {
     console.error('[api/ai] Error capturado:', error?.message || error);
     const body = req.body || {};
     const type = foldType(body.type || body.mode, req.url || req.path || '');
-    const fallbackAnswer = 'No se pudo generar el dictamen de la lente. Reintenta. No se inventará un comentario clásico ni el texto del versículo.';
+    const msg = error?.message || MSG_FALTA_IA;
     const corpusTypes = type === 'tsk' || type === 'commentary' || type === 'lexicon' || type === 'concordance' || type === 'unspecified';
     return res.status(200).json({
       success: false,
       ok: false,
-      error: fallbackAnswer,
-      answer: fallbackAnswer,
-      text: fallbackAnswer,
+      error: msg,
+      answer: '',
+      text: '',
       source: corpusTypes ? 'corpus-required' : 'ai-unavailable',
-      meta: { error: error?.message },
+      meta: { error: msg },
     });
   }
 }

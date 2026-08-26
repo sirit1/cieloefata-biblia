@@ -963,6 +963,12 @@
 
       clearTimeout(timer);
       const data = await res.json().catch(() => ({}));
+      if (data.success === false || data.source === 'ai-unavailable') {
+        throw new Error(
+          data.error || data.meta?.error || data.meta?.geminiError || data.meta?.gatewayError
+            || 'Falta Gemini o AI Gateway. Las lentes no inventarán un dictamen.',
+        );
+      }
       const answer = data.answer || data.respuesta || data.result || data.text || '';
       if (!answer) {
         throw new Error(httpErrorMessage(data, res.status || 502) || 'No se recibió respuesta del análisis.');

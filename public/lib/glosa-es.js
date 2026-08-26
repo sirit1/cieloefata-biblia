@@ -7,6 +7,7 @@ const POR_CODIGO = {
   G40: 'Santo, consagrado, separado para Dios.',
   G212: 'Jactancia, arrogancia, presunción vanagloriosa.',
   G235: 'Sino, mas; adversativa que introduce un contraste.',
+  G191: 'Oír, escuchar; prestar oído (ἀκούω).',
   G444: 'Hombre, ser humano.',
   G846: 'Él, ella, ello; mismo, mismo él.',
   G1063: 'Porque, pues; introduce la razón o explicación.',
@@ -118,11 +119,15 @@ const PALABRAS = {
   come: 'venir',
   go: 'ir',
   give: 'dar',
+  hear: 'oír',
+  hearing: 'oír / escuchar',
+  listen: 'escuchar',
+  listened: 'escuchó',
+  audience: 'oído / audiencia',
   take: 'tomar',
   make: 'hacer',
   do: 'hacer',
   see: 'ver',
-  hear: 'oír',
   know: 'conocer',
   love: 'amor',
   faith: 'fe',
@@ -248,6 +253,7 @@ export function glosaEspanol(raw, codigo = '') {
     .toUpperCase()
     .replace(/^([GH])0*(\d+)$/, '$1$2');
   if (POR_CODIGO[key]) return POR_CODIGO[key];
+  if (/^\d+$/.test(key) && POR_CODIGO[`G${key}`]) return POR_CODIGO[`G${key}`];
 
   const t = String(raw || '')
     .replace(/<[^>]+>/g, ' ')
