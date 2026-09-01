@@ -861,6 +861,15 @@
       document.getElementById('rv-sp-dogmatica');
     if (!container) return;
 
+    const lentes = global.RV?.Lentes || global.RevelatioLentes;
+    if (lentes?.mount) {
+      return lentes.mount({
+        passage: currentActivePassage || global.activeStudyPassage || 'Romanos 12:2',
+        verseText: currentVerseText || global.activeStudyText || '',
+        container,
+      });
+    }
+
     const m = ELITE_LENSES.maestro;
     const ref = currentActivePassage || global.activeStudyPassage || 'Romanos 12:2';
 

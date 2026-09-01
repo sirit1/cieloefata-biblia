@@ -9,6 +9,7 @@ import pasajeHandler from './api/pasaje.js';
 import comentarioHandler from './api/comentario.js';
 import commentaryHandler from './api/commentary.js';
 import lenteEliteHandler from './api/lente-elite.js';
+import lentesOficiosHandler from './api/lentes-oficios.js';
 import { generarComentarioGemini, envelopeComentario } from './lib/comentario-gemini.js';
 import {
   generarFallbackComentario,
@@ -90,7 +91,17 @@ async function studyEngineHandler(req, res) {
       else if (p.includes('lexic')) body.type = 'lexicon';
       else if (p.includes('concordanc')) body.type = 'concordance';
       else if (p.includes('exegesis') || p.includes('comentario')) body.type = 'commentary';
+      else if (p.includes('/lentes') || p.includes('oficio')) body.type = 'oficios';
       else if (p.includes('lente')) body.type = 'lens';
+    }
+    const oficiosMode =
+      body.type === 'oficios' ||
+      body.mode === 'oficios' ||
+      body.all === true ||
+      body.oficios === 'all' ||
+      Boolean(body.oficio || body.office || body.officeId);
+    if (oficiosMode || String(req.path || req.url || '').includes('/api/lentes')) {
+      return lentesOficiosHandler(req, res);
     }
     const payload = await generateUniversalAnswer(body, req.path || req.url || '');
     return res.status(200).json(envelope(payload));
@@ -160,6 +171,10 @@ app.post('/api/pasaje', mount(pasajeHandler));
 // —— Lentes Hermenéuticas & Cognitivas Élite ——
 app.get('/api/lente-elite', mount(lenteEliteHandler));
 app.post('/api/lente-elite', mount(lenteEliteHandler));
+
+// —— Cinco oficios RevelatiO (título + análisis estricto) ——
+app.get('/api/lentes', mount(lentesOficiosHandler));
+app.post('/api/lentes', mount(lentesOficiosHandler));
 
 // —— Estudio canónico: comentarios, TSK, Strong, concordancia de palabras ——
 app.get('/api/comentario', mount(comentarioHandler));
