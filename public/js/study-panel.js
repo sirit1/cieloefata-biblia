@@ -855,9 +855,11 @@
   }
 
   function renderDualLensPanel() {
+    const drawer = document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
     const container =
-      document.getElementById('lentes-content-area') ||
-      document.getElementById('tab-lentes') ||
+      drawer?.querySelector('#lentes-content-area') ||
+      drawer?.querySelector('#tab-lentes') ||
+      drawer?.querySelector('#rv-sp-dogmatica') ||
       document.getElementById('rv-sp-dogmatica');
     if (!container) return;
 

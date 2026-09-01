@@ -6437,6 +6437,11 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
     overflow-y: auto;
     padding: 0.85rem 1rem 1.75rem;
 }
+#study-drawer .rv-sp-pane.is-on,
+#study-drawer #rv-sp-dogmatica.is-on,
+#study-drawer #lentes-content-area {
+    display: block !important;
+}
 #study-drawer [id^="lens-result-"] {
     max-height: none !important;
     overflow: visible !important;
@@ -6446,21 +6451,22 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
     flex-direction: column;
     gap: 0.85rem;
     font-family: 'Source Serif 4', 'Cormorant Garamond', serif;
-    color: #0F172A;
+    color: #F5F0E6;
 }
 .rv-oficios-lead {
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #855D10;
+    color: #DFB743;
     margin: 0 0 0.2rem;
 }
 .rv-oficio-ficha {
     border: 1px solid rgba(197, 155, 39, 0.45);
     border-radius: 12px;
     padding: 0.85rem 0.95rem 1rem;
-    background: #FFFBF3;
+    background: rgba(18, 18, 18, 0.72);
     box-shadow: 0 1px 0 rgba(197, 155, 39, 0.18);
+    color: #F5F0E6;
 }
 .rv-oficio-kicker {
     font-family: ui-monospace, monospace;
@@ -6468,18 +6474,18 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #855D10;
+    color: #DFB743;
     margin: 0 0 0.15rem;
 }
 .rv-oficio-title {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #0A192F;
+    color: #FDE68A;
     margin: 0 0 0.2rem;
 }
 .rv-oficio-tags {
     font-size: 0.72rem;
-    color: #5C4018;
+    color: #D6C39A;
     margin: 0 0 0.7rem;
 }
 .rv-oficio-topic,
@@ -6490,7 +6496,7 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
 .rv-oficio-topic-title {
     font-size: 0.82rem;
     font-weight: 700;
-    color: #855D10;
+    color: #DFB743;
     margin: 0 0 0.28rem;
     letter-spacing: 0.02em;
 }
@@ -6499,7 +6505,7 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
     font-size: 0.8rem;
     line-height: 1.55;
     margin: 0 0 0.4rem;
-    color: #1E293B;
+    color: #E7E5E4;
     text-align: justify;
 }
 .rv-oficio-cita {
@@ -6508,7 +6514,7 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
     border-top: 1px solid rgba(197, 155, 39, 0.35);
     font-size: 0.7rem;
     line-height: 1.45;
-    color: #5C4018;
+    color: #D6C39A;
     font-style: italic;
 }
 .rv-sp-card {

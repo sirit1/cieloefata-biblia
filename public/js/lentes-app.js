@@ -276,11 +276,20 @@
   async function mount(opts = {}) {
     const passage = String(opts.passage || global.activeStudyPassage || 'Romanos 12:2').trim();
     const verseText = String(opts.verseText || global.activeStudyText || '').trim();
+    const drawer = document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
     const container =
       opts.container ||
+      drawer?.querySelector('#lentes-content-area') ||
+      drawer?.querySelector('#tab-lentes') ||
+      drawer?.querySelector('#rv-sp-dogmatica') ||
       document.getElementById('lentes-content-area') ||
       document.getElementById('tab-lentes');
     if (!container) return;
+    const pane = container.closest?.('.rv-sp-pane') || drawer?.querySelector('#rv-sp-dogmatica');
+    if (pane) {
+      pane.hidden = false;
+      pane.classList.add('is-on');
+    }
 
     container.innerHTML = `
       <div class="rv-oficios" id="rv-oficios" data-passage="${escapeHtml(passage)}">
