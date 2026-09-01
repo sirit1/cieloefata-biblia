@@ -279,15 +279,17 @@
     const drawer = document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
     const container =
       opts.container ||
-      drawer?.querySelector('#lentes-content-area') ||
-      drawer?.querySelector('#tab-lentes') ||
+      drawer?.querySelector('#rv-sp-lentes-content') ||
+      drawer?.querySelector('#rv-sp-tab-lentes') ||
       drawer?.querySelector('#rv-sp-dogmatica') ||
+      document.getElementById('rv-sp-lentes-content') ||
       document.getElementById('lentes-content-area') ||
       document.getElementById('tab-lentes');
     if (!container) return;
     const pane = container.closest?.('.rv-sp-pane') || drawer?.querySelector('#rv-sp-dogmatica');
     if (pane) {
       pane.hidden = false;
+      pane.removeAttribute('hidden');
       pane.classList.add('is-on');
     }
 

@@ -857,9 +857,10 @@
   function renderDualLensPanel() {
     const drawer = document.getElementById('study-drawer') || document.getElementById('rv-study-panel');
     const container =
-      drawer?.querySelector('#lentes-content-area') ||
-      drawer?.querySelector('#tab-lentes') ||
+      drawer?.querySelector('#rv-sp-lentes-content') ||
+      drawer?.querySelector('#rv-sp-tab-lentes') ||
       drawer?.querySelector('#rv-sp-dogmatica') ||
+      document.getElementById('rv-sp-lentes-content') ||
       document.getElementById('rv-sp-dogmatica');
     if (!container) return;
 
@@ -1053,8 +1054,8 @@
           </section>
           <section id="rv-sp-strong" class="rv-sp-pane" role="tabpanel" hidden></section>
           <section id="rv-sp-dogmatica" class="rv-sp-pane" role="tabpanel" hidden>
-            <div id="tab-lentes">
-              <div id="lentes-content-area"></div>
+            <div id="rv-sp-tab-lentes">
+              <div id="rv-sp-lentes-content"></div>
             </div>
           </section>
         </div>`;
@@ -1107,7 +1108,7 @@
         parentPane.hidden = currentTab !== 'concordancia';
       }
     }
-    const tabLentesEl = document.getElementById('tab-lentes');
+    const tabLentesEl = document.getElementById('rv-sp-tab-lentes') || document.getElementById('tab-lentes');
     if (tabLentesEl) {
       const parentPane = tabLentesEl.closest('.rv-sp-pane');
       if (parentPane) {

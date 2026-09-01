@@ -6439,6 +6439,7 @@ body.is-santuario #rv-audio-dock.rv-reader-footer {
 }
 #study-drawer .rv-sp-pane.is-on,
 #study-drawer #rv-sp-dogmatica.is-on,
+#study-drawer #rv-sp-lentes-content,
 #study-drawer #lentes-content-area {
     display: block !important;
 }
